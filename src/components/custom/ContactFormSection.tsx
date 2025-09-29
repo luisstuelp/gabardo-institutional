@@ -48,6 +48,7 @@ export default function ContactFormSection() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [messageLength, setMessageLength] = useState(0);
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
