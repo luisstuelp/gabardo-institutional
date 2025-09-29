@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
+import InfiniteScroll from '@/components/InfiniteScroll';
 import { Building, Users, Truck, Target } from 'lucide-react';
 
 interface TimelineItem {
@@ -73,11 +74,118 @@ const timeline: TimelineItem[] = [
 
 const AboutStorySection: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [hoveredItem, setHoveredItem] = useState<TimelineItem | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const infoPanelRef = useRef<HTMLDivElement | null>(null);
+  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const [lineData, setLineData] = useState<{
+    start: { x: number; y: number };
+    end: { x: number; y: number };
+    box: { width: number; height: number };
+  } | null>(null);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const updateConnector = useCallback(
+    (item: TimelineItem | null) => {
+      if (!item) {
+        setLineData(null);
+        return;
+      }
+
+      const container = containerRef.current;
+      const card = cardRefs.current[item.year];
+      const info = infoPanelRef.current;
+
+      if (!container || !card || !info) {
+        setLineData(null);
+        return;
+      }
+
+      const containerRect = container.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
+      const infoRect = info.getBoundingClientRect();
+
+      setLineData({
+        start: {
+          x: cardRect.right - containerRect.left - 16,
+          y: cardRect.top - containerRect.top + cardRect.height * 0.45,
+        },
+        end: {
+          x: infoRect.left - containerRect.left + 18,
+          y: infoRect.top - containerRect.top + infoRect.height * 0.55,
+        },
+        box: {
+          width: containerRect.width,
+          height: containerRect.height,
+        },
+      });
+    },
+    []
+  );
+
+  useEffect(() => {
+    if (!hoveredItem) {
+      setLineData(null);
+      return;
+    }
+
+    const handle = () => updateConnector(hoveredItem);
+    handle();
+
+    window.addEventListener('resize', handle);
+    window.addEventListener('scroll', handle, true);
+
+    return () => {
+      window.removeEventListener('resize', handle);
+      window.removeEventListener('scroll', handle, true);
+    };
+  }, [hoveredItem, updateConnector]);
+
+  type ScrollItem = { content: React.ReactElement };
+
+  const scrollItems: ScrollItem[] = timeline.map((item, index) => ({
+    content: (
+      <motion.div
+        ref={(el) => {
+          cardRefs.current[item.year] = el;
+        }}
+        onMouseEnter={() => setHoveredItem(item)}
+        onMouseLeave={() => {
+          setHoveredItem(null);
+          setLineData(null);
+        }}
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        className="group relative w-[350px] sm:w-[400px] md:w-[450px] lg:w-[500px] h-[250px] sm:h-[280px] md:h-[320px] lg:h-[360px] overflow-hidden rounded-2xl shadow-[0_15px_40px_-20px_rgba(19,45,81,0.35)] cursor-pointer mx-4"
+      >
+        <img
+          src={item.image}
+          alt={item.title}
+          className={`w-full h-full object-cover transition-all duration-700 ${
+            index === 0 ? 'grayscale group-hover:grayscale-0' : ''
+          }`}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gabardo-blue/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        
+        {/* Card overlay info */}
+        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gabardo-blue flex items-center justify-center text-xs">
+              {item.icon}
+            </div>
+            <span className="text-xs sm:text-sm font-bold">{item.year}</span>
+          </div>
+          <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wide line-clamp-2">
+            {item.title}
+          </h3>
+        </div>
+      </motion.div>
+    )
+  }));
 
   if (!isClient) {
     return (
@@ -89,16 +197,109 @@ const AboutStorySection: React.FC = () => {
     );
   }
 
+  const connectorPath = lineData
+    ? `M ${lineData.start.x} ${lineData.start.y} C ${lineData.start.x + 120} ${lineData.start.y - 60}, ${lineData.end.x - 120} ${lineData.end.y + 60}, ${lineData.end.x} ${lineData.end.y}`
+    : null;
+
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden">
-      <div className="container mx-auto px-4 md:px-8 lg:px-16">
-        
+    <section ref={containerRef} className="py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden">
+      {/* Hover Text Display */}
+      {hoveredItem && (
+        <motion.div
+          ref={infoPanelRef}
+          initial={{ opacity: 0, x: 16 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 16 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+          className="fixed top-12 right-12 z-50 max-w-sm rounded-2xl border border-gabardo-light-blue/40 bg-white/95 p-5 shadow-[0_25px_60px_-30px_rgba(19,45,81,0.55)] backdrop-blur-lg"
+        >
+          <div className="flex items-center gap-3 mb-3">
+            <motion.div
+              whileHover={{ rotate: 6 }}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-gabardo-blue text-white shadow-lg shadow-gabardo-blue/40"
+            >
+              {hoveredItem.icon}
+            </motion.div>
+            <div className="flex flex-col gap-1.5">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gabardo-light-blue">
+                Capítulo
+              </span>
+              <span className="text-xl font-bold text-gabardo-blue">{hoveredItem.year}</span>
+            </div>
+          </div>
+
+          <h3 className="text-base font-semibold uppercase tracking-wide text-neutral-900 mb-2">
+            {hoveredItem.title}
+          </h3>
+          <p className="text-neutral-600 leading-relaxed text-xs">
+            {hoveredItem.description}
+          </p>
+
+          <div className="mt-3 h-px w-10 rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue" />
+        </motion.div>
+      )}
+
+      {connectorPath && lineData && (
+        <svg
+          className="pointer-events-none absolute inset-0 z-30"
+          width={lineData.box.width}
+          height={lineData.box.height}
+          viewBox={`0 0 ${lineData.box.width} ${lineData.box.height}`}
+        >
+          <defs>
+            <linearGradient id="timeline-connector" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#38B6FF" stopOpacity="0.85" />
+              <stop offset="100%" stopColor="#132D51" stopOpacity="0.9" />
+            </linearGradient>
+            <filter id="timeline-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <motion.path
+            d={connectorPath}
+            stroke="url(#timeline-connector)"
+            strokeWidth="5"
+            strokeLinecap="round"
+            fill="none"
+            filter="url(#timeline-glow)"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 0.45, ease: 'easeOut' }}
+          />
+          <motion.path
+            d={connectorPath}
+            stroke="url(#timeline-connector)"
+            strokeWidth="3"
+            strokeLinecap="round"
+            fill="none"
+            strokeDasharray="14 22"
+            initial={{ strokeDashoffset: 140, opacity: 0 }}
+            animate={{ strokeDashoffset: 0, opacity: 0.9 }}
+            transition={{ duration: 0.9, ease: 'easeOut' }}
+          />
+          <motion.circle
+            r={5}
+            fill="#38B6FF"
+            filter="url(#timeline-glow)"
+            initial={{ offsetDistance: '0%', opacity: 0 }}
+            animate={{ offsetDistance: ['0%', '100%'], opacity: [0.6, 0, 0.6] }}
+            transition={{ duration: 2.4, ease: 'easeInOut', repeat: Infinity, repeatDelay: 0.4 }}
+            style={{ offsetPath: `path(${connectorPath})` }}
+          />
+        </svg>
+      )}
+
+      <div className="container relative mx-auto px-4 md:px-8 lg:px-16">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
           className="text-center mb-16 md:mb-20"
         >
           <motion.div
@@ -109,9 +310,9 @@ const AboutStorySection: React.FC = () => {
             className="text-sm font-light tracking-[0.2em] text-neutral-500 mb-4 uppercase relative inline-block"
           >
             Nossa Trajetória
-            <div className="absolute -bottom-1 left-0 w-8 h-px" style={{backgroundColor: '#38B6FF'}}></div>
+            <div className="absolute -bottom-1 left-0 w-8 h-px" style={{ backgroundColor: '#38B6FF' }}></div>
           </motion.div>
-          
+
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -119,91 +320,27 @@ const AboutStorySection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-tight"
           >
-            <span style={{color: '#132D51'}}>36 Anos de</span>
+            <span style={{ color: '#132D51' }}>36 Anos de</span>
             <br />
             <span className="text-neutral-600">Excelência e Confiança</span>
           </motion.h2>
         </motion.div>
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Vertical Line */}
-          <div className="absolute left-8 md:left-1/2 transform md:-translate-x-px top-0 bottom-0 w-px" style={{background: 'linear-gradient(to bottom, #38B6FF, #a3a3a3, transparent)'}}></div>
-
-          {/* Timeline Items */}
-          <div className="space-y-16 md:space-y-20">
-            {timeline.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                onMouseEnter={() => setActiveIndex(index)}
-                className={`relative flex flex-col md:flex-row items-start md:items-center ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                }`}
-              >
-                {/* Timeline Dot */}
-                <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-4 rounded-full z-10" style={{borderColor: '#38B6FF'}}></div>
-
-                {/* Content */}
-                <div className={`flex-1 ml-20 md:ml-0 ${
-                  index % 2 === 0 ? 'md:pr-16' : 'md:pl-16'
-                }`}>
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                    className={`bg-white p-8 md:p-10 border border-neutral-200 shadow-lg hover:shadow-xl transition-all duration-500`}
-                    style={activeIndex === index ? {borderColor: '#38B6FF'} : {}}
-                  >
-                    {/* Year */}
-                    <div className="flex items-center mb-4">
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        className="w-12 h-12 text-white rounded-full flex items-center justify-center mr-4"
-                        style={{backgroundColor: '#132D51'}}
-                      >
-                        {item.icon}
-                      </motion.div>
-                      <span className="text-3xl md:text-4xl font-bold" style={{color: '#132D51'}}>
-                        {item.year}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-2xl md:text-3xl font-bold text-black uppercase tracking-wide mb-4">
-                      {item.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-neutral-600 font-light leading-relaxed text-lg">
-                      {item.description}
-                    </p>
-                  </motion.div>
-                </div>
-
-                {/* Image */}
-                <div className={`flex-1 mt-6 md:mt-0 ml-20 md:ml-0 ${
-                  index % 2 === 0 ? 'md:pl-16' : 'md:pr-16'
-                }`}>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.5 }}
-                    className="relative overflow-hidden shadow-lg"
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className={`w-full h-64 md:h-80 object-cover ${
-                        index === 0 ? 'filter grayscale hover:grayscale-0 transition-all duration-500' : ''
-                      }`}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                  </motion.div>
-                </div>
-              </motion.div>
-            ))}
+        {/* Timeline as Infinite Scroll */}
+        <div className="relative mt-14 w-full">
+          <div className="flex justify-center items-center px-6 md:px-12 lg:px-20 xl:px-24">
+            <InfiniteScroll
+              width="90vw"
+              maxHeight="500px"
+              itemMinHeight={320}
+              negativeMargin="-3rem"
+              items={scrollItems as any}
+              autoplay
+              autoplaySpeed={0.6}
+              pauseOnHover
+              isTilted
+              tiltDirection="left"
+            />
           </div>
         </div>
 
@@ -216,7 +353,7 @@ const AboutStorySection: React.FC = () => {
           className="text-center mt-20 md:mt-24"
         >
           <blockquote className="text-2xl md:text-3xl font-light text-neutral-700 italic max-w-4xl mx-auto leading-relaxed">
-            "Ao longo de seus 36 anos, a Gabardo procura entender as necessidades dos clientes para 
+            "Ao longo de seus 36 anos, a Gabardo procura entender as necessidades dos clientes para
             atendê-los de forma personalizada e eficiente. Nossa missão é transportar mais que veículos."
           </blockquote>
           <div className="mt-6 text-sm font-medium text-neutral-500 tracking-wide uppercase">
