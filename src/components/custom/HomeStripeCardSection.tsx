@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const stripeFeatures = [
@@ -7,19 +8,22 @@ const stripeFeatures = [
     label: 'Cobertura Nacional',
     value: '+50 bases operacionais',
     description:
-      'Pontos estratégicos conectando montadoras, concessionárias e hubs logísticos em todo o país.'
+      'Pontos estratégicos conectando montadoras, concessionárias e hubs logísticos em todo o país.',
+    imageSrc: '/images/gabardo-hero-01.JPG'
   },
   {
     label: 'Soluções Integradas',
     value: 'Transporte | Pátios | PDI',
     description:
-      'Gestão ponta a ponta com tecnologia, rastreabilidade total e equipe especializada.'
+      'Gestão ponta a ponta com tecnologia, rastreabilidade total e equipe especializada.',
+    imageSrc: '/images/gabardo-hero-02.JPG'
   },
   {
     label: 'Compromisso ESG',
     value: 'Processos certificados',
     description:
-      'ISO 9001, 14001 e 39001 garantindo eficiência operacional e responsabilidade ambiental.'
+      'ISO 9001, 14001 e 39001 garantindo eficiência operacional e responsabilidade ambiental.',
+    imageSrc: '/images/gabardo-hero-03.JPG'
   }
 ];
 
@@ -36,12 +40,8 @@ const HomeStripeCardSection = () => {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="space-y-6 text-white"
           >
-            <span className="text-xs uppercase tracking-[0.4em] text-gabardo-light-blue">
-              Stripe Insight
-            </span>
             <h2 className="text-3xl md:text-4xl font-semibold leading-tight">
-              Logística inteligente com o DNA da <span className="font-bold">gabardo</span>{' '}
-              <span className="font-light tracking-[0.35em] uppercase">DISTRIBUIDORA</span>
+              Logística inteligente com o DNA da <span className="font-bold">gabardo</span>
             </h2>
             <p className="max-w-xl text-base text-white/70">
               Com mais de três décadas de atuação, entregamos operações que combinam planejamento estratégico,
@@ -69,9 +69,9 @@ const HomeStripeCardSection = () => {
             <motion.div
               whileHover={{ rotate: -1.5, scale: 1.02 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-white/12 via-white/6 to-transparent p-8 shadow-[0_35px_90px_-40px_rgba(12,27,51,0.85)] backdrop-blur-xl"
+              className="group relative overflow-hidden rounded-3xl border border-white/15 bg-white/8 p-8 shadow-[0_35px_90px_-40px_rgba(12,27,51,0.85)] backdrop-blur-2xl"
             >
-              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(130deg,rgba(56,182,255,0.32),transparent_45%),linear-gradient(315deg,rgba(19,45,81,0.88),rgba(19,45,81,0.54))]" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,182,255,0.22),transparent_65%)]" />
               <div className="relative space-y-6">
                 {stripeFeatures.map((feature, idx) => (
                   <motion.div
@@ -81,13 +81,25 @@ const HomeStripeCardSection = () => {
                     viewport={{ once: true, amount: 0.6 }}
                     transition={{ duration: 0.45, delay: idx * 0.12, ease: 'easeOut' }}
                     whileHover={{ y: -6 }}
-                    className="rounded-2xl border border-white/10 bg-white/5 p-6 transition duration-300 group-hover:border-gabardo-light-blue/60"
+                    className="group/card relative overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-6 text-white shadow-[0_22px_65px_-40px_rgba(9,18,35,0.75)] backdrop-blur-xl transition duration-300 hover:border-gabardo-light-blue/60"
                   >
-                    <span className="text-[11px] uppercase tracking-[0.4em] text-gabardo-light-blue/80">
-                      {feature.label}
-                    </span>
-                    <h3 className="mt-2 text-lg font-semibold text-white">{feature.value}</h3>
-                    <p className="mt-3 text-sm text-white/70">{feature.description}</p>
+                    <Image
+                      src={feature.imageSrc}
+                      alt={`Gabardo ${feature.label}`}
+                      fill
+                      sizes="(min-width: 1024px) 32vw, 80vw"
+                      priority={idx === 0}
+                      className="absolute inset-0 h-full w-full object-cover opacity-60 transition duration-500 group-hover/card:scale-[1.05]"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#0B1B31]/85 via-[#0B1B31]/65 to-gabardo-blue/45" />
+                    <div className="pointer-events-none absolute inset-0 opacity-0 mix-blend-screen transition duration-500 group-hover/card:opacity-80 group-hover/card:bg-white/14" />
+                    <div className="relative space-y-3">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.42em] text-gabardo-light-blue/90">
+                        {feature.label}
+                      </span>
+                      <h3 className="text-lg font-semibold text-white">{feature.value}</h3>
+                      <p className="text-sm text-white/75">{feature.description}</p>
+                    </div>
                   </motion.div>
                 ))}
               </div>

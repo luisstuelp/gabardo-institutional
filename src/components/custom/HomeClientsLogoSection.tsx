@@ -127,8 +127,8 @@ const HomeClientsLogoSection = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: -220 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
             whileHover={{ y: -8 }}

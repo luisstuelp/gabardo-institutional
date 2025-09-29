@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -13,21 +13,15 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
   const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Mobile detection for optimal logo sizing
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 12);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 12);
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -85,7 +79,6 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
       href: '/sustentabilidade',
       imageSrc: '/images/gabardo-hero-01.JPG',
     },
-    { id: 'contato', label: 'CONTATO', href: '/contato', imageSrc: '/images/hero-contact.jpg' },
     { id: 'blog', label: 'BLOG', href: '/blog', imageSrc: '/images/hero-blog.jpg' },
   ];
 
@@ -97,7 +90,7 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className={headerClasses}
       >
-        <div className="section-container flex items-center justify-between py-4 md:py-5">
+        <div className="section-container flex items-center justify-between py-3.5 sm:py-3 md:py-[0.5rem] lg:py-[0.18rem]">
           <Link
             href="/"
             className="group inline-flex items-center"
@@ -106,29 +99,29 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
             <Image
               src="/gabardo-logo.png"
               alt="Gabardo Distribuidora"
-              width={isMobile ? 110 : 138}
-              height={isMobile ? 32 : 40}
+              width={isMobile ? 110 : 116}
+              height={isMobile ? 32 : 30}
               priority
               className="h-auto w-auto transition-transform duration-300 group-hover:scale-105"
               style={{ filter: logoFilter, WebkitFilter: logoFilter }}
             />
           </Link>
 
-          <div className="flex items-center gap-3 sm:gap-5">
+          <div className="flex items-center gap-3 sm:gap-4 lg:gap-3">
             <Link
               href="/contato"
-              className={`hidden lg:inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-[0.32em] transition-all duration-300 shadow-[0_18px_35px_-28px_RGBA(19,45,81,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${ctaClasses}`}
+              className={`hidden lg:inline-flex items-center gap-2 rounded-full px-4 py-[0.4rem] text-[0.65rem] font-semibold uppercase tracking-[0.32em] transition-all duration-300 shadow-[0_18px_35px_-28px_RGBA(19,45,81,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${ctaClasses}`}
             >
               Fale conosco
             </Link>
 
             <button
               onClick={() => setIsMenuOpen(true)}
-              className={`group relative inline-flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${menuButtonClasses}`}
+              className={`group relative inline-flex h-9 w-9 lg:h-[1.8rem] lg:w-[1.8rem] items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${menuButtonClasses}`}
               aria-label="Abrir menu"
             >
               <span className="absolute inset-0 rounded-full bg-gradient-to-br from-transparent via-transparent to-gabardo-light-blue/15 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
-              <Menu size={isMobile ? 22 : 24} />
+              <Menu size={isMobile ? 22 : 18} />
             </button>
           </div>
         </div>
