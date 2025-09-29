@@ -6,27 +6,30 @@ import { Download } from 'lucide-react';
 
 const SustainabilityReportSection: React.FC = () => {
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-gray-800 text-white">
-      <div className="container mx-auto px-4 md:px-8 lg:px-16 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Relatórios Anuais Integrados</h2>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8">
-            Para uma visão transparente de nossos resultados e destaques, publicamos anualmente nossos relatórios integrados.
-          </p>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center mx-auto"
+    <section className="py-16 md:py-20 lg:py-24 bg-white">
+      <div className="container mx-auto px-4 md:px-8">
+        <div className="bg-gray-800 text-white p-12 rounded-lg shadow-xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
           >
-            <Download className="mr-2" />
-            Acessar Relatórios
-          </motion.button>
-        </motion.div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Relatório de Sustentabilidade 2024
+            </h2>
+            <p className="max-w-2xl mx-auto text-lg text-gray-300 mb-8">
+              Acesse nosso relatório completo para um mergulho profundo em nossas iniciativas, dados de performance e compromissos para o futuro.
+            </p>
+            <button
+              disabled
+              className="inline-flex items-center px-8 py-4 font-semibold bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed"
+            >
+              <Download className="mr-3 w-5 h-5" />
+              Download do Relatório (Em Breve)
+            </button>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

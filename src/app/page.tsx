@@ -10,6 +10,9 @@ import HomeClientsLogoSection from "@/components/custom/HomeClientsLogoSection";
 import MapboxSection from "@/components/custom/MapboxSection"; // Added import
 import StatsGrid from '@/components/custom/StatsGrid';
 import BlogSection from '@/components/custom/BlogSection';
+import HomeStripeCardSection from '@/components/custom/HomeStripeCardSection';
+import HomeHoverCardsSection from '@/components/custom/HomeHoverCardsSection';
+import HomeMarqueeSection from '@/components/custom/HomeMarqueeSection';
 import Footer from '@/components/layout/Footer';
 export default function HomePage() {
   return (
@@ -18,7 +21,10 @@ export default function HomePage() {
       <HeroSection />
       <JSLInspiredServicesSection />
       <PremiumInfoSection />
+      <HomeStripeCardSection />
       <StatsGrid />
+      <HomeHoverCardsSection />
+      <HomeMarqueeSection />
       <HomeClientsLogoSection />
       <BlogSection />
       <MapboxSection />

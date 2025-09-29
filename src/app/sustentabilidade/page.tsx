@@ -10,6 +10,8 @@ import FleetSection from '@/components/custom/FleetSection';
 import MaxAgeSection from '@/components/custom/MaxAgeSection';
 import InnovativeSolutionsSection from '@/components/custom/InnovativeSolutionsSection';
 import InitiativesSection from '@/components/custom/InitiativesSection';
+import SustainabilityStatsSection from '@/components/custom/SustainabilityStatsSection';
+import SustainabilityReportSection from '@/components/custom/SustainabilityReportSection';
 import SocialSection from '@/components/custom/SocialSection';
 import GovernanceSection from '@/components/custom/GovernanceSection';
 import InovacoesSection from '@/components/custom/InovacoesSection';
@@ -44,6 +46,8 @@ export default function SustentabilidadePage() {
         <>
           <ClimateChangeSection />
           <HowWeActSection />
+          <SustainabilityStatsSection />
+          <SustainabilityReportSection />
           <EASGSection />
           <FleetSection />
           <MaxAgeSection />

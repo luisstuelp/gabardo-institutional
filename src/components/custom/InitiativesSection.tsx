@@ -1,19 +1,43 @@
 'use client';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { ShieldCheck, Heart, Award, Leaf } from 'lucide-react';
 
-const logos = [
-  { src: '/images/logo1.png', alt: 'Logo 1' },
-  { src: '/images/logo2.png', alt: 'Logo 2' },
-  { src: '/images/logo3.png', alt: 'Logo 3' },
-  { src: '/images/logo4.png', alt: 'Logo 4' },
-  { src: '/images/logo5.png', alt: 'Logo 5' },
-  { src: '/images/logo6.png', alt: 'Logo 6' },
+const initiatives = [
+  {
+    icon: Heart,
+    name: 'Programa Na Mão Certa',
+    description: 'Iniciativa contra a exploração sexual de crianças e adolescentes nas rodovias.',
+  },
+  {
+    icon: Award,
+    name: 'Great Place to Work (GPTW)',
+    description: 'Certificação que reconhece excelentes ambientes de trabalho.',
+  },
+  {
+    icon: ShieldCheck,
+    name: 'ISO 9001: Gestão da Qualidade',
+    description: 'Norma internacional para sistemas de gestão da qualidade.',
+  },
+  {
+    icon: Leaf,
+    name: 'ISO 14001: Gestão Ambiental',
+    description: 'Norma internacional para sistemas de gestão ambiental.',
+  },
+  {
+    icon: ShieldCheck,
+    name: 'ISO 39001: Segurança Viária',
+    description: 'Norma para sistemas de gestão da segurança no trânsito.',
+  },
+  {
+    icon: Award,
+    name: 'Selo Clima Organizacional (FEEx)',
+    description: 'Reconhecimento de empresas com bom clima organizacional.',
+  },
 ];
 
 export default function InitiativesSection() {
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-gray-50">
+    <section className="py-16 md:py-20 lg:py-24 bg-white">
       <div className="container mx-auto px-4 md:px-8 lg:px-16">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -24,17 +48,23 @@ export default function InitiativesSection() {
         >
           Iniciativas e Compromissos
         </motion.h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
-          {logos.map((logo, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {initiatives.map((initiative, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="grayscale hover:grayscale-0 transition-all duration-300"
+              className="bg-gray-50 p-8 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
             >
-              <Image src={logo.src} alt={logo.alt} width={150} height={80} className="mx-auto" />
+              <div className="flex items-center mb-4">
+                <div className="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
+                  <initiative.icon className="w-8 h-8" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900">{initiative.name}</h3>
+              </div>
+              <p className="text-gray-600">{initiative.description}</p>
             </motion.div>
           ))}
         </div>

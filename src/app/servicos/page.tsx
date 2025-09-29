@@ -6,6 +6,7 @@ import ServicesFeaturesSection from '@/components/custom/ServicesFeaturesSection
 import ServicesAdvantagesSection from '@/components/custom/ServicesAdvantagesSection';
 import ServicesQuoteSection from '@/components/custom/ServicesQuoteSection';
 import ServicesFleetSection from '@/components/custom/ServicesFleetSection';
+import ServicesGridSection from '@/components/custom/ServicesGridSection';
 
 export default function ServicosPage() {
   return (
@@ -13,6 +14,7 @@ export default function ServicosPage() {
       <Header variant="dark" />
       <ServicesHeroSection />
       <ServicesOverviewSection />
+      <ServicesGridSection />
       <ServicesFleetSection />
       <ServicesFeaturesSection />
       <ServicesAdvantagesSection />
