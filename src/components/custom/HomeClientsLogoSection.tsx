@@ -42,8 +42,8 @@ const HomeClientsLogoSection = () => {
   }, [rotateX, rotateY, shadow]);
 
   return (
-    <section className="relative overflow-hidden bg-white py-16 md:py-20">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-white via-white to-gabardo-light-blue/5" />
+    <section className="section-shell bg-white">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white via-white to-gabardo-light-blue/8" />
       <motion.div
         className="absolute -right-32 top-16 h-64 w-64 rounded-full bg-gabardo-light-blue/20 blur-3xl"
         animate={{
@@ -61,20 +61,20 @@ const HomeClientsLogoSection = () => {
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
       />
 
-      <div className="container mx-auto px-4">
-        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      <div className="section-container">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="space-y-8"
+            className="space-y-10"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
-              className="inline-flex items-center gap-2 rounded-full bg-gabardo-light-blue/15 px-5 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-gabardo-blue shadow-sm"
+              className="inline-flex items-center gap-2 rounded-full bg-white/80 px-6 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-gabardo-blue shadow-sm ring-1 ring-gabardo-light-blue/40"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -90,22 +90,20 @@ const HomeClientsLogoSection = () => {
               <span>Clientes Gabardo</span>
             </motion.div>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
               <motion.h2
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
-                className="text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase leading-tight text-gabardo-blue"
+                className="section-heading text-left text-gabardo-blue"
               >
-                E AS EMPRESAS
-                <br />
-                QUE CONFIAM <span className="text-gabardo-light-blue">NA GABARDO?</span>
+                As marcas que confiam <span className="text-gabardo-light-blue">na Gabardo Distribuidora</span>
               </motion.h2>
 
               <motion.div
                 initial={{ width: 0 }}
-                whileInView={{ width: '4rem' }}
+                whileInView={{ width: '5.5rem' }}
                 transition={{ duration: 0.6, ease: 'easeOut', delay: 0.3 }}
                 className="h-1 rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue"
               />
@@ -114,10 +112,16 @@ const HomeClientsLogoSection = () => {
                 initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
-                className="max-w-xl text-base md:text-lg text-neutral-600"
+                className="section-subheading text-left"
               >
                 Parcerias sólidas com marcas globais, sustentadas por tecnologia, compliance e equipes especializadas para cada operação.
               </motion.p>
+
+              <div className="flex flex-wrap gap-4 pt-4 text-xs font-semibold uppercase tracking-[0.32em] text-gabardo-blue/60">
+                <span className="inline-flex items-center gap-2 rounded-full bg-gabardo-light-blue/15 px-5 py-2">ISO 9001</span>
+                <span className="inline-flex items-center gap-2 rounded-full bg-gabardo-light-blue/15 px-5 py-2">ESG+</span>
+                <span className="inline-flex items-center gap-2 rounded-full bg-gabardo-light-blue/15 px-5 py-2">Cobertura nacional</span>
+              </div>
             </div>
 
           </motion.div>
@@ -128,14 +132,14 @@ const HomeClientsLogoSection = () => {
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
             whileHover={{ y: -8 }}
-            className="relative group cursor-pointer"
+            className="group relative cursor-pointer"
             onPointerMove={handlePointerMove}
             onPointerLeave={resetPointer}
             style={{
               transformStyle: 'preserve-3d'
             }}
           >
-            <div className="absolute -top-6 -right-6 hidden h-20 w-20 rounded-full bg-gabardo-light-blue/30 blur-2xl transition-all duration-300 group-hover:scale-110 lg:block" />
+            <div className="absolute -top-8 -right-8 hidden h-24 w-24 rounded-full bg-gabardo-light-blue/25 blur-3xl transition-all duration-300 group-hover:scale-110 lg:block" />
             <motion.div
               className="relative rounded-[36px] bg-gradient-to-br from-white via-white to-gabardo-light-blue/20 p-[2px]"
               style={{
@@ -145,7 +149,7 @@ const HomeClientsLogoSection = () => {
               }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
             >
-              <div className="rounded-[32px] bg-white p-5 transition-all duration-300 group-hover:bg-white">
+              <div className="rounded-[32px] bg-white p-6 transition-all duration-300 group-hover:bg-white">
                 <Image
                   src="/images/gabardo-clients-logos.png"
                   alt="Clientes Gabardo"
@@ -157,12 +161,12 @@ const HomeClientsLogoSection = () => {
               </div>
             </motion.div>
             <motion.div
-              className="pointer-events-none absolute -bottom-10 left-1/2 h-16 w-[65%] -translate-x-1/2 rounded-full bg-gabardo-blue/20 blur-3xl transition-all duration-300"
+              className="pointer-events-none absolute -bottom-12 left-1/2 h-20 w-[68%] -translate-x-1/2 rounded-full bg-gabardo-blue/15 blur-3xl"
               animate={{
-                opacity: [0.35, 0.45, 0.35],
-                scale: [1, 1.05, 1]
+                opacity: [0.32, 0.5, 0.32],
+                scale: [1, 1.08, 1]
               }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
             />
           </motion.div>
         </div>

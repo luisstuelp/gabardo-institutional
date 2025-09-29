@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, CheckCircle, AlertCircle, Loader, ArrowRight } from 'lucide-react';
+import { CheckCircle, AlertCircle, Loader, ArrowRight, ShieldCheck, Truck, Globe2 } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -14,21 +14,40 @@ interface FormData {
   interest: string;
 }
 
-// Simplified interest options
 const interestOptions = [
-  'Coworking',
-  'Escritório Privativo',
-  'Sala de Reunião',
-  'Escritório Virtual',
-  'Eventos',
-  'Outros'
+  'Transporte de veículos leves',
+  'Transporte em prancha & maquinário',
+  'Armazenagem e pátios dedicados',
+  'Operações multimodais & cabotagem',
+  'Projetos ESG e compliance',
+  'Outra necessidade logística'
+];
+
+const MAX_MESSAGE_LENGTH = 1000;
+
+const highlightFeatures = [
+  {
+    icon: Truck,
+    title: 'Transporte dedicado',
+    copy: 'Frotas próprias, monitoramento em tempo real e SLA customizado para cada montadora.'
+  },
+  {
+    icon: Globe2,
+    title: 'Cobertura nacional',
+    copy: 'Mais de 50 bases estratégicas, integração multimodal e pátios certificados em todo o país.'
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Compliance & ESG',
+    copy: 'Certificações ISO, OEA e programas ESG guiando operações responsáveis e seguras.'
+  }
 ];
 
 export default function ContactFormSection() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [messageLength, setMessageLength] = useState(0);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -59,6 +78,7 @@ export default function ContactFormSection() {
         setSubmitted(true);
         // Reset form
         (event.target as HTMLFormElement).reset();
+        setMessageLength(0);
       } else {
         setError('Erro ao enviar mensagem. Tente novamente.');
       }
@@ -71,51 +91,61 @@ export default function ContactFormSection() {
 
   if (submitted) {
     return (
-      <section id="contact-form" className="py-20 md:py-28 bg-white">
-        <div className="container mx-auto px-4 md:px-8 lg:px-16">
+      <section id="contact-form" className="section-shell bg-white relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="pointer-events-none absolute inset-0"
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(56,182,255,0.08),_transparent_68%)]" />
+          <div className="absolute -top-20 -right-28 h-[420px] w-[420px] rounded-full bg-gabardo-light-blue/14 blur-3xl" />
+          <div className="absolute -bottom-24 -left-32 h-[480px] w-[480px] rounded-full bg-gabardo-blue/12 blur-[140px]" />
+        </motion.div>
+        <div className="section-container relative">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-2xl mx-auto text-center"
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="mx-auto max-w-3xl text-center"
           >
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.3, type: "spring", stiffness: 200 }}
-              className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8"
+              transition={{ duration: 0.6, delay: 0.25, type: 'spring', stiffness: 220 }}
+              className="mx-auto mb-10 flex h-24 w-24 items-center justify-center rounded-full bg-emerald-100"
             >
-              <CheckCircle className="w-12 h-12 text-green-600" />
+              <CheckCircle className="h-12 w-12 text-emerald-600" />
             </motion.div>
-            
+
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-4xl md:text-5xl font-bold text-black uppercase tracking-tight mb-6"
+              transition={{ duration: 0.7, delay: 0.35, ease: 'easeOut' }}
+              className="section-heading mt-6"
             >
-              Mensagem Enviada!
+              Mensagem enviada com sucesso
             </motion.h2>
-            
+
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="text-neutral-600 font-light text-xl leading-relaxed mb-10"
+              transition={{ duration: 0.7, delay: 0.45, ease: 'easeOut' }}
+              className="section-subheading mt-6"
             >
-              Obrigado pelo seu contato! Nossa equipe retornará em até 24 horas.
+              Obrigado pelo contato! Nosso time retornará em até 24 horas úteis com um plano sob medida para a sua operação.
             </motion.p>
-            
+
             <motion.button
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.7, delay: 0.55, ease: 'easeOut' }}
+              whileHover={{ y: -2, scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
               onClick={() => setSubmitted(false)}
-              className="bg-blue-glow text-white px-8 py-4 text-lg font-bold uppercase tracking-wide hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
+              className="inline-flex items-center gap-3 rounded-full bg-gabardo-blue px-10 py-4 text-xs font-semibold uppercase tracking-[0.32em] text-white shadow-[0_30px_70px_-40px_rgba(19,45,81,0.7)] transition-all duration-300 hover:bg-gabardo-blue/90"
             >
-              Enviar Nova Mensagem
+              Enviar nova mensagem
             </motion.button>
           </motion.div>
         </div>

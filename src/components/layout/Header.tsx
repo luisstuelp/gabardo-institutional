@@ -4,11 +4,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { Menu } from 'lucide-react';
+import { motion } from 'framer-motion';
+
 import FullScreenNav from '@/components/custom/FullScreenNav';
 
 const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) => {
-  const [isMobile, setIsMobile] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Mobile detection for optimal logo sizing
   useEffect(() => {
@@ -19,6 +22,37 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 12);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const isDarkSurface = variant === 'dark' && !isScrolled;
+
+  const ctaClasses = isDarkSurface
+    ? 'bg-white text-gabardo-blue hover:bg-white/90'
+    : 'bg-gabardo-blue text-white hover:bg-gabardo-blue/90';
+  const menuButtonClasses = isDarkSurface
+    ? 'border-white/25 text-white hover:border-white/60 hover:bg-white/10'
+    : 'border-gabardo-blue/20 text-gabardo-blue hover:border-gabardo-blue hover:bg-gabardo-blue/10';
+
+  const logoFilter = isDarkSurface
+    ? 'brightness(0) saturate(100%) invert(95%) sepia(7%) saturate(138%) hue-rotate(183deg) brightness(112%) contrast(100%)'
+    : 'brightness(0) saturate(100%) invert(17%) sepia(27%) saturate(2060%) hue-rotate(185deg) brightness(90%) contrast(88%)';
+
+  const headerClasses = `fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
+    isDarkSurface
+      ? 'bg-transparent'
+      : isScrolled
+        ? 'bg-white/90 backdrop-blur-xl shadow-[0_12px_35px_-20px_RGBA(19,45,81,0.45)]'
+        : 'bg-white/70 backdrop-blur-xl'
+  }`;
 
   const menuItems = [
     { id: 'home', label: 'HOME', href: '/', imageSrc: '/images/hero-home.jpg' },
@@ -45,60 +79,61 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
         { id: 'seja-um-agregado', label: 'SEJA UM AGREGADO', href: '/nossa-gente/seja-um-agregado' },
       ],
     },
-    { id: 'sustentabilidade', label: 'SUSTENTABILIDADE', href: '/sustentabilidade', imageSrc: '/images/gabardo-hero-01.JPG' },
     { id: 'contato', label: 'CONTATO', href: '/contato', imageSrc: '/images/hero-contact.jpg' },
     { id: 'blog', label: 'BLOG', href: '/blog', imageSrc: '/images/hero-blog.jpg' },
   ];
 
   return (
-    <div className="absolute top-0 left-0 right-0 z-30">
-      <div className="w-full px-6 md:px-12 lg:px-16 py-4 md:py-6">
-        <div className="flex justify-between items-center w-full">
-          <Link 
-            href="/" 
-            className="flex items-center text-xl font-medium tracking-wide touch-manipulation font-primary"
+    <>
+      <motion.header
+        initial={{ y: -24, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className={headerClasses}
+      >
+        <div className="section-container flex items-center justify-between py-4 md:py-5">
+          <Link
+            href="/"
+            className="group inline-flex items-center"
             aria-label="Gabardo Distribuidora - Página inicial"
           >
             <Image
               src="/gabardo-logo.png"
-              alt="Gabardo Logo"
-              width={isMobile ? 100 : 120}
-              height={isMobile ? 32 : 38}
+              alt="Gabardo Distribuidora"
+              width={isMobile ? 110 : 138}
+              height={isMobile ? 32 : 40}
               priority
-              className="h-auto w-auto"
-              style={{ 
-                filter: variant === 'dark' 
-                  ? 'brightness(2) contrast(1.5) opacity(0.95)' 
-                  : 'brightness(0.2) contrast(1.2) opacity(0.9)',
-                WebkitFilter: variant === 'dark' 
-                  ? 'brightness(2) contrast(1.5) opacity(0.95)' 
-                  : 'brightness(0.2) contrast(1.2) opacity(0.9)'
-              }}
+              className="h-auto w-auto transition-transform duration-300 group-hover:scale-105"
+              style={{ filter: logoFilter, WebkitFilter: logoFilter }}
             />
           </Link>
-          
-          {/* Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(true)}
-            className={`p-2 rounded-lg transition-colors duration-300 ${
-              variant === 'dark' 
-                ? 'text-white hover:bg-white/10' 
-                : 'text-gray-800 hover:bg-gray-100'
-            }`}
-            aria-label="Open menu"
-          >
-            <Menu size={24} />
-          </button>
-        </div>
-      </div>
 
-      {/* Full Screen Navigation */}
+          <div className="flex items-center gap-3 sm:gap-5">
+            <Link
+              href="/contato"
+              className={`hidden lg:inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-[0.32em] transition-all duration-300 shadow-[0_18px_35px_-28px_RGBA(19,45,81,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${ctaClasses}`}
+            >
+              Fale conosco
+            </Link>
+
+            <button
+              onClick={() => setIsMenuOpen(true)}
+              className={`group relative inline-flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${menuButtonClasses}`}
+              aria-label="Abrir menu"
+            >
+              <span className="absolute inset-0 rounded-full bg-gradient-to-br from-transparent via-transparent to-gabardo-light-blue/15 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
+              <Menu size={isMobile ? 22 : 24} />
+            </button>
+          </div>
+        </div>
+      </motion.header>
+
       <FullScreenNav
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
         menuItems={menuItems}
       />
-    </div>
+    </>
   );
 };
 

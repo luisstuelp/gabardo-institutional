@@ -202,7 +202,7 @@ const AboutStorySection: React.FC = () => {
     : null;
 
   return (
-    <section ref={containerRef} className="py-16 md:py-20 lg:py-24 bg-white relative overflow-hidden">
+    <section ref={containerRef} className="section-shell bg-white relative overflow-hidden">
       {/* Hover Text Display */}
       {hoveredItem && (
         <motion.div
@@ -293,24 +293,24 @@ const AboutStorySection: React.FC = () => {
         </svg>
       )}
 
-      <div className="container relative mx-auto px-4 md:px-8 lg:px-16">
+      <div className="section-container">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="text-center mb-16 md:mb-20"
+          className="text-center mb-20"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-sm font-light tracking-[0.2em] text-neutral-500 mb-4 uppercase relative inline-block"
+            className="section-eyebrow text-gabardo-blue/70 relative inline-flex items-center gap-3"
           >
             Nossa Trajetória
-            <div className="absolute -bottom-1 left-0 w-8 h-px" style={{ backgroundColor: '#38B6FF' }}></div>
+            <span className="inline-flex h-px w-8 rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue" />
           </motion.div>
 
           <motion.h2
@@ -318,16 +318,14 @@ const AboutStorySection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-tight"
+            className="section-heading mt-6 text-center"
           >
-            <span style={{ color: '#132D51' }}>36 Anos de</span>
-            <br />
-            <span className="text-neutral-600">Excelência e Confiança</span>
+            36 anos de excelência e confiança Gabardo Distribuidora
           </motion.h2>
         </motion.div>
 
         {/* Timeline as Infinite Scroll */}
-        <div className="relative mt-14 w-full">
+        <div className="relative mt-16 w-full">
           <div className="flex justify-center items-center px-6 md:px-12 lg:px-20 xl:px-24">
             <InfiniteScroll
               width="90vw"
@@ -350,13 +348,13 @@ const AboutStorySection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-center mt-20 md:mt-24"
+          className="text-center mt-24"
         >
-          <blockquote className="text-2xl md:text-3xl font-light text-neutral-700 italic max-w-4xl mx-auto leading-relaxed">
+          <blockquote className="text-2xl md:text-[30px] font-light italic text-gabardo-blue/80 max-w-4xl mx-auto leading-relaxed">
             "Ao longo de seus 36 anos, a Gabardo procura entender as necessidades dos clientes para
             atendê-los de forma personalizada e eficiente. Nossa missão é transportar mais que veículos."
           </blockquote>
-          <div className="mt-6 text-sm font-medium text-neutral-500 tracking-wide uppercase">
+          <div className="mt-6 text-xs font-semibold uppercase tracking-[0.32em] text-gabardo-blue/60">
             — Sérgio Mário Gabardo, Fundador
           </div>
         </motion.div>

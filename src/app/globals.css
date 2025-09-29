@@ -56,6 +56,47 @@
   .button-text {
     @apply font-primary font-medium;
   }
+
+  .section-shell {
+    @apply relative overflow-hidden py-20 md:py-24 lg:py-28;
+  }
+
+  .section-shell--muted {
+    background: radial-gradient(circle at top, rgba(56, 182, 255, 0.12) 0%, transparent 58%),
+      linear-gradient(180deg, rgba(19, 45, 81, 0.04) 0%, rgba(19, 45, 81, 0) 100%);
+  }
+
+  .section-shell--contrast {
+    background: radial-gradient(circle at 10% 20%, rgba(56, 182, 255, 0.16) 0%, rgba(56, 182, 255, 0) 40%),
+      linear-gradient(135deg, rgba(19, 45, 81, 0.96), rgba(19, 45, 81, 0.84));
+  }
+
+  .section-container {
+    @apply container relative mx-auto px-6 md:px-10 lg:px-16;
+  }
+
+  .section-eyebrow {
+    @apply text-[11px] uppercase tracking-[0.4em] text-gabardo-light-blue/80 font-semibold;
+  }
+
+  .section-heading {
+    @apply font-primary text-3xl md:text-4xl lg:text-[44px] leading-tight font-semibold text-gabardo-blue;
+  }
+
+  .section-subheading {
+    @apply text-base md:text-lg text-neutral-600 max-w-3xl mx-auto;
+  }
+
+  .section-divider {
+    @apply h-1 w-16 rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue;
+  }
+
+  .glass-panel {
+    backdrop-filter: blur(28px);
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.65));
+    box-shadow: 0 45px 80px -40px rgba(19, 45, 81, 0.38);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+  }
 }
 
 /* Blog-specific utilities */

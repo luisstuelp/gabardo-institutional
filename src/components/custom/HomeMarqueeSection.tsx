@@ -13,37 +13,61 @@ const messages = [
 
 const HomeMarqueeSection = () => {
   return (
-    <section className="relative overflow-hidden bg-white py-16">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(56,182,255,0.08),_transparent_65%)]" />
-      <div className="container relative mx-auto px-6 md:px-10 lg:px-16">
+    <section className="section-shell bg-white">
+      <motion.div
+        className="pointer-events-none absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, ease: 'easeOut' }}
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(56,182,255,0.12),_transparent_68%)]" />
+        <motion.div
+          className="absolute -left-24 top-12 h-80 w-80 rounded-full bg-gabardo-light-blue/15 blur-3xl"
+          animate={{
+            y: [0, -14, 0],
+            opacity: [0.45, 0.6, 0.45]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-gabardo-blue/12 blur-3xl"
+          animate={{
+            y: [0, 18, 0],
+            opacity: [0.35, 0.5, 0.35]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
+        />
+      </motion.div>
+
+      <div className="section-container relative">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-center"
         >
-          <span className="text-[11px] uppercase tracking-[0.4em] text-gabardo-blue/70">
-            Movimento Gabardo
-          </span>
-          <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-gabardo-blue">
-            Fluxo contínuo de inovação e desempenho
-          </h2>
+          <span className="section-eyebrow">Movimento Gabardo</span>
+          <h2 className="section-heading mt-5">Fluxo contínuo de inovação e desempenho</h2>
+          <p className="section-subheading mt-6 text-gabardo-blue/80">
+            Compromisso diário com alta performance logística, sustentabilidade e tecnologia para movimentar cada etapa da cadeia automotiva.
+          </p>
+          <div className="section-divider mx-auto mt-10" />
         </motion.div>
 
-        <div className="mt-14 space-y-8">
+        <div className="mt-16 space-y-8">
           <ScrollMarquee
-            delay={300}
-            baseVelocity={1.2}
-            className="font-semibold uppercase tracking-[0.3em] text-[#102544] before:from-white/96 after:from-white/96"
+            delay={280}
+            baseVelocity={1.1}
+            className="font-semibold uppercase tracking-[0.28em] text-gabardo-blue/80 before:from-white/96 after:from-white/96"
           >
             {messages.join('   •   ')}
           </ScrollMarquee>
 
           <ScrollMarquee
-            delay={450}
-            baseVelocity={1.6}
-            className="font-semibold uppercase tracking-[0.3em] text-[#1F4C7A] before:from-white/96 after:from-white/96"
+            delay={420}
+            baseVelocity={1.55}
+            className="font-semibold uppercase tracking-[0.28em] text-gabardo-blue before:from-white/96 after:from-white/96"
           >
             {messages
               .map(message => message.replace('Gabardo', 'Gabardo Distribuidora'))
