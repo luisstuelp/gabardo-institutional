@@ -79,6 +79,12 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
         { id: 'seja-um-agregado', label: 'SEJA UM AGREGADO', href: '/nossa-gente/seja-um-agregado' },
       ],
     },
+    {
+      id: 'sustentabilidade',
+      label: 'SUSTENTABILIDADE',
+      href: '/sustentabilidade',
+      imageSrc: '/images/gabardo-hero-01.JPG',
+    },
     { id: 'contato', label: 'CONTATO', href: '/contato', imageSrc: '/images/hero-contact.jpg' },
     { id: 'blog', label: 'BLOG', href: '/blog', imageSrc: '/images/hero-blog.jpg' },
   ];
