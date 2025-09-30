@@ -96,15 +96,17 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
             className="group inline-flex items-center"
             aria-label="Gabardo Distribuidora - Página inicial"
           >
-            <Image
-              src="/gabardo-logo.png"
-              alt="Gabardo Distribuidora"
-              width={isMobile ? 110 : 116}
-              height={isMobile ? 32 : 30}
-              priority
-              className="h-auto w-auto transition-transform duration-300 group-hover:scale-105"
-              style={{ filter: logoFilter, WebkitFilter: logoFilter }}
-            />
+            <div className="lg:transform lg:scale-150">
+              <Image
+                src="/gabardo-logo.png"
+                alt="Gabardo Distribuidora"
+                width={isMobile ? 110 : 116}
+                height={isMobile ? 32 : 30}
+                priority
+                className="h-auto w-auto transition-transform duration-300 group-hover:scale-105"
+                style={{ filter: logoFilter, WebkitFilter: logoFilter }}
+              />
+            </div>
           </Link>
 
           <div className="flex items-center gap-3 sm:gap-4 lg:gap-3">
