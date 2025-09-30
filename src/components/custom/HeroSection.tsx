@@ -2,6 +2,7 @@
 
 import { Dot, Mouse } from 'lucide-react';
 import { useEffect, useRef } from 'react';
+import AnimatedDiferente from './AnimatedDiferente';
 
 const ScrollDownIcon = () => (
   <div className="flex flex-col items-center space-y-2">
@@ -105,64 +106,51 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-black bg-opacity-50"></div> {/* Overlay for better text contrast */}
 
       {/* Content container */}
-      <div className="relative z-10 flex flex-col justify-between h-full p-8 md:p-16">
-        {/* Top spacer for header, or header can be outside this component and positioned absolutely */}
+      <div className="relative z-10 flex flex-col justify-between h-full px-5 pt-6 pb-10 sm:px-7 sm:pt-8 md:p-16">
         <div></div> {/* This div is a placeholder if header spacing is managed here, currently header is absolute so it's fine*/}
 
         {/* Left Scroll Indicator - positioned absolutely relative to this container */}
-        <div className="absolute top-1/2 left-8 md:left-16 transform -translate-y-1/2">
+        <div className="absolute top-1/2 left-4 sm:left-6 md:left-16 transform -translate-y-1/2">
           <ScrollDownIcon />
         </div>
-
         {/* Main Text & Bottom Arrow Container */}
         {/* The outer div handles bottom positioning via justify-between on parent and flex-col */}
         <div className="flex flex-col justify-end h-full">
-          {/* This row contains the spacer, text, and arrow */}
-          <div className="flex items-end w-full mb-16 md:mb-8">
-            {/* Spacer to push text away from left edge / scroll indicator.
-                Scroll indicator is left-8 (2rem from p-8 edge) / left-16 (4rem from p-16 edge).
-                Icon width is w-8 (2rem).
-                Desired clearance from scroll icon:
-                Small screens: left-padding-of-parent (p-8) + scroll_icon_left (8px / 0.5rem in tailwind terms, actual 2rem from viewport edge effectively)
-                               + scroll_icon_width (w-8 / 2rem) + buffer (e.g. 2rem).
-                               The spacer is *inside* the p-8/p-16. So it should account for where the scroll icon is relative to this inner flow.
-                               If scroll icon is left-8 (from content box edge), and w-8 wide, it occupies up to left-16 (4rem).
-                               Let's use w-20 (5rem) on smallest, md:w-24 (6rem), lg:w-28 (7rem) for the spacer.
-                               This is relative to the start of the flex container which is already padded by p-8/p-16.
-                               The scroll icon itself is `left-8` (from the `p-8` boundary) so it starts 2rem in. Its width is 2rem. It ends 4rem in.
-                               A spacer of `w-20` (5rem) should provide a 1rem gap.
-                               On `md`: `left-16` (4rem in). Width 2rem. Ends 6rem in. `md:w-24` (6rem) spacer would be flush. Needs to be larger.
-                               Let's try: `w-24` (6rem) for sm, `md:w-32` (8rem) for md+.
-            */}
-            <div className="flex-shrink-0 w-24 md:w-32"></div>
+          <div className="flex items-end w-full mb-14 sm:mb-16 md:mb-8">
+            {/* Spacer to keep text clear of scroll indicator */}
+            <div className="flex-shrink-0 w-14 sm:w-16 md:w-32" />
 
             {/* Text Content Block */}
             <div className="flex-grow max-w-4xl xl:max-w-5xl">
-              <h1 className="font-primary text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight mb-6">
+              <h1 className="font-primary text-[26px] sm:text-4xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight mb-5 sm:mb-6">
                 Para cada cliente,
                 <br />
-                <span style={{color: '#38B6FF'}}>uma Gabardo diferente.</span>
+                <span style={{ color: '#38B6FF' }}>uma Gabardo <AnimatedDiferente /></span>
               </h1>
-              <p className="font-secondary mt-4 text-sm sm:text-base md:text-base lg:text-lg font-light leading-relaxed mb-8">
+              <p className="font-secondary mt-3 text-sm sm:text-base md:text-base lg:text-lg font-light leading-relaxed mb-6 sm:mb-8">
                 Há mais de 35 anos, entendemos as necessidades dos nossos clientes para atendê-los de forma personalizada e eficiente no transporte de veículos.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button 
-                  className="font-secondary text-white px-8 py-4 font-semibold uppercase tracking-wide transition-all duration-300 transform hover:scale-105 hover:shadow-lg" 
-                  style={{backgroundColor: '#38B6FF'}} 
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#2da5ff'} 
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#38B6FF'}
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <button
+                  className="font-secondary text-white px-7 py-3.5 sm:px-8 sm:py-4 font-semibold uppercase tracking-wide transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                  style={{ backgroundColor: '#38B6FF' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#2da5ff';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#38B6FF';
+                  }}
                 >
                   Encontre seu serviço
                 </button>
-                <button 
-                  className="font-secondary border-2 border-white text-white px-8 py-4 font-semibold uppercase tracking-wide transition-all duration-300" 
+                <button
+                  className="font-secondary border-2 border-white text-white px-7 py-3.5 sm:px-8 sm:py-4 font-semibold uppercase tracking-wide transition-all duration-300"
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'white'; 
+                    e.currentTarget.style.backgroundColor = 'white';
                     e.currentTarget.style.color = '#38B6FF';
-                  }} 
+                  }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent'; 
+                    e.currentTarget.style.backgroundColor = 'transparent';
                     e.currentTarget.style.color = 'white';
                   }}
                 >
@@ -170,14 +158,9 @@ export default function HeroSection() {
                 </button>
               </div>
             </div>
-
-            {/* Arrow Icon, aligned to the far right */}
-            <div className="hidden md:block md:ml-auto pl-4 md:pl-8">
-              <ArrowIcon />
-            </div>
           </div>
         </div>
       </div>
     </div>
   );
-} 
+}

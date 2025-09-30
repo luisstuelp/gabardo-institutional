@@ -1,52 +1,203 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Calendar, Truck, Building2, Star } from 'lucide-react';
-import AnimatedCounter from '@/components/ui/animated-counter';
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { Calendar, Truck, Building2, Star } from "lucide-react";
 
-const stats = [
+type Stat = {
+  id: string;
+  icon: React.ReactNode;
+  value: number;
+  suffix?: string;
+  title: string;
+  description: string;
+  accent: "light" | "dark";
+  duration?: number;
+  formatValue?: (value: number) => string;
+};
+
+const stats: Stat[] = [
   {
-    id: 'years',
-    icon: Calendar,
+    id: "years",
+    icon: <Calendar className="h-6 w-6" strokeWidth={2.4} />,
     value: 36,
-    suffix: '+',
-    label: ['Anos no', 'mercado'],
-    accent: 'left'
+    suffix: "+",
+    title: "ANOS NO MERCADO",
+    description: "Desde 1989 liderando operações com excelência.",
+    accent: "light",
+    duration: 2600
   },
   {
-    id: 'vehicles',
-    icon: Truck,
+    id: "vehicles",
+    icon: <Truck className="h-6 w-6" strokeWidth={2.4} />,
     value: 1400000,
-    suffix: '+',
-    label: ['Veículos', 'transportados'],
-    accent: 'right'
+    title: "VEÍCULOS TRANSPORTADOS",
+    description: "Milhões de entregas com segurança e precisão.",
+    accent: "dark",
+    duration: 3400,
+    formatValue: (value) => `${(value / 1_000_000).toFixed(1)}M+`
   },
   {
-    id: 'bases',
-    icon: Building2,
+    id: "bases",
+    icon: <Building2 className="h-6 w-6" strokeWidth={2.4} />,
     value: 50,
-    suffix: '+',
-    label: ['Bases e', 'unidades'],
-    accent: 'left'
+    suffix: "+",
+    title: "BASES E UNIDADES",
+    description: "Cobertura estratégica em todo o território nacional.",
+    accent: "dark",
+    duration: 3000
   },
   {
-    id: 'satisfaction',
-    icon: Star,
+    id: "satisfaction",
+    icon: <Star className="h-6 w-6" strokeWidth={2.4} />,
     value: 99,
-    suffix: '%',
-    label: ['Satisfação', 'dos clientes'],
-    accent: 'right'
+    suffix: "%",
+    title: "SATISFAÇÃO CLIENTES",
+    description: "Resultados reconhecidos pelos parceiros Gabardo.",
+    accent: "light",
+    duration: 2600
   }
 ];
 
-const StatsGrid = () => {
+const useCountUpStats = (items: Stat[], shouldAnimate: boolean) => {
+  const [counts, setCounts] = useState<number[]>(items.map(() => 0));
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    if (!shouldAnimate || hasAnimated.current) {
+      return;
+    }
+
+    hasAnimated.current = true;
+    setCounts(items.map(() => 0));
+
+    const frames: number[] = [];
+    const startTimes: number[] = [];
+
+    const createStep = (index: number, target: number, duration: number) => {
+      const step = (timestamp: number) => {
+        if (!startTimes[index]) {
+          startTimes[index] = timestamp;
+        }
+
+        const progress = Math.min((timestamp - startTimes[index]) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 4);
+        const nextValue = Math.round(target * eased);
+
+        setCounts((prev) => {
+          if (prev[index] === nextValue) {
+            return prev;
+          }
+          const updated = [...prev];
+          updated[index] = nextValue;
+          return updated;
+        });
+
+        if (progress < 1) {
+          frames[index] = requestAnimationFrame(step);
+        }
+      };
+
+      frames[index] = requestAnimationFrame(step);
+    };
+
+    items.forEach((item, index) => {
+      createStep(index, item.value, item.duration ?? 2000);
+    });
+
+    return () => {
+      frames.forEach((frame) => cancelAnimationFrame(frame));
+      hasAnimated.current = false;
+    };
+  }, [items, shouldAnimate]);
+
+  return counts;
+};
+
+const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat, value, index }) => {
+  const isDark = stat.accent === "dark";
+
   return (
-    <section className="section-shell section-shell--muted">
+    <motion.div
+      initial={{ opacity: 0, y: 36, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.75, ease: "easeOut", delay: index * 0.08 }}
+      whileHover={{ y: -10, scale: 1.015, rotateX: 2.4, rotateY: -2, transition: { duration: 0.35, ease: "easeOut" } }}
+      whileTap={{ scale: 0.985 }}
+      className={`group relative w-full max-w-[400px] rounded-[28px] px-10 py-10 shadow-[0_32px_80px_-48px_RGBA(19,45,81,0.55)] transition-transform duration-500 ${
+        isDark ? "bg-gabardo-blue text-white" : "bg-neutral-100 text-gabardo-blue"
+      }`}
+    >
+      <div
+        className={`pointer-events-none absolute -inset-24 hidden rounded-full blur-3xl transition-transform duration-500 group-hover:scale-105 md:block ${
+          isDark ? "bg-gabardo-blue/22" : "bg-gabardo-light-blue/18"
+        }`}
+      />
+
+      <div className="relative flex flex-col gap-7">
+        <div className="flex items-start justify-between gap-6">
+          <div className="flex flex-col gap-3">
+            <span className={`text-4xl font-extrabold tracking-tight md:text-[48px] ${isDark ? "text-white" : "text-gabardo-blue"}`}>
+              {stat.formatValue
+                ? stat.formatValue(value)
+                : `${value.toLocaleString("pt-BR")}${stat.suffix ?? ""}`}
+            </span>
+            <p
+              className={`max-w-[240px] text-sm leading-relaxed ${
+                isDark ? "text-white/75" : "text-neutral-600"
+              }`}
+            >
+              {stat.description}
+            </p>
+          </div>
+
+          <div className="flex flex-col items-end gap-3 text-right">
+            <span
+              className={`text-[11px] font-semibold uppercase tracking-[0.2em] leading-tight ${
+                isDark ? "text-white/80" : "text-gabardo-blue"
+              }`}
+            >
+              {stat.title}
+            </span>
+            <motion.span
+              whileHover={{ scale: 1.07, rotate: 6, transition: { duration: 0.35, ease: "easeOut" } }}
+              className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
+                isDark
+                  ? "bg-white/15 text-white shadow-[0_12px_30px_-18px_RGBA(255,255,255,0.65)]"
+                  : "bg-white text-gabardo-blue shadow-[0_12px_30px_-18px_RGBA(19,45,81,0.35)]"
+              }`}
+            >
+              {stat.icon}
+            </motion.span>
+          </div>
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute inset-0 rounded-[26px] border border-white/12 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      <div
+        className={`pointer-events-none absolute inset-0 rounded-[26px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${
+          isDark ? "bg-white/6" : "bg-white/50"
+        }`}
+      />
+    </motion.div>
+  );
+};
+
+const StatsGrid = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const sectionInView = useInView(sectionRef, { once: true, amount: 0.35 });
+  const counts = useCountUpStats(stats, sectionInView);
+  const topRow = stats.slice(0, 2);
+  const bottomRow = stats.slice(2);
+
+  return (
+    <section ref={sectionRef} className="section-shell section-shell--muted relative overflow-hidden">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-white/70 via-white/40 to-transparent" />
       <div className="pointer-events-none absolute -left-24 top-24 hidden h-72 w-72 rounded-full bg-gabardo-light-blue/15 blur-3xl md:block" />
       <div className="pointer-events-none absolute -right-16 bottom-0 hidden h-80 w-80 rounded-full bg-gabardo-blue/10 blur-3xl lg:block" />
 
-      <div className="section-container">
+      <div className="section-container relative z-10">
         <div className="mx-auto max-w-3xl text-center">
           <span className="section-eyebrow">Nossos indicadores</span>
           <h2 className="section-heading mt-5">Resultados que sustentam a confiança Gabardo</h2>
@@ -56,63 +207,82 @@ const StatsGrid = () => {
           <div className="section-divider mx-auto mt-10" />
         </div>
 
-        <div className="mt-16 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
+        <div className="mt-24 w-full">
+          <div className="relative flex flex-col items-center gap-20">
+            <svg
+              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] max-w-none"
+              viewBox="0 0 1500 520"
+              preserveAspectRatio="none"
+            >
+              <defs>
+                <linearGradient id="stats-flow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#38B6FF" stopOpacity="0.15" />
+                  <stop offset="28%" stopColor="#38B6FF" stopOpacity="0.65" />
+                  <stop offset="54%" stopColor="#7FD7FF" stopOpacity="0.85" />
+                  <stop offset="82%" stopColor="#38B6FF" stopOpacity="0.65" />
+                  <stop offset="100%" stopColor="#38B6FF" stopOpacity="0.2" />
+                </linearGradient>
+                <linearGradient id="stats-flow-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#7FD7FF" stopOpacity="0.4" />
+                  <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="#7FD7FF" stopOpacity="0.35" />
+                </linearGradient>
+                <filter id="stats-flow-filter" x="-20%" y="-30%" width="140%" height="160%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
 
-            return (
-              <motion.div
-                key={stat.id}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.35 }}
-                transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.08 }}
-                whileHover={{ y: -10, rotateX: 2, rotateY: -2 }}
-                className="group relative overflow-hidden rounded-3xl border border-white/40 bg-white/80 p-[1.25rem] backdrop-blur-xl shadow-[0_35px_75px_-35px_RGBA(19,45,81,0.35)]"
-              >
-                <div
-                  className={`pointer-events-none absolute -inset-24 hidden rounded-full blur-3xl transition-transform duration-500 group-hover:scale-105 ${
-                    stat.accent === 'left' ? 'bg-gabardo-light-blue/20 md:block' : 'bg-gabardo-blue/15 md:block'
-                  }`}
-                  aria-hidden
-                />
-                <div className="relative flex flex-col gap-8">
-                  <div className="flex items-center justify-between">
-                    <div className="inline-flex items-center gap-3 rounded-full bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-gabardo-blue/70 shadow-sm">
-                      <Icon className="h-5 w-5 text-gabardo-blue" strokeWidth={2.5} />
-                      <span>Gabardo</span>
-                    </div>
-                    <motion.span
-                      className="h-12 w-12 rounded-2xl bg-gradient-to-br from-gabardo-light-blue/90 to-gabardo-blue/90 opacity-80 shadow-lg transition-opacity duration-300 group-hover:opacity-100"
-                      whileHover={{ scale: 1.05 }}
-                    />
-                  </div>
+              <motion.path
+                d="M 1500 120 C 1320 110, 1210 160, 1070 190 S 840 240, 750 205 S 620 140, 520 210 S 410 360, 320 350 S 170 290, 40 360 L -80 420"
+                fill="none"
+                stroke="url(#stats-flow-gradient)"
+                strokeWidth={24}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                filter="url(#stats-flow-filter)"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 1.8, ease: "easeOut" }}
+              />
 
-                  <div className="space-y-3">
-                    <AnimatedCounter
-                      value={stat.value}
-                      suffix={stat.suffix}
-                      className="text-5xl font-extrabold uppercase tracking-tight text-gabardo-blue"
-                    />
-                    <p className="text-sm font-medium uppercase tracking-[0.24em] text-gabardo-blue/70">
-                      {stat.label[0]}<br />{stat.label[1]}
-                    </p>
-                  </div>
+              <motion.path
+                d="M 1500 120 C 1320 110, 1210 160, 1070 190 S 840 240, 750 205 S 620 140, 520 210 S 410 360, 320 350 S 170 290, 40 360 L -80 420"
+                fill="none"
+                stroke="url(#stats-flow-glow)"
+                strokeWidth={8}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 1.6, delay: 0.15, ease: "easeOut" }}
+              />
+            </svg>
 
-                  <motion.div
-                    className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.25em] text-gabardo-blue/60"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, amount: 0.6 }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
-                  >
-                    <span>Desde 1989</span>
-                    <span>Movimento Gabardo</span>
-                  </motion.div>
+            <div className="relative z-10 flex w-full max-w-[920px] flex-col items-center gap-10 px-4 md:flex-row md:justify-center md:gap-14 lg:px-0">
+              {topRow.map((stat, index) => (
+                <div key={stat.id} className="relative flex w-full max-w-[400px] justify-center">
+                  <StatCard stat={stat} value={counts[index] ?? 0} index={index} />
                 </div>
-              </motion.div>
-            );
-          })}
+              ))}
+            </div>
+
+            <div className="relative z-10 flex w-full max-w-[920px] flex-col items-center gap-10 px-4 md:flex-row md:justify-center md:gap-14 lg:px-0">
+              {bottomRow.map((stat, idx) => {
+                const index = idx + topRow.length;
+                return (
+                  <div key={stat.id} className="relative flex w-full max-w-[400px] justify-center">
+                    <StatCard stat={stat} value={counts[index] ?? 0} index={index} />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>

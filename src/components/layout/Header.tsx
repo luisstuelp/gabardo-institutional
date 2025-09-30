@@ -59,6 +59,7 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
         { id: 'secao-institucional', label: 'INSTITUCIONAL', href: '/sobre/secao-institucional' },
         { id: 'historia', label: 'HISTÓRIA', href: '/sobre/historia' },
         { id: 'qualidade', label: 'QUALIDADE', href: '/sobre/qualidade' },
+        { id: 'infraestrutura', label: 'INFRAESTRUTURA', href: '/infraestrutura' },
       ],
     },
     { id: 'servicos', label: 'SERVIÇOS', href: '/servicos', imageSrc: '/images/hero-services.jpg' },
@@ -69,8 +70,7 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
       imageSrc: '/images/hero-people.jpg',
       subMenu: [
         { id: 'trabalhe-conosco', label: 'TRABALHE CONOSCO', href: '/trabalhe-conosco' },
-        { id: 'programas', label: 'PROGRAMAS', href: '/programas' },
-        { id: 'seja-um-agregado', label: 'SEJA UM AGREGADO', href: '/nossa-gente/seja-um-agregado' },
+        { id: 'equipe', label: 'EQUIPE', href: '/nossa-gente/equipe' },
       ],
     },
     {

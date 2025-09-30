@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import InfiniteScroll from '@/components/InfiniteScroll';
 import { Building, Users, Truck, Target } from 'lucide-react';
@@ -75,87 +75,19 @@ const timeline: TimelineItem[] = [
 const AboutStorySection: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<TimelineItem | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const infoPanelRef = useRef<HTMLDivElement | null>(null);
-  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
-  const [lineData, setLineData] = useState<{
-    start: { x: number; y: number };
-    end: { x: number; y: number };
-    box: { width: number; height: number };
-  } | null>(null);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  const updateConnector = useCallback(
-    (item: TimelineItem | null) => {
-      if (!item) {
-        setLineData(null);
-        return;
-      }
-
-      const container = containerRef.current;
-      const card = cardRefs.current[item.year];
-      const info = infoPanelRef.current;
-
-      if (!container || !card || !info) {
-        setLineData(null);
-        return;
-      }
-
-      const containerRect = container.getBoundingClientRect();
-      const cardRect = card.getBoundingClientRect();
-      const infoRect = info.getBoundingClientRect();
-
-      setLineData({
-        start: {
-          x: cardRect.right - containerRect.left - 16,
-          y: cardRect.top - containerRect.top + cardRect.height * 0.45,
-        },
-        end: {
-          x: infoRect.left - containerRect.left + 18,
-          y: infoRect.top - containerRect.top + infoRect.height * 0.55,
-        },
-        box: {
-          width: containerRect.width,
-          height: containerRect.height,
-        },
-      });
-    },
-    []
-  );
-
-  useEffect(() => {
-    if (!hoveredItem) {
-      setLineData(null);
-      return;
-    }
-
-    const handle = () => updateConnector(hoveredItem);
-    handle();
-
-    window.addEventListener('resize', handle);
-    window.addEventListener('scroll', handle, true);
-
-    return () => {
-      window.removeEventListener('resize', handle);
-      window.removeEventListener('scroll', handle, true);
-    };
-  }, [hoveredItem, updateConnector]);
 
   type ScrollItem = { content: React.ReactElement };
 
   const scrollItems: ScrollItem[] = timeline.map((item, index) => ({
     content: (
       <motion.div
-        ref={(el) => {
-          cardRefs.current[item.year] = el;
-        }}
         onMouseEnter={() => setHoveredItem(item)}
         onMouseLeave={() => {
           setHoveredItem(null);
-          setLineData(null);
         }}
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -197,21 +129,16 @@ const AboutStorySection: React.FC = () => {
     );
   }
 
-  const connectorPath = lineData
-    ? `M ${lineData.start.x} ${lineData.start.y} C ${lineData.start.x + 120} ${lineData.start.y - 60}, ${lineData.end.x - 120} ${lineData.end.y + 60}, ${lineData.end.x} ${lineData.end.y}`
-    : null;
-
   return (
-    <section ref={containerRef} className="section-shell bg-white relative overflow-hidden">
+    <section className="section-shell bg-white relative overflow-hidden">
       {/* Hover Text Display */}
       {hoveredItem && (
         <motion.div
-          ref={infoPanelRef}
           initial={{ opacity: 0, x: 16 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 16 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="fixed top-12 right-12 z-50 max-w-sm rounded-2xl border border-gabardo-light-blue/40 bg-white/95 p-5 shadow-[0_25px_60px_-30px_rgba(19,45,81,0.55)] backdrop-blur-lg"
+          className="fixed top-12 right-12 z-50 max-w-sm rounded-2xl border border-gabardo-light-blue/40 bg-white/95 p-5 shadow-[0_25px_60px_-30px_RGBA(19,45,81,0.55)] backdrop-blur-lg"
         >
           <div className="flex items-center gap-3 mb-3">
             <motion.div
@@ -234,63 +161,7 @@ const AboutStorySection: React.FC = () => {
           <p className="text-neutral-600 leading-relaxed text-xs">
             {hoveredItem.description}
           </p>
-
-          <div className="mt-3 h-px w-10 rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue" />
         </motion.div>
-      )}
-
-      {connectorPath && lineData && (
-        <svg
-          className="pointer-events-none absolute inset-0 z-30"
-          width={lineData.box.width}
-          height={lineData.box.height}
-          viewBox={`0 0 ${lineData.box.width} ${lineData.box.height}`}
-        >
-          <defs>
-            <linearGradient id="timeline-connector" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#38B6FF" stopOpacity="0.85" />
-              <stop offset="100%" stopColor="#132D51" stopOpacity="0.9" />
-            </linearGradient>
-            <filter id="timeline-glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="6" result="coloredBlur" />
-              <feMerge>
-                <feMergeNode in="coloredBlur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-          <motion.path
-            d={connectorPath}
-            stroke="url(#timeline-connector)"
-            strokeWidth="5"
-            strokeLinecap="round"
-            fill="none"
-            filter="url(#timeline-glow)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 0.45, ease: 'easeOut' }}
-          />
-          <motion.path
-            d={connectorPath}
-            stroke="url(#timeline-connector)"
-            strokeWidth="3"
-            strokeLinecap="round"
-            fill="none"
-            strokeDasharray="14 22"
-            initial={{ strokeDashoffset: 140, opacity: 0 }}
-            animate={{ strokeDashoffset: 0, opacity: 0.9 }}
-            transition={{ duration: 0.9, ease: 'easeOut' }}
-          />
-          <motion.circle
-            r={5}
-            fill="#38B6FF"
-            filter="url(#timeline-glow)"
-            initial={{ offsetDistance: '0%', opacity: 0 }}
-            animate={{ offsetDistance: ['0%', '100%'], opacity: [0.6, 0, 0.6] }}
-            transition={{ duration: 2.4, ease: 'easeInOut', repeat: Infinity, repeatDelay: 0.4 }}
-            style={{ offsetPath: `path(${connectorPath})` }}
-          />
-        </svg>
       )}
 
       <div className="section-container">
@@ -363,4 +234,4 @@ const AboutStorySection: React.FC = () => {
   );
 };
 
-export default AboutStorySection; 
+export default AboutStorySection;
