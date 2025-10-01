@@ -18,6 +18,21 @@ const highlightMoments = [
   'Planos ESG conectando eficiência energética e frota dedicada'
 ];
 
+const testimonialQuotes = [
+  {
+    quote: 'Reduzimos 22% de tempo de entrega com a roteirização da Gabardo.',
+    author: 'Diretor de Logística, OEM premium'
+  },
+  {
+    quote: 'A transparência dos relatórios ESG fortaleceu nossa cadeia de sustentabilidade.',
+    author: 'Gerente de Sustentabilidade, grupo automotivo'
+  },
+  {
+    quote: 'Monitoramento em tempo real garante 100% de visibilidade para nossa rede.',
+    author: 'Head de Operações, rede de concessionárias'
+  }
+];
+
 const HomeMarqueeSection = () => {
   return (
     <section className="section-shell bg-white">
@@ -116,6 +131,16 @@ const HomeMarqueeSection = () => {
           >
             {messages
               .map(message => message.replace('Gabardo', 'Gabardo Distribuidora'))
+              .join('   •   ')}
+          </ScrollMarquee>
+
+          <ScrollMarquee
+            delay={520}
+            baseVelocity={1.2}
+            className="text-[0.9rem] sm:text-base font-medium text-gabardo-blue/90 before:from-transparent after:from-transparent"
+          >
+            {testimonialQuotes
+              .map(({ quote, author }) => `“${quote}” — ${author}`)
               .join('   •   ')}
           </ScrollMarquee>
         </div>

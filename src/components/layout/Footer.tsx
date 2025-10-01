@@ -37,8 +37,9 @@ const footerSections = [
     links: [
       { label: 'Central de Ajuda', href: '#' },
       { label: 'FAQ', href: '#' },
-      { label: 'Privacidade', href: '#' },
-      { label: 'Termos', href: '#' }
+      { label: 'Privacidade', href: '/legal/politica-de-privacidade' },
+      { label: 'Termos', href: '/legal/termos-de-uso' },
+      { label: 'Canal de Ética', href: '/conformidade/canal-de-etica' }
     ]
   }
 ];
@@ -119,11 +120,11 @@ const Footer: React.FC = () => {
                     {section.title}
                   </h4>
                   <ul className="space-y-3 text-sm text-white/70">
-                    {section.links.map(link => (
+                    {section.links.map((link) => (
                       <li key={link.label}>
                         <a
                           href={link.href}
-                          className="inline-flex items-center gap-2 transition-colors duration-200 hover:text-gabardo-light-blue"
+                          className="inline-flex items-center gap-2 transition-colors duração-200 hover:text-gabardo-light-blue"
                         >
                           <span>{link.label}</span>
                         </a>
@@ -140,7 +141,7 @@ const Footer: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
-            className="space-y-5 lg:col-span-3"
+            className="space-y-6 lg:col-span-3"
           >
             <h4 className="text-xs font-semibold uppercase tracking-[0.32em] text-white/70">
               Siga a Gabardo
@@ -160,6 +161,36 @@ const Footer: React.FC = () => {
                 </a>
               ))}
             </div>
+
+            <div className="space-y-4 pt-4">
+              <h5 className="text-xs font-semibold uppercase tracking-[0.32em] text-white/60">
+                Certificações & Compromissos
+              </h5>
+              <div className="grid grid-cols-2 gap-3 text-[11px] text-white/70">
+                <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
+                  <p className="font-semibold uppercase tracking-[0.32em] text-gabardo-light-blue text-[10px]">ISO 9001</p>
+                  <p className="mt-1 leading-tight">Gestão da qualidade certificada para operações logísticas.</p>
+                </div>
+                <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
+                  <p className="font-semibold uppercase tracking-[0.32em] text-gabardo-light-blue text-[10px]">ISO 14001</p>
+                  <p className="mt-1 leading-tight">Processos sustentáveis alinhados aos padrões ambientais.</p>
+                </div>
+                <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
+                  <p className="font-semibold uppercase tracking-[0.32em] text-gabardo-light-blue text-[10px]">ISO 39001</p>
+                  <p className="mt-1 leading-tight">Segurança viária aplicada a toda a frota no Brasil.</p>
+                </div>
+                <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
+                  <p className="font-semibold uppercase tracking-[0.32em] text-gabardo-light-blue text-[10px]">Carbono Negativo</p>
+                  <p className="mt-1 leading-tight">Certificação SGS com compensação integral das emissões.</p>
+                </div>
+              </div>
+
+              <div className="text-[11px] text-white/60">
+                <p>
+                  Consulte nosso <a href="/downloads/relatorio-esg.pdf" className="underline decoration-gabardo-light-blue/70 decoration-2 underline-offset-2 hover:text-gabardo-light-blue">Relatório ESG 2024</a> para metas, auditorias e trajetórias.
+                </p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -174,11 +205,17 @@ const Footer: React.FC = () => {
         <div className="section-container flex flex-col gap-4 py-6 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
           <p>2025 Gabardo Distribuidora. Todos os direitos reservados.</p>
           <div className="flex flex-wrap gap-6">
-            <a href="#" className="transition-colors duration-200 hover:text-gabardo-light-blue">
+            <a href="/legal/politica-de-privacidade" className="transition-colors duration-200 hover:text-gabardo-light-blue">
               Política de Privacidade
             </a>
-            <a href="#" className="transition-colors duration-200 hover:text-gabardo-light-blue">
+            <a href="/legal/termos-de-uso" className="transition-colors duration-200 hover:text-gabardo-light-blue">
               Termos de Uso
+            </a>
+            <a href="/conformidade/canal-de-etica" className="transition-colors duration-200 hover:text-gabardo-light-blue">
+              Canal de Ética
+            </a>
+            <a href="/downloads/relatorio-esg.pdf" className="transition-colors duration-200 hover:text-gabardo-light-blue">
+              Relatório ESG
             </a>
           </div>
         </div>

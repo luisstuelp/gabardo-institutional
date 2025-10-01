@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, Truck, Shield, MapPin, Clock, Star, Users } from 'lucide-react';
 
@@ -11,6 +12,9 @@ interface Service {
   features: string[];
   icon: React.ComponentType<any>;
   color: string;
+  metric: string;
+  metricLabel: string;
+  caseLink: string;
 }
 
 const services: Service[] = [
@@ -20,7 +24,10 @@ const services: Service[] = [
     description: 'Possuímos uma das maiores e mais modernas frotas de cegonheiras. Atendemos de forma personalizada em todas as regiões do Brasil e países do Mercosul.',
     features: ['Frota moderna com tecnologia embarcada', 'Cobertura nacional e Mercosul', 'Rastreamento em tempo real', 'Seguro total incluso'],
     icon: Truck,
-    color: 'amber'
+    color: 'amber',
+    metric: '+18% redução de emissões por km',
+    metricLabel: 'Projeto Carbonsafe 2024',
+    caseLink: '/servicos/transporte-veiculos'
   },
   {
     id: 'logistica-integrada',
@@ -28,7 +35,10 @@ const services: Service[] = [
     description: 'Gerenciamos serviços completos de coleta, armazenagem e distribuição de veículos com controle total da operação e máxima eficiência.',
     features: ['Coleta porta a porta', 'Armazenagem segura', 'Controle de estoque digital', 'Distribuição programada'],
     icon: MapPin,
-    color: 'blue'
+    color: 'blue',
+    metric: '99,2% índice de SLA cumprido',
+    metricLabel: 'Case OEM Premium',
+    caseLink: '/servicos/logistica-integrada'
   },
   {
     id: 'seguranca-total',
@@ -36,7 +46,10 @@ const services: Service[] = [
     description: 'Desenvolvemos soluções completas de segurança com profissionais treinados, equipamentos de última geração e cobertura total de seguros.',
     features: ['Seguro total do veículo', 'Profissionais certificados', 'Equipamentos de segurança', 'Monitoramento 24h'],
     icon: Shield,
-    color: 'green'
+    color: 'green',
+    metric: '0 incidentes críticos nos últimos 36 meses',
+    metricLabel: 'Programa Guardião 360º',
+    caseLink: '/servicos/seguranca-protecao'
   },
   {
     id: 'atendimento',
@@ -44,7 +57,10 @@ const services: Service[] = [
     description: 'Oferecemos suporte dedicado com equipe especializada para atender suas necessidades específicas de transporte de veículos.',
     features: ['Atendimento 24/7', 'Equipe especializada', 'Soluções customizadas', 'Relatórios detalhados'],
     icon: Users,
-    color: 'purple'
+    color: 'purple',
+    metric: 'NPS médio 93',
+    metricLabel: 'Ciclo de avaliações 2023',
+    caseLink: '/contato'
   },
   {
     id: 'prazo-qualidade',
@@ -52,7 +68,10 @@ const services: Service[] = [
     description: 'Cumprimos rigorosamente os prazos estabelecidos mantendo os mais altos padrões de qualidade no transporte de veículos.',
     features: ['Pontualidade garantida', 'Qualidade certificada', 'Processos otimizados', 'Excelência reconhecida'],
     icon: Clock,
-    color: 'red'
+    color: 'red',
+    metric: '98% entregas no prazo',
+    metricLabel: 'Dash Operacional Gabardo',
+    caseLink: '/servicos/prazo-qualidade'
   },
   {
     id: 'experiencia',
@@ -60,7 +79,10 @@ const services: Service[] = [
     description: 'Com mais de 35 anos no mercado, acumulamos vasta experiência e conquistamos a confiança de centenas de clientes em todo o Brasil.',
     features: ['35+ anos de mercado', 'Centenas de clientes', 'Experiência comprovada', 'Reconhecimento nacional'],
     icon: Star,
-    color: 'yellow'
+    color: 'yellow',
+    metric: '350 mil veículos entregues por ano',
+    metricLabel: 'Relatório ESG 2024',
+    caseLink: '/sobre/historia'
   }
 ];
 
@@ -182,11 +204,23 @@ const JSLInspiredServicesSection: React.FC = () => {
                     ))}
                   </div>
 
-                  <div className="mt-auto">
-                    <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-neutral-500 transition-all duration-300 group-hover:text-gabardo-blue">
-                      <span>Saiba mais</span>
-                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  <div className="mt-auto space-y-6">
+                    <div className="rounded-2xl border border-neutral-200/50 bg-neutral-50/80 px-4 py-3 text-sm text-neutral-600 shadow-inner group-hover:border-gabardo-light-blue/60">
+                      <p className="font-semibold uppercase tracking-[0.28em] text-[11px] text-gabardo-blue mb-1">
+                        {service.metricLabel}
+                      </p>
+                      <p className="text-base font-semibold text-neutral-800">
+                        {service.metric}
+                      </p>
                     </div>
+
+                    <Link
+                      href={service.caseLink}
+                      className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-neutral-500 transition-all duration-300 hover:text-gabardo-blue"
+                    >
+                      <span>Ver projeto</span>
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300" />
+                    </Link>
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: '100%' }}

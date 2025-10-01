@@ -9,6 +9,7 @@ import JSLInspiredServicesSection from "@/components/custom/JSLInspiredServicesS
 import HomeClientsLogoSection from "@/components/custom/HomeClientsLogoSection";
 import MapboxSection from "@/components/custom/MapboxSection"; // Added import
 import StatsGrid from '@/components/custom/StatsGrid';
+import HomeSustainabilitySpotlight from '@/components/custom/HomeSustainabilitySpotlight';
 import BlogSection from '@/components/custom/BlogSection';
 import HomeStripeCardSection from '@/components/custom/HomeStripeCardSection';
 import HomeMarqueeSection from '@/components/custom/HomeMarqueeSection';
@@ -22,6 +23,7 @@ export default function HomePage() {
       <PremiumInfoSection />
       <HomeStripeCardSection />
       <StatsGrid />
+      <HomeSustainabilitySpotlight />
       <HomeMarqueeSection />
       <HomeClientsLogoSection />
       <BlogSection />

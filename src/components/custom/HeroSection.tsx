@@ -1,6 +1,7 @@
 'use client';
 
-import { Dot, Mouse } from 'lucide-react';
+import { Dot, Mouse, Leaf, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import AnimatedDiferente from './AnimatedDiferente';
 
@@ -11,12 +12,6 @@ const ScrollDownIcon = () => (
       Role para baixo
     </span>
   </div>
-);
-
-const ArrowIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 md:w-16 md:h-16 text-white">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0V18" /> {/* Adjusted arrow to better match V shape from image corner*/}
-  </svg>
 );
 
 export default function HeroSection() {
@@ -113,9 +108,7 @@ export default function HeroSection() {
 
         <div className="flex flex-col justify-end h-full">
           <div className="grid grid-cols-[3.5rem_1fr] sm:grid-cols-[4rem_1fr] md:grid-cols-[7rem_1fr] gap-6 items-end w-full mb-12 sm:mb-14 md:mb-10">
-            {/* Spacer column keeps scroll indicator separate */}
             <div aria-hidden />
-
             {/* Text Content Block */}
             <div className="max-w-4xl xl:max-w-5xl">
               <h1 className="font-primary text-[26px] sm:text-4xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight mb-5 sm:mb-6">
@@ -128,9 +121,24 @@ export default function HeroSection() {
                   uma Gabardo <AnimatedDiferente />
                 </span>
               </h1>
+
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-white/85 mb-5">
+                <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
+                  <Leaf className="w-4 h-4 text-gabardo-light-blue" />
+                  <span className="text-xs sm:text-sm font-semibold tracking-[0.28em] uppercase text-white">
+                    Carbono negativo desde 2021
+                  </span>
+                </div>
+                <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-white/75">
+                  <Dot className="w-4 h-4 text-gabardo-light-blue" />
+                  <span>32.500 t de CO₂ compensadas e frota com 18% veículos elétricos</span>
+                </div>
+              </div>
+
               <p className="font-secondary mt-3 text-sm sm:text-base md:text-base lg:text-lg font-light leading-relaxed mb-6 sm:mb-8">
                 Há mais de 35 anos, entendemos as necessidades dos nossos clientes para atendê-los de forma personalizada e eficiente no transporte de veículos.
               </p>
+
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button
                   className="font-secondary text-white px-7 py-3.5 sm:px-8 sm:py-4 font-semibold uppercase tracking-wide transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
@@ -157,6 +165,13 @@ export default function HeroSection() {
                 >
                   Seja nosso parceiro
                 </button>
+                <Link
+                  href="/sustentabilidade"
+                  className="font-secondary inline-flex items-center gap-2 text-white/80 hover:text-gabardo-light-blue transition-colors uppercase tracking-widest text-xs sm:text-sm"
+                >
+                  Conheça nossa certificação
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
               </div>
             </div>
           </div>
