@@ -94,38 +94,39 @@ export default function HeroSection() {
         style={{ backgroundColor: 'transparent' }}
       >
         <source src="https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd40MOZFknI6fVUiN4gAm5SK8M9Ltw7jpxPBy3" type="video/mp4" />
-        {/* Fallback image if video fails to load */}
-        <div 
+        <div
           className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'url(/trucks-hero.jpg)'
-          }}
+          style={{ backgroundImage: "url('/trucks-hero.jpg')" }}
         />
       </video>
       
       <div className="absolute inset-0 bg-black bg-opacity-50"></div> {/* Overlay for better text contrast */}
 
       {/* Content container */}
-      <div className="relative z-10 flex flex-col justify-between h-full px-5 pt-6 pb-10 sm:px-7 sm:pt-8 md:p-16">
-        <div></div> {/* This div is a placeholder if header spacing is managed here, currently header is absolute so it's fine*/}
+      <div className="relative z-10 flex flex-col justify-between h-full section-container pt-6 pb-10 sm:pt-8 md:pt-16 md:pb-16">
+        <div></div>
 
-        {/* Left Scroll Indicator - positioned absolutely relative to this container */}
-        <div className="absolute top-1/2 left-4 sm:left-6 md:left-16 transform -translate-y-1/2">
+        {/* Left Scroll Indicator */}
+        <div className="absolute top-1/2 left-4 sm:left-6 md:left-10 lg:left-16 transform -translate-y-1/2">
           <ScrollDownIcon />
         </div>
-        {/* Main Text & Bottom Arrow Container */}
-        {/* The outer div handles bottom positioning via justify-between on parent and flex-col */}
+
         <div className="flex flex-col justify-end h-full">
-          <div className="flex items-end w-full mb-14 sm:mb-16 md:mb-8">
-            {/* Spacer to keep text clear of scroll indicator */}
-            <div className="flex-shrink-0 w-14 sm:w-16 md:w-32" />
+          <div className="grid grid-cols-[3.5rem_1fr] sm:grid-cols-[4rem_1fr] md:grid-cols-[7rem_1fr] gap-6 items-end w-full mb-12 sm:mb-14 md:mb-10">
+            {/* Spacer column keeps scroll indicator separate */}
+            <div aria-hidden />
 
             {/* Text Content Block */}
-            <div className="flex-grow max-w-4xl xl:max-w-5xl">
+            <div className="max-w-4xl xl:max-w-5xl">
               <h1 className="font-primary text-[26px] sm:text-4xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight mb-5 sm:mb-6">
                 Para cada cliente,
                 <br />
-                <span style={{ color: '#38B6FF' }}>uma Gabardo <AnimatedDiferente /></span>
+                <span
+                  className="block text-[36px] sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl font-extrabold"
+                  style={{ color: '#38B6FF' }}
+                >
+                  uma Gabardo <AnimatedDiferente />
+                </span>
               </h1>
               <p className="font-secondary mt-3 text-sm sm:text-base md:text-base lg:text-lg font-light leading-relaxed mb-6 sm:mb-8">
                 Há mais de 35 anos, entendemos as necessidades dos nossos clientes para atendê-los de forma personalizada e eficiente no transporte de veículos.

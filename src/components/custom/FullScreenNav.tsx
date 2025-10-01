@@ -285,7 +285,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 100, opacity: 0 }}
               transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
-              className="hidden md:flex w-2/5 lg:w-1/2 h-full flex-col justify-center p-6 md:p-8 lg:p-10 bg-white/5 backdrop-blur-md"
+              className="hidden md:flex relative w-2/5 lg:w-1/2 h-full flex-col justify-center p-6 md:p-8 lg:p-10 bg-[#0c1f3d] shadow-[0_0_40px_rgba(0,0,0,0.45)] backdrop-blur-sm"
             >
               <motion.div
                 initial={{ opacity: 0 }}
