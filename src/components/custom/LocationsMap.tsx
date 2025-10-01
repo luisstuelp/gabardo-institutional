@@ -70,6 +70,12 @@ const LocationsMap: React.FC = () => {
       style: 'mapbox://styles/mapbox/dark-v11',
       center: [-35.5, -8.5], // Center on Pernambuco region
       zoom: 6.5,
+      minZoom: 2.5,
+      maxZoom: 12,
+      maxBounds: [
+        [-110, -70],
+        [-20, 25],
+      ],
       attributionControl: false,
     });
 
@@ -77,14 +83,12 @@ const LocationsMap: React.FC = () => {
 
     map.on('load', () => {
       setMapLoaded(true);
-      
-      // Add custom navigation control
+
       map.addControl(new mapboxgl.NavigationControl({
         showCompass: false,
         showZoom: true,
       }), 'top-right');
 
-      // Add markers for each location
       locations.forEach((location) => {
         const markerElement = document.createElement('div');
         markerElement.className = 'custom-marker';
@@ -98,7 +102,6 @@ const LocationsMap: React.FC = () => {
           .setLngLat(location.coordinates)
           .addTo(map);
 
-        // Add click event to marker
         markerElement.addEventListener('click', () => {
           setSelectedLocation(location);
           map.flyTo({
@@ -109,7 +112,6 @@ const LocationsMap: React.FC = () => {
         });
       });
 
-      // Add custom styles for markers
       const style = document.createElement('style');
       style.textContent = `
         .custom-marker {

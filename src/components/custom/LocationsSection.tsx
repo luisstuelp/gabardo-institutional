@@ -67,6 +67,11 @@ const LocationsSection: React.FC = () => {
       style: 'mapbox://styles/mapbox/dark-v11',
       center: [-47.8825, -15.7942], // Center on Brazil
       zoom: 4,
+      minZoom: 2.5,
+      maxBounds: [
+        [-110, -70],
+        [-20, 25],
+      ],
       attributionControl: false,
     });
 
@@ -74,7 +79,7 @@ const LocationsSection: React.FC = () => {
 
     map.on('load', () => {
       setMapLoaded(true);
-      
+
       map.addControl(new mapboxgl.NavigationControl({
         showCompass: false,
         showZoom: true,

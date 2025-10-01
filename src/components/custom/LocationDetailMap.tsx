@@ -23,13 +23,21 @@ const LocationDetailMap: React.FC<LocationDetailMapProps> = ({ location }) => {
 
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
-    if (mapRef.current || !mapContainerRef.current) return;
+    if (mapRef.current) return;
+
+    const container = mapContainerRef.current;
+    if (!container) return;
 
     const map = new mapboxgl.Map({
-      container: mapContainerRef.current,
+      container,
       style: 'mapbox://styles/mapbox/streets-v12',
       center: location.contact.coordinates || [-34.8711, -8.0631],
       zoom: 15,
+      minZoom: 2.5,
+      maxBounds: [
+        [-110, -70],
+        [-20, 25],
+      ],
       attributionControl: false,
     });
 
@@ -37,11 +45,12 @@ const LocationDetailMap: React.FC<LocationDetailMapProps> = ({ location }) => {
 
     map.on('load', () => {
       setMapLoaded(true);
-      
-      // Add navigation control
-      map.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
-      // Add marker for the location
+      map.addControl(new mapboxgl.NavigationControl({
+        showCompass: false,
+        showZoom: true,
+      }), 'top-right');
+
       const markerElement = document.createElement('div');
       markerElement.innerHTML = `
         <div style="
