@@ -1,154 +1,202 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Leaf, Recycle, Battery, Cloud, ArrowRight } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Mountain, Leaf, Battery, Zap, ArrowRight, TreePine, Factory, Award, TrendingDown, Recycle } from 'lucide-react';
+import { useRef } from 'react';
 
-const impactMetrics = [
+const sustainabilityPillars = [
   {
-    id: 'co2-offset',
-    label: 'Toneladas de CO₂ compensadas',
-    value: '32.500 t',
-    change: '+18% vs. 2023',
-    icon: Cloud,
-    progress: 0.78,
-    description: 'Programa Gabardo CarbonSafe com auditoria SGS.'
+    id: 'monitoring',
+    title: 'Monitoramento Contínuo',
+    subtitle: 'Auditoria Independente',
+    description: 'Sistema completo de medição e certificação de emissões com transparência total e auditoria SGS',
+    icon: Factory,
+    details: [
+      'Auditoria SGS em bases operacionais',
+      'Análise de rotas ativas completa', 
+      'Certificação ISO 14001 implementada'
+    ],
+    gradient: 'from-white via-gray-50 to-gray-100',
+    borderColor: 'border-gabardo-blue/20'
   },
   {
-    id: 'electric-fleet',
-    label: 'Frota eletrificada',
-    value: '18%',
-    change: '+6 pts. YoY',
+    id: 'technology',
+    title: 'Tecnologia Limpa',
+    subtitle: 'IA + Eletrificação',
+    description: 'Implementação de algoritmos de rota inteligente e transição para frota híbrida/elétrica',
     icon: Battery,
-    progress: 0.18,
-    description: 'Implementação de veículos elétricos e híbridos em rotas urbanas.'
+    details: [
+      'Sistema de IA recalibra rotas diariamente',
+      'Frota híbrida e elétrica implementada',
+      'Hubs solares em centros de distribuição'
+    ],
+    gradient: 'from-gabardo-blue/5 via-gabardo-blue/3 to-white',
+    borderColor: 'border-gabardo-blue/25'
   },
   {
-    id: 'route-optimisation',
-    label: 'Rotas otimizadas com IA',
-    value: '62%',
-    change: '+24% eficiência logística',
-    icon: Recycle,
-    progress: 0.62,
-    description: 'Menos quilometragem vazia, redução direta em emissões.'
+    id: 'compensation',
+    title: 'Compensação Certificada',
+    subtitle: 'Neutralidade Carbônica',
+    description: 'Primeira transportadora automotiva certificada carbono neutro pela SGS na América Latina',
+    icon: Leaf,
+    details: [
+      'Certificação SGS Carbon Neutral',
+      'Toneladas de CO₂ compensadas certificadas',
+      'Programa Raízes com mudas plantadas'
+    ],
+    gradient: 'from-gray-50 via-white to-gray-50',
+    borderColor: 'border-gabardo-blue/30'
+  },
+  {
+    id: 'regeneration',
+    title: 'Regeneração Ativa',
+    subtitle: 'Carbono Negativo',
+    description: 'Excedente de compensação que remove mais CO₂ da atmosfera do que produzimos',
+    icon: TreePine,
+    details: [
+      'Primeira transportadora carbono negativo LatAm',
+      'Excedente de CO₂ removido anualmente',
+      'Ecossistema regenerativo implementado'
+    ],
+    gradient: 'from-gabardo-blue/10 via-gabardo-blue/5 to-white',
+    borderColor: 'border-gabardo-blue/35'
   }
 ];
 
-const commitmentPillars = [
-  {
-    title: 'Certificação Carbono Negativo',
-    copy: 'Primeira transportadora da América Latina com certificação de emissões negativas em 2021.'
-  },
-  {
-    title: 'Energia Renovável',
-    copy: '100% dos pátios abastecidos por energia limpa, com usinas solares próprias.'
-  },
-  {
-    title: 'Economia Circular',
-    copy: 'Reaproveitamento de 92% de resíduos operacionais e embalagens retornáveis.'
-  }
-];
 
 const HomeSustainabilitySpotlight = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#0C1F3D] via-[#0C1F3D] to-[#071426] py-24 text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,182,255,0.18),_transparent_55%)]" />
-      <div className="absolute -left-32 top-16 h-64 w-64 rounded-full bg-gabardo-light-blue/10 blur-3xl" />
-      <div className="absolute -right-24 -bottom-10 h-72 w-72 rounded-full bg-white/5 blur-3xl" />
+    <section ref={containerRef} className="section-shell relative overflow-hidden py-32">
+      {/* Background Effects */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-24 top-24 h-72 w-72 rounded-full bg-gabardo-blue/8 blur-3xl" />
+        <div className="absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-gray-200/40 blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-50/30 to-transparent" />
+      </div>
 
-      <div className="relative z-10 section-container">
-        <div className="grid gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="space-y-8"
-          >
-            <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs uppercase tracking-[0.4em] text-gabardo-light-blue/90 backdrop-blur">
-              <Leaf className="h-4 w-4" />
-              <span>Gabardo Impacto Ambiental</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-              Logística carbono negativo com tecnologia e compromisso
-            </h2>
-            <p className="max-w-2xl text-base sm:text-lg text-white/75">
-              Lideramos a transição sustentável do transporte automotivo com soluções que reduzem emissões,
-              digitalizam operações e criam impacto positivo comprovado. Cada cliente participa de um ecossistema
-              medido, auditado e continuamente aprimorado.
-            </p>
+      <div className="section-container relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="mb-20 text-center"
+        >
+          <span className="section-eyebrow">Jornada Gabardo Carbono Negativo</span>
+          <h2 className="section-heading mt-5">
+            Da emissão convencional ao cume do carbono negativo
+          </h2>
+          <p className="section-subheading mt-6">
+            Uma ascensão técnica e sustentável através de quatro estações de impacto ambiental,
+            culminando na primeira certificação carbono negativo da América Latina para transporte automotivo.
+          </p>
+          <div className="section-divider mx-auto mt-10" />
+        </motion.div>
 
-            <div className="space-y-6">
-              {commitmentPillars.map((pillar) => (
-                <motion.div
-                  key={pillar.title}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.45 }}
-                  className="rounded-2xl border border-white/20 bg-white/5 p-5 backdrop-blur-lg"
+        {/* Sustainability Pillars */}
+        <div className="relative space-y-8">
+          {sustainabilityPillars.map((pillar, index) => {
+            const Icon = pillar.icon;
+            const cardProgress = useTransform(
+              scrollYProgress,
+              [index * 0.2, (index + 1) * 0.2],
+              [0, 1]
+            );
+            const cardY = useTransform(cardProgress, [0, 1], [100, 0]);
+            const cardScale = useTransform(cardProgress, [0, 1], [0.9, 1]);
+            const cardOpacity = useTransform(cardProgress, [0, 1], [0, 1]);
+
+            return (
+              <motion.div
+                key={pillar.id}
+                style={{
+                  y: cardY,
+                  scale: cardScale,
+                  opacity: cardOpacity,
+                }}
+                className={`sticky top-24 mx-auto max-w-4xl`}
+                transition={{ type: "spring", damping: 20, stiffness: 100 }}
+              >
+                <div 
+                  className={`relative overflow-hidden rounded-3xl border-2 ${pillar.borderColor} bg-gradient-to-br ${pillar.gradient} shadow-[0_40px_100px_-40px_rgba(19,45,81,0.2)]`}
+                  style={{
+                    zIndex: sustainabilityPillars.length - index,
+                    transform: `translateY(${index * -8}px)`,
+                  }}
                 >
-                  <h3 className="text-lg font-semibold text-white">{pillar.title}</h3>
-                  <p className="mt-2 text-sm text-white/70">{pillar.copy}</p>
-                </motion.div>
-              ))}
-            </div>
+                  {/* Card Content */}
+                  <div className="relative p-8 lg:p-12">
+                    <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+                      {/* Main Content */}
+                      <div className="space-y-6">
+                        <div className="flex items-center gap-4">
+                          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gabardo-blue/10 border border-gabardo-blue/20">
+                            <Icon className="h-8 w-8 text-gabardo-blue" />
+                          </div>
+                          <div>
+                            <h3 className="text-2xl font-bold text-gabardo-blue">{pillar.title}</h3>
+                            <div className="text-lg font-medium text-gabardo-blue/70">{pillar.subtitle}</div>
+                          </div>
+                        </div>
 
-            <Link
-              href="/sustentabilidade"
-              className="inline-flex items-center gap-2 rounded-full border border-gabardo-light-blue/60 bg-gabardo-light-blue/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.38em] text-gabardo-light-blue hover:bg-gabardo-light-blue/20 transition-colors"
-            >
-              Ver plano ESG completo
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </motion.div>
+                        <p className="text-lg text-gabardo-blue/80 leading-relaxed">
+                          {pillar.description}
+                        </p>
 
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="relative grid gap-6"
-          >
-            {impactMetrics.map((metric, idx) => {
-              const Icon = metric.icon;
-              return (
-                <motion.div
-                  key={metric.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.5, delay: idx * 0.12 }}
-                  className="group relative overflow-hidden rounded-3xl border border-white/15 bg-white/10 p-6 shadow-[0_35px_90px_-45px_rgba(8,18,34,0.9)] backdrop-blur-xl"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-gabardo-light-blue/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                  <div className="relative flex flex-col gap-4">
-                    <div className="flex items-center justify-between">
-                      <div className="inline-flex items-center gap-3 rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-[0.32em] text-white/80">
-                        <Icon className="h-4 w-4 text-gabardo-light-blue" />
-                        <span>{metric.label}</span>
+                        {/* Details List */}
+                        <div className="space-y-3">
+                          {pillar.details.map((detail, detailIndex) => (
+                            <motion.div
+                              key={detailIndex}
+                              initial={{ opacity: 0, x: -20 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.5, delay: detailIndex * 0.1 }}
+                              className="flex items-center gap-3"
+                            >
+                              <div className="h-2 w-2 rounded-full bg-gabardo-blue" />
+                              <span className="text-sm text-gabardo-blue/70">{detail}</span>
+                            </motion.div>
+                          ))}
+                        </div>
                       </div>
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.34em] text-white/40">
-                        {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="text-3xl font-semibold text-white">{metric.value}</p>
-                      <p className="text-sm text-gabardo-light-blue/80">{metric.change}</p>
-                    </div>
-                    <p className="text-sm text-white/70">{metric.description}</p>
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
-                      <div
-                        className="h-full rounded-full bg-gabardo-light-blue"
-                        style={{ width: `${Math.min(metric.progress, 1) * 100}%` }}
-                      />
                     </div>
                   </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
+
+                  {/* Background Pattern */}
+                  <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-gray-100/50 blur-2xl" />
+                  <div className="pointer-events-none absolute -bottom-12 -left-12 h-32 w-32 rounded-full bg-gabardo-blue/5 blur-xl" />
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="mt-16 text-center"
+        >
+          <Link
+            href="/sustentabilidade"
+            className="inline-flex items-center gap-3 rounded-full border border-gabardo-blue/30 bg-gabardo-blue/10 px-8 py-4 text-sm font-semibold uppercase tracking-wider text-gabardo-blue transition-all hover:bg-gabardo-blue/20 hover:shadow-lg"
+          >
+            <Recycle className="h-4 w-4" />
+            Relatório completo de sustentabilidade
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
