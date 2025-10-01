@@ -2,9 +2,13 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
+import LightRays from './LightRays';
+
 export default function EquipeHeroSection() {
   return (
     <div className="relative w-full h-[60vh] text-white overflow-hidden bg-black">
+      <LightRays />
+
       <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-4">
         <motion.h1
           initial={{ opacity: 0, y: 50 }}
