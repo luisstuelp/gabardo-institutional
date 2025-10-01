@@ -90,16 +90,23 @@ const MapboxSection: React.FC = () => {
       console.error('Mapbox Access Token is not configured');
       return;
     }
-
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
-    if (mapRef.current || !mapContainerRef.current) return;
+    if (mapRef.current) return;
+
+    const container = mapContainerRef.current;
+    if (!container) return;
 
     const map = new mapboxgl.Map({
-      container: mapContainerRef.current,
+      container,
       style: 'mapbox://styles/mapbox/dark-v11',
       center: [-47.8825, -15.7942], // Center on Brazil
       zoom: 4,
+      minZoom: 2.5,
+      maxBounds: [
+        [-110, -70],
+        [-20, 25],
+      ],
       attributionControl: false,
     });
 
@@ -107,14 +114,12 @@ const MapboxSection: React.FC = () => {
 
     map.on('load', () => {
       setMapLoaded(true);
-      
-      // Add custom navigation control
+
       map.addControl(new mapboxgl.NavigationControl({
         showCompass: false,
         showZoom: true,
       }), 'top-right');
 
-      // Add markers for each location
       locations.forEach((location) => {
         const markerElement = document.createElement('div');
         markerElement.className = 'custom-marker';
@@ -128,7 +133,6 @@ const MapboxSection: React.FC = () => {
           .setLngLat(location.coordinates)
           .addTo(map);
 
-        // Add click event to marker
         markerElement.addEventListener('click', () => {
           setSelectedLocation(location);
           map.flyTo({
@@ -139,7 +143,6 @@ const MapboxSection: React.FC = () => {
         });
       });
 
-      // Add custom styles for markers
       const style = document.createElement('style');
       style.textContent = `
         .custom-marker {
