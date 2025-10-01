@@ -122,17 +122,20 @@ export default function HeroSection() {
                 </span>
               </h1>
 
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-white/85 mb-5">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-white/85 mb-5">
                 <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
-                  <Leaf className="w-4 h-4 text-gabardo-light-blue" />
+                  <Leaf className="w-4 h-4 text-emerald-400" />
                   <span className="text-xs sm:text-sm font-semibold tracking-[0.28em] uppercase text-white">
                     Carbono negativo desde 2021
                   </span>
                 </div>
-                <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-white/75">
-                  <Dot className="w-4 h-4 text-gabardo-light-blue" />
-                  <span>32.500 t de CO₂ compensadas e frota com 18% veículos elétricos</span>
-                </div>
+                <Link
+                  href="/sustentabilidade"
+                  className="inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[0.28em] text-white/80 transition-colors hover:text-gabardo-light-blue"
+                >
+                  Conheça nossa certificação
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
               </div>
 
               <p className="font-secondary mt-3 text-sm sm:text-base md:text-base lg:text-lg font-light leading-relaxed mb-6 sm:mb-8">
@@ -165,13 +168,6 @@ export default function HeroSection() {
                 >
                   Seja nosso parceiro
                 </button>
-                <Link
-                  href="/sustentabilidade"
-                  className="font-secondary inline-flex items-center gap-2 text-white/80 hover:text-gabardo-light-blue transition-colors uppercase tracking-widest text-xs sm:text-sm"
-                >
-                  Conheça nossa certificação
-                  <ChevronRight className="w-4 h-4" />
-                </Link>
               </div>
             </div>
           </div>
