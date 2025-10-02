@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import WhatsAppFloat from "@/components/custom/WhatsAppFloat";
+import CookieConsentBanner from "@/components/custom/CookieConsentBanner";
 import { meta } from "@/data/hubPluralContent";
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className="font-primary">
         {children}
         <WhatsAppFloat />
+        <CookieConsentBanner />
       </body>
     </html>
   );

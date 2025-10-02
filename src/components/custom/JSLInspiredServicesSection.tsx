@@ -12,8 +12,6 @@ interface Service {
   features: string[];
   icon: React.ComponentType<any>;
   color: string;
-  metric: string;
-  metricLabel: string;
   caseLink: string;
 }
 
@@ -25,8 +23,6 @@ const services: Service[] = [
     features: ['Frota moderna com tecnologia embarcada', 'Cobertura nacional e Mercosul', 'Rastreamento em tempo real', 'Seguro total incluso'],
     icon: Truck,
     color: 'amber',
-    metric: '+18% redução de emissões por km',
-    metricLabel: 'Projeto Carbonsafe 2024',
     caseLink: '/servicos/transporte-veiculos'
   },
   {
@@ -36,8 +32,6 @@ const services: Service[] = [
     features: ['Coleta porta a porta', 'Armazenagem segura', 'Controle de estoque digital', 'Distribuição programada'],
     icon: MapPin,
     color: 'blue',
-    metric: '99,2% índice de SLA cumprido',
-    metricLabel: 'Case OEM Premium',
     caseLink: '/servicos/logistica-integrada'
   },
   {
@@ -47,8 +41,6 @@ const services: Service[] = [
     features: ['Seguro total do veículo', 'Profissionais certificados', 'Equipamentos de segurança', 'Monitoramento 24h'],
     icon: Shield,
     color: 'green',
-    metric: '0 incidentes críticos nos últimos 36 meses',
-    metricLabel: 'Programa Guardião 360º',
     caseLink: '/servicos/seguranca-protecao'
   },
   {
@@ -58,8 +50,6 @@ const services: Service[] = [
     features: ['Atendimento 24/7', 'Equipe especializada', 'Soluções customizadas', 'Relatórios detalhados'],
     icon: Users,
     color: 'purple',
-    metric: 'NPS médio 93',
-    metricLabel: 'Ciclo de avaliações 2023',
     caseLink: '/contato'
   },
   {
@@ -69,8 +59,6 @@ const services: Service[] = [
     features: ['Pontualidade garantida', 'Qualidade certificada', 'Processos otimizados', 'Excelência reconhecida'],
     icon: Clock,
     color: 'red',
-    metric: '98% entregas no prazo',
-    metricLabel: 'Dash Operacional Gabardo',
     caseLink: '/servicos/prazo-qualidade'
   },
   {
@@ -80,8 +68,6 @@ const services: Service[] = [
     features: ['35+ anos de mercado', 'Centenas de clientes', 'Experiência comprovada', 'Reconhecimento nacional'],
     icon: Star,
     color: 'yellow',
-    metric: '350 mil veículos entregues por ano',
-    metricLabel: 'Relatório ESG 2024',
     caseLink: '/sobre/historia'
   }
 ];
@@ -205,15 +191,6 @@ const JSLInspiredServicesSection: React.FC = () => {
                   </div>
 
                   <div className="mt-auto space-y-6">
-                    <div className="rounded-2xl border border-neutral-200/50 bg-neutral-50/80 px-4 py-3 text-sm text-neutral-600 shadow-inner group-hover:border-gabardo-light-blue/60">
-                      <p className="font-semibold uppercase tracking-[0.28em] text-[11px] text-gabardo-blue mb-1">
-                        {service.metricLabel}
-                      </p>
-                      <p className="text-base font-semibold text-neutral-800">
-                        {service.metric}
-                      </p>
-                    </div>
-
                     <Link
                       href={service.caseLink}
                       className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-neutral-500 transition-all duration-300 hover:text-gabardo-blue"

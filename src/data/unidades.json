@@ -1,0 +1,47 @@
+[
+  {
+    "nome": "Matriz Curitiba",
+    "estado": "PR",
+    "cidade": "São José dos Pinhais",
+    "endereco": "Rodovia BR-277, Km 72, São José dos Pinhais - PR",
+    "telefone": "+55 (41) 3333-0000",
+    "lat": -25.532,
+    "lng": -49.203,
+    "area_m2": 50000,
+    "capacidade_patio": 800,
+    "vagas_caminhoes": 200,
+    "principais_clientes": ["Volkswagen", "Audi", "Renault"],
+    "infraestrutura": ["Oficina própria", "Estacionamento frota", "Centro de treinamento"],
+    "fotos": ["/images/unidades/matriz-1.jpg", "/images/unidades/matriz-2.jpg"]
+  },
+  {
+    "nome": "Unidade Porto Alegre",
+    "estado": "RS",
+    "cidade": "Porto Alegre",
+    "endereco": "Av. das Indústrias, 1200, Porto Alegre - RS",
+    "telefone": "+55 (51) 3222-1111",
+    "lat": -30.0277,
+    "lng": -51.2287,
+    "area_m2": 30000,
+    "capacidade_patio": 500,
+    "vagas_caminhoes": 120,
+    "principais_clientes": ["General Motors", "Chevrolet"],
+    "infraestrutura": ["Oficina", "Pátio coberto", "Área administrativa"],
+    "fotos": ["/images/unidades/poa-1.jpg"]
+  },
+  {
+    "nome": "Unidade Rio de Janeiro",
+    "estado": "RJ",
+    "cidade": "Itatiaia",
+    "endereco": "Rodovia Presidente Dutra, Km 318, Itatiaia - RJ",
+    "telefone": "+55 (21) 2444-2222",
+    "lat": -22.4969,
+    "lng": -44.5638,
+    "area_m2": 40000,
+    "capacidade_patio": 600,
+    "vagas_caminhoes": 150,
+    "principais_clientes": ["Hyundai", "Fiat"],
+    "infraestrutura": ["Pátio pavimentado", "Centro de distribuição"],
+    "fotos": ["/images/unidades/rj-1.jpg"]
+  }
+]
