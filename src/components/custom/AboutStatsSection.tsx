@@ -8,108 +8,103 @@ import aboutContent from '@/data/aboutContent.json';
 interface Stat {
   id: string;
   icon: React.ReactNode;
-  number: number;
-  suffix: string;
+  target: number;
   title: string;
   description: string;
-  color: string;
   duration?: number;
-  formatValue?: (value: number) => string;
+  formatValue: (value: number) => string;
 }
 
+const descriptions: Record<string, string> = {
+  'Anos de atuação': 'Experiência acumulada suportando operações automotivas em todo o país.',
+  'Veículos transportados (2020–2024)': 'Volume consolidado sob protocolos de segurança, rastreabilidade e SLA rigoroso.',
+  'Idade média da frota': 'Frota jovem com manutenção dedicada, garantindo disponibilidade e confiabilidade.',
+  'Composição da frota': 'Equilíbrio entre ativos próprios e parceiros homologados para flexibilidade operacional.',
+};
+
+const extractNumber = (raw: string): number => {
+  const match = raw.match(/[\d.,]+/);
+  if (!match) return 0;
+  const sanitized = match[0].replace(/\.(?=\d)/g, '').replace(',', '.');
+  const parsed = parseFloat(sanitized);
+  return Number.isFinite(parsed) ? parsed : 0;
+};
+
 const stats: Stat[] = aboutContent.numbers.kpis.map((kpi, index) => {
-  let icon;
-  switch (kpi.label) {
-    case 'Anos de atuação':
-      icon = <Calendar className="w-8 h-8" />;
-      break;
-    case 'Veículos transportados (2020–2024)':
-      icon = <Truck className="w-8 h-8" />;
-      break;
-    case 'Idade média da frota':
-      icon = <Truck className="w-8 h-8" />;
-      break;
-    case 'Composição da frota':
-      icon = <Percent className="w-8 h-8" />;
-      break;
-    default:
-      icon = <Building2 className="w-8 h-8" />;
-  }
+  let icon: React.ReactNode = <Building2 className="w-8 h-8" />;
+  if (kpi.label === 'Anos de atuação') icon = <Calendar className="w-8 h-8" />;
+  if (kpi.label === 'Veículos transportados (2020–2024)') icon = <Truck className="w-8 h-8" />;
+  if (kpi.label === 'Idade média da frota') icon = <Truck className="w-8 h-8" />;
+  if (kpi.label === 'Composição da frota') icon = <Percent className="w-8 h-8" />;
+
+  const target = extractNumber(kpi.value);
+  const hasPlus = kpi.value.includes('+');
+  const [ownSegment, partnerSegment] = kpi.value.split('/');
+  const ownLabel = ownSegment?.replace(/^[\d\s.,+%]+/, '').trim() ?? '';
+  const partnerLabel = partnerSegment?.trim() ?? '';
+
+  const formatters: Record<string, (value: number) => string> = {
+    'Anos de atuação': (value) => `${Math.round(value)}${hasPlus ? '+' : ''}`,
+    'Veículos transportados (2020–2024)': (value) => `${Math.round(value).toLocaleString('pt-BR')}`,
+    'Idade média da frota': (value) => `${value.toFixed(1).replace('.', ',')} anos`,
+    'Composição da frota': (value) => `${Math.round(value)}%${ownLabel ? ` ${ownLabel}` : ''}${partnerLabel ? ` / ${partnerLabel}` : ''}`,
+  };
 
   return {
-    id: kpi.label.toLowerCase().replace(/\s/g, '-') ,
-    icon: icon,
-    number: parseFloat(kpi.value.replace('+', '').replace('%', '').replace(',', '.')), 
-    suffix: kpi.value.includes('+') ? '+' : kpi.value.includes('%') ? '%' : '',
+    id: kpi.label.toLowerCase().replace(/\s+/g, '-'),
+    icon,
+    target,
     title: kpi.label,
-    description: `,
-    color: 'gabardo',
-    duration: 2000 + index * 500,
-    formatValue: (value) => {
-      if (kpi.label === 'Veículos transportados (2020–2024)') {
-        return (value / 1000000).toFixed(3).replace('.', ',') + 'M';
-      }
-      if (kpi.label === 'Idade média da frota') {
-        return value.toFixed(1).replace('.', ',') + ' anos';
-      }
-      return Math.round(value).toLocaleString('pt-BR');
-    }
+    description: descriptions[kpi.label] ?? '',
+    duration: 2000 + index * 400,
+    formatValue: formatters[kpi.label] ?? ((value) => `${Math.round(value)}${hasPlus ? '+' : ''}`),
   };
 });
 
-const useCountUpStats = (stats: Stat[], isInView: boolean) => {
-  const [counts, setCounts] = useState<number[]>(stats.map(() => 0));
-  
+const useCountUpStats = (entries: Stat[], isInView: boolean) => {
+  const [counts, setCounts] = useState<number[]>(entries.map(() => 0));
+
   useEffect(() => {
     if (!isInView) return;
-    
+
     const animationFrames: number[] = [];
     const startTimes: number[] = [];
-    
-    const animateAll = () => {
-      stats.forEach((stat, index) => {
-        const duration = stat.duration || 2000;
-        
-        const animate = (timestamp: number) => {
-          if (!startTimes[index]) startTimes[index] = timestamp;
-          const progress = Math.min((timestamp - startTimes[index]) / duration, 1);
-          
-          const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-          const newValue = stat.number * easeOutQuart;
-          
-          setCounts(prevCounts => {
-            const newCounts = [...prevCounts];
-            newCounts[index] = newValue;
-            return newCounts;
-          });
-          
-          if (progress < 1) {
-            animationFrames[index] = requestAnimationFrame(animate);
-          }
-        };
-        
-        animationFrames[index] = requestAnimationFrame(animate);
-      });
-    };
-    
-    animateAll();
-    
-    return () => {
-      animationFrames.forEach(frame => {
-        if (frame) {
-          cancelAnimationFrame(frame);
+
+    entries.forEach((stat, index) => {
+      const duration = stat.duration ?? 2000;
+
+      const animate = (timestamp: number) => {
+        if (!startTimes[index]) startTimes[index] = timestamp;
+        const progress = Math.min((timestamp - startTimes[index]) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 4);
+        const value = stat.target * eased;
+
+        setCounts((prev) => {
+          const next = [...prev];
+          next[index] = value;
+          return next;
+        });
+
+        if (progress < 1) {
+          animationFrames[index] = requestAnimationFrame(animate);
         }
-      });
+      };
+
+      animationFrames[index] = requestAnimationFrame(animate);
+    });
+
+    return () => {
+      animationFrames.forEach((frame) => cancelAnimationFrame(frame));
     };
-  }, [stats, isInView]);
-  
+  }, [entries, isInView]);
+
   return counts;
 };
 
 const AboutStatsSection: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-120px' });
   const counts = useCountUpStats(stats, isInView);
 
   useEffect(() => {
@@ -120,22 +115,20 @@ const AboutStatsSection: React.FC = () => {
     return (
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 text-center">
-          <div className="text-gray-600">Loading stats...</div>
+          <div className="text-gray-600">Carregando indicadores...</div>
         </div>
       </section>
     );
   }
 
   return (
-    <section ref={ref} className="py-16 md:py-20 lg:py-24 bg-gray-50 relative overflow-hidden">
-
+    <section ref={sectionRef} className="py-16 md:py-20 lg:py-24 bg-gray-50 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-8 lg:px-16 relative z-10">
-        
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
           className="text-center mb-16 md:mb-20"
         >
           <motion.div
@@ -147,9 +140,9 @@ const AboutStatsSection: React.FC = () => {
             style={{ color: '#132D51' }}
           >
             {aboutContent.numbers.title}
-            <div className="absolute -bottom-1 left-0 w-8 h-px" style={{ backgroundColor: '#132D51' }}></div>
+            <div className="absolute -bottom-1 left-0 w-8 h-px" style={{ backgroundColor: '#132D51' }} />
           </motion.div>
-          
+
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -169,22 +162,12 @@ const AboutStatsSection: React.FC = () => {
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ 
-                duration: 0.8, 
-                delay: index * 0.1,
-                ease: "easeOut"
-              }}
-              whileHover={{ 
-                scale: 1.05, 
-                y: -10,
-                transition: { duration: 0.3 }
-              }}
-              className={`
-                relative p-6 md:p-8 border backdrop-blur-sm transition-all duration-500 hover:shadow-2xl group bg-white border-gray-200 shadow-sm hover:shadow-lg
-              `}
+              transition={{ duration: 0.8, delay: index * 0.1, ease: 'easeOut' }}
+              whileHover={{ scale: 1.05, y: -10, transition: { duration: 0.3 } }}
+              className="relative p-6 md:p-8 border backdrop-blur-sm transition-all duration-500 hover:shadow-2xl group bg-white border-gray-200 shadow-sm hover:shadow-lg"
             >
               <motion.div
-                whileHover={{ scale: 1.2, rotate: 10 }}
+                whileHover={{ scale: 1.15, rotate: 8 }}
                 transition={{ duration: 0.3 }}
                 className="w-16 h-16 rounded-full flex items-center justify-center mb-6"
                 style={{ color: '#132D51', backgroundColor: 'rgba(19, 45, 81, 0.1)' }}
@@ -193,11 +176,11 @@ const AboutStatsSection: React.FC = () => {
               </motion.div>
 
               <div className="mb-4">
-                <motion.span 
+                <motion.span
                   className="text-4xl md:text-5xl font-bold block leading-none font-primary"
                   style={{ color: '#132D51' }}
                 >
-                  {stat.formatValue ? stat.formatValue(counts[index]) : (counts[index]?.toLocaleString() || 0)}{stat.suffix}
+                  {stat.formatValue(counts[index])}
                 </motion.span>
               </div>
 
@@ -220,7 +203,6 @@ const AboutStatsSection: React.FC = () => {
             </motion.div>
           ))}
         </div>
-
       </div>
     </section>
   );
