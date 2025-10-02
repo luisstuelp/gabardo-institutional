@@ -5,6 +5,7 @@ import SobreInstitucionalOverviewSection from '@/components/custom/SobreInstituc
 import SobreInstitucionalOperationsSection from '@/components/custom/SobreInstitucionalOperationsSection';
 import SobreInstitucionalHighlightsSection from '@/components/custom/SobreInstitucionalHighlightsSection';
 import HomeHoverCardsSection from '@/components/custom/HomeHoverCardsSection';
+import SobreInstitucionalLeadershipSection from '@/components/custom/SobreInstitucionalLeadershipSection';
 import AboutCulturaSection from '@/components/custom/AboutCulturaSection';
 import AboutClientsSection from '@/components/custom/AboutClientsSection';
 
@@ -16,6 +17,7 @@ export default function SobreSecaoInstitucionalPage() {
       <SobreInstitucionalOverviewSection />
       <SobreInstitucionalOperationsSection />
       <SobreInstitucionalHighlightsSection />
+      <SobreInstitucionalLeadershipSection />
       <HomeHoverCardsSection />
       <AboutCulturaSection />
       <AboutClientsSection />

@@ -9,6 +9,8 @@ const institutionalHighlights = [
       'Estrutura distribuída em hubs logísticos que garante padronização operacional e tempo de resposta ágil.',
     imageAlt: 'Rede de unidades Gabardo conectadas',
     imagePlaceholder: '/images/placeholders/rede-institucional.jpg',
+    actionLabel: 'Mapa de unidades',
+    actionHref: '/sobre/unidades',
   },
   {
     title: 'Governança que prioriza segurança',
@@ -16,6 +18,8 @@ const institutionalHighlights = [
       'Processos auditados, certificações e cultura de segurança que sustentam decisões transparentes em toda a companhia.',
     imageAlt: 'Equipe analisando indicadores de governança',
     imagePlaceholder: '/images/placeholders/governanca-equipe.jpg',
+    actionLabel: 'Conhecer comitês',
+    actionHref: '/sobre/governanca',
   },
   {
     title: 'Inovação orientada por dados',
@@ -23,6 +27,8 @@ const institutionalHighlights = [
       'Inteligência analítica, telemetria e projetos de transformação digital aceleram a evolução das operações.',
     imageAlt: 'Dashboard de tecnologia e analytics em operação',
     imagePlaceholder: '/images/placeholders/inovacao-analytics.jpg',
+    actionLabel: 'Cases de tecnologia',
+    actionHref: '/sobre/inovacao',
   },
 ];
 
@@ -96,6 +102,21 @@ const SobreInstitucionalHighlightsSection = () => {
                 >
                   {highlight.description}
                 </motion.p>
+                <motion.a
+                  href={highlight.actionHref}
+                  className="inline-flex items-center gap-2 rounded-full border border-gabardo-blue/20 bg-gabardo-blue/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-blue transition-all hover:border-gabardo-blue/40 hover:bg-gabardo-blue/15"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.96 }}
+                >
+                  {highlight.actionLabel}
+                  <motion.span
+                    initial={{ x: 0 }}
+                    whileHover={{ x: 4 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    →
+                  </motion.span>
+                </motion.a>
               </div>
             </motion.div>
           ))}

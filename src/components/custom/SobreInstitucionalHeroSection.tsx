@@ -1,15 +1,28 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { ChevronDown } from 'lucide-react';
 
 const heroImage = '/images/gabardo-hero-02.JPG';
 
 const SobreInstitucionalHeroSection = () => {
+  const containerRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const backgroundShift = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
+  const foregroundShift = useTransform(scrollYProgress, [0, 1], ['0%', '8%']);
+
   return (
-    <section className="relative w-full h-screen text-white overflow-hidden">
-      <div className="absolute inset-0">
+    <section
+      ref={containerRef}
+      className="relative h-screen w-full overflow-hidden text-white"
+    >
+      <motion.div className="absolute inset-0" style={{ y: backgroundShift }}>
         <Image
           src={heroImage}
           alt="Centro operacional da Gabardo Distribuidora"
@@ -19,10 +32,20 @@ const SobreInstitucionalHeroSection = () => {
           sizes="100vw"
           quality={95}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/80" />
-      </div>
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/80"
+          style={{ y: foregroundShift }}
+        />
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-20 right-1/4 h-64 w-64 rounded-full bg-gabardo-blue/30 blur-[120px]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.4 }}
+        />
+      </motion.div>
 
-      <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-4 sm:px-6 md:px-8 lg:px-16">
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center sm:px-6 md:px-8 lg:px-16">
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -56,7 +79,7 @@ const SobreInstitucionalHeroSection = () => {
           transition={{ duration: 1, delay: 1.2 }}
           className="hidden md:flex flex-col items-center gap-3"
         >
-          <span className="text-xs tracking-[0.3em] uppercase text-white/70">Role para conhecer nossa estrutura</span>
+          <span className="text-xs tracking-[0.3em] uppercase text-white/70">Role para conhecer nossa cultura</span>
           <ChevronDown className="w-8 h-8 animate-bounce" />
         </motion.div>
       </div>

@@ -12,22 +12,24 @@ import InnovativeSolutionsSection from '@/components/custom/InnovativeSolutionsS
 import InitiativesSection from '@/components/custom/InitiativesSection';
 import SustainabilityStatsSection from '@/components/custom/SustainabilityStatsSection';
 import SustainabilityReportSection from '@/components/custom/SustainabilityReportSection';
+import HomeSustainabilitySpotlight from '@/components/custom/HomeSustainabilitySpotlight';
 import SocialSection from '@/components/custom/SocialSection';
+
 import GovernanceSection from '@/components/custom/GovernanceSection';
 import InovacoesSection from '@/components/custom/InovacoesSection';
 import SocialClimateSection from '@/components/custom/SocialClimateSection';
 import SocialHowWeActSection from '@/components/custom/SocialHowWeActSection';
 import SocialEASGSection from '@/components/custom/SocialEASGSection';
 import SocialFleetSection from '@/components/custom/SocialFleetSection';
-import SocialInnovationSection from '@/components/custom/SocialInnovationSection';
 import SocialCommitmentSection from '@/components/custom/SocialCommitmentSection';
+import SocialInnovationSection from '@/components/custom/SocialInnovationSection';
 import SocialInitiativesSection from '@/components/custom/SocialInitiativesSection';
 import GovernanceClimateSection from '@/components/custom/GovernanceClimateSection';
 import GovernanceHowWeActSection from '@/components/custom/GovernanceHowWeActSection';
 import GovernanceEASGSection from '@/components/custom/GovernanceEASGSection';
 import GovernanceFleetSection from '@/components/custom/GovernanceFleetSection';
-import GovernanceInnovationSection from '@/components/custom/GovernanceInnovationSection';
 import GovernanceCommitmentSection from '@/components/custom/GovernanceCommitmentSection';
+import GovernanceInnovationSection from '@/components/custom/GovernanceInnovationSection';
 import GovernanceInitiativesSection from '@/components/custom/GovernanceInitiativesSection';
 import InnovationClimateSection from '@/components/custom/InnovationClimateSection';
 import InnovationHowWeActSection from '@/components/custom/InnovationHowWeActSection';
@@ -48,6 +50,7 @@ export default function SustentabilidadePage() {
           <HowWeActSection />
           <SustainabilityStatsSection />
           <SustainabilityReportSection />
+          <HomeSustainabilitySpotlight />
           <EASGSection />
           <FleetSection />
           <MaxAgeSection />
