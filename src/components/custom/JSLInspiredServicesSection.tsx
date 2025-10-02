@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Truck, Shield, MapPin, Clock, Star, Users } from 'lucide-react';
+import { ArrowRight, Truck, Shield, MapPin } from 'lucide-react';
 
 interface Service {
   id: string;
@@ -17,58 +17,31 @@ interface Service {
 
 const services: Service[] = [
   {
-    id: 'transporte-cargas',
-    title: 'Transporte de Veículos',
-    description: 'Possuímos uma das maiores e mais modernas frotas de cegonheiras. Atendemos de forma personalizada em todas as regiões do Brasil e países do Mercosul.',
-    features: ['Frota moderna com tecnologia embarcada', 'Cobertura nacional e Mercosul', 'Rastreamento em tempo real', 'Seguro total incluso'],
+    id: 'transporte-automotivo',
+    title: 'Transporte automotivo completo',
+    description: 'Veículos novos, seminovos, importados e frotas corporativas.',
+    features: ['Frota moderna e rastreada', 'Cobertura nacional e Mercosul', 'Seguro total da carga', 'Equipe especializada'],
     icon: Truck,
     color: 'amber',
-    caseLink: '/servicos/transporte-veiculos'
+    caseLink: '/servicos/transporte-de-veiculos'
   },
   {
-    id: 'logistica-integrada',
-    title: 'Logística Integrada', 
-    description: 'Gerenciamos serviços completos de coleta, armazenagem e distribuição de veículos com controle total da operação e máxima eficiência.',
-    features: ['Coleta porta a porta', 'Armazenagem segura', 'Controle de estoque digital', 'Distribuição programada'],
-    icon: MapPin,
-    color: 'blue',
-    caseLink: '/servicos/logistica-integrada'
-  },
-  {
-    id: 'seguranca-total',
-    title: 'Segurança & Proteção',
-    description: 'Desenvolvemos soluções completas de segurança com profissionais treinados, equipamentos de última geração e cobertura total de seguros.',
-    features: ['Seguro total do veículo', 'Profissionais certificados', 'Equipamentos de segurança', 'Monitoramento 24h'],
+    id: 'pdi-digital',
+    title: 'PDI digital e rastreamento',
+    description: 'Inspeção eletrônica, controle de estoque e parqueamento integrado.',
+    features: ['Checklist eletrônico de avarias', 'Rastreamento em tempo real', 'Controle de pátio digital', 'Integração com sistemas'],
     icon: Shield,
+    color: 'blue',
+    caseLink: '/servicos/pdi-digital'
+  },
+  {
+    id: 'logistica-patio',
+    title: 'Logística de pátio e armazenagem',
+    description: 'Gestão sistêmica com segurança, eficiência e visibilidade total.',
+    features: ['Gestão de pátios e armazéns', 'Controle de inventário', 'Segurança patrimonial 24h', 'Otimização de espaço'],
+    icon: MapPin,
     color: 'green',
-    caseLink: '/servicos/seguranca-protecao'
-  },
-  {
-    id: 'atendimento',
-    title: 'Atendimento Personalizado',
-    description: 'Oferecemos suporte dedicado com equipe especializada para atender suas necessidades específicas de transporte de veículos.',
-    features: ['Atendimento 24/7', 'Equipe especializada', 'Soluções customizadas', 'Relatórios detalhados'],
-    icon: Users,
-    color: 'purple',
-    caseLink: '/contato'
-  },
-  {
-    id: 'prazo-qualidade',
-    title: 'Prazo & Qualidade',
-    description: 'Cumprimos rigorosamente os prazos estabelecidos mantendo os mais altos padrões de qualidade no transporte de veículos.',
-    features: ['Pontualidade garantida', 'Qualidade certificada', 'Processos otimizados', 'Excelência reconhecida'],
-    icon: Clock,
-    color: 'red',
-    caseLink: '/servicos/prazo-qualidade'
-  },
-  {
-    id: 'experiencia',
-    title: 'Experiência Comprovada',
-    description: 'Com mais de 35 anos no mercado, acumulamos vasta experiência e conquistamos a confiança de centenas de clientes em todo o Brasil.',
-    features: ['35+ anos de mercado', 'Centenas de clientes', 'Experiência comprovada', 'Reconhecimento nacional'],
-    icon: Star,
-    color: 'yellow',
-    caseLink: '/sobre/historia'
+    caseLink: '/servicos/armazenagem'
   }
 ];
 
@@ -92,7 +65,7 @@ const JSLInspiredServicesSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-sm font-light tracking-[0.25em] text-neutral-500 mb-4 uppercase relative inline-block"
           >
-            Portfólio de Serviços
+            O que fazemos
             <div
               className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-10 h-px"
               style={{ backgroundColor: '#38B6FF' }}
@@ -106,9 +79,9 @@ const JSLInspiredServicesSection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-tight"
           >
-            <span style={{ color: '#132D51' }}>Excelência em</span>
+            <span style={{ color: '#132D51' }}>Soluções Completas</span>
             <br />
-            <span className="text-neutral-600">Transporte &amp; Logística</span>
+            <span className="text-neutral-600">para a sua operação</span>
           </motion.h2>
 
           <motion.p
@@ -118,21 +91,7 @@ const JSLInspiredServicesSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-lg md:text-xl text-neutral-600 font-light max-w-4xl mx-auto leading-relaxed mt-6"
           >
-            A Gabardo é uma empresa 100% brasileira especializada em transporte de veículos.
-            Possuímos o portfólio de serviços mais completo do setor, com operações integradas
-            e personalizadas para cada cliente.
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-base md:text-lg text-neutral-500 font-light max-w-3xl mx-auto leading-relaxed mt-4"
-          >
-            Há 35 anos, entendemos as necessidades dos nossos clientes para entregar soluções seguras,
-            eficientes e com alto padrão de qualidade. Conheça cada serviço e descubra como podemos elevar
-            a sua operação.
+            A Gabardo oferece um portfólio completo de serviços para a logística automotiva, desde o transporte de veículos até a gestão de pátios e armazéns.
           </motion.p>
         </motion.div>
 
@@ -195,7 +154,7 @@ const JSLInspiredServicesSection: React.FC = () => {
                       href={service.caseLink}
                       className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-neutral-500 transition-all duration-300 hover:text-gabardo-blue"
                     >
-                      <span>Ver projeto</span>
+                      <span>Ver mais</span>
                       <ArrowRight className="w-4 h-4 transition-transform duration-300" />
                     </Link>
                     <motion.div

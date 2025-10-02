@@ -59,7 +59,7 @@ const VehicleTransportHero: React.FC = () => {
             className="text-xl md:text-2xl text-white/90 font-light leading-relaxed mb-10 max-w-3xl"
           >
             Com frota própria especializada e soluções personalizadas para grandes montadoras. 
-            Mais de 35 anos garantindo segurança, eficiência e sustentabilidade no transporte automotivo.
+            Mais de 36 anos garantindo segurança, eficiência e sustentabilidade no transporte automotivo.
           </motion.p>
 
           {/* CTA Buttons */}

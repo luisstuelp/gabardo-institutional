@@ -1,0 +1,95 @@
+{
+  "hero": {
+    "title": "Blog Transportes Gabardo",
+    "subtitle": "Insights sobre logística automotiva, sustentabilidade e tecnologia aplicados à cadeia LATAM."
+  },
+  "intro": {
+    "title": "Conteúdo especializado",
+    "paragraphs": [
+      "Aqui você encontra artigos, análises e notícias sobre transporte de veículos, inovação em logística e práticas sustentáveis.",
+      "Nosso objetivo é compartilhar conhecimento, apresentar tendências e mostrar como a TRANSPORTES GABARDO se posiciona como referência no setor automotivo."
+    ]
+  },
+  "highlights": {
+    "title": "Destaques recentes",
+    "items": [
+      {
+        "slug": "iso-39001-seguranca-viaria",
+        "title": "ISO 39001: como a certificação em Segurança Viária reduz riscos na logística automotiva",
+        "excerpt": "Entenda o impacto direto da ISO 39001 no transporte de veículos e na redução de acidentes.",
+        "cover": "/images/blog/iso-39001.jpg",
+        "date": "2025-09-20",
+        "author": "Equipe Gabardo",
+        "category": "Certificações"
+      },
+      {
+        "slug": "telemetria-frota-eficiencia",
+        "title": "Telemetria: como a análise de dados aumenta eficiência e reduz emissões",
+        "excerpt": "Frota conectada permite visibilidade, controle e melhorias contínuas no transporte automotivo.",
+        "cover": "/images/blog/telemetria.jpg",
+        "date": "2025-09-10",
+        "author": "Equipe Gabardo",
+        "category": "Tecnologia"
+      },
+      {
+        "slug": "esg-logistica-carbono-negativo",
+        "title": "Carbono negativo: o que significa e como alcançamos esse marco",
+        "excerpt": "Saiba como a Gabardo se tornou a primeira transportadora automotiva do mundo certificada como carbono negativa.",
+        "cover": "/images/blog/esg.jpg",
+        "date": "2025-08-30",
+        "author": "Equipe Gabardo",
+        "category": "Sustentabilidade"
+      }
+    ]
+  },
+  "categories": {
+    "title": "Categorias",
+    "items": [
+      { "slug": "sustentabilidade", "label": "Sustentabilidade" },
+      { "slug": "tecnologia", "label": "Tecnologia" },
+      { "slug": "seguranca-viaria", "label": "Segurança Viária" },
+      { "slug": "certificacoes", "label": "Certificações" },
+      { "slug": "mercado-automotivo", "label": "Mercado Automotivo" }
+    ]
+  },
+  "latest": {
+    "title": "Últimos artigos",
+    "items": [
+      {
+        "slug": "frota-euro6-sustentabilidade",
+        "title": "Frota Euro 6: por que a renovação é decisiva para ESG",
+        "excerpt": "Adoção de caminhões Euro 6 representa um salto na eficiência energética e na redução de emissões.",
+        "cover": "/images/blog/euro6.jpg",
+        "date": "2025-08-15",
+        "author": "Equipe Gabardo",
+        "category": "Sustentabilidade"
+      },
+      {
+        "slug": "logistica-digital-pdi",
+        "title": "PDI digital: transparência e rastreabilidade na entrega de veículos",
+        "excerpt": "Como checklists eletrônicos e laudos digitais elevam a experiência e reduzem erros.",
+        "cover": "/images/blog/pdi.jpg",
+        "date": "2025-08-01",
+        "author": "Equipe Gabardo",
+        "category": "Tecnologia"
+      }
+    ]
+  },
+  "newsletter": {
+    "title": "Assine nossa newsletter",
+    "subtitle": "Receba insights exclusivos sobre logística e sustentabilidade.",
+    "placeholder": "Digite seu e-mail",
+    "cta": "Assinar",
+    "successMessage": "Obrigado! Você foi inscrito em nossa newsletter.",
+    "errorMessage": "Não foi possível registrar seu e-mail. Tente novamente."
+  },
+  "cta": {
+    "title": "Quer saber mais sobre nossa operação?",
+    "subtitle": "Entre em contato com nosso time e descubra como podemos estruturar a solução ideal para sua logística automotiva.",
+    "button": "Fale com um especialista"
+  },
+  "schemaHints": {
+    "useBlogPostingSchema": true,
+    "fields": ["headline", "datePublished", "author", "image", "articleSection", "description", "url"]
+  }
+}

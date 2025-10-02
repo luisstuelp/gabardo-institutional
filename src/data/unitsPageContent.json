@@ -1,0 +1,57 @@
+{
+  "hero": {
+    "title": "Nossas Unidades e Infraestrutura",
+    "subtitle": "Bases estrategicamente distribuídas no Brasil para operar com escala, eficiência e segurança — com cobertura completa na LATAM."
+  },
+  "intro": {
+    "title": "Cobertura e Capilaridade",
+    "paragraphs": [
+      "A TRANSPORTES GABARDO está presente nas principais rotas automotivas do país, integrando fábricas, pátios e concessionárias com tempo de resposta ágil e padrão operacional único.",
+      "Cada base reúne infraestrutura técnica, segurança patrimonial e conectividade de TI (SD-WAN e links redundantes) para garantir continuidade dos serviços."
+    ],
+    "bullets": [
+      "Pátios pavimentados e áreas dedicadas a PDI e parqueamento",
+      "Oficinas próprias e boxes de manutenção",
+      "Controle de acesso, CFTV e operação 24/7 (onde aplicável)",
+      "Energia solar em expansão e preparação para carregamento de veículos elétricos",
+      "Integração com portos e habilitação aduaneira (DTA) quando necessário"
+    ]
+  },
+  "map": {
+    "title": "Mapa de Unidades",
+    "description": "Visualize nossas bases operacionais pelo mapa e filtre por região, serviços e infraestrutura.",
+    "defaultZoom": 5,
+    "defaultCenter": { "lat": -15.7797, "lng": -47.9297 },
+    "tileProvider": "maplibre",
+    "filters": {
+      "regions": ["Sul", "Sudeste", "Centro-Oeste", "Nordeste"],
+      "services": ["Transporte", "PDI", "Parqueamento", "Armazenagem", "Distribuição", "Manutenção"],
+      "infra": ["Oficina", "Pátio pavimentado", "Pórtico de inspeção", "Lavação", "Balança", "Posto de combustível", "Energia solar", "CFTV 24/7", "Controle de acesso"]
+    }
+  },
+  "unitsList": {
+    "title": "Bases e contatos",
+    "tableColumns": ["Unidade", "Cidade/UF", "Telefone", "Serviços", "Horário"],
+    "ctaCopy": "Precisa de atendimento regional?",
+    "ctaButton": "Fale com um especialista"
+  },
+  "infrastructure": {
+    "title": "Infraestrutura Padrão",
+    "paragraphs": [
+      "Nossas unidades seguem um padrão de infraestrutura que inclui pátios dimensionados para alto giro de veículos, boxes de manutenção, áreas de PDI e inspeção eletrônica.",
+      "A conectividade é garantida por SD-WAN e links redundantes (principal e backup), com monitoramento de rede e rotinas de backup noturno para os sistemas corporativos."
+    ],
+    "cards": [
+      { "title": "Segurança", "items": ["CFTV 24/7", "Controle de acesso", "Portaria dedicada", "Iluminação perimetral"] },
+      { "title": "Operação", "items": ["PDI digital", "Parqueamento", "Armazenagem", "Distribuição"] },
+      { "title": "Manutenção", "items": ["Oficina própria", "Boxes cobertos", "Checklists eletrônicos"] },
+      { "title": "Sustentabilidade", "items": ["Energia solar (em expansão)", "Gestão de resíduos", "Preparação para EV"] },
+      { "title": "TI e Continuidade", "items": ["SD-WAN", "Links redundantes", "Backups gerenciados", "Monitoramento"] }
+    ]
+  },
+  "cta": {
+    "title": "Atendimento onde você precisa",
+    "subtitle": "Nosso time comercial e operacional está pronto para estruturar a melhor solução para a sua demanda.",
+    "button": "Entre em contato"
+  }
+}

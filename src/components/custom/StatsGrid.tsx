@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
@@ -18,41 +18,52 @@ type Stat = {
 
 const stats: Stat[] = [
   {
-    id: "years",
+    id: "anos",
     icon: <Calendar className="h-6 w-6" strokeWidth={2.4} />,
     value: 36,
     suffix: "+",
-    title: "ANOS NO MERCADO",
-    description: "Desde 1989 liderando operações com excelência.",
+    title: "Anos de estrada",
+    description: "Desde 1989, mais de 3 décadas de experiência em logística automotiva.",
     accent: "light",
     duration: 2600
   },
   {
-    id: "vehicles",
+    id: "veiculos",
     icon: <Truck className="h-6 w-6" strokeWidth={2.4} />,
-    value: 1400000,
-    title: "VEÍCULOS TRANSPORTADOS",
-    description: "Milhões de entregas com segurança e precisão.",
+    value: 1455360,
+    title: "Veículos transportados (2020–2024)",
+    description: "Mais de 1.4 milhão de veículos transportados nos últimos 5 anos.",
     accent: "dark",
     duration: 3400,
-    formatValue: (value) => `${(value / 1_000_000).toFixed(1)}M+`
+    formatValue: (value) => `${(Math.floor((value / 1000000) * 10) / 10).toFixed(1)}M+`
   },
   {
-    id: "bases",
+    id: "idade-media",
+    icon: <Truck className="h-6 w-6" strokeWidth={2.4} />,
+    value: 2.5,
+    suffix: " anos",
+    title: "Idade média da frota",
+    description: "Frota moderna e eficiente para garantir a segurança e a qualidade do transporte.",
+    accent: "dark",
+    duration: 3000,
+    formatValue: (value) => `${value.toFixed(1).replace('.',',')} anos`
+  },
+  {
+    id: "frota-propria",
     icon: <Building2 className="h-6 w-6" strokeWidth={2.4} />,
     value: 50,
     suffix: "+",
-    title: "BASES E UNIDADES",
+    title: "Bases e unidades",
     description: "Cobertura estratégica em todo o território nacional.",
     accent: "dark",
-    duration: 3000
+    duration: 2400
   },
   {
-    id: "satisfaction",
+    id: "satisfacao-clientes",
     icon: <Star className="h-6 w-6" strokeWidth={2.4} />,
     value: 99,
     suffix: "%",
-    title: "SATISFAÇÃO CLIENTES",
+    title: "Satisfação clientes",
     description: "Resultados reconhecidos pelos parceiros Gabardo.",
     accent: "light",
     duration: 2600
@@ -82,12 +93,9 @@ const useCountUpStats = (items: Stat[], shouldAnimate: boolean) => {
 
         const progress = Math.min((timestamp - startTimes[index]) / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 4);
-        const nextValue = Math.round(target * eased);
+        const nextValue = target * eased;
 
         setCounts((prev) => {
-          if (prev[index] === nextValue) {
-            return prev;
-          }
           const updated = [...prev];
           updated[index] = nextValue;
           return updated;
@@ -117,6 +125,18 @@ const useCountUpStats = (items: Stat[], shouldAnimate: boolean) => {
 const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat, value, index }) => {
   const isDark = stat.accent === "dark";
 
+  const formatDisplayValue = (input: number) => {
+    if (stat.formatValue) {
+      return stat.formatValue(input);
+    }
+    const rounded = Math.round(input);
+    return `${rounded.toLocaleString("pt-BR")}${stat.suffix ?? ""}`;
+  };
+
+  const currentDisplay = formatDisplayValue(value);
+  const finalDisplay = formatDisplayValue(stat.value);
+  const minWidthCh = Math.max(finalDisplay.length, currentDisplay.length);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 36, scale: 0.96 }}
@@ -138,10 +158,11 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
       <div className="relative flex flex-col gap-7">
         <div className="flex items-start justify-between gap-6">
           <div className="flex flex-col gap-3">
-            <span className={`text-4xl font-extrabold tracking-tight md:text-[48px] ${isDark ? "text-white" : "text-gabardo-blue"}`}>
-              {stat.formatValue
-                ? stat.formatValue(value)
-                : `${value.toLocaleString("pt-BR")}${stat.suffix ?? ""}`}
+            <span
+              className={`text-4xl font-extrabold tracking-tight md:text-[48px] tabular-nums ${isDark ? "text-white" : "text-gabardo-blue"}`}
+              style={{ minWidth: `${minWidthCh}ch` }}
+            >
+              {currentDisplay}
             </span>
             <p
               className={`max-w-[240px] text-sm leading-relaxed ${
@@ -174,10 +195,10 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
         </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-0 rounded-[26px] border border-white/12 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="pointer-events-none absolute inset-0 rounded-[26px] border border-gabardo-light-blue/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       <div
         className={`pointer-events-none absolute inset-0 rounded-[26px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${
-          isDark ? "bg-white/6" : "bg-white/50"
+          isDark ? "bg-gabardo-light-blue/20" : "bg-gabardo-light-blue/40"
         }`}
       />
     </motion.div>

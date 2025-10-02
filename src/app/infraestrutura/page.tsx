@@ -2,7 +2,9 @@ import { Header } from "@/components/layout/Header";
 import Footer from '@/components/layout/Footer';
 import InfraestruturaHeroSection from '@/components/custom/InfraestruturaHeroSection';
 import FacilitiesSection from '@/components/custom/FacilitiesSection';
-import LocationsSection from '@/components/custom/LocationsSection';
+
+
+import LocationsListSection from '@/components/custom/LocationsListSection';
 
 export default function InfraestruturaPage() {
   return (
@@ -10,7 +12,7 @@ export default function InfraestruturaPage() {
       <Header variant="dark" />
       <InfraestruturaHeroSection />
       <FacilitiesSection />
-      <LocationsSection />
+      <LocationsListSection />
       <Footer />
     </main>
   );

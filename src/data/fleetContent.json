@@ -1,0 +1,65 @@
+{
+  "hero": {
+    "title": "Nossa Frota",
+    "subtitle": "Uma das maiores e mais modernas frotas próprias da América Latina, preparada para atender com eficiência, segurança e sustentabilidade."
+  },
+  "overview": {
+    "title": "Panorama geral",
+    "paragraphs": [
+      "A Transportes Gabardo possui uma frota jovem e padronizada, com idade média de apenas 2,5 anos, garantindo maior confiabilidade operacional e menor impacto ambiental.",
+      "São 1.311 caminhões e 1.061 carretas cegonheiras, além de equipamentos complementares, que permitem atender diferentes demandas da cadeia automotiva em toda a LATAM."
+    ]
+  },
+  "composition": {
+    "title": "Composição da frota",
+    "items": [
+      { "label": "Caminhões", "value": "1.311" },
+      { "label": "Carretas cegonheiras", "value": "1.061" },
+      { "label": "Trucks", "value": "17" },
+      { "label": "Carretas sider", "value": "42" },
+      { "label": "Plataformas", "value": "39" },
+      { "label": "Plataformas sider", "value": "6" }
+    ],
+    "note": "Aproximadamente 79% da frota é própria e 21% de terceiros, mantendo controle total da qualidade e padronização."
+  },
+  "differentiators": {
+    "title": "Diferenciais da frota",
+    "items": [
+      "Idade média de 2,5 anos, garantindo modernidade e eficiência.",
+      "100% padronizada, logotipada e higienizada.",
+      "Vistoria completa antes de cada carregamento.",
+      "Oficinas próprias para manutenção preventiva e corretiva.",
+      "Renovação contínua para manter a frota atualizada.",
+      "Equipamentos monitorados por telemetria e rastreamento em tempo real."
+    ]
+  },
+  "safetyAndMaintenance": {
+    "title": "Segurança e manutenção",
+    "paragraphs": [
+      "Todos os veículos passam por inspeções de segurança antes do embarque, assegurando padrões rigorosos de qualidade.",
+      "A Gabardo conta com oficinas próprias para manutenções preventivas e corretivas, além de equipes técnicas dedicadas em diversas bases.",
+      "A gestão de riscos inclui monitoramento 24h, telemetria embarcada e treinamentos constantes para motoristas."
+    ]
+  },
+  "sustainability": {
+    "title": "Frota sustentável",
+    "paragraphs": [
+      "Investimos continuamente na renovação da frota para atender aos mais altos padrões de eficiência energética e redução de emissões.",
+      "Nossa meta é ampliar progressivamente a frota Euro 6 e adotar soluções de combustíveis alternativos para consolidar nossa posição como empresa carbono negativa."
+    ]
+  },
+  "kpis": {
+    "title": "Indicadores de frota",
+    "items": [
+      { "label": "Idade média", "value": "2,5 anos" },
+      { "label": "Percentual própria", "value": "79%" },
+      { "label": "Percentual terceiros", "value": "21%" },
+      { "label": "Cobertura LATAM", "value": "100%" }
+    ]
+  },
+  "cta": {
+    "title": "Precisa de soluções logísticas automotivas?",
+    "subtitle": "Nossa frota está pronta para atender sua operação com segurança, confiabilidade e sustentabilidade em toda a LATAM.",
+    "button": "Entre em contato"
+  }
+}

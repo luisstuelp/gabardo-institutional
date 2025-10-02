@@ -380,7 +380,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
                     <div className="text-white/80">
                       <h3 className="text-lg font-light mb-3">Gabardo Transportes</h3>
                       <p className="text-base font-light leading-relaxed mb-4">
-                        Há mais de 35 anos transportando veículos com segurança, tecnologia e excelência em todo o Brasil.
+                        Há mais de 36 anos transportando veículos com segurança, tecnologia e excelência em todo o Brasil.
                       </p>
                       
                       <div className="flex items-center space-x-2 mb-3 text-gabardo-light-blue">

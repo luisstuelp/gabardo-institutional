@@ -1,0 +1,67 @@
+{
+  "hero": {
+    "title": "ESG e Sustentabilidade",
+    "subtitle": "Compromisso com operações responsáveis, certificações internacionais e a primeira logística automotiva do mundo com produção de carbono negativa."
+  },
+  "intro": {
+    "title": "Nosso compromisso",
+    "paragraphs": [
+      "A Transportes Gabardo entende que a sustentabilidade é parte central da sua estratégia de negócio. Atuamos em toda a LATAM com práticas que reduzem impactos ambientais, promovem a responsabilidade social e asseguram padrões de governança de excelência.",
+      "Com inventários anuais de emissões de gases de efeito estufa desde 2017, e projetos contínuos de compensação e eficiência energética, consolidamos nossa posição como referência em ESG no setor logístico."
+    ]
+  },
+  "certifications": {
+    "title": "Certificações internacionais",
+    "items": [
+      { "name": "ISO 9001", "description": "Gestão da Qualidade" },
+      { "name": "ISO 14001", "description": "Gestão Ambiental" },
+      { "name": "ISO 39001", "description": "Gestão da Segurança Viária" }
+    ],
+    "note": "Nossas certificações refletem o compromisso com a melhoria contínua, segurança operacional e responsabilidade ambiental."
+  },
+  "environment": {
+    "title": "Gestão ambiental",
+    "paragraphs": [
+      "Realizamos inventários anuais de emissões GEE segundo a metodologia GHG Protocol.",
+      "Frota moderna, com idade média de 2,5 anos, reduzindo emissões e ampliando eficiência energética.",
+      "Programas de reflorestamento e compensação ambiental.",
+      "Projetos de energia solar em expansão para abastecer unidades operacionais.",
+      "Adoção e ampliação contínua de veículos Euro 6 e tecnologias de combustíveis alternativos."
+    ]
+  },
+  "goals": {
+    "title": "Nossas metas",
+    "items": [
+      "Zerar emissões líquidas de carbono até 2030.",
+      "Ampliar frota Euro 6 em toda a operação até 2026.",
+      "Reduzir em 50% as avarias por quilômetro até 2027.",
+      "Expandir geração de energia solar para todas as unidades até 2026.",
+      "Promover capacitação contínua de motoristas em direção segura e sustentável."
+    ]
+  },
+  "social": {
+    "title": "Responsabilidade social",
+    "paragraphs": [
+      "Investimos em programas de saúde, segurança e capacitação para motoristas e colaboradores.",
+      "Atuamos em projetos sociais e de inclusão nas comunidades onde estamos presentes.",
+      "Incentivamos a diversidade e a equidade em nosso ambiente de trabalho."
+    ]
+  },
+  "governance": {
+    "title": "Governança e ética",
+    "paragraphs": [
+      "Mantemos políticas de integridade e conformidade baseadas em padrões internacionais.",
+      "Nosso Canal de Ética assegura confidencialidade e permite relatos anônimos, em conformidade com a LGPD.",
+      "Treinamentos periódicos e auditorias garantem o cumprimento das normas e a transparência em nossas operações."
+    ]
+  },
+  "highlight": {
+    "title": "Carbono negativo",
+    "paragraph": "A Transportes Gabardo é a primeira empresa de logística automotiva do mundo certificada com produção de carbono negativa, reforçando nosso compromisso de liderar o setor rumo a uma economia de baixo carbono."
+  },
+  "cta": {
+    "title": "Junte-se a nós na transformação sustentável",
+    "subtitle": "Seja cliente, parceiro ou colaborador e faça parte de uma logística que conecta eficiência e responsabilidade ambiental.",
+    "button": "Entre em contato"
+  }
+}

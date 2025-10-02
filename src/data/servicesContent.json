@@ -1,0 +1,272 @@
+{
+  "hero": {
+    "title": "Serviços Logísticos",
+    "subtitle": "Soluções ponta a ponta para a cadeia automotiva: do pátio à concessionária, com segurança, eficiência e visibilidade total."
+  },
+  "intro": {
+    "title": "O que entregamos",
+    "paragraphs": [
+      "A TRANSPORTES GABARDO integra transporte de veículos, PDI digital, parqueamento, armazenagem, distribuição e gestão de riscos em uma única plataforma operacional.",
+      "Com processos padronizados, telemetria, indicadores e certificações ISO, garantimos previsibilidade, controle e SLA em toda a LATAM."
+    ],
+    "bullets": [
+      "Operação nacional com cobertura LATAM",
+      "Frota jovem e padronizada",
+      "Gerenciamento de riscos 24/7",
+      "Integração de sistemas e rastreabilidade",
+      "Planos sob medida por cliente e rota"
+    ]
+  },
+  "services": {
+    "title": "Nossas soluções",
+    "items": [
+      {
+        "slug": "transporte-de-veiculos",
+        "icon": "truck",
+        "title": "Transporte de Veículos",
+        "description": "Movimentação de veículos leves e pesados — novos, seminovos, importados e frotas corporativas — com planejamento de rotas, segurança viária e controle de avarias.",
+        "features": [
+          "Agendamento e roteirização com janela de coleta/entrega",
+          "Checklist eletrônico e conferência de lacres",
+          "Telemetria, monitoramento e controle de velocidade",
+          "Seguro nacional e internacional"
+        ],
+        "deliverables": [
+          "Coletas/entregas conforme SLA acordado",
+          "Rastreio e visibilidade de status",
+          "Relatórios periódicos de performance"
+        ],
+        "outcomes": [
+          "Redução de lead time",
+          "Menor índice de avarias",
+          "Previsibilidade de janelas e custos"
+        ],
+        "cta": "Solicitar plano de transporte"
+      },
+      {
+        "slug": "pdi-digital",
+        "icon": "clipboard-check",
+        "title": "PDI Digital",
+        "description": "Inspeção pré-entrega com registro eletrônico de não conformidades, fotos, laudos e integração ao seu sistema (OEM, pátio ou concessionária).",
+        "features": [
+          "App de checklist com anexos de imagem",
+          "Etiquetagem, códigos e rastreio por lote/vin",
+          "Integração via API com ERPs e CRMs"
+        ],
+        "deliverables": [
+          "Relatórios de PDI por lote/veículo",
+          "Dashboard de não conformidades",
+          "KPIs de qualidade"
+        ],
+        "outcomes": [
+          "Transparência e rastreabilidade total",
+          "Redução de retrabalho",
+          "Melhoria contínua baseada em dados"
+        ],
+        "cta": "Conhecer o PDI digital"
+      },
+      {
+        "slug": "parqueamento",
+        "icon": "warehouse",
+        "title": "Parqueamento",
+        "description": "Gestão de pátios com controle sistêmico de entrada/saída, posicionamento e inventário, incluindo áreas dedicadas a OEMs e operadores.",
+        "features": [
+          "Gate-in/gate-out com registro eletrônico",
+          "Mapeamento de posições e giro de pátio",
+          "Segurança patrimonial 24/7"
+        ],
+        "deliverables": [
+          "Inventário diário e auditorias",
+          "Mapa de ocupação e SLA de movimentação",
+          "Relatórios de perdas e desvios"
+        ],
+        "outcomes": [
+          "Aumento do giro de pátio",
+          "Menor tempo de localização",
+          "Risco patrimonial reduzido"
+        ],
+        "cta": "Estruturar parqueamento"
+      },
+      {
+        "slug": "armazenagem",
+        "icon": "boxes",
+        "title": "Armazenagem",
+        "description": "Áreas cobertas e dedicadas para peças, acessórios e itens correlatos à operação automotiva, com inventário e controle por lote.",
+        "features": [
+          "Recebimento, conferência e endereçamento",
+          "Inventário rotativo e por amostragem",
+          "Segregação por cliente/linha/projeto"
+        ],
+        "deliverables": [
+          "Relatórios de estoque e divergências",
+          "SLA de separação/expedição",
+          "Integração WMS/ERP"
+        ],
+        "outcomes": [
+          "Acuracidade de estoque",
+          "Agilidade em expedição",
+          "Redução de perdas"
+        ],
+        "cta": "Dimensionar armazenagem"
+      },
+      {
+        "slug": "distribuicao",
+        "icon": "route",
+        "title": "Distribuição",
+        "description": "Planejamento de janelas de entrega, milk-runs e transferências com visibilidade ponta a ponta e controle de evidências.",
+        "features": [
+          "Planejamento dinâmico de rotas",
+          "Provas de entrega (POD) digitais",
+          "Monitoramento de janelas e ocorrências"
+        ],
+        "deliverables": [
+          "Relatórios de OTIF e ocorrências",
+          "Roteiros e mapas de calor",
+          "Painel de janelas por região"
+        ],
+        "outcomes": [
+          "Maior OTIF",
+          "Cumprimento de janelas",
+          "Menor custo por entrega"
+        ],
+        "cta": "Otimizar distribuição"
+      },
+      {
+        "slug": "gestao-de-riscos",
+        "icon": "shield-check",
+        "title": "Gestão de Riscos",
+        "description": "Time dedicado, procedimentos, tecnologia embarcada e protocolos de resposta para proteger pessoas, cargas e ativos.",
+        "features": [
+          "Central 24/7, telemetria e cercas eletrônicas",
+          "Protocolos de emergência e contingência",
+          "Auditorias e treinamentos recorrentes"
+        ],
+        "deliverables": [
+          "Relatórios de incidentes e causas",
+          "Planos de ação e de contingência",
+          "KPIs de segurança viária"
+        ],
+        "outcomes": [
+          "Mitigação de perdas",
+          "Conformidade com normas",
+          "Menor exposição a riscos"
+        ],
+        "cta": "Conhecer a gestão de riscos"
+      },
+      {
+        "slug": "portos-e-aduana",
+        "icon": "anchor",
+        "title": "Portos & Aduana",
+        "description": "Operações portuárias e trânsito aduaneiro (DTA) com equipe habilitada, documentação e conformidade.",
+        "features": [
+          "Coordenação portuária e agenda",
+          "Documentação, vistorias e lacres",
+          "Integração com terminais e recintos alfandegados"
+        ],
+        "deliverables": [
+          "Checklists e evidências por lote",
+          "Acompanhamento de escala/atracação",
+          "Relatórios de lead time e custos"
+        ],
+        "outcomes": [
+          "Eficiência na janela portuária",
+          "Aduana sem surpresas",
+          "Conformidade e rastreio"
+        ],
+        "cta": "Falar sobre portos & DTA"
+      }
+    ]
+  },
+  "process": {
+    "title": "Como operamos",
+    "steps": [
+      { "step": 1, "title": "Diagnóstico", "description": "Levantamento de escopo, volumes, rotas e janelas." },
+      { "step": 2, "title": "Desenho da solução", "description": "Plano operacional com metas, SLAs e indicadores." },
+      { "step": 3, "title": "Integração e kick-off", "description": "Integração de sistemas, pilotos e start por fases." },
+      { "step": 4, "title": "Operação assistida", "description": "Rotina de acompanhamento, KPIs e governança." },
+      { "step": 5, "title": "Melhoria contínua", "description": "Auditorias, planos de ação e revisões trimestrais." }
+    ],
+    "note": "Cada contrato recebe um plano sob medida, com responsabilidades e rotinas de governança definidas."
+  },
+  "differentiators": {
+    "title": "Por que a Gabardo",
+    "items": [
+      "Tripla certificação ISO (9001, 14001, 39001)",
+      "Frota jovem, padronizada e com manutenção própria",
+      "Gerenciadora de riscos 24/7 e protocolos de segurança",
+      "Integração sistêmica e rastreabilidade ponta a ponta",
+      "Cobertura LATAM com bases estrategicamente distribuídas",
+      "Cultura de dados e melhoria contínua"
+    ]
+  },
+  "kpis": {
+    "title": "Indicadores que acompanhamos",
+    "items": [
+      { "label": "OTIF (On Time In Full)", "description": "Pontualidade e completude de entregas" },
+      { "label": "Avarias / 10.000 km", "description": "Índice de danos por distância percorrida" },
+      { "label": "Lead time por rota", "description": "Tempo de ciclo da operação" },
+      { "label": "Aderência a janela", "description": "Cumprimento de time windows" },
+      { "label": "Utilização de frota", "description": "Eficiência por ativo e por rota" }
+    ]
+  },
+  "tech": {
+    "title": "Tecnologia e integração",
+    "paragraphs": [
+      "Telemetria, rastreamento e controle de velocidade embarcados; checklists eletrônicos e POD digital.",
+      "Integrações via API com ERPs, CRMs e sistemas OEM/pátios/concessionárias; dashboards e relatórios automatizados.",
+      "SD-WAN e links redundantes em todas as bases, com rotinas de backup noturno e incrementais."
+    ]
+  },
+  "compliance": {
+    "title": "Compliance e certificações",
+    "bullets": [
+      "ISO 9001 (Qualidade) — padronização e auditorias",
+      "ISO 14001 (Ambiental) — gestão e metas de redução",
+      "ISO 39001 (Segurança Viária) — protocolos e KPIs",
+      "Portos & Aduana — DTA habilitado conforme legislação",
+      "LGPD — proteção de dados e Canal de Ética"
+    ]
+  },
+  "faqs": {
+    "title": "Perguntas frequentes",
+    "items": [
+      {
+        "question": "Vocês atendem fora do Brasil?",
+        "answer": "Sim. Operamos com cobertura LATAM e frota 100% permissionada para atuar na região."
+      },
+      {
+        "question": "É possível integrar sistemas?",
+        "answer": "Sim. Possuímos APIs e conectores para integração com ERPs, CRMs, WMS e sistemas de OEMs e operadores de pátio."
+      },
+      {
+        "question": "Como são medidos os SLAs?",
+        "answer": "Definimos metas por contrato (OTIF, lead time, avarias/km, aderência a janela) e reportamos via dashboards e relatórios periódicos."
+      },
+      {
+        "question": "Vocês oferecem seguro das cargas?",
+        "answer": "Sim. Mantemos apólices com coberturas nacionais e internacionais conforme a natureza da operação."
+      },
+      {
+        "question": "Como funciona o PDI digital?",
+        "answer": "Realizamos inspeções com checklist eletrônico, fotos e laudos integrados ao seu sistema para rastreabilidade e tomada de decisão."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Quer uma solução sob medida?",
+    "subtitle": "Apresente seu volume, rotas e janelas. Montamos um plano operacional com metas, SLAs e indicadores.",
+    "button": "Fale com um especialista"
+  },
+  "schemaHints": {
+    "useServiceSchema": true,
+    "services": [
+      { "@type": "Service", "name": "Transporte de Veículos" },
+      { "@type": "Service", "name": "PDI Digital" },
+      { "@type": "Service", "name": "Parqueamento" },
+      { "@type": "Service", "name": "Armazenagem" },
+      { "@type": "Service", "name": "Distribuição" },
+      { "@type": "Service", "name": "Gestão de Riscos" },
+      { "@type": "Service", "name": "Portos & Aduana" }
+    ]
+  }
+}

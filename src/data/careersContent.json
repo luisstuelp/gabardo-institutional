@@ -1,0 +1,141 @@
+{
+  "hero": {
+    "title": "Carreiras na Transportes Gabardo",
+    "subtitle": "Venha construir a logística automotiva líder no Brasil e LATAM, com segurança, eficiência e sustentabilidade."
+  },
+  "intro": {
+    "title": "Trabalhe com propósito",
+    "paragraphs": [
+      "Na TRANSPORTES GABARDO, conectamos fábricas, pátios e concessionárias com excelência operacional, foco em segurança viária e gestão ambiental reconhecida. Buscamos pessoas curiosas, colaborativas e orientadas a resultados para crescer com a gente.",
+      "Oferecemos capacitação contínua, trilhas de carreira e um ambiente que valoriza diversidade, ética e melhoria contínua."
+    ]
+  },
+  "culture": {
+    "title": "Nossa cultura",
+    "bullets": [
+      "Segurança e cuidado com pessoas em primeiro lugar",
+      "Ética, transparência e responsabilidade",
+      "Excelência operacional e disciplina",
+      "Aprendizado contínuo e colaboração",
+      "Sustentabilidade e inovação aplicadas ao dia a dia"
+    ]
+  },
+  "benefits": {
+    "title": "Benefícios",
+    "items": [
+      "Plano de saúde e odontológico",
+      "Seguro de vida",
+      "Vale-alimentação/refeição",
+      "Programa de capacitação e certificações",
+      "Auxílio educação (elegibilidade conforme política)",
+      "Parcerias e convênios locais",
+      "Programas de reconhecimento por performance"
+    ],
+    "note": "Os benefícios podem variar conforme a unidade, o cargo e a legislação local."
+  },
+  "areas": {
+    "title": "Áreas de atuação",
+    "items": [
+      "Operações e Logística",
+      "Manutenção de Frota",
+      "Segurança Viária e Gestão de Riscos",
+      "Qualidade e ESG",
+      "Tecnologia e Sistemas",
+      "Administrativo, Financeiro e Pessoas",
+      "Comercial e Relacionamento com Clientes"
+    ]
+  },
+  "testimonials": {
+    "title": "Depoimentos de quem faz a Gabardo",
+    "items": [
+      {
+        "name": "Juliana Souza",
+        "role": "Coordenadora de Operações",
+        "location": "São José dos Pinhais (PR)",
+        "quote": "Aqui a segurança e a disciplina de processo caminham com autonomia e aprendizado. Isso acelera a nossa evolução."
+      },
+      {
+        "name": "Carlos Eduardo",
+        "role": "Técnico de Manutenção",
+        "location": "Porto Alegre (RS)",
+        "quote": "Trabalhar com frota moderna e oficinas próprias faz toda a diferença. A estrutura é pensada para fazer bem-feito."
+      },
+      {
+        "name": "Ana Beatriz",
+        "role": "Analista de Qualidade",
+        "location": "Piracicaba (SP)",
+        "quote": "A ISO não é só um selo: os indicadores viram decisões. A cultura de melhoria contínua é real."
+      }
+    ]
+  },
+  "process": {
+    "title": "Como é o nosso processo seletivo",
+    "steps": [
+      { "step": 1, "title": "Inscrição", "description": "Envie seu currículo pelo nosso formulário ou cadastre-se no Banco de Talentos." },
+      { "step": 2, "title": "Triagem", "description": "Análise do perfil com base em requisitos técnicos e comportamentais." },
+      { "step": 3, "title": "Entrevistas", "description": "Conversas com Pessoas & Cultura e liderança da área." },
+      { "step": 4, "title": "Avaliações", "description": "Testes práticos e/ou técnicos conforme a vaga." },
+      { "step": 5, "title": "Proposta", "description": "Alinhamento final de condições e cronograma de início." }
+    ],
+    "note": "Para vagas de motoristas e manutenção, poderemos solicitar avaliações específicas e checagens de conformidade."
+  },
+  "openings": {
+    "title": "Vagas abertas",
+    "emptyState": {
+      "title": "No momento, não há vagas publicadas",
+      "description": "Você pode se candidatar ao Banco de Talentos para futuras oportunidades.",
+      "button": "Cadastrar currículo"
+    },
+    "filters": {
+      "locations": ["São José dos Pinhais (PR)", "Porto Alegre (RS)", "Piracicaba (SP)", "São Bernardo do Campo (SP)", "Duque de Caxias (RJ)", "Anápolis (GO)", "Eusébio (CE)"],
+      "areas": ["Operações", "Manutenção", "Segurança Viária", "Qualidade/ESG", "Tecnologia", "Administrativo/Financeiro", "Comercial"],
+      "contractTypes": ["CLT", "Efetivo", "Aprendiz", "Estágio", "Temporário"]
+    },
+    "schemaHints": {
+      "useJobPostingSchema": true,
+      "requiredFields": ["title", "description", "employmentType", "datePosted", "hiringOrganization", "jobLocation", "applicantLocationRequirements", "validThrough", "directApply"]
+    },
+    "items": []
+  },
+  "talentPool": {
+    "title": "Banco de Talentos",
+    "subtitle": "Deixe seu currículo com a gente",
+    "description": "Mesmo sem vagas abertas, mantemos um banco de talentos ativo e revisado periodicamente para acelerar novas contratações.",
+    "form": {
+      "fields": [
+        { "name": "fullName", "label": "Nome completo", "type": "text", "required": true, "placeholder": "Seu nome" },
+        { "name": "email", "label": "E-mail", "type": "email", "required": true, "placeholder": "seuemail@exemplo.com" },
+        { "name": "phone", "label": "Telefone", "type": "tel", "required": false, "placeholder": "(xx) xxxxx-xxxx" },
+        { "name": "location", "label": "Cidade/UF", "type": "text", "required": true, "placeholder": "Ex.: São José dos Pinhais/PR" },
+        { "name": "area", "label": "Área de interesse", "type": "select", "required": true, "options": ["Operações", "Manutenção", "Segurança Viária", "Qualidade/ESG", "Tecnologia", "Administrativo/Financeiro", "Comercial"] },
+        { "name": "resume", "label": "Currículo (PDF)", "type": "file", "required": true, "accept": ".pdf" },
+        { "name": "message", "label": "Mensagem (opcional)", "type": "textarea", "required": false, "placeholder": "Conte brevemente sua experiência" },
+        { "name": "consent", "label": "Autorizo o uso dos meus dados para fins deste processo, conforme a Política de Privacidade.", "type": "checkbox", "required": true }
+      ],
+      "submit": "Enviar",
+      "successMessage": "Obrigado! Seu cadastro foi recebido.",
+      "errorMessage": "Não foi possível enviar seu cadastro. Tente novamente."
+    }
+  },
+  "diversityInclusion": {
+    "title": "Diversidade e inclusão",
+    "paragraphs": [
+      "Valorizamos a pluralidade de histórias e perspectivas. Incentivamos candidaturas de pessoas de todos os perfis, independentemente de gênero, raça, orientação sexual, idade, origem ou condição."
+    ]
+  },
+  "compliance": {
+    "title": "LGPD e confidencialidade",
+    "paragraphs": [
+      "Tratamos dados pessoais conforme a LGPD (Lei nº 13.709/2018). Usaremos suas informações exclusivamente para fins de recrutamento e seleção, com medidas de segurança aplicáveis.",
+      "Para exercer seus direitos como titular (acesso, correção, exclusão, oposição), entre em contato pelo e-mail dpo@gabardo.com.br."
+    ]
+  },
+  "cta": {
+    "title": "Pronto para acelerar sua carreira?",
+    "subtitle": "Faça parte da equipe que lidera a logística automotiva no Brasil e LATAM.",
+    "buttons": [
+      { "label": "Ver vagas abertas", "action": "scrollToOpenings" },
+      { "label": "Cadastrar currículo", "action": "openTalentForm" }
+    ]
+  }
+}

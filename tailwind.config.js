@@ -8,9 +8,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'primary': ['Supermolot Neue', 'sans-serif'],
-        'secondary': ['Garet', 'sans-serif'],
-        'sans': ['Supermolot Neue', 'sans-serif'],
+        'primary': ['Montserrat', 'sans-serif'],
+        'secondary': ['Roboto', 'sans-serif'],
+        'sans': ['Montserrat', 'sans-serif'],
       },
       colors: {
         'accent': {

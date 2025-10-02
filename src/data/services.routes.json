@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "transporte-de-veiculos",
+    "path": "/servicos/transporte-de-veiculos",
+    "label": "Transporte de Veículos",
+    "anchor": "#transporte-de-veiculos"
+  },
+  {
+    "slug": "pdi-digital",
+    "path": "/servicos/pdi-digital",
+    "label": "PDI Digital",
+    "anchor": "#pdi-digital"
+  },
+  {
+    "slug": "parqueamento",
+    "path": "/servicos/parqueamento",
+    "label": "Parqueamento",
+    "anchor": "#parqueamento"
+  },
+  {
+    "slug": "armazenagem",
+    "path": "/servicos/armazenagem",
+    "label": "Armazenagem",
+    "anchor": "#armazenagem"
+  },
+  {
+    "slug": "distribuicao",
+    "path": "/servicos/distribuicao",
+    "label": "Distribuição",
+    "anchor": "#distribuicao"
+  },
+  {
+    "slug": "gestao-de-riscos",
+    "path": "/servicos/gestao-de-riscos",
+    "label": "Gestão de Riscos",
+    "anchor": "#gestao-de-riscos"
+  },
+  {
+    "slug": "portos-e-aduana",
+    "path": "/servicos/portos-e-aduana",
+    "label": "Portos & Aduana",
+    "anchor": "#portos-e-aduana"
+  }
+]

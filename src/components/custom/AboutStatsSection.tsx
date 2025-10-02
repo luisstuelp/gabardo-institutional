@@ -2,16 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { 
-  Building2, 
-  Users, 
-  Calendar, 
-  Award, 
-  MapPin, 
-  Coffee,
-  Briefcase,
-  Star
-} from 'lucide-react';
+import { Calendar, Truck, Building2, Percent } from 'lucide-react';
+import aboutContent from '@/data/aboutContent.json';
 
 interface Stat {
   id: string;
@@ -22,52 +14,49 @@ interface Stat {
   description: string;
   color: string;
   duration?: number;
+  formatValue?: (value: number) => string;
 }
 
-const stats: Stat[] = [
-  {
-    id: 'years',
-    icon: <Calendar className="w-8 h-8" />,
-    number: 35,
-    suffix: '',
-    title: 'ANOS NO MERCADO',
-    description: 'Desde 1989 transportando veículos com excelência',
-    color: 'gabardo',
-    duration: 2000
-  },
-  {
-    id: 'vehicles',
-    icon: <Award className="w-8 h-8" />,
-    number: 1400000,
-    suffix: '+',
-    title: 'VEÍCULOS TRANSPORTADOS',
-    description: 'Milhões de veículos entregues com segurança',
-    color: 'gabardo',
-    duration: 3500
-  },
-  {
-    id: 'units',
-    icon: <Building2 className="w-8 h-8" />,
-    number: 14,
-    suffix: '',
-    title: 'UNIDADES',
-    description: 'Presença estratégica em todo o Brasil',
-    color: 'gabardo',
-    duration: 2500
-  },
-  {
-    id: 'satisfaction',
-    icon: <Star className="w-8 h-8" />,
-    number: 99,
-    suffix: '%',
-    title: 'SATISFAÇÃO CLIENTES',
-    description: 'Excelência reconhecida pelos nossos parceiros',
-    color: 'gabardo',
-    duration: 2000
+const stats: Stat[] = aboutContent.numbers.kpis.map((kpi, index) => {
+  let icon;
+  switch (kpi.label) {
+    case 'Anos de atuação':
+      icon = <Calendar className="w-8 h-8" />;
+      break;
+    case 'Veículos transportados (2020–2024)':
+      icon = <Truck className="w-8 h-8" />;
+      break;
+    case 'Idade média da frota':
+      icon = <Truck className="w-8 h-8" />;
+      break;
+    case 'Composição da frota':
+      icon = <Percent className="w-8 h-8" />;
+      break;
+    default:
+      icon = <Building2 className="w-8 h-8" />;
   }
-];
 
-// Hook para animação de contagem de todos os stats
+  return {
+    id: kpi.label.toLowerCase().replace(/\s/g, '-') ,
+    icon: icon,
+    number: parseFloat(kpi.value.replace('+', '').replace('%', '').replace(',', '.')), 
+    suffix: kpi.value.includes('+') ? '+' : kpi.value.includes('%') ? '%' : '',
+    title: kpi.label,
+    description: `,
+    color: 'gabardo',
+    duration: 2000 + index * 500,
+    formatValue: (value) => {
+      if (kpi.label === 'Veículos transportados (2020–2024)') {
+        return (value / 1000000).toFixed(3).replace('.', ',') + 'M';
+      }
+      if (kpi.label === 'Idade média da frota') {
+        return value.toFixed(1).replace('.', ',') + ' anos';
+      }
+      return Math.round(value).toLocaleString('pt-BR');
+    }
+  };
+});
+
 const useCountUpStats = (stats: Stat[], isInView: boolean) => {
   const [counts, setCounts] = useState<number[]>(stats.map(() => 0));
   
@@ -85,9 +74,8 @@ const useCountUpStats = (stats: Stat[], isInView: boolean) => {
           if (!startTimes[index]) startTimes[index] = timestamp;
           const progress = Math.min((timestamp - startTimes[index]) / duration, 1);
           
-          // Função de easing para suavizar a animação
           const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-          const newValue = Math.floor(stat.number * easeOutQuart);
+          const newValue = stat.number * easeOutQuart;
           
           setCounts(prevCounts => {
             const newCounts = [...prevCounts];
@@ -138,20 +126,11 @@ const AboutStatsSection: React.FC = () => {
     );
   }
 
-  const getColorClasses = (color: string) => {
-    return '';
-  };
-
-  const getBgColorClasses = (color: string) => {
-    return 'bg-white border border-gray-200 shadow-sm hover:shadow-lg';
-  };
-
   return (
     <section ref={ref} className="py-16 md:py-20 lg:py-24 bg-gray-50 relative overflow-hidden">
 
       <div className="container mx-auto px-4 md:px-8 lg:px-16 relative z-10">
         
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -167,7 +146,7 @@ const AboutStatsSection: React.FC = () => {
             className="text-sm font-light tracking-[0.2em] mb-4 uppercase relative inline-block font-secondary"
             style={{ color: '#132D51' }}
           >
-            Nossos Números
+            {aboutContent.numbers.title}
             <div className="absolute -bottom-1 left-0 w-8 h-px" style={{ backgroundColor: '#132D51' }}></div>
           </motion.div>
           
@@ -179,23 +158,10 @@ const AboutStatsSection: React.FC = () => {
             className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-tight font-primary"
             style={{ color: '#132D51' }}
           >
-            Excelência que
-            <br />
-            <span style={{ color: '#132D51' }}>Comprova</span>
+            Excelência que Comprova
           </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-6 text-lg md:text-xl text-gray-700 font-light max-w-3xl mx-auto leading-relaxed font-secondary"
-          >
-            Mais de três décadas liderando o transporte rodoviário de veículos no Brasil com segurança e eficiência
-          </motion.p>
         </motion.div>
 
-        {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, index) => (
             <motion.div
@@ -214,11 +180,9 @@ const AboutStatsSection: React.FC = () => {
                 transition: { duration: 0.3 }
               }}
               className={`
-                relative p-6 md:p-8 border backdrop-blur-sm transition-all duration-500 hover:shadow-2xl group
-                ${getBgColorClasses(stat.color)}
+                relative p-6 md:p-8 border backdrop-blur-sm transition-all duration-500 hover:shadow-2xl group bg-white border-gray-200 shadow-sm hover:shadow-lg
               `}
             >
-              {/* Icon */}
               <motion.div
                 whileHover={{ scale: 1.2, rotate: 10 }}
                 transition={{ duration: 0.3 }}
@@ -228,27 +192,23 @@ const AboutStatsSection: React.FC = () => {
                 {stat.icon}
               </motion.div>
 
-              {/* Number */}
               <div className="mb-4">
                 <motion.span 
                   className="text-4xl md:text-5xl font-bold block leading-none font-primary"
                   style={{ color: '#132D51' }}
                 >
-                  {counts[index]?.toLocaleString() || 0}{stat.suffix}
+                  {stat.formatValue ? stat.formatValue(counts[index]) : (counts[index]?.toLocaleString() || 0)}{stat.suffix}
                 </motion.span>
               </div>
 
-              {/* Title */}
               <h3 className="text-lg md:text-xl font-bold uppercase tracking-wide mb-2 leading-tight font-primary" style={{ color: '#132D51' }}>
                 {stat.title}
               </h3>
 
-              {/* Description */}
               <p className="text-gray-600 font-light leading-relaxed text-sm font-secondary">
                 {stat.description}
               </p>
 
-              {/* Decorative line */}
               <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: '100%' }}
@@ -256,12 +216,6 @@ const AboutStatsSection: React.FC = () => {
                 transition={{ duration: 1, delay: index * 0.1 + 0.5 }}
                 className="absolute bottom-0 left-0 h-1"
                 style={{ backgroundColor: '#132D51' }}
-              />
-
-              {/* Hover effect overlay */}
-              <div 
-                className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                style={{ background: 'linear-gradient(to bottom right, rgba(19, 45, 81, 0.05), transparent)' }}
               />
             </motion.div>
           ))}
@@ -272,4 +226,4 @@ const AboutStatsSection: React.FC = () => {
   );
 };
 
-export default AboutStatsSection; 
+export default AboutStatsSection;

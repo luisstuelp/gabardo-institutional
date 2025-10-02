@@ -1,0 +1,160 @@
+{
+  "hero": {
+    "title": "Sobre a Transportes Gabardo",
+    "subtitle": "Liderança em logística automotiva no Brasil e LATAM, com excelência operacional, segurança viária e gestão ambiental certificadas."
+  },
+  "missionVisionValues": {
+    "title": "Missão, Visão e Valores",
+    "mission": "Entregar logística automotiva com precisão, segurança e sustentabilidade, conectando fábricas, pátios e concessionárias em toda a LATAM.",
+    "vision": "Ser a referência latino-americana em logística automotiva, com operação de baixo carbono e performance comprovada de ponta a ponta.",
+    "values": [
+      "Integridade e ética nas relações",
+      "Segurança viária e cuidado com pessoas",
+      "Excelência operacional e melhoria contínua",
+      "Sustentabilidade e responsabilidade ambiental",
+      "Orientação a dados e inovação"
+    ]
+  },
+  "whoWeAre": {
+    "title": "Quem somos",
+    "paragraphs": [
+      "A Transportes Gabardo é uma operadora logística automotiva com 36 anos de atuação, especializada no transporte de veículos leves e pesados, logística de pátio, PDI digital, armazenagem e distribuição.",
+      "Com frota moderna, processos padronizados e cobertura em toda a LATAM, sustentamos a operação dos principais players do setor com confiabilidade, visibilidade e SLAs rigorosos."
+    ]
+  },
+  "timeline": {
+    "title": "Nossa história",
+    "items": [
+      { "year": 1982, "event": "Início das atividades pelo fundador Sérgio M. Gabardo." },
+      { "year": 1989, "event": "Constituição da empresa e expansão regional." },
+      { "year": 2000, "event": "Padronização de frota e processos de qualidade." },
+      { "year": 2010, "event": "Ampliação de bases e integração sistêmica com clientes OEM." },
+      { "year": 2017, "event": "Inventário anual de emissões GEE (GHG Protocol) e agenda ESG estruturada." },
+      { "year": 2020, "event": "Aceleração tecnológica: telemetria, SD-WAN e redundância completa." },
+      { "year": 2024, "event": "Consolidação de atuação LATAM e frota jovem com manutenção dedicada." },
+      { "year": 2025, "event": "Certificações e metas ambientais ampliadas; operação carbono negativa em destaque." }
+    ]
+  },
+  "leadership": {
+    "title": "Liderança",
+    "founder": {
+      "name": "Sérgio M. Gabardo",
+      "role": "Fundador e Diretor",
+      "quote": "Compromisso com transporte correto, seguro e confiável, sustentando relações de longo prazo com clientes e colaboradores."
+    }
+  },
+  "certifications": {
+    "title": "Certificações",
+    "items": [
+      { "name": "ISO 9001", "description": "Gestão da Qualidade" },
+      { "name": "ISO 14001", "description": "Gestão Ambiental" },
+      { "name": "ISO 39001", "description": "Gestão da Segurança Viária" }
+    ],
+    "note": "Auditorias periódicas, indicadores de processo e planos de ação sustentam a melhoria contínua."
+  },
+  "scaleAndCoverage": {
+    "title": "Escala e cobertura",
+    "highlights": [
+      "Operação nacional com bases no Sul, Sudeste, Centro-Oeste e Nordeste",
+      "Cobertura LATAM com frota 100% apta e permissionada",
+      "Integração com portos e habilitação aduaneira (DTA)"
+    ],
+    "regions": {
+      "Sul": ["Porto Alegre (RS)", "São José dos Pinhais (PR)", "Palhoça (SC)"],
+      "Sudeste": ["Piracicaba (SP)", "São Bernardo do Campo (SP)", "Jaraguá (SP)", "Iracemápolis (SP)", "Jacareí (SP)", "Duque de Caxias (RJ)", "Porto Real (RJ)", "Cariacica (ES)"],
+      "Centro-Oeste": ["Anápolis (GO)"],
+      "Nordeste": ["Eusébio (CE)"]
+    }
+  },
+  "whatWeDo": {
+    "title": "Atuação",
+    "items": [
+      {
+        "title": "Transporte de veículos",
+        "description": "Leves e pesados; novos, seminovos, importados e frotas corporativas."
+      },
+      {
+        "title": "PDI digital e logística de pátio",
+        "description": "Inspeção eletrônica, controle de estoque, parqueamento e rastreabilidade."
+      },
+      {
+        "title": "Armazenagem e distribuição",
+        "description": "Gestão sistêmica com segurança, eficiência e visibilidade ponta a ponta."
+      }
+    ]
+  },
+  "differentiators": {
+    "title": "Diferenciais",
+    "items": [
+      "Frota padronizada e jovem, com manutenção própria",
+      "Procedimentos de segurança viária e investigação de avarias com KPIs",
+      "Gerenciadora de riscos própria e monitoramento 24h",
+      "Conectividade SD-WAN e links redundantes em todas as bases",
+      "Planos de contingência e continuidade de negócios",
+      "Equipe treinada continuamente e cultura de excelência"
+    ]
+  },
+  "numbers": {
+    "title": "Nossos números",
+    "kpis": [
+      { "label": "Anos de atuação", "value": "36+" },
+      { "label": "Veículos transportados (2020–2024)", "value": "1.455.360" },
+      { "label": "Idade média da frota", "value": "2,5 anos" },
+      { "label": "Composição da frota", "value": "79% própria / 21% terceiros" }
+    ]
+  },
+  "fleetSnapshot": {
+    "title": "Snapshot da frota",
+    "items": [
+      { "label": "Caminhões", "value": "1.311" },
+      { "label": "Carretas cegonheiras", "value": "1.061" },
+      { "label": "Trucks", "value": "17" },
+      { "label": "Carretas sider", "value": "42" },
+      { "label": "Plataformas", "value": "39" },
+      { "label": "Plataformas sider", "value": "6" }
+    ],
+    "notes": [
+      "100% vistoriada antes do carregamento",
+      "Padronização visual e higienização",
+      "Oficinas dedicadas e renovação contínua"
+    ]
+  },
+  "infrastructureAndTech": {
+    "title": "Infraestrutura e tecnologia",
+    "bullets": [
+      "Data centers e servidores dedicados para faturamento, CT-e, proxy/firewall e e-mail corporativo",
+      "Backups noturnos completos e incrementais diários",
+      "Rede SD-WAN e redundância de links em todas as bases",
+      "Telemetria e integração com sistemas dos clientes (OEMs, pátios e concessionárias)"
+    ]
+  },
+  "governanceAndEthics": {
+    "title": "Governança e ética",
+    "paragraphs": [
+      "Compromisso com conformidade legal, ética e integridade, sustentado por políticas internas, treinamentos e Canal de Ética confidencial (com possibilidade de relato anônimo).",
+      "Proteção de dados pessoais conforme LGPD, com processos e controles para segurança da informação."
+    ]
+  },
+  "esg": {
+    "title": "ESG e sustentabilidade",
+    "highlights": [
+      "Operação com produção de carbono negativa",
+      "Inventário anual GEE (GHG Protocol) desde 2017",
+      "Programas de compensação, reflorestamento e energia solar",
+      "Ampliação de frota Euro 6 e eficiência energética",
+      "Meta de zerar emissões líquidas até 2030"
+    ]
+  },
+  "awards": {
+    "title": "Reconhecimentos",
+    "items": [
+      "Tripla certificação ISO (9001, 14001, 39001)",
+      "Prêmios e selos setoriais em segurança, qualidade e desempenho ambiental"
+    ]
+  },
+  "cta": {
+    "title": "Converse com um especialista",
+    "subtitle": "Estruturamos planos operacionais sob medida para sua cadeia automotiva na LATAM.",
+    "button": "Fale conosco"
+  }
+}

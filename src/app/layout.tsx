@@ -17,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="font-primary">
       <head>
+        <meta charSet="utf-8" />
         <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

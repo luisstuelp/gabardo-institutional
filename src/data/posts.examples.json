@@ -1,0 +1,108 @@
+[
+  {
+    "slug": "iso-39001-seguranca-viaria",
+    "status": "published",
+    "title": "ISO 39001: como a gestão de Segurança Viária reduz riscos na logística automotiva",
+    "subtitle": "Os pilares da 39001 aplicados ao transporte de veículos: processos, KPIs e cultura.",
+    "summary": "Entenda como a ISO 39001 reduz acidentes, padroniza respostas e fortalece a governança de segurança viária.",
+    "category": "Certificações",
+    "tags": ["ISO 39001", "Segurança Viária", "KPIs", "Compliance"],
+    "author": {
+      "name": "Equipe Gabardo",
+      "url": "/sobre#time",
+      "avatar": "/images/authors/gabardo.png"
+    },
+    "cover": {
+      "src": "/images/blog/iso-39001.jpg",
+      "alt": "Veículos em pátio com sinalização viária e escota operacional"
+    },
+    "dates": {
+      "published": "2025-09-20",
+      "updated": "2025-09-20"
+    },
+    "readingTime": "7 min",
+    "body": {
+      "format": "mdx",
+      "src": "/content/blog/iso-39001-seguranca-viaria.mdx"
+    },
+    "seo": {
+      "title": "ISO 39001 na logística automotiva | Transportes Gabardo",
+      "description": "Como a ISO 39001 reduz riscos no transporte de veículos, com KPIs, treinamentos e respostas padronizadas.",
+      "ogImage": "/images/blog/og/iso-39001.png",
+      "canonical": "https://www.seudominio.com.br/blog/iso-39001-seguranca-viaria"
+    },
+    "schemaOrg": {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "ISO 39001: como a gestão de Segurança Viária reduz riscos na logística automotiva",
+      "datePublished": "2025-09-20",
+      "dateModified": "2025-09-20",
+      "author": { "@type": "Organization", "name": "Transportes Gabardo" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Transportes Gabardo",
+        "logo": { "@type": "ImageObject", "url": "https://www.seudominio.com.br/logo.png" }
+      },
+      "image": ["https://www.seudominio.com.br/images/blog/iso-39001.jpg"],
+      "articleSection": "Certificações",
+      "description": "Como a ISO 39001 reduz riscos no transporte de veículos, com KPIs, treinamentos e respostas padronizadas.",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.seudominio.com.br/blog/iso-39001-seguranca-viaria"
+      }
+    }
+  },
+  {
+    "slug": "telemetria-frota-eficiencia",
+    "status": "published",
+    "title": "Telemetria de frota: dados que aumentam eficiência e reduzem emissões",
+    "subtitle": "Do controle de velocidade ao planejamento de rotas: como usar dados para melhorar KPIs.",
+    "summary": "Telemetria e analytics para reduzir consumo, avarias e lead time na logística automotiva.",
+    "category": "Tecnologia",
+    "tags": ["Telemetria", "Analytics", "Rastreamento", "Eficiência"],
+    "author": {
+      "name": "Equipe Gabardo",
+      "url": "/sobre#time",
+      "avatar": "/images/authors/gabardo.png"
+    },
+    "cover": {
+      "src": "/images/blog/telemetria.jpg",
+      "alt": "Dashboard de telemetria com indicadores de rota e consumo"
+    },
+    "dates": {
+      "published": "2025-09-10",
+      "updated": "2025-09-10"
+    },
+    "readingTime": "6 min",
+    "body": {
+      "format": "mdx",
+      "src": "/content/blog/telemetria-frota-eficiencia.mdx"
+    },
+    "seo": {
+      "title": "Telemetria de frota: eficiência e redução de emissões | Transportes Gabardo",
+      "description": "Como dados de telemetria elevam a eficiência, reduzem emissões e melhoram KPIs na logística de veículos.",
+      "ogImage": "/images/blog/og/telemetria.png",
+      "canonical": "https://www.seudominio.com.br/blog/telemetria-frota-eficiencia"
+    },
+    "schemaOrg": {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Telemetria de frota: dados que aumentam eficiência e reduzem emissões",
+      "datePublished": "2025-09-10",
+      "dateModified": "2025-09-10",
+      "author": { "@type": "Organization", "name": "Transportes Gabardo" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Transportes Gabardo",
+        "logo": { "@type": "ImageObject", "url": "https://www.seudominio.com.br/logo.png" }
+      },
+      "image": ["https://www.seudominio.com.br/images/blog/telemetria.jpg"],
+      "articleSection": "Tecnologia",
+      "description": "Como dados de telemetria elevam a eficiência, reduzem emissões e melhoram KPIs na logística de veículos.",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.seudominio.com.br/blog/telemetria-frota-eficiencia"
+      }
+    }
+  }
+]
