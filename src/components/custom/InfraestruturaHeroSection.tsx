@@ -23,7 +23,7 @@ export default function InfraestruturaHeroSection() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-bold uppercase leading-tight tracking-tight mb-4 md:mb-6"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold uppercase leading-tight tracking-tight mb-4 md:mb-6 text-gabardo-blue"
         >
           Infraestrutura de Ponta
         </motion.h1>

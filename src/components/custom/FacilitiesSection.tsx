@@ -6,11 +6,11 @@ import { useState, useRef, useEffect } from 'react';
 import unitsPageContent from '@/data/unitsPageContent.json';
 
 const facilities = [
-  { name: 'Oficina', description: 'Manutenção completa para nossa frota.', icon: <Wrench className="w-6 h-6 text-blue-500" />, image: '/images/co-01.jpg' },
-  { name: 'Elétrica', description: 'Serviços elétricos especializados para veículos.', icon: <Zap className="w-6 h-6 text-blue-500" />, image: '/images/co-03.jpg' },
-  { name: 'Refeitório', description: 'Espaço para refeições dos colaboradores.', icon: <Users className="w-6 h-6 text-blue-500" />, image: '/images/co-04.jpg' },
-  { name: 'Escritório', description: 'Amplo espaço administrativo.', icon: <Building className="w-6 h-6 text-blue-500" />, image: '/images/co-02.jpg' },
-  { name: 'Box de Manutenção', description: 'Baias dedicadas para a manutenção dos caminhões.', icon: <Truck className="w-6 h-6 text-blue-500" />, image: '/images/co-5.jpg' },
+  { name: 'Oficina', description: 'Manutenção completa para nossa frota.', icon: <Wrench className="w-6 h-6 text-gabardo-blue" />, image: '/images/Oficina.JPG' },
+  { name: 'TI', description: 'Infraestrutura de tecnologia e sistemas integrados.', icon: <Zap className="w-6 h-6 text-gabardo-blue" />, image: '/images/Eletrica.JPG' },
+  { name: 'Refeitório', description: 'Espaço para refeições dos colaboradores.', icon: <Users className="w-6 h-6 text-gabardo-blue" />, image: '/images/Refeitorio.JPG' },
+  { name: 'Escritório', description: 'Amplo espaço administrativo.', icon: <Building className="w-6 h-6 text-gabardo-blue" />, image: '/images/Escritorio.JPG' },
+  { name: 'Box de Manutenção', description: 'Baias dedicadas para a manutenção dos caminhões.', icon: <Truck className="w-6 h-6 text-gabardo-blue" />, image: '/images/Box.JPG' },
 ];
 
 const textVariants = {
@@ -77,7 +77,7 @@ export default function FacilitiesSection() {
               className="relative rounded-lg overflow-hidden shadow-lg"
               style={{ height: leftColumnHeight > 0 ? leftColumnHeight : 'auto' }}
             >
-              <Image src={selectedFacility.image} alt={selectedFacility.name} fill className="object-cover" />
+              <img src={selectedFacility.image} alt={selectedFacility.name} className="w-full h-full object-cover" />
             </motion.div>
           </AnimatePresence>
         </div>

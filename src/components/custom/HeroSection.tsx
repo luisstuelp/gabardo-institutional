@@ -1,7 +1,6 @@
 'use client';
 
-import { Dot, Mouse, Leaf, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
+import { Dot, Mouse } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import AnimatedWords from './AnimatedWords';
 
@@ -105,17 +104,16 @@ export default function HeroSection() {
         <div className="absolute top-1/2 left-4 sm:left-6 md:left-10 lg:left-16 transform -translate-y-1/2">
           <ScrollDownIcon />
         </div>
-
         <div className="flex flex-col justify-end h-full">
           <div className="grid grid-cols-[3.5rem_1fr] sm:grid-cols-[4rem_1fr] md:grid-cols-[7rem_1fr] gap-6 items-end w-full mb-12 sm:mb-14 md:mb-10">
             <div aria-hidden />
             {/* Text Content Block */}
             <div className="max-w-4xl xl:max-w-5xl">
-              <h1 className="font-primary text-[26px] sm:text-4xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight mb-5 sm:mb-6">
-                Gabardo, movidos por:
+              <h1 className="font-primary text-[34px] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-5 sm:mb-6">
+                Movidos por
                 <br />
                 <span
-                  className="block text-[36px] sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl font-extrabold"
+                  className="block text-[44px] sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold"
                   style={{ color: '#38B6FF' }}
                 >
                   <AnimatedWords />
@@ -123,19 +121,17 @@ export default function HeroSection() {
               </h1>
 
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-white/85 mb-5">
-                <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
-                  <Leaf className="w-4 h-4 text-emerald-400" />
-                  <span className="text-xs sm:text-sm font-semibold tracking-[0.28em] uppercase text-white">
-                    Carbono negativo desde 2021
-                  </span>
+                <div className="relative inline-flex items-center gap-4 rounded-full border-2 border-white/30 bg-white/15 pl-24 sm:pl-28 pr-6 py-4 backdrop-blur-md shadow-2xl">
+                  <img src="/images/certifications/carbon-negative-certified.png" alt="Carbono Negativo" className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-20 h-20 sm:w-24 sm:h-24" />
+                  <div className="flex flex-col">
+                    <span className="text-xs sm:text-sm font-bold tracking-[0.28em] uppercase text-white">
+                      #1 no mundo
+                    </span>
+                    <span className="text-sm sm:text-base font-semibold tracking-[0.18em] uppercase text-white/90">
+                      Carbono negativo
+                    </span>
+                  </div>
                 </div>
-                <Link
-                  href="/sustentabilidade"
-                  className="inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[0.28em] text-white/80 transition-colors hover:text-gabardo-light-blue"
-                >
-                  Conheça nossa certificação
-                  <ChevronRight className="w-4 h-4" />
-                </Link>
               </div>
 
               <p className="font-secondary mt-3 text-sm sm:text-base md:text-base lg:text-lg font-light leading-relaxed mb-6 sm:mb-8">
@@ -144,7 +140,7 @@ export default function HeroSection() {
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button
-                  className="font-secondary text-white px-7 py-3.5 sm:px-8 sm:py-4 font-semibold uppercase tracking-wide transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                  className="font-secondary text-white px-7 py-3.5 sm:px-8 sm:py-4 font-semibold uppercase tracking-wide transition-all duration-300 transform hover:scale-105 hover:shadow-lg rounded-full"
                   style={{ backgroundColor: '#38B6FF' }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = '#2da5ff';
@@ -156,7 +152,7 @@ export default function HeroSection() {
                   Encontre seu serviço
                 </button>
                 <button
-                  className="font-secondary border-2 border-white text-white px-7 py-3.5 sm:px-8 sm:py-4 font-semibold uppercase tracking-wide transition-all duration-300"
+                  className="font-secondary border-2 border-white text-white px-7 py-3.5 sm:px-8 sm:py-4 font-semibold uppercase tracking-wide transition-all duration-300 rounded-full"
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = 'white';
                     e.currentTarget.style.color = '#38B6FF';

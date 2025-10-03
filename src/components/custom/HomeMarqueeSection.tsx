@@ -119,7 +119,7 @@ const HomeMarqueeSection = () => {
           <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
             <ScrollMarquee
               delay={280}
-              baseVelocity={1.1}
+              baseVelocity={0.65}
               className="font-semibold uppercase tracking-[0.28em] text-gabardo-blue/80"
               gradient={false}
             >
@@ -130,7 +130,7 @@ const HomeMarqueeSection = () => {
           <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
             <ScrollMarquee
               delay={420}
-              baseVelocity={1.55}
+              baseVelocity={0.85}
               className="font-semibold uppercase tracking-[0.28em] text-gabardo-blue"
               gradient={false}
             >
@@ -143,7 +143,7 @@ const HomeMarqueeSection = () => {
           <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
             <ScrollMarquee
               delay={520}
-              baseVelocity={1.2}
+              baseVelocity={0.7}
               className="text-[0.9rem] sm:text-base font-medium text-gabardo-blue/90"
               gradient={false}
             >

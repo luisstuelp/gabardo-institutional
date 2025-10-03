@@ -26,12 +26,12 @@ const stats: Stat[] = [
   },
   {
     id: "veiculos",
-    value: 1455360,
-    title: "Veículos transportados (2020–2024)",
+    value: 350000,
+    title: "Veículos transportados (ano)",
     description: "Mais de 1.4 milhão de veículos transportados nos últimos 5 anos.",
     accent: "dark",
     duration: 3400,
-    formatValue: (value) => `${(Math.floor((value / 1000000) * 10) / 10).toFixed(1)}M+`
+    formatValue: (value) => `${Math.floor(value / 1000).toLocaleString("pt-BR")}.000+`
   },
   {
     id: "idade-media",
@@ -45,7 +45,7 @@ const stats: Stat[] = [
   },
   {
     id: "frota-propria",
-    value: 50,
+    value: 13,
     suffix: "+",
     title: "Bases e unidades",
     description: "Cobertura estratégica em todo o território nacional.",

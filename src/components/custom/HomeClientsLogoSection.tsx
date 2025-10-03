@@ -100,7 +100,7 @@ const HomeClientsLogoSection = () => {
               >
                 As marcas que confiam
                 <span className="mt-1 block font-extrabold text-gabardo-light-blue text-4xl sm:text-5xl lg:text-6xl">
-                  na Gabardo
+                  na Transportes Gabardo
                 </span>
               </motion.h2>
 
