@@ -7,11 +7,11 @@ import SobreHistoriaCTASection from '@/components/custom/SobreHistoriaCTASection
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gabardo.com.br'),
-  title: 'Linha do Tempo | Gabardo Distribuidora',
+  title: 'Linha do Tempo | Gabardo Transportadora',
   description:
-    'Conheça a trajetória da Gabardo Distribuidora desde 1989, com marcos de inovação, expansão e excelência logística em todo o Brasil.',
+    'Conheça a trajetória da Gabardo Transportadora desde 1989, com marcos de inovação, expansão e excelência logística em todo o Brasil.',
   keywords: [
-    'Gabardo Distribuidora',
+    'Gabardo Transportadora',
     'História Gabardo',
     'Linha do tempo logística',
     'Transporte automotivo',
@@ -22,23 +22,23 @@ export const metadata: Metadata = {
     'Transporte multimodal',
     'Distribuição automotiva',
   ],
-  authors: [{ name: 'Gabardo Distribuidora' }],
-  creator: 'Gabardo Distribuidora',
-  publisher: 'Gabardo Distribuidora',
+  authors: [{ name: 'Gabardo Transportadora' }],
+  creator: 'Gabardo Transportadora',
+  publisher: 'Gabardo Transportadora',
   openGraph: {
     title: 'Linha do Tempo Gabardo | Excelência em Transporte',
     description:
-      'Evolução da Gabardo Distribuidora ao longo das décadas, com marcos em certificações, sustentabilidade e expansão nacional.',
+      'Evolução da Gabardo Transportadora ao longo das décadas, com marcos em certificações, sustentabilidade e expansão nacional.',
     url: 'https://gabardo.com.br/sobre/historia',
     images: [
       {
         url: 'https://gabardo.com.br/og/gabardo-historia.jpg',
         width: 1200,
         height: 630,
-        alt: 'Gabardo Distribuidora - Linha do Tempo',
+        alt: 'Gabardo Transportadora - Linha do Tempo',
       },
     ],
-    siteName: 'Gabardo Distribuidora',
+    siteName: 'Gabardo Transportadora',
     locale: 'pt_BR',
     type: 'website',
   },
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title: 'Linha do Tempo Gabardo',
     images: ['https://gabardo.com.br/og/gabardo-historia.jpg'],
     description:
-      'História da Gabardo Distribuidora com marcos de crescimento, certificações ISO e compromisso ambiental.',
+      'História da Gabardo Transportadora com marcos de crescimento, certificações ISO e compromisso ambiental.',
     creator: '@gabardo',
   },
   robots: {

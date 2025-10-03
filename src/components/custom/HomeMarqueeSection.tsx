@@ -135,7 +135,7 @@ const HomeMarqueeSection = () => {
               gradient={false}
             >
               {messages
-                .map(message => message.replace('Gabardo', 'Gabardo Distribuidora'))
+                .map(message => message.replace('Gabardo', 'Gabardo Transportadora'))
                 .join('   •   ')}
             </ScrollMarquee>
           </div>

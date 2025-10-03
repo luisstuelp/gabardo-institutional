@@ -62,7 +62,7 @@ export default function GovernanceClimateSection() {
               loading="lazy"
             />
             <figcaption className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-gabardo-blue">
-              Comitê executivo Gabardo Distribuidora
+              Comitê executivo Gabardo Transportadora
             </figcaption>
           </motion.figure>
         </div>

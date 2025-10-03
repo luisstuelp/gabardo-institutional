@@ -126,7 +126,7 @@ const SobreInstitucionalLeadershipSection = () => {
               Estruturas que preservam o DNA Gabardo em cada decisão
             </h2>
             <p className="mt-4 text-base text-gray-600 md:text-lg">
-              Nossa governança combina compliance, inteligência de dados e cultura de alto desempenho para garantir execução consistente da estratégia Gabardo Distribuidora em toda a LATAM.
+              Nossa governança combina compliance, inteligência de dados e cultura de alto desempenho para garantir execução consistente da estratégia Gabardo Transportadora em toda a LATAM.
             </p>
           </motion.div>
 

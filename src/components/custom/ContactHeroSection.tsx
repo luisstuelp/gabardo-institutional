@@ -97,7 +97,7 @@ export default function ContactHeroSection() {
           >
             <Image
               src={img}
-              alt="Gabardo Distribuidora - Contato"
+              alt="Gabardo Transportadora - Contato"
               fill
               className="object-cover object-center"
               priority={index === 0}
@@ -204,7 +204,7 @@ export default function ContactHeroSection() {
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleContactAction('tel:+551134567890')}
                     className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3 transition-all duration-300 touch-manipulation group"
-                    aria-label="Ligar para Gabardo Distribuidora"
+                    aria-label="Ligar para Gabardo Transportadora"
                   >
                     <Phone className="w-5 h-5 transition-colors duration-300" />
                   </motion.button>
@@ -212,9 +212,9 @@ export default function ContactHeroSection() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => handleContactAction('mailto:contato@gabardodistribuidora.com.br')}
+                    onClick={() => handleContactAction('mailto:contato@gabardotransportadora.com.br')}
                     className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3 transition-all duration-300 touch-manipulation group"
-                    aria-label="Enviar e-mail para Gabardo Distribuidora"
+                    aria-label="Enviar e-mail para Gabardo Transportadora"
                   >
                     <Mail className="w-5 h-5 transition-colors duration-300" />
                   </motion.button>

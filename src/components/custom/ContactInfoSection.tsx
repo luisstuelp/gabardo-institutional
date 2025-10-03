@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock, ArrowRight, ExternalLink } from 'lucide-react';
 
-// Gabardo Distribuidora contact information
+// Gabardo Transportadora contact information
 const contactInfo = [
   {
     icon: <Phone className="w-6 h-6" />,
@@ -15,9 +15,9 @@ const contactInfo = [
   {
     icon: <Mail className="w-6 h-6" />,
     title: 'E-mail',
-    primary: 'contato@gabardodistribuidora.com.br',
+    primary: 'contato@gabardotransportadora.com.br',
     secondary: 'Resposta em até 24h',
-    action: 'mailto:contato@gabardodistribuidora.com.br'
+    action: 'mailto:contato@gabardotransportadora.com.br'
   },
   {
     icon: <MapPin className="w-6 h-6" />,
@@ -77,7 +77,7 @@ export default function ContactInfoSection() {
           >
             Fale com a
             <br />
-            <span style={{color: '#38B6FF'}}>Gabardo Distribuidora</span>
+            <span style={{color: '#38B6FF'}}>Gabardo Transportadora</span>
           </motion.h2>
         </motion.div>
 

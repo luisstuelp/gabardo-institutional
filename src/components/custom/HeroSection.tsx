@@ -3,7 +3,7 @@
 import { Dot, Mouse, Leaf, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
-import AnimatedDiferente from './AnimatedDiferente';
+import AnimatedWords from './AnimatedWords';
 
 const ScrollDownIcon = () => (
   <div className="flex flex-col items-center space-y-2">
@@ -112,13 +112,13 @@ export default function HeroSection() {
             {/* Text Content Block */}
             <div className="max-w-4xl xl:max-w-5xl">
               <h1 className="font-primary text-[26px] sm:text-4xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight mb-5 sm:mb-6">
-                Para cada cliente,
+                Gabardo, movidos por:
                 <br />
                 <span
                   className="block text-[36px] sm:text-6xl md:text-6xl lg:text-7xl xl:text-7xl font-extrabold"
                   style={{ color: '#38B6FF' }}
                 >
-                  uma Gabardo <AnimatedDiferente />
+                  <AnimatedWords />
                 </span>
               </h1>
 
