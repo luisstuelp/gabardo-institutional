@@ -35,10 +35,10 @@ const ScrollMarquee: React.FC<ScrollMarqueeProps> = ({
   }, [baseVelocity]);
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden py-2 sm:py-3">
       <div
         className={clsx(
-          'flex w-max min-w-full items-center gap-16 whitespace-nowrap text-balance text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight',
+          'flex w-max min-w-full items-center gap-16 whitespace-nowrap text-balance text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.15] md:leading-[1.2]',
           gradient && 'before:absolute before:inset-y-0 before:left-0 before:w-24 before:bg-gradient-to-r before:from-white before:to-transparent after:absolute after:inset-y-0 after:right-0 after:w-24 after:bg-gradient-to-l after:from-white after:to-transparent',
           'relative before:pointer-events-none after:pointer-events-none',
           className

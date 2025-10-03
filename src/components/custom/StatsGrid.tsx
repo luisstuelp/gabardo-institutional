@@ -2,11 +2,9 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Calendar, Truck, Building2, Star } from "lucide-react";
 
 type Stat = {
   id: string;
-  icon: React.ReactNode;
   value: number;
   suffix?: string;
   title: string;
@@ -19,7 +17,6 @@ type Stat = {
 const stats: Stat[] = [
   {
     id: "anos",
-    icon: <Calendar className="h-6 w-6" strokeWidth={2.4} />,
     value: 36,
     suffix: "+",
     title: "Anos de estrada",
@@ -29,7 +26,6 @@ const stats: Stat[] = [
   },
   {
     id: "veiculos",
-    icon: <Truck className="h-6 w-6" strokeWidth={2.4} />,
     value: 1455360,
     title: "Veículos transportados (2020–2024)",
     description: "Mais de 1.4 milhão de veículos transportados nos últimos 5 anos.",
@@ -39,18 +35,16 @@ const stats: Stat[] = [
   },
   {
     id: "idade-media",
-    icon: <Truck className="h-6 w-6" strokeWidth={2.4} />,
-    value: 2.5,
+    value: 2,
     suffix: " anos",
     title: "Idade média da frota",
     description: "Frota moderna e eficiente para garantir a segurança e a qualidade do transporte.",
     accent: "dark",
     duration: 3000,
-    formatValue: (value) => `${value.toFixed(1).replace('.',',')} anos`
+    formatValue: (value) => `${value.toFixed(0)} anos`
   },
   {
     id: "frota-propria",
-    icon: <Building2 className="h-6 w-6" strokeWidth={2.4} />,
     value: 50,
     suffix: "+",
     title: "Bases e unidades",
@@ -60,7 +54,6 @@ const stats: Stat[] = [
   },
   {
     id: "satisfacao-clientes",
-    icon: <Star className="h-6 w-6" strokeWidth={2.4} />,
     value: 99,
     suffix: "%",
     title: "Satisfação clientes",
@@ -145,7 +138,7 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
       transition={{ duration: 0.75, ease: "easeOut", delay: index * 0.08 }}
       whileHover={{ y: -10, scale: 1.015, rotateX: 2.4, rotateY: -2, transition: { duration: 0.35, ease: "easeOut" } }}
       whileTap={{ scale: 0.985 }}
-      className={`group relative w-full max-w-[400px] rounded-[28px] px-10 py-10 shadow-[0_32px_80px_-48px_RGBA(19,45,81,0.55)] transition-transform duration-500 ${
+      className={`group relative w-full max-w-[460px] rounded-[28px] px-12 py-10 shadow-[0_32px_80px_-48px_RGBA(19,45,81,0.55)] transition-transform duration-500 ${
         isDark ? "bg-gabardo-blue text-white" : "bg-neutral-100 text-gabardo-blue"
       }`}
     >
@@ -165,7 +158,7 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
               {currentDisplay}
             </span>
             <p
-              className={`max-w-[240px] text-sm leading-relaxed ${
+              className={`max-w-[280px] text-sm leading-relaxed ${
                 isDark ? "text-white/75" : "text-neutral-600"
               }`}
             >
@@ -173,7 +166,7 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
             </p>
           </div>
 
-          <div className="flex flex-col items-end gap-3 text-right">
+          <div className="flex flex-col items-end text-right">
             <span
               className={`text-[11px] font-semibold uppercase tracking-[0.2em] leading-tight ${
                 isDark ? "text-white/80" : "text-gabardo-blue"
@@ -181,16 +174,6 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
             >
               {stat.title}
             </span>
-            <motion.span
-              whileHover={{ scale: 1.07, rotate: 6, transition: { duration: 0.35, ease: "easeOut" } }}
-              className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
-                isDark
-                  ? "bg-white/15 text-white shadow-[0_12px_30px_-18px_RGBA(255,255,255,0.65)]"
-                  : "bg-white text-gabardo-blue shadow-[0_12px_30px_-18px_RGBA(19,45,81,0.35)]"
-              }`}
-            >
-              {stat.icon}
-            </motion.span>
           </div>
         </div>
       </div>

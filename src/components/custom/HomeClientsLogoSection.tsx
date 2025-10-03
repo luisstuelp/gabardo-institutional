@@ -98,7 +98,10 @@ const HomeClientsLogoSection = () => {
                 transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
                 className="section-heading text-left text-gabardo-blue"
               >
-                As marcas que confiam <span className="text-gabardo-light-blue">na Gabardo Distribuidora</span>
+                As marcas que confiam
+                <span className="mt-1 block font-extrabold text-gabardo-light-blue text-4xl sm:text-5xl lg:text-6xl">
+                  na Gabardo
+                </span>
               </motion.h2>
 
               <motion.div
@@ -141,7 +144,7 @@ const HomeClientsLogoSection = () => {
           >
             <div className="absolute -top-8 -right-8 hidden h-24 w-24 rounded-full bg-gabardo-light-blue/25 blur-3xl transition-all duration-300 group-hover:scale-110 lg:block" />
             <motion.div
-              className="relative rounded-[36px] bg-gradient-to-br from-white via-white to-gabardo-light-blue/20 p-[2px]"
+              className="relative rounded-[36px] bg-gradient-to-br from-white via-white to-gabardo-light-blue/12 p-[1.5px]"
               style={{
                 rotateX: springRotateX,
                 rotateY: springRotateY,
@@ -149,13 +152,14 @@ const HomeClientsLogoSection = () => {
               }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
             >
-              <div className="rounded-[32px] bg-white p-6 transition-all duration-300 group-hover:bg-white">
+              <div className="rounded-[32px] border border-gray-200/80 bg-white p-6 transition-all duration-300 group-hover:bg-white">
                 <Image
-                  src="/images/gabardo-clients-logos.png"
+                  src="/Apresentação  Institucional - Transportes Gabardo (2).jpg"
                   alt="Clientes Gabardo"
                   width={900}
                   height={600}
                   className="w-full rounded-[20px] bg-white shadow-inner"
+                  style={{ filter: 'brightness(1.12)' }}
                   priority
                 />
               </div>

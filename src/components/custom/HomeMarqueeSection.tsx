@@ -86,17 +86,17 @@ const HomeMarqueeSection = () => {
             className="group relative overflow-hidden rounded-[32px] border border-white/65 bg-white/50 shadow-[0_45px_90px_-45px_rgba(19,45,81,0.45)] backdrop-blur-2xl"
           >
             <Image
-              src="/images/Trans Gabardo - Framers produtora -5475.JPG"
+              src="/images/GabardoBastidores.JPG"
               alt="Equipe Gabardo em operação"
               fill
               sizes="(min-width: 1024px) 40vw, 90vw"
               priority
               className="absolute inset-0 h-full w-full object-cover opacity-80 transition duration-700 ease-out group-hover:scale-[1.04]"
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-white/55 via-[#0B1B31]/60 to-[#132D51]/85 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-[#0B1B31]/65" />
             <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:bg-gabardo-light-blue/15 group-hover:opacity-100" />
             <div className="relative space-y-6 p-10 text-white">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.4em] text-gabardo-blue">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.4em] text-white">
                 Bastidores Gabardo
               </span>
               <h3 className="text-2xl font-semibold leading-tight">Operações que conectam frota, pessoas e tecnologia</h3>
@@ -116,33 +116,42 @@ const HomeMarqueeSection = () => {
         </div>
 
         <div className="mt-16 space-y-8">
-          <ScrollMarquee
-            delay={280}
-            baseVelocity={1.1}
-            className="font-semibold uppercase tracking-[0.28em] text-gabardo-blue/80 before:from-white/96 after:from-white/96"
-          >
-            {messages.join('   •   ')}
-          </ScrollMarquee>
+          <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+            <ScrollMarquee
+              delay={280}
+              baseVelocity={1.1}
+              className="font-semibold uppercase tracking-[0.28em] text-gabardo-blue/80"
+              gradient={false}
+            >
+              {messages.join('   •   ')}
+            </ScrollMarquee>
+          </div>
 
-          <ScrollMarquee
-            delay={420}
-            baseVelocity={1.55}
-            className="font-semibold uppercase tracking-[0.28em] text-gabardo-blue before:from-white/96 after:from-white/96"
-          >
-            {messages
-              .map(message => message.replace('Gabardo', 'Gabardo Distribuidora'))
-              .join('   •   ')}
-          </ScrollMarquee>
+          <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+            <ScrollMarquee
+              delay={420}
+              baseVelocity={1.55}
+              className="font-semibold uppercase tracking-[0.28em] text-gabardo-blue"
+              gradient={false}
+            >
+              {messages
+                .map(message => message.replace('Gabardo', 'Gabardo Distribuidora'))
+                .join('   •   ')}
+            </ScrollMarquee>
+          </div>
 
-          <ScrollMarquee
-            delay={520}
-            baseVelocity={1.2}
-            className="text-[0.9rem] sm:text-base font-medium text-gabardo-blue/90 before:from-transparent after:from-transparent"
-          >
-            {testimonialQuotes
-              .map(({ quote, author }) => `“${quote}” — ${author}`)
-              .join('   •   ')}
-          </ScrollMarquee>
+          <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+            <ScrollMarquee
+              delay={520}
+              baseVelocity={1.2}
+              className="text-[0.9rem] sm:text-base font-medium text-gabardo-blue/90"
+              gradient={false}
+            >
+              {testimonialQuotes
+                .map(({ quote, author }) => `“${quote}” — ${author}`)
+                .join('   •   ')}
+            </ScrollMarquee>
+          </div>
         </div>
       </div>
     </section>
