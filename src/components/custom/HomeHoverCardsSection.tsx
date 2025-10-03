@@ -158,36 +158,6 @@ const HomeHoverCardsSection = () => {
               })}
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative overflow-hidden rounded-[34px] border border-gabardo-blue/15 bg-gradient-to-br from-white via-gabardo-blue/5 to-white p-8 shadow-[0_35px_90px_-55px_rgba(13,28,55,0.4)]"
-            >
-              <div className="flex flex-col gap-5 text-gabardo-blue">
-                <div className="flex items-center gap-3">
-                  <Sparkles className="h-6 w-6" />
-                  <span className="text-xs uppercase tracking-[0.36em] text-gabardo-blue/70">Fluxo integrado</span>
-                </div>
-                <h3 className="text-2xl font-semibold">
-                  Cada entrega combina governança, tecnologia e pessoas para criar uma jornada memorável aos clientes.
-                </h3>
-                <p className="text-sm text-gabardo-blue/70">
-                  Nosso modelo conecta comitês, squads e hubs físicos em tempo real, garantindo previsibilidade e impacto socioambiental positivo.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {['Compliance', 'ESG', 'Tecnologia', 'Experiência do cliente'].map((chip) => (
-                    <span
-                      key={chip}
-                      className="rounded-full border border-gabardo-blue/20 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em]"
-                    >
-                      {chip}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
           </div>
 
           <div className="flex flex-col gap-8">
@@ -254,62 +224,36 @@ const HomeHoverCardsSection = () => {
                 </div>
               </div>
             </motion.div>
-
-            <div className="grid gap-4 md:grid-cols-2">
-              {cards.map((card, index) => {
-                const Icon = card.icon;
-                const isActive = activeIndex === index;
-
-                return (
-                  <motion.button
-                    key={card.title}
-                    type="button"
-                    onMouseEnter={() => setActiveIndex(index)}
-                    onFocus={() => setActiveIndex(index)}
-                    onClick={() => setActiveIndex(index)}
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.45, delay: index * 0.05 }}
-                    className={`group relative overflow-hidden rounded-3xl border px-6 py-7 text-left transition-all duration-500 ${
-                      isActive
-                        ? 'border-gabardo-blue/60 bg-white shadow-[0_24px_60px_-40px_rgba(19,45,81,0.5)]'
-                        : 'border-white/40 bg-white/80 hover:border-gabardo-blue/40 hover:bg-white'
-                    }`}
-                  >
-                    <motion.div
-                      className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                      animate={{ opacity: isActive ? 0.22 : undefined }}
-                      style={{
-                        background: `linear-gradient(160deg, ${card.accent}22, transparent 65%)`,
-                      }}
-                    />
-                    <div className="relative z-10 flex flex-col gap-4">
-                      <div className="flex items-center gap-3">
-                        <div className={`flex h-12 w-12 items-center justify-center rounded-2xl border text-gabardo-blue transition ${
-                          isActive ? 'border-gabardo-blue bg-gabardo-blue/10' : 'border-gabardo-blue/20 bg-white'
-                        }`}>
-                          <Icon className="h-5 w-5" />
-                        </div>
-                        <div>
-                          <span className="text-[11px] uppercase tracking-[0.32em] text-gabardo-blue/60">
-                            {card.label}
-                          </span>
-                          <h4 className="text-lg font-semibold text-gabardo-blue">{card.title}</h4>
-                        </div>
-                      </div>
-                      <p className="text-sm leading-relaxed text-gray-600">{card.description}</p>
-                      <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.32em] text-gabardo-blue/70">
-                        {isActive ? 'Em destaque' : 'Explorar'}
-                        <motion.span animate={{ x: isActive ? 6 : 0 }} transition={{ duration: 0.3 }}>
-                          →
-                        </motion.span>
-                      </div>
-                    </div>
-                  </motion.button>
-                );
-              })}
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative overflow-hidden rounded-[34px] border border-gabardo-blue/15 bg-gradient-to-br from-white via-gabardo-blue/5 to-white p-8 shadow-[0_35px_90px_-55px_rgba(13,28,55,0.4)]"
+            >
+              <div className="flex flex-col gap-5 text-gabardo-blue">
+                <div className="flex items-center gap-3">
+                  <Sparkles className="h-6 w-6" />
+                  <span className="text-xs uppercase tracking-[0.36em] text-gabardo-blue/70">Fluxo integrado</span>
+                </div>
+                <h3 className="text-2xl font-semibold">
+                  Cada entrega combina governança, tecnologia e pessoas para criar uma jornada memorável aos clientes.
+                </h3>
+                <p className="text-sm text-gabardo-blue/70">
+                  Nosso modelo conecta comitês, squads e hubs físicos em tempo real, garantindo previsibilidade e impacto socioambiental positivo.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {['Compliance', 'ESG', 'Tecnologia', 'Experiência do cliente'].map((chip) => (
+                    <span
+                      key={chip}
+                      className="rounded-full border border-gabardo-blue/20 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em]"
+                    >
+                      {chip}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

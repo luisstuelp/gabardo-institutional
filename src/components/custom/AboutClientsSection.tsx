@@ -27,14 +27,18 @@ type Card = {
     title: string;
     description: string;
   };
+  gradient: string;
 };
 
 const cards: Card[] = [
   {
     id: 'volkswagen',
     front: {
-      type: 'blank'
+      type: 'logo',
+      src: '/images/Wolks.png',
+      alt: 'Logotipo Volkswagen'
     },
+    gradient: 'from-[#001f5b] to-[#0f4cba]',
     back: {
       title: 'Volkswagen',
       description:
@@ -44,8 +48,11 @@ const cards: Card[] = [
   {
     id: 'mercedes-benz',
     front: {
-      type: 'blank'
+      type: 'logo',
+      src: '/images/Mercedes.png',
+      alt: 'Logotipo Mercedes-Benz'
     },
+    gradient: 'from-[#0f1c2e] to-[#6e7a8a]',
     back: {
       title: 'Mercedes-Benz',
       description:
@@ -55,8 +62,11 @@ const cards: Card[] = [
   {
     id: 'ford',
     front: {
-      type: 'blank'
+      type: 'logo',
+      src: '/images/Ford.png',
+      alt: 'Logotipo Ford'
     },
+    gradient: 'from-[#0b2e59] to-[#1d5faa]',
     back: {
       title: 'Ford',
       description:
@@ -66,8 +76,11 @@ const cards: Card[] = [
   {
     id: 'scania',
     front: {
-      type: 'blank'
+      type: 'logo',
+      src: '/images/Scania.png',
+      alt: 'Logotipo Scania'
     },
+    gradient: 'from-[#00205b] to-[#c8102e]',
     back: {
       title: 'Scania',
       description:
@@ -77,8 +90,11 @@ const cards: Card[] = [
   {
     id: 'localiza',
     front: {
-      type: 'blank'
+      type: 'logo',
+      src: '/images/Localiza.png',
+      alt: 'Logotipo Localiza'
     },
+    gradient: 'from-[#009739] to-[#39b54a]',
     back: {
       title: 'Localiza',
       description:
@@ -88,23 +104,17 @@ const cards: Card[] = [
   {
     id: 'jsl',
     front: {
-      type: 'blank'
+      type: 'logo',
+      src: '/images/JSL.png',
+      alt: 'Logotipo JSL'
     },
+    gradient: 'from-[#d50000] to-[#333333]',
     back: {
       title: 'JSL',
       description:
         'Parceria estratégica em operações complexas de multimodalidade e projetos especiais de logística.'
     }
   }
-];
-
-const backGradients = [
-  'from-gabardo-blue to-gabardo-light-blue',
-  'from-gabardo-blue to-blue-500',
-  'from-blue-900 to-gabardo-blue',
-  'from-blue-800 to-blue-400',
-  'from-gabardo-blue-900 to-gabardo-light-blue-400',
-  'from-slate-800 to-gabardo-blue'
 ];
 
 const AboutClientsSection: React.FC = () => {
@@ -173,7 +183,7 @@ const AboutClientsSection: React.FC = () => {
                 </div>
 
                 <div
-                  className={`absolute inset-0 flex h-full w-full flex-col justify-center space-y-3 rounded-3xl bg-gradient-to-br ${backGradients[index % backGradients.length]} px-8 text-left text-white [backface-visibility:hidden] [transform:rotateX(180deg)]`}
+                  className={`absolute inset-0 flex h-full w-full flex-col justify-center space-y-3 rounded-3xl bg-gradient-to-br ${card.gradient} px-8 text-left text-white [backface-visibility:hidden] [transform:rotateX(180deg)]`}
                 >
                   <h3 className="text-xl font-semibold">
                     {card.back.title}

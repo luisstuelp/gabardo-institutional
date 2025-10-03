@@ -11,7 +11,7 @@ const pillars = [
     description:
       'Comitês executivos e diretoria atuam com processos claros, indicadores estratégicos e compliance rigoroso.',
     image: {
-      src: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
+      src: '/images/TransGabardoGestao.JPG',
       position: 'center',
     },
     highlights: [
@@ -25,7 +25,7 @@ const pillars = [
     description:
       'Centros de controle monitoram operações em tempo real, conectando unidades em todo o Brasil.',
     image: {
-      src: 'https://images.unsplash.com/photo-1521120413309-42c41756ad40?auto=format&fit=crop&w=1200&q=80',
+      src: '/images/GabardoMonit.JPG',
       position: 'center',
     },
     highlights: [
@@ -39,7 +39,7 @@ const pillars = [
     description:
       'Programas contínuos de avaliação de riscos, auditorias internas e planos de contingência.',
     image: {
-      src: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1200&q=80',
+      src: '/images/seguranca-thumbsup.JPG',
       position: 'center',
     },
     highlights: [
@@ -53,7 +53,7 @@ const pillars = [
     description:
       'Sistemas próprios de gestão, telemetria embarcada e analytics para decisões orientadas por dados.',
     image: {
-      src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
+      src: '/images/GabardoBastidores.JPG',
       position: 'center',
     },
     highlights: [
@@ -67,7 +67,7 @@ const pillars = [
     description:
       'Profissionais em logística, TI, jurídico e atendimento trabalhando juntos para a melhor experiência.',
     image: {
-      src: 'https://images.unsplash.com/photo-1531498860502-7c67cf02f77b?auto=format&fit=crop&w=1200&q=80',
+      src: '/images/GabardoEquipe.JPG',
       position: 'center',
     },
     highlights: [
