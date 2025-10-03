@@ -1,23 +1,59 @@
 'use client';
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, ShieldCheck, Lock, ClipboardCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ShieldCheck, Lock, ClipboardCheck } from 'lucide-react';
 
-const reliabilityItems = [
-  "Procedimentos padronizados de investigação de avarias com KPIs e treinamentos contínuos.",
-  "Gerenciadora de riscos própria, monitoramento 24h e plano de contingência imediato.",
-  "Apólices nacionais e internacionais cobrindo todos os tipos de riscos.",
-  "Certificações ISO 9001 (Qualidade), ISO 14001 (Meio Ambiente) e ISO 39001 (Segurança Viária).",
-  "Operações certificadas em todos os portos do Brasil e habilitação aduaneira (DTA)."
-];
+type ReliabilityItem = {
+  src: string;
+  alt: string;
+};
 
-const protocolMeta = [
-  { label: 'Investigação & KPIs', accent: '#38B6FF' },
-  { label: 'Controle Operacional 24h', accent: '#14B8A6' },
-  { label: 'Cobertura Total', accent: '#F59E0B' },
-  { label: 'Certificações ISO', accent: '#6366F1' },
-  { label: 'Portos Homologados', accent: '#EC4899' },
+const reliabilityItems: ReliabilityItem[] = [
+  {
+    src: '/images/certifications/ghg-protocol-2024-prata.png',
+    alt: 'Selo GHG Protocol Prata 2024',
+  },
+  {
+    src: '/images/certifications/spco2-zero-ouro.png',
+    alt: 'Selo SPCO2 Zero Ouro',
+  },
+  {
+    src: '/images/certifications/carbon-negative-certified.png',
+    alt: 'Selo Carbon Negative Certified Worton',
+  },
+  {
+    src: '/images/certifications/gcs-abnt-pr2030-esg.png',
+    alt: 'Selo Global Certification System ABNT PR 2030 ESG',
+  },
+  {
+    src: '/images/certifications/ghg-protocol-membro-ciclo-2024.png',
+    alt: 'Selo Membro Ciclo 2024 do GHG Protocol',
+  },
+  {
+    src: '/images/certifications/carbono-zero-gabardo.png',
+    alt: 'Selo Gabardo Carbono Zero',
+  },
+  {
+    src: '/images/certifications/iso-9001-qualidade.png',
+    alt: 'Selo ISO 9001 Qualidade',
+  },
+  {
+    src: '/images/certifications/iso-39001-seguranca-viaria.png',
+    alt: 'Selo ISO 39001 Segurança Viária',
+  },
+  {
+    src: '/images/certifications/iso-14001-meio-ambiente.png',
+    alt: 'Selo ISO 14001 Meio Ambiente',
+  },
+  {
+    src: '/images/certifications/childhood-na-mao-certa.png',
+    alt: 'Selo Childhood Programa Na Mão Certa',
+  },
+  {
+    src: '/images/certifications/despoluir-programa-ambiental.png',
+    alt: 'Selo Despoluir Programa Ambiental do Transporte',
+  },
 ];
 
 const highlightPillars = [
@@ -52,16 +88,6 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 18, scale: 0.98 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.45, ease: 'easeOut' },
-  },
-};
-
 const cardVariants = {
   hidden: { opacity: 0, y: 30, scale: 0.94 },
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
@@ -75,6 +101,20 @@ const metricsVariants = {
 const metricItem = {
   hidden: { opacity: 0, y: 12 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' } },
+};
+
+type VisibleLayer = {
+  item: ReliabilityItem;
+  index: number;
+  depth: number;
+  animate: {
+    y: number;
+    scale: number;
+    opacity: number;
+    filter: string;
+  };
+  z: number;
+  isActive: boolean;
 };
 
 const ProtocolStack: React.FC = () => {
@@ -95,7 +135,7 @@ const ProtocolStack: React.FC = () => {
 
   const startAutoplay = useCallback(() => {
     if (autoplayRef.current) return;
-    autoplayRef.current = setInterval(() => cycle(1), 4500);
+    autoplayRef.current = setInterval(() => cycle(1), 2600);
   }, [cycle]);
 
   const stopAutoplay = useCallback(() => {
@@ -129,34 +169,40 @@ const ProtocolStack: React.FC = () => {
     return depth;
   });
 
-  const visibleLayers = useMemo(() =>
-    reliabilityItems.map((item, index) => {
-      const depth = positions[index];
-      if (Math.abs(depth) > 2) {
-        return null;
-      }
-      const y = depth * 42;
-      const scale = 1 - Math.abs(depth) * 0.08;
-      const opacity = 1 - Math.abs(depth) * 0.2;
-      const blur = Math.abs(depth) === 0 ? 0 : Math.abs(depth) * 1.2;
-      const z = 10 - Math.abs(depth);
-      const isActive = depth === 0;
-      return {
-        item,
-        index,
-        depth,
-        animate: { y, scale, opacity, filter: `blur(${blur}px)` },
-        z,
-        isActive,
-      };
-    }).filter(Boolean) as Array<{ item: string; index: number; depth: number; animate: any; z: number; isActive: boolean }>,
-  [positions]);
+  const visibleLayers = useMemo<VisibleLayer[]>(
+    () =>
+      reliabilityItems
+        .map((item, index) => {
+          const depth = positions[index];
+          if (Math.abs(depth) > 2) {
+            return null;
+          }
+          const y = depth * 42;
+          const scale = 1 - Math.abs(depth) * 0.08;
+          const opacity = 1 - Math.abs(depth) * 0.2;
+          const blur = Math.abs(depth) === 0 ? 0 : Math.abs(depth) * 1.2;
+          const z = 10 - Math.abs(depth);
+          const isActive = depth === 0;
+          const layer: VisibleLayer = {
+            item,
+            index,
+            depth,
+            animate: { y, scale, opacity, filter: `blur(${blur}px)` },
+            z,
+            isActive,
+          };
+
+          return layer;
+        })
+        .filter((layer): layer is VisibleLayer => layer !== null),
+    [positions]
+  );
 
 
   return (
     <motion.div
       variants={metricItem}
-      className="relative overflow-hidden rounded-[28px] border border-white/45 bg-gradient-to-br from-white/92 via-white/80 to-white/60 px-7 py-7 shadow-[0_28px_72px_-44px_rgba(19,45,81,0.6)]"
+      className="relative overflow-hidden rounded-[28px] "
       onMouseEnter={stopAutoplay}
       onMouseLeave={startAutoplay}
     >
@@ -186,44 +232,22 @@ const ProtocolStack: React.FC = () => {
       </p>
 
       <div ref={containerRef} className="relative mt-8 flex h-[330px] items-center justify-center overflow-hidden">
-        <motion.div
-          className="pointer-events-none absolute inset-2 rounded-[30px] bg-gradient-to-br from-white/60 via-transparent to-gabardo-blue/5"
-          animate={{ opacity: [0.55, 0.7, 0.55] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="pointer-events-none absolute -top-20 left-12 h-28 w-28 rounded-full bg-gabardo-blue/10 blur-3xl"
-          animate={{ x: [0, 20, -10, 0], y: [0, 18, -14, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="pointer-events-none absolute bottom-10 right-6 h-24 w-24 rounded-full bg-gabardo-light-blue/20 blur-3xl"
-          animate={{ x: [0, -22, 12, 0], y: [0, -12, 18, 0] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
-        />
-        {visibleLayers.map(({ item, index, depth, animate, z, isActive }) => (
+        {visibleLayers.map(({ item, animate, z, isActive }) => (
           <motion.div
-            key={item}
-            initial={{ y: animate.y + 40, opacity: 0, scale: animate.scale - 0.05 }}
+            key={item.src}
+            initial={{ y: animate.y + 40, opacity: 0, scale: animate.scale - 0.05  }}
             animate={animate}
             transition={{ duration: 0.5, ease: 'easeOut' }}
             style={{ zIndex: z }}
-            className="absolute inset-x-0 mx-auto flex w/full max-w-[440px] items-start gap-3 rounded-3xl border border-white/70 bg-white/96 p-6 shadow-[0_26px_48px_-36px_rgba(19,45,81,0.65)] backdrop-blur-xl"
+            className="absolute inset-x-0 mx-auto flex w-full max-w-[320px] items-center justify-center rounded-3xl  bg-white/96 px-6 py-5 shadow-[0_26px_48px_-36px_rgba(19,45,81,0.65)"
           >
-            <motion.span
-              className="mt-1 flex h-5 w-5 items-center justify-center"
-              animate={{ color: isActive ? '#22c55e' : 'rgba(34,197,94,0.35)' }}
+            <motion.img
+              src={item.src}
+              alt={item.alt}
+              className="h-60 w-auto object-contain drop-shadow-sm"
+              animate={{ opacity: isActive ? 1 : 0.7, scale: isActive ? 1.3 : 0.92 }}
               transition={{ duration: 0.3 }}
-            >
-              <CheckCircle className="h-5 w-5" />
-            </motion.span>
-            <motion.span
-              className="text-[1.02rem] leading-relaxed text-gray-700"
-              animate={{ color: isActive ? 'rgba(38,45,55,0.95)' : 'rgba(71,85,105,0.7)' }}
-              transition={{ duration: 0.3 }}
-            >
-              {item}
-            </motion.span>
+            />
           </motion.div>
         ))}
       </div>
