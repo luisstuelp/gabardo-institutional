@@ -4,31 +4,31 @@ import { motion } from 'framer-motion';
 
 const institutionalHighlights = [
   {
-    title: 'Rede de unidades conectadas',
+    title: 'Confiança certificada',
     description:
-      'Estrutura distribuída em hubs logísticos que garante padronização operacional e tempo de resposta ágil.',
-    imageAlt: 'Rede de unidades Gabardo conectadas',
-    imagePlaceholder: '/images/placeholders/rede-institucional.jpg',
-    actionLabel: 'Mapa de unidades',
-    actionHref: '/sobre/unidades',
+      'Tripla certificação ISO 9001, 14001 e 39001, auditorias periódicas e Canal de Ética garantem decisões responsáveis alinhadas à LGPD.',
+    imageAlt: 'Equipe avaliando indicadores de governança e compliance',
+    imagePlaceholder: '/images/Certificados.JPG',
+    actionLabel: 'Qualidade certificada',
+    actionHref: '/sobre/qualidade',
   },
   {
-    title: 'Governança que prioriza segurança',
+    title: 'Operação inteligente e tecnologia',
     description:
-      'Processos auditados, certificações e cultura de segurança que sustentam decisões transparentes em toda a companhia.',
-    imageAlt: 'Equipe analisando indicadores de governança',
-    imagePlaceholder: '/images/placeholders/governanca-equipe.jpg',
-    actionLabel: 'Conhecer comitês',
-    actionHref: '/sobre/governanca',
+      'Frota 79% própria com idade média de 2,5 anos, rede SD-WAN e telemetria integrada sustentam SLAs rigorosos em toda a LATAM.',
+    imageAlt: 'Profissionais monitorando operações logísticas de alta tecnologia',
+    imagePlaceholder: '/images/GabardoMonit.JPG',
+    actionLabel: 'Ver infraestrutura',
+    actionHref: '/sobre/infraestrutura',
   },
   {
-    title: 'Inovação orientada por dados',
+    title: 'Impacto socioambiental e ESG',
     description:
-      'Inteligência analítica, telemetria e projetos de transformação digital aceleram a evolução das operações.',
-    imageAlt: 'Dashboard de tecnologia e analytics em operação',
-    imagePlaceholder: '/images/placeholders/inovacao-analytics.jpg',
-    actionLabel: 'Cases de tecnologia',
-    actionHref: '/sobre/inovacao',
+      'Operação carbono negativa, inventários GEE desde 2017 e metas net zero 2030 sustentam programas de compensação e frota Euro 6.',
+    imageAlt: 'Colaboradores em iniciativa de sustentabilidade e reflorestamento',
+    imagePlaceholder: '/images/gabardo-hero-03.jpg',
+    actionLabel: 'Agenda ESG',
+    actionHref: '/sobre/esg',
   },
 ];
 

@@ -2,68 +2,68 @@
 
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ShieldCheck, Timer, Globe2, Leaf, Users } from 'lucide-react';
+import { Sparkles, Globe2, Leaf, Users, Truck, Server, TrendingUp } from 'lucide-react';
 
 const cards = [
   {
-    icon: ShieldCheck,
-    label: 'Governança e Compliance',
-    title: 'Certificações que asseguram confiança',
-    description:
-      'ISO 9001, 14001 e 39001, auditorias independentes e rituais de governança comitê garantem decisões responsáveis.',
-    accent: '#38B6FF',
-    image: 'https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?auto=format&fit=crop&w=1600&q=80',
-    highlights: ['Auditoria SGS recorrente', 'Mapa de riscos integrado', 'Política ESG ativa'],
-  },
-  {
-    icon: Timer,
-    label: 'Lead time otimizado',
-    title: 'Resposta rápida para demandas complexas',
-    description:
-      'Orquestração digital de pedidos, torre de controle 24/7 e squads ágeis reduzem ocorrências e mantêm SLAs acima de 97%.',
-    accent: '#00F7FF',
-    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80',
-    highlights: ['Monitoramento em tempo real', 'Alertas preditivos por IA', 'Playbooks de contingência'],
-  },
-  {
     icon: Globe2,
-    label: 'Cobertura estratégica',
-    title: 'Integração nacional e operações internacionais',
+    label: 'Cobertura LATAM',
+    title: 'Cobertura LATAM que antecipa demandas',
     description:
-      'Hub nacional conectado a portos, montadoras e parceiros globais para atender importações, exportações e operações especiais.',
+      'Bases no Sul, Sudeste, Centro-Oeste e Nordeste conectam importações, exportações e distribuição LATAM com habilitação aduaneira (DTA).',
     accent: '#4BFFB4',
-    image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1600&q=80',
-    highlights: ['Hubs nas principais regiões', 'Conectividade multimodal', 'Rede de parceiros globais'],
+    image: '/images/gabardo-hero-01.jpg',
+    highlights: ['BASES EM 4 REGIÕES', 'COBERTURA 100% LATAM', 'HABILITAÇÃO DTA'],
   },
   {
-    icon: Leaf,
-    label: 'Agenda ESG',
-    title: 'Sustentabilidade como padrão operacional',
+    icon: Truck,
+    label: 'Frota moderna',
+    title: 'Frota jovem e padronizada',
     description:
-      'Projetos de energia limpa, renovação de frota e programa Gabardo Carbono Negativo transformam cada entrega em impacto positivo.',
-    accent: '#7DFF4B',
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80',
-    highlights: ['Carbono negativo certificado', 'Frota híbrida & elétrica', 'Gestão circular de resíduos'],
+      '1.311 caminhões, 1.061 cegonheiras e renovação contínua garantem disponibilidade com 79% de frota própria e idade média de 2,5 anos.',
+    accent: '#38B6FF',
+    image: '/images/gabardo-truck-fleet.JPG',
+    highlights: ['79% FROTA PRÓPRIA', 'IDADE MÉDIA 2,5 ANOS', '1.311 CAMINHÕES'],
   },
   {
-    icon: Sparkles,
-    label: 'Inovação contínua',
-    title: 'Tecnologia aplicada a cada fase da jornada',
+    icon: Server,
+    label: 'Infraestrutura digital',
+    title: 'Continuidade operacional garantida',
     description:
-      'Digital twins, integrações com ERPs e analytics em tempo real geram visibilidade ponta a ponta da cadeia automotiva.',
-    accent: '#F4A8FF',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80',
-    highlights: ['Digital twin operacional', 'BI proprietária', 'Integrações com ecossistema OEM'],
+      'Rede SD-WAN, links redundantes e backups Oracle asseguram disponibilidade 24/7 para faturamento, CT-e, proxy/firewall e e-mail corporativo.',
+    accent: '#00F7FF',
+    image: '/images/GabardoBastidores.JPG',
+    highlights: ['SD-WAN NACIONAL', 'BACKUPS ORACLE DIÁRIOS', 'PLANO DE CONTINGÊNCIA'],
   },
   {
     icon: Users,
-    label: 'Equipe especializada',
-    title: 'Talentos que impulsionam resultados',
+    label: 'Experiência OEM',
+    title: 'Integração OEM e visibilidade total',
     description:
-      'Academia corporativa, squads multidisciplinares e cultura cliente-centrada entregam soluções sob medida.',
+      'PDI digital, telemetria embarcada e squads dedicados integram OEMs, pátios e concessionárias com rastreabilidade ponta a ponta.',
+    accent: '#F4A8FF',
+    image: '/images/GabardoEquipe2.JPG',
+    highlights: ['PDI DIGITAL', 'TELEMETRIA 24/7', 'SQUADS DEDICADOS'],
+  },
+  {
+    icon: TrendingUp,
+    label: 'Resultados',
+    title: 'Resultados operacionais comprovados',
+    description:
+      'Processos padronizados de investigação de avarias sustentam a entrega de 1.455.360 veículos transportados entre 2020 e 2024.',
     accent: '#FFB347',
-    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80',
-    highlights: ['Academia corporativa', 'Jornadas de talentos', 'Suporte consultivo'],
+    image: '/images/GabardoRef.JPG',
+    highlights: ['1.455.360 VEÍCULOS', 'INVESTIGAÇÃO PADRONIZADA', 'MONITORAMENTO 24H'],
+  },
+  {
+    icon: Leaf,
+    label: 'ESG',
+    title: 'Impacto ESG carbono negativo',
+    description:
+      'Inventários GEE anuais, programas de compensação e frota Euro 6 consolidam a primeira transportadora com produção de carbono negativa.',
+    accent: '#7DFF4B',
+    image: '/images/gabardo-hero-04.jpg',
+    highlights: ['CARBONO NEGATIVO', 'GHG PROTOCOL 2017', 'META NET ZERO 2030'],
   },
 ];
 

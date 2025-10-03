@@ -76,8 +76,14 @@ const SobreInstitucionalOperationsSection = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="relative rounded-3xl border border-neutral-200 bg-white/90 p-6 shadow-sm backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1"
                 >
-                  <div className="flex flex-col gap-3 pl-0 sm:pl-14">
-                    <div className="absolute left-0 top-6 hidden h-3 w-3 rounded-full bg-gabardo-blue sm:block" />
+                  <div className="flex flex-col gap-3 pl-0 sm:pl-12">
+                    <motion.span
+                      initial={{ opacity: 0, x: -28 }}
+                      whileInView={{ opacity: 1, x: 36 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.12, ease: 'easeOut' }}
+                      className="absolute left-0 top-6 hidden h-3 w-3 rounded-full bg-gabardo-blue sm:block"
+                    />
                     <span className="text-xs uppercase tracking-[0.3em] text-gabardo-blue/70">Etapa {String(index + 1).padStart(2, '0')}</span>
                     <h3 className="text-xl font-semibold text-gray-900">{operation.title}</h3>
                     <p className="text-sm leading-relaxed text-gray-600">{operation.description}</p>
