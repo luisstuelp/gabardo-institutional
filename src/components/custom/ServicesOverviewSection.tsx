@@ -230,7 +230,7 @@ const ServicesOverviewSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-20 md:mt-24 overflow-hidden rounded-3xl border border-neutral-200 bg-[#F7FAFF]"
+          className="mt-20 md:mt-24 overflow-hidden hidden rounded-3xl border border-neutral-200 bg-[#F7FAFF]"
         >
           <div className="grid gap-12 px-8 py-12 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:px-16 md:py-16">
             <div className="relative flex items-center justify-center">

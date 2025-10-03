@@ -97,8 +97,8 @@ const ServicesGridSection: React.FC = () => {
             >
               <Link href={service.href} className="block h-full group">
                   <div className="relative h-full p-8 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out overflow-hidden border border-transparent hover:border-blue-500">
-                    <div className={`flex items-center justify-center w-16 h-16 rounded-full ${service.bgColor} mb-6`}>
-                      <service.icon className={`w-8 h-8 ${service.iconColor}`} />
+                    <div className={`flex items-center justify-center w-16 h-16 rounded-full bg-[#132D51] mb-6`}>
+                      <service.icon className={`w-8 h-8 text-white`} />
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
                     <p className="text-gray-600 mb-6">{service.description}</p>

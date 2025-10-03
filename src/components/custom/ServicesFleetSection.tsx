@@ -251,11 +251,7 @@ export default function ServicesFleetSection() {
                         <div className="px-6 pb-6 pt-1">
                           <div className="flex flex-col gap-6">
                             <div className="flex items-start gap-4">
-                              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gabardo-light-blue/15 text-gabardo-blue">
-                                <Icon className="h-6 w-6" strokeWidth={1.5} />
-                              </div>
                               <div>
-                                <h4 className="text-xl font-semibold text-gabardo-blue">{type.name}</h4>
                                 <p className="mt-2 text-sm md:text-base text-neutral-600 leading-relaxed">
                                   {type.description}
                                 </p>
