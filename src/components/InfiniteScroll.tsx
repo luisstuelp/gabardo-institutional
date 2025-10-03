@@ -20,6 +20,7 @@ interface InfiniteScrollProps {
   autoplaySpeed?: number;
   autoplayDirection?: 'down' | 'up';
   pauseOnHover?: boolean;
+  allowManualScroll?: boolean;
 }
 
 const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
@@ -33,7 +34,8 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   autoplay = false,
   autoplaySpeed = 0.5,
   autoplayDirection = 'up',
-  pauseOnHover = false
+  pauseOnHover = false,
+  allowManualScroll = true
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -70,31 +72,35 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       gsap.set(child, { y });
     });
 
-    const observer = Observer.create({
-      target: container,
-      type: 'wheel,touch,pointer',
-      preventDefault: true,
-      onPress: ({ target }) => {
-        (target as HTMLElement).style.cursor = 'grabbing';
-      },
-      onRelease: ({ target }) => {
-        (target as HTMLElement).style.cursor = 'grab';
-      },
-      onChange: ({ deltaY, isDragging, event }) => {
-        const d = event.type === 'wheel' ? -deltaY : deltaY;
-        const distance = isDragging ? d * 2 : d * 4;
-        divItems.forEach(child => {
-          gsap.to(child, {
-            duration: 0.5,
-            ease: 'expo.out',
-            y: `+=${distance}` ,
-            modifiers: {
-              y: gsap.utils.unitize(wrapFn)
-            }
+    let observer: Observer | null = null;
+
+    if (allowManualScroll) {
+      observer = Observer.create({
+        target: container,
+        type: 'wheel,touch,pointer',
+        preventDefault: true,
+        onPress: ({ target }) => {
+          (target as HTMLElement).style.cursor = 'grabbing';
+        },
+        onRelease: ({ target }) => {
+          (target as HTMLElement).style.cursor = 'grab';
+        },
+        onChange: ({ deltaY, isDragging, event }) => {
+          const d = event.type === 'wheel' ? -deltaY : deltaY;
+          const distance = isDragging ? d * 2 : d * 4;
+          divItems.forEach(child => {
+            gsap.to(child, {
+              duration: 0.5,
+              ease: 'expo.out',
+              y: `+=${distance}` ,
+              modifiers: {
+                y: gsap.utils.unitize(wrapFn)
+              }
+            });
           });
-        });
-      }
-    });
+        }
+      });
+    }
 
     const removeTicker = () => {
       if (tickerCallbackRef.current) {
@@ -151,7 +157,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
         container.addEventListener('mouseleave', handleMouseLeave);
 
         return () => {
-          observer.kill();
+          observer?.kill();
           removeTicker();
           container.removeEventListener('mouseenter', handleMouseEnter);
           container.removeEventListener('mouseleave', handleMouseLeave);
@@ -159,16 +165,16 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       }
 
       return () => {
-        observer.kill();
+        observer?.kill();
         removeTicker();
       };
     }
 
     return () => {
-      observer.kill();
+      observer?.kill();
       removeTicker();
     };
-  }, [items, autoplay, autoplaySpeed, autoplayDirection, pauseOnHover, isTilted, tiltDirection, negativeMargin]);
+  }, [items, autoplay, autoplaySpeed, autoplayDirection, pauseOnHover, isTilted, tiltDirection, negativeMargin, allowManualScroll]);
 
   return (
     <>
@@ -181,12 +187,12 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            cursor: grab;
+            cursor: ${allowManualScroll ? 'grab' : 'default'};
             perspective: 1000px;
           }
 
           .infinite-scroll-wrapper:active {
-            cursor: grabbing;
+            cursor: ${allowManualScroll ? 'grabbing' : 'default'};
           }
 
           .infinite-scroll-container {

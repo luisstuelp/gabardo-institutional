@@ -74,7 +74,6 @@ const timeline: TimelineItem[] = [
 
 const AboutStorySection: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState<TimelineItem | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -85,38 +84,31 @@ const AboutStorySection: React.FC = () => {
   const scrollItems: ScrollItem[] = timeline.map((item, index) => ({
     content: (
       <motion.div
-        onMouseEnter={() => setHoveredItem(item)}
-        onMouseLeave={() => {
-          setHoveredItem(null);
-        }}
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-        className="group relative w-[350px] sm:w-[400px] md:w-[450px] lg:w-[500px] h-[250px] sm:h-[280px] md:h-[320px] lg:h-[360px] overflow-hidden rounded-2xl shadow-[0_15px_40px_-20px_rgba(19,45,81,0.35)] cursor-pointer mx-4"
+        className="relative mx-4 w-[400px] sm:w-[480px] md:w-[560px] lg:w-[640px] h-[260px] sm:h-[310px] md:h-[380px] lg:h-[430px] overflow-hidden rounded-2xl shadow-[0_20px_48px_-22px_rgba(19,45,81,0.35)]"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         <img
           src={item.image}
           alt={item.title}
-          className={`w-full h-full object-cover transition-all duration-700 ${
-            index === 0 ? 'grayscale group-hover:grayscale-0' : ''
-          }`}
+          className={`h-full w-full object-cover ${index === 0 ? 'grayscale' : ''}`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-gabardo-blue/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-        
-        {/* Card overlay info */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gabardo-blue flex items-center justify-center text-xs">
+          <div className="mb-2 flex items-center gap-2">
+            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gabardo-blue text-xs sm:h-8 sm:w-8">
               {item.icon}
             </div>
-            <span className="text-xs sm:text-sm font-bold">{item.year}</span>
+            <span className="text-xs font-bold sm:text-sm">{item.year}</span>
           </div>
-          <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wide line-clamp-2">
+          <h3 className="text-xs font-bold uppercase tracking-wide sm:text-sm line-clamp-2">
             {item.title}
           </h3>
         </div>
       </motion.div>
-    )
+    ),
   }));
 
   if (!isClient) {
@@ -131,39 +123,6 @@ const AboutStorySection: React.FC = () => {
 
   return (
     <section className="section-shell bg-white relative overflow-hidden">
-      {/* Hover Text Display */}
-      {hoveredItem && (
-        <motion.div
-          initial={{ opacity: 0, x: 16 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 16 }}
-          transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="fixed top-12 right-12 z-50 max-w-sm rounded-2xl border border-gabardo-light-blue/40 bg-white/95 p-5 shadow-[0_25px_60px_-30px_RGBA(19,45,81,0.55)] backdrop-blur-lg"
-        >
-          <div className="flex items-center gap-3 mb-3">
-            <motion.div
-              whileHover={{ rotate: 6 }}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-gabardo-blue text-white shadow-lg shadow-gabardo-blue/40"
-            >
-              {hoveredItem.icon}
-            </motion.div>
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gabardo-light-blue">
-                Capítulo
-              </span>
-              <span className="text-xl font-bold text-gabardo-blue">{hoveredItem.year}</span>
-            </div>
-          </div>
-
-          <h3 className="text-base font-semibold uppercase tracking-wide text-neutral-900 mb-2">
-            {hoveredItem.title}
-          </h3>
-          <p className="text-neutral-600 leading-relaxed text-xs">
-            {hoveredItem.description}
-          </p>
-        </motion.div>
-      )}
-
       <div className="section-container">
         {/* Header */}
         <motion.div
@@ -196,19 +155,20 @@ const AboutStorySection: React.FC = () => {
         </motion.div>
 
         {/* Timeline as Infinite Scroll */}
-        <div className="relative mt-16 w-full">
-          <div className="flex justify-center items-center px-6 md:px-12 lg:px-20 xl:px-24">
+        <div className="relative mt-16 w-screen max-w-none left-1/2 -translate-x-1/2">
+          <div className="flex items-center justify-center">
             <InfiniteScroll
-              width="90vw"
-              maxHeight="500px"
-              itemMinHeight={320}
+              width="100vw"
+              maxHeight="620px"
+              itemMinHeight={380}
               negativeMargin="-3rem"
-              items={scrollItems as any}
+              items={scrollItems}
               autoplay
               autoplaySpeed={0.6}
-              pauseOnHover
+              pauseOnHover={false}
               isTilted
               tiltDirection="left"
+              allowManualScroll={false}
             />
           </div>
         </div>

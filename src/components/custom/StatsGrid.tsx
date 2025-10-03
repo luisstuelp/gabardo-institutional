@@ -148,34 +148,27 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
         }`}
       />
 
-      <div className="relative flex flex-col gap-7">
-        <div className="flex items-start justify-between gap-6">
-          <div className="flex flex-col gap-3">
-            <span
-              className={`text-4xl font-extrabold tracking-tight md:text-[48px] tabular-nums ${isDark ? "text-white" : "text-gabardo-blue"}`}
-              style={{ minWidth: `${minWidthCh}ch` }}
-            >
-              {currentDisplay}
-            </span>
-            <p
-              className={`max-w-[280px] text-sm leading-relaxed ${
-                isDark ? "text-white/75" : "text-neutral-600"
-              }`}
-            >
-              {stat.description}
-            </p>
-          </div>
-
-          <div className="flex flex-col items-end text-right">
-            <span
-              className={`text-[11px] font-semibold uppercase tracking-[0.2em] leading-tight ${
-                isDark ? "text-white/80" : "text-gabardo-blue"
-              }`}
-            >
-              {stat.title}
-            </span>
-          </div>
-        </div>
+      <div className="relative flex flex-col gap-6">
+        <span
+          className={`text-[11px] font-semibold uppercase tracking-[0.24em] leading-tight ${
+            isDark ? "text-white/80" : "text-gabardo-blue"
+          }`}
+        >
+          {stat.title}
+        </span>
+        <span
+          className={`text-4xl font-extrabold tracking-tight md:text-[48px] tabular-nums ${isDark ? "text-white" : "text-gabardo-blue"}`}
+          style={{ minWidth: `${minWidthCh}ch` }}
+        >
+          {currentDisplay}
+        </span>
+        <p
+          className={`max-w-[380px] text-sm leading-relaxed ${
+            isDark ? "text-white/75" : "text-neutral-600"
+          }`}
+        >
+          {stat.description}
+        </p>
       </div>
 
       <div className="pointer-events-none absolute inset-0 rounded-[26px] border border-gabardo-light-blue/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

@@ -177,7 +177,7 @@ const ProtocolStack: React.FC = () => {
           if (Math.abs(depth) > 2) {
             return null;
           }
-          const y = depth * 42;
+          const y = depth * 32;
           const scale = 1 - Math.abs(depth) * 0.08;
           const opacity = 1 - Math.abs(depth) * 0.2;
           const blur = Math.abs(depth) === 0 ? 0 : Math.abs(depth) * 1.2;
@@ -231,7 +231,7 @@ const ProtocolStack: React.FC = () => {
         Interaja para percorrer cada etapa que protege a operação Gabardo, da análise à execução.
       </p>
 
-      <div ref={containerRef} className="relative mt-8 flex h-[330px] items-center justify-center overflow-hidden">
+      <div ref={containerRef} className="relative mt-8 flex h-[420px] items-center justify-center overflow-hidden">
         {visibleLayers.map(({ item, animate, z, isActive }) => (
           <motion.div
             key={item.src}
@@ -239,13 +239,13 @@ const ProtocolStack: React.FC = () => {
             animate={animate}
             transition={{ duration: 0.5, ease: 'easeOut' }}
             style={{ zIndex: z }}
-            className="absolute inset-x-0 mx-auto flex w-full max-w-[320px] items-center justify-center rounded-3xl  bg-white/96 px-6 py-5 shadow-[0_26px_48px_-36px_rgba(19,45,81,0.65)"
+            className="absolute inset-x-0 mx-auto flex w-full max-w-[380px] items-center justify-center rounded-3xl bg-white/96 px-6 py-5 shadow-[0_26px_48px_-36px_rgba(19,45,81,0.65)"
           >
             <motion.img
               src={item.src}
               alt={item.alt}
-              className="h-60 w-auto object-contain drop-shadow-sm"
-              animate={{ opacity: isActive ? 1 : 0.7, scale: isActive ? 1.3 : 0.92 }}
+              className="h-72 w-auto object-contain drop-shadow-sm"
+              animate={{ opacity: isActive ? 1 : 0.7, scale: isActive ? 1.28 : 0.92 }}
               transition={{ duration: 0.3 }}
             />
           </motion.div>
