@@ -31,6 +31,7 @@ import GovernanceFleetSection from '@/components/custom/GovernanceFleetSection';
 import GovernanceCommitmentSection from '@/components/custom/GovernanceCommitmentSection';
 import GovernanceInnovationSection from '@/components/custom/GovernanceInnovationSection';
 import GovernanceInitiativesSection from '@/components/custom/GovernanceInitiativesSection';
+import SobreInstitucionalLeadershipSection from '@/components/custom/SobreInstitucionalLeadershipSection';
 import InnovationClimateSection from '@/components/custom/InnovationClimateSection';
 import InnovationHowWeActSection from '@/components/custom/InnovationHowWeActSection';
 import InnovationEASGSection from '@/components/custom/InnovationEASGSection';
@@ -72,6 +73,7 @@ export default function SustentabilidadePage() {
       )}
       {selectedTab === "GOVERNANÇA" && (
         <>
+          <SobreInstitucionalLeadershipSection />
           <GovernanceClimateSection />
           <GovernanceHowWeActSection />
           <GovernanceEASGSection />

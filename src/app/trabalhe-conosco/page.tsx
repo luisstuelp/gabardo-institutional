@@ -3,8 +3,8 @@ import Footer from '@/components/layout/Footer';
 import TrabalheConoscoHeroSection from '@/components/custom/TrabalheConoscoHeroSection';
 import TrabalheConoscoIntroSection from '@/components/custom/TrabalheConoscoIntroSection';
 import TrabalheConoscoBenefitsSection from '@/components/custom/TrabalheConoscoBenefitsSection';
-import TrabalheConoscoTestimonialsSection from '@/components/custom/TrabalheConoscoTestimonialsSection';
-import TrabalheConoscoCTASection from '@/components/custom/TrabalheConoscoCTASection';
+import ServicesQuoteSection from '@/components/custom/ServicesQuoteSection';
+import ServicesAdvantagesSection from '@/components/custom/ServicesAdvantagesSection';
 
 export default function TrabalheConoscoPage() {
   return (
@@ -13,8 +13,8 @@ export default function TrabalheConoscoPage() {
       <TrabalheConoscoHeroSection />
       <TrabalheConoscoIntroSection />
       <TrabalheConoscoBenefitsSection />
-      <TrabalheConoscoTestimonialsSection />
-      <TrabalheConoscoCTASection />
+      <ServicesAdvantagesSection />
+      <ServicesQuoteSection />
       <Footer />
     </main>
   );

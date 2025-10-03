@@ -20,7 +20,9 @@ const TrabalheConoscoHeroSection: React.FC = () => {
           sizes="100vw"
           quality={95}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/60 to-black/85" />
+        <div className="absolute -right-32 top-20 h-80 w-80 rounded-full bg-gabardo-blue/30 blur-[110px]" />
+        <div className="absolute -left-24 bottom-10 h-72 w-72 rounded-full bg-gabardo-light-blue/20 blur-[100px]" />
       </div>
 
       <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-4 sm:px-6 md:px-10 lg:px-16">
@@ -52,10 +54,34 @@ const TrabalheConoscoHeroSection: React.FC = () => {
         </motion.p>
 
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1 }}
+          className="flex flex-col gap-4 sm:flex-row sm:gap-5"
+        >
+          <motion.a
+            href="#talent-form"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-gabardo-blue shadow-lg"
+          >
+            Cadastrar currículo
+          </motion.a>
+          <motion.a
+            href="#beneficios-gabardo"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center justify-center rounded-full border border-white/70 px-8 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white backdrop-blur-md"
+          >
+            Conhecer jornada
+          </motion.a>
+        </motion.div>
+
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="hidden md:flex flex-col items-center gap-3"
+          className="hidden md:flex flex-col items-center gap-3 mt-16"
         >
           <span className="text-xs tracking-[0.3em] uppercase text-white/70">Role para conhecer nossas iniciativas</span>
           <ChevronDown className="w-8 h-8 animate-bounce" />
