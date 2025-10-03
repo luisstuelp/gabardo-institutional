@@ -1,43 +1,99 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { Linkedin } from 'lucide-react';
+import { ShieldCheck, Workflow, BarChart3, Users2, Building2, Shield, Scale, FileCheck, Users } from 'lucide-react';
 
-const leadershipTeam = [
+const governanceHighlights = [
+  'Comitês multidisciplinares que asseguram compliance e LGPD.',
+  'Auditorias independentes e reporting trimestral para clientes estratégicos.',
+  'Indicadores ESG em tempo real conectados à torre de controle.',
+];
+
+const governancePractices = [
   {
-    name: 'André Gabardo',
-    role: 'CEO & Chairman',
-    focus: 'Estratégia corporativa',
-    bio: 'Lidera a visão de crescimento da Gabardo Distribuidora, com foco em governança, inovação e parcerias estratégicas para a cadeia automotiva.',
-    highlight: '25 anos na indústria automotiva',
-    avatar: '/images/leadership/andre-gabardo.jpg',
-    linkedin: 'https://www.linkedin.com/',
+    icon: Shield,
+    title: 'Programa de integridade',
+    description: 'Políticas anticorrupção, canais de denúncia e auditorias independentes reforçam a ética em nossas operações.',
   },
   {
-    name: 'Marina Souza',
-    role: 'Diretora de Operações',
-    focus: 'Excelência operacional',
-    bio: 'Comanda a torre de controle, squads de melhoria contínua e programas de eficiência que conectam unidades e clientes premium.',
-    highlight: 'SLA 98% mantido desde 2022',
-    avatar: '/images/leadership/marina-souza.jpg',
-    linkedin: 'https://www.linkedin.com/',
+    icon: Scale,
+    title: 'Compliance regulatório',
+    description: 'Monitoramento contínuo de legislação, LGPD e normas ANTT com time jurídico dedicado.',
   },
   {
-    name: 'Ricardo Azevedo',
-    role: 'Diretor de Tecnologia & ESG',
-    focus: 'Dados e sustentabilidade',
-    bio: 'Responsável por plataformas digitais proprietárias, telemetria embarcada e roadmap de carbono negativo para a frota.',
-    highlight: 'Projetos ESG reconhecidos pela SGS',
-    avatar: '/images/leadership/ricardo-azevedo.jpg',
-    linkedin: 'https://www.linkedin.com/',
+    icon: FileCheck,
+    title: 'Gestão de riscos',
+    description: 'Mapeamento corporativo de riscos com matrizes de impacto, planos de contingência e indicadores de governança.',
+  },
+  {
+    icon: Users,
+    title: 'Conselhos e comitês',
+    description: 'Estrutura com comitês ESG, financeiro e de pessoas garantindo decisões colegiadas e transparência.',
+  },
+  {
+    icon: Workflow,
+    title: 'Padronização de processos',
+    description: 'Metodologias e manuais corporativos asseguram consistência nas operações e prestação de contas.',
   },
 ];
 
-const leadershipMissions = [
-  'Governança ativa com comitês multidisciplinares e auditoria recorrente.',
-  'Programas de desenvolvimento que conectam líderes e times operacionais.',
-  'Decisões orientadas por dados e indicadores ESG em tempo real.',
+const governanceStats = [
+  { value: '36+', label: 'anos de governança estruturada' },
+  { value: '14', label: 'bases auditadas no Brasil' },
+  { value: '100%', label: 'processos mapeados e revisados anualmente' },
+];
+
+const governancePillars = [
+  {
+    icon: ShieldCheck,
+    title: 'Governança e Compliance',
+    description:
+      'Políticas corporativas rígidas, canal de ética independente e matriz de riscos atualizada para toda a cadeia automotiva.',
+    bullets: [
+      'Certificações ISO 9001, 14001 e 39001 renovadas com auditoria externa.',
+      'LGPD operacionalizada com inventário de dados e treinamentos contínuos.',
+    ],
+  },
+  {
+    icon: Workflow,
+    title: 'Modelos Operacionais Integrados',
+    description:
+      'Torre de controle com squads ágeis, conectando operações, tecnologia e ESG em rituais semanais.',
+    bullets: [
+      'OKRs de governança compartilhados entre operações e clientes premium.',
+      'Planos de continuidade com simulações trimestrais e gestão de crises.',
+    ],
+  },
+  {
+    icon: BarChart3,
+    title: 'Dados e Performance',
+    description:
+      'Telemetria embarcada e BI proprietários que ancoram decisões estratégicas e táticas em tempo real.',
+    bullets: [
+      'Dashboards ESG integrados ao inventário GEE desde 2017.',
+      'KPIs de SLA, segurança e eficiência monitorados 24h pela equipe Gabardo.',
+    ],
+  },
+  {
+    icon: Users2,
+    title: 'Cultura e Desenvolvimento',
+    description:
+      'Programas de liderança e trilhas da Academia Gabardo sustentam sucessão interna e engajamento em larga escala.',
+    bullets: [
+      '74% das posições de liderança ocupadas por talentos formados na empresa.',
+      'Planos de carreiras estruturados para operação, tecnologia e áreas corporativas.',
+    ],
+  },
+  {
+    icon: Building2,
+    title: 'Relacionamento com Stakeholders',
+    description:
+      'Governança compartilhada com clientes, fornecedores e comunidades para garantir transparência e performance contínua.',
+    bullets: [
+      'Comitês conjuntos com montadoras e parceiros logísticos-chave.',
+      'Relatórios trimestrais de performance com indicadores ESG e operacionais.',
+    ],
+  },
 ];
 
 const SobreInstitucionalLeadershipSection = () => {
@@ -55,7 +111,7 @@ const SobreInstitucionalLeadershipSection = () => {
         transition={{ duration: 1 }}
       />
       <div className="container mx-auto px-4 md:px-8 lg:px-16">
-        <div className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div className="mb-14 flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -67,10 +123,10 @@ const SobreInstitucionalLeadershipSection = () => {
               Liderança & governança
             </span>
             <h2 className="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
-              Pessoas que sustentam nossa operação institucional
+              Estruturas que preservam o DNA Gabardo em cada decisão
             </h2>
             <p className="mt-4 text-base text-gray-600 md:text-lg">
-              Uma governança robusta conduz projetos transformacionais, mantendo o DNA Gabardo em cada decisão.
+              Nossa governança combina compliance, inteligência de dados e cultura de alto desempenho para garantir execução consistente da estratégia Gabardo Distribuidora em toda a LATAM.
             </p>
           </motion.div>
 
@@ -88,67 +144,86 @@ const SobreInstitucionalLeadershipSection = () => {
               },
             }}
           >
-            {leadershipMissions.map((mission) => (
+            {governanceHighlights.map((highlight) => (
               <motion.li
-                key={mission}
+                key={highlight}
                 className="rounded-2xl border border-gabardo-blue/15 bg-gabardo-blue/5 px-4 py-3"
                 variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }}
               >
-                {mission}
+                {highlight}
               </motion.li>
             ))}
           </motion.ul>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {leadershipTeam.map((leader, index) => (
-            <motion.article
-              key={leader.name}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="group relative overflow-hidden rounded-3xl border border-neutral-200 bg-white/90 shadow-lg backdrop-blur-sm"
-            >
-              <div className="relative h-56 w-full overflow-hidden">
-                <Image
-                  src={leader.avatar}
-                  alt={`Retrato de ${leader.name}`}
-                  fill
-                  className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.05]"
-                  sizes="(min-width: 1024px) 320px, 100vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                <div className="absolute bottom-4 left-4 flex flex-col gap-1">
-                  <span className="text-xs uppercase tracking-[0.28em] text-white/70">{leader.focus}</span>
-                  <span className="text-lg font-semibold text-white">{leader.name}</span>
-                  <span className="text-sm text-white/80">{leader.role}</span>
-                </div>
-              </div>
-
-              <div className="space-y-4 px-6 py-8">
-                <p className="text-sm leading-relaxed text-gray-600">{leader.bio}</p>
-                <div className="flex items-center justify-between gap-4">
-                  <span className="inline-flex items-center rounded-full bg-gabardo-blue/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-gabardo-blue">
-                    {leader.highlight}
+        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+          {governancePillars.map((pillar, index) => {
+            const Icon = pillar.icon;
+            return (
+              <motion.article
+                key={pillar.title}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: index * 0.08 }}
+                className="group relative overflow-hidden rounded-3xl border border-neutral-200 bg-white/90 p-8 shadow-lg backdrop-blur-sm transition-transform duration-500 hover:-translate-y-2"
+              >
+                <div className="absolute -right-16 top-6 h-32 w-32 rounded-full bg-gabardo-blue/10 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="relative flex flex-col gap-5">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gabardo-blue/10 text-gabardo-blue">
+                    <Icon className="h-6 w-6" />
                   </span>
-                  <motion.a
-                    href={leader.linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gabardo-blue/30 text-gabardo-blue transition-colors duration-300 hover:bg-gabardo-blue hover:text-white"
-                    whileHover={{ scale: 1.08 }}
-                    whileTap={{ scale: 0.96 }}
-                    aria-label={`LinkedIn de ${leader.name}`}
-                  >
-                    <Linkedin className="h-5 w-5" />
-                  </motion.a>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900">{pillar.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-gray-600">{pillar.description}</p>
+                  </div>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    {pillar.bullets.map((bullet) => (
+                      <li key={bullet} className="flex items-start gap-2">
+                        <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-gabardo-blue" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-            </motion.article>
-          ))}
+              </motion.article>
+            );
+          })}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="mt-14"
+        >
+          <h3 className="text-2xl font-semibold text-gray-900 md:text-3xl">Como garantimos governança sólida</h3>
+          <p className="mt-3 max-w-3xl text-sm text-gray-600 md:text-base">
+            Esses pilares se materializam em práticas diárias que protegem o negócio, fortalecem relações e mantêm a Gabardo preparada para evoluir em qualquer cenário.
+          </p>
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {governancePractices.map((practice, index) => {
+              const Icon = practice.icon;
+              return (
+                <motion.article
+                  key={practice.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
+                  className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-gabardo-blue/10 text-gabardo-blue">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-gray-900">{practice.title}</h4>
+                  <p className="mt-2 text-sm text-gray-600">{practice.description}</p>
+                </motion.article>
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

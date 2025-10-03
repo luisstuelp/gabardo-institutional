@@ -24,9 +24,9 @@ import SocialFleetSection from '@/components/custom/SocialFleetSection';
 import SocialCommitmentSection from '@/components/custom/SocialCommitmentSection';
 import SocialInnovationSection from '@/components/custom/SocialInnovationSection';
 import SocialInitiativesSection from '@/components/custom/SocialInitiativesSection';
+import SocialTestimonialsSection from '@/components/custom/SocialTestimonialsSection';
 import GovernanceClimateSection from '@/components/custom/GovernanceClimateSection';
 import GovernanceHowWeActSection from '@/components/custom/GovernanceHowWeActSection';
-import GovernanceEASGSection from '@/components/custom/GovernanceEASGSection';
 import GovernanceFleetSection from '@/components/custom/GovernanceFleetSection';
 import GovernanceCommitmentSection from '@/components/custom/GovernanceCommitmentSection';
 import GovernanceInnovationSection from '@/components/custom/GovernanceInnovationSection';
@@ -67,6 +67,7 @@ export default function SustentabilidadePage() {
           <SocialFleetSection />
           <SocialCommitmentSection />
           <SocialInnovationSection />
+          <SocialTestimonialsSection />
           <SocialInitiativesSection />
           <SocialSection />
         </>
@@ -76,7 +77,6 @@ export default function SustentabilidadePage() {
           <SobreInstitucionalLeadershipSection />
           <GovernanceClimateSection />
           <GovernanceHowWeActSection />
-          <GovernanceEASGSection />
           <GovernanceFleetSection />
           <GovernanceCommitmentSection />
           <GovernanceInnovationSection />

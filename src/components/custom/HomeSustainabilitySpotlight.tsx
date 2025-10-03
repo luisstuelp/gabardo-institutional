@@ -180,23 +180,6 @@ const HomeSustainabilitySpotlight = () => {
           })}
         </div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mt-16 text-center"
-        >
-          <Link
-            href="/sustentabilidade"
-            className="inline-flex items-center gap-3 rounded-full border border-gabardo-blue/30 bg-gabardo-blue/10 px-8 py-4 text-sm font-semibold uppercase tracking-wider text-gabardo-blue transition-all hover:bg-gabardo-blue/20 hover:shadow-lg"
-          >
-            <Recycle className="h-4 w-4" />
-            Relatório completo de sustentabilidade
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </motion.div>
       </div>
     </section>
   );
