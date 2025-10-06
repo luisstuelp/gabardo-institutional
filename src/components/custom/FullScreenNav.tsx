@@ -227,20 +227,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
             <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="absolute top-6 right-6 z-20 md:hidden"
-          >
-            <button
-              onClick={onClose}
-              className="w-12 h-12 rounded-full border border-white/30 bg-black/20 backdrop-blur-sm text-white hover:bg-white/10 transition-all duration-300 flex items-center justify-center group"
-              aria-label="Close menu"
-            >
-              <X size={20} className="group-hover:rotate-90 transition-transform duration-300" />
-            </button>
-          </motion.div>
+
 
           <div className="relative z-10 h-full flex flex-col md:flex-row">
             <motion.div
@@ -287,20 +274,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
               transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
               className="hidden md:flex relative w-2/5 lg:w-1/2 h-full flex-col justify-center p-6 md:p-8 lg:p-10 bg-[#0c1f3d] shadow-[0_0_40px_rgba(0,0,0,0.45)] backdrop-blur-sm"
             >
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="absolute top-6 right-6"
-              >
-                <button
-                  onClick={onClose}
-                  className="w-10 h-10 rounded-full border border-white/30 text-white hover:bg-white/10 transition-all duration-300 flex items-center justify-center group"
-                  aria-label="Close menu"
-                >
-                  <X size={18} className="group-hover:rotate-90 transition-transform duration-300" />
-                </button>
-              </motion.div>
+
 
               <AnimatePresence mode="wait">
                 {activeSection === 'services' && (
