@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import mapboxgl, { Map } from 'mapbox-gl';
+import units from '@/data/units.json';
 
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoid2Vic3RhcnN0dWRpbyIsImEiOiJjbWJqaXUyZG8wZ3BtMmpxNm5pcGw0Y2ptIn0.UnohoPp9qrhIFOEoQ9FNfg';
 
@@ -16,26 +17,21 @@ interface LocationData {
   region: string;
 }
 
-const locations: LocationData[] = [
-  // CENTRO OESTE/SUDESTE
-  { name: 'Anápolis', coordinates: [-48.9530, -16.3266], address: 'Anápolis - GO', phone: '+55 (62) 4014-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'Piracicaba', coordinates: [-47.6498, -22.7253], address: 'Piracicaba - SP', phone: '+55 (19) 3370-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'São Bernardo do Campo', coordinates: [-46.5447, -23.6914], address: 'SBC - SP', phone: '+55 (11) 4341-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'Pátios Jaragua', coordinates: [-46.7644, -23.4567], address: 'Pátios Jaragua - SP', phone: '+55 (11) 3906-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'Iracemápolis', coordinates: [-47.5205, -22.5815], address: 'Iracemápolis - SP', phone: '+55 (19) 3541-0179', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'Duque de Caxias', coordinates: [-43.3117, -22.7856], address: 'Duque de Caxias - RJ', phone: '+55 (21) 2674-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'Porto Real', coordinates: [-44.2917, -22.4240], address: 'Porto Real - RJ', phone: '+55 (24) 3354-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'Cariacica', coordinates: [-40.4173, -20.2617], address: 'Cariacica - ES', phone: '+55 (27) 4009-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  
-  // NORDESTE
-  { name: 'Eusébio', coordinates: [-38.4507, -3.8900], address: 'Eusébio - CE', phone: '+55 (85) 3257-6363', type: 'filial', region: 'Nordeste' },
-  
-  // SUL
-  { name: 'Porto Alegre', coordinates: [-51.2177, -30.0346], address: 'Porto Alegre - RS', phone: '+55 (51) 3373-3000', type: 'matriz', region: 'Sul' },
-  { name: 'São José dos Pinhais', coordinates: [-49.2063, -25.5335], address: 'S. J. Pinhais - PR', phone: '+55 (41) 3384-3000', type: 'filial', region: 'Sul' },
-  { name: 'Palhoça', coordinates: [-48.6700, -27.6384], address: 'Palhoça - SC', phone: '+55 (48) 3255-3000', type: 'filial', region: 'Sul' },
-  { name: 'Três Margens', coordinates: [-51.1151, -23.8505], address: 'Três MR - PR', phone: '+55 (43) 3629-3000', type: 'filial', region: 'Sul' },
-];
+const mapRegion = (region: string) => {
+  if (region === 'Sul') return 'Sul';
+  if (region === 'Nordeste') return 'Nordeste';
+  if (region === 'Sudeste' || region === 'Centro-Oeste') return 'Centro Oeste/Sudeste';
+  return region;
+};
+
+const locations: LocationData[] = units.map(unit => ({
+  name: unit.nome,
+  coordinates: [unit.lng, unit.lat],
+  address: unit.endereco,
+  phone: unit.telefone,
+  type: unit.nome.includes('Matriz') ? 'matriz' : 'filial',
+  region: mapRegion(unit.regiao),
+}));
 
 // Função para mapear nomes das localizações para IDs das páginas
 const getLocationId = (locationName: string): string => {
@@ -73,14 +69,8 @@ const MapboxSection: React.FC = () => {
   };
 
   const handleSelectLocationFromList = (location: LocationData) => {
-    setSelectedLocation(location);
-    if (mapRef.current) {
-      mapRef.current.flyTo({
-        center: location.coordinates,
-        zoom: 12,
-        duration: 1000,
-      });
-    }
+    const query = encodeURIComponent(location.address);
+    window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
   };
 
   useEffect(() => {
@@ -99,8 +89,8 @@ const MapboxSection: React.FC = () => {
       container,
       style: 'mapbox://styles/mapbox/dark-v11',
       center: [-47.8825, -15.7942], // Center on Brazil
-      zoom: 4,
-      minZoom: 2.5,
+      zoom: 3.5,
+      minZoom: 3,
       maxBounds: [
         [-110, -70],
         [-20, 25],
@@ -132,12 +122,8 @@ const MapboxSection: React.FC = () => {
           .addTo(map);
 
         markerElement.addEventListener('click', () => {
-          setSelectedLocation(location);
-          map.flyTo({
-            center: location.coordinates,
-            zoom: 12,
-            duration: 1000,
-          });
+          const query = encodeURIComponent(location.address);
+          window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
         });
       });
 

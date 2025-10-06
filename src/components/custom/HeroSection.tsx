@@ -1,7 +1,8 @@
 'use client';
 
-import { Dot, Mouse } from 'lucide-react';
+import { Dot, Mouse, ArrowRight } from 'lucide-react';
 import { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import AnimatedWords from './AnimatedWords';
 import AnimatedCarbonBadge from './AnimatedCarbonBadge';
 
@@ -130,31 +131,22 @@ export default function HeroSection() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <button
-                  className="font-secondary text-white px-7 py-3.5 sm:px-8 sm:py-4 font-semibold uppercase tracking-wide transition-all duration-300 transform hover:scale-105 hover:shadow-lg rounded-full"
-                  style={{ backgroundColor: '#38B6FF' }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = '#2da5ff';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = '#38B6FF';
-                  }}
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group bg-gabardo-light-blue text-white px-8 py-4 text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center space-x-3 touch-manipulation font-primary rounded-full"
                 >
-                  Encontre seu serviço
-                </button>
-                <button
-                  className="font-secondary border-2 border-white text-white px-7 py-3.5 sm:px-8 sm:py-4 font-semibold uppercase tracking-wide transition-all duration-300 rounded-full"
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'white';
-                    e.currentTarget.style.color = '#38B6FF';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.color = 'white';
-                  }}
+                  <span>Encontre seu serviço</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="group bg-transparent border-2 border-white text-white px-8 py-4 text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center space-x-3 touch-manipulation font-primary rounded-full"
                 >
-                  Seja nosso parceiro
-                </button>
+                  <span>Seja nosso parceiro</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                </motion.button>
               </div>
             </div>
           </div>

@@ -191,7 +191,7 @@ export default function ContactHeroSection() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={scrollToForm}
-                  className="group bg-gabardo-light-blue text-white px-8 py-4 text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center space-x-3 touch-manipulation font-primary"
+                  className="group bg-gabardo-light-blue text-white px-8 py-4 text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center space-x-3 touch-manipulation font-primary rounded-full"
                 >
                   <span>Fale Conosco</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -203,7 +203,7 @@ export default function ContactHeroSection() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleContactAction('tel:+551134567890')}
-                    className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3 transition-all duration-300 touch-manipulation group"
+                    className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3 transition-all duration-300 touch-manipulation group rounded-full"
                     aria-label="Ligar para Transportes Gabardo"
                   >
                     <Phone className="w-5 h-5 transition-colors duration-300" />
@@ -213,7 +213,7 @@ export default function ContactHeroSection() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleContactAction('mailto:contato@gabardotransportadora.com.br')}
-                    className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3 transition-all duration-300 touch-manipulation group"
+                    className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3 transition-all duration-300 touch-manipulation group rounded-full"
                     aria-label="Enviar e-mail para Transportes Gabardo"
                   >
                     <Mail className="w-5 h-5 transition-colors duration-300" />
@@ -223,7 +223,7 @@ export default function ContactHeroSection() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleContactAction('https://maps.google.com?q=São+Paulo+SP')}
-                    className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3 transition-all duration-300 touch-manipulation group"
+                    className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3 transition-all duration-300 touch-manipulation group rounded-full"
                     aria-label="Ver localizações Gabardo no mapa"
                   >
                     <MapPin className="w-5 h-5 transition-colors duration-300" />

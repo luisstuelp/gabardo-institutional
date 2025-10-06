@@ -29,7 +29,7 @@ const stripeFeatures = [
 ];
 
 const HomeStripeCardSection = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   return (
     <section className="relative overflow-hidden bg-[#0B1B31] py-20">
@@ -79,38 +79,47 @@ const HomeStripeCardSection = () => {
                   hidden: { opacity: 0 },
                   visible: {
                     opacity: 1,
-                    transition: { staggerChildren: 0.12, delayChildren: 0.15 }
-                  }
+                    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
+                  },
                 }}
-                className="relative flex flex-col gap-6"
+                className="relative flex flex-col gap-4"
               >
                 {stripeFeatures.map((feature, index) => {
-                  const isActive = hoveredIndex === index;
-                  const isDimmed = hoveredIndex !== null && !isActive;
-
+                  const isActive = activeIndex === index;
                   return (
                     <motion.div
                       key={feature.label}
-                      layout="position"
-                      initial={false}
-                      variants={{
-                        hidden: { opacity: 0, y: 18, scale: 0.96 },
-                        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } }
-                      }}
-                      onHoverStart={() => setHoveredIndex(index)}
-                      onHoverEnd={() => setHoveredIndex(null)}
+                      layout
+                      initial={{ opacity: 0, y: 18, scale: 0.96 }}
                       animate={{
-                        scale: isActive ? 1.01 : 1,
-                        y: isActive ? -6 : 0,
-                        flexGrow: isActive ? 1.45 : hoveredIndex === null ? 1 : 0.65,
-                        borderColor: isActive ? 'rgba(56,182,255,0.45)' : 'rgba(255,255,255,0.15)',
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        flexGrow: isActive ? 2.2 : 1,
+                        minHeight: isActive ? 320 : 200,
+                        paddingTop: isActive ? 32 : 24,
+                        paddingBottom: isActive ? 32 : 24,
+                        paddingLeft: isActive ? 30 : 24,
+                        paddingRight: isActive ? 30 : 24,
+                        borderColor: isActive ? 'rgba(56,182,255,0.5)' : 'rgba(255,255,255,0.16)',
                         boxShadow: isActive
-                          ? '0 42px 130px -48px rgba(8,19,33,0.9)'
-                          : '0 22px 65px -40px rgba(9,18,35,0.75)',
+                          ? '0 45px 120px -42px rgba(8,19,33,0.9)'
+                          : '0 24px 70px -50px rgba(9,18,35,0.55)',
+                        borderRadius: isActive ? 26 : 20,
                       }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                      style={{ flexBasis: '200px' }}
-                      className="relative flex flex-col overflow-hidden rounded-2xl border bg-white/10 p-6 text-white backdrop-blur-xl"
+                      transition={{ type: 'spring', stiffness: 235, damping: 28, mass: 0.85 }}
+                      style={{ flexBasis: 'auto', minHeight: 0 }}
+                      className="relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border bg-white/10 text-white backdrop-blur-xl"
+                      onClick={() => setActiveIndex(index)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          setActiveIndex(index);
+                        }
+                      }}
+                      role="button"
+                      tabIndex={0}
+                      aria-expanded={isActive}
                     >
                       <Image
                         src={feature.imageSrc}
@@ -122,9 +131,9 @@ const HomeStripeCardSection = () => {
                       />
 
                       <motion.div
-                        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#0B1B31]/85 via-[#0B1B31]/65 to-gabardo-blue/45"
+                        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#0B1B31]/82 via-[#0B1B31]/62 to-gabardo-blue/42"
                         initial={false}
-                        animate={{ opacity: isActive ? 0.92 : isDimmed ? 0.55 : 0.7 }}
+                        animate={{ opacity: isActive ? 0.86 : 0.62 }}
                         transition={{ duration: 0.35, ease: 'easeOut' }}
                       />
 
@@ -136,7 +145,7 @@ const HomeStripeCardSection = () => {
                           <motion.h3
                             className="text-lg font-semibold text-white"
                             initial={false}
-                            animate={{ fontSize: isActive ? '1.45rem' : '1.1rem' }}
+                            animate={{ fontSize: isActive ? '1.46rem' : '1.18rem', lineHeight: isActive ? '1.35' : '1.25' }}
                             transition={{ duration: 0.28, ease: 'easeOut' }}
                           >
                             {feature.value}
@@ -144,8 +153,8 @@ const HomeStripeCardSection = () => {
                           <motion.p
                             className="text-sm text-white/75"
                             initial={false}
-                            animate={{ opacity: isDimmed ? 0 : 1 }}
-                            transition={{ duration: 0.24, ease: 'easeOut' }}
+                            animate={{ opacity: isActive ? 1 : 0.65 }}
+                            transition={{ duration: 0.26, ease: 'easeOut' }}
                           >
                             {feature.description}
                           </motion.p>
@@ -154,7 +163,7 @@ const HomeStripeCardSection = () => {
                         <motion.div
                           className="pointer-events-none h-px rounded-full bg-gabardo-light-blue/90"
                           initial={false}
-                          animate={{ opacity: isActive ? 1 : 0, scaleX: isActive ? 1 : 0 }}
+                          animate={{ opacity: isActive ? 1 : 0.35, scaleX: isActive ? 1 : 0.5 }}
                           transition={{ duration: 0.35, ease: 'easeOut' }}
                         />
                       </div>
@@ -162,7 +171,7 @@ const HomeStripeCardSection = () => {
                       <motion.span
                         className="pointer-events-none absolute inset-x-6 bottom-4 h-px rounded-full bg-gabardo-light-blue/80"
                         initial={false}
-                        animate={{ opacity: isActive ? 0 : 1, scaleX: isActive ? 0 : 1 }}
+                        animate={{ opacity: isActive ? 0 : 0.88, scaleX: isActive ? 0 : 1 }}
                         transition={{ duration: 0.3, ease: 'easeOut' }}
                       />
                     </motion.div>
