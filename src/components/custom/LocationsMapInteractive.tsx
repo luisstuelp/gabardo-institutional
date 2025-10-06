@@ -350,13 +350,9 @@ export default function LocationsMapInteractive() {
                           <Building2 className="h-3 w-3" />
                           {unit.infraestrutura.capacidade_veiculos} veículos
                         </span>
-                        <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-green-700">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-orange-50 px-3 py-1 text-xs font-medium text-orange-700">
                           <Zap className="h-3 w-3" />
-                          {unit.infraestrutura.energia_solar_kwp} kWp
-                        </span>
-                        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
-                          <Package className="h-3 w-3" />
-                          {unit.servicos.length} serviços
+                          {unit.infraestrutura.area_total_m2.toLocaleString()} m²
                         </span>
                       </div>
 

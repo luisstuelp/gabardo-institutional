@@ -18,23 +18,23 @@ interface LocationData {
 
 const locations: LocationData[] = [
   // CENTRO OESTE/SUDESTE
-  { name: 'Anápolis', coordinates: [-48.9530, -16.3266], address: 'Anápolis - GO', phone: '+55 62 4014.3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'Piracicaba', coordinates: [-47.6498, -22.7253], address: 'Piracicaba - SP', phone: '+55 19 3370.3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'São Bernardo do Campo', coordinates: [-46.5447, -23.6914], address: 'SBC - SP', phone: '+55 11 4341.3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'Pátios Jaragua', coordinates: [-46.7644, -23.4567], address: 'Pátios Jaragua - SP', phone: '+55 11 3906.3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'Iracemápolis', coordinates: [-47.5205, -22.5815], address: 'Iracemápolis - SP', phone: '+55 19 3541.0179', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'Duque de Caxias', coordinates: [-43.3117, -22.7856], address: 'Duque de Caxias - RJ', phone: '+55 21 2674.3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'Porto Real', coordinates: [-44.2917, -22.4240], address: 'Porto Real - RJ', phone: '+55 24 3354.3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
-  { name: 'Cariacica', coordinates: [-40.4173, -20.2617], address: 'Cariacica - ES', phone: '+55 27 4009.3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
+  { name: 'Anápolis', coordinates: [-48.9530, -16.3266], address: 'Anápolis - GO', phone: '+55 (62) 4014-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
+  { name: 'Piracicaba', coordinates: [-47.6498, -22.7253], address: 'Piracicaba - SP', phone: '+55 (19) 3370-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
+  { name: 'São Bernardo do Campo', coordinates: [-46.5447, -23.6914], address: 'SBC - SP', phone: '+55 (11) 4341-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
+  { name: 'Pátios Jaragua', coordinates: [-46.7644, -23.4567], address: 'Pátios Jaragua - SP', phone: '+55 (11) 3906-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
+  { name: 'Iracemápolis', coordinates: [-47.5205, -22.5815], address: 'Iracemápolis - SP', phone: '+55 (19) 3541-0179', type: 'filial', region: 'Centro Oeste/Sudeste' },
+  { name: 'Duque de Caxias', coordinates: [-43.3117, -22.7856], address: 'Duque de Caxias - RJ', phone: '+55 (21) 2674-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
+  { name: 'Porto Real', coordinates: [-44.2917, -22.4240], address: 'Porto Real - RJ', phone: '+55 (24) 3354-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
+  { name: 'Cariacica', coordinates: [-40.4173, -20.2617], address: 'Cariacica - ES', phone: '+55 (27) 4009-3000', type: 'filial', region: 'Centro Oeste/Sudeste' },
   
   // NORDESTE
-  { name: 'Eusébio', coordinates: [-38.4507, -3.8900], address: 'Eusébio - CE', phone: '+55 85 3257.6363', type: 'filial', region: 'Nordeste' },
+  { name: 'Eusébio', coordinates: [-38.4507, -3.8900], address: 'Eusébio - CE', phone: '+55 (85) 3257-6363', type: 'filial', region: 'Nordeste' },
   
   // SUL
-  { name: 'Porto Alegre', coordinates: [-51.2177, -30.0346], address: 'Porto Alegre - RS', phone: '+55 51 3373.3000', type: 'matriz', region: 'Sul' },
-  { name: 'São José dos Pinhais', coordinates: [-49.2063, -25.5335], address: 'S. J. Pinhais - PR', phone: '+55 41 3384.3000', type: 'filial', region: 'Sul' },
-  { name: 'Palhoça', coordinates: [-48.6700, -27.6384], address: 'Palhoça - SC', phone: '+55 48 3255.3000', type: 'filial', region: 'Sul' },
-  { name: 'Três Margens', coordinates: [-51.1151, -23.8505], address: 'Três MR - PR', phone: '+55 43 3629.3000', type: 'filial', region: 'Sul' },
+  { name: 'Porto Alegre', coordinates: [-51.2177, -30.0346], address: 'Porto Alegre - RS', phone: '+55 (51) 3373-3000', type: 'matriz', region: 'Sul' },
+  { name: 'São José dos Pinhais', coordinates: [-49.2063, -25.5335], address: 'S. J. Pinhais - PR', phone: '+55 (41) 3384-3000', type: 'filial', region: 'Sul' },
+  { name: 'Palhoça', coordinates: [-48.6700, -27.6384], address: 'Palhoça - SC', phone: '+55 (48) 3255-3000', type: 'filial', region: 'Sul' },
+  { name: 'Três Margens', coordinates: [-51.1151, -23.8505], address: 'Três MR - PR', phone: '+55 (43) 3629-3000', type: 'filial', region: 'Sul' },
 ];
 
 // Função para mapear nomes das localizações para IDs das páginas

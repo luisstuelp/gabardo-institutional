@@ -136,7 +136,7 @@ const ProtocolStack: React.FC = () => {
 
   const startAutoplay = useCallback(() => {
     if (autoplayRef.current) return;
-    autoplayRef.current = setInterval(() => cycle(1), 2600);
+    autoplayRef.current = setInterval(() => cycle(1), 2000);
   }, [cycle]);
 
   const stopAutoplay = useCallback(() => {
@@ -151,32 +151,8 @@ const ProtocolStack: React.FC = () => {
   }, [startAutoplay, stopAutoplay]);
 
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const handleWheel = (event: WheelEvent) => {
-      event.preventDefault();
-      stopAutoplay();
-
-      const now = Date.now();
-      const state = scrollStateRef.current;
-      const threshold = 200;
-      const cooldown = 560;
-
-      state.accumulator += event.deltaY;
-
-      if (Math.abs(state.accumulator) < threshold && now - state.lastTime < cooldown) {
-        return;
-      }
-
-      const direction = state.accumulator > 0 ? 1 : -1;
-      cycle(direction);
-      state.accumulator = 0;
-      state.lastTime = now;
-    };
-
-    el.addEventListener('wheel', handleWheel, { passive: false });
-    return () => el.removeEventListener('wheel', handleWheel);
+    // Wheel navigation disabled per request; keep empty effect to maintain reference availability if needed later.
+    return undefined;
   }, [cycle, stopAutoplay]);
 
   const positions = reliabilityItems.map((_, index) => {
@@ -268,7 +244,7 @@ const ProtocolStack: React.FC = () => {
         ))}
       </div>
 
-      <div className="mt-8 flex items-center justify-between">
+      <div className="mt-8 flex items-center justify-between px-4 sm:px-5 md:px-6 pb-4">
         <div className="flex gap-1.5">
           {reliabilityItems.map((_, index) => (
             <button
