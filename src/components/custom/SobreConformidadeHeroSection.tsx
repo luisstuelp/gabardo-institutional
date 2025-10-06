@@ -12,7 +12,7 @@ const SobreConformidadeHeroSection = () => {
       <div className="absolute inset-0">
         <Image
           src={heroImage}
-          alt="Equipe de conformidade da Gabardo Transportadora"
+          alt="Equipe de conformidade da Transportes Gabardo"
           fill
           priority
           className="object-cover object-center"

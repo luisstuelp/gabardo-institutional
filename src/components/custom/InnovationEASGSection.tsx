@@ -91,7 +91,7 @@ export default function InnovationEASGSection() {
               className="object-cover"
             />
             <figcaption className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-white">
-              Labs de inovação Gabardo Transportadora
+              Labs de inovação Transportes Gabardo
             </figcaption>
           </motion.figure>
         </div>

@@ -218,7 +218,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
             >
               <Image
                 src={hoveredItemImage}
-                alt="Gabardo Transportadora"
+                alt="Transportes Gabardo"
                 fill
                 className="object-cover"
                 priority

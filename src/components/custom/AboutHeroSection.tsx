@@ -81,7 +81,7 @@ export default function AboutHeroSection() {
           >
             <Image
               src={img}
-              alt="Gabardo Transportadora - Transporte de Veículos"
+              alt="Transportes Gabardo - Transporte de Veículos"
               fill
               className="object-cover object-center"
               priority={index === 0}
@@ -139,7 +139,7 @@ export default function AboutHeroSection() {
                 transition={{ duration: 0.6, delay: 0.8 }}
                 className="text-sm sm:text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-6 md:mb-8"
               >
-                Desde 1989, a Gabardo Transportadora carrega o legado de Sérgio Mário Gabardo, 
+                Desde 1989, a Transportes Gabardo carrega o legado de Sérgio Mário Gabardo, 
                 revolutionando o transporte rodoviário de veículos com tecnologia, segurança e excelência.
               </motion.p>
 

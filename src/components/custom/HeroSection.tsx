@@ -3,6 +3,7 @@
 import { Dot, Mouse } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import AnimatedWords from './AnimatedWords';
+import AnimatedCarbonBadge from './AnimatedCarbonBadge';
 
 const ScrollDownIcon = () => (
   <div className="flex flex-col items-center space-y-2">
@@ -121,17 +122,7 @@ export default function HeroSection() {
               </h1>
 
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-white/85 mb-5">
-                <div className="relative inline-flex items-center gap-4 pl-24 sm:pl-28 pr-6 py-4">
-                  <img src="/images/certifications/carbon-negative-certified.png" alt="Carbono Negativo" className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-20 h-20 sm:w-24 sm:h-24" />
-                  <div className="flex flex-col">
-                    <span className="text-xs sm:text-sm font-bold tracking-[0.28em] uppercase text-white">
-                      #1 no mundo
-                    </span>
-                    <span className="text-sm sm:text-base font-semibold tracking-[0.18em] uppercase text-white/90">
-                      Carbono negativo
-                    </span>
-                  </div>
-                </div>
+                <AnimatedCarbonBadge />
               </div>
 
               <p className="font-secondary mt-3 text-sm sm:text-base md:text-base lg:text-lg font-light leading-relaxed mb-6 sm:mb-8">

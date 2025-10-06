@@ -77,31 +77,28 @@ const HomeStripeCardSection = () => {
                         ? {
                             scale: 1.01,
                             y: -6,
-                            padding: '36px',
-                            flexGrow: 1.15,
-                            flexBasis: '230px',
+                            flexGrow: 1.5,
                             borderColor: 'rgba(56,182,255,0.45)',
                             boxShadow: '0 42px 130px -48px rgba(8,19,33,0.9)',
                           }
                         : {
                             scale: 1,
                             y: 0,
-                            padding: '22px',
-                            flexGrow: hoveredIndex === null ? 1 : 0.18,
-                            flexBasis: hoveredIndex === null ? '200px' : '110px',
+                            flexGrow: hoveredIndex === null ? 1 : 0.6,
                             borderColor: 'rgba(255,255,255,0.15)',
                             boxShadow: '0 22px 65px -40px rgba(9,18,35,0.75)',
                           }
                     }
                     transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-                    className="relative flex flex-col overflow-hidden rounded-2xl border bg-white/10 text-white backdrop-blur-xl"
+                    style={{ flexBasis: '200px' }}
+                    className="relative flex flex-col overflow-hidden rounded-2xl border bg-white/10 p-6 text-white backdrop-blur-xl"
                   >
                     <Image
                       src={feature.imageSrc}
                       alt={`Gabardo ${feature.label}`}
                       fill
                       sizes="(min-width: 1024px) 32vw, 80vw"
-                      priority={false}
+                      priority={index === 0}
                       className="absolute inset-0 h-full w-full object-cover opacity-60"
                     />
                     <motion.div

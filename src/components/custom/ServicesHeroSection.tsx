@@ -81,7 +81,7 @@ export default function ServicesHeroSection() {
           >
             <Image
               src={img}
-              alt="Gabardo Transportadora - Serviços"
+              alt="Transportes Gabardo - Serviços"
               fill
               className="object-cover object-center"
               priority={index === 0}

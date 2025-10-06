@@ -150,7 +150,7 @@ const AboutStorySection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="section-heading mt-6 text-center"
           >
-            36 anos de excelência e confiança Gabardo Transportadora
+            36 anos de excelência e confiança Transportes Gabardo
           </motion.h2>
         </motion.div>
 

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock, ArrowRight, ExternalLink } from 'lucide-react';
 
-// Gabardo Transportadora contact information
+// Transportes Gabardo contact information
 const contactInfo = [
   {
     icon: <Phone className="w-6 h-6" />,
@@ -77,7 +77,7 @@ export default function ContactInfoSection() {
           >
             Fale com a
             <br />
-            <span style={{color: '#38B6FF'}}>Gabardo Transportadora</span>
+            <span style={{color: '#38B6FF'}}>Transportes Gabardo</span>
           </motion.h2>
         </motion.div>
 
