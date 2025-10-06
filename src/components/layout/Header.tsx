@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Menu } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 import FullScreenNav from '@/components/custom/FullScreenNav';
 
@@ -117,39 +117,14 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
               Fale conosco
             </Link>
 
-            <div className="relative h-10 w-10 lg:h-[2.2rem] lg:w-[2.2rem]">
-              <AnimatePresence>
-                {!isMenuOpen && (
-                  <motion.button
-                    initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
-                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                    exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
-                    transition={{ duration: 0.3, ease: 'easeOut' }}
-                    onClick={() => setIsMenuOpen(true)}
-                    className={`group absolute inset-0 flex items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${menuButtonClasses}`}
-                    aria-label="Abrir menu"
-                  >
-                    <span className="absolute inset-0 rounded-full bg-gradient-to-br from-transparent via-transparent to-gabardo-light-blue/15 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
-                    <Menu size={isMobile ? 24 : 20} />
-                  </motion.button>
-                )}
-              </AnimatePresence>
-              <AnimatePresence>
-                {isMenuOpen && (
-                  <motion.button
-                    initial={{ opacity: 0, rotate: 90, scale: 0.8 }}
-                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                    exit={{ opacity: 0, rotate: -90, scale: 0.8 }}
-                    transition={{ duration: 0.3, ease: 'easeOut' }}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="group absolute inset-0 z-50 flex items-center justify-center rounded-full border border-white/30 bg-black/20 text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60"
-                    aria-label="Fechar menu"
-                  >
-                    <X size={isMobile ? 24 : 20} className="transition-transform duration-300 group-hover:rotate-90" />
-                  </motion.button>
-                )}
-              </AnimatePresence>
-            </div>
+            <button
+              onClick={() => setIsMenuOpen(true)}
+              className={`group relative inline-flex h-10 w-10 lg:h-[2.2rem] lg:w-[2.2rem] items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${menuButtonClasses}`}
+              aria-label="Abrir menu"
+            >
+              <span className="absolute inset-0 rounded-full bg-gradient-to-br from-transparent via-transparent to-gabardo-light-blue/15 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
+              <Menu size={isMobile ? 24 : 20} />
+            </button>
           </div>
         </div>
       </motion.header>
