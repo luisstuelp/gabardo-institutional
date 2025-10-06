@@ -79,6 +79,7 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
       href: '/sustentabilidade',
       imageSrc: '/images/gabardo-hero-01.JPG',
     },
+    { id: 'contato', label: 'CONTATO', href: '/contato', imageSrc: '/images/gabardo-hero-03.JPG' },
     { id: 'blog', label: 'BLOG', href: '/blog', imageSrc: '/images/hero-blog.jpg' },
   ];
 

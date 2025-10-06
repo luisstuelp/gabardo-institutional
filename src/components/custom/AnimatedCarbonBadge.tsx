@@ -7,7 +7,7 @@ export default function AnimatedCarbonBadge() {
   const coinControls = useAnimation();
   const [showText, setShowText] = useState(false);
   
-  const text1 = "#1 NO MUNDO";
+  const text1 = "#1 TRANSPORTADORA NO MUNDO";
   const text2 = "CARBONO NEGATIVO";
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function AnimatedCarbonBadge() {
 
       // Phase 2: Start sliding right
       const slidePromise = coinControls.start({
-        x: [0, 340],
+        x: [0, 460],
         rotate: [-12, 360 - 12],
         scale: 1.25,
         transition: {
@@ -173,7 +173,7 @@ export default function AnimatedCarbonBadge() {
           opacity: 0,
           scaleX: 0
         }}
-        className="absolute left-[5rem] sm:left-[6rem] top-1/2 -translate-y-1/2 h-px w-32 bg-gradient-to-r from-gabardo-light-blue/60 to-transparent"
+        className="absolute left-[6rem] sm:left-[7.5rem] top-1/2 -translate-y-1/2 h-px w-40 bg-gradient-to-r from-gabardo-light-blue/60 to-transparent"
         style={{ originX: 0 }}
       />
     </div>

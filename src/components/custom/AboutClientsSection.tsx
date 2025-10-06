@@ -25,7 +25,10 @@ type Card = {
   front: CardFront;
   back: {
     title: string;
-    description: string;
+    since: string;
+    impact: string[];
+    quote: string;
+    quoteAuthor: string;
   };
   gradient: string;
 };
@@ -38,11 +41,17 @@ const cards: Card[] = [
       src: '/images/Wolks.png',
       alt: 'Logotipo Volkswagen'
     },
-    gradient: 'from-[#001f5b] to-[#0f4cba]',
+    gradient: 'from-[#132D51] to-[#132D51]',
     back: {
       title: 'Volkswagen',
-      description:
-        'Distribuição nacional de veículos e peças com rastreabilidade completa e janelas de entrega otimizadas.'
+      since: 'Desde 1998',
+      impact: [
+        'Planejamento conjunto das janelas de lançamento',
+        'Rede dedicada que mantém o ritmo das linhas de montagem'
+      ],
+      quote:
+        'Quando a produção precisa acelerar, a Gabardo já está com a solução no pátio.',
+      quoteAuthor: 'Equipe de Suprimentos Volkswagen'
     }
   },
   {
@@ -52,11 +61,17 @@ const cards: Card[] = [
       src: '/images/Mercedes.png',
       alt: 'Logotipo Mercedes-Benz'
     },
-    gradient: 'from-[#0f1c2e] to-[#6e7a8a]',
+    gradient: 'from-[#132D51] to-[#132D51]',
     back: {
       title: 'Mercedes-Benz',
-      description:
-        'Operações premium de transporte dedicado, garantindo SLA rigoroso para linhas de veículos comerciais e luxo.'
+      since: 'Desde 2006',
+      impact: [
+        'Equipe dedicada para rotas VIP e eventos itinerantes',
+        'Monitoramento cada hora para veículos comerciais e de luxo'
+      ],
+      quote:
+        'Eles entendem o que significa entregar com padrão Mercedes.',
+      quoteAuthor: 'Gerente de Operações Mercedes-Benz'
     }
   },
   {
@@ -66,11 +81,17 @@ const cards: Card[] = [
       src: '/images/Ford.png',
       alt: 'Logotipo Ford'
     },
-    gradient: 'from-[#0b2e59] to-[#1d5faa]',
+    gradient: 'from-[#132D51] to-[#132D51]',
     back: {
       title: 'Ford',
-      description:
-        'Gestão integrada de pátios e transferências interestaduais com controle de estoque dinâmico.'
+      since: 'Desde 2011',
+      impact: [
+        'Integração de sistemas para visibilidade em tempo real',
+        'Modelagem de rotas de transferência estadual com equipes locais'
+      ],
+      quote:
+        'Transformaram informações dispersas em uma operação coordenada.',
+      quoteAuthor: 'Diretoria de Logística Ford Brasil'
     }
   },
   {
@@ -80,11 +101,17 @@ const cards: Card[] = [
       src: '/images/Scania.png',
       alt: 'Logotipo Scania'
     },
-    gradient: 'from-[#00205b] to-[#c8102e]',
+    gradient: 'from-[#132D51] to-[#132D51]',
     back: {
       title: 'Scania',
-      description:
-        'Planos logísticos para veículos pesados com monitoramento em tempo real e suporte técnico especializado.'
+      since: 'Desde 2015',
+      impact: [
+        'Base técnica móvel com mecânicos e peças estratégicas',
+        'Roteiros LatAm alinhados a compliance e segurança'
+      ],
+      quote:
+        'A Gabardo cuida de cada entrega como se fosse o nosso próprio caminhão.',
+      quoteAuthor: 'Coordenador de Distribuição Scania'
     }
   },
   {
@@ -94,11 +121,17 @@ const cards: Card[] = [
       src: '/images/Localiza.png',
       alt: 'Logotipo Localiza'
     },
-    gradient: 'from-[#009739] to-[#39b54a]',
+    gradient: 'from-[#132D51] to-[#132D51]',
     back: {
       title: 'Localiza',
-      description:
-        'Rede de relocação e abastecimento de frotas com processos padronizados e alto giro de veículos.'
+      since: 'Desde 2017',
+      impact: [
+        'Equipes mistas Gabardo + Localiza em operações de pico',
+        'Processo de inspeção compartilhado que reduz devoluções'
+      ],
+      quote:
+        'Encontramos um parceiro que decide com a gente, não por nós.',
+      quoteAuthor: 'Head de Frota Localiza'
     }
   },
   {
@@ -108,11 +141,17 @@ const cards: Card[] = [
       src: '/images/JSL.png',
       alt: 'Logotipo JSL'
     },
-    gradient: 'from-[#d50000] to-[#333333]',
+    gradient: 'from-[#132D51] to-[#132D51]',
     back: {
       title: 'JSL',
-      description:
-        'Parceria estratégica em operações complexas de multimodalidade e projetos especiais de logística.'
+      since: 'Desde 2019',
+      impact: [
+        'Coordenação multimodal com parceiros homologados',
+        'Quadros diários de alinhamento com time executivo'
+      ],
+      quote:
+        'A Gabardo chega junto e permanece até a última entrega.',
+      quoteAuthor: 'Diretoria de Projetos JSL'
     }
   }
 ];
@@ -142,63 +181,89 @@ const AboutClientsSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          className="mx-auto grid max-w-[1320px] grid-cols-1 gap-6 md:grid-cols-3 md:gap-5 lg:grid-cols-6 lg:gap-4"
         >
-          {cards.map((card, index) => (
-            <motion.div
-              key={card.id}
-              className="group [perspective:1400px]"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.05, ease: 'easeOut' }}
-            >
-              <div className="relative w-full aspect-square rounded-3xl shadow-xl transition-transform duration-700 ease-in-out [transform-style:preserve-3d] group-hover:[transform:rotateX(180deg)]">
-                <div
-                  className={`absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden rounded-3xl bg-gray-100 p-6 [backface-visibility:hidden]`}
-                >
-                  {card.front.type === 'blank' ? (
-                    <div className="h-full w-full rounded-2xl border-2 border-dashed border-gabardo-blue/20 bg-white/40" />
-                  ) : card.front.type === 'image' ? (
-                    <div className="relative h-full w-full">
-                      <Image
-                        src={card.front.src}
-                        alt={card.front.alt}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover"
-                      />
-                    </div>
-                  ) : (
-                    <div className="relative h-full w-full">
-                      <Image
-                        src={card.front.src}
-                        alt={card.front.alt}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-contain"
-                      />
-                    </div>
-                  )}
-                </div>
+          {cards.map((card, index) => {
+            return (
+              <motion.div
+                key={card.id}
+                className="group [perspective:1400px]"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.05, ease: 'easeOut' }}
+              >
+                <div className="relative w-full aspect-[6/5] rounded-3xl shadow-xl transition-transform duration-700 ease-in-out [transform-style:preserve-3d] group-hover:[transform:rotateX(180deg)]">
+                  <div
+                    className={`absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden rounded-3xl bg-gray-100 p-6 [backface-visibility:hidden]`}
+                  >
+                    {card.front.type === 'blank' ? (
+                      <div className="h-full w-full rounded-2xl border-2 border-dashed border-gabardo-blue/20 bg-white/40" />
+                    ) : card.front.type === 'image' ? (
+                      <div className="relative h-full w-full">
+                        <Image
+                          src={card.front.src}
+                          alt={card.front.alt}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="relative h-full w-full">
+                        <Image
+                          src={card.front.src}
+                          alt={card.front.alt}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-contain"
+                        />
+                      </div>
+                    )}
+                  </div>
 
-                <div
-                  className={`absolute inset-0 flex h-full w-full flex-col justify-center space-y-3 rounded-3xl bg-gradient-to-br ${card.gradient} px-8 text-left text-white [backface-visibility:hidden] [transform:rotateX(180deg)]`}
-                >
-                  <h3 className="text-xl font-semibold">
-                    {card.back.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-white/90">
-                    {card.back.description}
-                  </p>
+                  <div
+                    className={`absolute inset-0 flex h-full w-full flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br ${card.gradient} px-6 py-6 text-left text-white [backface-visibility:hidden] [transform:rotateX(180deg)]`}
+                  >
+                    <div className="pointer-events-none absolute inset-0">
+                      <div className="absolute inset-0 bg-gradient-to-br from-black/24 via-transparent to-black/34" />
+                      <motion.span
+                        className="absolute -top-6 right-[-4px] text-[4rem] font-black uppercase tracking-[-0.12em] text-white/6 md:text-[5.2rem]"
+                        initial={{ rotate: -8, opacity: 0.05 }}
+                        animate={{ rotate: [-8, -6, -8], opacity: [0.05, 0.1, 0.05] }}
+                        transition={{ duration: 9 + index, repeat: Infinity, ease: 'easeInOut' }}
+                      >
+                        {card.back.title.slice(0, 5)}
+                      </motion.span>
+                    </div>
+
+                    <div className="relative z-10 space-y-4">
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        <span className="inline-flex items-center rounded-full bg-white/12 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-white/85">
+                          {card.back.since}
+                        </span>
+                        <span className="h-px w-5 rounded-full bg-white/25" />
+                      </div>
+
+                      <div className="space-y-2">
+                        <p className="text-[10px] uppercase tracking-[0.24em] text-white/70">
+                          Como atuamos juntos
+                        </p>
+                        <h3 className="text-[1.64rem] font-semibold leading-tight md:text-[1.82rem]">
+                          {card.back.title}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
   );
 };
+
 
 export default AboutClientsSection;

@@ -95,22 +95,24 @@ const HomeStripeCardSection = () => {
                         opacity: 1,
                         y: 0,
                         scale: 1,
-                        flexGrow: isActive ? 2.2 : 1,
-                        minHeight: isActive ? 320 : 200,
-                        paddingTop: isActive ? 32 : 24,
-                        paddingBottom: isActive ? 32 : 24,
-                        paddingLeft: isActive ? 30 : 24,
-                        paddingRight: isActive ? 30 : 24,
-                        borderColor: isActive ? 'rgba(56,182,255,0.5)' : 'rgba(255,255,255,0.16)',
+                        flexGrow: isActive ? 1.35 : 1,
+                        minHeight: isActive ? 360 : 180,
+                        paddingTop: isActive ? 36 : 24,
+                        paddingBottom: isActive ? 36 : 24,
+                        paddingLeft: isActive ? 32 : 24,
+                        paddingRight: isActive ? 32 : 24,
+                        borderColor: isActive ? 'rgba(56,182,255,0.58)' : 'rgba(255,255,255,0.16)',
                         boxShadow: isActive
-                          ? '0 45px 120px -42px rgba(8,19,33,0.9)'
-                          : '0 24px 70px -50px rgba(9,18,35,0.55)',
-                        borderRadius: isActive ? 26 : 20,
+                          ? '0 48px 120px -40px rgba(8,19,33,0.9)'
+                          : '0 18px 54px -50px rgba(9,18,35,0.46)',
+                        borderRadius: isActive ? 28 : 20,
                       }}
-                      transition={{ type: 'spring', stiffness: 235, damping: 28, mass: 0.85 }}
+                      transition={{ type: 'spring', stiffness: 220, damping: 28, mass: 0.9 }}
                       style={{ flexBasis: 'auto', minHeight: 0 }}
                       className="relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border bg-white/10 text-white backdrop-blur-xl"
                       onClick={() => setActiveIndex(index)}
+                      onMouseEnter={() => setActiveIndex(index)}
+                      onFocus={() => setActiveIndex(index)}
                       onKeyDown={(event) => {
                         if (event.key === 'Enter' || event.key === ' ') {
                           event.preventDefault();

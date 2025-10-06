@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { useCallback } from 'react';
 
@@ -129,19 +130,20 @@ const HomeClientsLogoSection = () => {
 
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            whileHover={{ y: -8 }}
-            className="group relative cursor-pointer"
-            onPointerMove={handlePointerMove}
-            onPointerLeave={resetPointer}
-            style={{
-              transformStyle: 'preserve-3d'
-            }}
-          >
+          <Link href="/sobre/secao-institucional#nossos-clientes">
+            <motion.div
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -8 }}
+              className="group relative cursor-pointer"
+              onPointerMove={handlePointerMove}
+              onPointerLeave={resetPointer}
+              style={{
+                transformStyle: 'preserve-3d'
+              }}
+            >
             <div className="absolute -top-8 -right-8 hidden h-24 w-24 rounded-full bg-gabardo-light-blue/25 blur-3xl transition-all duration-300 group-hover:scale-110 lg:block" />
             <motion.div
               className="relative rounded-[36px] bg-gradient-to-br from-white via-white to-gabardo-light-blue/12 p-[1.5px]"
@@ -173,6 +175,7 @@ const HomeClientsLogoSection = () => {
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
             />
           </motion.div>
+          </Link>
         </div>
       </div>
     </section>
