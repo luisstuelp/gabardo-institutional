@@ -2,7 +2,18 @@
 
 import { useState, useEffect } from 'react';
 
-const words = ['inovação', 'sustentabilidade', 'qualidade'];
+const words = [
+  'inovação',
+  'sustentabilidade',
+  'qualidade',
+  'garra',
+  'compromisso',
+  'integridade',
+  'segurança',
+  'confiabilidade',
+  'propósito',
+  'eficiência',
+];
 
 const AnimatedWords = () => {
   const [wordIndex, setWordIndex] = useState(0);

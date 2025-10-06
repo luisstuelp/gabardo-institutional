@@ -121,7 +121,7 @@ export default function HeroSection() {
               </h1>
 
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-white/85 mb-5">
-                <div className="relative inline-flex items-center gap-4 rounded-full border-2 border-white/30 bg-white/15 pl-24 sm:pl-28 pr-6 py-4 backdrop-blur-md shadow-2xl">
+                <div className="relative inline-flex items-center gap-4 pl-24 sm:pl-28 pr-6 py-4">
                   <img src="/images/certifications/carbon-negative-certified.png" alt="Carbono Negativo" className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-20 h-20 sm:w-24 sm:h-24" />
                   <div className="flex flex-col">
                     <span className="text-xs sm:text-sm font-bold tracking-[0.28em] uppercase text-white">
