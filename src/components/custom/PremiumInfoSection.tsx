@@ -122,6 +122,7 @@ const ProtocolStack: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollStateRef = useRef({ accumulator: 0, lastTime: 0 });
 
   const cycle = useCallback(
     (direction: number) => {
@@ -155,13 +156,28 @@ const ProtocolStack: React.FC = () => {
 
     const handleWheel = (event: WheelEvent) => {
       event.preventDefault();
-      const direction = event.deltaY > 0 ? 1 : -1;
+      stopAutoplay();
+
+      const now = Date.now();
+      const state = scrollStateRef.current;
+      const threshold = 200;
+      const cooldown = 560;
+
+      state.accumulator += event.deltaY;
+
+      if (Math.abs(state.accumulator) < threshold && now - state.lastTime < cooldown) {
+        return;
+      }
+
+      const direction = state.accumulator > 0 ? 1 : -1;
       cycle(direction);
+      state.accumulator = 0;
+      state.lastTime = now;
     };
 
     el.addEventListener('wheel', handleWheel, { passive: false });
     return () => el.removeEventListener('wheel', handleWheel);
-  }, [cycle]);
+  }, [cycle, stopAutoplay]);
 
   const positions = reliabilityItems.map((_, index) => {
     const diffRaw = (index - activeIndex + total) % total;
