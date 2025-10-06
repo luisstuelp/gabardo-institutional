@@ -7,7 +7,7 @@ import SobreHistoriaCTASection from '@/components/custom/SobreHistoriaCTASection
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gabardo.com.br'),
-  Transportes Gabardo
+  title: 'Linha do Tempo | Transportes Gabardo',
   description:
     'Conheça a trajetória da Transportes Gabardo desde 1989, com marcos de inovação, expansão e excelência logística em todo o Brasil.',
   keywords: [
