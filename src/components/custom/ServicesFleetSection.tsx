@@ -23,7 +23,7 @@ const fleetHighlights = [
   },
   {
     title: 'Modernidade',
-    value: '2,5 anos',
+    value: '2 anos',
     description: 'idade média da frota, assegurando eficiência e confiabilidade.'
   }
 ];

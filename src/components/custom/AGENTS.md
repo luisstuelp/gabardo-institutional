@@ -48,7 +48,7 @@ Unidades Próprias: 13 pátios próprios estrategicamente localizados nos princi
 
 Sul: Porto Alegre (RS - Matriz), São José dos Pinhais (PR), Palhoça (SC), Chuí (RS).
 
-Sudeste: Piracicaba (SP), São Bernardo do Campo (SP), Pátios Jaraguá (SP), Iracemápolis (SP), Jacareí (SP), Duque de Caxias (RJ), Porto Real (RJ), Cariacica (ES).
+Sudeste: Piracicaba (SP), São Bernardo do Campo (SP), Pátios Jaraguá (SP), Iracemápolis (SP), Duque de Caxias (RJ), Porto Real (RJ), Cariacica (ES).
 
 Centro-Oeste: Anápolis (GO).
 
@@ -92,7 +92,7 @@ Propriedade da Frota:
 
 Características da Frota:
 
-Idade Média: 2 anos e 6 meses (garantindo equipamentos modernos e eficientes).
+Idade Média: 2 anos (garantindo equipamentos modernos e eficientes).
 
 Padrão Ambiental: 50% dos caminhões são do padrão EURO 6 (menor emissão de poluentes).
 

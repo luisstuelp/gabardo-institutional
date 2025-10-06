@@ -20,10 +20,10 @@ const cards = [
     label: 'Frota moderna',
     title: 'Frota jovem e padronizada',
     description:
-      '1.311 caminhões, 1.061 cegonheiras e renovação contínua garantem disponibilidade com 79% de frota própria e idade média de 2,5 anos.',
+      '1.311 caminhões, 1.061 cegonheiras e renovação contínua garantem disponibilidade com 79% de frota própria e idade média de 2 anos.',
     accent: '#38B6FF',
     image: '/images/gabardo-truck-fleet.JPG',
-    highlights: ['79% FROTA PRÓPRIA', 'IDADE MÉDIA 2,5 ANOS', '1.311 CAMINHÕES'],
+    highlights: ['79% FROTA PRÓPRIA', 'IDADE MÉDIA 2 ANOS', '1.311 CAMINHÕES'],
   },
   {
     icon: Server,

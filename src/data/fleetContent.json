@@ -6,7 +6,7 @@
   "overview": {
     "title": "Panorama geral",
     "paragraphs": [
-      "A Transportes Gabardo possui uma frota jovem e padronizada, com idade média de apenas 2,5 anos, garantindo maior confiabilidade operacional e menor impacto ambiental.",
+      "A Transportes Gabardo possui uma frota jovem e padronizada, com idade média de apenas 2 anos, garantindo maior confiabilidade operacional e menor impacto ambiental.",
       "São 1.311 caminhões e 1.061 carretas cegonheiras, além de equipamentos complementares, que permitem atender diferentes demandas da cadeia automotiva em toda a LATAM."
     ]
   },
@@ -25,7 +25,7 @@
   "differentiators": {
     "title": "Diferenciais da frota",
     "items": [
-      "Idade média de 2,5 anos, garantindo modernidade e eficiência.",
+      "Idade média de 2 anos, garantindo modernidade e eficiência.",
       "100% padronizada, logotipada e higienizada.",
       "Vistoria completa antes de cada carregamento.",
       "Oficinas próprias para manutenção preventiva e corretiva.",
@@ -51,7 +51,7 @@
   "kpis": {
     "title": "Indicadores de frota",
     "items": [
-      { "label": "Idade média", "value": "2,5 anos" },
+      { "label": "Idade média", "value": "2 anos" },
       { "label": "Percentual própria", "value": "79%" },
       { "label": "Percentual terceiros", "value": "21%" },
       { "label": "Cobertura LATAM", "value": "100%" }
