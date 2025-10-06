@@ -65,7 +65,7 @@ const HomeStripeCardSection = () => {
           <div className="relative">
             <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-white/8 p-8 shadow-[0_35px_90px_-40px_rgba(12,27,51,0.85)] backdrop-blur-2xl">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,182,255,0.22),transparent_65%)]" />
-              <div className="relative space-y-6">
+              <div className="relative flex flex-col gap-6">
                 {stripeFeatures.map((feature, index) => (
                   <motion.div
                     key={feature.label}
@@ -75,22 +75,26 @@ const HomeStripeCardSection = () => {
                     animate={
                       hoveredIndex === index
                         ? {
-                            scale: 1.03,
+                            scale: 1.01,
                             y: -6,
-                            padding: '32px',
+                            padding: '36px',
+                            flexGrow: 1.15,
+                            flexBasis: '230px',
                             borderColor: 'rgba(56,182,255,0.45)',
-                            boxShadow: '0 42px 120px -46px rgba(8,19,33,0.85)',
+                            boxShadow: '0 42px 130px -48px rgba(8,19,33,0.9)',
                           }
                         : {
                             scale: 1,
                             y: 0,
-                            padding: '24px',
+                            padding: '22px',
+                            flexGrow: hoveredIndex === null ? 1 : 0.18,
+                            flexBasis: hoveredIndex === null ? '200px' : '110px',
                             borderColor: 'rgba(255,255,255,0.15)',
                             boxShadow: '0 22px 65px -40px rgba(9,18,35,0.75)',
                           }
                     }
                     transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-                    className="relative overflow-hidden rounded-2xl border bg-white/10 text-white backdrop-blur-xl"
+                    className="relative flex flex-col overflow-hidden rounded-2xl border bg-white/10 text-white backdrop-blur-xl"
                   >
                     <Image
                       src={feature.imageSrc}
@@ -102,21 +106,41 @@ const HomeStripeCardSection = () => {
                     />
                     <motion.div
                       className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#0B1B31]/85 via-[#0B1B31]/65 to-gabardo-blue/45"
-                      animate={{ opacity: hoveredIndex === index ? 0.85 : 0.7 }}
+                      animate={{ opacity: hoveredIndex === index ? 0.92 : hoveredIndex === null ? 0.7 : 0.55 }}
                       transition={{ duration: 0.35, ease: 'easeOut' }}
                     />
-                    <div className="relative space-y-3">
-                      <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.42em] text-gabardo-light-blue/90">
-                        {feature.label}
-                      </span>
-                      <h3 className="text-lg font-semibold text-white">{feature.value}</h3>
-                      <p className="text-sm text-white/75">{feature.description}</p>
+                    <div className="relative flex flex-1 flex-col justify-between space-y-4">
+                      <div className="space-y-3">
+                        <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.42em] text-gabardo-light-blue/90">
+                          {feature.label}
+                        </span>
+                        <motion.h3
+                          className="text-lg font-semibold text-white"
+                          animate={{ fontSize: hoveredIndex === index ? '1.45rem' : '1.1rem' }}
+                          transition={{ duration: 0.3, ease: 'easeOut' }}
+                        >
+                          {feature.value}
+                        </motion.h3>
+                        <motion.p
+                          className="text-sm text-white/75"
+                          animate={{ opacity: hoveredIndex !== null && hoveredIndex !== index ? 0 : 1 }}
+                          transition={{ duration: 0.25, ease: 'easeOut' }}
+                        >
+                          {feature.description}
+                        </motion.p>
+                      </div>
+                      <motion.div
+                        className="pointer-events-none h-px rounded-full bg-gabardo-light-blue/90"
+                        initial={false}
+                        animate={{ opacity: hoveredIndex === index ? 1 : 0, scaleX: hoveredIndex === index ? 1 : 0 }}
+                        transition={{ duration: 0.4, ease: 'easeOut' }}
+                      />
                     </div>
                     <motion.span
                       className="pointer-events-none absolute inset-x-6 bottom-4 h-px rounded-full bg-gabardo-light-blue/80"
                       initial={false}
-                      animate={{ opacity: hoveredIndex === index ? 1 : 0, scaleX: hoveredIndex === index ? 1 : 0 }}
-                      transition={{ duration: 0.4, ease: 'easeOut' }}
+                      animate={{ opacity: hoveredIndex === index ? 0 : 1, scaleX: hoveredIndex === index ? 0 : 1 }}
+                      transition={{ duration: 0.35, ease: 'easeOut' }}
                     />
                   </motion.div>
                 ))}
