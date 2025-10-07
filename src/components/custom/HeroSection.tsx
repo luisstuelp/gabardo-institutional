@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import AnimatedWords from './AnimatedWords';
 import AnimatedCarbonBadge from './AnimatedCarbonBadge';
+import Link from 'next/link';
 
 const ScrollDownIcon = () => (
   <div className="flex flex-col items-center space-y-2">
@@ -131,22 +132,26 @@ export default function HeroSection() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="group bg-gabardo-light-blue text-white px-8 py-4 text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center space-x-3 touch-manipulation font-primary rounded-full"
-                >
-                  <span>Encontre seu serviço</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="group bg-transparent border-2 border-white text-white px-8 py-4 text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center space-x-3 touch-manipulation font-primary rounded-full"
-                >
-                  <span>Seja nosso parceiro</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </motion.button>
+                <Link href="/servicos">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="group bg-gabardo-light-blue text-white px-8 py-4 text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center space-x-3 touch-manipulation font-primary rounded-full"
+                  >
+                    <span>Encontre seu serviço</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </motion.button>
+                </Link>
+                <Link href="/trabalhe-conosco">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="group bg-transparent border-2 border-white text-white px-8 py-4 text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center space-x-3 touch-manipulation font-primary rounded-full"
+                  >
+                    <span>Seja nosso parceiro</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </motion.button>
+                </Link>
               </div>
             </div>
           </div>

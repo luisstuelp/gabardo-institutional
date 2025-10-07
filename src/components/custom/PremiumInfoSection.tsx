@@ -195,8 +195,6 @@ const ProtocolStack: React.FC = () => {
     <motion.div
       variants={metricItem}
       className="relative overflow-hidden rounded-[28px] "
-      onMouseEnter={stopAutoplay}
-      onMouseLeave={startAutoplay}
     >
       <motion.div
         initial={{ opacity: 0, scaleX: 0.8 }}

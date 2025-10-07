@@ -10,8 +10,8 @@ interface WhatsAppFloatProps {
 }
 
 const WhatsAppFloat: React.FC<WhatsAppFloatProps> = ({
-  phoneNumber = "5581981352010",
-  message = "Olá! Gostaria de saber mais sobre o Hub Plural.",
+  phoneNumber = "555133733000",
+  message = "Olá! Gostaria de falar com a Gabardo.",
   className = ""
 }) => {
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;

@@ -26,22 +26,6 @@ const ScrollDownIcon = () => (
   </motion.div>
 );
 
-const ArrowIcon = () => (
-  <motion.svg 
-    initial={{ opacity: 0, rotate: -45 }}
-    animate={{ opacity: 1, rotate: 0 }}
-    transition={{ duration: 0.8, delay: 1.2 }}
-    xmlns="http://www.w3.org/2000/svg" 
-    fill="none" 
-    viewBox="0 0 24 24" 
-    strokeWidth={1.5} 
-    stroke="currentColor" 
-    className="hidden md:block w-12 h-12 md:w-16 md:h-16 text-white"
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0V18" />
-  </motion.svg>
-);
-
 export default function ServicesHeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -165,10 +149,6 @@ export default function ServicesHeroSection() {
               </motion.div>
             </div>
 
-            {/* Arrow Icon - Hidden on mobile */}
-            <div className="ml-auto pl-4 md:pl-8">
-              <ArrowIcon />
-            </div>
           </div>
         </div>
 

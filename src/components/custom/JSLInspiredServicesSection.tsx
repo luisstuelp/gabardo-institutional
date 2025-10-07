@@ -150,13 +150,7 @@ const JSLInspiredServicesSection: React.FC = () => {
                   </div>
 
                   <div className="mt-auto space-y-6">
-                    <Link
-                      href={service.caseLink}
-                      className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-neutral-500 transition-all duration-300 hover:text-gabardo-blue"
-                    >
-                      <span>Ver mais</span>
-                      <ArrowRight className="w-4 h-4 transition-transform duration-300" />
-                    </Link>
+
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: '100%' }}

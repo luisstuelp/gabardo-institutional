@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   MapPin,
   Phone,
@@ -10,16 +11,16 @@ import {
   Instagram,
   Facebook,
   Linkedin,
-  Twitter,
+  Youtube,
 } from 'lucide-react';
 
 const footerSections = [
   {
     title: 'Serviços',
     links: [
-      { label: 'Transporte de Veículos', href: '/servicos/transporte-veiculos' },
-      { label: 'Transporte em Prancha', href: '/servicos/transporte-prancha' },
-      { label: 'Armazenagem', href: '/servicos/armazenagem' },
+      { label: 'Transporte de Veículos', href: '/transporte-de-veiculos' },
+      { label: 'Transporte em Prancha', href: '/transporte-em-prancha' },
+      { label: 'Armazenagem', href: '/armazenagem' },
       { label: 'Logística Integrada', href: '/servicos' },
     ],
   },
@@ -35,26 +36,23 @@ const footerSections = [
   {
     title: 'Suporte',
     links: [
-      { label: 'Central de Ajuda', href: '#' },
-      { label: 'FAQ', href: '#' },
-      { label: 'Privacidade', href: '/legal/politica-de-privacidade' },
-      { label: 'Termos', href: '/legal/termos-de-uso' },
-      { label: 'Canal de Ética', href: '/conformidade/canal-de-etica' },
+      { label: 'Privacidade', href: '#' },
+      { label: 'Termos', href: '#' },
     ],
   },
 ];
 
 const socialLinks = [
-  { icon: Instagram, href: '#', label: 'Instagram' },
+  { icon: Instagram, href: 'https://www.instagram.com/transportesgabardo', label: 'Instagram' },
   { icon: Facebook, href: '#', label: 'Facebook' },
   { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Twitter, href: '#', label: 'Twitter' },
+  { icon: Youtube, href: 'https://www.youtube.com/@transportesgabardo', label: 'YouTube' },
 ];
 
 const contactInfo = [
   { icon: MapPin, text: 'Matriz — Porto Alegre, RS' },
-  { icon: Phone, text: '+55 (51) 3373-3000' },
-  { icon: Mail, text: 'gabardo@transgabardo.com.br' },
+  { icon: Phone, text: '+55 (51) 3373-3000', href: 'tel:+555133733000' },
+  { icon: Mail, text: 'gabardo@transgabardo.com.br', href: 'mailto:gabardo@transgabardo.com.br' },
 ];
 
 const Footer: React.FC = () => {
@@ -102,10 +100,10 @@ const Footer: React.FC = () => {
             </p>
 
             <div className="space-y-4">
-              {contactInfo.map(({ icon: Icon, text }) => (
+              {contactInfo.map(({ icon: Icon, text, href }) => (
                 <div key={text} className="flex items-center gap-3 text-sm text-white/70">
                   <Icon className="h-4 w-4 text-gabardo-light-blue" />
-                  <span>{text}</span>
+                  {href ? <a href={href} className="hover:text-gabardo-light-blue transition-colors">{text}</a> : <span>{text}</span>}
                 </div>
               ))}
             </div>
@@ -128,12 +126,9 @@ const Footer: React.FC = () => {
                   <ul className="space-y-3 text-sm text-white/70">
                     {section.links.map((link) => (
                       <li key={link.label}>
-                        <a
-                          href={link.href}
-                          className="inline-flex items-center gap-2 transition-colors duração-200 hover:text-gabardo-light-blue"
-                        >
+                        <Link href={link.href} className="inline-flex items-center gap-2 transition-colors duração-200 hover:text-gabardo-light-blue">
                           <span>{link.label}</span>
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -161,6 +156,8 @@ const Footer: React.FC = () => {
                   key={label}
                   href={href}
                   aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-all duração-300 hover:border-gabardo-light-blue/60 hover:bg-gabardo-light-blue/20"
                 >
                   <Icon className="h-4 w-4" />
@@ -181,18 +178,12 @@ const Footer: React.FC = () => {
         <div className="section-container flex flex-col gap-4 py-6 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
           <p>2025 Transportes Gabardo. Todos os direitos reservados.</p>
           <div className="flex flex-wrap gap-6">
-            <a href="/legal/politica-de-privacidade" className="transition-colors duração-200 hover:text-gabardo-light-blue">
+            <Link href="#" className="transition-colors duração-200 hover:text-gabardo-light-blue">
               Política de Privacidade
-            </a>
-            <a href="/legal/termos-de-uso" className="transition-colors duração-200 hover:text-gabardo-light-blue">
+            </Link>
+            <Link href="#" className="transition-colors duração-200 hover:text-gabardo-light-blue">
               Termos de Uso
-            </a>
-            <a href="/conformidade/canal-de-etica" className="transition-colors duração-200 hover:text-gabardo-light-blue">
-              Canal de Ética
-            </a>
-            <a href="/downloads/relatorio-esg.pdf" className="transition-colors duração-200 hover:text-gabardo-light-blue">
-              Relatório ESG
-            </a>
+            </Link>
           </div>
         </div>
       </motion.div>

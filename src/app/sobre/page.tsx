@@ -6,7 +6,6 @@ import AboutValuesSection from '@/components/custom/AboutValuesSection';
 import AboutClientsSection from '@/components/custom/AboutClientsSection';
 import AboutCulturaSection from '@/components/custom/AboutCulturaSection';
 import AboutMissionSection from '@/components/custom/AboutMissionSection';
-import AboutStatsSection from '@/components/custom/AboutStatsSection';
 import MapboxSection from '@/components/custom/MapboxSection';
 
 export default function SobrePage() {
@@ -19,7 +18,6 @@ export default function SobrePage() {
       <AboutValuesSection />
       <AboutCulturaSection />
       <AboutClientsSection />
-      <AboutStatsSection />
       <MapboxSection />
       <Footer />
     </main>

@@ -1,30 +1,40 @@
+
 'use client';
 
+import { type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock, ArrowRight, ExternalLink } from 'lucide-react';
 
+type ContactCard = {
+  icon: ReactNode;
+  title: string;
+  primary: string;
+  secondary: string;
+  action: string | null;
+};
+
 // Transportes Gabardo contact information
-const contactInfo = [
+const contactInfo: ContactCard[] = [
   {
     icon: <Phone className="w-6 h-6" />,
     title: 'Telefone',
-    primary: '(11) 3456-7890',
-    secondary: 'Central de atendimento',
-    action: 'tel:+551134567890'
+    primary: '+55 (51) 3373-3000',
+    secondary: 'Central Porto Alegre/RS',
+    action: 'tel:+555133733000'
   },
   {
     icon: <Mail className="w-6 h-6" />,
     title: 'E-mail',
-    primary: 'contato@gabardotransportadora.com.br',
-    secondary: 'Resposta em até 24h',
-    action: 'mailto:contato@gabardotransportadora.com.br'
+    primary: 'gabardo@transgabardo.com.br',
+    secondary: 'Resposta em até 24h úteis',
+    action: 'mailto:gabardo@transgabardo.com.br'
   },
   {
     icon: <MapPin className="w-6 h-6" />,
     title: 'Matriz',
-    primary: 'São Paulo - SP',
-    secondary: 'Múltiplas unidades no Brasil',
-    action: 'https://maps.google.com?q=São+Paulo+SP'
+    primary: 'Porto Alegre - RS',
+    secondary: 'Rua Vítor Valpírio, 715 • CEP 90200-230',
+    action: 'https://maps.google.com/?q=Rua+V%C3%ADtor+Valp%C3%ADrio,+715,+Anchieta,+Porto+Alegre+-+RS'
   },
   {
     icon: <Clock className="w-6 h-6" />,

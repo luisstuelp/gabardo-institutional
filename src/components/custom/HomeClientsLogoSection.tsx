@@ -130,7 +130,7 @@ const HomeClientsLogoSection = () => {
 
           </motion.div>
 
-          <Link href="/sobre/secao-institucional#nossos-clientes">
+          <Link href="/sobre#nossos-clientes">
             <motion.div
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}

@@ -92,8 +92,8 @@ const MapboxSection: React.FC = () => {
       zoom: 3.5,
       minZoom: 3,
       maxBounds: [
-        [-110, -70],
-        [-20, 25],
+        [-125, -75],
+        [-15, 32],
       ],
       attributionControl: false,
     });

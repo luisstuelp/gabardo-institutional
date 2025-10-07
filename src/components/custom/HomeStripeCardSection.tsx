@@ -129,19 +129,19 @@ const HomeStripeCardSection = () => {
                         fill
                         sizes="(min-width: 1024px) 32vw, 80vw"
                         priority={index === 0}
-                        className="absolute inset-0 h-full w-full object-cover opacity-60"
+                        className="absolute inset-0 h-full w-full object-cover opacity-55"
                       />
 
                       <motion.div
-                        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#0B1B31]/82 via-[#0B1B31]/62 to-gabardo-blue/42"
+                        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#050d1c]/96 via-[#07152b]/88 to-[#0b1b31]/78"
                         initial={false}
-                        animate={{ opacity: isActive ? 0.86 : 0.62 }}
+                        animate={{ opacity: isActive ? 0.95 : 0.82 }}
                         transition={{ duration: 0.35, ease: 'easeOut' }}
                       />
 
                       <div className="relative flex flex-1 flex-col justify-between space-y-4">
                         <div className="space-y-3">
-                          <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.42em] text-gabardo-light-blue/90">
+                          <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.42em] text-white/90">
                             {feature.label}
                           </span>
                           <motion.h3
@@ -153,9 +153,9 @@ const HomeStripeCardSection = () => {
                             {feature.value}
                           </motion.h3>
                           <motion.p
-                            className="text-sm text-white/75"
+                            className="text-sm text-white/90"
                             initial={false}
-                            animate={{ opacity: isActive ? 1 : 0.65 }}
+                            animate={{ opacity: isActive ? 1 : 0.8 }}
                             transition={{ duration: 0.26, ease: 'easeOut' }}
                           >
                             {feature.description}

@@ -136,7 +136,7 @@ const SobreInstitucionalOverviewSection = () => {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="mt-3 text-base text-gray-600"
               >
-                Explore cada pilar passando o cursor ou tocando nas cartas abaixo. A imagem interativa reflete como o time coloca cada frente em prática.
+                Explore cada pilar clicando ou navegando com o teclado nas cartas abaixo. A imagem interativa reflete como o time coloca cada frente em prática.
               </motion.p>
             </div>
 
@@ -150,7 +150,6 @@ const SobreInstitucionalOverviewSection = () => {
                   <motion.button
                     type="button"
                     key={pillar.title}
-                    onMouseEnter={() => setActiveIndex(index)}
                     onFocus={() => setActiveIndex(index)}
                     onClick={() => setActiveIndex(index)}
                     initial={{ opacity: 0, y: 50 }}
@@ -265,7 +264,6 @@ const SobreInstitucionalOverviewSection = () => {
                 <button
                   key={`${pillar.title}-thumb`}
                   type="button"
-                  onMouseEnter={() => setActiveIndex(index)}
                   onFocus={() => setActiveIndex(index)}
                   onClick={() => setActiveIndex(index)}
                   className={`group relative overflow-hidden rounded-2xl border transition-all ${

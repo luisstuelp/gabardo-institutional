@@ -10,7 +10,7 @@ interface MenuItem {
   id: string;
   label: string;
   href: string;
-  imageSrc: string;
+  imageSrc?: string;
   subMenu?: Array<{
     id: string;
     label: string;
@@ -43,8 +43,6 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
   onClose,
   menuItems,
 }) => {
-  const defaultImageSrc = menuItems.length > 0 ? menuItems[0].imageSrc : '';
-  const [hoveredItemImage, setHoveredItemImage] = useState<string>(defaultImageSrc);
   const [isMounted, setIsMounted] = useState(false);
   const [animateIn, setAnimateIn] = useState(false);
   const [activeSection, setActiveSection] = useState<'nav' | 'services' | 'locations'>('nav');
@@ -64,7 +62,6 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
   useEffect(() => {
     if (isOpen) {
       setIsMounted(true);
-      setHoveredItemImage(defaultImageSrc);
       const timer = setTimeout(() => {
         setAnimateIn(true);
       }, 50);
@@ -78,7 +75,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
       }, ANIMATION_DURATION);
       return () => clearTimeout(timer);
     }
-  }, [isOpen, defaultImageSrc]);
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -110,40 +107,34 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
             key={item.id}
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 + (index * 0.1) }}
+            transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
             className="group"
           >
             {item.subMenu ? (
               <button
                 onClick={() => setActiveSubMenu(item.id)}
                 className="flex items-center justify-between w-full py-2 md:py-3 text-white hover-blue-80 transition-all duration-500 touch-manipulation"
-                onMouseEnter={() => !isMobile && setHoveredItemImage(item.imageSrc)}
-                onMouseLeave={() => !isMobile && setHoveredItemImage(defaultImageSrc)}
-                onTouchStart={() => isMobile && setHoveredItemImage(item.imageSrc)}
               >
                 <span className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light tracking-tight">
                   {item.label}
                 </span>
-                <ChevronRight 
-                  size={isMobile ? 16 : 20} 
-                  className="opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex-shrink-0 ml-3 text-blue-bright" 
+                <ChevronRight
+                  size={isMobile ? 16 : 20}
+                  className="opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex-shrink-0 ml-3 text-blue-bright"
                 />
               </button>
             ) : (
-              <Link 
+              <Link
                 href={item.href}
                 onClick={onClose}
                 className="flex items-center justify-between py-2 md:py-3 text-white hover-blue-80 transition-all duration-500 touch-manipulation"
-                onMouseEnter={() => !isMobile && setHoveredItemImage(item.imageSrc)}
-                onMouseLeave={() => !isMobile && setHoveredItemImage(defaultImageSrc)}
-                onTouchStart={() => isMobile && setHoveredItemImage(item.imageSrc)}
               >
                 <span className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light tracking-tight">
                   {item.label}
                 </span>
-                <ChevronRight 
-                  size={isMobile ? 16 : 20} 
-                  className="opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex-shrink-0 ml-3 text-blue-bright" 
+                <ChevronRight
+                  size={isMobile ? 16 : 20}
+                  className="opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex-shrink-0 ml-3 text-blue-bright"
                 />
               </Link>
             )}
@@ -208,24 +199,8 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="fixed inset-0 z-50 font-['Inter',_sans-serif]"
         >
-          <div className="absolute inset-0">
-            <motion.div
-              key={hoveredItemImage}
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={hoveredItemImage}
-                alt="Transportes Gabardo"
-                fill
-                className="object-cover"
-                priority
-              />
-            </motion.div>
-            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0b1627]/85 via-[#0c1f3d]/80 to-[#06101f]/85" />
+          <div className="absolute inset-0 bg-black/55 backdrop-blur-sm" />
 
           <motion.div
             initial={{ opacity: 0, y: -12 }}
