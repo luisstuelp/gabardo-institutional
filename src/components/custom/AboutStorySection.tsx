@@ -250,21 +250,6 @@ const AboutStorySection: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* New Mission, Vision, Values Section */}
-        <div className="mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gabardo-blue">Nossos Pilares</h2>
-            <p className="text-lg text-gray-600 mt-4">Os fundamentos que guiam nossas ações e decisões.</p>
-          </motion.div>
-          <PillarsSection />
-        </div>
-
       </div>
     </section>
   );

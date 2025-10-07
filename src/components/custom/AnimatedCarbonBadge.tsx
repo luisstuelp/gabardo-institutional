@@ -23,7 +23,7 @@ export default function AnimatedCarbonBadge() {
   const calculateSlideDistance = useCallback(
     (includeButton: boolean) => {
       const baseWidth = contentRef.current?.offsetWidth ?? 0;
-      const buffer = includeButton ? 180 : 140;
+      const buffer = includeButton ? 140 : 110;
       return Math.max(baseWidth + buffer, 320);
     },
     []
@@ -81,6 +81,7 @@ export default function AnimatedCarbonBadge() {
     }
 
     animationPhaseRef.current = 'expanding';
+    setShowCertificateButton(false);
     setTextPhase('hidden');
     coinControls.stop();
 
@@ -98,7 +99,6 @@ export default function AnimatedCarbonBadge() {
       },
     });
 
-    setShowCertificateButton(true);
     await waitForNextFrame();
 
     const distance = calculateSlideDistance(true);
@@ -106,14 +106,16 @@ export default function AnimatedCarbonBadge() {
     await coinControls.start({
       x: distance,
       rotate: [-12, 360 - 12],
-      scale: 1.18,
+      scale: 1.16,
       transition: {
-        duration: 1,
+        duration: 0.9,
         ease: [0.45, 0, 0.55, 1],
       },
     });
 
     if (hoverRef.current) {
+      setShowCertificateButton(true);
+      await waitForNextFrame();
       setTextPhase('animating');
       animationPhaseRef.current = 'expanded';
     } else {

@@ -2,23 +2,9 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, Network, ShieldCheck, Cpu, Users } from 'lucide-react';
+import { Network, ShieldCheck, Cpu, Users } from 'lucide-react';
 
 const pillars = [
-  {
-    icon: Building2,
-    title: 'Governança corporativa',
-    description:
-      'Comitês executivos e diretoria atuam com processos claros, indicadores estratégicos e compliance rigoroso.',
-    image: {
-      src: '/images/TransGabardoGestao.JPG',
-      position: 'center',
-    },
-    highlights: [
-      'Comitês de risco e ESG ativos',
-      'Relatórios trimestrais auditados',
-    ],
-  },
   {
     icon: Network,
     title: 'Operações integradas',
@@ -204,7 +190,7 @@ const SobreInstitucionalOverviewSection = () => {
             </div>
           </div>
 
-          <div className="relative flex flex-col gap-6">
+          <div className="relative flex flex-col">
             <motion.div
               layout
               className="relative aspect-[4/5] w-full overflow-hidden rounded-[32px] border border-white/40 bg-gray-900 shadow-[0_35px_85px_-45px_rgba(18,45,81,0.55)]"
@@ -258,34 +244,6 @@ const SobreInstitucionalOverviewSection = () => {
                 </div>
               </div>
             </motion.div>
-
-            <div className="grid grid-cols-3 gap-3">
-              {pillars.map((pillar, index) => (
-                <button
-                  key={`${pillar.title}-thumb`}
-                  type="button"
-                  onFocus={() => setActiveIndex(index)}
-                  onClick={() => setActiveIndex(index)}
-                  className={`group relative overflow-hidden rounded-2xl border transition-all ${
-                    activeIndex === index
-                      ? 'border-gabardo-blue/60 ring-2 ring-gabardo-blue/40'
-                      : 'border-white/20 hover:border-gabardo-blue/40'
-                  }`}
-                >
-                  <div
-                    className="h-24 w-full"
-                    style={{
-                      backgroundImage: `linear-gradient(180deg, rgba(19,45,81,0.45), rgba(19,45,81,0.2)), url(${pillar.image.src})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: pillar.image.position,
-                    }}
-                  />
-                  <span className="absolute inset-x-2 bottom-2 rounded-full bg-black/50 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-white/80">
-                    {index + 1 < 10 ? `0${index + 1}` : index + 1}
-                  </span>
-                </button>
-              ))}
-            </div>
           </div>
         </div>
       </div>

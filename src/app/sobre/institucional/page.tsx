@@ -3,7 +3,6 @@ import Footer from '@/components/layout/Footer';
 import SobreInstitucionalHeroSection from '@/components/custom/SobreInstitucionalHeroSection';
 import SobreInstitucionalOverviewSection from '@/components/custom/SobreInstitucionalOverviewSection';
 import SobreInstitucionalOperationsSection from '@/components/custom/SobreInstitucionalOperationsSection';
-import AboutCulturaSection from '@/components/custom/AboutCulturaSection';
 import SobreInstitucionalCTASection from '@/components/custom/SobreInstitucionalCTASection';
 
 export default function SobreInstitucionalPage() {
@@ -13,7 +12,6 @@ export default function SobreInstitucionalPage() {
       <SobreInstitucionalHeroSection />
       <SobreInstitucionalOverviewSection />
       <SobreInstitucionalOperationsSection />
-      <AboutCulturaSection />
       <SobreInstitucionalCTASection />
       <Footer />
     </main>

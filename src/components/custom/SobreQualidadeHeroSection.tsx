@@ -44,7 +44,7 @@ const SobreQualidadeHeroSection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight tracking-tight max-w-4xl"
         >
-          Excelência auditada que garante confiança em cada operação da Gabardo
+          <span className="text-gabardo-light-blue">Excelência</span> auditada que garante <span className="text-gabardo-light-blue">confiança</span> em cada operação da <span className="text-gabardo-light-blue">Gabardo</span>
         </motion.h1>
 
         <motion.p
