@@ -6,13 +6,35 @@
   "missionVisionValues": {
     "title": "Missão, Visão e Valores",
     "mission": "Entregar logística automotiva com precisão, segurança e sustentabilidade, conectando fábricas, pátios e concessionárias em toda a LATAM.",
+    "longDescription": "Nossa missão é ser o elo de confiança na cadeia automotiva, garantindo que cada veículo chegue ao seu destino com a máxima eficiência e cuidado. Através de processos otimizados, tecnologia de ponta e uma equipe dedicada, trabalhamos para superar as expectativas de nossos clientes e fortalecer a indústria como um todo.",
     "vision": "Ser a referência latino-americana em logística automotiva, com operação de baixo carbono e performance comprovada de ponta a ponta.",
+    "longDescriptionVision": "Almejamos um futuro onde a logística automotiva seja sinônimo de sustentabilidade e inovação. Estamos construindo uma operação que não apenas atende às demandas do presente, mas que também antecipa as necessidades do futuro, com um forte compromisso com a redução do impacto ambiental e a promoção de um ecossistema de transporte mais inteligente e conectado.",
     "values": [
-      "Integridade e ética nas relações",
-      "Segurança viária e cuidado com pessoas",
-      "Excelência operacional e melhoria contínua",
-      "Sustentabilidade e responsabilidade ambiental",
-      "Orientação a dados e inovação"
+      {
+        "title": "Integridade e ética nas relações",
+        "description": "Atuamos com transparência e respeito em todas as nossas interações, construindo relações de confiança com nossos clientes, colaboradores e parceiros.",
+        "icon": "Shield"
+      },
+      {
+        "title": "Segurança viária e cuidado com pessoas",
+        "description": "A segurança é o nosso maior compromisso. Investimos em treinamentos, tecnologia e processos para garantir a proteção de nossos colaboradores e da carga que transportamos.",
+        "icon": "Shield"
+      },
+      {
+        "title": "Excelência operacional e melhoria contínua",
+        "description": "Buscamos incansavelmente a perfeição em tudo o que fazemos. Através da melhoria contínua, otimizamos nossos processos, reduzimos custos e entregamos resultados superiores.",
+        "icon": "CheckCircle"
+      },
+      {
+        "title": "Sustentabilidade e responsabilidade ambiental",
+        "description": "Estamos comprometidos com a construção de um futuro mais sustentável. Investimos em tecnologias limpas, gerenciamos nossos resíduos e promovemos a conscientização ambiental em toda a nossa cadeia de valor.",
+        "icon": "Zap"
+      },
+      {
+        "title": "Orientação a dados e inovação",
+        "description": "Acreditamos no poder da informação para transformar a logística. Utilizamos dados para tomar decisões mais inteligentes, otimizar nossas operações e inovar constantemente.",
+        "icon": "Zap"
+      }
     ]
   },
   "whoWeAre": {
