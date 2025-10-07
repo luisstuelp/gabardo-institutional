@@ -30,7 +30,7 @@ const fleetHighlights = [
 
 const fleetTypes = [
   {
-    name: 'Cegonhas Gabardo',
+    name: 'Cegonhas',
     tag: 'Maior frota própria do Brasil',
     description:
       'Equipamentos padronizados e higienizados, com capacidade para até 11 veículos compactos e operação dedicada por cliente.',
@@ -45,7 +45,7 @@ const fleetTypes = [
       pallets: 'Até 11 veículos'
     },
     icon: Truck,
-    image: '/images/Trans Gabardo - Framers produtora -5577.JPG'
+    image: 'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd1njU0I1pLrmFsdPHE9JOfiSqog0puWCXIUQj'
   },
   {
     name: 'Trucks Porta-Autos',
@@ -63,7 +63,7 @@ const fleetTypes = [
       pallets: 'Até 6 veículos'
     },
     icon: TruckIcon,
-    image: '/images/Trans Gabardo - Framers produtora -5388.JPG'
+    image: 'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd4IQi2bknI6fVUiN4gAm5SK8M9Ltw7jpxPBy3'
   },
   {
     name: 'Plataformas Especiais',
@@ -81,7 +81,7 @@ const fleetTypes = [
       pallets: '1 a 3 veículos'
     },
     icon: Layers,
-    image: '/images/Trans Gabardo - Framers produtora -5495.JPG'
+    image: 'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd9cM9R6jH3PTfNeJvuGs1x5ObW7katmg28XS9'
   },
   {
     name: 'Pranchas Pesadas',
@@ -99,25 +99,7 @@ const fleetTypes = [
       pallets: 'Carga sob medida'
     },
     icon: PackageOpen,
-    image: '/images/Trans Gabardo - Framers produtora -5818.JPG'
-  },
-  {
-    name: 'Carretas Sider',
-    tag: 'Proteção climática',
-    description:
-      'Soluções para componentes automotivos, peças e cargas sensíveis, integradas aos hubs e armazéns Gabardo.',
-    metrics: [
-      '42 carretas sider em operação',
-      'Acesso lateral e superior com curtain side',
-      'Segurança reforçada com lacres e telemetria',
-      'Integração plena com logística inbound e outbound'
-    ],
-    specs: {
-      payload: 'Até 28.000 kg',
-      pallets: 'Até 28 pallets'
-    },
-    icon: Warehouse,
-    image: '/images/Trans Gabardo - Framers produtora -5475.JPG'
+    image: 'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgdNO8UgYRq6mid9MhAEW7F1UvCcbQK4luYro8Z'
   }
 ];
 
@@ -160,7 +142,7 @@ export default function ServicesFleetSection() {
                 Frota Gabardo
               </motion.span>
               <h2 className="text-3xl md:text-4xl lg:text-[2.65rem] font-bold leading-tight text-gabardo-blue">
-                A maior frota própria de cegonhas do Brasil, preparada para cada desafio logístico
+                A maior frota própria do Brasil, preparada para cada desafio logístico
               </h2>
               <p className="text-base md:text-lg text-neutral-600 leading-relaxed">
                 Frota moderna, padronizada e 100% monitorada para garantir disponibilidade, segurança e otimização de custos em toda a cadeia automotiva.
