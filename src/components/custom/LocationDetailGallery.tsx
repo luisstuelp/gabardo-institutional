@@ -4,10 +4,22 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface LocationDetailGalleryProps {
-  location: any;
+  location: {
+    name: string;
+    testimonial?: {
+      text?: string;
+      author?: string;
+      role?: string;
+    };
+    transform?: {
+      title?: string;
+      description?: string;
+      benefits?: string[];
+    };
+  };
 }
 
-const LocationDetailGallery: React.FC<LocationDetailGalleryProps> = ({ location }) => {
+const LocationDetailGallery: React.FC<LocationDetailGalleryProps> = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   return (

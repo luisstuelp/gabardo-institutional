@@ -7,7 +7,16 @@ import mapboxgl, { Map } from 'mapbox-gl';
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoid2Vic3RhcnN0dWRpbyIsImEiOiJjbWJqaXUyZG8wZ3BtMmpxNm5pcGw0Y2ptIn0.UnohoPp9qrhIFOEoQ9FNfg';
 
 interface LocationDetailMapProps {
-  location: any;
+  location: {
+    name: string;
+    contact: {
+      coordinates?: [number, number];
+      address: string;
+      phone: string;
+      email: string;
+      hours: string;
+    };
+  };
 }
 
 const LocationDetailMap: React.FC<LocationDetailMapProps> = ({ location }) => {

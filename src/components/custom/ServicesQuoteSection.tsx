@@ -97,7 +97,7 @@ const ServicesQuoteSection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="mt-14 grid gap-6 md:grid-cols-3"
         >
-          {journeyHighlights.map((highlight, index) => {
+          {journeyHighlights.map((highlight) => {
             const Icon = highlight.icon;
             return (
               <div

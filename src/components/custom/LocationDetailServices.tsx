@@ -4,7 +4,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 interface LocationDetailServicesProps {
-  location: any;
+  location: {
+    services: Array<{
+      icon: string;
+      title: string;
+      description: string;
+    }>;
+  };
 }
 
 const LocationDetailServices: React.FC<LocationDetailServicesProps> = ({ location }) => {
@@ -35,7 +41,7 @@ const LocationDetailServices: React.FC<LocationDetailServicesProps> = ({ locatio
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {location.services.map((service: any, index: number) => (
+          {location.services.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}

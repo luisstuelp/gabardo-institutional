@@ -4,7 +4,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 interface LocationDetailTestimonialProps {
-  location: any;
+  location: {
+    testimonial?: {
+      text?: string;
+      author?: string;
+      role?: string;
+    };
+  };
 }
 
 const LocationDetailTestimonial: React.FC<LocationDetailTestimonialProps> = ({ location }) => {
@@ -21,7 +27,7 @@ const LocationDetailTestimonial: React.FC<LocationDetailTestimonialProps> = ({ l
           <div className="bg-gradient-to-br from-neutral-800 to-neutral-900 rounded-3xl p-12 text-white relative overflow-hidden">
             {/* Quote Icon */}
             <div className="absolute top-8 left-8 text-6xl text-white/20">
-              "
+              &ldquo;
             </div>
             
             {/* Testimonial Text */}

@@ -98,7 +98,7 @@ const LocationsMap: React.FC = () => {
           </div>
         `;
 
-        const marker = new mapboxgl.Marker(markerElement)
+        new mapboxgl.Marker(markerElement)
           .setLngLat(location.coordinates)
           .addTo(map);
 

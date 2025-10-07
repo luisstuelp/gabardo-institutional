@@ -2,13 +2,6 @@
 import React from 'react';
 
 const PranchaClientsSection: React.FC = () => {
-  const clientLogos = [
-    // Add client logo image sources here
-    { src: '/path/to/client1-logo.png', alt: 'Client 1' },
-    { src: '/path/to/client2-logo.png', alt: 'Client 2' },
-    { src: '/path/to/client3-logo.png', alt: 'Client 3' },
-    { src: '/path/to/client4-logo.png', alt: 'Client 4' },
-  ];
 
   return (
     <div className="bg-gray-50 py-12">

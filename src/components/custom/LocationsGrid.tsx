@@ -254,7 +254,7 @@ const LocationsGrid: React.FC = () => {
             {['todos', 'matriz', 'sede', 'filial'].map((filter) => (
               <button
                 key={filter}
-                onClick={() => setSelectedFilter(filter as any)}
+                onClick={() => setSelectedFilter(filter as 'todos' | 'matriz' | 'sede' | 'filial')}
                 className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                   selectedFilter === filter
                     ? 'bg-neutral-900 text-white shadow-lg'

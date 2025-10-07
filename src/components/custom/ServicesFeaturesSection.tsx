@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Clock, Award, Users, Zap, Globe, ArrowRight } from 'lucide-react';
+import { Shield, Clock, Award, Users, Zap, Globe } from 'lucide-react';
 
 interface FeatureItem {
   id: string;

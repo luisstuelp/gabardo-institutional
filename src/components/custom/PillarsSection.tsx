@@ -11,7 +11,7 @@ const tabs = [
   { id: 'values', label: 'Valores', icon: CheckCircle },
 ];
 
-const valueIcons = {
+const valueIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   'Integridade': Shield,
   'Segurança': Shield,
   'Qualidade': CheckCircle,

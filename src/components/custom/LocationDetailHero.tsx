@@ -21,7 +21,20 @@ const ArrowIcon = () => (
 );
 
 interface LocationDetailHeroProps {
-  location: any;
+  location: {
+    name: string;
+    fullName?: string;
+    tagline?: string;
+    subtitle?: string;
+    type: string;
+    hero?: {
+      description?: string;
+    };
+    contact: {
+      phone: string;
+      hours: string;
+    };
+  };
 }
 
 const LocationDetailHero: React.FC<LocationDetailHeroProps> = ({ location }) => {

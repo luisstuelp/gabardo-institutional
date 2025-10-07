@@ -122,7 +122,6 @@ const ProtocolStack: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
-  const scrollStateRef = useRef({ accumulator: 0, lastTime: 0 });
 
   const cycle = useCallback(
     (direction: number) => {

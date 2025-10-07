@@ -4,7 +4,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 interface LocationDetailTransformProps {
-  location: any;
+  location: {
+    transform?: {
+      title?: string;
+      description?: string;
+      benefits?: string[];
+    };
+  };
 }
 
 const LocationDetailTransform: React.FC<LocationDetailTransformProps> = ({ location }) => {

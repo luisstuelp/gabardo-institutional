@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import mapboxgl, { Map } from 'mapbox-gl';
 import { locations, Location } from '@/data/infraestruturaData';
-import { Truck, MapPin } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoid2Vic3RhcnN0dWRpbyIsImEiOiJjbWJqaXUyZG8wZ3BtMmpxNm5pcGw0Y2ptIn0.UnohoPp9qrhIFOEoQ9FNfg';
 
@@ -34,12 +34,6 @@ const LocationsSection: React.FC = () => {
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const router = useRouter();
 
-  const handleExploreLocation = () => {
-    if (selectedLocation) {
-      const locationId = getLocationId(selectedLocation.name);
-      router.push(`/localizacao/${locationId}`);
-    }
-  };
 
   const handleSelectLocationFromList = (location: Location) => {
     setSelectedLocation(location);
@@ -94,7 +88,7 @@ const LocationsSection: React.FC = () => {
           </div>
         `;
 
-        const marker = new mapboxgl.Marker(markerElement)
+        new mapboxgl.Marker(markerElement)
           .setLngLat(location.coordinates)
           .addTo(map);
 

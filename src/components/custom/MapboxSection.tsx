@@ -58,7 +58,7 @@ const MapboxSection: React.FC = () => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(null);
+  const [selectedLocation] = useState<LocationData | null>(null);
   const router = useRouter();
 
   const handleExploreLocation = () => {
@@ -117,7 +117,7 @@ const MapboxSection: React.FC = () => {
           </div>
         `;
 
-        const marker = new mapboxgl.Marker(markerElement)
+        new mapboxgl.Marker(markerElement)
           .setLngLat(location.coordinates)
           .addTo(map);
 

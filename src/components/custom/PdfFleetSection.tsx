@@ -1,7 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
 const nossaFrota = {
   title: 'Nossa Frota',
   vehicles: [
