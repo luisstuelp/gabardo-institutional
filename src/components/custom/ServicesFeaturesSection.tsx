@@ -162,10 +162,7 @@ const ServicesFeaturesSection: React.FC = () => {
                   <p className="text-sm md:text-base text-neutral-600 leading-relaxed">
                     {feature.description}
                   </p>
-                  <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-gabardo-light-blue">
-                    Ver diferencial
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </div>
+
                 </div>
               </div>
             </motion.button>
@@ -185,13 +182,13 @@ const ServicesFeaturesSection: React.FC = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href="#contato"
+              href="/contato"
               className="inline-flex items-center justify-center rounded-xl bg-gabardo-blue px-7 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-white shadow-lg transition-transform duration-200 hover:-translate-y-0.5"
             >
               Solicitar proposta
             </a>
             <a
-              href="#cases"
+              href="/cases-de-sucesso"
               className="inline-flex items-center justify-center rounded-xl border border-gabardo-blue px-7 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-gabardo-blue transition-transform duration-200 hover:-translate-y-0.5 hover:bg-gabardo-blue/5"
             >
               Ver cases de sucesso

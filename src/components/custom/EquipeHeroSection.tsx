@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import LightRays from './LightRays';
@@ -7,6 +8,14 @@ import LightRays from './LightRays';
 export default function EquipeHeroSection() {
   return (
     <div className="relative w-full h-[60vh] text-white overflow-hidden bg-black">
+      <Image
+        src="/images/NossaEquipe.JPG"
+        alt="Equipe Gabardo"
+        fill
+        priority
+        sizes="100vw"
+        className="absolute inset-0 h-full w-full object-cover brightness-[0.6]"
+      />
       <LightRays />
 
       <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-4">

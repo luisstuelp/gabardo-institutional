@@ -78,14 +78,14 @@ const SobreHistoriaHeroSection = () => {
           transition={{ duration: 1, delay: 1.2 }}
           className="hidden flex-col items-center gap-3 md:flex"
         >
-          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
+          <p className="mt-1.5 text-xs uppercase tracking-[0.45em] text-white/80">
             Role para percorrer a linha do tempo
-          </span>
+          </p>
           <ChevronDown className="h-8 w-8 animate-bounce" />
         </motion.div>
       </div>
     </section>
   );
-};
+}
 
 export default SobreHistoriaHeroSection;

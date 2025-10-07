@@ -33,7 +33,7 @@ export default function JoinTeamSection() {
         >
           <Link
             href="/trabalhe-conosco"
-            className="inline-block bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300"
+            className="inline-block bg-gabardo-blue text-white font-semibold px-8 py-3 rounded-lg shadow-lg transition-colors duration-300 hover:bg-gabardo-blue/90"
           >
             Trabalhe Conosco
           </Link>

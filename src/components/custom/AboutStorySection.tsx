@@ -3,7 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import InfiniteScroll from '@/components/InfiniteScroll';
-import { Building, Users, Truck, Target } from 'lucide-react';
+import { Building, Users, Truck, Target, CheckCircle } from 'lucide-react';
+import { AnimatePresence } from 'framer-motion';
+import PillarsSection from '@/components/custom/PillarsSection';
+import Link from 'next/link';
+import Image from 'next/image';
 
 interface TimelineItem {
   year: string;
@@ -124,6 +128,34 @@ const AboutStorySection: React.FC = () => {
   return (
     <section className="section-shell bg-white relative overflow-hidden">
       <div className="section-container">
+        {/* New Introductory Section */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-6"
+          >
+            <h1 className="text-4xl md:text-5xl font-bold text-gabardo-blue">Uma Jornada de Confiança e Inovação</h1>
+            <p className="text-lg text-gray-600 leading-relaxed">Desde 1989, a Transportes Gabardo tem sido uma força motriz na logística automotiva brasileira. Nossa história é marcada por um compromisso incansável com a excelência, a inovação e a satisfação de nossos clientes. A cada ano, expandimos nossas fronteiras, aprimoramos nossos processos e fortalecemos nossas parcerias, sempre com o objetivo de entregar mais do que veículos: entregamos confiança.</p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative h-80 rounded-2xl overflow-hidden shadow-2xl"
+          >
+            <Image
+              src="/images/TransGabardoGestao.JPG"
+              alt="Gestão de Transportes Gabardo"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+        </div>
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -189,6 +221,50 @@ const AboutStorySection: React.FC = () => {
             — Sérgio Mário Gabardo, Fundador
           </div>
         </motion.div>
+
+        {/* New Future Section */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center mt-20">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative h-80 rounded-2xl overflow-hidden shadow-2xl"
+          >
+            <Image
+              src="/images/GabardoMonit.JPG"
+              alt="Monitoramento Gabardo"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-6"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gabardo-blue">O Futuro da Logística Automotiva</h2>
+            <p className="text-lg text-gray-600 leading-relaxed">Olhamos para o futuro com a mesma paixão e determinação que nos trouxeram até aqui. Estamos comprometidos em liderar a transformação da logística automotiva, investindo em tecnologia, sustentabilidade e em nossa equipe. Acreditamos que o futuro é elétrico, conectado e, acima de tudo, centrado no cliente. Estamos prontos para os próximos 36 anos e além.</p>
+          </motion.div>
+        </div>
+
+        {/* New Mission, Vision, Values Section */}
+        <div className="mt-24">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gabardo-blue">Nossos Pilares</h2>
+            <p className="text-lg text-gray-600 mt-4">Os fundamentos que guiam nossas ações e decisões.</p>
+          </motion.div>
+          <PillarsSection />
+        </div>
+
       </div>
     </section>
   );

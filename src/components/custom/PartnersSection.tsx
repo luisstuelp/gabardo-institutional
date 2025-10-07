@@ -1,54 +1,112 @@
 'use client';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
+import { useCallback, useEffect, useState } from 'react';
 
-const partners = [
-  { name: 'Aurora Logistics', logo: 'aurora-logistics-logo.svg', url: '#' },
-  { name: 'Ford', logo: 'ford-logo.svg', url: '#' },
-  { name: 'Islandsbanki', logo: 'islandsbanki-logo.svg', url: '#' },
-  { name: 'JSL', logo: 'jsl-logo.svg', url: '#' },
-  { name: 'Localiza', logo: 'localiza-logo.svg', url: '#' },
-  { name: 'Memento Payments', logo: 'memento-payments-logo.svg', url: '#' },
-  { name: 'Mercedes-Benz', logo: 'mercedes-benz-logo.svg', url: '#' },
-  { name: 'Scania', logo: 'scania-logo.svg', url: '#' },
-  { name: 'Skybridge Cargo', logo: 'skybridge-cargo-logo.svg', url: '#' },
-  { name: 'Transglobal Partners', logo: 'transglobal-partners-logo.svg', url: '#' },
-  { name: 'UPS', logo: 'ups-logo.svg', url: '#' },
-  { name: 'Volkswagen', logo: 'volkswagen-logo.svg', url: '#' },
-];
+type TeamImage = {
+  id: number;
+  src: string;
+  alt: string;
+  fit?: 'cover' | 'contain';
+  objectPosition?: string;
+};
+
+const baseTeamImages: TeamImage[] = Array.from({ length: 15 }, (_, index) => {
+  const id = index + 1;
+  const fileName = `Equipe (${id}).png`;
+  const encodedFileName = encodeURIComponent(fileName);
+
+  return {
+    id,
+    src: `/images/${encodedFileName}`,
+    alt: `Equipe Gabardo ${id}`,
+  };
+});
+
+const teamImages: TeamImage[] = baseTeamImages;
 
 export default function PartnersSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const goTo = useCallback((index: number) => {
+    setCurrentIndex((index + teamImages.length) % teamImages.length);
+  }, []);
+
+  const goNext = useCallback(() => {
+    goTo(currentIndex + 1);
+  }, [currentIndex, goTo]);
+
+  const goPrev = useCallback(() => {
+    goTo(currentIndex - 1);
+  }, [currentIndex, goTo]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      goTo(currentIndex + 1);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [currentIndex, goTo]);
+
+  const featured = teamImages[currentIndex];
   return (
-    <div>
+    <div className="flex flex-col gap-10">
       <div className="text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">Nossos Parceiros</h2>
-        <p className="mt-4 max-w-2xl mx-auto text-lg sm:text-xl text-gray-600">
-          Temos orgulho de trabalhar com algumas das maiores empresas do mundo.
+        <h2 className="text-3xl sm:text-4xl font-bold text-gabardo-blue tracking-tight">Nossa Equipe</h2>
+        <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg text-gray-600">
+          Pessoas reais movendo a Gabardo diariamente. Momentos capturados nas operações, treinamentos e celebrações.
         </p>
       </div>
-      <div className="mt-12 grid grid-cols-2 gap-8 items-center">
-        {partners.map((partner, index) => (
-          <motion.a
-            key={partner.name}
-            href={partner.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="relative h-20 filter grayscale hover:grayscale-0 transition-all duration-300"
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className="relative overflow-hidden rounded-3xl bg-white shadow-[0_28px_80px_-40px_rgba(19,45,81,0.45)]"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-gabardo-blue/6 via-white to-gabardo-light-blue/10" />
+        <div className="relative">
+          <div className="relative h-[360px] sm:h-[420px] lg:h-[460px] overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={featured.id}
+                initial={{ opacity: 0, scale: 1.02 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={featured.src}
+                  alt={featured.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 45vw, 80vw"
+                  className={`${featured.fit === 'contain' ? 'object-contain' : 'object-cover'} bg-black/40`}
+                  style={featured.objectPosition ? { objectPosition: featured.objectPosition } : undefined}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b1629]/55 via-transparent to-transparent" />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <button
+            type="button"
+            onClick={goPrev}
+            aria-label="Imagem anterior"
+            className="absolute left-5 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/85 p-2 text-base font-semibold text-gabardo-blue shadow-md transition hover:bg-white"
           >
-            <Image
-              src={`/images/clients/${partner.logo}`}
-              alt={partner.name}
-              fill
-              className="object-contain"
-            />
-          </motion.a>
-        ))}
-      </div>
+            &lt;
+          </button>
+          <button
+            type="button"
+            onClick={goNext}
+            aria-label="Próxima imagem"
+            className="absolute right-5 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/85 p-2 text-base font-semibold text-gabardo-blue shadow-md transition hover:bg-white"
+          >
+            &gt;
+          </button>
+        </div>
+      </motion.div>
     </div>
   );
 }

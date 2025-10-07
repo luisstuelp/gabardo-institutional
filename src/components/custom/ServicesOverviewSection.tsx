@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Truck, Package, Shield, MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 interface ServiceItem {
   id: string;
@@ -293,12 +294,16 @@ const ServicesOverviewSection: React.FC = () => {
               </div>
 
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                <button className="rounded-xl bg-gabardo-blue px-8 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-white shadow-lg transition-transform duration-200 hover:-translate-y-0.5">
-                  Faça seu orçamento
-                </button>
-                <button className="rounded-xl border border-gabardo-blue px-8 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-gabardo-blue transition-transform duration-200 hover:-translate-y-0.5 hover:bg-gabardo-blue/5">
-                  Conhecer operações
-                </button>
+                <Link href="/contato">
+                  <button className="rounded-xl bg-gabardo-blue px-8 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-white shadow-lg transition-transform duration-200 hover:-translate-y-0.5">
+                    Faça seu orçamento
+                  </button>
+                </Link>
+                <Link href="/servicos">
+                  <button className="rounded-xl border border-gabardo-blue px-8 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-gabardo-blue transition-transform duration-200 hover:-translate-y-0.5 hover:bg-gabardo-blue/5">
+                    Conhecer operações
+                  </button>
+                </Link>
               </div>
 
               <p className="text-sm md:text-base text-neutral-500">

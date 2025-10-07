@@ -21,8 +21,7 @@ interface CaseStudyCardProps {
 
 const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ study }) => {
   return (
-    <Link href={`/cases-de-sucesso/${study.slug}`} passHref>
-      <a className="block group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out overflow-hidden">
+    <Link href={`/cases-de-sucesso/${study.slug}`} className="block group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out overflow-hidden">
         <div className="relative w-full h-56">
           <Image
             src={study.imageUrl}
@@ -52,7 +51,6 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({ study }) => {
             <ArrowRight className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </div>
         </div>
-      </a>
     </Link>
   );
 };

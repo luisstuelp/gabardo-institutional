@@ -30,6 +30,20 @@
   body {
     font-family: 'Supermolot Neue', sans-serif;
   }
+  button,
+  [type='button'],
+  [type='submit'],
+  [type='reset'],
+  .btn,
+  .button,
+  a.btn,
+  a.button,
+  a[class*='btn-'],
+  a[class*='Button'],
+  a[class*='button-'],
+  .cta-button {
+    @apply rounded-full;
+  }
 }
 
 /* Font utilities */
