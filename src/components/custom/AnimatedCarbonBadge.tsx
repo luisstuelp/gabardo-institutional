@@ -1,20 +1,38 @@
 'use client';
 
 import { motion, useAnimation } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { type FocusEvent, useCallback, useEffect, useRef, useState } from 'react';
 
 export default function AnimatedCarbonBadge() {
   const coinControls = useAnimation();
-  const [showText, setShowText] = useState(false);
-  
+  const [isHovered, setIsHovered] = useState(false);
+  const [textPhase, setTextPhase] = useState<'static' | 'animating' | 'hidden'>('static');
+  const isAnimatingRef = useRef(false);
+  const isHoveredRef = useRef(false);
+
   const text1 = "#1 TRANSPORTADORA NO MUNDO";
   const text2 = "CARBONO NEGATIVO";
 
-  useEffect(() => {
-    const runAnimation = async () => {
-      // Wait a bit before starting
-      await new Promise(resolve => setTimeout(resolve, 800));
-      
+  const resetCoin = useCallback(() => {
+    coinControls.stop();
+    coinControls.set({
+      scale: 1,
+      rotate: 0,
+      x: 0,
+      y: 0,
+      filter: 'drop-shadow(0 0 0px rgba(56, 182, 255, 0))',
+    });
+    setTextPhase('static');
+  }, [coinControls]);
+
+  const runAnimation = useCallback(async () => {
+    if (!isHoveredRef.current || isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
+
+    try {
+      setTextPhase('hidden');
+      await new Promise(resolve => setTimeout(resolve, 40));
+
       // Phase 1: Pop out with elastic bounce
       await coinControls.start({
         scale: [1, 1.35, 1.25],
@@ -26,7 +44,7 @@ export default function AnimatedCarbonBadge() {
         ],
         transition: {
           duration: 0.6,
-          ease: [0.34, 1.56, 0.64, 1], // Elastic easing
+          ease: [0.34, 1.56, 0.64, 1],
         }
       });
 
@@ -40,11 +58,11 @@ export default function AnimatedCarbonBadge() {
           ease: [0.45, 0, 0.55, 1],
         }
       });
-      
+
       // Reveal text after coin starts moving (300ms delay)
       await new Promise(resolve => setTimeout(resolve, 300));
-      setShowText(true);
-      
+      setTextPhase('animating');
+
       // Wait for slide to complete
       await slidePromise;
 
@@ -61,7 +79,7 @@ export default function AnimatedCarbonBadge() {
         transition: {
           duration: 0.85,
           x: { ease: [0.6, 0.04, 0.4, 0.9] },
-          y: { ease: [0.22, 1, 0.36, 1] }, // Different easing for parabolic Y motion
+          y: { ease: [0.22, 1, 0.36, 1] },
           rotate: { ease: [0.6, 0.04, 0.4, 0.9] },
           scale: { ease: [0.6, 0.04, 0.4, 0.9] },
         }
@@ -76,22 +94,45 @@ export default function AnimatedCarbonBadge() {
         }
       });
 
-      // Wait before looping
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      
-      // Reset text visibility for next loop
-      setShowText(false);
-      await new Promise(resolve => setTimeout(resolve, 100));
-      
-      // Loop the animation
-      runAnimation();
-    };
+      setTextPhase('static');
 
-    runAnimation();
-  }, [coinControls]);
+      // Wait before looping while hovered
+      await new Promise(resolve => setTimeout(resolve, 1200));
+    } finally {
+      isAnimatingRef.current = false;
+    }
+
+    if (isHoveredRef.current) {
+      runAnimation();
+    } else {
+      resetCoin();
+    }
+  }, [coinControls, resetCoin]);
+
+  useEffect(() => {
+    isHoveredRef.current = isHovered;
+    if (isHovered) {
+      runAnimation();
+    } else if (!isAnimatingRef.current) {
+      resetCoin();
+    }
+  }, [isHovered, resetCoin, runAnimation]);
+
+  const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+      setIsHovered(false);
+    }
+  };
 
   return (
-    <div className="relative inline-flex items-center gap-1 py-4">
+    <div
+      className="relative inline-flex items-center gap-1 py-4"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsHovered(true)}
+      onBlur={handleBlur}
+      tabIndex={0}
+    >
       {/* Animated Coin */}
       <motion.div
         animate={coinControls}
@@ -113,8 +154,8 @@ export default function AnimatedCarbonBadge() {
           {text1.split('').map((char, index) => (
             <motion.span
               key={`line1-${index}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={showText ? {
+              initial={{ opacity: 1, x: 0 }}
+              animate={textPhase === 'animating' ? {
                 opacity: 1,
                 x: 0,
                 transition: {
@@ -122,9 +163,14 @@ export default function AnimatedCarbonBadge() {
                   duration: 0.25,
                   ease: 'easeOut'
                 }
-              } : {
+              } : textPhase === 'hidden' ? {
                 opacity: 0,
-                x: -20
+                x: -20,
+                transition: { duration: 0.12 }
+              } : {
+                opacity: 1,
+                x: 0,
+                transition: { duration: 0 }
               }}
               style={{ display: 'inline-block', whiteSpace: 'pre' }}
             >
@@ -138,8 +184,8 @@ export default function AnimatedCarbonBadge() {
           {text2.split('').map((char, index) => (
             <motion.span
               key={`line2-${index}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={showText ? {
+              initial={{ opacity: 1, x: 0 }}
+              animate={textPhase === 'animating' ? {
                 opacity: 1,
                 x: 0,
                 transition: {
@@ -147,9 +193,14 @@ export default function AnimatedCarbonBadge() {
                   duration: 0.25,
                   ease: 'easeOut'
                 }
-              } : {
+              } : textPhase === 'hidden' ? {
                 opacity: 0,
-                x: -20
+                x: -20,
+                transition: { duration: 0.12 }
+              } : {
+                opacity: 1,
+                x: 0,
+                transition: { duration: 0 }
               }}
               style={{ display: 'inline-block', whiteSpace: 'pre' }}
             >
@@ -162,7 +213,7 @@ export default function AnimatedCarbonBadge() {
       {/* Animated Trail Effect */}
       <motion.div
         initial={{ opacity: 0, scaleX: 0 }}
-        animate={showText ? {
+        animate={textPhase === 'animating' ? {
           opacity: [0, 0.3, 0],
           scaleX: [0, 1, 1],
           transition: {
