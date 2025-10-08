@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Wrench, Zap, Users, Building, Truck } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import unitsPageContent from '@/data/unitsPageContent.json';
 
 const facilities = [
@@ -29,10 +29,21 @@ export default function FacilitiesSection() {
   const leftColumnRef = useRef<HTMLDivElement>(null);
   const [leftColumnHeight, setLeftColumnHeight] = useState(0);
 
-  useEffect(() => {
-    if (leftColumnRef.current) {
-      setLeftColumnHeight(leftColumnRef.current.offsetHeight);
-    }
+  const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
+  useIsomorphicLayoutEffect(() => {
+    const columnEl = leftColumnRef.current;
+    if (!columnEl) return;
+
+    const updateHeight = () => setLeftColumnHeight(columnEl.offsetHeight);
+    updateHeight();
+
+    const resizeObserver = new ResizeObserver(() => updateHeight());
+    resizeObserver.observe(columnEl);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
   }, []);
 
   return (
@@ -77,7 +88,14 @@ export default function FacilitiesSection() {
               className="relative rounded-lg overflow-hidden shadow-lg"
               style={{ height: leftColumnHeight > 0 ? leftColumnHeight : 'auto' }}
             >
-              <img src={selectedFacility.image} alt={selectedFacility.name} className="w-full h-full object-cover" />
+              <Image
+                src={selectedFacility.image}
+                alt={selectedFacility.name}
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
+                priority={selectedFacility.name === facilities[0].name}
+              />
             </motion.div>
           </AnimatePresence>
         </div>

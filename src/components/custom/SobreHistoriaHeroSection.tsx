@@ -49,7 +49,7 @@ const SobreHistoriaHeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="section-eyebrow text-gabardo-light-blue uppercase"
+          className="section-eyebrow text-gabardo-light-blue uppercase text-sm md:text-base lg:text-lg tracking-[0.4em] md:tracking-[0.48em]"
         >
           Nossa História
         </motion.span>

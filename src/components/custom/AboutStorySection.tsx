@@ -148,7 +148,7 @@ const AboutStorySection: React.FC = () => {
             className="relative h-80 rounded-2xl overflow-hidden shadow-2xl"
           >
             <Image
-              src="/images/TransGabardoGestao.JPG"
+              src="/images/historia1.JPG"
               alt="Gestão de Transportes Gabardo"
               fill
               className="object-cover"

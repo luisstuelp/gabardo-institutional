@@ -3,7 +3,6 @@ import { Header } from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import SobreHistoriaHeroSection from '@/components/custom/SobreHistoriaHeroSection';
 import SobreHistoriaTimelineSection from '@/components/custom/SobreHistoriaTimelineSection';
-import SobreHistoriaCTASection from '@/components/custom/SobreHistoriaCTASection';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gabardo.com.br'),
@@ -69,7 +68,6 @@ export default function SobreHistoriaPage() {
       <Header variant="dark" />
       <SobreHistoriaHeroSection />
       <SobreHistoriaTimelineSection />
-      <SobreHistoriaCTASection />
       <Footer />
     </main>
   );

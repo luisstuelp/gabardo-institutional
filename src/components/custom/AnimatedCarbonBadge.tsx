@@ -23,7 +23,7 @@ export default function AnimatedCarbonBadge() {
   const calculateSlideDistance = useCallback(
     (includeButton: boolean) => {
       const baseWidth = contentRef.current?.offsetWidth ?? 0;
-      const buffer = includeButton ? 140 : 110;
+      const buffer = includeButton ? 160 : 110;
       return Math.max(baseWidth + buffer, 320);
     },
     []
@@ -239,15 +239,16 @@ export default function AnimatedCarbonBadge() {
                 {showCertificateButton && (
                   <motion.a
                     key="certificate-button"
-                    href="/certificados/carbono-negativo.pdf"
+                    href="https://drive.google.com/file/d/1J4ItTI0_6yYVohR_V8UwPqOcxCw62Ay_/view?usp=drivesdk"
                     target="_blank"
                     rel="noopener noreferrer"
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.2 }}
-                    className="inline-flex items-center justify-center rounded-full border border-gabardo-light-blue/60 bg-transparent px-3 py-1.5 text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.26em] text-gabardo-light-blue hover:border-white/70 hover:text-white"
+                    className="group relative inline-flex items-center gap-1 pl-1 pr-2 pb-1 text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.26em] text-gabardo-light-blue transition-colors duration-200 hover:text-white"
                   >
+                    <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-gabardo-light-blue to-transparent transition-transform duration-200 group-hover:scale-x-100" aria-hidden />
                     Conferir certificado
                   </motion.a>
                 )}

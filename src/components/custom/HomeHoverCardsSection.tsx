@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Globe2, Leaf, Users, Truck, Server, TrendingUp } from 'lucide-react';
 
@@ -14,6 +15,8 @@ const cards = [
     accent: '#4BFFB4',
     image: '/images/gabardo-hero-01.jpg',
     highlights: ['BASES EM 4 REGIÕES', 'COBERTURA 100% LATAM', 'HABILITAÇÃO DTA'],
+    href: '/frota-e-unidades',
+    ctaLabel: 'Ver mapa de unidades',
   },
   {
     icon: Truck,
@@ -24,6 +27,8 @@ const cards = [
     accent: '#38B6FF',
     image: '/images/gabardo-truck-fleet.JPG',
     highlights: ['79% FROTA PRÓPRIA', 'IDADE MÉDIA 2 ANOS', '1.311 CAMINHÕES'],
+    href: '/transporte-de-veiculos',
+    ctaLabel: 'Detalhes da frota',
   },
   {
     icon: Server,
@@ -34,6 +39,8 @@ const cards = [
     accent: '#00F7FF',
     image: '/images/GabardoBastidores.JPG',
     highlights: ['SD-WAN NACIONAL', 'BACKUPS ORACLE DIÁRIOS', 'PLANO DE CONTINGÊNCIA'],
+    href: '/infraestrutura',
+    ctaLabel: 'Ver infraestrutura',
   },
   {
     icon: Users,
@@ -44,6 +51,8 @@ const cards = [
     accent: '#F4A8FF',
     image: '/images/GabardoEquipe2.JPG',
     highlights: ['PDI DIGITAL', 'TELEMETRIA 24/7', 'SQUADS DEDICADOS'],
+    href: '/servicos',
+    ctaLabel: 'Ver soluções OEM',
   },
   {
     icon: TrendingUp,
@@ -54,6 +63,8 @@ const cards = [
     accent: '#FFB347',
     image: '/images/GabardoRef.JPG',
     highlights: ['1.455.360 VEÍCULOS', 'INVESTIGAÇÃO PADRONIZADA', 'MONITORAMENTO 24H'],
+    href: '/cases-de-sucesso',
+    ctaLabel: 'Conhecer cases',
   },
   {
     icon: Leaf,
@@ -64,6 +75,8 @@ const cards = [
     accent: '#7DFF4B',
     image: '/images/gabardo-hero-04.jpg',
     highlights: ['CARBONO NEGATIVO', 'GHG PROTOCOL 2017', 'META NET ZERO 2030'],
+    href: '/sustentabilidade',
+    ctaLabel: 'Ver agenda ESG',
   },
 ];
 
@@ -135,7 +148,7 @@ const HomeHoverCardsSection = () => {
                     transition={{ duration: 0.45, delay: index * 0.04 }}
                     className={`relative flex gap-4 rounded-3xl border px-5 py-4 backdrop-blur-md transition-all duration-500 ${
                       isActive
-                        ? 'border-gabardo-blue/50 bg-gabardo-blue/8'
+                        ? 'border-gabardo-blue/50 bg-gabardo-blue/8 scale-105'
                         : 'border-white/40 bg-white/60 hover:border-gabardo-blue/30'
                     }`}
                   >
@@ -252,6 +265,13 @@ const HomeHoverCardsSection = () => {
                     </span>
                   ))}
                 </div>
+                <Link
+                  href={activeCard.href}
+                  className="inline-flex w-fit items-center gap-2 rounded-full border border-gabardo-blue/30 bg-gabardo-blue/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-blue transition hover:border-gabardo-blue/50 hover:bg-gabardo-blue/20"
+                >
+                  {activeCard.ctaLabel}
+                  <span>→</span>
+                </Link>
               </div>
             </motion.div>
           </div>

@@ -73,20 +73,7 @@ const PillarsSection: React.FC = () => {
           {activeTab === 'values' && (
             <div>
               <h3 className="text-2xl font-bold text-gabardo-blue mb-4">Valores</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {missionVisionValues.values.map((value, index) => {
-                  const ValueIcon = valueIcons[value.icon] || CheckCircle;
-                  return (
-                    <div key={index} className="flex flex-col items-start gap-4 p-4 bg-gray-50 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <ValueIcon className="w-8 h-8 text-green-500 mt-1 flex-shrink-0" />
-                        <span className="text-lg text-gray-800 font-semibold">{value.title}</span>
-                      </div>
-                      <p className="text-md text-gray-600 leading-relaxed">{value.description}</p>
-                    </div>
-                  );
-                })}
-              </div>
+              <p className="text-lg text-gray-700 leading-relaxed">{missionVisionValues.values.map(v => `${v.title}: ${v.description}`).join(' ')}</p>
             </div>
           )}
         </motion.div>
