@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Clock, User, ArrowRight, Eye } from 'lucide-react';
 import Image from 'next/image';
@@ -20,11 +20,7 @@ const BlogIndex: React.FC = () => {
   const allPosts = getAllBlogPosts();
   const featuredPosts = getFeaturedBlogPosts();
 
-  useEffect(() => {
-    filterPosts();
-  }, [selectedCategory, searchTerm, filterPosts]);
-
-  const filterPosts = () => {
+  const filterPosts = useCallback(() => {
     let filtered = allPosts;
 
     if (selectedCategory !== 'all') {
@@ -40,7 +36,11 @@ const BlogIndex: React.FC = () => {
     }
 
     setFilteredPosts(filtered);
-  };
+  }, [allPosts, selectedCategory, searchTerm]);
+
+  useEffect(() => {
+    filterPosts();
+  }, [filterPosts]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
