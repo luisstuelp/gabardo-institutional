@@ -80,7 +80,7 @@ export const blogPosts: BlogPost[] = [
     date: '12 Jan 2025',
     readTime: '7 min',
     author: 'Pedro Almeida',
-    image: 'https://images.unsplash.com/photo-1593941707882-a5bac6861d75?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/gabardo-truck-fleet.JPG',
     featured: true,
     tags: ['mobilidade urbana', 'veículos elétricos', 'futuro', 'inovação'],
     seo: {
@@ -171,7 +171,7 @@ export const blogPosts: BlogPost[] = [
     date: '15 Jan 2025',
     readTime: '8 min',
     author: 'Dr. Ana Silva',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/Trans Gabardo - Framers produtora -5337.JPG',
     featured: true,
     tags: ['trabalho híbrido', 'futuro', 'cultura empresarial', 'produtividade'],
     seo: {
@@ -232,7 +232,7 @@ export const blogPosts: BlogPost[] = [
     date: '10 Jan 2025',
     readTime: '5 min',
     author: 'Lucas Martins',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/Trans Gabardo - Framers produtora -5313.JPG',
     featured: false,
     tags: ['rastreamento', 'tecnologia', 'transparência', 'monitoramento'],
     seo: {
@@ -240,76 +240,7 @@ export const blogPosts: BlogPost[] = [
       keywords: ['rastreamento veículos', 'GPS transporte', 'monitoramento tempo real', 'transparência logística']
     }
   },
-  {
-    id: '2',
-    slug: 'coworking-revolucao-espacos-trabalho',
-    title: 'Coworking: Mais que um Espaço, uma Revolução',
-    excerpt: 'Descubra como os espaços de coworking estão redefinindo produtividade, networking e inovação no ambiente corporativo.',
-    content: [
-      {
-        type: 'paragraph',
-        content: 'O conceito de coworking evoluiu muito além de simplesmente compartilhar um espaço físico. Hoje, representa uma filosofia de trabalho que prioriza colaboração, flexibilidade e comunidade.'
-      },
-      {
-        type: 'heading',
-        content: 'Além do Espaço Físico',
-        level: 2
-      },
-      {
-        type: 'paragraph',
-        content: 'Os espaços de coworking modernos são ecossistemas cuidadosamente projetados para fomentar conexões significativas e potencializar o crescimento profissional e empresarial.'
-      },
-      {
-        type: 'quote',
-        content: 'Não vendemos apenas mesas e salas. Vendemos possibilidades, conexões e a oportunidade de fazer parte de uma comunidade que impulsiona o sucesso mútuo.',
-        author: 'Filosofia Hub Plural'
-      },
-      {
-        type: 'heading',
-        content: 'O Poder do Networking Orgânico',
-        level: 2
-      },
-      {
-        type: 'paragraph',
-        content: 'Uma das maiores vantagens do coworking é a serendipidade - aqueles encontros casuais que geram oportunidades inesperadas. No corredor, no café, na sala de reunião: cada interação pode ser o início de uma parceria transformadora.'
-      },
-      {
-        type: 'list',
-        content: 'Benefícios do networking em coworking:',
-        items: [
-          'Diversidade de profissionais e setores',
-          'Oportunidades de colaboração multidisciplinar',
-          'Troca de experiências e conhecimentos',
-          'Parcerias estratégicas naturais',
-          'Mentoria peer-to-peer'
-        ]
-      },
-      {
-        type: 'heading',
-        content: 'Inovação Através da Diversidade',
-        level: 2
-      },
-      {
-        type: 'paragraph',
-        content: 'A inovação floresce na intersecção de diferentes perspectivas. Os espaços de coworking criam naturalmente essas intersecções, reunindo profissionais de tecnologia, design, consultoria, educação e diversos outros campos.'
-      },
-      {
-        type: 'highlight',
-        content: 'No Hub Plural, já testemunhamos o nascimento de startups, a formação de parcerias estratégicas e o desenvolvimento de soluções inovadoras que surgiram simplesmente da convivência diária entre profissionais diversos.'
-      }
-    ],
-    category: 'Coworking',
-    date: '12 Jan 2025',
-    readTime: '6 min',
-    author: 'João Santos',
-    image: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    featured: false,
-    tags: ['coworking', 'networking', 'inovação', 'comunidade'],
-    seo: {
-      description: 'Entenda como os espaços de coworking estão revolucionando a forma de trabalhar, criando comunidades e fomentando inovação.',
-      keywords: ['coworking', 'networking', 'inovação', 'comunidade', 'espaços compartilhados']
-    }
-  },
+
   {
     id: '12',
     slug: 'seguros-transporte-protecao-completa',
@@ -363,7 +294,7 @@ export const blogPosts: BlogPost[] = [
     date: '08 Jan 2025',
     readTime: '6 min',
     author: 'Mariana Lima',
-    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/Trans Gabardo - Framers produtora -5301.JPG',
     featured: false,
     tags: ['seguros', 'proteção', 'segurança', 'cobertura'],
     seo: {
@@ -433,7 +364,7 @@ export const blogPosts: BlogPost[] = [
     date: '10 Jan 2025',
     readTime: '5 min',
     author: 'Maria Costa',
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/Trans Gabardo - Framers produtora -5435.JPG',
     featured: false,
     tags: ['sustentabilidade', 'meio ambiente', 'bem-estar', 'eficiência'],
     seo: {
@@ -503,7 +434,7 @@ export const blogPosts: BlogPost[] = [
     date: '08 Jan 2025',
     readTime: '7 min',
     author: 'Carlos Ferreira',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/Trans Gabardo - Framers produtora -5566.JPG',
     featured: false,
     tags: ['tecnologia', 'produtividade', 'inteligência artificial', 'inovação'],
     seo: {
@@ -555,7 +486,7 @@ export const blogPosts: BlogPost[] = [
     date: '14 Jan 2025',
     readTime: '6 min',
     author: 'Clara Santos',
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/Trans Gabardo - Framers produtora -5575.JPG',
     featured: false,
     tags: ['sustentabilidade', 'meio ambiente', 'transporte verde', 'eficiência'],
     seo: {
@@ -616,7 +547,7 @@ export const blogPosts: BlogPost[] = [
     date: '22 Jan 2025',
     readTime: '7 min',
     author: 'Equipe Gabardo',
-    image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/Trans Gabardo - Framers produtora -5412.JPG',
     featured: true,
     tags: ['transporte de veículos', 'tecnologia', 'inovação', 'sustentabilidade'],
     seo: {
@@ -677,7 +608,7 @@ export const blogPosts: BlogPost[] = [
     date: '20 Jan 2025',
     readTime: '6 min',
     author: 'Roberto Silva',
-    image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/Trans Gabardo - Framers produtora -5762.JPG',
     featured: false,
     tags: ['segurança', 'protocolos', 'transporte', 'qualidade'],
     seo: {
@@ -738,7 +669,7 @@ export const blogPosts: BlogPost[] = [
     date: '18 Jan 2025',
     readTime: '5 min',
     author: 'Ana Costa',
-    image: 'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/Trans Gabardo - Framers produtora -5686.JPG',
     featured: false,
     tags: ['logística', 'inteligência artificial', 'otimização', 'eficiência'],
     seo: {
@@ -799,7 +730,7 @@ export const blogPosts: BlogPost[] = [
     date: '16 Jan 2025',
     readTime: '8 min',
     author: 'Fernando Oliveira',
-    image: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    image: '/images/Trans Gabardo - Framers produtora -5623.JPG',
     featured: false,
     tags: ['veículos premium', 'carros clássicos', 'transporte especializado', 'luxo'],
     seo: {

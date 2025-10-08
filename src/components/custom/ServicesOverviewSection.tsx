@@ -2,12 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Truck, Package, Shield, MapPin } from 'lucide-react';
 import Link from 'next/link';
 
 interface ServiceItem {
   id: string;
-  icon: React.ReactNode;
   title: string;
   description: string;
   features: string[];
@@ -18,27 +16,25 @@ const services: ServiceItem[] = [
   {
     id: 'transporte-veiculos',
     title: 'Transporte de Veículos',
-    description: 'Transporte especializado de veículos nacionais e importados com máxima segurança e agilidade.',
+    description: 'Transporte de veículos nacionais e importados com máxima segurança e agilidade.',
     features: [
       'Frota própria e terceirizada',
       'Rastreamento em tempo real',
       'Seguro total dos veículos',
       'Cobertura nacional'
     ],
-    icon: <Truck className="w-6 h-6" />,
     image: '/images/Trans Gabardo - Framers produtora -5818.JPG'
   },
   {
     id: 'transporte-prancha',
-    title: 'Transporte em Prancha',
-    description: 'Soluções especializadas para transporte de veículos pesados, máquinas e equipamentos.',
+    title: 'Frota Especializada',
+    description: 'Frotas especializadas para transporte de veículos pesados, máquinas e equipamentos.',
     features: [
       'Pranchas especializadas',
       'Equipe técnica qualificada',
       'Cargas excepcionais',
       'Logística personalizada'
     ],
-    icon: <Package className="w-6 h-6" />,
     image: '/images/Trans Gabardo - Framers produtora -5577.JPG'
   },
   {
@@ -51,7 +47,6 @@ const services: ServiceItem[] = [
       'Gestão de estoque',
       'Localização estratégica'
     ],
-    icon: <Shield className="w-6 h-6" />,
     image: '/images/Trans Gabardo - Framers produtora -5388.JPG'
   },
   {
@@ -64,7 +59,6 @@ const services: ServiceItem[] = [
       'KPIs auditáveis',
       'Relatórios personalizados'
     ],
-    icon: <MapPin className="w-6 h-6" />,
     image: '/images/Trans Gabardo - Framers produtora -5475.JPG'
   }
 ];
@@ -188,12 +182,6 @@ const ServicesOverviewSection: React.FC = () => {
                     className="w-full h-48 md:h-56 object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent" />
-                  <div className="absolute top-4 left-4 inline-flex items-center gap-3 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-gabardo-blue shadow-lg">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gabardo-blue text-white">
-                      {service.icon}
-                    </div>
-                    <span>Gabardo</span>
-                  </div>
                 </div>
 
                 {/* Content */}
@@ -217,7 +205,7 @@ const ServicesOverviewSection: React.FC = () => {
 
                   <div className="mt-8 flex items-center justify-between text-xs uppercase tracking-[0.3em] text-neutral-400">
                     <span>Operação tailor-made</span>
-                    <span className="text-gabardo-light-blue">Gabardo Express</span>
+                    <span className="text-gabardo-light-blue">Transportes Gabardo</span>
                   </div>
                 </div>
               </motion.div>

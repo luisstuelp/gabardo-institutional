@@ -31,7 +31,7 @@ const fleetHighlights = [
 
 const fleetTypes = [
   {
-    name: 'Cegonhas',
+    name: 'Frota Cegonha',
     tag: 'Maior frota própria do Brasil',
     description:
       'Equipamentos padronizados e higienizados, com capacidade para até 11 veículos compactos e operação dedicada por cliente.',
@@ -49,7 +49,7 @@ const fleetTypes = [
     image: 'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd1njU0I1pLrmFsdPHE9JOfiSqog0puWCXIUQj'
   },
   {
-    name: 'Trucks Porta-Autos',
+    name: 'Frota Truck',
     tag: 'Flexibilidade urbana',
     description:
       'Veículos ideais para entregas em centros urbanos, com acesso facilitado e agilidade para lançamentos e transferências rápidas.',
@@ -67,7 +67,7 @@ const fleetTypes = [
     image: 'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd4IQi2bknI6fVUiN4gAm5SK8M9Ltw7jpxPBy3'
   },
   {
-    name: 'Plataformas Especiais',
+    name: 'Frota Plataforma',
     tag: 'Proteção e versatilidade',
     description:
       'Plataformas moduladas que atendem veículos premium, blindados ou cargas especiais com soft straps e mantas protetoras.',
@@ -85,7 +85,7 @@ const fleetTypes = [
     image: 'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd9cM9R6jH3PTfNeJvuGs1x5ObW7katmg28XS9'
   },
   {
-    name: 'Pranchas Pesadas',
+    name: 'Frota Prancha',
     tag: 'Até 30 toneladas',
     description:
       'Projetadas para máquinas, equipamentos e lotes especiais, com suporte técnico dedicado e planos de contingência.',

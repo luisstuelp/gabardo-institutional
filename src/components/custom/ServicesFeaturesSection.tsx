@@ -129,16 +129,14 @@ const ServicesFeaturesSection: React.FC = () => {
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
           {serviceFeatures.map((feature, index) => (
-            <motion.button
+            <motion.div
               key={feature.id}
-              type="button"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: index * 0.05 }}
               onMouseEnter={() => setActiveItem(feature.id)}
-              onFocus={() => setActiveItem(feature.id)}
-              className={`group w-full rounded-3xl border px-8 py-9 text-left transition-all duration-300 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue ${
+              className={`group w-full cursor-default rounded-3xl border px-8 py-9 text-left transition-all duration-300 ease-in-out ${
                 activeItem === feature.id
                   ? 'border-gabardo-blue bg-white shadow-[0_25px_60px_-32px_rgba(19,45,81,0.38)]'
                   : 'border-white bg-white/70 shadow-[0_20px_45px_-35px_rgba(19,45,81,0.3)] hover:border-gabardo-light-blue/60'
@@ -165,7 +163,7 @@ const ServicesFeaturesSection: React.FC = () => {
 
                 </div>
               </div>
-            </motion.button>
+            </motion.div>
           ))}
         </div>
 

@@ -179,12 +179,12 @@ const BlogSection: React.FC = () => {
                     <div className="flex">
 
                       {/* Image */}
-                      <div className="relative w-32 md:w-40 h-24 md:h-28 flex-shrink-0">
+                      <div className="relative w-32 md:w-40 flex-shrink-0 overflow-hidden rounded-l-2xl min-h-[6rem] md:min-h-[7rem]">
                         <Image
                           src={post.image}
                           alt={post.title}
                           fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                           sizes="160px"
                         />
                         <div className="absolute inset-0 bg-black/20" />
