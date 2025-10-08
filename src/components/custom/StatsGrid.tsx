@@ -174,7 +174,7 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
       <div className="pointer-events-none absolute inset-0 rounded-[26px] border border-gabardo-light-blue/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       <div
         className={`pointer-events-none absolute inset-0 rounded-[26px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${
-          isDark ? "bg-gabardo-light-blue/20" : "bg-gabardo-light-blue/40"
+          isDark ? "bg-gabardo-light-blue/20" : "bg-transparent"
         }`}
       />
     </motion.div>

@@ -17,7 +17,7 @@ const BlogSection: React.FC = () => {
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-gray-50 text-gray-900 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-8 lg:px-16">
-        
+
         {/* Background Elements */}
         <div className="absolute inset-0">
           <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-gabardo-light-blue/5 to-transparent" />
@@ -33,7 +33,7 @@ const BlogSection: React.FC = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16 md:mb-20 relative z-10"
         >
-          
+
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -43,7 +43,7 @@ const BlogSection: React.FC = () => {
             className="inline-flex items-center space-x-2 bg-gabardo-light-blue/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium text-gabardo-blue mb-6 border border-gabardo-light-blue/30"
           >
             <Sparkles className="w-4 h-4" />
-            <span className="uppercase tracking-wider">Blog do Transporte</span>
+            <span className="uppercase tracking-wider">Blog Gabardo</span>
           </motion.div>
 
           {/* Main Title */}
@@ -54,9 +54,10 @@ const BlogSection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
           >
-            <span className="block text-gabardo-blue">INOVAÇÃO EM</span>
-            <span className="block text-gabardo-light-blue">TRANSPORTE</span>
-            <span className="block text-gabardo-blue">DE VEÍCULOS</span>
+            <p><span className="text-gabardo-blue">INOVAÇÃO EM</span> <span className="text-gabardo-light-blue">TRANSPORTE</span> <span className="text-gabardo-blue">DE VEÍCULOS</span></p>
+
+
+
           </motion.h2>
 
           {/* Subtitle */}
@@ -67,16 +68,16 @@ const BlogSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto"
           >
-Descubra as últimas tendências, tecnologias e inovações que estão transformando o transporte de veículos no Brasil
+            Descubra as últimas tendências, tecnologias e inovações que estão transformando o transporte de veículos no Brasil
           </motion.p>
         </motion.div>
 
         {/* Blog Content */}
         <div className="relative z-10">
-          
+
           {/* Featured Post + Regular Posts Layout */}
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 lg:items-stretch">
-            
+
             {/* Featured Post */}
             {featuredPost && (
               <motion.div
@@ -88,9 +89,9 @@ Descubra as últimas tendências, tecnologias e inovações que estão transform
               >
                 <div
                   className="group relative bg-white backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200 transition-all duration-500 hover:border-gabardo-light-blue/50 hover:shadow-lg cursor-pointer w-full flex flex-col"
-                  
+
                 >
-                  
+
                   {/* Image */}
                   <div className="relative h-80 md:h-96 overflow-hidden flex-shrink-0">
                     <Image
@@ -101,12 +102,12 @@ Descubra as últimas tendências, tecnologias e inovações que estão transform
                       sizes="(max-width: 1024px) 100vw, 58vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    
+
                     {/* Featured Badge */}
                     <div className="absolute top-4 left-4 bg-gabardo-blue text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
                       Destaque
                     </div>
-                    
+
                     {/* Category */}
                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-gabardo-blue px-3 py-1 rounded-full text-xs font-medium border border-gabardo-light-blue/30">
                       {featuredPost.category}
@@ -115,7 +116,7 @@ Descubra as últimas tendências, tecnologias e inovações que estão transform
 
                   {/* Content */}
                   <div className="p-6 md:p-8 flex-grow flex flex-col justify-between">
-                    
+
                     {/* Main Content */}
                     <div>
                       {/* Meta Info */}
@@ -173,10 +174,10 @@ Descubra as últimas tendências, tecnologias e inovações que estão transform
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.5 + (index * 0.1) }}
                     className="group relative bg-white backdrop-blur-sm rounded-xl overflow-hidden border border-gray-200 transition-all duration-300 hover:border-gabardo-light-blue/50 hover:shadow-md cursor-pointer"
-                    
+
                   >
                     <div className="flex">
-                      
+
                       {/* Image */}
                       <div className="relative w-32 md:w-40 h-24 md:h-28 flex-shrink-0">
                         <Image
@@ -191,7 +192,7 @@ Descubra as últimas tendências, tecnologias e inovações que estão transform
 
                       {/* Content */}
                       <div className="flex-1 p-4 md:p-5">
-                        
+
                         {/* Category */}
                         <div className="text-gabardo-light-blue text-xs font-medium uppercase tracking-wide mb-2">
                           {post.category}

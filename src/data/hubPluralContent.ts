@@ -49,7 +49,6 @@ export interface ScrapedContent {
   };
 }
 
-// Dados extraídos do site Gabardo Transportes
 export const hubPluralContent: ScrapedContent = {
   "hero": {
     "title": "Transportes Gabardo – Transporte de Veículos",
