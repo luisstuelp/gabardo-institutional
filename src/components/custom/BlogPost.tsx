@@ -344,7 +344,8 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         <motion.article
           ref={contentRef}
           initial={{ opacity: 0 }}
-          animate={{ opacity: isVisible ? 1 : 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="container mx-auto px-4 md:px-8 lg:px-16 mb-20"
         >
