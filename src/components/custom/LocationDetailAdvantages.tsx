@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { LocationData } from '@/data/locationsData';
@@ -7,7 +9,6 @@ interface Advantage {
   title: string;
   description: string;
 }
-
 interface LocationDetailAdvantagesProps {
   location: LocationData;
 }
