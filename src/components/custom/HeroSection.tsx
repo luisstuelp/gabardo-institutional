@@ -1,6 +1,6 @@
 'use client';
 
-import { Dot, Mouse, ArrowRight } from 'lucide-react';
+import { Mouse, ArrowRight } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import AnimatedWords from './AnimatedWords';

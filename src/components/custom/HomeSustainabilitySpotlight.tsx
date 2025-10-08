@@ -1,9 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Mountain, Leaf, Battery, Zap, ArrowRight, TreePine, Factory, Award, TrendingDown, Recycle } from 'lucide-react';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { Leaf, Battery, Factory, Trees } from 'lucide-react';
 
 const sustainabilityPillars = [
   {
@@ -53,7 +51,7 @@ const sustainabilityPillars = [
     title: 'Regeneração Ativa',
     subtitle: 'Carbono Negativo',
     description: 'Excedente de compensação que remove mais CO₂ da atmosfera do que produzimos',
-    icon: TreePine,
+    icon: Trees,
     details: [
       'Primeira transportadora carbono negativo LatAm',
       'Excedente de CO₂ removido anualmente',
@@ -66,14 +64,8 @@ const sustainabilityPillars = [
 
 
 const HomeSustainabilitySpotlight = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
   return (
-    <section ref={containerRef} className="section-shell relative overflow-hidden py-32">
+    <section className="section-shell relative overflow-hidden py-32">
       {/* Background Effects */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-24 top-24 h-72 w-72 rounded-full bg-gabardo-blue/8 blur-3xl" />
@@ -105,25 +97,15 @@ const HomeSustainabilitySpotlight = () => {
         <div className="relative space-y-8">
           {sustainabilityPillars.map((pillar, index) => {
             const Icon = pillar.icon;
-            const cardProgress = useTransform(
-              scrollYProgress,
-              [index * 0.2, (index + 1) * 0.2],
-              [0, 1]
-            );
-            const cardY = useTransform(cardProgress, [0, 1], [100, 0]);
-            const cardScale = useTransform(cardProgress, [0, 1], [0.9, 1]);
-            const cardOpacity = useTransform(cardProgress, [0, 1], [0, 1]);
 
             return (
               <motion.div
                 key={pillar.id}
-                style={{
-                  y: cardY,
-                  scale: cardScale,
-                  opacity: cardOpacity,
-                }}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`sticky top-24 mx-auto max-w-4xl`}
-                transition={{ type: "spring", damping: 20, stiffness: 100 }}
               >
                 <div 
                   className={`relative overflow-hidden rounded-3xl border-2 ${pillar.borderColor} bg-gradient-to-br ${pillar.gradient} shadow-[0_40px_100px_-40px_rgba(19,45,81,0.2)]`}

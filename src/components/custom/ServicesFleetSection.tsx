@@ -3,12 +3,14 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { Truck, TruckIcon, Layers, PackageOpen, Warehouse } from 'lucide-react';
+import { Truck, CheckCircle, ArrowRight, Shield, Sparkles } from 'lucide-react';
 
 const fleetHighlights = [
   {
     title: 'Frota integrada',
     value: '2.000+',
+    icon: CheckCircle,
+{{ ... }}
     description: 'caminhões, carretas e plataformas dedicados às principais montadoras.'
   },
   {

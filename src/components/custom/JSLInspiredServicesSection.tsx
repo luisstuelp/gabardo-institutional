@@ -1,14 +1,14 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Truck, Shield, MapPin } from 'lucide-react';
+import Image from 'next/image';
+import { CheckCircle } from 'lucide-react';
 
 interface Service {
   id: string;
   title: string;
   description: string;
+  image: string;
   features: string[];
   icon: React.ComponentType<any>;
   color: string;

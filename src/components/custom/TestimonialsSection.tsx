@@ -189,7 +189,7 @@ const TestimonialsSection: React.FC = () => {
 
                     {/* Content */}
                     <blockquote className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed mb-12 max-w-4xl">
-                      "{testimonials[currentIndex].content}"
+                      &ldquo;{testimonials[currentIndex].content}&rdquo;
                     </blockquote>
 
                     {/* Author */}
@@ -288,8 +288,8 @@ const TestimonialsSection: React.FC = () => {
                       </div>
 
                       {/* Content */}
-                      <blockquote className="text-neutral-700 font-light leading-relaxed mb-6 text-sm lg:text-base">
-                        "{testimonial.content}"
+                      <blockquote className="text-base text-gray-200 italic leading-relaxed mb-6 line-clamp-3">
+                        &ldquo;{testimonial.content}&rdquo;
                       </blockquote>
                     </div>
 

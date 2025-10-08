@@ -81,7 +81,7 @@ const FourPillarsSection: React.FC = () => {
           </div>
           
           <h2 className="font-primary text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            <span className="text-6xl md:text-7xl lg:text-8xl font-black">4P's</span>
+            <span className="text-6xl md:text-7xl lg:text-8xl font-black">4P&apos;s</span>
             <br />
             <span className="text-2xl md:text-3xl lg:text-4xl font-light uppercase tracking-widest">
               do <span className="text-gabardo-light-blue">Compromisso</span>

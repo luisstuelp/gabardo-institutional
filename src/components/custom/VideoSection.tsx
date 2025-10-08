@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { Play, Maximize } from 'lucide-react';
 
 interface VideoSectionProps {
   vimeoId?: string;
   title?: string;
   description?: string;
+  showMaximize?: boolean;
 }
 
 // Componente para skeleton de carregamento
