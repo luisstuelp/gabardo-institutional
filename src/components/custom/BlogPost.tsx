@@ -119,7 +119,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
             className="my-16 max-w-5xl mx-auto"
           >
             <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/10">
-              <div className="absolute top-6 left-6 text-6xl text-white/20 font-serif">"</div>
+              <div className="absolute top-6 left-6 text-6xl text-white/20 font-serif">&ldquo;</div>
               <p className="text-2xl md:text-3xl font-medium text-white leading-relaxed mb-6 pl-12">
                 {content.content}
               </p>

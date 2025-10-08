@@ -2,18 +2,16 @@
 
 import { motion } from 'framer-motion';
 import {
-  Warehouse,
-  ShieldCheck,
-  Cpu,
-  Gauge,
-  SatelliteDish,
-  Building2
+  Building2,
+  MapPin,
+  CheckCircle2,
+  TrendingUp
 } from 'lucide-react';
 
 const infraHighlights = [
   {
-    icon: Warehouse,
-    title: 'Centros Operacionais Integrados',
+    icon: MapPin,
+{{ ... }}
     description:
       'Pátios próprios com layout inteligente, docas cobertas e sistemas de movimentação que agilizam cada etapa da jornada do veículo.'
   },

@@ -136,7 +136,7 @@ const VehicleTransportClients: React.FC = () => {
 
                 {/* Quote */}
                 <blockquote className="text-neutral-700 leading-relaxed mb-6 italic">
-                  "{testimonial.quote}"
+                  &ldquo;{testimonial.quote}&rdquo;
                 </blockquote>
 
                 {/* Author */}

@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Mouse, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 
 const backgroundImages = [

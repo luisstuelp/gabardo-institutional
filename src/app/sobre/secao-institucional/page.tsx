@@ -5,7 +5,7 @@ import SobreInstitucionalOverviewSection from '@/components/custom/SobreInstituc
 import SobreInstitucionalOperationsSection from '@/components/custom/SobreInstitucionalOperationsSection';
 import PillarsSection from '@/components/custom/PillarsSection';
 import HomeHoverCardsSection from '@/components/custom/HomeHoverCardsSection';
-import AboutClientsSection from '@/components/custom/AboutClientsSection';
+import AboutClientsCarousel from '@/components/custom/AboutClientsCarousel';
 
 export default function SobreSecaoInstitucionalPage() {
   return (
@@ -24,7 +24,7 @@ export default function SobreSecaoInstitucionalPage() {
         </div>
       </section>
       <HomeHoverCardsSection />
-      <AboutClientsSection />
+      <AboutClientsCarousel />
       <Footer />
     </main>
   );

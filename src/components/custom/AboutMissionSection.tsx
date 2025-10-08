@@ -84,11 +84,14 @@ const AboutMissionSection: React.FC = () => {
           className="bg-white p-8 rounded-lg shadow-lg"
         >
           <h3 className="text-2xl font-bold uppercase text-gabardo-blue mb-4">Valores</h3>
-          <ul className="space-y-2">
+          <ul className="space-y-4">
             {missionVisionValues.values.map((value, index) => (
               <li key={index} className="flex items-start gap-3">
                 <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                <span className="text-lg text-gray-700">{value}</span>
+                <div>
+                  <h4 className="text-lg font-semibold text-gabardo-blue mb-1">{value.title}</h4>
+                  <p className="text-base text-gray-600">{value.description}</p>
+                </div>
               </li>
             ))}
           </ul>
