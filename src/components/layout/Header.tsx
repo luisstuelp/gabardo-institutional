@@ -66,12 +66,8 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
     {
       id: 'nossa-gente',
       label: 'NOSSA GENTE',
-      href: '#',
+      href: '/trabalhe-conosco',
       imageSrc: '/images/hero-people.jpg',
-      subMenu: [
-        { id: 'trabalhe-conosco', label: 'TRABALHE CONOSCO', href: '/trabalhe-conosco' },
-        { id: 'equipe', label: 'EQUIPE', href: '/nossa-gente/equipe' },
-      ],
     },
     {
       id: 'sustentabilidade',

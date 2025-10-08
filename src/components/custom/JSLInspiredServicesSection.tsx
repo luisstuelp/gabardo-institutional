@@ -2,13 +2,13 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Truck, Shield, MapPin } from 'lucide-react';
 
 interface Service {
   id: string;
   title: string;
   description: string;
-  image: string;
+  image?: string;
   features: string[];
   icon: React.ComponentType<any>;
   color: string;
