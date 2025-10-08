@@ -37,11 +37,6 @@ const governancePractices = [
   },
 ];
 
-const governanceStats = [
-  { value: '36+', label: 'anos de governança estruturada' },
-  { value: '14', label: 'bases auditadas no Brasil' },
-  { value: '100%', label: 'processos mapeados e revisados anualmente' },
-];
 
 const governancePillars = [
   {

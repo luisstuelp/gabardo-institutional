@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import type { JSX } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
-import { Calendar, Clock, User, ArrowLeft, Share2, BookOpen, Eye, ArrowRight, Tag } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Calendar, Clock, User, ArrowLeft, Eye, ArrowRight, Tag } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
@@ -18,20 +18,12 @@ interface BlogPostProps {
 }
 
 const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
-  const [readingProgress, setReadingProgress] = useState(0);
-  const [activeSection, setActiveSection] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+  
   const contentRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
     target: contentRef,
     offset: ["start end", "end start"]
-  });
-  
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
   });
 
   const headerOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.9]);
@@ -39,24 +31,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 
   const relatedPosts = getRelatedPosts(post.slug, post.category, 3);
 
-  useEffect(() => {
-    setIsVisible(true);
-    
-    const updateReadingProgress = () => {
-      if (contentRef.current) {
-        const element = contentRef.current;
-        const totalHeight = element.scrollHeight - element.clientHeight;
-        const windowScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const elementTop = element.offsetTop;
-        const elementScrolled = windowScrollTop - elementTop;
-        const progress = Math.min(Math.max(elementScrolled / totalHeight, 0), 1);
-        setReadingProgress(progress);
-      }
-    };
-
-    window.addEventListener('scroll', updateReadingProgress);
-    return () => window.removeEventListener('scroll', updateReadingProgress);
-  }, []);
+  
 
   const renderContent = (content: BlogContent, index: number) => {
     const variants = {

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, memo } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Wifi, Coffee, Calendar, Headphones, Shield, Truck, Package, CheckCircle, ArrowRight } from 'lucide-react';
+import { Users, Wifi, Coffee, Calendar, Package, Building, UserCheck, MapPin, ArrowUpRight, Minus } from 'lucide-react';
 import { services as scrapedServices } from '@/data/hubPluralContent';
 
 interface Service {

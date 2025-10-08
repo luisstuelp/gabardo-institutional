@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
@@ -113,13 +114,11 @@ const ImageCarouselSection: React.FC = () => {
     if (filteredByProjectCategory.length === 0 && cityItems.length > 0) {
       // Fallback: se a categoria atual não tem itens na cidade selecionada, 
       // tente encontrar a primeira categoria da lista PROJECT_CATEGORIES que tenha itens.
-      let foundFallback = false;
       for (const category of PROJECT_CATEGORIES) {
         const fallbackItems = cityItems.filter(item => item.projectCategory === category);
         if (fallbackItems.length > 0) {
           setSelectedProjectCategory(category); // Muda para a categoria de fallback
           filteredByProjectCategory = fallbackItems;
-          foundFallback = true;
           break;
         }
       }

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, AlertCircle, Loader, ArrowRight, ShieldCheck, Truck, Globe2 } from 'lucide-react';
+import { CheckCircle, AlertCircle, Loader, ArrowRight } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -23,31 +23,12 @@ const interestOptions = [
   'Outra necessidade logística'
 ];
 
-const MAX_MESSAGE_LENGTH = 1000;
 
-const highlightFeatures = [
-  {
-    icon: Truck,
-    title: 'Transporte dedicado',
-    copy: 'Frotas próprias, monitoramento em tempo real e SLA customizado para cada montadora.'
-  },
-  {
-    icon: Globe2,
-    title: 'Cobertura nacional',
-    copy: 'Mais de 50 bases estratégicas, integração multimodal e pátios certificados em todo o país.'
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Compliance & ESG',
-    copy: 'Certificações ISO, OEA e programas ESG guiando operações responsáveis e seguras.'
-  }
-];
 
 export default function ContactFormSection() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [messageLength, setMessageLength] = useState(0);
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -76,15 +57,14 @@ export default function ContactFormSection() {
       });
 
       if (response.ok) {
-        setSubmitted(true);
         // Reset form
         (event.target as HTMLFormElement).reset();
-        setMessageLength(0);
       } else {
         setError('Erro ao enviar mensagem. Tente novamente.');
       }
-    } catch (err) {
+    } catch (error) {
       setError('Erro de conexão. Verifique sua internet e tente novamente.');
+      console.log(error)
     } finally {
       setLoading(false);
     }

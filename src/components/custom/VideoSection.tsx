@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, Maximize } from 'lucide-react';
+import { Play } from 'lucide-react';
 
 interface VideoSectionProps {
   vimeoId?: string;

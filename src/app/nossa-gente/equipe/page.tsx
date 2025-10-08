@@ -2,7 +2,7 @@
 import { Header } from "@/components/layout/Header";
 import Footer from '@/components/layout/Footer';
 import EquipeHeroSection from '@/components/custom/EquipeHeroSection';
-import TeamSection from '@/components/custom/TeamSection';
+
 import PartnersSection from '@/components/custom/PartnersSection';
 import JoinTeamSection from '@/components/custom/JoinTeamSection';
 import MagicBento from '@/components/custom/MagicBento';

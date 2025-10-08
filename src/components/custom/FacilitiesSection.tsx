@@ -1,9 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Wrench, Zap, Users, Building, Truck } from 'lucide-react';
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import unitsPageContent from '@/data/unitsPageContent.json';
+import Image from 'next/image';
 
 const facilities = [
   {
@@ -11,6 +12,7 @@ const facilities = [
     description: 'Manutenção completa para nossa frota.',
     icon: <Wrench className="w-6 h-6 text-gabardo-blue" />,
     image: '/images/Oficina.JPG',
+  },
   { name: 'TI', description: 'Infraestrutura de tecnologia e sistemas integrados.', icon: <Zap className="w-6 h-6 text-gabardo-blue" />, image: '/images/Eletrica.JPG' },
   { name: 'Refeitório', description: 'Espaço para refeições dos colaboradores.', icon: <Users className="w-6 h-6 text-gabardo-blue" />, image: '/images/Refeitorio.JPG' },
   { name: 'Escritório', description: 'Amplo espaço administrativo.', icon: <Building className="w-6 h-6 text-gabardo-blue" />, image: '/images/Escritorio.JPG' },

@@ -20,7 +20,7 @@ const EcoTruck: React.FC<{ className?: string }> = ({ className }) => (
 
 interface Pillar {
   id: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   title: string;
   description: string;
 }

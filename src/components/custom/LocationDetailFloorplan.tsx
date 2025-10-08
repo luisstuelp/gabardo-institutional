@@ -1,10 +1,9 @@
-'use client';
-
 import React from 'react';
 import { motion } from 'framer-motion';
+import { LocationData } from '@/data/locationsData';
 
 interface LocationDetailFloorplanProps {
-  location: any;
+  location: LocationData;
 }
 
 const LocationDetailFloorplan: React.FC<LocationDetailFloorplanProps> = ({ location }) => {

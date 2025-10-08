@@ -2,7 +2,7 @@
 
 import React, { Dispatch, SetStateAction } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Tag, Clock, Search } from 'lucide-react';
+import { Tag, Search } from 'lucide-react';
 import { blogCategories } from '@/data/blogData';
 
 interface BlogHeroProps {

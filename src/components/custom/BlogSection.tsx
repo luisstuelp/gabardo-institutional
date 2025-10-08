@@ -1,16 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Calendar, ArrowRight, Clock, User, ChevronRight, Sparkles } from 'lucide-react';
 import Image from 'next/image';
-import { getAllBlogPosts, getFeaturedBlogPosts, type BlogPost } from '@/data/blogData';
+import { getAllBlogPosts, getFeaturedBlogPosts } from '@/data/blogData';
 
 const allBlogPosts = getAllBlogPosts();
 const featuredBlogPosts = getFeaturedBlogPosts();
 
 const BlogSection: React.FC = () => {
-  const [hoveredPost, setHoveredPost] = useState<string | null>(null);
 
   const featuredPost = featuredBlogPosts[0]; // Get first featured post
   const regularPosts = allBlogPosts.filter(post => !post.featured).slice(0, 3); // Get first 3 non-featured posts
@@ -89,8 +88,7 @@ Descubra as últimas tendências, tecnologias e inovações que estão transform
               >
                 <div
                   className="group relative bg-white backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-200 transition-all duration-500 hover:border-gabardo-light-blue/50 hover:shadow-lg cursor-pointer w-full flex flex-col"
-                  onMouseEnter={() => setHoveredPost(featuredPost.id)}
-                  onMouseLeave={() => setHoveredPost(null)}
+                  
                 >
                   
                   {/* Image */}
@@ -175,8 +173,7 @@ Descubra as últimas tendências, tecnologias e inovações que estão transform
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.5 + (index * 0.1) }}
                     className="group relative bg-white backdrop-blur-sm rounded-xl overflow-hidden border border-gray-200 transition-all duration-300 hover:border-gabardo-light-blue/50 hover:shadow-md cursor-pointer"
-                    onMouseEnter={() => setHoveredPost(post.id)}
-                    onMouseLeave={() => setHoveredPost(null)}
+                    
                   >
                     <div className="flex">
                       

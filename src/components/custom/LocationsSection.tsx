@@ -2,37 +2,18 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import mapboxgl, { Map } from 'mapbox-gl';
 import { locations, Location } from '@/data/infraestruturaData';
 import { MapPin } from 'lucide-react';
 
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoid2Vic3RhcnN0dWRpbyIsImEiOiJjbWJqaXUyZG8wZ3BtMmpxNm5pcGw0Y2ptIn0.UnohoPp9qrhIFOEoQ9FNfg';
 
-const getLocationId = (locationName: string): string => {
-  const nameToIdMap: { [key: string]: string } = {
-    'Porto Alegre': 'porto-alegre',
-    'Anápolis': 'anapoli',
-    'Piracicaba': 'piracicaba',
-    'São Bernardo do Campo': 'sao-bernardo-do-campo',
-    'Pátio Jaraguá': 'patios-jaragua',
-    'Duque de Caxias': 'duque-de-caxias',
-    'Porto Real': 'porto-real',
-    'Eusébio': 'eusebio',
-    'São José dos Pinhais': 'sao-jose-dos-pinhais',
-    'Palhoça': 'palhoca',
-    'Itajaí': 'itajai',
-  };
-  
-  return nameToIdMap[locationName] || locationName.toLowerCase().replace(/\s+/g, '-').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-};
 
 const LocationsSection: React.FC = () => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
-  const router = useRouter();
 
 
   const handleSelectLocationFromList = (location: Location) => {

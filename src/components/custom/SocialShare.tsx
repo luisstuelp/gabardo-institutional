@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Share2, Twitter, Linkedin, Facebook, Mail } from 'lucide-react';
+import { Share2, Twitter, Linkedin, Facebook, Check, Copy } from 'lucide-react';
 import { BlogPost } from '@/data/blogData';
 
 interface SocialShareProps {

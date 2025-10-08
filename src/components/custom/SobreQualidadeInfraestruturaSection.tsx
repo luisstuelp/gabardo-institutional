@@ -4,14 +4,15 @@ import { motion } from 'framer-motion';
 import {
   Building2,
   MapPin,
-  CheckCircle2,
-  TrendingUp
+  SatelliteDish,
+  ShieldCheck,
+  Warehouse
 } from 'lucide-react';
 
 const infraHighlights = [
   {
     icon: MapPin,
-{{ ... }}
+    title: 'Logística Otimizada',
     description:
       'Pátios próprios com layout inteligente, docas cobertas e sistemas de movimentação que agilizam cada etapa da jornada do veículo.'
   },

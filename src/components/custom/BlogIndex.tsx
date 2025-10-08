@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Clock, User, ArrowRight, Search, Filter, Sparkles, Eye } from 'lucide-react';
+import { Calendar, Clock, User, ArrowRight, Eye } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
@@ -15,17 +15,14 @@ import { getAllBlogPosts, getFeaturedBlogPosts, blogCategories, type BlogPost } 
 const BlogIndex: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
-  const [hoveredPost, setHoveredPost] = useState<string | null>(null);
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   const allPosts = getAllBlogPosts();
   const featuredPosts = getFeaturedBlogPosts();
 
   useEffect(() => {
-    setIsLoaded(true);
     filterPosts();
-  }, [selectedCategory, searchTerm]);
+  }, [selectedCategory, searchTerm, filterPosts]);
 
   const filterPosts = () => {
     let filtered = allPosts;
@@ -97,13 +94,12 @@ const BlogIndex: React.FC = () => {
             </motion.h2>
 
             <div className="grid lg:grid-cols-2 gap-8">
-              {featuredPosts.map((post, index) => (
+              {featuredPosts.map((post) => (
                 <motion.article
                   key={post.id}
                   variants={itemVariants}
                   className="group relative"
-                  onMouseEnter={() => setHoveredPost(post.id)}
-                  onMouseLeave={() => setHoveredPost(null)}
+                  
                 >
                   <MagneticCard strength={0.2} scale={1.03}>
                     <Link href={`/blog/${post.slug}`}>
@@ -228,13 +224,12 @@ const BlogIndex: React.FC = () => {
                   variants={containerVariants}
                   className="grid md:grid-cols-2 gap-8"
                 >
-                  {filteredPosts.map((post, index) => (
+                  {filteredPosts.map((post) => (
                     <motion.article
                       key={post.id}
                       variants={itemVariants}
                       className="group relative"
-                      onMouseEnter={() => setHoveredPost(post.id)}
-                      onMouseLeave={() => setHoveredPost(null)}
+                      
                     >
                       <MagneticCard strength={0.15} scale={1.02}>
                         <Link href={`/blog/${post.slug}`}>

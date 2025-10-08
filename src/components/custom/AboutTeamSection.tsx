@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Linkedin, Mail, MapPin } from 'lucide-react';
 
 interface TeamMember {
   id: string;
@@ -102,7 +102,6 @@ const teamMembers: TeamMember[] = [
 
 const AboutTeamSection: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
-  const [selectedMember, setSelectedMember] = useState<string | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -174,8 +173,7 @@ const AboutTeamSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
-              onMouseEnter={() => setSelectedMember(member.id)}
-              onMouseLeave={() => setSelectedMember(null)}
+              
               className="group relative"
             >
               <motion.div

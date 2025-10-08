@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -44,7 +45,6 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
   menuItems,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const [animateIn, setAnimateIn] = useState(false);
   const [activeSection, setActiveSection] = useState<'nav' | 'services' | 'locations'>('nav');
   const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -63,11 +63,9 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
     if (isOpen) {
       setIsMounted(true);
       const timer = setTimeout(() => {
-        setAnimateIn(true);
       }, 50);
       return () => clearTimeout(timer);
     } else {
-      setAnimateIn(false);
       setActiveSection('nav');
       setActiveSubMenu(null);
       const timer = setTimeout(() => {

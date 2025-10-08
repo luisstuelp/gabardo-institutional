@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { CheckCircle, Truck, Shield, MapPin } from 'lucide-react';
+import { Truck, Shield, MapPin } from 'lucide-react';
 
 interface Service {
   id: string;
@@ -10,7 +10,7 @@ interface Service {
   description: string;
   image?: string;
   features: string[];
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   color: string;
   caseLink: string;
 }

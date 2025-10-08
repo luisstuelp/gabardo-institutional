@@ -34,10 +34,9 @@ const infiniteLogos = [...clientLogos, ...clientLogos, ...clientLogos];
 
 interface LogoItemProps {
   logo: typeof clientLogos[0];
-  index: number;
 }
 
-const LogoItem = ({ logo, index }: LogoItemProps) => {
+const LogoItem = ({ logo }: LogoItemProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.8);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -117,7 +116,7 @@ const AboutClientsCarousel = () => {
   const ITEM_SIZE = LOGO_WIDTH + GAP;
   const SPEED = 1.5; // Pixels per frame (increased speed)
 
-  useAnimationFrame((t, delta) => {
+  useAnimationFrame(() => {
     if (!isPaused) {
       xTranslation.current -= SPEED;
       
@@ -174,7 +173,6 @@ const AboutClientsCarousel = () => {
               <LogoItem
                 key={`${logo.id}-${index}`}
                 logo={logo}
-                index={index}
               />
             ))}
           </div>

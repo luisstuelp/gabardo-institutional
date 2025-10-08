@@ -3,10 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import InfiniteScroll from '@/components/InfiniteScroll';
-import { Building, Users, Truck, Target, CheckCircle } from 'lucide-react';
-import { AnimatePresence } from 'framer-motion';
-import PillarsSection from '@/components/custom/PillarsSection';
-import Link from 'next/link';
+import { Building, Users, Truck, Target } from 'lucide-react';
 import Image from 'next/image';
 
 interface TimelineItem {

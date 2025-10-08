@@ -1,13 +1,11 @@
-'use client';
-
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 import React from 'react';
 import { motion } from 'framer-motion';
 
 interface LocationDetailContactProps {
-  location: any;
 }
 
-const LocationDetailContact: React.FC<LocationDetailContactProps> = ({ location }) => {
+const LocationDetailContact: React.FC<LocationDetailContactProps> = () => {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">

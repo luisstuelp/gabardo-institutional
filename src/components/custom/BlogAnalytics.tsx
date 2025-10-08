@@ -77,7 +77,7 @@ const BlogAnalytics: React.FC<BlogAnalyticsProps> = ({ post }) => {
         button.removeEventListener('click', handleShare);
       });
     };
-  }, []);
+  }, [trackInteraction]);
 
   // Send analytics data on page unload
   useEffect(() => {
@@ -130,26 +130,7 @@ const BlogAnalytics: React.FC<BlogAnalyticsProps> = ({ post }) => {
         trackInteraction(`milestone_${milestone}`);
       }
     });
-  }, [engagementData.readingProgress, engagementData.interactions]);
-
-  // Calculate reading speed (words per minute)
-  const calculateReadingSpeed = () => {
-    const wordsRead = (engagementData.readingProgress / 100) * getWordCount();
-    const minutesSpent = engagementData.timeOnPage / 60000;
-    return minutesSpent > 0 ? Math.round(wordsRead / minutesSpent) : 0;
-  };
-
-  const getWordCount = () => {
-    return post.content.reduce((count, content) => {
-      if (content.type === 'paragraph' || content.type === 'heading') {
-        return count + content.content.split(' ').length;
-      }
-      if (content.type === 'list' && content.items) {
-        return count + content.items.join(' ').split(' ').length;
-      }
-      return count;
-    }, 0);
-  };
+  }, [engagementData.readingProgress, engagementData.interactions, trackInteraction]);
 
   // This component doesn't render anything visible
   // It's purely for analytics tracking

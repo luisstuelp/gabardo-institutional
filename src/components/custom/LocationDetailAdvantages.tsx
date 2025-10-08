@@ -1,10 +1,15 @@
-'use client';
-
 import React from 'react';
 import { motion } from 'framer-motion';
+import { LocationData } from '@/data/locationsData';
+
+interface Advantage {
+  icon: string;
+  title: string;
+  description: string;
+}
 
 interface LocationDetailAdvantagesProps {
-  location: any;
+  location: LocationData;
 }
 
 const LocationDetailAdvantages: React.FC<LocationDetailAdvantagesProps> = ({ location }) => {
@@ -24,7 +29,7 @@ const LocationDetailAdvantages: React.FC<LocationDetailAdvantagesProps> = ({ loc
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {location.advantages?.map((advantage: any, index: number) => (
+          {location.advantages?.map((advantage: Advantage, index: number) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}

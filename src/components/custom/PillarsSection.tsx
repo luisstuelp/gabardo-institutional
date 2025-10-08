@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Target, Eye, CheckCircle, Users, Shield, Zap } from 'lucide-react';
+import { Target, Eye, CheckCircle } from 'lucide-react';
 import aboutContent from '@/data/aboutContent.json';
 
 const tabs = [
@@ -11,12 +11,6 @@ const tabs = [
   { id: 'values', label: 'Valores', icon: CheckCircle },
 ];
 
-const valueIcons: Record<string, React.ComponentType<{ className?: string }>> = {
-  Shield,
-  CheckCircle,
-  Users,
-  Zap,
-};
 
 const PillarsSection: React.FC = () => {
   const { missionVisionValues } = aboutContent;

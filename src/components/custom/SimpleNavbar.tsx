@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 
 interface NavItem {
@@ -24,19 +23,10 @@ const navItems: NavItem[] = [
 ];
 
 const SimpleNavbar: React.FC<SimpleNavbarProps> = ({ variant = 'light' }) => {
-  const pathname = usePathname();
-
-  const isActive = (href: string) => {
-    if (href === '/') {
-      return pathname === '/';
-    }
-    return pathname.startsWith(href);
-  };
 
   return (
     <nav className="hidden md:flex items-center space-x-12 lg:space-x-16">
       {navItems.map((item, index) => {
-        const active = isActive(item.href);
         
         return (
           <motion.div
