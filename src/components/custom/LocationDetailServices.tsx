@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 interface LocationDetailServicesProps {
   location: {
-    services: Array<{
+    services?: Array<{
       icon: string;
       title: string;
       description: string;
@@ -33,7 +33,7 @@ const LocationDetailServices: React.FC<LocationDetailServicesProps> = ({ locatio
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-xl text-neutral-600 max-w-2xl mx-auto"
+            className="text-xl text-neutral-600"
           >
             Tudo que você precisa para trabalhar com eficiência e conforto
           </motion.p>
@@ -41,7 +41,7 @@ const LocationDetailServices: React.FC<LocationDetailServicesProps> = ({ locatio
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {location.services.map((service, index) => (
+          {location.services?.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 40 }}
@@ -77,7 +77,7 @@ const LocationDetailServices: React.FC<LocationDetailServicesProps> = ({ locatio
                 </motion.div>
               </div>
             </motion.div>
-          ))}
+          )) || []}
         </div>
 
         {/* Additional Features */}

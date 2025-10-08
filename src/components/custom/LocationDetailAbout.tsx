@@ -28,7 +28,7 @@ const LocationDetailAbout: React.FC<LocationDetailAboutProps> = ({ location }) =
                 viewport={{ once: true }}
                 className="text-4xl md:text-5xl font-bold text-neutral-800 mb-6 leading-tight"
               >
-                {location.about.title}
+                {location.about?.title || 'Sobre a Localização'}
               </motion.h2>
 
               <motion.p
@@ -38,7 +38,7 @@ const LocationDetailAbout: React.FC<LocationDetailAboutProps> = ({ location }) =
                 viewport={{ once: true }}
                 className="text-xl text-neutral-600 mb-8 leading-relaxed"
               >
-                {location.about.description}
+                {location.about?.description || ''}
               </motion.p>
 
               {/* Features List */}
@@ -49,13 +49,12 @@ const LocationDetailAbout: React.FC<LocationDetailAboutProps> = ({ location }) =
                 viewport={{ once: true }}
                 className="space-y-4 mb-8"
               >
-                {location.about.features.map((feature: string, index: number) => (
+                {location.about?.features?.map((feature: string, index: number) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6, delay: 0.5 + (index * 0.1) }}
-                    viewport={{ once: true }}
                     className="flex items-center gap-3"
                   >
                     <div className="w-5 h-5 bg-yellow-400 rounded-lg flex items-center justify-center flex-shrink-0">
