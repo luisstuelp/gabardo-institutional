@@ -9,7 +9,7 @@ const backgroundImages = [
   '/images/gabardo-hero-01.JPG', 
   '/images/gabardo-hero-02.JPG',
   '/images/gabardo-hero-03.JPG',
-  '/images/gabardo-hero-new.jpg'
+  '/images/Trans Gabardo - Framers produtora -5476.JPG'
 ];
 
 const ScrollDownIcon = () => (

@@ -23,7 +23,7 @@ const services: ServiceItem[] = [
       'Seguro total dos veículos',
       'Cobertura nacional'
     ],
-    image: '/images/Trans Gabardo - Framers produtora -5818.JPG'
+    image: '/images/Trans Gabardo - Framers produtora -5475.JPG'
   },
   {
     id: 'transporte-prancha',
@@ -35,7 +35,7 @@ const services: ServiceItem[] = [
       'Cargas excepcionais',
       'Logística personalizada'
     ],
-    image: '/images/Trans Gabardo - Framers produtora -5577.JPG'
+    image: '/images/New (7).png'
   },
   {
     id: 'armazenagem',
@@ -47,7 +47,7 @@ const services: ServiceItem[] = [
       'Gestão de estoque',
       'Localização estratégica'
     ],
-    image: '/images/Trans Gabardo - Framers produtora -5388.JPG'
+    image: '/images/Design sem nome (1).png'
   },
   {
     id: 'logistica-integrada',
@@ -59,7 +59,7 @@ const services: ServiceItem[] = [
       'KPIs auditáveis',
       'Relatórios personalizados'
     ],
-    image: '/images/Trans Gabardo - Framers produtora -5475.JPG'
+    image: '/images/New (5).png'
   }
 ];
 

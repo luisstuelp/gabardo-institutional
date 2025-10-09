@@ -25,7 +25,7 @@ const pillars = [
     description:
       'Programas contínuos de avaliação de riscos, auditorias internas e planos de contingência.',
     image: {
-      src: '/images/seguranca-thumbsup.JPG',
+      src: '/images/Trans Gabardo - Framers produtora -5726.JPG',
       position: 'center',
     },
     highlights: [
@@ -66,6 +66,7 @@ const pillars = [
 const SobreInstitucionalOverviewSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const activePillar = pillars[activeIndex];
+  const backgroundImageUrl = encodeURI(activePillar.image.src);
 
   return (
     <section
@@ -204,7 +205,7 @@ const SobreInstitucionalOverviewSection = () => {
                   transition={{ duration: 0.6, ease: 'easeOut' }}
                   className="absolute inset-0"
                   style={{
-                    backgroundImage: `linear-gradient(160deg, rgba(14,29,53,0.65), rgba(14,29,53,0.2)), url(${activePillar.image.src})`,
+                    backgroundImage: `linear-gradient(160deg, rgba(14,29,53,0.65), rgba(14,29,53,0.2)), url(${backgroundImageUrl})`,
                     backgroundSize: 'cover',
                     backgroundPosition: activePillar.image.position,
                   }}

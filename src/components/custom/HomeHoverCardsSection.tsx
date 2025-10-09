@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Globe2, Leaf, Users, Truck, Server, TrendingUp } from 'lucide-react';
 
@@ -13,7 +14,7 @@ const cards = [
     description:
       'Bases no Sul, Sudeste, Centro-Oeste e Nordeste conectam importações, exportações e distribuição LATAM com habilitação aduaneira (DTA).',
     accent: '#4BFFB4',
-    image: '/images/gabardo-hero-01.jpg',
+    image: '/images/New (6).png',
     highlights: ['BASES EM 4 REGIÕES', 'COBERTURA 100% LATAM', 'HABILITAÇÃO DTA'],
     href: '/frota-e-unidades',
     ctaLabel: 'Ver mapa de unidades',
@@ -61,7 +62,7 @@ const cards = [
     description:
       'Processos padronizados de investigação de avarias sustentam a entrega de 1.455.360 veículos transportados entre 2020 e 2024.',
     accent: '#FFB347',
-    image: '/images/GabardoRef.JPG',
+    image: '/images/Trans Gabardo - Framers produtora -5762.JPG',
     highlights: ['1.455.360 VEÍCULOS', 'INVESTIGAÇÃO PADRONIZADA', 'MONITORAMENTO 24H'],
     href: '/cases-de-sucesso',
     ctaLabel: 'Conhecer cases',
@@ -73,7 +74,7 @@ const cards = [
     description:
       'Inventários GEE anuais, programas de compensação e frota Euro 6 consolidam a primeira transportadora com produção de carbono negativa.',
     accent: '#7DFF4B',
-    image: '/images/gabardo-hero-04.jpg',
+    image: '/images/Trans Gabardo - Framers produtora -5577.JPG',
     highlights: ['CARBONO NEGATIVO', 'GHG PROTOCOL 2017', 'META NET ZERO 2030'],
     href: '/sustentabilidade',
     ctaLabel: 'Ver agenda ESG',
@@ -84,6 +85,7 @@ const HomeHoverCardsSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const activeCard = useMemo(() => cards[activeIndex], [activeIndex]);
+  const imageAlt = useMemo(() => `Gabardo ${activeCard.label}`, [activeCard.label]);
 
   return (
     <section className="relative overflow-hidden bg-white py-24">
@@ -219,17 +221,22 @@ const HomeHoverCardsSection = () => {
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={`${activeCard.title}-image`}
-                      initial={{ opacity: 0, scale: 1.05 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
+                      initial={{ opacity: 0, scale: 1.08, x: -12 }}
+                      animate={{ opacity: 1, scale: 1.08, x: 0 }}
+                      exit={{ opacity: 0, scale: 1.02, x: -10 }}
                       transition={{ duration: 0.6 }}
                       className="absolute inset-0"
-                      style={{
-                        backgroundImage: `linear-gradient(165deg, rgba(10,20,33,0.6), rgba(10,20,33,0.2)), url(${activeCard.image})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                      }}
-                    />
+                    >
+                      <Image
+                        src={activeCard.image}
+                        alt={imageAlt}
+                        fill
+                        sizes="(min-width: 1024px) 256px, 100vw"
+                        className="object-cover"
+                        priority={activeIndex === 0}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#0a1421]/60 via-[#0a1421]/35 to-transparent" />
+                    </motion.div>
                   </AnimatePresence>
                   <div className="absolute bottom-4 left-4 rounded-full bg-black/50 px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-white/80">
                     {activeCard.label}

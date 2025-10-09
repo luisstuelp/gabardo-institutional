@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 // Client logos with bento grid layout positions
 const clientLogosWithLayout = [
@@ -30,8 +30,97 @@ const clientLogosWithLayout = [
   { id: 21, name: 'Cliente 21', span: 'md:col-span-1 md:row-span-1' },
 ];
 
+const clientDetails: Record<number, { name: string; description: string }> = {
+  1: {
+    name: 'Volkswagen',
+    description: 'Montadora alemã reconhecida por engenharia robusta e produção de veículos globais como Gol, Polo e ID.4.'
+  },
+  2: {
+    name: 'CAOA Chery',
+    description: 'Joint-venture com foco em SUVs, híbridos e elétricos, aliando design moderno e tecnologia chinesa ao know-how brasileiro.'
+  },
+  3: {
+    name: 'Stellantis',
+    description: 'Grupo responsável por marcas como Fiat, Jeep e Peugeot no país, com operações logísticas multi-plataforma.'
+  },
+  4: {
+    name: 'Volvo',
+    description: 'Fabricante sueca de caminhões e veículos premium, referência em segurança, produtividade e propulsão sustentável.'
+  },
+  5: {
+    name: 'Toyota',
+    description: 'Líder em eletrificação híbrida, com foco em confiabilidade e gestão enxuta de cadeia produtiva.'
+  },
+  6: {
+    name: 'Mercedes-Benz',
+    description: 'Marca alemã com portfólio de veículos comerciais e leves premium, priorizando tecnologia embarcada.'
+  },
+  7: {
+    name: 'BMW',
+    description: 'Especialista em veículos de performance e mobilidade elétrica, com fábricas e centros de distribuição no Brasil.'
+  },
+  8: {
+    name: 'Hyundai',
+    description: 'Empresa sul-coreana que entrega carros com custo-benefício, design moderno e versões ICE e elétricas.'
+  },
+  9: {
+    name: 'Kia',
+    description: 'Montadora asiática focada em SUVs e veículos urbanos conectados, com rede nacional de concessionárias.'
+  },
+  10: {
+    name: 'Randon',
+    description: 'Conglomerado brasileiro líder em implementos rodoviários e soluções para transporte de carga.'
+  },
+  11: {
+    name: 'Volvo Cars',
+    description: 'Divisão de automóveis premium da Volvo, referência em segurança ativa e design escandinavo.'
+  },
+  12: {
+    name: 'Glovis',
+    description: 'Operador logístico global do Grupo Hyundai-Kia, especialista em shipping de veículos e CKD.'
+  },
+  13: {
+    name: 'Movida',
+    description: 'Locadora brasileira com foco em mobilidade corporativa, venda de seminovos e energia renovável.'
+  },
+  14: {
+    name: 'Renault',
+    description: 'Montadora francesa com produção nacional e portfólio que vai de compactos a utilitários elétricos.'
+  },
+  15: {
+    name: 'Nissan',
+    description: 'Marca japonesa que combina veículos populares, SUVs e pioneirismo em mobilidade 100% elétrica.'
+  },
+  16: {
+    name: 'Honda',
+    description: 'Gigante japonesa de automóveis e motocicletas, reconhecida por eficiência energética e qualidade construtiva.'
+  },
+  17: {
+    name: 'Agrale',
+    description: 'Fabricante brasileira de caminhões leves, chassis e tratores, com forte atuação em aplicações severas.'
+  },
+  18: {
+    name: 'Audi',
+    description: 'Marca alemã premium focada em tecnologia quattro, infotainment avançado e elétricos e-tron.'
+  },
+  19: {
+    name: 'Scania',
+    description: 'Referência em caminhões pesados e soluções modulares de powertrain com foco em sustentabilidade.'
+  },
+  20: {
+    name: 'Peugeot',
+    description: 'Marca francesa com linha de SUVs e utilitários, priorizando conectividade e design arrojado.'
+  },
+  21: {
+    name: 'Citroën',
+    description: 'Montadora francesa com veículos confortáveis e soluções urbanas como o elétrico ë-C3.'
+  }
+};
+
 const HomeClientsLogoSection = () => {
   const [hoveredLogo, setHoveredLogo] = useState<number | null>(null);
+  const [flippedLogo, setFlippedLogo] = useState<number | null>(null);
+  const flipTransition = useMemo(() => ({ duration: 0.6, ease: 'easeInOut' as const }), []);
 
   return (
     <section className="section-shell bg-gradient-to-br from-white via-gabardo-light-blue/5 to-white overflow-hidden">
@@ -191,7 +280,7 @@ const HomeClientsLogoSection = () => {
               <Link
                 key={logo.id}
                 href="/sobre/secao-institucional"
-                className={`${logo.span} group relative rounded-2xl bg-white border border-gabardo-blue/10 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:z-10 hover:shadow-xl`}
+                className={`${logo.span} group relative rounded-2xl bg-white border border-gabardo-blue/10 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:z-10 hover:shadow-xl [perspective:1200px]`}
               >
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8, rotateY: -45 }}
@@ -202,40 +291,72 @@ const HomeClientsLogoSection = () => {
                     delay: 0.5 + (index * 0.05),
                     ease: [0.16, 1, 0.3, 1]
                   }}
-                  className="absolute inset-0 flex items-center justify-center p-4"
+                  className="absolute inset-0 p-4"
                   onHoverStart={() => setHoveredLogo(logo.id)}
-                  onHoverEnd={() => setHoveredLogo(null)}
+                  onHoverEnd={() => {
+                    setHoveredLogo(null);
+                    setFlippedLogo(null);
+                  }}
+                  animate={{ rotateY: flippedLogo === logo.id ? 180 : 0 }}
+                  transition={flipTransition}
                 >
-                  {/* Gradient Overlay */}
-                  <motion.div 
-                    className="absolute inset-0 bg-gradient-to-br from-gabardo-light-blue/5 via-transparent to-gabardo-blue/5"
-                    animate={{
-                      opacity: hoveredLogo === logo.id ? 0.3 : 0
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  
-                  {/* Logo Image */}
-                  <Image
-                    src={`/NewLogos/Nlogo (${logo.id}).png`}
-                    alt={logo.name}
-                    width={300}
-                    height={300}
-                    className="w-full h-full object-contain transition-all duration-500 grayscale group-hover:grayscale-0 opacity-60 group-hover:opacity-100"
-                  />
-                  
-                  {/* Hover Border Glow */}
-                  <motion.div
-                    className="absolute inset-0 rounded-2xl"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(96,165,250,0.3), rgba(96,165,250,0.1))',
-                      opacity: 0
-                    }}
-                    animate={{
-                      opacity: hoveredLogo === logo.id ? 0.5 : 0
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
+                  <div className="absolute inset-0 rounded-2xl bg-white shadow-sm transition-all duration-300 [transform-style:preserve-3d]">
+                    <div
+                      className="absolute inset-0 flex items-center justify-center p-4"
+                      style={{ backfaceVisibility: 'hidden' }}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setFlippedLogo((prev) => (prev === logo.id ? null : logo.id));
+                      }}
+                    >
+                      <motion.div 
+                        className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gabardo-light-blue/5 via-transparent to-gabardo-blue/5"
+                        animate={{
+                          opacity: hoveredLogo === logo.id ? 0.3 : 0
+                        }}
+                        transition={{ duration: 0.3 }}
+                      />
+
+                      <Image
+                        src={`/NewLogos/Nlogo (${logo.id}).png`}
+                        alt={logo.name}
+                        width={300}
+                        height={300}
+                        className="w-full h-full object-contain transition-all duration-500 grayscale group-hover:grayscale-0 opacity-60 group-hover:opacity-100"
+                      />
+
+                      <motion.div
+                        className="absolute inset-0 rounded-2xl"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(96,165,250,0.3), rgba(96,165,250,0.1))',
+                          opacity: 0
+                        }}
+                        animate={{
+                          opacity: hoveredLogo === logo.id ? 0.5 : 0
+                        }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </div>
+
+                    <div
+                      className="absolute inset-0 flex h-full w-full flex-col justify-center gap-3 rounded-2xl bg-gradient-to-br from-[#08162a] via-[#0b2242] to-[#0d2b53] p-6 text-white text-center [transform:rotateY(180deg)]"
+                      style={{ backfaceVisibility: 'hidden' }}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setFlippedLogo((prev) => (prev === logo.id ? null : logo.id));
+                      }}
+                    >
+                      <h3 className="text-base font-semibold uppercase tracking-[0.18em]">
+                        {clientDetails[logo.id]?.name ?? `Cliente ${logo.id}`}
+                      </h3>
+                      <p className="text-xs text-white/80 leading-relaxed">
+                        {clientDetails[logo.id]?.description ?? 'Parceiro estratégico da Gabardo em soluções logísticas personalizadas em todo o Brasil.'}
+                      </p>
+                      <span className="mt-2 inline-flex items-center justify-center rounded-full bg-white/15 px-3 py-1 text-[10px] uppercase tracking-[0.28em] text-white/70">
+                        Clique para voltar
+                      </span>
+                    </div>
+                  </div>
                 </motion.div>
               </Link>
             ))}
