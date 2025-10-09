@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 
 const backgroundImage = '/images/gabardo-hero-04.JPG';
@@ -29,6 +29,7 @@ const highlights = [
 ];
 
 const SobreQualidadeHeroSection: React.FC = () => {
+  const prefersReducedMotion = useReducedMotion();
   return (
     <section className="relative w-full h-screen text-white overflow-hidden">
       <div className="absolute inset-0">
@@ -39,7 +40,7 @@ const SobreQualidadeHeroSection: React.FC = () => {
           priority
           className="object-cover object-center"
           sizes="100vw"
-          quality={95}
+          quality={78}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/65 to-black/80" />
       </div>
@@ -118,14 +119,19 @@ const SobreQualidadeHeroSection: React.FC = () => {
                   </div>
 
                   <div
-                    className="relative mt-1 h-[3px] w-16 rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue overflow-hidden"
+                    className="relative mt-1 h-[3px] w-16 overflow-hidden rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue"
                     style={isCarbonNegative ? { marginTop: '-10px' } : undefined}
                   >
-                    <motion.span
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/90 to-transparent"
-                      animate={{ x: ['-200%', '200%'] }}
-                      transition={{ duration: 1.6, repeat: Infinity, ease: 'linear' }}
-                    />
+                    {prefersReducedMotion ? (
+                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-80" />
+                    ) : (
+                      <motion.span
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/85 to-transparent"
+                        initial={{ x: '-160%' }}
+                        animate={{ x: '160%' }}
+                        transition={{ duration: 1.8, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
+                      />
+                    )}
                   </div>
 
                   <p className="relative text-xs text-white/65 leading-relaxed">

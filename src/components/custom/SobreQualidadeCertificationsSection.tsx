@@ -1,7 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Leaf, Globe2, Award } from 'lucide-react';
+import { ShieldCheck, Leaf, Globe2, Award, Factory, Shield, Building2 } from 'lucide-react';
 
 const certifications = [
   {
@@ -36,6 +37,131 @@ const certifications = [
       'Transparência na gestão de gases de efeito estufa, com 100% de neutralização das emissões diretas e indiretas.',
     highlight: 'Compromisso ESG reconhecido',
   },
+  {
+    icon: Factory,
+    title: 'ISO 45001 (Implantação)',
+    subtitle: 'Saúde e Segurança',
+    description:
+      'Sistema de gestão ocupacional em implantação com auditorias piloto e indicadores de segurança avançados.',
+    highlight: 'Programa de SST estruturado',
+  },
+  {
+    icon: Shield,
+    title: 'OEA - Receita Federal',
+    subtitle: 'Operador Econômico Autorizado',
+    description:
+      'Processos aduaneiros rastreados, compliance robusto e integração com portos e alfândegas brasileiras.',
+    highlight: 'Status aduaneiro confiável',
+  },
+];
+
+const qualityBadges = [
+  {
+    icon: ShieldCheck,
+    title: 'OEA - Receita Federal',
+    description: 'Operador Econômico Autorizado com processos aduaneiros auditados e rastreados.',
+  },
+  {
+    icon: Award,
+    title: 'Selo Verde 2024',
+    description: 'Reconhecimento por práticas ambientais e gestão de resíduos certificadas.',
+  },
+  {
+    icon: Globe2,
+    title: 'Pacto Global ONU',
+    description: 'Compromisso público com os 10 princípios de sustentabilidade e direitos humanos.',
+  },
+  {
+    icon: Factory,
+    title: 'ISO 45001 em implantação',
+    description: 'Programa estruturado de saúde e segurança ocupacional em fase final de certificação.',
+  },
+];
+
+const pillars = [
+  {
+    title: 'Melhoria Contínua',
+    description:
+      'Auditorias internas frequentes, indicadores atualizados e planos de ação integrados ao Sistema de Gestão da Qualidade.',
+    stats: '7,04h',
+    statsLabel: 'Treinamento médio anual por colaborador em 2024',
+  },
+  {
+    title: 'Gestão Sustentável',
+    description:
+      'Matriz energética limpa, inventário de emissões desde 2017 e neutralização total de CO₂ no programa Carbono Negativo.',
+    stats: '100%',
+    statsLabel: 'Emissões neutralizadas no inventário GHG Protocol',
+  },
+  {
+    title: 'Segurança em Primeiro Lugar',
+    description:
+      'Checklists eletrônicos, telemetria 24/7 e protocolos certificados reduzem ocorrências viárias abaixo da média setorial.',
+    stats: '0,30%',
+    statsLabel: 'Índice anual de avarias gerais',
+  },
+];
+
+const galleryMain = {
+  src: '/images/Certificados.JPG',
+  alt: 'Acervo de troféus e certificados exibido na sede da Transportes Gabardo',
+  caption: 'Painel físico utilizado nas auditorias presenciais de 2025.',
+};
+
+const galleryCards = [
+  {
+    src: '/images/certifications/iso-9001-qualidade.png',
+    alt: 'Certificado ISO 9001',
+    label: 'ISO 9001:2025',
+    description: 'Recertificação com escopo completo de logística automotiva e preparação de veículos.',
+  },
+  {
+    src: '/images/certifications/iso-14001-meio-ambiente.png',
+    alt: 'Certificado ISO 14001',
+    label: 'ISO 14001:2025',
+    description: 'Gestão ambiental integrada aos pátios, oficinas e operações de transporte.',
+  },
+  {
+    src: '/images/certifications/iso-39001-seguranca-viaria.png',
+    alt: 'Certificado ISO 39001',
+    label: 'ISO 39001',
+    description: 'Segurança viária com telemetria embarcada e protocolos de investigação de ocorrências.',
+  },
+  {
+    src: '/images/certifications/gcs-abnt-pr2030-esg.png',
+    alt: 'Certificado GCS ABNT PR2030 ESG',
+    label: 'PR2030 ESG',
+    description: 'Agenda ESG monitorada por indicadores e comitês dedicados.',
+  },
+];
+
+const galleryHighlights = [
+  'Coleção digitalizada disponível para clientes e parceiros em data room dedicado.',
+  'Atualização anual de selos com acompanhamento das matrizes internacionais.',
+  'Uso do acervo visual em onboarding de fornecedores e apresentações comerciais.',
+];
+
+const recognitionBadges = [
+  {
+    icon: Building2,
+    title: 'Prêmio Transporte Responsável',
+    description: 'Vencedores 2022/2023 em Gestão Ambiental e Desenvolvimento Humano.',
+  },
+  {
+    icon: Leaf,
+    title: 'Selo Verde 2024',
+    description: 'Certificação estadual pelas iniciativas de neutralização e reciclagem.',
+  },
+  {
+    icon: Globe2,
+    title: 'Pacto Global da ONU',
+    description: 'Relatórios anuais alinhados aos objetivos de desenvolvimento sustentável.',
+  },
+  {
+    icon: Award,
+    title: 'Top ESG Latam 2025',
+    description: 'Reconhecimento regional por governança, inovação e impacto social.',
+  },
 ];
 
 const SobreQualidadeCertificationsSection: React.FC = () => {
@@ -54,42 +180,191 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="max-w-3xl"
         >
-          <span className="text-xs font-semibold tracking-[0.4em] uppercase text-gabardo-light-blue/80">Certificações e reconhecimentos</span>
+          <span className="text-xs font-semibold tracking-[0.4em] uppercase text-gabardo-light-blue/80">Certificações e governança</span>
           <h2 className="mt-4 text-3xl md:text-4xl font-bold text-white">
             Padrões globais que elevam a confiança dos nossos parceiros
           </h2>
           <p className="mt-5 text-lg text-white/70 leading-relaxed">
-            Os selos internacionais que conquistamos reforçam o compromisso da Gabardo com qualidade, sustentabilidade e
-            segurança em todo o ecossistema logístico. Conheça as certificações que sustentam nossa liderança.
+            Integramos ISO 9001, ISO 14001 e ISO 39001 a uma agenda ESG reconhecida, ampliando governança com OEA, Pacto Global ONU
+            e implantação da ISO 45001. Conheça como estruturamos essa rede de confiança.
           </p>
         </motion.div>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-2">
-          {certifications.map((cert, index) => (
-            <motion.div
-              key={cert.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition-transform duration-300 hover:-translate-y-2 hover:border-gabardo-light-blue/50"
-            >
-              <div className="absolute -top-16 -right-16 h-32 w-32 rounded-full bg-gabardo-light-blue/20 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <div className="relative flex items-start gap-5">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-gabardo-light-blue">
-                  <cert.icon className="h-8 w-8" strokeWidth={2.2} />
-                </div>
-                <div>
-                  <div className="text-sm uppercase tracking-[0.35em] text-white/60">{cert.subtitle}</div>
-                  <h3 className="mt-2 text-2xl font-semibold text-white">{cert.title}</h3>
-                  <p className="mt-4 text-sm md:text-base text-white/70 leading-relaxed">{cert.description}</p>
-                  <div className="mt-6 inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-gabardo-light-blue">
-                    {cert.highlight}
+        <div className="mt-16 grid gap-12 xl:grid-cols-12 xl:items-start">
+          <div className="space-y-10 xl:col-span-8">
+            <div className="grid gap-4">
+              {qualityBadges.map((badge, index) => {
+                const Icon = badge.icon;
+                return (
+                  <motion.div
+                    key={badge.title}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.45, delay: index * 0.05 }}
+                    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm"
+                  >
+                    <div className="absolute -right-12 -top-10 h-20 w-20 rounded-full bg-gabardo-light-blue/15 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
+                    <div className="relative flex items-start gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-gabardo-light-blue">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-semibold uppercase tracking-[0.26em] text-white/85">{badge.title}</h3>
+                        <p className="mt-2 text-xs text-white/65 leading-relaxed">{badge.description}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {pillars.map((pillar, index) => (
+                <motion.div
+                  key={pillar.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-gabardo-light-blue/10 opacity-60" aria-hidden />
+                  <div className="relative space-y-4">
+                    <span className="text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-light-blue/80">{pillar.title}</span>
+                    <p className="text-sm text-white/70 leading-relaxed">{pillar.description}</p>
+                    <div className="flex items-baseline gap-3">
+                      <span className="text-3xl font-semibold text-white">{pillar.stats}</span>
+                      <span className="text-[10px] uppercase tracking-[0.28em] text-white/50">Indicador</span>
+                    </div>
+                    <p className="text-xs text-white/60 leading-relaxed">{pillar.statsLabel}</p>
                   </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-2">
+              {certifications.map((cert, index) => (
+                <motion.div
+                  key={cert.title}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition-transform duration-300 hover:-translate-y-2 hover:border-gabardo-light-blue/50"
+                >
+                  <div className="absolute -top-16 -right-16 h-32 w-32 rounded-full bg-gabardo-light-blue/20 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="relative flex items-start gap-5">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-gabardo-light-blue">
+                      <cert.icon className="h-8 w-8" strokeWidth={2.2} />
+                    </div>
+                    <div>
+                      <div className="text-sm uppercase tracking-[0.35em] text-white/60">{cert.subtitle}</div>
+                      <h3 className="mt-2 text-2xl font-semibold text-white">{cert.title}</h3>
+                      <p className="mt-4 text-sm md:text-base text-white/70 leading-relaxed">{cert.description}</p>
+                      <div className="mt-6 inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-gabardo-light-blue">
+                        {cert.highlight}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+            className="xl:col-span-4 flex flex-col gap-8"
+          >
+            <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-sm shadow-[0_28px_80px_-38px_rgba(10,20,36,0.6)]">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-gabardo-light-blue/20" aria-hidden />
+              <div className="relative">
+                <div className="relative h-52 w-full overflow-hidden">
+                  <Image
+                    src={galleryMain.src}
+                    alt={galleryMain.alt}
+                    fill
+                    sizes="(min-width: 1280px) 22vw, (min-width: 768px) 45vw, 90vw"
+                    className="object-cover"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-6 p-6 pt-7">
+                  <div>
+                    <h3 className="text-lg font-semibold uppercase tracking-[0.32em] text-white/80">Galeria de Certificados</h3>
+                    <p className="mt-3 text-sm text-white/70 leading-relaxed">
+                      Certificados físicos e digitais exibidos nas auditorias externas, apresentações comerciais e data rooms.
+                    </p>
+                  </div>
+
+                  <div className="grid gap-4">
+                    {galleryCards.map((item) => (
+                      <div
+                        key={item.label}
+                        className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/8 p-4"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-gabardo-light-blue/15 opacity-60" aria-hidden />
+                        <div className="relative flex items-center gap-4">
+                          <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl bg-white/10">
+                            <Image
+                              src={item.src}
+                              alt={item.alt}
+                              fill
+                              sizes="(min-width: 768px) 20vw, 45vw"
+                              className="object-contain p-2"
+                            />
+                          </div>
+                          <div>
+                            <span className="text-xs font-semibold uppercase tracking-[0.26em] text-white/80">{item.label}</span>
+                            <p className="mt-1 text-xs text-white/65 leading-relaxed">{item.description}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <ul className="grid gap-2 text-xs text-white/65 leading-relaxed">
+                    {galleryHighlights.map((highlight) => (
+                      <li key={highlight} className="flex items-start gap-2">
+                        <span className="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gabardo-light-blue" />
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-            </motion.div>
-          ))}
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {recognitionBadges.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={`${item.title}-gallery`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.5, delay: 0.05 * index }}
+                    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm shadow-[0_20px_45px_-28px_rgba(15,24,44,0.45)]"
+                  >
+                    <div className="absolute -bottom-10 -right-6 h-20 w-20 rounded-full bg-gabardo-light-blue/15 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
+                    <div className="relative flex flex-col gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-gabardo-light-blue">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-white/85">{item.title}</h4>
+                        <p className="mt-1 text-xs text-white/70 leading-relaxed">{item.description}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -44,7 +44,7 @@ const HomeStripeCardSection = () => {
             className="space-y-6 text-white"
           >
             <h2 className="text-4xl md:text-5xl lg:text-[3.5rem] font-semibold leading-tight md:leading-[1.05]">
-              Logística inteligente com o DNA da <span className="font-bold">Gabardo</span>
+              Logística inteligente com o DNA da <span className="font-bold">Transportes Gabardo</span>
             </h2>
             <p className="max-w-xl text-base text-white/70">
               Com mais de três décadas de atuação, entregamos operações que combinam planejamento estratégico,

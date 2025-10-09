@@ -211,7 +211,7 @@ const AboutStorySection: React.FC = () => {
           className="text-center mt-24"
         >
           <blockquote className="text-2xl md:text-[30px] font-light italic text-gabardo-blue/80 max-w-4xl mx-auto leading-relaxed">
-            &ldquo;Ao longo de seus 36 anos, a Gabardo procura entender as necessidades dos clientes para
+            &ldquo;Ao longo de seus 36 anos, a Transportes Gabardo procura entender as necessidades dos clientes para
             atendê-los de forma personalizada e eficiente. Nossa missão é transportar mais que veículos.&rdquo;
           </blockquote>
           <div className="mt-6 text-xs font-semibold uppercase tracking-[0.32em] text-gabardo-blue/60">

@@ -13,7 +13,7 @@ const cards = [
     title: 'Cobertura LATAM que antecipa demandas',
     description:
       'Bases no Sul, Sudeste, Centro-Oeste e Nordeste conectam importações, exportações e distribuição LATAM com habilitação aduaneira (DTA).',
-    accent: '#4BFFB4',
+    accent: '#7FD7FF',
     image: '/images/New (6).png',
     highlights: ['BASES EM 4 REGIÕES', 'COBERTURA 100% LATAM', 'HABILITAÇÃO DTA'],
     href: '/frota-e-unidades',

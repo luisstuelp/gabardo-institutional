@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { ShieldCheck, Award, Globe2, Factory } from 'lucide-react';
 
 const pillars = [
   {
@@ -27,6 +28,28 @@ const pillars = [
 ];
 
 const SobreQualidadeOverviewSection: React.FC = () => {
+  const qualityBadges = [
+    {
+      icon: ShieldCheck,
+      title: 'OEA - Receita Federal',
+      description: 'Operador Econômico Autorizado com processos aduaneiros auditados e rastreados.',
+    },
+    {
+      icon: Award,
+      title: 'Selo Verde 2024',
+      description: 'Reconhecimento por práticas ambientais e gestão de resíduos certificadas.',
+    },
+    {
+      icon: Globe2,
+      title: 'Pacto Global ONU',
+      description: 'Compromisso público com os 10 princípios de sustentabilidade e direitos humanos.',
+    },
+    {
+      icon: Factory,
+      title: 'ISO 45001 em implantação',
+      description: 'Programa estruturado de saúde e segurança ocupacional em fase final de certificação.',
+    },
+  ];
   return (
     <section className="relative bg-white py-24 md:py-28">
       <div className="container mx-auto px-6 md:px-12 lg:px-20">
@@ -46,6 +69,34 @@ const SobreQualidadeOverviewSection: React.FC = () => {
             e segurança em um mesmo ecossistema. Nossos times são capacitados continuamente, apoiados por tecnologia em
             tempo real e por indicadores auditáveis, garantindo excelência em cada operação logística.
           </p>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {qualityBadges.map((item) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.45 }}
+                  className="group relative overflow-hidden rounded-2xl border border-gabardo-blue/10 bg-gradient-to-br from-white via-white to-gabardo-light-blue/10 p-5 shadow-[0_18px_40px_-28px_rgba(19,45,81,0.22)]"
+                >
+                  <div className="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-gabardo-blue/10 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
+                  <div className="relative flex flex-col gap-3">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gabardo-blue/10 text-gabardo-blue">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-gabardo-blue">{item.title}</h3>
+                      <p className="mt-2 text-sm text-neutral-600 leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </motion.div>
 
         <div className="mt-16 grid gap-10 md:grid-cols-3">

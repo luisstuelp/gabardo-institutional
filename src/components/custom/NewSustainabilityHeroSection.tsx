@@ -1,16 +1,15 @@
 'use client';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import type { Dispatch, SetStateAction } from 'react';
 
 const TABS = ["AMBIENTAL", "SOCIAL", "GOVERNANÇA", "INOVAÇÕES"];
 
 interface NewSustainabilityHeroSectionProps {
-  selectedTab: string;
-  setSelectedTab: Dispatch<SetStateAction<string>>;
+  activeTab: string;
+  onTabClick: (tab: string) => void;
 }
 
-export default function NewSustainabilityHeroSection({ selectedTab, setSelectedTab }: NewSustainabilityHeroSectionProps) {
+export default function NewSustainabilityHeroSection({ activeTab, onTabClick }: NewSustainabilityHeroSectionProps) {
   return (
     <div className="relative w-full pt-48 pb-24 text-white">
       <div className="absolute inset-0">
@@ -38,20 +37,21 @@ export default function NewSustainabilityHeroSection({ selectedTab, setSelectedT
           transition={{ duration: 0.6, delay: 0.5 }}
           className="text-lg sm:text-xl md:text-2xl font-light leading-relaxed max-w-full md:max-w-4xl mb-12"
         >
-          A Gabardo tem como valor crescer com sustentabilidade, zelando pelos recursos próprios e de seus públicos de relacionamento, incluindo credores, investidores e a sociedade em geral. As dimensões Econômica, Ambiental, Social e de Governança (ESG) estão enraizadas na cultura da companhia.
+          A Transportes Gabardo tem como valor crescer com sustentabilidade, zelando pelos recursos próprios e de seus públicos de relacionamento, incluindo credores, investidores e a sociedade em geral. As dimensões Econômica, Ambiental, Social e de Governança (ESG) estão enraizadas na cultura da companhia.
         </motion.p>
 
         <div className="flex border-b border-gray-500">
           {TABS.map((tab) => (
             <button
+              type="button"
               key={tab}
-              onClick={() => setSelectedTab(tab)}
+              onClick={() => onTabClick(tab)}
               className={`px-6 py-3 text-sm font-medium transition-all duration-300 relative 
-                ${selectedTab === tab ? 'text-white' : 'text-gray-300 hover:text-white'}`
+                ${activeTab === tab ? 'text-white' : 'text-gray-300 hover:text-white'}`
               }
             >
               {tab}
-              {selectedTab === tab && (
+              {activeTab === tab && (
                 <motion.div
                   className="absolute bottom-0 left-0 right-0 h-1 bg-white"
                   layoutId="underline"
