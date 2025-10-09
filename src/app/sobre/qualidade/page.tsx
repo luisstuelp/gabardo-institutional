@@ -3,7 +3,6 @@ import Footer from '@/components/layout/Footer';
 import SobreQualidadeHeroSection from '@/components/custom/SobreQualidadeHeroSection';
 import SobreQualidadeOverviewSection from '@/components/custom/SobreQualidadeOverviewSection';
 import SobreQualidadeCertificationsSection from '@/components/custom/SobreQualidadeCertificationsSection';
-import SobreQualidadeInfraestruturaSection from '@/components/custom/SobreQualidadeInfraestruturaSection';
 
 export default function SobreQualidadePage() {
   return (
@@ -11,7 +10,6 @@ export default function SobreQualidadePage() {
       <Header variant="dark" />
       <SobreQualidadeHeroSection />
       <SobreQualidadeOverviewSection />
-      <SobreQualidadeInfraestruturaSection />
       <SobreQualidadeCertificationsSection />
       <Footer />
     </main>
