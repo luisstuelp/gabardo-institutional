@@ -3,30 +3,31 @@
 import Image from 'next/image';
 import { motion, useAnimationFrame } from 'framer-motion';
 import { useState, useRef } from 'react';
+import type { PointerEvent as ReactPointerEvent } from 'react';
 
 // Client logos data with back info - 21 logos
 const clientLogos = [
-  { id: 1, name: 'Volkswagen', since: 'Desde 1998', description: 'Parceria estratégica em logística automotiva' },
-  { id: 2, name: 'Mercedes-Benz', since: 'Desde 2006', description: 'Transporte premium e logística especializada' },
-  { id: 3, name: 'Ford', since: 'Desde 2011', description: 'Distribuição nacional de veículos' },
-  { id: 4, name: 'Scania', since: 'Desde 2015', description: 'Logística de veículos pesados' },
-  { id: 5, name: 'Localiza', since: 'Desde 2017', description: 'Gestão de frotas corporativas' },
-  { id: 6, name: 'JSL', since: 'Desde 2019', description: 'Operações integradas de transporte' },
-  { id: 7, name: 'Cliente 7', since: 'Parceiro Confiável', description: 'Soluções logísticas personalizadas' },
-  { id: 8, name: 'Cliente 8', since: 'Parceiro Confiável', description: 'Excelência em transporte automotivo' },
-  { id: 9, name: 'Cliente 9', since: 'Parceiro Confiável', description: 'Logística inteligente e eficiente' },
-  { id: 10, name: 'Cliente 10', since: 'Parceiro Confiável', description: 'Transporte seguro e rastreado' },
-  { id: 11, name: 'Cliente 11', since: 'Parceiro Confiável', description: 'Distribuição em todo Brasil' },
-  { id: 12, name: 'Cliente 12', since: 'Parceiro Confiável', description: 'Parceria de longo prazo' },
-  { id: 13, name: 'Cliente 13', since: 'Parceiro Confiável', description: 'Compromisso com qualidade' },
-  { id: 14, name: 'Cliente 14', since: 'Parceiro Confiável', description: 'Soluções sob medida' },
-  { id: 15, name: 'Cliente 15', since: 'Parceiro Confiável', description: 'Tecnologia e inovação' },
-  { id: 16, name: 'Cliente 16', since: 'Parceiro Confiável', description: 'Operação nacional integrada' },
-  { id: 17, name: 'Cliente 17', since: 'Parceiro Confiável', description: 'Frota moderna e rastreada' },
-  { id: 18, name: 'Cliente 18', since: 'Parceiro Confiável', description: 'Logística sustentável' },
-  { id: 19, name: 'Cliente 19', since: 'Parceiro Confiável', description: 'Entrega pontual garantida' },
-  { id: 20, name: 'Cliente 20', since: 'Parceiro Confiável', description: 'Cobertura LATAM completa' },
-  { id: 21, name: 'Cliente 21', since: 'Parceiro Confiável', description: 'Certificações ISO garantidas' },
+  { id: 1, name: 'Volkswagen', description: 'Uma das maiores montadoras do mundo, conhecida por veículos populares e confiáveis. Atua fortemente na eletrificação e inovação tecnológica.' },
+  { id: 2, name: 'CAOA Chery', description: 'Montadora brasileira de automóveis, resultado da parceria entre o grupo automotivo brasileiro CAOA e a chinesa Chery.' },
+  { id: 3, name: 'VAMOS', description: ' Líder no setor de locação de caminhões, máquinas e equipamentos do Brasil.' },
+  { id: 4, name: 'SCANIA', description: 'Fabricante sueca especializada em caminhões, ônibus e motores industriais, reconhecida pela durabilidade e eficiência.' },
+  { id: 5, name: 'AGCO', description: 'Multinacional americana focada em máquinas agrícolas, voltada à produtividade e sustentabilidade no agronegócio.' },
+  { id: 6, name: 'Peugeot', description: 'Marca francesa do grupo Stellantis, com foco em design, conforto e tecnologia em automóveis de passeio.' },
+  { id: 7, name: 'RANDON', description: 'Grupo brasileiro referência em implementos rodoviários, autopeças e serviços financeiros para o setor de transporte.' },
+  { id: 8, name: 'Volvo', description: 'Empresa sueca reconhecida por veículos, caminhões e ônibus com alto padrão de segurança, tecnologia e sustentabilidade.' },
+  { id: 9, name: 'Glovis', description: 'Divisão logística do grupo Hyundai, especializada em transporte marítimo, terrestre e gestão da cadeia de suprimentos global.' },
+  { id: 10, name: 'Movida', description: 'Locadora brasileira de veículos, conhecida por sua frota moderna, atendimento digital e programas de mobilidade sustentável.' },
+  { id: 11, name: 'Hyundai', description: 'Montadora sul-coreana com ampla linha de veículos modernos, conectados e com foco em design e eficiência energética.' },
+  { id: 12, name: 'Mercedes-Benz', description: 'Marca alemã de luxo e desempenho, líder em inovação, segurança e engenharia automotiva.' },
+  { id: 13, name: 'Unidas', description: 'Empresa brasileira de locação e gestão de frotas corporativas, focada em mobilidade e atendimento personalizado.' },
+  { id: 14, name: 'Citroën', description: 'Montadora francesa com design arrojado e foco em conforto e inovação, também parte do grupo Stellantis.' },
+  { id: 15, name: 'CEVA Logistics', description: 'Operadora global de logística e transporte, atuando em frete, armazenagem e soluções integradas para cadeias de suprimentos.' },
+  { id: 16, name: 'GAC', description: 'Grupo automotivo chinês (Guangzhou Automobile Group) que vem expandindo globalmente com foco em veículos elétricos e inovação.' },
+  { id: 17, name: 'GWM', description: 'Uma das maiores montadoras chinesas, especializada em SUVs e picapes, com forte investimento em eletrificação.' },
+  { id: 18, name: 'Localiza', description: 'Maior locadora de veículos da América Latina, com forte presença em mobilidade urbana e soluções corporativas.' },
+  { id: 19, name: 'JSL', description: 'Grupo brasileiro de logística integrado, atuando em transporte, gestão de frotas, armazenagem e serviços industriais.' },
+  { id: 20, name: 'Ford', description: 'Montadora americana tradicional, pioneira na produção em massa e atualmente focada em eletrificação e veículos conectados.' },
+  { id: 21, name: 'CAOA', description: 'Grupo brasileiro que atua na importação, montagem e distribuição de marcas como Hyundai, Chery e Subaru, além de ter produção nacional.' },
 ];
 
 // Duplicate logos for infinite loop
@@ -70,7 +71,7 @@ const LogoItem = ({ logo }: LogoItemProps) => {
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <motion.div
-        className="relative h-40 w-full cursor-pointer"
+        className="relative h-60 w-full cursor-pointer"
         animate={{ rotateX: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.6, ease: 'easeInOut' }}
         style={{ transformStyle: 'preserve-3d' }}
@@ -85,22 +86,46 @@ const LogoItem = ({ logo }: LogoItemProps) => {
             alt={logo.name}
             width={220}
             height={140}
-            className="w-full h-full object-contain grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-500"
+            className="w-full h-full select-none object-contain grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-500"
+            draggable={false}
           />
         </div>
 
         {/* Back - Info */}
         <div
-          className="absolute inset-0 flex flex-col items-center justify-center rounded-3xl p-6 shadow-lg text-white"
+          className="absolute inset-0 flex flex-col items-start justify-start rounded-3xl p-6 shadow-lg text-white overflow-hidden"
           style={{
             backfaceVisibility: 'hidden',
             transform: 'rotateX(180deg)',
             backgroundColor: '#132d51',
           }}
         >
-          <h3 className="text-lg font-bold text-center mb-2">{logo.name}</h3>
-          <p className="text-xs text-center text-white/80 mb-3">{logo.since}</p>
-          <p className="text-sm text-center leading-snug">{logo.description}</p>
+          <div className="absolute -top-16 right-8 h-28 w-28 rounded-full bg-gabardo-light-blue/15 blur-3xl" aria-hidden />
+          <div className="absolute -bottom-20 left-6 h-32 w-32 rounded-full bg-white/10 blur-3xl" aria-hidden />
+
+          <div className="relative flex h-full w-full flex-col">
+            <div className="space-y-2">
+              <h3 className="text-xl font-semibold tracking-wide text-white">
+                {logo.name}
+              </h3>
+              <motion.div
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: '4.5rem', opacity: 1 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="relative h-[3px] rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue overflow-hidden"
+              >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/80 to-transparent"
+                  animate={{ x: ['-200%', '200%'] }}
+                  transition={{ duration: 1.4, repeat: Infinity, ease: 'linear', delay: 0.2 }}
+                />
+              </motion.div>
+            </div>
+
+            <p className="mt-6 text-sm leading-relaxed text-white/95">
+              {logo.description}
+            </p>
+          </div>
         </div>
       </motion.div>
     </div>
@@ -110,24 +135,96 @@ const LogoItem = ({ logo }: LogoItemProps) => {
 const AboutClientsCarousel = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const xTranslation = useRef(0);
   const LOGO_WIDTH = 240; // Width of each logo item
   const GAP = 48; // Gap between logos (gap-12 = 3rem = 48px)
   const ITEM_SIZE = LOGO_WIDTH + GAP;
   const SPEED = 1.5; // Pixels per frame (increased speed)
+  const isDraggingRef = useRef(false);
+  const pointerActiveRef = useRef(false);
+  const activePointerId = useRef<number | null>(null);
+  const dragStartX = useRef(0);
+  const dragStartTranslate = useRef(0);
+  const DRAG_THRESHOLD = 6;
+
+  const applyTranslation = (value: number) => {
+    const totalWidth = ITEM_SIZE * clientLogos.length;
+    let adjusted = value;
+
+    if (totalWidth > 0) {
+      while (adjusted <= -totalWidth) {
+        adjusted += totalWidth;
+      }
+      while (adjusted >= totalWidth) {
+        adjusted -= totalWidth;
+      }
+    } else {
+      adjusted = 0;
+    }
+
+    xTranslation.current = adjusted;
+
+    if (containerRef.current) {
+      containerRef.current.style.transform = `translateX(${adjusted}px)`;
+    }
+  };
+
+  const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) {
+      return;
+    }
+
+    pointerActiveRef.current = true;
+    activePointerId.current = event.pointerId;
+    dragStartX.current = event.clientX;
+    dragStartTranslate.current = xTranslation.current;
+    isDraggingRef.current = false;
+    setIsPaused(true);
+  };
+
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!pointerActiveRef.current) {
+      return;
+    }
+    const delta = event.clientX - dragStartX.current;
+
+    if (!isDraggingRef.current && Math.abs(delta) > DRAG_THRESHOLD) {
+      isDraggingRef.current = true;
+      setIsDragging(true);
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+    }
+
+    if (isDraggingRef.current) {
+      event.preventDefault();
+      applyTranslation(dragStartTranslate.current + delta);
+    }
+  };
+
+  const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!pointerActiveRef.current) {
+      return;
+    }
+
+    pointerActiveRef.current = false;
+
+    if (isDraggingRef.current) {
+      event.currentTarget.releasePointerCapture?.(event.pointerId);
+      isDraggingRef.current = false;
+      setIsDragging(false);
+      setTimeout(() => {
+        setIsPaused(false);
+      }, 180);
+    } else {
+      setIsPaused(false);
+    }
+
+    activePointerId.current = null;
+  };
 
   useAnimationFrame(() => {
-    if (!isPaused) {
-      xTranslation.current -= SPEED;
-      
-      // Reset position for infinite loop
-      if (Math.abs(xTranslation.current) >= ITEM_SIZE * clientLogos.length) {
-        xTranslation.current = 0;
-      }
-      
-      if (containerRef.current) {
-        containerRef.current.style.transform = `translateX(${xTranslation.current}px)`;
-      }
+    if (!isPaused && !isDraggingRef.current) {
+      applyTranslation(xTranslation.current - SPEED);
     }
   });
 
@@ -163,7 +260,14 @@ const AboutClientsCarousel = () => {
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Carousel Container */}
-        <div className="overflow-hidden py-12">
+        <div
+          className={`overflow-hidden py-12 select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={endDrag}
+          onPointerLeave={endDrag}
+          onPointerCancel={endDrag}
+        >
           <div
             ref={containerRef}
             className="flex gap-12"
