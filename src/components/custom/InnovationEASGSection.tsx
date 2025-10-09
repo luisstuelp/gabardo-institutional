@@ -12,7 +12,7 @@ const innovationLevers = [
   'KPIs de inovação alinhados à agenda ESG e ao planejamento estratégico'
 ];
 
-export default function InnovationEASGSection() {
+export default function InnovationESGSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-[#101d39] via-[#14294a] to-[#0f1f3a] py-24 text-white">
       <div className="absolute inset-0">

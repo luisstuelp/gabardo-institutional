@@ -10,7 +10,7 @@ import HowWeActSection from '@/components/custom/HowWeActSection';
 import CarbonCompensationSection from '@/components/custom/CarbonCompensationSection';
 import SustainabilityReportSection from '@/components/custom/SustainabilityReportSection';
 import HomeSustainabilitySpotlight from '@/components/custom/HomeSustainabilitySpotlight';
-import EASGSection from '@/components/custom/EASGSection';
+import ESGSection from '@/components/custom/EASGSection';
 import FleetSection from '@/components/custom/FleetSection';
 import MaxAgeSection from '@/components/custom/MaxAgeSection';
 import InnovativeSolutionsSection from '@/components/custom/InnovativeSolutionsSection';
@@ -18,7 +18,7 @@ import InitiativesSection from '@/components/custom/InitiativesSection';
 
 import SocialClimateSection from '@/components/custom/SocialClimateSection';
 import SocialHowWeActSection from '@/components/custom/SocialHowWeActSection';
-import SocialEASGSection from '@/components/custom/SocialEASGSection';
+import SocialESGSection from '@/components/custom/SocialEASGSection';
 import SocialFleetSection from '@/components/custom/SocialFleetSection';
 import SocialCommitmentSection from '@/components/custom/SocialCommitmentSection';
 import SocialInnovationSection from '@/components/custom/SocialInnovationSection';
@@ -38,7 +38,7 @@ import AboutCulturaSection from '@/components/custom/AboutCulturaSection';
 
 import InnovationClimateSection from '@/components/custom/InnovationClimateSection';
 import InnovationHowWeActSection from '@/components/custom/InnovationHowWeActSection';
-import InnovationEASGSection from '@/components/custom/InnovationEASGSection';
+import InnovationESGSection from '@/components/custom/InnovationEASGSection';
 import InnovationFleetSection from '@/components/custom/InnovationFleetSection';
 import InnovationCommitmentSection from '@/components/custom/InnovationCommitmentSection';
 import InovacoesSection from '@/components/custom/InovacoesSection';
@@ -57,7 +57,7 @@ export default function SustentabilidadePage() {
           <CarbonCompensationSection />
           <SustainabilityReportSection />
           <HomeSustainabilitySpotlight />
-          <EASGSection />
+          <ESGSection />
           <FleetSection />
           <MaxAgeSection />
           <InnovativeSolutionsSection />
@@ -68,7 +68,7 @@ export default function SustentabilidadePage() {
         <>
           <SocialClimateSection />
           <SocialHowWeActSection />
-          <SocialEASGSection />
+          <SocialESGSection />
           <SocialFleetSection />
           <SocialCommitmentSection />
           <SocialInnovationSection />
@@ -94,7 +94,7 @@ export default function SustentabilidadePage() {
         <>
           <InnovationClimateSection />
           <InnovationHowWeActSection />
-          <InnovationEASGSection />
+          <InnovationESGSection />
           <InnovationFleetSection />
           <InnovationCommitmentSection />
           <InovacoesSection />

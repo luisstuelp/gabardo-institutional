@@ -11,7 +11,7 @@ const socialFocus = [
   'Monitoramento contínuo de indicadores de impacto social'
 ];
 
-export default function SocialEASGSection() {
+export default function SocialESGSection() {
   return (
     <section className="relative py-20 md:py-32 bg-gray-900 text-white">
       <div className="absolute inset-0">
@@ -32,7 +32,7 @@ export default function SocialEASGSection() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-3xl md:text-4xl font-bold uppercase text-white mb-6"
             >
-              Agenda social estratégica
+              Agenda social ESG estratégica
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}

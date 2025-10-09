@@ -14,13 +14,13 @@ const easgItems = [
   "Inovação Tecnológica"
 ];
 
-export default function EASGSection() {
+export default function ESGSection() {
   return (
     <section className="relative py-20 md:py-32 bg-gray-800 text-white">
       <div className="absolute inset-0">
         <Image
           src="/images/gabardo-hero-03.JPG"
-          alt="EASG"
+          alt="ESG"
           fill
           className="object-cover opacity-30"
         />
@@ -35,7 +35,7 @@ export default function EASGSection() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-4xl font-bold uppercase text-white mb-6"
             >
-              EASG
+              ESG
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}

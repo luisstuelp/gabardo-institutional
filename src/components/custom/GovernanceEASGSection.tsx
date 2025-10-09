@@ -12,7 +12,7 @@ const governancePillars = [
   'Relatórios periódicos para stakeholders e transparência de indicadores'
 ];
 
-export default function GovernanceEASGSection() {
+export default function GovernanceESGSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-[#101d39] via-[#13294c] to-[#0f1f3a] py-24 text-white">
       <div className="absolute inset-0">

@@ -50,7 +50,7 @@ const SobreInstitucionalHeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-xs sm:text-sm font-light tracking-[0.3em] text-gabardo-light-blue uppercase mb-5"
+          className="text-sm sm:text-base md:text-lg font-semibold tracking-[0.32em] text-gabardo-light-blue uppercase mb-6"
         >
           Seção Institucional
         </motion.span>
