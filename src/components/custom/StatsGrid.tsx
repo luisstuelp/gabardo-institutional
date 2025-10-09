@@ -53,13 +53,13 @@ const stats: Stat[] = [
     duration: 2400
   },
   {
-    id: "satisfacao-clientes",
-    value: 99,
-    suffix: "%",
-    title: "Satisfação clientes",
-    description: "Resultados reconhecidos pelos parceiros Gabardo.",
+    id: "frota-propria-gabardo",
+    value: 2000,
+    suffix: "+",
+    title: "Frota própria Gabardo",
+    description: "Caminhões, carretas e plataformas próprios dedicados à operação nacional.",
     accent: "light",
-    duration: 2600
+    duration: 2800
   }
 ];
 
