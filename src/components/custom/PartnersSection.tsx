@@ -1,7 +1,6 @@
 'use client';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
 
 type TeamImage = {
   id: number;
@@ -25,83 +24,89 @@ const baseTeamImages: TeamImage[] = Array.from({ length: 15 }, (_, index) => {
 
 const teamImages: TeamImage[] = baseTeamImages;
 
-const carouselIntervalMs = 5000;
+const aspectRatioClasses = ['aspect-[4/5]', 'aspect-square', 'aspect-[3/4]', 'aspect-[5/4]', 'aspect-[4/3]'];
+const columnOffsetClasses = [
+  'sm:translate-y-0',
+  'sm:translate-y-10 lg:translate-y-16',
+  'lg:-translate-y-16',
+  'xl:translate-y-14',
+];
+
+const imageVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.9,
+    y: 60,
+    filter: 'blur(14px)',
+  },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      delay: 0.12 * i,
+      duration: 0.75,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
 
 export default function PartnersSection() {
-  const totalImages = teamImages.length;
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const columnCount = 4;
+  const columns: { image: TeamImage; index: number }[][] = Array.from({ length: columnCount }, () => []);
 
-  const goNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % totalImages);
-  }, [totalImages]);
-
-  const goPrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + totalImages) % totalImages);
-  }, [totalImages]);
-
-  useEffect(() => {
-    const timer = setInterval(goNext, carouselIntervalMs);
-    return () => clearInterval(timer);
-  }, [goNext]);
-
-  const featured = teamImages[currentIndex];
+  teamImages.forEach((image, index) => {
+    columns[index % columnCount].push({ image, index });
+  });
 
   return (
-    <section className="py-16 space-y-8">
-      <div className="text-center space-y-4">
+    <section className="py-16 space-y-12">
+      <div className="text-center space-y-4 mb-24">
         <h2 className="text-3xl sm:text-4xl font-bold text-gabardo-blue tracking-tight">Nossa Equipe</h2>
         <p className="max-w-2xl mx-auto text-base sm:text-lg text-gray-600">
           Pessoas reais movendo a Gabardo diariamente. Momentos capturados nas operações, treinamentos e celebrações.
         </p>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="relative w-full"
-      >
-        <div className="relative w-full aspect-[16/9] md:aspect-[16/8] xl:aspect-[16/7] max-h-[420px] md:max-h-[500px] xl:max-h-[560px] overflow-hidden rounded-3xl">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={featured.id}
-              initial={{ opacity: 0, scale: 1.04 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="absolute inset-0"
+      <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-16">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {columns.map((column, columnIndex) => (
+            <div
+              key={`column-${columnIndex}`}
+              className={`flex flex-col gap-6 ${columnOffsetClasses[columnIndex] ?? ''} ${
+                columnIndex === 3 ? 'hidden xl:flex' : ''
+              }`}
             >
-              <Image
-                src={featured.src}
-                alt={featured.alt}
-                fill
-                priority
-                sizes="(min-width: 1280px) 50vw, (min-width: 768px) 70vw, 90vw"
-                className="h-full w-full object-cover"
-                style={featured.objectPosition ? { objectPosition: featured.objectPosition } : undefined}
-              />
-            </motion.div>
-          </AnimatePresence>
+              {column.map(({ image, index }) => (
+                <motion.div
+                  key={image.id}
+                  custom={index}
+                  variants={imageVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  className={`group relative overflow-hidden rounded-[1.85rem] bg-gradient-to-br from-gray-100 via-white to-gray-200 shadow-xl ${aspectRatioClasses[index % aspectRatioClasses.length]}`}
+                >
+                  <motion.div
+                    aria-hidden
+                    className="absolute inset-0 bg-gabardo-blue/5 opacity-0 transition-opacity duration-500 group-hover:opacity-20"
+                  />
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    sizes="(min-width: 1536px) 22vw, (min-width: 1280px) 30vw, (min-width: 768px) 40vw, 90vw"
+                    className="h-full w-full object-cover"
+                    style={image.objectPosition ? { objectPosition: image.objectPosition } : undefined}
+                    priority={index < 4}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          ))}
         </div>
-
-        <button
-          type="button"
-          onClick={goPrev}
-          aria-label="Imagem anterior"
-          className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-white/70 p-3 text-gabardo-blue shadow-lg backdrop-blur-sm transition hover:bg-white"
-        >
-          <span className="text-lg font-semibold">&lsaquo;</span>
-        </button>
-        <button
-          type="button"
-          onClick={goNext}
-          aria-label="Próxima imagem"
-          className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-white/70 p-3 text-gabardo-blue shadow-lg backdrop-blur-sm transition hover:bg-white"
-        >
-          <span className="text-lg font-semibold">&rsaquo;</span>
-        </button>
-      </motion.div>
+      </div>
     </section>
   );
 }
