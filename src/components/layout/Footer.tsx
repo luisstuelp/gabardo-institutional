@@ -19,9 +19,15 @@ const footerSections = [
     title: 'Serviços',
     links: [
       { label: 'Transporte de Veículos', href: '/servicos#transporte-de-veiculos' },
-      { label: 'Transporte em Prancha', href: '/servicos#transporte-em-prancha' },
       { label: 'Armazenagem', href: '/servicos#armazenagem' },
       { label: 'Logística Integrada', href: '/servicos#logistica-integrada' },
+    ],
+  },
+  {
+    title: 'Suporte',
+    links: [
+      { label: 'Privacidade', href: '#' },
+      { label: 'Termos', href: '#' },
     ],
   },
   {
@@ -32,13 +38,6 @@ const footerSections = [
       { label: 'Blog', href: '/blog' },
       { label: 'Carreiras', href: '/trabalhe-conosco' },
       { label: 'Contato', href: '/contato' },
-    ],
-  },
-  {
-    title: 'Suporte',
-    links: [
-      { label: 'Privacidade', href: '#' },
-      { label: 'Termos', href: '#' },
     ],
   },
 ];

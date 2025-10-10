@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function GovernanceClimateSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#f4f7ff] via-white to-[#eef3ff] py-20 md:py-24">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#f4f7ff] via-white to-[#eef3ff] pt-16 pb-10 sm:pt-20 sm:pb-16 md:pt-24 md:pb-24">
       <motion.div
         aria-hidden
         initial={{ opacity: 0 }}
@@ -19,7 +19,7 @@ export default function GovernanceClimateSection() {
       </motion.div>
 
       <div className="container relative mx-auto px-4 md:px-8 lg:px-16">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div
             initial={{ opacity: 0, y: 26 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -43,7 +43,7 @@ export default function GovernanceClimateSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="relative isolate flex h-[380px] items-center justify-center overflow-hidden rounded-[32px] border border-white/60 bg-white/80 shadow-[0_40px_90px_-60px_RGBA(15,31,58,0.45)] backdrop-blur"
+            className="relative isolate flex h-[260px] sm:h-[320px] md:h-[380px] items-center justify-center overflow-hidden rounded-[32px] border border-white/60 bg-white/80 shadow-[0_40px_90px_-60px_RGBA(15,31,58,0.45)] backdrop-blur"
           >
             <motion.div
               aria-hidden
@@ -58,6 +58,7 @@ export default function GovernanceClimateSection() {
               fill
               priority={false}
               loading="lazy"
+              className="object-cover object-center"
             />
             <figcaption className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-gabardo-blue">
               Comitê executivo Transportes Gabardo

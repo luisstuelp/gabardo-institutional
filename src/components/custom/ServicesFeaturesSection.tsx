@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Clock, Award, Users, Zap, Globe } from 'lucide-react';
 
@@ -125,7 +125,7 @@ const ServicesFeaturesSection: React.FC = () => {
                 activeItem === feature.id
                   ? 'border-gabardo-blue bg-white shadow-[0_25px_60px_-32px_rgba(19,45,81,0.38)]'
                   : 'border-white bg-white/70 shadow-[0_20px_45px_-35px_rgba(19,45,81,0.3)] hover:border-gabardo-light-blue/60'
-              }`}}
+              }`}
             >
               <div className="flex items-start gap-5">
                 <div

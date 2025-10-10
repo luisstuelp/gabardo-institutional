@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 
 interface ServiceItem {
   id: string;
@@ -63,33 +62,6 @@ const services: ServiceItem[] = [
   }
 ];
 
-const excellenceBadge = {
-  label: 'Índice de integridade da carga',
-  value: '100%'
-};
-
-const excellenceColumns = [
-  {
-    title: 'Operações Especializadas',
-    tag: 'Operações dedicadas',
-    items: [
-      'Operações dedicadas exclusivas para cada cliente',
-      'Equipe especializada para minimizar impactos operacionais',
-      'Operações com transit-point e cross docking',
-      'Milk run e consolidação de cargas otimizada'
-    ]
-  },
-  {
-    title: 'Tecnologia e Inovação',
-    tag: 'Controle 24/7',
-    items: [
-      'Central própria de rastreamento de veículos',
-      'Suporte em tempo real das operações 24/7',
-      'Sistemas de gestão integrada e relatórios personalizados',
-      'Parcerias estratégicas com milhares de agregados'
-    ]
-  }
-];
 
 const ServicesOverviewSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -198,93 +170,6 @@ const ServicesOverviewSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Operational Excellence Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-20 md:mt-24 overflow-hidden rounded-3xl border border-neutral-200 bg-[#F7FAFF]"
-        >
-          <div className="grid gap-12 px-8 py-12 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:px-16 md:py-16">
-            <div className="relative flex items-center justify-center">
-              <div className="relative w-full max-w-[520px] rounded-[32px] bg-white shadow-[0_30px_60px_-35px_rgba(19,45,81,0.45)]">
-                <div className="relative overflow-hidden rounded-[32px]">
-                  <img
-                    src="/images/Trans Gabardo - Framers produtora -5193.JPG"
-                    alt="Frota Gabardo"
-                    className="h-[320px] w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10" />
-
-                  <div className="absolute left-6 top-6 flex items-center justify-between rounded-full bg-white/95 px-5 py-3 shadow-[0_16px_32px_-28px_rgba(19,45,81,0.5)]">
-                    <div className="text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500">
-                      {excellenceBadge.label}
-                    </div>
-                    <div className="ml-4 rounded-full bg-gabardo-light-blue/15 px-4 py-1 text-sm font-semibold text-gabardo-blue">
-                      {excellenceBadge.value}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -bottom-16 right-0 h-36 w-36 rounded-full bg-gabardo-light-blue/30 blur-3xl" aria-hidden />
-            </div>
-
-            <div className="flex flex-col justify-center gap-8">
-              <div className="space-y-6">
-                <span className="inline-flex items-center gap-2 rounded-full border border-gabardo-light-blue/40 bg-white px-5 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-gabardo-blue">
-                  Excelência operacional
-                </span>
-                <h3 className="text-3xl md:text-[2.4rem] font-bold leading-tight text-gabardo-blue">
-                  Descubra a tecnologia e os processos que nos diferenciam
-                </h3>
-                <p className="text-base md:text-lg text-neutral-600 leading-relaxed">
-                  Operações inteligentes, rastreamento em tempo real e equipes multidisciplinares asseguram uma jornada fluida e segura para cada veículo.
-                </p>
-              </div>
-
-              <div className="grid gap-6 md:grid-cols-2">
-                {excellenceColumns.map((column) => (
-                  <div key={column.title} className="rounded-2xl border border-neutral-200 bg-white/90 p-6 shadow-[0_18px_40px_-32px_rgba(19,45,81,0.45)] transition-transform duration-200 hover:-translate-y-1">
-                    <div className="flex items-center justify-between">
-                      <h4 className="text-lg font-semibold text-gabardo-blue">
-                        {column.title}
-                      </h4>
-                      <span className="rounded-full bg-gabardo-light-blue/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-gabardo-light-blue">
-                        {column.tag}
-                      </span>
-                    </div>
-                    <ul className="mt-5 space-y-3">
-                      {column.items.map((item) => (
-                        <li key={item} className="flex items-start gap-3 text-sm text-neutral-600 leading-relaxed">
-                          <span className="mt-1 inline-flex h-2 w-2 flex-shrink-0 rounded-full bg-gabardo-light-blue" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                <Link href="/contato">
-                  <button className="rounded-xl bg-gabardo-blue px-8 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-white shadow-lg transition-transform duration-200 hover:-translate-y-0.5">
-                    Faça seu orçamento
-                  </button>
-                </Link>
-                <Link href="/servicos">
-                  <button className="rounded-xl border border-gabardo-blue px-8 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-gabardo-blue transition-transform duration-200 hover:-translate-y-0.5 hover:bg-gabardo-blue/5">
-                    Conhecer operações
-                  </button>
-                </Link>
-              </div>
-
-              <p className="text-sm md:text-base text-neutral-500">
-                Entregamos ganhos de escala, rotas otimizadas e indicadores auditáveis que mantêm nossos clientes no controle de cada etapa.
-              </p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
