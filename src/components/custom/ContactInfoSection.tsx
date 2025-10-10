@@ -92,7 +92,7 @@ export default function ContactInfoSection() {
         </motion.div>
 
         {/* Professional Contact Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 md:gap-8">
           {contactInfo.map((info, index) => (
             <motion.div
               key={index}
@@ -102,7 +102,7 @@ export default function ContactInfoSection() {
               transition={{ duration: 0.6, delay: 0.1 * index }}
               whileHover={{ y: -5 }}
               whileTap={{ scale: 0.98 }}
-              className={`group bg-white p-6 md:p-8 shadow-sm hover:shadow-lg active:shadow-md transition-all duration-300 border-l-4 border-neutral-200 hover:border-gabardo-light-blue ${
+              className={`group bg-white p-6 sm:p-6 md:p-8 shadow-sm hover:shadow-lg active:shadow-md transition-all duration-300 border-l-4 border-neutral-200 hover:border-gabardo-light-blue ${
                 info.action ? 'cursor-pointer touch-manipulation' : ''
               }`}
               onClick={() => handleContactClick(info.action)}
@@ -119,20 +119,20 @@ export default function ContactInfoSection() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.3 }}
-                className="w-14 h-14 md:w-16 md:h-16 bg-neutral-100 rounded-lg flex items-center justify-center mb-4 md:mb-6 text-neutral-700 group-hover:bg-gabardo-light-blue group-hover:text-white transition-all duration-300"
+                className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-neutral-100 rounded-lg flex items-center justify-center mb-3 sm:mb-4 md:mb-6 text-neutral-700 group-hover:bg-gabardo-light-blue group-hover:text-white transition-all duration-300"
               >
                 {info.icon}
               </motion.div>
-              
-              <h3 className="text-lg md:text-xl font-bold text-black uppercase tracking-wide mb-2 md:mb-3 group-hover:text-gabardo-light-blue transition-colors duration-300 font-primary">
+
+              <h3 className="text-base sm:text-lg md:text-xl font-bold text-black uppercase tracking-wide mb-2 sm:mb-3 md:mb-4 group-hover:text-gabardo-light-blue transition-colors duration-300 font-primary">
                 {info.title}
               </h3>
-              
-              <p className="text-base md:text-lg text-neutral-700 font-medium mb-2 break-words font-primary">
+
+              <p className="text-sm sm:text-base md:text-lg text-neutral-700 font-medium mb-2 sm:mb-3 break-words font-primary">
                 {info.primary}
               </p>
-              
-              <p className="text-sm text-neutral-500 font-light mb-3 md:mb-4 font-secondary">
+
+              <p className="text-xs sm:text-sm text-neutral-500 font-light mb-3 sm:mb-4 md:mb-5 font-secondary">
                 {info.secondary}
               </p>
 

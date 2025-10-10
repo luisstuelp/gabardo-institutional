@@ -79,14 +79,14 @@ const Footer: React.FC = () => {
 
       <TruckAnimation isActive={isFooterInView} />
 
-      <div className="section-container relative z-10 py-20 lg:py-24">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <div className="section-container relative z-10 py-12 sm:py-16 md:py-20 lg:py-24">
+        <div className="grid gap-8 sm:gap-10 md:gap-12 lg:grid-cols-12 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="space-y-8 lg:col-span-4"
+            className="space-y-5 sm:space-y-6 md:space-y-8 lg:col-span-4"
           >
             <Image
               src="/gabardo-logo.png"
@@ -96,22 +96,22 @@ const Footer: React.FC = () => {
               priority
               className="h-auto w-auto drop-shadow-[0_12px_30px_-15px_rgba(0,0,0,0.7)]"
             />
-            <p className="text-sm leading-relaxed text-white/70">
+            <p className="text-xs sm:text-sm leading-relaxed text-white/70">
               Distribuindo eficiência logística e conectando marcas líderes às melhores soluções em transporte automotivo há mais de três décadas.
             </p>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {contactInfo.map(({ icon: Icon, text, href }) => (
-                <div key={text} className="flex items-center gap-3 text-sm text-white/70">
-                  <Icon className="h-4 w-4 text-gabardo-light-blue" />
+                <div key={text} className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-white/70">
+                  <Icon className="h-3 w-3 sm:h-4 sm:w-4 text-gabardo-light-blue" />
                   {href ? <a href={href} className="hover:text-gabardo-light-blue transition-colors">{text}</a> : <span>{text}</span>}
                 </div>
               ))}
             </div>
           </motion.div>
 
-          <div className="space-y-10 lg:col-span-5">
-            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="space-y-6 sm:space-y-8 md:space-y-10 lg:col-span-5">
+            <div className="grid gap-6 sm:gap-8 md:gap-10 grid-cols-2 lg:grid-cols-3">
               {footerSections.map((section, index) => (
                 <motion.div
                   key={section.title}
@@ -119,15 +119,15 @@ const Footer: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.1 + 0.2 }}
-                  className="space-y-4"
+                  className="space-y-3 sm:space-y-4"
                 >
-                  <h4 className="text-xs font-semibold uppercase tracking-[0.32em] text-white/70">
+                  <h4 className="text-[0.65rem] sm:text-xs font-semibold uppercase tracking-[0.28em] sm:tracking-[0.32em] text-white/70">
                     {section.title}
                   </h4>
-                  <ul className="space-y-3 text-sm text-white/70">
+                  <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-white/70">
                     {section.links.map((link) => (
                       <li key={link.label}>
-                        <Link href={link.href} className="inline-flex items-center gap-2 transition-colors duração-200 hover:text-gabardo-light-blue">
+                        <Link href={link.href} className="inline-flex items-center gap-2 transition-colors duration-200 hover:text-gabardo-light-blue">
                           <span>{link.label}</span>
                         </Link>
                       </li>
@@ -143,15 +143,15 @@ const Footer: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
-            className="space-y-6 lg:col-span-3"
+            className="space-y-4 sm:space-y-5 md:space-y-6 lg:col-span-3"
           >
             <h4 className="text-xs font-semibold uppercase tracking-[0.32em] text-white/70">
               Siga a Gabardo
             </h4>
-            <p className="text-sm text-white/60">
+            <p className="text-xs sm:text-sm text-white/60">
               Acompanhe novidades, sustentabilidade e bastidores das operações em nossas redes.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
@@ -159,9 +159,9 @@ const Footer: React.FC = () => {
                   aria-label={label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-all duração-300 hover:border-gabardo-light-blue/60 hover:bg-gabardo-light-blue/20"
+                  className="group inline-flex h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-all duration-300 hover:border-gabardo-light-blue/60 hover:bg-gabardo-light-blue/20"
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-3 w-3 sm:h-4 sm:w-4" />
                 </a>
               ))}
             </div>
@@ -170,19 +170,18 @@ const Footer: React.FC = () => {
       </div>
 
       <motion.div
-        initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
         className="border-t border-white/10 bg-white/5"
       >
-        <div className="section-container flex flex-col gap-4 py-6 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
+        <div className="section-container flex flex-col gap-3 sm:gap-4 py-4 sm:py-5 md:py-6 text-xs sm:text-sm text-white/60 md:flex-row md:items-center md:justify-between">
           <p>2025 Transportes Gabardo. Todos os direitos reservados.</p>
-          <div className="flex flex-wrap gap-6">
-            <Link href="#" className="transition-colors duração-200 hover:text-gabardo-light-blue">
+          <div className="flex flex-wrap gap-4 sm:gap-6">
+            <Link href="/politica-de-privacidade" className="transition-colors duration-200 hover:text-gabardo-light-blue">
               Política de Privacidade
             </Link>
-            <Link href="#" className="transition-colors duração-200 hover:text-gabardo-light-blue">
+            <Link href="/termos-de-uso" className="transition-colors duration-200 hover:text-gabardo-light-blue">
               Termos de Uso
             </Link>
           </div>
@@ -191,18 +190,17 @@ const Footer: React.FC = () => {
     </footer>
   );
 };
-
 type TruckAnimationProps = {
   isActive: boolean;
 };
 
 const TruckAnimation: React.FC<TruckAnimationProps> = ({ isActive }) => (
-  <div className="pointer-events-none absolute bottom-0 left-0 right-0 hidden md:flex justify-end pr-4">
+  <div className="pointer-events-none absolute bottom-0 left-0 right-0 hidden lg:flex justify-end pr-4">
     <motion.div
       initial={{ x: '-120%' }}
       animate={isActive ? { x: 0 } : { x: '-120%' }}
       transition={{ duration: 7, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
-      className="relative w-[520px] drop-shadow-[0_40px_60px_rgba(5,12,22,0.45)] lg:w-[620px]"
+      className="relative w-[420px] drop-shadow-[0_40px_60px_rgba(5,12,22,0.45)] xl:w-[520px] 2xl:w-[620px]"
     >
       <Image
         src="/3dtruck.png"

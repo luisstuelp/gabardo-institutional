@@ -166,13 +166,13 @@ const recognitionBadges = [
 
 const SobreQualidadeCertificationsSection: React.FC = () => {
   return (
-    <section className="relative bg-neutral-950 py-24 md:py-28 text-white overflow-hidden">
+    <section className="relative bg-neutral-950 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 text-white overflow-hidden">
       <div className="absolute inset-0 opacity-60">
         <div className="absolute -top-32 -left-24 w-[480px] h-[480px] rounded-full bg-gabardo-light-blue/10 blur-[160px]" />
         <div className="absolute bottom-0 right-0 w-[520px] h-[520px] rounded-full bg-gabardo-blue/40 blur-[220px]" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-6 md:px-12 lg:px-20">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -180,18 +180,18 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="max-w-3xl"
         >
-          <span className="text-xs font-semibold tracking-[0.4em] uppercase text-gabardo-light-blue/80">Certificações e governança</span>
-          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-white">
+          <span className="text-[0.65rem] sm:text-xs font-semibold tracking-[0.3em] sm:tracking-[0.4em] uppercase text-gabardo-light-blue/80">Certificações e governança</span>
+          <h2 className="mt-3 sm:mt-4 text-2xl sm:text-3xl md:text-4xl font-bold text-white">
             Padrões globais que elevam a confiança dos nossos parceiros
           </h2>
-          <p className="mt-5 text-lg text-white/70 leading-relaxed">
+          <p className="mt-3 sm:mt-4 md:mt-5 text-sm sm:text-base md:text-lg text-white/70 leading-relaxed">
             Integramos ISO 9001, ISO 14001 e ISO 39001 a uma agenda ESG reconhecida, ampliando governança com OEA, Pacto Global ONU
             e implantação da ISO 45001. Conheça como estruturamos essa rede de confiança.
           </p>
         </motion.div>
 
-        <div className="mt-16 grid gap-12 xl:grid-cols-12 xl:items-start">
-          <div className="space-y-10 xl:col-span-8">
+        <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-16 grid gap-8 sm:gap-10 md:gap-12 xl:grid-cols-12 xl:items-start">
+          <div className="space-y-6 sm:space-y-8 md:space-y-10 xl:col-span-8">
             <div className="grid gap-4">
               {qualityBadges.map((badge, index) => {
                 const Icon = badge.icon;
@@ -202,16 +202,16 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.45, delay: index * 0.05 }}
-                    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm"
+                    className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 backdrop-blur-sm"
                   >
                     <div className="absolute -right-12 -top-10 h-20 w-20 rounded-full bg-gabardo-light-blue/15 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
-                    <div className="relative flex items-start gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-gabardo-light-blue">
-                        <Icon className="h-6 w-6" />
+                    <div className="relative flex items-start gap-3 sm:gap-4">
+                      <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg sm:rounded-xl bg-white/10 text-gabardo-light-blue">
+                        <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                       </div>
                       <div>
-                        <h3 className="text-sm font-semibold uppercase tracking-[0.26em] text-white/85">{badge.title}</h3>
-                        <p className="mt-2 text-xs text-white/65 leading-relaxed">{badge.description}</p>
+                        <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em] sm:tracking-[0.26em] text-white/85">{badge.title}</h3>
+                        <p className="mt-1.5 sm:mt-2 text-[0.7rem] sm:text-xs text-white/65 leading-relaxed">{badge.description}</p>
                       </div>
                     </div>
                   </motion.div>
@@ -219,7 +219,7 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
               })}
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {pillars.map((pillar, index) => (
                 <motion.div
                   key={pillar.title}
@@ -227,23 +227,23 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.4 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6"
+                  className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 md:p-6"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-gabardo-light-blue/10 opacity-60" aria-hidden />
-                  <div className="relative space-y-4">
-                    <span className="text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-light-blue/80">{pillar.title}</span>
-                    <p className="text-sm text-white/70 leading-relaxed">{pillar.description}</p>
-                    <div className="flex items-baseline gap-3">
-                      <span className="text-3xl font-semibold text-white">{pillar.stats}</span>
-                      <span className="text-[10px] uppercase tracking-[0.28em] text-white/50">Indicador</span>
+                  <div className="relative space-y-3 sm:space-y-4">
+                    <span className="text-[0.65rem] sm:text-xs font-semibold uppercase tracking-[0.24em] sm:tracking-[0.28em] text-gabardo-light-blue/80">{pillar.title}</span>
+                    <p className="text-xs sm:text-sm text-white/70 leading-relaxed">{pillar.description}</p>
+                    <div className="flex items-baseline gap-2 sm:gap-3">
+                      <span className="text-2xl sm:text-3xl font-semibold text-white">{pillar.stats}</span>
+                      <span className="text-[0.6rem] sm:text-[10px] uppercase tracking-[0.24em] sm:tracking-[0.28em] text-white/50">Indicador</span>
                     </div>
-                    <p className="text-xs text-white/60 leading-relaxed">{pillar.statsLabel}</p>
+                    <p className="text-[0.7rem] sm:text-xs text-white/60 leading-relaxed">{pillar.statsLabel}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-2">
+            <div className="grid gap-4 sm:gap-5 md:gap-6 grid-cols-1 sm:grid-cols-2">
               {certifications.map((cert, index) => (
                 <motion.div
                   key={cert.title}
@@ -251,18 +251,18 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition-transform duration-300 hover:-translate-y-2 hover:border-gabardo-light-blue/50"
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-6 md:p-8 backdrop-blur-sm transition-transform duration-300 hover:-translate-y-2 hover:border-gabardo-light-blue/50"
                 >
                   <div className="absolute -top-16 -right-16 h-32 w-32 rounded-full bg-gabardo-light-blue/20 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <div className="relative flex items-start gap-5">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-gabardo-light-blue">
-                      <cert.icon className="h-8 w-8" strokeWidth={2.2} />
+                  <div className="relative flex items-start gap-3 sm:gap-4 md:gap-5">
+                    <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl sm:rounded-2xl bg-white/10 text-gabardo-light-blue">
+                      <cert.icon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" strokeWidth={2.2} />
                     </div>
                     <div>
-                      <div className="text-sm uppercase tracking-[0.35em] text-white/60">{cert.subtitle}</div>
-                      <h3 className="mt-2 text-2xl font-semibold text-white">{cert.title}</h3>
-                      <p className="mt-4 text-sm md:text-base text-white/70 leading-relaxed">{cert.description}</p>
-                      <div className="mt-6 inline-flex items-center rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-gabardo-light-blue">
+                      <div className="text-xs sm:text-sm uppercase tracking-[0.28em] sm:tracking-[0.35em] text-white/60">{cert.subtitle}</div>
+                      <h3 className="mt-1.5 sm:mt-2 text-lg sm:text-xl md:text-2xl font-semibold text-white">{cert.title}</h3>
+                      <p className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-white/70 leading-relaxed">{cert.description}</p>
+                      <div className="mt-4 sm:mt-5 md:mt-6 inline-flex items-center rounded-full bg-white/10 px-3 sm:px-4 py-1.5 sm:py-2 text-[0.65rem] sm:text-xs font-semibold uppercase tracking-[0.26em] sm:tracking-[0.3em] text-gabardo-light-blue">
                         {cert.highlight}
                       </div>
                     </div>

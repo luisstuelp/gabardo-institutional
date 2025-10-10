@@ -50,7 +50,7 @@ export default function ServicesHeroSection() {
   }, [isMobile]);
 
   return (
-    <div className="relative w-full h-screen text-white overflow-hidden">
+    <div className="relative w-full min-h-screen text-white overflow-hidden">
       {/* Dynamic Background */}
       <div className="absolute inset-0">
         {backgroundImages.map((img, index) => (
@@ -80,7 +80,7 @@ export default function ServicesHeroSection() {
       </div>
 
       {/* Content container */}
-      <div className="relative z-10 flex flex-col justify-between h-full p-4 sm:p-6 md:p-8 lg:p-16">
+      <div className="relative z-10 flex flex-col justify-between min-h-screen p-4 sm:p-6 md:p-8 lg:p-16">
         {/* Top spacer for header */}
         <div className="h-16 md:h-20"></div>
 
@@ -90,7 +90,7 @@ export default function ServicesHeroSection() {
         </div>
 
         {/* Main Content */}
-        <div className="flex flex-col justify-end h-full pb-8 md:pb-0">
+        <div className="flex flex-col justify-end flex-grow pb-8 md:pb-12 lg:pb-16">
           <div className="flex items-end w-full">
             {/* Spacer for scroll indicator */}
             <div className="flex-shrink-0 w-0 md:w-24 lg:w-32"></div>
@@ -101,7 +101,7 @@ export default function ServicesHeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-xs sm:text-sm font-light tracking-[0.2em] text-gabardo-light-blue mb-4 md:mb-6 uppercase font-secondary"
+                className="text-[0.65rem] sm:text-xs md:text-sm font-light tracking-[0.18em] sm:tracking-[0.2em] text-gabardo-light-blue mb-3 sm:mb-4 md:mb-6 uppercase font-secondary"
               >
                 Serviços Gabardo
               </motion.div>
@@ -110,7 +110,7 @@ export default function ServicesHeroSection() {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight tracking-tight mb-4 md:mb-6 font-primary"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6 font-primary"
               >
                 Soluções Completas,
                 <br />
@@ -121,7 +121,7 @@ export default function ServicesHeroSection() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="text-sm sm:text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-6 md:mb-8 font-secondary"
+                className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-5 sm:mb-6 md:mb-8 font-secondary"
               >
                 Operações dedicadas, equipe especializada e preços competitivos. 
                 Atendemos montadoras e empresas com a excelência que seu negócio merece.
@@ -132,7 +132,7 @@ export default function ServicesHeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.0 }}
-                className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 md:gap-8"
+                className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8"
               >
                 <div className="flex items-center space-x-2">
                   <Dot className="w-3 h-3 text-gabardo-light-blue flex-shrink-0" />

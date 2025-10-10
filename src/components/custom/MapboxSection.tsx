@@ -197,12 +197,12 @@ const MapboxSection: React.FC = () => {
   return (
     <section className="py-16 bg-neutral-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-bold mb-4"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4"
             style={{color: '#132D51'}}
           >
             Nossas Unidades
@@ -211,14 +211,14 @@ const MapboxSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl max-w-2xl mx-auto"
+            className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4 sm:px-0"
             style={{color: '#132D51'}}
           >
             A Gabardo está presente nas principais cidades do Brasil para oferecer o melhor serviço de transporte de veículos
           </motion.p>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-8">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8">
           {/* Map Container */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -226,10 +226,10 @@ const MapboxSection: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="lg:col-span-8"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-neutral-900">
+            <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl bg-neutral-900">
               <div
                 ref={mapContainerRef}
-                className="map-container h-[500px] w-full"
+                className="map-container h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] w-full"
               >
                 {!mapLoaded && (
                   <div className="absolute inset-0 flex items-center justify-center bg-neutral-900">
@@ -248,16 +248,16 @@ const MapboxSection: React.FC = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-4"
+            className="lg:col-span-4 mt-6 lg:mt-0"
           >
-            <div className="sticky top-8">
+            <div className="lg:sticky lg:top-8">
               {selectedLocation ? (
                 <div className="bg-white rounded-2xl p-6 shadow-lg border border-neutral-200">
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-2xl font-bold" style={{color: '#132D51'}}>
+                  <div className="flex items-start justify-between mb-3 sm:mb-4">
+                    <h3 className="text-xl sm:text-2xl font-bold" style={{color: '#132D51'}}>
                       {selectedLocation.name}
                     </h3>
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    <span className={`px-2 sm:px-3 py-1 rounded-full text-[0.65rem] sm:text-xs font-medium ${
                       selectedLocation.type === 'matriz' 
                         ? 'bg-red-100 text-red-800' 
                         : selectedLocation.type === 'sede'
@@ -272,7 +272,7 @@ const MapboxSection: React.FC = () => {
                   <p className="text-sm mb-6" style={{color: '#132D51'}}>{selectedLocation.region}</p>
                   <button
                     onClick={handleExploreLocation}
-                    className="w-full text-white py-3 px-6 rounded-xl font-medium transition-colors"
+                    className="w-full text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-medium text-sm sm:text-base transition-colors"
                     style={{backgroundColor: '#132D51'}}
                     onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0f1f3a'}
                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#132D51'}
@@ -282,12 +282,12 @@ const MapboxSection: React.FC = () => {
                 </div>
               ) : (
                 <div className="bg-white rounded-2xl p-6 shadow-lg border border-neutral-200">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold" style={{color: '#132D51'}}>
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold" style={{color: '#132D51'}}>
                       Nossas Unidades
                     </h3>
                     {/* Flag Icons */}
-                    <div className="flex items-center space-x-2">
+                    <div className="hidden sm:flex items-center space-x-2">
                       {/* Brazil - Green field with yellow diamond and blue circle */}
                       <div className="w-8 h-6 rounded-md overflow-hidden shadow-md bg-green-500 flex items-center justify-center relative">
                         <div className="w-4 h-4 bg-yellow-400 transform rotate-45 relative"></div>
@@ -335,23 +335,23 @@ const MapboxSection: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <p className="mb-6" style={{color: '#132D51'}}>
+                  <p className="mb-4 sm:mb-6 text-sm sm:text-base" style={{color: '#132D51'}}>
                     Selecione uma unidade para ver no mapa ou explore clicando nos pontos.
                   </p>
-                  <div className="space-y-4 max-h-[400px] overflow-y-auto">
+                  <div className="space-y-3 sm:space-y-4 max-h-[300px] sm:max-h-[350px] md:max-h-[400px] overflow-y-auto">
                     {['Sul', 'Centro Oeste/Sudeste', 'Nordeste'].map((region) => (
                       <div key={region}>
-                        <h4 className="text-sm font-bold mb-2 uppercase tracking-wider" style={{color: '#132D51'}}>
+                        <h4 className="text-xs sm:text-sm font-bold mb-1.5 sm:mb-2 uppercase tracking-wider" style={{color: '#132D51'}}>
                           {region}
                         </h4>
-                        <ul className="space-y-1">
+                        <ul className="space-y-1 sm:space-y-1.5">
                           {locations.filter(loc => loc.region === region).map((location) => (
                             <li key={location.name}>
                               <button
                                 onClick={() => handleSelectLocationFromList(location)}
-                                className="w-full text-left p-2 rounded-lg hover:bg-neutral-100 transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-300 flex items-center gap-3"
+                                className="w-full text-left p-2 rounded-lg hover:bg-neutral-100 transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-300 flex items-center gap-2 sm:gap-3"
                               >
-                                <span className={`w-2 h-2 rounded-full ${
+                                <span className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${
                                   location.type === 'matriz' 
                                     ? 'bg-red-500' 
                                     : location.type === 'sede'

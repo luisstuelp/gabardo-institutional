@@ -135,8 +135,8 @@ export default function ContactFormSection() {
   }
 
   return (
-    <section id="contact-form" className="py-20 md:py-28 bg-white">
-      <div className="container mx-auto px-4 md:px-8 lg:px-16">
+    <section id="contact-form" className="py-16 sm:py-20 md:py-28 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-16">
         
         {/* Elegant Header */}
         <motion.div
@@ -144,7 +144,7 @@ export default function ContactFormSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -161,7 +161,7 @@ export default function ContactFormSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-black uppercase tracking-tight leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black uppercase tracking-tight leading-tight"
           >
             Como Podemos
             <br />
@@ -177,7 +177,7 @@ export default function ContactFormSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
             onSubmit={handleSubmit}
-            className="space-y-8"
+            className="space-y-8 rounded-3xl border border-neutral-200 bg-white/90 p-6 sm:p-8 md:p-10 shadow-[0_35px_90px_-60px_rgba(19,45,81,0.45)] backdrop-blur"
           >
             {/* Error Message */}
             {error && (
@@ -192,7 +192,7 @@ export default function ContactFormSection() {
             )}
 
             {/* Essential Fields Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               
               {/* Name Field */}
               <motion.div
@@ -214,7 +214,7 @@ export default function ContactFormSection() {
                   maxLength={100}
                   onFocus={() => setFocusedField('name')}
                   onBlur={() => setFocusedField(null)}
-                  className="w-full px-0 py-4 text-lg border-0 border-b-2 border-neutral-200 focus:border-blue-500 focus:outline-none transition-all duration-300 bg-transparent placeholder-neutral-400"
+                  className="w-full px-0 py-3 text-base sm:text-lg border-0 border-b-2 border-neutral-200 focus:border-gabardo-light-blue focus:outline-none transition-all duration-300 bg-transparent placeholder-neutral-400"
                   placeholder="Seu nome completo"
                   whileFocus={{ scale: 1.01 }}
                 />
@@ -222,7 +222,7 @@ export default function ContactFormSection() {
                   initial={{ width: 0 }}
                   animate={{ width: focusedField === 'name' ? '100%' : '0%' }}
                   transition={{ duration: 0.3 }}
-                  className="h-0.5 bg-blue-80"
+                  className="h-0.5 bg-gabardo-light-blue"
                 />
               </motion.div>
 
@@ -245,7 +245,7 @@ export default function ContactFormSection() {
                   maxLength={150}
                   onFocus={() => setFocusedField('email')}
                   onBlur={() => setFocusedField(null)}
-                  className="w-full px-0 py-4 text-lg border-0 border-b-2 border-neutral-200 focus:border-blue-500 focus:outline-none transition-all duration-300 bg-transparent placeholder-neutral-400"
+                  className="w-full px-0 py-3 text-base sm:text-lg border-0 border-b-2 border-neutral-200 focus:border-gabardo-light-blue focus:outline-none transition-all duration-300 bg-transparent placeholder-neutral-400"
                   placeholder="seu@email.com"
                   whileFocus={{ scale: 1.01 }}
                 />
@@ -253,7 +253,7 @@ export default function ContactFormSection() {
                   initial={{ width: 0 }}
                   animate={{ width: focusedField === 'email' ? '100%' : '0%' }}
                   transition={{ duration: 0.3 }}
-                  className="h-0.5 bg-blue-80"
+                  className="h-0.5 bg-gabardo-light-blue"
                 />
               </motion.div>
 
@@ -275,7 +275,7 @@ export default function ContactFormSection() {
                   maxLength={20}
                   onFocus={() => setFocusedField('phone')}
                   onBlur={() => setFocusedField(null)}
-                  className="w-full px-0 py-4 text-lg border-0 border-b-2 border-neutral-200 focus:border-blue-500 focus:outline-none transition-all duration-300 bg-transparent placeholder-neutral-400"
+                  className="w-full px-0 py-3 text-base sm:text-lg border-0 border-b-2 border-neutral-200 focus:border-gabardo-light-blue focus:outline-none transition-all duration-300 bg-transparent placeholder-neutral-400"
                   placeholder="(00) 0000-0000"
                   whileFocus={{ scale: 1.01 }}
                 />
@@ -283,7 +283,7 @@ export default function ContactFormSection() {
                   initial={{ width: 0 }}
                   animate={{ width: focusedField === 'phone' ? '100%' : '0%' }}
                   transition={{ duration: 0.3 }}
-                  className="h-0.5 bg-blue-80"
+                  className="h-0.5 bg-gabardo-light-blue"
                 />
               </motion.div>
 
@@ -303,26 +303,27 @@ export default function ContactFormSection() {
                   name="interest"
                   onFocus={() => setFocusedField('interest')}
                   onBlur={() => setFocusedField(null)}
-                  className="w-full px-0 py-4 text-lg border-0 border-b-2 border-neutral-200 focus:border-blue-500 focus:outline-none transition-all duration-300 bg-transparent"
+                  className="w-full px-0 py-3 text-base sm:text-lg border-0 border-b-2 border-neutral-200 focus:border-gabardo-light-blue focus:outline-none transition-all duration-300 bg-transparent"
                   whileFocus={{ scale: 1.01 }}
                 >
                   <option value="">Selecione seu interesse</option>
                   {interestOptions.map((option) => (
-                    <option key={option} value={option}>{option}</option>
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
                   ))}
                 </motion.select>
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: focusedField === 'interest' ? '100%' : '0%' }}
                   transition={{ duration: 0.3 }}
-                  className="h-0.5 bg-blue-80"
+                  className="h-0.5 bg-gabardo-light-blue"
                 />
               </motion.div>
             </div>
 
             {/* Full Width Fields */}
             <div className="space-y-8">
-              
               {/* Subject Field */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -343,7 +344,7 @@ export default function ContactFormSection() {
                   maxLength={150}
                   onFocus={() => setFocusedField('subject')}
                   onBlur={() => setFocusedField(null)}
-                  className="w-full px-0 py-4 text-lg border-0 border-b-2 border-neutral-200 focus:border-blue-500 focus:outline-none transition-all duration-300 bg-transparent placeholder-neutral-400"
+                  className="w-full px-0 py-3 text-base sm:text-lg border-0 border-b-2 border-neutral-200 focus:border-gabardo-light-blue focus:outline-none transition-all duration-300 bg-transparent placeholder-neutral-400"
                   placeholder="Qual o assunto da sua mensagem?"
                   whileFocus={{ scale: 1.01 }}
                 />
@@ -351,7 +352,7 @@ export default function ContactFormSection() {
                   initial={{ width: 0 }}
                   animate={{ width: focusedField === 'subject' ? '100%' : '0%' }}
                   transition={{ duration: 0.3 }}
-                  className="h-0.5 bg-blue-80"
+                  className="h-0.5 bg-gabardo-light-blue"
                 />
               </motion.div>
 
@@ -375,7 +376,7 @@ export default function ContactFormSection() {
                   rows={6}
                   onFocus={() => setFocusedField('message')}
                   onBlur={() => setFocusedField(null)}
-                  className="w-full px-0 py-4 text-lg border-0 border-b-2 border-neutral-200 focus:border-blue-500 focus:outline-none transition-all duration-300 bg-transparent placeholder-neutral-400 resize-none"
+                  className="w-full px-0 py-3 text-base sm:text-lg border-0 border-b-2 border-neutral-200 focus:border-gabardo-light-blue focus:outline-none transition-all duration-300 bg-transparent placeholder-neutral-400 resize-none"
                   placeholder="Conte-nos mais sobre o que você precisa..."
                   whileFocus={{ scale: 1.01 }}
                 />
@@ -383,7 +384,7 @@ export default function ContactFormSection() {
                   initial={{ width: 0 }}
                   animate={{ width: focusedField === 'message' ? '100%' : '0%' }}
                   transition={{ duration: 0.3 }}
-                  className="h-0.5 bg-blue-80"
+                  className="h-0.5 bg-gabardo-light-blue"
                 />
               </motion.div>
             </div>
@@ -394,14 +395,12 @@ export default function ContactFormSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 1 }}
-              className="flex justify-center pt-8"
+              className="flex justify-center pt-6 md:pt-8"
             >
               <motion.button
                 type="submit"
                 disabled={loading}
-                whileHover={{ scale: 1.05, x: 10 }}
-                whileTap={{ scale: 0.95 }}
-                className="group bg-black text-white px-12 py-4 text-lg font-bold uppercase tracking-wide hover:bg-blue-glow hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 flex items-center space-x-4 disabled:opacity-50 disabled:hover:scale-100 disabled:hover:x-0"
+                className="group bg-gabardo-blue text-white px-10 py-4 text-base sm:text-lg font-bold uppercase tracking-[0.25em] hover:bg-gabardo-blue/90 hover:shadow-lg hover:shadow-gabardo-blue/30 transition-all duration-300 flex items-center space-x-4 touch-manipulation rounded-full disabled:opacity-50 disabled:hover:scale-100"
               >
                 {loading ? (
                   <>
@@ -411,7 +410,7 @@ export default function ContactFormSection() {
                 ) : (
                   <>
                     <span>Enviar Mensagem</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    <ArrowRight className="w-5 h-5" />
                   </>
                 )}
               </motion.button>
@@ -421,4 +420,4 @@ export default function ContactFormSection() {
       </div>
     </section>
   );
-} 
+}

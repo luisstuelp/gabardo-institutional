@@ -20,7 +20,7 @@ const SobreInstitucionalHeroSection = () => {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full overflow-hidden text-white"
+      className="relative min-h-screen w-full overflow-hidden text-white"
     >
       <motion.div className="absolute inset-0" style={{ y: backgroundShift }}>
         <Image
@@ -45,12 +45,12 @@ const SobreInstitucionalHeroSection = () => {
         />
       </motion.div>
 
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center sm:px-6 md:px-8 lg:px-16">
+      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 text-center sm:px-6 md:px-8 lg:px-16 py-20 sm:py-24">
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-sm sm:text-base md:text-lg font-semibold tracking-[0.32em] text-gabardo-light-blue uppercase mb-6"
+          className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold tracking-[0.28em] sm:tracking-[0.32em] text-gabardo-light-blue uppercase mb-5 sm:mb-6"
         >
           Seção Institucional
         </motion.span>
@@ -59,7 +59,7 @@ const SobreInstitucionalHeroSection = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight tracking-tight mb-6"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase leading-tight tracking-tight mb-5 sm:mb-6"
         >
           Estrutura que sustenta a Transportes Gabardo
         </motion.h1>
@@ -68,7 +68,7 @@ const SobreInstitucionalHeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-sm sm:text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-10"
+          className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-8 sm:mb-10 px-2 sm:px-0"
         >
           Somos uma operação integrada com governança sólida, tecnologia aplicada e equipes multidisciplinares que garantem eficiência do planejamento ao pós-entrega.
         </motion.p>

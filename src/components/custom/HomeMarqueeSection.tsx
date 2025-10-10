@@ -35,7 +35,7 @@ const testimonialQuotes = [
 
 const HomeMarqueeSection = () => {
   return (
-    <section className="section-shell bg-white">
+    <section className="section-shell bg-white py-12 sm:py-16 md:py-20 lg:py-24">
       <motion.div
         className="pointer-events-none absolute inset-0"
         initial={{ opacity: 0 }}
@@ -62,20 +62,20 @@ const HomeMarqueeSection = () => {
       </motion.div>
 
       <div className="section-container relative">
-        <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <div className="grid gap-8 sm:gap-10 md:gap-12 lg:gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="text-center lg:text-left"
+            className="text-center lg:text-left px-4 sm:px-0"
           >
-            <span className="section-eyebrow">Movimento Gabardo</span>
-            <h2 className="section-heading mt-5">Fluxo contínuo de inovação e desempenho</h2>
-            <p className="section-subheading mt-6 text-gabardo-blue/80">
+            <span className="section-eyebrow text-xs sm:text-sm">Movimento Gabardo</span>
+            <h2 className="section-heading mt-4 sm:mt-5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">Fluxo contínuo de inovação e desempenho</h2>
+            <p className="section-subheading mt-4 sm:mt-5 md:mt-6 text-sm sm:text-base md:text-lg text-gabardo-blue/80">
               Compromisso diário com alta performance logística, sustentabilidade e tecnologia para movimentar cada etapa da cadeia automotiva.
             </p>
-            <div className="section-divider mx-auto mt-10 lg:mx-0" />
+            <div className="section-divider mx-auto mt-6 sm:mt-8 md:mt-10 lg:mx-0" />
           </motion.div>
 
           <motion.div
@@ -83,7 +83,7 @@ const HomeMarqueeSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.15 }}
-            className="group relative overflow-hidden rounded-[32px] border border-white/65 bg-white/50 shadow-[0_45px_90px_-45px_rgba(19,45,81,0.45)] backdrop-blur-2xl"
+            className="group relative overflow-hidden rounded-2xl sm:rounded-3xl md:rounded-[32px] border border-white/65 bg-white/50 shadow-[0_45px_90px_-45px_rgba(19,45,81,0.45)] backdrop-blur-2xl min-h-[400px] sm:min-h-[450px] md:min-h-[500px]"
           >
             <Image
               src="/images/GabardoBastidores.JPG"
@@ -95,18 +95,18 @@ const HomeMarqueeSection = () => {
             />
             <div className="absolute inset-0 bg-[#0B1B31]/65" />
             <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:bg-gabardo-light-blue/15 group-hover:opacity-100" />
-            <div className="relative space-y-6 p-10 text-white">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.4em] text-white">
+            <div className="relative space-y-4 sm:space-y-5 md:space-y-6 p-6 sm:p-8 md:p-10 text-white">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-[0.65rem] sm:text-[11px] font-semibold uppercase tracking-[0.32em] sm:tracking-[0.4em] text-white">
                 Bastidores Gabardo
               </span>
-              <h3 className="text-2xl font-semibold leading-tight">Operações que conectam frota, pessoas e tecnologia</h3>
-              <p className="text-sm text-white/80">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold leading-tight">Operações que conectam frota, pessoas e tecnologia</h3>
+              <p className="text-xs sm:text-sm text-white/80">
                 Da roteirização ao monitoramento de pátios, nossos squads operacionais unem experiência em campo e dados em tempo real para entregar cada veículo com excelência.
               </p>
-              <ul className="space-y-2 text-sm text-white/82">
+              <ul className="space-y-2 text-xs sm:text-sm text-white/82">
                 {highlightMoments.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <span className="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-gabardo-light-blue" />
+                    <span className="mt-1 inline-block h-1.5 w-1.5 sm:h-2 sm:w-2 flex-shrink-0 rounded-full bg-gabardo-light-blue" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -115,7 +115,7 @@ const HomeMarqueeSection = () => {
           </motion.div>
         </div>
 
-        <div className="mt-16 space-y-8">
+        <div className="mt-10 sm:mt-12 md:mt-14 lg:mt-16 space-y-6 sm:space-y-8">
           <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
             <ScrollMarquee
               delay={280}

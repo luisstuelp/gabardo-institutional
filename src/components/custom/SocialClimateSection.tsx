@@ -27,7 +27,7 @@ const impactHighlights = [
 
 export default function SocialClimateSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#f6f9ff] to-[#eef4ff] py-20 md:py-24">
+    <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#f6f9ff] to-[#eef4ff] py-12 sm:py-16 md:py-20 lg:py-24">
       <motion.div
         aria-hidden
         initial={{ opacity: 0 }}
@@ -40,15 +40,15 @@ export default function SocialClimateSection() {
         <div className="absolute right-12 bottom-12 h-64 w-64 rounded-full bg-emerald-200/40 blur-3xl" />
       </motion.div>
 
-      <div className="container relative mx-auto px-4 md:px-8 lg:px-16">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="space-y-8">
+      <div className="container relative mx-auto px-4 sm:px-6 md:px-8 lg:px-16">
+        <div className="grid items-center gap-8 sm:gap-10 md:gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="space-y-5 sm:space-y-6 md:space-y-8">
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="text-3xl md:text-4xl font-semibold uppercase tracking-[0.16em] text-gabardo-blue"
+              className="text-2xl sm:text-3xl md:text-4xl font-semibold uppercase tracking-[0.12em] sm:tracking-[0.16em] text-gabardo-blue"
             >
               Impacto Social e Comunidades
             </motion.h2>
@@ -57,7 +57,7 @@ export default function SocialClimateSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="max-w-3xl text-lg leading-relaxed text-gray-600"
+              className="max-w-3xl text-sm sm:text-base md:text-lg leading-relaxed text-gray-600"
             >
               Valorizamos as pessoas que constroem a Gabardo e as comunidades onde atuamos. Investimos em programas de educação, saúde e inclusão que ampliam oportunidades e fortalecem nossos laços com colaboradores, motoristas parceiros e famílias.
             </motion.p>
@@ -74,20 +74,20 @@ export default function SocialClimateSection() {
                   }
                 }
               }}
-              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              className="grid gap-4 sm:gap-5 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
             >
               {impactHighlights.map(({ icon: Icon, label, value, description }) => (
                 <motion.li
                   key={label}
                   variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
-                  className="group rounded-3xl border border-white/60 bg-white/80 p-6 shadow-[0_24px_60px_-40px_rgba(15,31,58,0.55)] backdrop-blur"
+                  className="group rounded-2xl sm:rounded-3xl border border-white/60 bg-white/80 p-4 sm:p-5 md:p-6 shadow-[0_24px_60px_-40px_rgba(15,31,58,0.55)] backdrop-blur"
                 >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gabardo-blue/10 text-gabardo-blue">
-                    <Icon className="h-5 w-5" aria-hidden />
+                  <span className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-gabardo-blue/10 text-gabardo-blue">
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden />
                   </span>
-                  <p className="mt-4 text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-blue/70">{label}</p>
-                  <p className="mt-1 text-2xl font-semibold text-gabardo-blue">{value}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-gray-600">{description}</p>
+                  <p className="mt-3 sm:mt-4 text-[0.65rem] sm:text-xs font-semibold uppercase tracking-[0.24em] sm:tracking-[0.28em] text-gabardo-blue/70">{label}</p>
+                  <p className="mt-1 text-xl sm:text-2xl font-semibold text-gabardo-blue">{value}</p>
+                  <p className="mt-2 sm:mt-3 text-xs sm:text-sm leading-relaxed text-gray-600">{description}</p>
                 </motion.li>
               ))}
             </motion.ul>
@@ -98,7 +98,7 @@ export default function SocialClimateSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="relative isolate flex h-[420px] items-center justify-center overflow-hidden rounded-[36px] border border-white/40 bg-white/70 shadow-[0_40px_90px_-45px_rgba(15,31,58,0.45)] backdrop-blur"
+            className="relative isolate flex h-[320px] sm:h-[380px] md:h-[420px] items-center justify-center overflow-hidden rounded-2xl sm:rounded-3xl md:rounded-[36px] border border-white/40 bg-white/70 shadow-[0_40px_90px_-45px_rgba(15,31,58,0.45)] backdrop-blur"
           >
             <motion.div
               aria-hidden
@@ -106,7 +106,7 @@ export default function SocialClimateSection() {
               whileInView={{ rotate: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="absolute inset-8 rounded-[28px] border border-gabardo-blue/10 bg-gradient-to-br from-gabardo-blue/8 via-transparent to-emerald-200/30"
+              className="absolute inset-4 sm:inset-6 md:inset-8 rounded-2xl sm:rounded-[24px] md:rounded-[28px] border border-gabardo-blue/10 bg-gradient-to-br from-gabardo-blue/8 via-transparent to-emerald-200/30"
             />
             <Image
               src="/images/Trans Gabardo - Framers produtora -5606.JPG"
@@ -116,7 +116,7 @@ export default function SocialClimateSection() {
               priority={false}
               loading="lazy"
             />
-            <figcaption className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/85 px-4 py-3 text-xs font-medium uppercase tracking-[0.24em] text-gabardo-blue">
+            <figcaption className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 rounded-xl sm:rounded-2xl bg-white/85 px-3 py-2 sm:px-4 sm:py-3 text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.2em] sm:tracking-[0.24em] text-gabardo-blue">
               Rede colaborativa de impacto social Gabardo
             </figcaption>
           </motion.figure>

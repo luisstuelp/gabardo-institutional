@@ -9,7 +9,7 @@ const heroImage = '/images/gabardo-hero-03.JPG';
 
 const TrabalheConoscoHeroSection: React.FC = () => {
   return (
-    <section className="relative w-full h-screen text-white overflow-hidden">
+    <section className="relative w-full min-h-screen text-white overflow-hidden">
       <div className="absolute inset-0">
         <Image
           src={heroImage}
@@ -25,12 +25,12 @@ const TrabalheConoscoHeroSection: React.FC = () => {
         <div className="absolute -left-24 bottom-10 h-72 w-72 rounded-full bg-gabardo-light-blue/20 blur-[100px]" />
       </div>
 
-      <div className="relative z-10 flex flex-col justify-center items-center h-full text-center px-4 sm:px-6 md:px-10 lg:px-16">
+      <div className="relative z-10 flex flex-col justify-center items-center min-h-screen text-center px-4 sm:px-6 md:px-10 lg:px-16 py-20 sm:py-24">
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-xs sm:text-sm font-light tracking-[0.3em] text-gabardo-light-blue uppercase mb-5"
+          className="text-[0.65rem] sm:text-xs md:text-sm font-light tracking-[0.26em] sm:tracking-[0.3em] text-gabardo-light-blue uppercase mb-4 sm:mb-5"
         >
           Nosso time move a logística do Brasil
         </motion.span>
@@ -39,7 +39,7 @@ const TrabalheConoscoHeroSection: React.FC = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight tracking-tight mb-6"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase leading-tight tracking-tight mb-5 sm:mb-6"
         >
           Construa sua carreira com a Gabardo
         </motion.h1>
@@ -48,7 +48,7 @@ const TrabalheConoscoHeroSection: React.FC = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-sm sm:text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-10"
+          className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-8 sm:mb-10 px-2 sm:px-0"
         >
           Somos apaixonados por desenvolver pessoas, acelerar talentos e criar oportunidades em um ambiente que valoriza diversidade, inovação e resultados.
         </motion.p>
@@ -57,13 +57,13 @@ const TrabalheConoscoHeroSection: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1 }}
-          className="flex flex-col gap-4 sm:flex-row sm:gap-5"
+          className="flex flex-col gap-3 sm:gap-4 md:gap-5 sm:flex-row w-full sm:w-auto"
         >
           <motion.a
             href="#talent-form"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-gabardo-blue shadow-lg"
+            className="inline-flex items-center justify-center rounded-full bg-white px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] text-gabardo-blue shadow-lg"
           >
             Cadastrar currículo
           </motion.a>
@@ -71,7 +71,7 @@ const TrabalheConoscoHeroSection: React.FC = () => {
             href="#beneficios-gabardo"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center justify-center rounded-full border border-white/70 px-8 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white backdrop-blur-md"
+            className="inline-flex items-center justify-center rounded-full border border-white/70 px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] text-white backdrop-blur-md"
           >
             Conhecer jornada
           </motion.a>
@@ -81,7 +81,7 @@ const TrabalheConoscoHeroSection: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="hidden md:flex flex-col items-center gap-3 mt-16"
+          className="hidden md:flex flex-col items-center gap-3 mt-12 sm:mt-16"
         >
           <span className="text-xs tracking-[0.3em] uppercase text-white/70">Role para conhecer nossas iniciativas</span>
           <ChevronDown className="w-8 h-8 animate-bounce" />

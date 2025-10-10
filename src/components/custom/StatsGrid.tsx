@@ -138,7 +138,7 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
       transition={{ duration: 0.75, ease: "easeOut", delay: index * 0.08 }}
       whileHover={{ y: -10, scale: 1.015, rotateX: 2.4, rotateY: -2, transition: { duration: 0.35, ease: "easeOut" } }}
       whileTap={{ scale: 0.985 }}
-      className={`group relative w-full max-w-[460px] rounded-[28px] px-12 py-10 shadow-[0_32px_80px_-48px_RGBA(19,45,81,0.55)] transition-transform duration-500 ${
+      className={`group relative w-full max-w-[460px] rounded-2xl sm:rounded-[24px] md:rounded-[28px] px-6 sm:px-8 md:px-10 lg:px-12 py-6 sm:py-8 md:py-10 shadow-[0_32px_80px_-48px_RGBA(19,45,81,0.55)] transition-transform duration-500 ${
         isDark ? "bg-gabardo-blue text-white" : "bg-neutral-100 text-gabardo-blue"
       }`}
     >
@@ -148,22 +148,22 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
         }`}
       />
 
-      <div className="relative flex flex-col gap-6">
+      <div className="relative flex flex-col gap-4 sm:gap-5 md:gap-6">
         <span
-          className={`text-[11px] font-semibold uppercase tracking-[0.24em] leading-tight ${
+          className={`text-[0.6rem] sm:text-[0.65rem] md:text-[11px] font-semibold uppercase tracking-[0.2em] sm:tracking-[0.24em] leading-tight ${
             isDark ? "text-white/80" : "text-gabardo-blue"
           }`}
         >
           {stat.title}
         </span>
         <span
-          className={`text-4xl font-extrabold tracking-tight md:text-[48px] tabular-nums ${isDark ? "text-white" : "text-gabardo-blue"}`}
+          className={`text-3xl sm:text-4xl md:text-[42px] lg:text-[48px] font-extrabold tracking-tight tabular-nums ${isDark ? "text-white" : "text-gabardo-blue"}`}
           style={{ minWidth: `${minWidthCh}ch` }}
         >
           {currentDisplay}
         </span>
         <p
-          className={`max-w-[380px] text-sm leading-relaxed ${
+          className={`max-w-[380px] text-xs sm:text-sm leading-relaxed ${
             isDark ? "text-white/75" : "text-neutral-600"
           }`}
         >
@@ -195,17 +195,17 @@ const StatsGrid = () => {
       <div className="pointer-events-none absolute -right-16 bottom-0 hidden h-80 w-80 rounded-full bg-gabardo-blue/10 blur-3xl lg:block" />
 
       <div className="section-container relative z-10">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-center px-4 sm:px-6">
           <span className="section-eyebrow">Nossos indicadores</span>
-          <h2 className="section-heading mt-5">Resultados que sustentam a confiança Gabardo</h2>
-          <p className="section-subheading mt-6">
+          <h2 className="section-heading mt-4 sm:mt-5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">Resultados que sustentam a confiança Gabardo</h2>
+          <p className="section-subheading mt-4 sm:mt-5 md:mt-6 text-sm sm:text-base md:text-lg">
             Performance consistente com tecnologia, cobertura nacional e experiência de quem lidera a logística automotiva há décadas.
           </p>
-          <div className="section-divider mx-auto mt-10" />
+          <div className="section-divider mx-auto mt-6 sm:mt-8 md:mt-10" />
         </div>
 
-        <div className="mt-24 w-full">
-          <div className="relative flex flex-col items-center gap-20">
+        <div className="mt-12 sm:mt-16 md:mt-20 lg:mt-24 w-full">
+          <div className="relative flex flex-col items-center gap-10 sm:gap-12 md:gap-16 lg:gap-20">
             <svg
               className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] max-w-none"
               viewBox="0 0 1500 520"
@@ -261,7 +261,7 @@ const StatsGrid = () => {
               />
             </svg>
 
-            <div className="relative z-10 flex w-full max-w-[920px] flex-col items-center gap-10 px-4 md:flex-row md:justify-center md:gap-14 lg:px-0">
+            <div className="relative z-10 flex w-full max-w-[920px] flex-col items-center gap-6 sm:gap-8 md:gap-10 lg:gap-14 px-4 md:flex-row md:justify-center lg:px-0">
               {topRow.map((stat, index) => (
                 <div key={stat.id} className="relative flex w-full max-w-[400px] justify-center">
                   <StatCard stat={stat} value={counts[index] ?? 0} index={index} />
@@ -269,7 +269,7 @@ const StatsGrid = () => {
               ))}
             </div>
 
-            <div className="relative z-10 flex w-full max-w-[920px] flex-col items-center gap-10 px-4 md:flex-row md:justify-center md:gap-14 lg:px-0">
+            <div className="relative z-10 flex w-full max-w-[920px] flex-col items-center gap-6 sm:gap-8 md:gap-10 lg:gap-14 px-4 md:flex-row md:justify-center lg:px-0">
               {bottomRow.map((stat, idx) => {
                 const index = idx + topRow.length;
                 return (

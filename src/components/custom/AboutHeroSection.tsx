@@ -66,7 +66,7 @@ export default function AboutHeroSection() {
   }, [isMobile]);
 
   return (
-    <div className="relative w-full h-screen text-white overflow-hidden">
+    <div className="relative w-full min-h-screen text-white overflow-hidden">
       {/* Dynamic Background */}
       <div className="absolute inset-0">
         {backgroundImages.map((img, index) => (

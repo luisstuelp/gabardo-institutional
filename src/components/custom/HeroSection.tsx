@@ -75,7 +75,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div className="relative w-full h-screen text-white overflow-hidden">
+    <div className="relative w-full h-screen min-h-[600px] text-white overflow-hidden">
       {/* Hero Video Background */}
       <video
         ref={videoRef}
@@ -98,20 +98,20 @@ export default function HeroSection() {
       <div className="relative z-10 flex flex-col justify-between h-full section-container pt-6 pb-10 sm:pt-8 md:pt-16 md:pb-16">
         <div></div>
 
-        {/* Left Scroll Indicator */}
-        <div className="absolute top-1/2 left-4 sm:left-6 md:left-10 lg:left-16 transform -translate-y-1/2">
+        {/* Left Scroll Indicator - Hidden on mobile */}
+        <div className="hidden md:block absolute top-1/2 left-4 sm:left-6 md:left-10 lg:left-16 transform -translate-y-1/2">
           <ScrollDownIcon />
         </div>
         <div className="flex flex-col justify-end h-full">
-          <div className="grid grid-cols-[3.5rem_1fr] sm:grid-cols-[4rem_1fr] md:grid-cols-[7rem_1fr] gap-6 items-end w-full mb-12 sm:mb-14 md:mb-10">
-            <div aria-hidden />
+          <div className="grid grid-cols-1 md:grid-cols-[7rem_1fr] gap-6 items-end w-full mb-8 sm:mb-12 md:mb-10">
+            <div aria-hidden className="hidden md:block" />
             {/* Text Content Block */}
             <div className="max-w-4xl xl:max-w-5xl">
-              <h1 className="font-primary text-[34px] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-5 sm:mb-6">
+              <h1 className="font-primary text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6">
                 Movidos por
                 <br />
                 <span
-                  className="block text-[44px] sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold"
+                  className="block text-[2.75rem] sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold"
                   style={{ color: '#38B6FF' }}
                 >
                   <AnimatedWords />
@@ -122,29 +122,29 @@ export default function HeroSection() {
                 <AnimatedCarbonBadge />
               </div>
 
-              <p className="font-secondary mt-3 text-sm sm:text-base md:text-base lg:text-lg font-light leading-relaxed mb-6 sm:mb-8">
+              <p className="font-secondary mt-3 text-[0.9rem] sm:text-base md:text-base lg:text-lg font-light leading-relaxed mb-5 sm:mb-6 md:mb-8">
                 Há mais de 36 anos, entendemos as necessidades dos nossos clientes para atendê-los de forma personalizada e eficiente no transporte de veículos.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <Link href="/servicos">
+                <Link href="/servicos" className="w-full sm:w-auto">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="group bg-gabardo-light-blue text-white px-8 py-4 text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center space-x-3 touch-manipulation font-primary rounded-full"
+                    className="w-full sm:w-auto group bg-gabardo-light-blue text-white px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 touch-manipulation font-primary rounded-full"
                   >
                     <span>Encontre seu serviço</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
                   </motion.button>
                 </Link>
-                <Link href="/trabalhe-conosco">
+                <Link href="/trabalhe-conosco" className="w-full sm:w-auto">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="group bg-transparent border-2 border-white text-white px-8 py-4 text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center space-x-3 touch-manipulation font-primary rounded-full"
+                    className="w-full sm:w-auto group bg-transparent border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 touch-manipulation font-primary rounded-full"
                   >
                     <span>Seja nosso parceiro</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
                   </motion.button>
                 </Link>
               </div>

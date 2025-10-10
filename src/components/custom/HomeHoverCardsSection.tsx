@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -83,6 +83,19 @@ const cards = [
 
 const HomeHoverCardsSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      if (typeof window !== 'undefined') {
+        setIsMobile(window.innerWidth < 768);
+      }
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const activeCard = useMemo(() => cards[activeIndex], [activeIndex]);
   const imageAlt = useMemo(() => `Gabardo ${activeCard.label}`, [activeCard.label]);
@@ -217,13 +230,13 @@ const HomeHoverCardsSection = () => {
                   </div>
                 </div>
 
-                <div className="relative h-60 w-full overflow-hidden rounded-3xl border border-gabardo-blue/20 bg-black/70 shadow-inner md:h-72 lg:w-64">
+                <div className="relative h-60 w-full overflow-hidden rounded-3xl border border-gabardo-blue/20 bg-black/70 shadow-inner md:h-72 lg:w-72">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={`${activeCard.title}-image`}
-                      initial={{ opacity: 0, scale: 1.08, x: -12 }}
-                      animate={{ opacity: 1, scale: 1.08, x: 0 }}
-                      exit={{ opacity: 0, scale: 1.02, x: -10 }}
+                      initial={{ opacity: 0, scale: isMobile ? 1.32 : 1.08, x: isMobile ? -18 : -12 }}
+                      animate={{ opacity: 1, scale: isMobile ? 1.36 : 1.08, x: isMobile ? -6 : 0 }}
+                      exit={{ opacity: 0, scale: isMobile ? 1.28 : 1.02, x: isMobile ? -12 : -10 }}
                       transition={{ duration: 0.6 }}
                       className="absolute inset-0"
                     >
@@ -231,8 +244,8 @@ const HomeHoverCardsSection = () => {
                         src={activeCard.image}
                         alt={imageAlt}
                         fill
-                        sizes="(min-width: 1024px) 256px, 100vw"
-                        className="object-cover"
+                        sizes="(min-width: 1024px) 288px, 100vw"
+                        className="object-cover object-center"
                         priority={activeIndex === 0}
                       />
                       <div className="absolute inset-0 bg-gradient-to-br from-[#0a1421]/60 via-[#0a1421]/35 to-transparent" />

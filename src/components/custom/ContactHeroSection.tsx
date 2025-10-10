@@ -27,22 +27,6 @@ const ScrollDownIcon = () => (
   </motion.div>
 );
 
-const ArrowIcon = () => (
-  <motion.svg 
-    initial={{ opacity: 0, rotate: -45 }}
-    animate={{ opacity: 1, rotate: 0 }}
-    transition={{ duration: 0.8, delay: 1.2 }}
-    xmlns="http://www.w3.org/2000/svg" 
-    fill="none" 
-    viewBox="0 0 24 24" 
-    strokeWidth={1.5} 
-    stroke="currentColor" 
-    className="hidden md:block w-12 h-12 md:w-16 md:h-16 text-white"
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0V18" />
-  </motion.svg>
-);
-
 export default function ContactHeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -75,24 +59,22 @@ export default function ContactHeroSection() {
 
   const handleContactAction = (action: string) => {
     if (action.startsWith('http')) {
-      window.open(action, '_blank');
-    } else {
       window.location.href = action;
+    } else {
+      window.open(action, '_blank');
     }
   };
 
   return (
-    <div className="relative w-full h-screen text-white overflow-hidden">
+    <div className="relative w-full min-h-[680px] md:min-h-screen text-white overflow-hidden">
       {/* Dynamic Background */}
       <div className="absolute inset-0">
         {backgroundImages.map((img, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: index === currentImageIndex ? 1 : 0
-            }}
-            transition={{ duration: isMobile ? 2.5 : 2, ease: "easeInOut" }}
+            animate={{ opacity: index === currentImageIndex ? 1 : 0 }}
+            transition={{ duration: isMobile ? 2.5 : 2, ease: 'easeInOut' }}
             className="absolute inset-0"
           >
             <Image
@@ -106,26 +88,26 @@ export default function ContactHeroSection() {
             />
           </motion.div>
         ))}
-        
+
         {/* Enhanced gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/75 md:from-black/65 md:via-black/45 md:to-black/65" />
       </div>
 
       {/* Content container */}
-      <div className="relative z-10 flex flex-col justify-between h-full p-4 sm:p-6 md:p-8 lg:p-16">
+      <div className="relative z-10 flex flex-col justify-between min-h-[680px] md:min-h-screen p-6 sm:p-8 md:p-10 lg:p-16">
         {/* Top spacer for header */}
-        <div className="h-16 md:h-20"></div>
+        <div className="h-12 sm:h-16 md:h-20"></div>
 
         {/* Left Scroll Indicator - Hidden on mobile */}
-        <div className="absolute top-1/2 left-6 md:left-8 lg:left-16 transform -translate-y-1/2">
+        <div className="absolute top-1/2 left-6 md:left-8 lg:left-16 -translate-y-1/2">
           <ScrollDownIcon />
         </div>
 
         {/* Main Content */}
-        <div className="flex flex-col justify-end h-full pb-8 md:pb-0">
-          <div className="flex items-end w-full">
+        <div className="flex flex-col justify-end h-full pb-10 sm:pb-12 md:pb-0">
+          <div className="flex flex-col md:flex-row md:items-end w-full gap-6">
             {/* Spacer for scroll indicator */}
-            <div className="flex-shrink-0 w-0 md:w-24 lg:w-32"></div>
+            <div className="hidden md:block flex-shrink-0 md:w-24 lg:w-32"></div>
 
             {/* Text Content */}
             <div className="flex-grow max-w-full md:max-w-4xl xl:max-w-5xl">
@@ -138,7 +120,7 @@ export default function ContactHeroSection() {
                 Contato Gabardo
               </motion.div>
 
-              <motion.h1 
+              <motion.h1
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
@@ -149,14 +131,13 @@ export default function ContactHeroSection() {
                 <span className="text-gabardo-light-blue">Cresça Conosco</span>
               </motion.h1>
 
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
                 className="text-sm sm:text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-6 md:mb-8 font-secondary"
               >
-                Sua próxima solução em transporte de veículos está a uma conversa de distância. 
-                Fale com nossos especialistas e descubra como podemos potencializar seus resultados.
+                Sua próxima solução em transporte de veículos está a uma conversa de distância. Fale com nossos especialistas e descubra como podemos potencializar seus resultados.
               </motion.p>
 
               {/* Contact stats */}
@@ -164,7 +145,7 @@ export default function ContactHeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.0 }}
-                className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 md:gap-8"
+                className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 md:gap-6"
               >
                 <div className="flex items-center space-x-2">
                   <Dot className="w-3 h-3 text-gabardo-light-blue flex-shrink-0" />
@@ -185,7 +166,7 @@ export default function ContactHeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.2 }}
-                className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+                className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4"
               >
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -231,11 +212,6 @@ export default function ContactHeroSection() {
                 </div>
               </motion.div>
             </div>
-
-            {/* Arrow Icon - Hidden on mobile */}
-            <div className="ml-auto pl-4 md:pl-8">
-              <ArrowIcon />
-            </div>
           </div>
         </div>
 
@@ -244,16 +220,16 @@ export default function ContactHeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 2 }}
-          className="md:hidden absolute bottom-6 left-1/2 transform -translate-x-1/2"
+          className="md:hidden absolute bottom-6 left-1/2 -translate-x-1/2"
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             className="w-5 h-8 border-2 border-white/40 rounded-full flex justify-center"
           >
             <motion.div
               animate={{ height: [0, 16, 0], opacity: [0, 1, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
               className="w-0.5 bg-gabardo-light-blue rounded-full mt-1"
             />
           </motion.div>
@@ -261,4 +237,4 @@ export default function ContactHeroSection() {
       </div>
     </div>
   );
-} 
+}

@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 // Client logos with bento grid layout positions
 const clientLogosWithLayout = [
@@ -120,10 +120,9 @@ const clientDetails: Record<number, { name: string; description: string }> = {
 const HomeClientsLogoSection = () => {
   const [hoveredLogo, setHoveredLogo] = useState<number | null>(null);
   const [flippedLogo, setFlippedLogo] = useState<number | null>(null);
-  const flipTransition = useMemo(() => ({ duration: 0.6, ease: 'easeInOut' as const }), []);
 
   return (
-    <section className="section-shell bg-gradient-to-br from-white via-gabardo-light-blue/5 to-white overflow-hidden">
+    <section className="section-shell bg-gradient-to-br from-white via-gabardo-light-blue/5 to-white overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24">
       {/* Animated Background Effects */}
       <motion.div 
         className="absolute inset-0 -z-10"
@@ -159,20 +158,20 @@ const HomeClientsLogoSection = () => {
       </motion.div>
 
       <div className="section-container">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-8 sm:gap-10 md:gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left Column - Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-10"
+            className="space-y-6 sm:space-y-8 md:space-y-10"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.5, rotateX: -90 }}
               whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2 rounded-full bg-white/80 px-6 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-gabardo-blue shadow-sm ring-1 ring-gabardo-light-blue/40"
+              className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 sm:px-5 md:px-6 py-1.5 sm:py-2 text-[0.65rem] sm:text-xs font-semibold uppercase tracking-[0.28em] sm:tracking-[0.35em] text-gabardo-blue shadow-sm ring-1 ring-gabardo-light-blue/40"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -180,7 +179,7 @@ const HomeClientsLogoSection = () => {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.5"
-                className="h-4 w-4"
+                className="h-3 w-3 sm:h-4 sm:w-4"
               >
                 <path d="M12 12c2.209 0 4-1.791 4-4s-1.791-4-4-4-4 1.791-4 4 1.791 4 4 4Z" />
                 <path d="M4 20c0-3.314 3.134-6 7-6h2c3.866 0 7 2.686 7 6" strokeLinecap="round" />
@@ -188,13 +187,13 @@ const HomeClientsLogoSection = () => {
               <span>Clientes Gabardo</span>
             </motion.div>
 
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-5 md:space-y-6">
               <motion.h2
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-                className="section-heading text-left text-gabardo-blue"
+                className="section-heading text-left text-gabardo-blue text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
               >
                 <motion.span
                   initial={{ opacity: 0, y: 20 }}
@@ -205,7 +204,7 @@ const HomeClientsLogoSection = () => {
                   As marcas que confiam
                 </motion.span>
                 <motion.span 
-                  className="mt-1 block font-extrabold text-gabardo-light-blue text-4xl sm:text-5xl lg:text-6xl"
+                  className="mt-1 block font-extrabold text-gabardo-light-blue text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
                   initial={{ opacity: 0, y: 30, scale: 0.9 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
@@ -220,7 +219,7 @@ const HomeClientsLogoSection = () => {
                 whileInView={{ width: '5.5rem', opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.9 }}
-                className="h-1 rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue relative overflow-hidden"
+                className="h-0.5 sm:h-1 rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue relative overflow-hidden"
               >
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent"
@@ -234,13 +233,13 @@ const HomeClientsLogoSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 1.1 }}
-                className="section-subheading text-left"
+                className="section-subheading text-left text-sm sm:text-base md:text-lg"
               >
                 Parcerias sólidas com marcas globais, sustentadas por tecnologia, compliance e equipes especializadas para cada operação.
               </motion.p>
 
               <motion.div 
-                className="flex flex-wrap gap-4 pt-4 text-xs font-semibold uppercase tracking-[0.32em] text-gabardo-blue/60"
+                className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 pt-3 sm:pt-4 text-[0.65rem] sm:text-xs font-semibold uppercase tracking-[0.28em] sm:tracking-[0.32em] text-gabardo-blue/60"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -249,7 +248,7 @@ const HomeClientsLogoSection = () => {
                 {['ISO 9001', 'ESG+', 'Cobertura nacional'].map((badge, i) => (
                   <motion.span
                     key={badge}
-                    className="inline-flex items-center gap-2 rounded-full bg-gabardo-light-blue/15 px-5 py-2"
+                    className="inline-flex items-center gap-2 rounded-full bg-gabardo-light-blue/15 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2"
                     initial={{ opacity: 0, scale: 0, rotateZ: -180 }}
                     whileInView={{ opacity: 1, scale: 1, rotateZ: 0 }}
                     viewport={{ once: true }}
@@ -275,12 +274,12 @@ const HomeClientsLogoSection = () => {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
           >
-          <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[120px] gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 auto-rows-[100px] sm:auto-rows-[110px] md:auto-rows-[120px] gap-2 sm:gap-2.5 md:gap-3">
             {clientLogosWithLayout.map((logo, index) => (
               <Link
                 key={logo.id}
                 href="/sobre/secao-institucional"
-                className={`${logo.span} group relative rounded-2xl bg-white border border-gabardo-blue/10 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:z-10 hover:shadow-xl [perspective:1200px]`}
+                className={`${logo.span} group relative rounded-xl sm:rounded-2xl bg-white border border-gabardo-blue/10 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:z-10 hover:shadow-xl [perspective:1200px]`}
               >
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8, rotateY: -45 }}
@@ -291,18 +290,17 @@ const HomeClientsLogoSection = () => {
                     delay: 0.5 + (index * 0.05),
                     ease: [0.16, 1, 0.3, 1]
                   }}
-                  className="absolute inset-0 p-4"
+                  className="absolute inset-0 p-2 sm:p-3 md:p-4"
                   onHoverStart={() => setHoveredLogo(logo.id)}
                   onHoverEnd={() => {
                     setHoveredLogo(null);
                     setFlippedLogo(null);
                   }}
                   animate={{ rotateY: flippedLogo === logo.id ? 180 : 0 }}
-                  transition={flipTransition}
                 >
-                  <div className="absolute inset-0 rounded-2xl bg-white shadow-sm transition-all duration-300 [transform-style:preserve-3d]">
+                  <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-white shadow-sm transition-all duration-300 [transform-style:preserve-3d]">
                     <div
-                      className="absolute inset-0 flex items-center justify-center p-4"
+                      className="absolute inset-0 flex items-center justify-center p-2 sm:p-3 md:p-4"
                       style={{ backfaceVisibility: 'hidden' }}
                       onClick={(event) => {
                         event.preventDefault();
@@ -310,7 +308,7 @@ const HomeClientsLogoSection = () => {
                       }}
                     >
                       <motion.div 
-                        className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gabardo-light-blue/5 via-transparent to-gabardo-blue/5"
+                        className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br from-gabardo-light-blue/5 via-transparent to-gabardo-blue/5"
                         animate={{
                           opacity: hoveredLogo === logo.id ? 0.3 : 0
                         }}
@@ -326,7 +324,7 @@ const HomeClientsLogoSection = () => {
                       />
 
                       <motion.div
-                        className="absolute inset-0 rounded-2xl"
+                        className="absolute inset-0 rounded-xl sm:rounded-2xl"
                         style={{
                           background: 'linear-gradient(135deg, rgba(96,165,250,0.3), rgba(96,165,250,0.1))',
                           opacity: 0
@@ -339,20 +337,20 @@ const HomeClientsLogoSection = () => {
                     </div>
 
                     <div
-                      className="absolute inset-0 flex h-full w-full flex-col justify-center gap-3 rounded-2xl bg-gradient-to-br from-[#08162a] via-[#0b2242] to-[#0d2b53] p-6 text-white text-center [transform:rotateY(180deg)]"
+                      className="absolute inset-0 flex h-full w-full flex-col justify-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#08162a] via-[#0b2242] to-[#0d2b53] p-3 sm:p-4 md:p-6 text-white text-center [transform:rotateY(180deg)]"
                       style={{ backfaceVisibility: 'hidden' }}
                       onClick={(event) => {
                         event.preventDefault();
                         setFlippedLogo((prev) => (prev === logo.id ? null : logo.id));
                       }}
                     >
-                      <h3 className="text-base font-semibold uppercase tracking-[0.18em]">
+                      <h3 className="text-xs sm:text-sm md:text-base font-semibold uppercase tracking-[0.14em] sm:tracking-[0.18em]">
                         {clientDetails[logo.id]?.name ?? `Cliente ${logo.id}`}
                       </h3>
-                      <p className="text-xs text-white/80 leading-relaxed">
+                      <p className="text-[0.65rem] sm:text-xs text-white/80 leading-relaxed hidden sm:block">
                         {clientDetails[logo.id]?.description ?? 'Parceiro estratégico da Gabardo em soluções logísticas personalizadas em todo o Brasil.'}
                       </p>
-                      <span className="mt-2 inline-flex items-center justify-center rounded-full bg-white/15 px-3 py-1 text-[10px] uppercase tracking-[0.28em] text-white/70">
+                      <span className="mt-1 sm:mt-2 inline-flex items-center justify-center rounded-full bg-white/15 px-2 sm:px-3 py-0.5 sm:py-1 text-[0.5rem] sm:text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.28em] text-white/70 hidden sm:inline-flex">
                         Clique para voltar
                       </span>
                     </div>

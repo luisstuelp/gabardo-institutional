@@ -220,7 +220,7 @@ const ProtocolStack: React.FC = () => {
         Interaja para percorrer cada etapa que protege a operação Gabardo, da análise à execução.
       </p>
 
-      <div ref={containerRef} className="relative mt-8 flex h-[420px] items-center justify-center overflow-hidden">
+      <div ref={containerRef} className="relative mt-6 sm:mt-8 flex h-[320px] sm:h-[380px] md:h-[420px] items-center justify-center overflow-hidden">
         {visibleLayers.map(({ item, animate, z, isActive }) => (
           <motion.div
             key={item.src}
@@ -228,12 +228,12 @@ const ProtocolStack: React.FC = () => {
             animate={animate}
             transition={{ duration: 0.5, ease: 'easeOut' }}
             style={{ zIndex: z }}
-            className="absolute inset-x-0 mx-auto flex w-full max-w-[380px] items-center justify-center rounded-3xl bg-white/96 px-6 py-5 shadow-[0_26px_48px_-36px_rgba(19,45,81,0.65)"
+            className="absolute inset-x-0 mx-auto flex w-full max-w-[280px] sm:max-w-[340px] md:max-w-[380px] items-center justify-center rounded-2xl sm:rounded-3xl bg-white/96 px-4 sm:px-5 md:px-6 py-4 sm:py-5 shadow-[0_26px_48px_-36px_rgba(19,45,81,0.65)"
           >
             <motion.img
               src={item.src}
               alt={item.alt}
-              className="h-72 w-auto object-contain drop-shadow-sm"
+              className="h-52 sm:h-60 md:h-72 w-auto object-contain drop-shadow-sm"
               animate={{ opacity: isActive ? 1 : 0.7, scale: isActive ? 1.28 : 0.92 }}
               transition={{ duration: 0.3 }}
             />
@@ -241,20 +241,20 @@ const ProtocolStack: React.FC = () => {
         ))}
       </div>
 
-      <div className="mt-8 flex items-center justify-between px-4 sm:px-5 md:px-6 pb-4">
+      <div className="mt-6 sm:mt-8 flex items-center justify-between px-3 sm:px-4 md:px-5 lg:px-6 pb-3 sm:pb-4">
         <div className="flex gap-1.5">
           {reliabilityItems.map((_, index) => (
             <button
               key={index}
               onClick={() => setActiveIndex(index)}
-              className={`h-1.5 rounded-full transition-all ${
-                activeIndex === index ? 'w-7 bg-gabardo-blue' : 'w-3 bg-gabardo-blue/25'
+              className={`h-1 sm:h-1.5 rounded-full transition-all ${
+                activeIndex === index ? 'w-6 sm:w-7 bg-gabardo-blue' : 'w-2 sm:w-3 bg-gabardo-blue/25'
               }`}
               aria-label={`Ir para protocolo ${index + 1}`}
             />
           ))}
         </div>
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-blue/60">
+        <div className="flex items-center gap-2 text-[0.65rem] sm:text-xs font-semibold uppercase tracking-[0.24em] sm:tracking-[0.28em] text-gabardo-blue/60">
           {String(activeIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
         </div>
       </div>
@@ -264,7 +264,7 @@ const ProtocolStack: React.FC = () => {
 
 const PremiumInfoSection: React.FC = () => {
   return (
-    <section className="py-20 md:py-32 bg-gray-100 relative overflow-hidden">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-32 bg-gray-100 relative overflow-hidden">
       <div className="absolute inset-0">
         <motion.div
           aria-hidden
@@ -289,13 +289,13 @@ const PremiumInfoSection: React.FC = () => {
         />
       </div>
 
-      <div className="container mx-auto px-4 md:px-8 lg:px-16 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 md:mb-24"
+          className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-24"
         >
           <motion.div
             className="inline-flex items-center gap-3 mb-6"
@@ -309,7 +309,7 @@ const PremiumInfoSection: React.FC = () => {
               animate={{ scaleX: [1, 1.1, 1] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
             />
-            <span className="text-sm font-mono text-gray-600 tracking-[0.3em] uppercase">
+            <span className="text-xs sm:text-sm font-mono text-gray-600 tracking-[0.24em] sm:tracking-[0.3em] uppercase">
               Confiabilidade e Segurança
             </span>
             <motion.div
@@ -323,15 +323,15 @@ const PremiumInfoSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-primary text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-gabardo-blue"
+            className="font-primary text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-gabardo-blue"
           >
             Nossos Compromissos com a sua Carga
           </motion.h2>
         </motion.div>
 
-        <div className="mx-auto flex max-w-5xl flex-col gap-16">
+        <div className="mx-auto flex max-w-5xl flex-col gap-10 sm:gap-12 md:gap-16">
           <motion.div
-            className="grid gap-6 rounded-[32px] border border-white/30 bg-white/40 p-6 shadow-[0_32px_90px_-48px_rgba(19,45,81,0.6)] backdrop-blur-lg md:grid-cols-[1.15fr_0.85fr]"
+            className="grid gap-5 sm:gap-6 rounded-2xl sm:rounded-3xl md:rounded-[32px] border border-white/30 bg-white/40 p-4 sm:p-5 md:p-6 shadow-[0_32px_90px_-48px_rgba(19,45,81,0.6)] backdrop-blur-lg md:grid-cols-[1.15fr_0.85fr]"
             variants={metricsVariants}
             initial="hidden"
             whileInView="visible"
@@ -340,7 +340,7 @@ const PremiumInfoSection: React.FC = () => {
             <ProtocolStack />
             <motion.figure
               variants={metricItem}
-              className="relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 shadow-[0_22px_40px_-46px_rgba(19,45,81,0.55)]"
+              className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/40 bg-white/70 shadow-[0_22px_40px_-46px_rgba(19,45,81,0.55)]"
             >
               <img
                 src="/images/seguranca-thumbsup.jpg"
@@ -383,7 +383,7 @@ const PremiumInfoSection: React.FC = () => {
           </motion.div>
 
           <motion.div
-            className="grid gap-6 md:grid-cols-3"
+            className="grid gap-4 sm:gap-5 md:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -394,19 +394,19 @@ const PremiumInfoSection: React.FC = () => {
                 key={title}
                 variants={cardVariants}
                 whileHover={{ y: -10, scale: 1.02 }}
-                className="group relative flex h-full flex-col gap-4 rounded-[28px] border border-white/35 bg-white/70 p-6 shadow-[0_26px_70px_-48px_rgba(19,45,81,0.55)] backdrop-blur-lg transition-all duration-300 hover:border-gabardo-light-blue/60"
+                className="group relative flex h-full flex-col gap-3 sm:gap-4 rounded-2xl sm:rounded-[24px] md:rounded-[28px] border border-white/35 bg-white/70 p-4 sm:p-5 md:p-6 shadow-[0_26px_70px_-48px_rgba(19,45,81,0.55)] backdrop-blur-lg transition-all duration-300 hover:border-gabardo-light-blue/60"
               >
                 <motion.span
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gabardo-light-blue/20 text-gabardo-blue shadow-[0_16px_36px_-28px_rgba(56,182,255,0.7)]"
+                  className="inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-gabardo-light-blue/20 text-gabardo-blue shadow-[0_16px_36px_-28px_rgba(56,182,255,0.7)]"
                   animate={{ scale: [1, 1.07, 1], rotate: [0, 4, 0] }}
                   transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: index * 0.4 }}
                   whileHover={{ scale: 1.15, rotate: -6 }}
                 >
-                  <Icon className="h-6 w-6" />
+                  <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                 </motion.span>
-                <div className="space-y-3">
-                  <h3 className="text-xl font-semibold text-gabardo-blue">{title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">{description}</p>
+                <div className="space-y-2 sm:space-y-3">
+                  <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gabardo-blue">{title}</h3>
+                  <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{description}</p>
                 </div>
                 <motion.div
                   className="pointer-events-none absolute inset-0 rounded-[28px] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
