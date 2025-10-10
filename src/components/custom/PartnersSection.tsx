@@ -83,7 +83,7 @@ export default function PartnersSection() {
         <div className="relative mt-16">
           <Carousel
             setApi={setApi}
-            opts={{ align: 'start', loop: true, skipSnaps: false }}
+            opts={{ align: 'start', loop: true, dragFree: true, containScroll: 'trimSnaps' }}
             className="relative"
           >
             <CarouselContent className="-ml-4">
@@ -104,9 +104,11 @@ export default function PartnersSection() {
                         src={member.src}
                         alt={member.alt}
                         fill
-                        sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 28vw, (min-width: 768px) 40vw, 88vw"
-                        className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
+                        sizes="(max-width: 767px) 100vw, (max-width: 1023px) 58vw, (max-width: 1279px) 36vw, (max-width: 1535px) 28vw, 24vw"
+                        quality={100}
+                        className="select-none object-cover object-center transition-transform duration-700 group-hover:scale-[1.04]"
                         priority={member.id <= 4}
+                        draggable={false}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-85" />
                     </div>
