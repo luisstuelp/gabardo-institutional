@@ -29,6 +29,7 @@ const columnOffsetClasses = [
   'sm:translate-y-0',
   'sm:translate-y-10 lg:translate-y-16',
   'lg:-translate-y-16',
+  'xl:translate-y-14',
 ];
 
 const imageVariants = {
@@ -52,7 +53,7 @@ const imageVariants = {
 };
 
 export default function PartnersSection() {
-  const columnCount = 3;
+  const columnCount = 4;
   const columns: { image: TeamImage; index: number }[][] = Array.from({ length: columnCount }, () => []);
 
   teamImages.forEach((image, index) => {
@@ -61,19 +62,21 @@ export default function PartnersSection() {
 
   return (
     <section className="py-16 space-y-12">
-      <div className="text-center space-y-4">
+      <div className="text-center space-y-4 mb-24">
         <h2 className="text-3xl sm:text-4xl font-bold text-gabardo-blue tracking-tight">Nossa Equipe</h2>
         <p className="max-w-2xl mx-auto text-base sm:text-lg text-gray-600">
           Pessoas reais movendo a Gabardo diariamente. Momentos capturados nas operações, treinamentos e celebrações.
         </p>
       </div>
 
-      <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-16">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {columns.map((column, columnIndex) => (
             <div
               key={`column-${columnIndex}`}
-              className={`flex flex-col gap-6 ${columnOffsetClasses[columnIndex] ?? ''}`}
+              className={`flex flex-col gap-6 ${columnOffsetClasses[columnIndex] ?? ''} ${
+                columnIndex === 3 ? 'hidden xl:flex' : ''
+              }`}
             >
               {column.map(({ image, index }) => (
                 <motion.div
@@ -93,7 +96,7 @@ export default function PartnersSection() {
                     src={image.src}
                     alt={image.alt}
                     fill
-                    sizes="(min-width: 1280px) 25vw, (min-width: 768px) 40vw, 90vw"
+                    sizes="(min-width: 1536px) 22vw, (min-width: 1280px) 30vw, (min-width: 768px) 40vw, 90vw"
                     className="h-full w-full object-cover"
                     style={image.objectPosition ? { objectPosition: image.objectPosition } : undefined}
                     priority={index < 4}
