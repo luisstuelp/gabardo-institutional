@@ -16,25 +16,16 @@ import InnovativeSolutionsSection from '@/components/custom/InnovativeSolutionsS
 import InitiativesSection from '@/components/custom/InitiativesSection';
 
 import SocialClimateSection from '@/components/custom/SocialClimateSection';
-import SocialHowWeActSection from '@/components/custom/SocialHowWeActSection';
-import SocialESGSection from '@/components/custom/SocialEASGSection';
-import SocialFleetSection from '@/components/custom/SocialFleetSection';
 import SocialCommitmentSection from '@/components/custom/SocialCommitmentSection';
 import SocialInnovationSection from '@/components/custom/SocialInnovationSection';
-import SocialTestimonialsSection from '@/components/custom/SocialTestimonialsSection';
-import SocialInitiativesSection from '@/components/custom/SocialInitiativesSection';
 
 import SobreInstitucionalLeadershipSection from '@/components/custom/SobreInstitucionalLeadershipSection';
 import GovernanceClimateSection from '@/components/custom/GovernanceClimateSection';
 import GovernanceHowWeActSection from '@/components/custom/GovernanceHowWeActSection';
 import GovernanceFleetSection from '@/components/custom/GovernanceFleetSection';
 import GovernanceCommitmentSection from '@/components/custom/GovernanceCommitmentSection';
-import GovernanceInitiativesSection from '@/components/custom/GovernanceInitiativesSection';
-import GovernanceSection from '@/components/custom/GovernanceSection';
-import AboutCulturaSection from '@/components/custom/AboutCulturaSection';
 
 import InnovationClimateSection from '@/components/custom/InnovationClimateSection';
-import InnovationESGSection from '@/components/custom/InnovationEASGSection';
 import InnovationCommitmentSection from '@/components/custom/InnovationCommitmentSection';
 import InovacoesSection from '@/components/custom/InovacoesSection';
 
@@ -108,13 +99,8 @@ export default function SustentabilidadePage() {
 
       <section id="social" className="scroll-mt-32">
         <SocialClimateSection />
-        <SocialHowWeActSection />
-        <SocialESGSection />
-        <SocialFleetSection />
         <SocialCommitmentSection />
         <SocialInnovationSection />
-        <SocialTestimonialsSection />
-        <SocialInitiativesSection />
       </section>
 
       <section id="governanca" className="scroll-mt-32">
@@ -123,14 +109,10 @@ export default function SustentabilidadePage() {
         <GovernanceHowWeActSection />
         <GovernanceFleetSection />
         <GovernanceCommitmentSection />
-        <AboutCulturaSection />
-        <GovernanceInitiativesSection />
-        <GovernanceSection />
       </section>
 
       <section id="inovacoes" className="scroll-mt-32">
         <InnovationClimateSection />
-        <InnovationESGSection />
         <InnovationCommitmentSection />
         <InovacoesSection />
       </section>

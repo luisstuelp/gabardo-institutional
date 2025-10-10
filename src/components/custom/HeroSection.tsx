@@ -90,13 +90,8 @@ export default function HeroSection() {
         controls={false}
         style={{ backgroundColor: 'transparent' }}
       >
-        <source src="https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd40MOZFknI6fVUiN4gAm5SK8M9Ltw7jpxPBy3" type="video/mp4" />
-        <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/trucks-hero.jpg')" }}
-        />
+        <source src="https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd5OVWpnZMciUgloBfthZmDSj3bWQ4yPuzERXM" type="video/mp4" />
       </video>
-      
       <div className="absolute inset-0 bg-black bg-opacity-50"></div> {/* Overlay for better text contrast */}
 
       {/* Content container */}

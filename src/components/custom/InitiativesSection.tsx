@@ -59,7 +59,7 @@ export default function InitiativesSection() {
               className="bg-gray-50 p-8 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
             >
               <div className="flex items-center mb-4">
-                <div className="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
+                <div className="p-3 rounded-full bg-gabardo-blue/10 text-gabardo-blue mr-4">
                   <initiative.icon className="w-8 h-8" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900">{initiative.name}</h3>

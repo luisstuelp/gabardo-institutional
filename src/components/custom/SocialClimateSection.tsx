@@ -109,7 +109,7 @@ export default function SocialClimateSection() {
               className="absolute inset-8 rounded-[28px] border border-gabardo-blue/10 bg-gradient-to-br from-gabardo-blue/8 via-transparent to-emerald-200/30"
             />
             <Image
-              src="/images/Trans Gabardo - Framers produtora -5193.JPG"
+              src="/images/Trans Gabardo - Framers produtora -5606.JPG"
               alt="Programas sociais Gabardo"
               fill
               className="object-cover"

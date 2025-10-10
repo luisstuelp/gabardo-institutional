@@ -48,16 +48,14 @@ export default function GovernanceClimateSection() {
             <motion.div
               aria-hidden
               initial={{ rotate: -4, opacity: 0 }}
-              whileInView={{ rotate: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="absolute inset-6 rounded-[26px] border border-gabardo-blue/15 bg-gradient-to-br from-gabardo-blue/8 via-transparent to-emerald-200/25"
             />
             <Image
-              src="/images/Trans Gabardo - Framers produtora -5388.JPG"
-              alt="Governança Gabardo"
+              src="/images/Trans Gabardo - Framers produtora -5623.JPG"
+              alt="Comitê executivo Transportes Gabardo"
               fill
-              className="object-cover"
               priority={false}
               loading="lazy"
             />
