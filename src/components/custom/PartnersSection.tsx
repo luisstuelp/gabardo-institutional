@@ -62,7 +62,7 @@ export default function PartnersSection() {
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className="relative w-full"
       >
-        <div className="relative w-full aspect-[16/9]">
+        <div className="relative w-full aspect-[16/9] md:aspect-[16/8] xl:aspect-[16/7] max-h-[420px] md:max-h-[500px] xl:max-h-[560px] overflow-hidden rounded-3xl">
           <AnimatePresence mode="wait">
             <motion.div
               key={featured.id}

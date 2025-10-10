@@ -87,18 +87,18 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className={headerClasses}
       >
-        <div className="section-container flex items-center justify-between py-3.5 sm:py-3 md:py-[0.5rem] lg:py-[0.18rem]">
+        <div className="section-container flex items-center justify-between py-1.5 sm:py-1.5 md:py-[0.28rem] lg:py-[0.18rem]">
           <Link
             href="/"
             className="group inline-flex items-center"
             aria-label="Transportes Gabardo - Página inicial"
           >
-            <div className="lg:transform lg:scale-150">
+            <div className="lg:transform lg:scale-[1.12]">
               <Image
                 src="/gabardo-logo.png"
                 alt="Transportes Gabardo"
-                width={isMobile ? 110 : 116}
-                height={isMobile ? 32 : 30}
+                width={isMobile ? 102 : 110}
+                height={isMobile ? 30 : 28}
                 priority
                 className="h-auto w-auto transition-transform duration-300 group-hover:scale-105"
                 style={{ filter: logoFilter, WebkitFilter: logoFilter }}
@@ -109,18 +109,18 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
           <div className="flex items-center gap-3 sm:gap-4 lg:gap-3">
             <Link
               href="/contato"
-              className={`hidden lg:inline-flex items-center gap-2 rounded-full px-6 py-[0.6rem] text-[0.7rem] font-semibold uppercase tracking-[0.32em] transition-all duration-300 shadow-[0_18px_35px_-28px_RGBA(19,45,81,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${ctaClasses}`}
+              className={`hidden lg:inline-flex items-center gap-2 rounded-full px-[1.1rem] py-[0.45rem] text-[0.64rem] font-semibold uppercase tracking-[0.26em] transition-all duration-300 shadow-[0_18px_35px_-28px_RGBA(19,45,81,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${ctaClasses}`}
             >
               Fale conosco
             </Link>
 
             <button
               onClick={() => setIsMenuOpen(true)}
-              className={`group relative inline-flex h-10 w-10 lg:h-[2.2rem] lg:w-[2.2rem] items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${menuButtonClasses}`}
+              className={`group relative inline-flex h-9 w-9 lg:h-[2rem] lg:w-[2rem] items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${menuButtonClasses}`}
               aria-label="Abrir menu"
             >
               <span className="absolute inset-0 rounded-full bg-gradient-to-br from-transparent via-transparent to-gabardo-light-blue/15 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
-              <Menu size={isMobile ? 24 : 20} />
+              <Menu size={isMobile ? 22 : 18} />
             </button>
           </div>
         </div>
