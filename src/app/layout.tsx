@@ -2,11 +2,78 @@ import type { Metadata } from "next";
 import "./globals.css";
 import WhatsAppFloat from "@/components/custom/WhatsAppFloat";
 import CookieConsentBanner from "@/components/custom/CookieConsentBanner";
+import StructuredData from "@/components/seo/StructuredData";
 import { meta } from "@/data/hubPluralContent";
 
 export const metadata: Metadata = {
-  title: meta.title,
+  title: {
+    default: meta.title,
+    template: '%s | Transportes Gabardo'
+  },
   description: meta.description,
+  keywords: [
+    'transporte de veículos',
+    'transportadora de carros',
+    'cegonha',
+    'logística automotiva',
+    'transporte LATAM',
+    'ISO 9001',
+    'ISO 14001',
+    'ISO 39001',
+    'carbono negativo',
+    'rastreamento veículos',
+    'armazenagem veículos',
+    'Porto Alegre',
+    'Brasil'
+  ],
+  authors: [{ name: 'Transportes Gabardo' }],
+  creator: 'Transportes Gabardo',
+  publisher: 'Transportes Gabardo',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://www.transgabardo.com.br'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: meta.title,
+    description: meta.description,
+    url: 'https://www.transgabardo.com.br',
+    siteName: 'Transportes Gabardo',
+    locale: 'pt_BR',
+    type: 'website',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Transportes Gabardo - Logística Automotiva',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: meta.title,
+    description: meta.description,
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'verification_token',
+  },
 };
 
 export default function RootLayout({
@@ -25,6 +92,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Supermolot+Neue:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-primary">
+        <StructuredData />
         {children}
         <WhatsAppFloat />
         <CookieConsentBanner />
