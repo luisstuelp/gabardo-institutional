@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
 
       <TruckAnimation isActive={isFooterInView} />
 
-      <div className="section-container relative z-10 py-12 sm:py-16 md:py-20 lg:py-24">
+      <div className="section-container relative z-10 py-16 sm:py-20 md:py-24 lg:py-28">
         <div className="grid gap-8 sm:gap-10 md:gap-12 lg:grid-cols-12 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 24 }}

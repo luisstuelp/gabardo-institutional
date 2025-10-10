@@ -81,29 +81,51 @@ export default function FacilitiesSection() {
                     <p className="text-base text-gray-600">{facility.description}</p>
                   </div>
                 </div>
+                <AnimatePresence>
+                  {selectedFacility.name === facility.name && (
+                    <motion.div
+                      className="mt-4 lg:hidden"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                    >
+                      <div className="relative h-64 w-full overflow-hidden rounded-lg">
+                        <Image
+                          src={selectedFacility.image}
+                          alt={selectedFacility.name}
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 50vw"
+                          className="object-cover"
+                        />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             ))}
           </div>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={selectedFacility.name}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5 }}
-              className="relative rounded-lg overflow-hidden shadow-lg"
-              style={{ height: leftColumnHeight > 0 ? leftColumnHeight : 'auto' }}
-            >
-              <Image
-                src={selectedFacility.image}
-                alt={selectedFacility.name}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-                priority={selectedFacility.name === facilities[0].name}
-              />
-            </motion.div>
-          </AnimatePresence>
+          <div className="hidden lg:block">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedFacility.name}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.5 }}
+                className="relative rounded-lg overflow-hidden shadow-lg"
+                style={{ height: leftColumnHeight > 0 ? leftColumnHeight : 'auto' }}
+              >
+                <Image
+                  src={selectedFacility.image}
+                  alt={selectedFacility.name}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                  priority={selectedFacility.name === facilities[0].name}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 relative overflow-hidden">

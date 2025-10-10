@@ -37,7 +37,7 @@ const SobreConformidadeHeroSection = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight tracking-tight mb-6"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold uppercase leading-tight tracking-tight mb-6"
         >
           Protegemos dados, asseguramos confiança
         </motion.h1>

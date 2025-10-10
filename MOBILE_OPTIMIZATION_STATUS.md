@@ -1,154 +1,50 @@
-# 📱 Mobile Optimization Status - Gabardo Website
+# Mobile Optimization Status
 
-## ✅ Fully Optimized Components & Pages
+This document tracks the changes made to optimize the site for the best possible mobile experience.
 
-### **Homepage** (`/page.tsx`) - COMPLETE ✓
-- ✅ HeroSection - min-h-screen, responsive text (2rem → 10rem)
-- ✅ JSLInspiredServicesSection - Grid (1→2→3 cols), responsive cards  
-- ✅ PremiumInfoSection - Protocol stack, responsive pillars
-- ✅ HomeStripeCardSection - Accordion cards mobile-optimized
-- ✅ StatsGrid - Responsive stat cards with proper scaling
-- ✅ HomeMarqueeSection - Image container & content responsive
-- ✅ HomeClientsLogoSection - Bento grid (2→3→4 cols)
-- ✅ BlogSection - Featured & regular posts mobile-optimized
-- ✅ MapboxSection - Map height & controls responsive
-- ✅ Footer - Grid, icons, truck animation hidden on mobile
+## Summary of Changes
 
-### **Qualidade Page** (`/sobre/qualidade`) - COMPLETE ✓
-- ✅ SobreQualidadeHeroSection - FIXED (was broken on mobile)
-- ✅ SobreQualidadeCertificationsSection - Full responsive
-- ✅ SobreQualidadeOverviewSection - Cards & pillars optimized
-- ✅ SobreQualidadeInfraestruturaSection - Grid & metrics responsive
+- **Global Styles & Layout:**
+  - Added the viewport meta tag to `src/app/layout.tsx` to ensure proper scaling on mobile devices.
+  - Optimized font loading by consolidating font imports in `src/app/layout.tsx` and removing inefficient `@import` statements from `src/app/globals.css`.
 
-### **Social & Initiative Sections** - COMPLETE ✓
-- ✅ SocialClimateSection - Impact cards & image responsive
-- ✅ SocialCommitmentSection - Banner fully responsive
-- ✅ InitiativesSection - Grid & cards optimized
+- **Header (`src/components/layout/Header.tsx`):**
+  - Implemented a fully responsive header with a hamburger menu for mobile and a full navigation bar for desktop.
+  - Removed client-side rendering for responsiveness, relying on Tailwind CSS classes for a more performant, CSS-native approach.
 
-### **Trabalhe Conosco Page** - COMPLETE ✓
-- ✅ TrabalheConoscoHeroSection - FIXED min-h-screen
+- **Hero Section (`src/components/custom/HeroSection.tsx`):**
+  - Replaced the background video with a static image on mobile to save data and improve load times.
+  - Adjusted text sizes for better readability on smaller screens.
 
-### **Servicos Page** - COMPLETE ✓
-- ✅ ServicesHeroSection - FIXED min-h-screen
+- **JSLInspiredServicesSection (`src/components/custom/JSLInspiredServicesSection.tsx`):**
+  - Adjusted section padding and heading font sizes for a better mobile layout.
 
----
+- **PremiumInfoSection (`src/components/custom/PremiumInfoSection.tsx`):**
+  - Simplified the `ProtocolStack` component on mobile, replacing the complex card stack animation with a touch-friendly horizontal scroll.
+  - Adjusted section padding.
 
-## 🔄 In Progress / Needs Optimization
+- **HomeStripeCardSection (`src/components/custom/HomeStripeCardSection.tsx`):**
+  - Removed hover-based interactions, prioritizing tap events for the expandable cards.
+  - Simplified complex animations to improve performance on mobile.
 
-### **Hero Sections** - PRIORITY
-Still need `h-screen` → `min-h-screen` fix:
-- 📋 SobreInstitucionalHeroSection (h-screen with parallax)
-- 📋 AboutHeroSection (h-screen with dynamic background)
-- 📋 ContactHeroSection (h-screen with dynamic background)
-- 📋 SustainabilityHeroSection (h-screen)
-- 📋 SobreConformidadeHeroSection (h-screen)
-- 📋 SejaAgregadoHeroSection (h-screen)
-- 📋 ProgramsHeroSection (h-screen)
+- **StatsGrid (`src/components/custom/StatsGrid.tsx`):**
+  - Hid the decorative SVG animation on smaller screens to improve performance.
+  - Removed hover effects from the stat cards.
 
-Already using `min-h-screen` (✓):
-- ✅ StorageHeroSection
-- ✅ PranchaHeroSection
-- ✅ FleetHeroSection
+- **HomeMarqueeSection (`src/components/custom/HomeMarqueeSection.tsx`):**
+  - Removed hover effects from the image card.
+  - Adjusted section padding.
 
-### **Other Sections Needing Review**
-- 📋 SobreHistoriaTimelineSection
-- 📋 SobreInstitucionalOperationsSection
-- 📋 ServicesOverviewSection
-- 📋 ServicesGridSection
-- 📋 ServicesFeaturesSection
-- 📋 ServicesFleetSection
-- 📋 TrabalheConoscoIntroSection
-- 📋 TrabalheConoscoBenefitsSection
-- 📋 PartnersSection
-- 📋 PillarsSection
-- 📋 HomeHoverCardsSection
-- 📋 AboutClientsCarousel
+- **HomeClientsLogoSection (`src/components/custom/HomeClientsLogoSection.tsx`):**
+  - Removed hover effects from the client logos, relying on tap for the flip card interaction.
 
----
+- **BlogSection (`src/components/custom/BlogSection.tsx`):**
+  - Removed all hover-dependent animations and effects.
+  - Adjusted section padding and typography for mobile.
 
-## 📊 Mobile Optimization Principles Applied
+- **MapboxSection (`src/components/custom/MapboxSection.tsx`):**
+  - Disabled scroll-to-zoom and touch-to-zoom/rotate on the map to prevent accidental interactions on mobile.
+  - Standardized hover effects on buttons using Tailwind CSS classes.
 
-### **Typography Scaling System**
-```
-Mobile → Tablet → Desktop
-text-xs → text-sm → text-base → text-lg → text-xl
-text-2xl → text-3xl → text-4xl → text-5xl → text-6xl
-```
-
-### **Spacing System**
-```
-py-12 → py-16 → py-20 → py-24 → py-28
-gap-3 → gap-4 → gap-6 → gap-8 → gap-12
-p-4 → p-5 → p-6 → p-8 → p-10
-```
-
-### **Grid Patterns**
-```
-grid-cols-1 → sm:grid-cols-2 → lg:grid-cols-3
-grid-cols-2 → sm:grid-cols-3 → md:grid-cols-4 (bento)
-```
-
-### **Touch Targets**
-- ✅ Minimum 44px for all interactive elements
-- ✅ Full-width buttons on mobile when appropriate
-- ✅ Proper padding (px-6 sm:px-8 py-2.5 sm:py-3)
-
-### **Image Optimization**
-- ✅ Responsive heights: h-[280px] sm:h-[350px] md:h-[420px]
-- ✅ Proper sizes attributes for Next/Image
-- ✅ object-cover with appropriate positioning
-
----
-
-## 🎯 Next Steps (Priority Order)
-
-1. **Fix remaining h-screen hero sections** (7 sections)
-2. **Optimize timeline & history components**
-3. **Review and optimize section components**
-4. **Test all pages on mobile viewports** (375px, 390px, 414px)
-5. **Verify touch targets** (all interactive elements ≥ 44px)
-6. **Check for horizontal scroll** (no overflow-x issues)
-
----
-
-## 📝 Testing Checklist
-
-### **Viewports to Test**
-- [ ] 375px (iPhone SE)
-- [ ] 390px (iPhone 12/13/14)
-- [ ] 414px (iPhone Pro Max)
-- [ ] 768px (iPad)
-- [ ] 1024px (Desktop)
-
-### **Common Issues to Check**
-- [ ] No text overflow or cutoff
-- [ ] No horizontal scrolling
-- [ ] Buttons are tappable (44px min)
-- [ ] Images load and scale properly
-- [ ] Grid/flex layouts stack correctly
-- [ ] Typography is readable (≥ 12px)
-- [ ] Spacing feels balanced
-
----
-
-## 🔧 Quick Reference
-
-### **Common Fixes Applied**
-```tsx
-// BEFORE (Broken on mobile)
-className="h-screen"
-className="text-4xl"
-className="px-8 py-4"
-className="grid-cols-3"
-
-// AFTER (Mobile responsive)
-className="min-h-screen py-20 sm:py-0"
-className="text-2xl sm:text-3xl md:text-4xl"
-className="px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4"
-className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-```
-
----
-
-**Last Updated**: 2025-01-09 22:05 (UTC-3)
-**Status**: ~60% Complete - Core pages optimized, remaining sections in progress
+- **Footer (`src/components/layout/Footer.tsx`):**
+  - Adjusted section padding for a more compact mobile layout.

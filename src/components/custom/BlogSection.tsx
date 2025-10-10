@@ -15,7 +15,7 @@ const BlogSection: React.FC = () => {
   const regularPosts = allBlogPosts.filter(post => !post.featured).slice(0, 3); // Get first 3 non-featured posts
 
   return (
-    <section className="py-12 sm:py-14 md:py-16 lg:py-20 xl:py-24 bg-gray-50 text-gray-900 relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 bg-gray-50 text-gray-900 relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-16">
 
         {/* Background Elements */}
@@ -52,7 +52,7 @@ const BlogSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 sm:mb-5 md:mb-6 px-2 sm:px-0"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4 sm:mb-5 md:mb-6 px-2 sm:px-0"
           >
             <p><span className="text-gabardo-blue">INOVAÇÃO EM</span> <span className="text-gabardo-light-blue">TRANSPORTE</span> <span className="text-gabardo-blue">DE VEÍCULOS</span></p>
 
@@ -66,7 +66,7 @@ const BlogSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4 sm:px-0"
+            className="text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4 sm:px-0"
           >
             Descubra as últimas tendências, tecnologias e inovações que estão transformando o transporte de veículos no Brasil
           </motion.p>

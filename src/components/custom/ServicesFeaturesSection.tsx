@@ -65,25 +65,10 @@ const serviceFeatures: FeatureItem[] = [
 ];
 
 const ServicesFeaturesSection: React.FC = () => {
-  const [isClient, setIsClient] = useState(false);
   const [activeItem, setActiveItem] = useState<string>('seguranca');
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return (
-      <section className="py-20 bg-neutral-50">
-        <div className="container mx-auto px-4 text-center">
-          <div className="text-neutral-400">Loading features...</div>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-[#F7FAFF] relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-[#F7FAFF] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-16 left-12 h-48 w-48 rounded-full bg-gabardo-light-blue/20 blur-3xl" />
         <div className="absolute bottom-10 right-16 h-40 w-40 rounded-full bg-gabardo-blue/10 blur-[120px]" />
@@ -140,7 +125,7 @@ const ServicesFeaturesSection: React.FC = () => {
                 activeItem === feature.id
                   ? 'border-gabardo-blue bg-white shadow-[0_25px_60px_-32px_rgba(19,45,81,0.38)]'
                   : 'border-white bg-white/70 shadow-[0_20px_45px_-35px_rgba(19,45,81,0.3)] hover:border-gabardo-light-blue/60'
-              }`}
+              }`}}
             >
               <div className="flex items-start gap-5">
                 <div

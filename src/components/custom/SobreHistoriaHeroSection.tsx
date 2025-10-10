@@ -58,7 +58,7 @@ const SobreHistoriaHeroSection = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="section-heading mt-5 text-center text-white md:text-5xl lg:text-[56px]"
+          className="section-heading mt-5 text-center text-white text-4xl md:text-5xl lg:text-[56px]"
         >
           36 anos movendo o Brasil
         </motion.h1>

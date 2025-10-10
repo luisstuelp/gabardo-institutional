@@ -31,7 +31,7 @@ const operations = [
 
 const SobreInstitucionalOperationsSection = () => {
   return (
-    <section className="relative overflow-hidden bg-neutral-50 py-16 md:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-neutral-50 py-16 sm:py-20 md:py-24 lg:py-28">
       <motion.div
         aria-hidden
         className="pointer-events-none absolute left-[-15%] top-24 h-72 w-72 rounded-full bg-gabardo-blue/10 blur-[140px]"

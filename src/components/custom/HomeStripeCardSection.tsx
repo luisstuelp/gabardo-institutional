@@ -108,7 +108,6 @@ const HomeStripeCardSection = () => {
                       style={{ flexBasis: 'auto', minHeight: 0, padding: 0 }}
                       className="relative flex cursor-pointer flex-col overflow-hidden rounded-xl sm:rounded-2xl border bg-white/10 text-white backdrop-blur-xl"
                       onClick={() => setActiveIndex(index)}
-                      onMouseEnter={() => setActiveIndex(index)}
                       onFocus={() => setActiveIndex(index)}
                       onKeyDown={(event) => {
                         if (event.key === 'Enter' || event.key === ' ') {
@@ -162,7 +161,7 @@ const HomeStripeCardSection = () => {
                           <motion.p
                             className="text-xs sm:text-sm text-white/90"
                             initial={false}
-                            animate={{ opacity: isActive ? 1 : 0.8 }}
+                            animate={{ opacity: isActive ? 1 : 0 }}
                             transition={{ duration: 0.26, ease: 'easeOut' }}
                           >
                             {feature.description}

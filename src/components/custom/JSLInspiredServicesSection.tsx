@@ -47,7 +47,7 @@ const services: Service[] = [
 
 const JSLInspiredServicesSection: React.FC = () => {
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-32 bg-white">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-white">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-16">
         
         {/* Header Section */}
@@ -77,7 +77,7 @@ const JSLInspiredServicesSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase tracking-tight leading-tight px-2 sm:px-0"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold uppercase tracking-tight leading-tight px-2 sm:px-0"
           >
             <span style={{ color: '#132D51' }}>Soluções Completas</span>
             <br />
@@ -89,7 +89,7 @@ const JSLInspiredServicesSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-sm sm:text-base md:text-lg lg:text-xl text-neutral-600 font-light max-w-4xl mx-auto leading-relaxed mt-4 sm:mt-5 md:mt-6 px-4 sm:px-0"
+            className="text-base md:text-lg lg:text-xl text-neutral-600 font-light max-w-4xl mx-auto leading-relaxed mt-4 sm:mt-5 md:mt-6 px-4 sm:px-0"
           >
             A Transportes Gabardo oferece um portfólio completo de serviços para a logística automotiva, desde o transporte de veículos até a gestão de pátios e armazéns.
           </motion.p>

@@ -207,7 +207,7 @@ const StatsGrid = () => {
         <div className="mt-12 sm:mt-16 md:mt-20 lg:mt-24 w-full">
           <div className="relative flex flex-col items-center gap-10 sm:gap-12 md:gap-16 lg:gap-20">
             <svg
-              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] max-w-none"
+              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] max-w-none hidden md:block"
               viewBox="0 0 1500 520"
               preserveAspectRatio="none"
             >

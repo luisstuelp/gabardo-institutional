@@ -78,7 +78,7 @@ const LogoItem = ({ logo }: LogoItemProps) => {
       >
         {/* Front - Logo */}
         <div
-          className="absolute inset-0 flex items-center justify-center bg-white rounded-3xl border border-gabardo-blue/10 p-8 shadow-sm hover:shadow-lg hover:border-gabardo-light-blue/30 transition-all duration-300"
+          className="absolute inset-0 flex items-center justify-center bg-white rounded-3xl border border-gabardo-blue/10 p-8 shadow-sm transition-all duration-300"
           style={{ backfaceVisibility: 'hidden' }}
         >
           <Image
@@ -86,7 +86,7 @@ const LogoItem = ({ logo }: LogoItemProps) => {
             alt={logo.name}
             width={220}
             height={140}
-            className="w-full h-full select-none object-contain grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-500"
+            className="w-full h-full select-none object-contain grayscale opacity-60 transition-all duration-500"
             draggable={false}
           />
         </div>
@@ -227,9 +227,8 @@ const AboutClientsCarousel = () => {
       applyTranslation(xTranslation.current - SPEED);
     }
   });
-
   return (
-    <section className="py-20 bg-gradient-to-br from-white via-gabardo-light-blue/5 to-white overflow-hidden" id="nossos-clientes">
+    <section className="py-16 sm:py-20 bg-gradient-to-br from-white via-gabardo-light-blue/5 to-white overflow-hidden" id="nossos-clientes">
       {/* Header */}
       <div className="container mx-auto px-4 mb-12">
         <motion.div

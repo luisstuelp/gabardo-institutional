@@ -126,7 +126,7 @@ export default function AboutHeroSection() {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight tracking-tight mb-4 md:mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl font-bold uppercase leading-tight tracking-tight mb-4 md:mb-6"
               >
                 Transportando Veículos,
                 <br />
@@ -137,7 +137,7 @@ export default function AboutHeroSection() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="text-sm sm:text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-6 md:mb-8"
+                className="text-sm sm:text-base md:text-lg font-light leading-relaxed max-w-full md:max-w-3xl mb-6 md:mb-8"
               >
                 Desde 1989, a Transportes Gabardo carrega o legado de Sérgio Mário Gabardo, 
                 revolutionando o transporte rodoviário de veículos com tecnologia, segurança e excelência.

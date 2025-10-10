@@ -22,7 +22,7 @@ const highlights = [
 
 const SobreConformidadeHighlightsSection = () => {
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-neutral-50">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-neutral-50">
       <div className="container mx-auto px-4 md:px-8 lg:px-16">
         <div className="text-center mb-12">
           <motion.h2

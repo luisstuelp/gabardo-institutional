@@ -85,7 +85,7 @@ const AboutStorySection: React.FC = () => {
   const scrollItems: ScrollItem[] = timeline.map((item, index) => ({
     content: (
       <motion.div
-        className="relative mx-4 w-[400px] sm:w-[480px] md:w-[560px] lg:w-[640px] h-[260px] sm:h-[310px] md:h-[380px] lg:h-[430px] overflow-hidden rounded-2xl shadow-[0_20px_48px_-22px_rgba(19,45,81,0.35)]"
+        className="relative mx-4 w-[320px] sm:w-[400px] md:w-[480px] lg:w-[560px] h-[240px] sm:h-[280px] md:h-[320px] lg:h-[380px] overflow-hidden rounded-2xl shadow-[0_20px_48px_-22px_rgba(19,45,81,0.35)]"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -188,12 +188,12 @@ const AboutStorySection: React.FC = () => {
           <div className="flex items-center justify-center">
             <InfiniteScroll
               width="100vw"
-              maxHeight="620px"
+              maxHeight="420px"
               itemMinHeight={380}
               negativeMargin="-3rem"
               items={scrollItems}
               autoplay
-              autoplaySpeed={0.6}
+              autoplaySpeed={1.2}
               pauseOnHover={false}
               isTilted
               tiltDirection="left"

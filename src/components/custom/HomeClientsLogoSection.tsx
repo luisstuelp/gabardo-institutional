@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Client logos with bento grid layout positions
 const clientLogosWithLayout = [
@@ -118,8 +118,17 @@ const clientDetails: Record<number, { name: string; description: string }> = {
 };
 
 const HomeClientsLogoSection = () => {
-  const [hoveredLogo, setHoveredLogo] = useState<number | null>(null);
   const [flippedLogo, setFlippedLogo] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <section className="section-shell bg-gradient-to-br from-white via-gabardo-light-blue/5 to-white overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24">
@@ -280,6 +289,8 @@ const HomeClientsLogoSection = () => {
                 key={logo.id}
                 href="/sobre/secao-institucional"
                 className={`${logo.span} group relative rounded-xl sm:rounded-2xl bg-white border border-gabardo-blue/10 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:z-10 hover:shadow-xl [perspective:1200px]`}
+                onMouseEnter={() => !isMobile && setFlippedLogo(logo.id)}
+                onMouseLeave={() => !isMobile && setFlippedLogo(null)}
               >
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8, rotateY: -45 }}
@@ -291,10 +302,11 @@ const HomeClientsLogoSection = () => {
                     ease: [0.16, 1, 0.3, 1]
                   }}
                   className="absolute inset-0 p-2 sm:p-3 md:p-4"
-                  onHoverStart={() => setHoveredLogo(logo.id)}
-                  onHoverEnd={() => {
-                    setHoveredLogo(null);
-                    setFlippedLogo(null);
+                  onClick={(event) => {
+                    if (isMobile) {
+                      event.preventDefault();
+                      setFlippedLogo((prev) => (prev === logo.id ? null : logo.id));
+                    }
                   }}
                   animate={{ rotateY: flippedLogo === logo.id ? 180 : 0 }}
                 >
@@ -309,10 +321,6 @@ const HomeClientsLogoSection = () => {
                     >
                       <motion.div 
                         className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br from-gabardo-light-blue/5 via-transparent to-gabardo-blue/5"
-                        animate={{
-                          opacity: hoveredLogo === logo.id ? 0.3 : 0
-                        }}
-                        transition={{ duration: 0.3 }}
                       />
 
                       <Image
@@ -329,10 +337,6 @@ const HomeClientsLogoSection = () => {
                           background: 'linear-gradient(135deg, rgba(96,165,250,0.3), rgba(96,165,250,0.1))',
                           opacity: 0
                         }}
-                        animate={{
-                          opacity: hoveredLogo === logo.id ? 0.5 : 0
-                        }}
-                        transition={{ duration: 0.3 }}
                       />
                     </div>
 

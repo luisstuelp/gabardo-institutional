@@ -204,7 +204,7 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                     transition={{ duration: 0.45, delay: index * 0.05 }}
                     className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 backdrop-blur-sm"
                   >
-                    <div className="absolute -right-12 -top-10 h-20 w-20 rounded-full bg-gabardo-light-blue/15 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
+                    <div className="absolute -right-12 -top-10 h-20 w-20 rounded-full bg-gabardo-light-blue/15 blur-3xl" aria-hidden />
                     <div className="relative flex items-start gap-3 sm:gap-4">
                       <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg sm:rounded-xl bg-white/10 text-gabardo-light-blue">
                         <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -251,7 +251,7 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-6 md:p-8 backdrop-blur-sm transition-transform duration-300 hover:-translate-y-2 hover:border-gabardo-light-blue/50"
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-6 md:p-8 backdrop-blur-sm transition-transform duration-300"
                 >
                   <div className="absolute -top-16 -right-16 h-32 w-32 rounded-full bg-gabardo-light-blue/20 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <div className="relative flex items-start gap-3 sm:gap-4 md:gap-5">
@@ -350,7 +350,6 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                     transition={{ duration: 0.5, delay: 0.05 * index }}
                     className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm shadow-[0_20px_45px_-28px_rgba(15,24,44,0.45)]"
                   >
-                    <div className="absolute -bottom-10 -right-6 h-20 w-20 rounded-full bg-gabardo-light-blue/15 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
                     <div className="relative flex flex-col gap-3">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-gabardo-light-blue">
                         <Icon className="h-5 w-5" />

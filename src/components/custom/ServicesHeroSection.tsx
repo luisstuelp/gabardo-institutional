@@ -110,7 +110,7 @@ export default function ServicesHeroSection() {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6 font-primary"
+                className="text-3xl sm:text-4xl md:text-5xl font-bold uppercase leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6 font-primary"
               >
                 Soluções Completas,
                 <br />
@@ -121,7 +121,7 @@ export default function ServicesHeroSection() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-5 sm:mb-6 md:mb-8 font-secondary"
+                className="text-sm md:text-base lg:text-lg xl:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-5 sm:mb-6 md:mb-8 font-secondary"
               >
                 Operações dedicadas, equipe especializada e preços competitivos. 
                 Atendemos montadoras e empresas com a excelência que seu negócio merece.

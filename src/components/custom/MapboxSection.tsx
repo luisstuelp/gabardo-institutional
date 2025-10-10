@@ -96,6 +96,8 @@ const MapboxSection: React.FC = () => {
         [-15, 32],
       ],
       attributionControl: false,
+      scrollZoom: false,
+      touchZoomRotate: false,
     });
 
     mapRef.current = map;
@@ -272,10 +274,7 @@ const MapboxSection: React.FC = () => {
                   <p className="text-sm mb-6" style={{color: '#132D51'}}>{selectedLocation.region}</p>
                   <button
                     onClick={handleExploreLocation}
-                    className="w-full text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-medium text-sm sm:text-base transition-colors"
-                    style={{backgroundColor: '#132D51'}}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0f1f3a'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#132D51'}
+                    className="w-full text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-medium text-sm sm:text-base transition-colors bg-gabardo-blue hover:bg-gabardo-blue/90"
                   >
                     Explorar Localização
                   </button>

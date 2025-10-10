@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Network, ShieldCheck, Cpu, Users } from 'lucide-react';
+import Image from 'next/image';
 
 const pillars = [
   {
@@ -71,7 +72,7 @@ const SobreInstitucionalOverviewSection = () => {
   return (
     <section
       id="estrutura-institucional"
-      className="relative overflow-hidden bg-white py-16 md:py-20 lg:py-24"
+      className="relative overflow-hidden bg-white py-16 sm:py-20 md:py-24 lg:py-28"
     >
       <motion.div
         aria-hidden
@@ -176,6 +177,26 @@ const SobreInstitucionalOverviewSection = () => {
                         </motion.span>
                       </motion.div>
                     </div>
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.div
+                          className="mt-4 lg:hidden"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                        >
+                          <div className="relative h-64 w-full overflow-hidden rounded-lg">
+                            <Image
+                              src={pillar.image.src}
+                              alt={pillar.title}
+                              fill
+                              sizes="(max-width: 1024px) 100vw, 50vw"
+                              className="object-cover"
+                            />
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                     <motion.div
                       aria-hidden
                       className={`pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${
@@ -191,7 +212,7 @@ const SobreInstitucionalOverviewSection = () => {
             </div>
           </div>
 
-          <div className="relative flex flex-col">
+          <div className="relative hidden lg:flex flex-col">
             <motion.div
               layout
               className="relative aspect-[4/5] w-full overflow-hidden rounded-[32px] border border-white/40 bg-gray-900 shadow-[0_35px_85px_-45px_rgba(18,45,81,0.55)]"

@@ -9,7 +9,7 @@ const AboutMissionSection: React.FC = () => {
   const { missionVisionValues } = aboutContent;
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-neutral-50 relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-neutral-50 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-8 lg:px-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -34,7 +34,7 @@ const AboutMissionSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-tight text-gabardo-blue"
+            className="text-4xl md:text-5xl font-bold uppercase tracking-tight leading-tight text-gabardo-blue"
           >
             Nossos Pilares
           </motion.h2>

@@ -23,7 +23,7 @@ const PillarsSection: React.FC = () => {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`relative px-6 py-3 text-lg font-semibold transition-colors ${
+            className={`relative px-4 py-3 text-lg font-semibold transition-colors sm:px-6 ${
               activeTab === tab.id ? 'text-gabardo-blue' : 'text-gray-500'
             }`}
           >

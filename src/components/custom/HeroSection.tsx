@@ -75,11 +75,12 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div className="relative w-full h-screen min-h-[600px] text-white overflow-hidden">
-      {/* Hero Video Background */}
+    <div className="relative w-full h-screen min-h-[600px] text-white overflow-hidden bg-cover bg-center md:bg-transparent"
+         style={{ backgroundImage: 'url(/images/gabardo-hero-01.jpg)' }}>
+      {/* Hero Video Background - Hidden on mobile */}
       <video
         ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover hidden md:block"
         autoPlay
         loop
         muted
@@ -107,11 +108,11 @@ export default function HeroSection() {
             <div aria-hidden className="hidden md:block" />
             {/* Text Content Block */}
             <div className="max-w-4xl xl:max-w-5xl">
-              <h1 className="font-primary text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6">
+              <h1 className="font-primary text-[1.9rem] xs:text-[2.15rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6">
                 Movidos por
                 <br />
                 <span
-                  className="block text-[2.75rem] sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold"
+                  className="block text-[2.7rem] xs:text-[3.2rem] sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold"
                   style={{ color: '#38B6FF' }}
                 >
                   <AnimatedWords />
@@ -122,7 +123,7 @@ export default function HeroSection() {
                 <AnimatedCarbonBadge />
               </div>
 
-              <p className="font-secondary mt-3 text-[0.9rem] sm:text-base md:text-base lg:text-lg font-light leading-relaxed mb-5 sm:mb-6 md:mb-8">
+              <p className="font-secondary mt-3 text-sm sm:text-base md:text-lg font-light leading-relaxed mb-5 sm:mb-6 md:mb-8">
                 Há mais de 36 anos, entendemos as necessidades dos nossos clientes para atendê-los de forma personalizada e eficiente no transporte de veículos.
               </p>
 

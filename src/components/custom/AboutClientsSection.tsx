@@ -157,6 +157,12 @@ const cards: Card[] = [
 ];
 
 const AboutClientsSection: React.FC = () => {
+  const [flippedCard, setFlippedCard] = useState<string | null>(null);
+
+  const handleCardFlip = (cardId: string) => {
+    setFlippedCard(flippedCard === cardId ? null : cardId);
+  };
+
   return (
     <section className="py-20 bg-white" id="nossos-clientes">
       <div className="container mx-auto px-4">
@@ -192,8 +198,9 @@ const AboutClientsSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.05, ease: 'easeOut' }}
+                onClick={() => handleCardFlip(card.id)}
               >
-                <div className="relative w-full aspect-[6/5] rounded-3xl shadow-xl transition-transform duration-700 ease-in-out [transform-style:preserve-3d] group-hover:[transform:rotateX(180deg)]">
+                <div className={`relative w-full aspect-[6/5] rounded-3xl shadow-xl transition-transform duration-700 ease-in-out [transform-style:preserve-3d] ${flippedCard === card.id ? '[transform:rotateX(180deg)]' : ''}`}>
                   <div
                     className={`absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden rounded-3xl bg-gray-100 p-6 [backface-visibility:hidden]`}
                   >

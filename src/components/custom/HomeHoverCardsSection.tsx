@@ -88,7 +88,8 @@ const HomeHoverCardsSection = () => {
   useEffect(() => {
     const checkMobile = () => {
       if (typeof window !== 'undefined') {
-        setIsMobile(window.innerWidth < 768);
+        // Treat widths below the LG breakpoint (<1024px) as mobile/tablet
+        setIsMobile(window.innerWidth < 1024);
       }
     };
 
@@ -97,7 +98,17 @@ const HomeHoverCardsSection = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const activeCard = useMemo(() => cards[activeIndex], [activeIndex]);
+  // Reset active card when switching between mobile and desktop layouts
+  useEffect(() => {
+    if (isMobile) {
+      setActiveIndex(-1);
+    } else {
+      setActiveIndex((prev) => (prev < 0 ? 0 : prev));
+    }
+  }, [isMobile]);
+
+  const safeIndex = activeIndex >= 0 ? activeIndex : 0;
+  const activeCard = useMemo(() => cards[safeIndex], [safeIndex]);
   const imageAlt = useMemo(() => `Gabardo ${activeCard.label}`, [activeCard.label]);
 
   return (
@@ -161,26 +172,112 @@ const HomeHoverCardsSection = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.45, delay: index * 0.04 }}
-                    className={`relative flex gap-4 rounded-3xl border px-5 py-4 backdrop-blur-md transition-all duration-500 ${
+                    onClick={() => {
+                      if (isMobile) {
+                        setActiveIndex((prev) => (prev === index ? -1 : index));
+                      } else {
+                        setActiveIndex(index);
+                      }
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        if (isMobile) {
+                          setActiveIndex((prev) => (prev === index ? -1 : index));
+                        } else {
+                          setActiveIndex(index);
+                        }
+                      }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-pressed={isActive}
+                    aria-expanded={isMobile ? isActive : undefined}
+                    className={`relative flex flex-col gap-4 rounded-3xl border px-5 py-4 backdrop-blur-md transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-blue ${
                       isActive
-                        ? 'border-gabardo-blue/50 bg-gabardo-blue/8 scale-105'
+                        ? 'border-gabardo-blue/50 bg-gabardo-blue/8 shadow-[0_28px_65px_-40px_rgba(19,45,81,0.5)]'
                         : 'border-white/40 bg-white/60 hover:border-gabardo-blue/30'
                     }`}
                   >
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/70 text-gabardo-blue shadow">
-                      <Icon className="h-5 w-5" />
+                    <div className="relative z-10 flex w-full items-center gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/70 text-gabardo-blue shadow">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div className="flex flex-1 flex-col justify-center gap-1">
+                        <p className="text-sm font-semibold text-gabardo-blue">{card.title}</p>
+                        <span className="text-xs uppercase tracking-[0.32em] text-gabardo-blue/60">{card.label}</span>
+                      </div>
+                      <motion.span
+                        aria-hidden
+                        initial={false}
+                        animate={{
+                          x: isMobile ? 0 : isActive ? 6 : 0,
+                          rotate: isMobile ? (isActive ? 180 : 0) : 0,
+                          opacity: isActive ? 1 : 0.55,
+                        }}
+                        className="ml-auto text-lg font-semibold text-gabardo-blue"
+                      >
+                        {isMobile ? '⌄' : '→'}
+                      </motion.span>
                     </div>
-                    <div className="flex flex-1 flex-col justify-center gap-1">
-                      <p className="text-sm font-semibold text-gabardo-blue">{card.title}</p>
-                      <span className="text-xs uppercase tracking-[0.32em] text-gabardo-blue/60">{card.label}</span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setActiveIndex(index)}
-                      className="flex h-10 w-10 items-center justify-center rounded-full border border-gabardo-blue/30 text-gabardo-blue transition hover:bg-gabardo-blue hover:text-white"
-                    >
-                      •
-                    </button>
+
+                    {isMobile && (
+                      <AnimatePresence>
+                        {isActive && (
+                          <motion.div
+                            key={`${card.title}-mobile`}
+                            layout
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3, ease: 'easeInOut' }}
+                            className="relative z-0 mt-2 w-full overflow-hidden origin-top"
+                            style={{ transformOrigin: 'top' }}
+                          >
+                            <motion.div
+                              initial={{ opacity: 0, y: -6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -6 }}
+                              transition={{ duration: 0.28, ease: 'easeOut' }}
+                              className="space-y-4 rounded-2xl bg-transparent p-4"
+                            >
+                              <div className="relative h-52 w-full overflow-hidden rounded-xl border border-gabardo-blue/15">
+                                <Image
+                                  src={card.image}
+                                  alt={card.title}
+                                  fill
+                                  sizes="100vw"
+                                  className="object-cover object-center"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-br from-[#0a1421]/55 via-[#0a1421]/25 to-transparent" />
+                                <span className="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-white/80">
+                                  {card.label}
+                                </span>
+                              </div>
+                              <p className="text-sm leading-relaxed text-gray-600">{card.description}</p>
+                              <div className="flex flex-wrap gap-2">
+                                {card.highlights.map((highlight) => (
+                                  <span
+                                    key={highlight}
+                                    className="rounded-full border border-gabardo-blue/20 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-gabardo-blue"
+                                  >
+                                    {highlight}
+                                  </span>
+                                ))}
+                              </div>
+                              <Link
+                                href={card.href}
+                                onClick={(event) => event.stopPropagation()}
+                                className="inline-flex w-fit items-center gap-2 rounded-full border border-gabardo-blue/30 bg-gabardo-blue/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-blue transition hover:border-gabardo-blue/50 hover:bg-gabardo-blue/20"
+                              >
+                                {card.ctaLabel}
+                                <span>→</span>
+                              </Link>
+                            </motion.div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    )}
                   </motion.div>
                 );
               })}
@@ -188,7 +285,7 @@ const HomeHoverCardsSection = () => {
 
           </div>
 
-          <div className="flex flex-col gap-8">
+          <div className="hidden lg:flex flex-col gap-8">
             <motion.div
               key={activeCard.title}
               layout

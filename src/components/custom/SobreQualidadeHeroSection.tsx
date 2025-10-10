@@ -31,7 +31,7 @@ const highlights = [
 const SobreQualidadeHeroSection: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
   return (
-    <section className="relative w-full min-h-screen text-white overflow-hidden py-20 sm:py-0">
+    <section className="relative w-full min-h-screen text-white overflow-hidden py-20 sm:py-24">
       <div className="absolute inset-0">
         <Image
           src={backgroundImage}
@@ -58,9 +58,10 @@ const SobreQualidadeHeroSection: React.FC = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-5 sm:mt-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase leading-tight tracking-tight max-w-4xl px-2 sm:px-0"
+          className="mt-5 sm:mt-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase leading-tight tracking-tight max-w-4xl px-2 sm:px-0"
         >
-          <span className="text-gabardo-light-blue">Excelência</span> auditada que garante <span className="text-gabardo-light-blue">confiança</span> em cada operação da <span className="text-gabardo-light-blue">Gabardo</span>
+          <span className="text-gabardo-light-blue">Excelência</span> auditada que
+          <span className="block">garante <span className="text-gabardo-light-blue">confiança</span> em <span style={{ whiteSpace: 'nowrap' }}>cada operação da <span className="text-gabardo-light-blue">Gabardo</span></span></span>
         </motion.h1>
 
         <motion.p

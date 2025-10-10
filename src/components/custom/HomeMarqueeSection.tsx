@@ -35,7 +35,7 @@ const testimonialQuotes = [
 
 const HomeMarqueeSection = () => {
   return (
-    <section className="section-shell bg-white py-12 sm:py-16 md:py-20 lg:py-24">
+    <section className="section-shell bg-white py-16 sm:py-20 md:py-24 lg:py-28">
       <motion.div
         className="pointer-events-none absolute inset-0"
         initial={{ opacity: 0 }}

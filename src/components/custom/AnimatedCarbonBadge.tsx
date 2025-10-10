@@ -163,7 +163,7 @@ export default function AnimatedCarbonBadge() {
 
       <div ref={contentRef} className="flex flex-col relative min-w-0">
         <div className="flex flex-col relative overflow-hidden min-w-0">
-          <div className="text-xs sm:text-sm font-bold tracking-[0.28em] uppercase text-white">
+          <div className="text-[0.6rem] sm:text-sm font-bold tracking-[0.18em] sm:tracking-[0.28em] uppercase text-white whitespace-nowrap">
             {LINE_ONE.split('').map((char, index) => (
               <motion.span
                 key={`line1-${index}`}
@@ -199,8 +199,8 @@ export default function AnimatedCarbonBadge() {
           </div>
 
           <div className="flex flex-col mt-2 sm:mt-3">
-            <div className="flex items-center gap-3">
-              <div className="text-sm sm:text-base font-semibold tracking-[0.18em] uppercase text-white/90">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+              <div className="text-[0.68rem] sm:text-sm md:text-base font-semibold tracking-[0.12em] sm:tracking-[0.18em] uppercase text-white/90 whitespace-nowrap">
                 {LINE_TWO.split('').map((char, index) => (
                   <motion.span
                     key={`line2-${index}`}
@@ -246,7 +246,7 @@ export default function AnimatedCarbonBadge() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.2 }}
-                    className="group relative inline-flex items-center gap-1 pl-1 pr-2 pb-1 text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.26em] text-gabardo-light-blue transition-colors duration-200 hover:text-white"
+                    className="group relative inline-flex items-center gap-1 pl-1 pr-2 pb-1 text-[8px] sm:text-[10px] font-semibold uppercase tracking-[0.2em] sm:tracking-[0.26em] text-gabardo-light-blue transition-colors duration-200 hover:text-white"
                   >
                     <span className="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-center scale-x-0 bg-gradient-to-r from-transparent via-gabardo-light-blue to-transparent transition-transform duration-200 group-hover:scale-x-100" aria-hidden />
                     Conferir certificado

@@ -228,7 +228,7 @@ const ProtocolStack: React.FC = () => {
             animate={animate}
             transition={{ duration: 0.5, ease: 'easeOut' }}
             style={{ zIndex: z }}
-            className="absolute inset-x-0 mx-auto flex w-full max-w-[280px] sm:max-w-[340px] md:max-w-[380px] items-center justify-center rounded-2xl sm:rounded-3xl bg-white/96 px-4 sm:px-5 md:px-6 py-4 sm:py-5 shadow-[0_26px_48px_-36px_rgba(19,45,81,0.65)"
+            className="absolute inset-x-0 mx-auto flex w-full max-w-[280px] sm:max-w-[340px] md:max-w-[380px] items-center justify-center rounded-2xl sm:rounded-3xl bg-white/96 px-4 sm:px-5 md:px-6 py-4 sm:py-5 shadow-[0_26px_48px_-36px_rgba(19,45,81,0.65)]"
           >
             <motion.img
               src={item.src}
@@ -264,7 +264,7 @@ const ProtocolStack: React.FC = () => {
 
 const PremiumInfoSection: React.FC = () => {
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-32 bg-gray-100 relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gray-100 relative overflow-hidden">
       <div className="absolute inset-0">
         <motion.div
           aria-hidden
