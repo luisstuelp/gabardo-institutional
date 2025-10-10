@@ -15,7 +15,7 @@ interface Advantage {
 
 const advantages: Advantage[] = [
   {
-    id: 'experiencia',
+    id: 'Experiencia',
     icon: Award,
     title: 'EXPERIÊNCIA CONSOLIDADA',
     description: 'Mais de 36 anos de mercado com expertise comprovada no transporte de veículos para as principais montadoras do Brasil.',
@@ -153,7 +153,7 @@ const ServicesAdvantagesSection: React.FC = () => {
                   <div>
                     <span className="text-[10px] uppercase tracking-[0.34em] text-white/60">Diferencial #{activeIndex + 1}</span>
                     <h3 className="mt-3 text-3xl font-semibold leading-tight text-white md:text-4xl">
-                      {activeAdvantage.title.toLowerCase()}
+                      {activeAdvantage.title.toUpperCase()}
                     </h3>
                   </div>
                 </div>
@@ -208,7 +208,7 @@ const ServicesAdvantagesSection: React.FC = () => {
                     <div>
                       <p className="text-[11px] uppercase tracking-[0.3em] text-white/60">{advantage.stats}</p>
                       <h4 className={`mt-1 text-base font-semibold ${isActive ? 'text-white' : 'text-white/80'}`}>
-                        {advantage.title.toLowerCase()}
+                        {advantage.title.toUpperCase()}
                       </h4>
                     </div>
                   </div>
