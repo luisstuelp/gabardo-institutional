@@ -3,18 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-interface LocationDetailContactProps {
-  location: {
-    name?: string;
-    contact?: {
-      address?: string;
-      phone?: string;
-      email?: string;
-    };
-  };
-}
-
-const LocationDetailContact: React.FC<LocationDetailContactProps> = ({ location }) => {
+const LocationDetailContact = () => {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -120,4 +109,4 @@ const LocationDetailContact: React.FC<LocationDetailContactProps> = ({ location 
   );
 };
 
-export default LocationDetailContact; 
+export default LocationDetailContact;
