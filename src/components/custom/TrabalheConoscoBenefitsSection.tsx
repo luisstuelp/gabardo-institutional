@@ -105,7 +105,7 @@ const TrabalheConoscoBenefitsSection: React.FC = () => {
               >
                 <div className="absolute inset-x-4 top-0 h-24 -translate-y-1/2 rounded-full bg-gradient-to-br from-gabardo-light-blue/25 to-gabardo-blue/10 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
                 <div className="relative flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gabardo-blue/10 text-gabardo-blue transition-transform duration-500 group-hover:rotate-6 group-hover:scale-105">
+                  <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-gabardo-blue/10 text-gabardo-blue transition-transform duration-500 group-hover:rotate-6 group-hover:scale-105">
                     <Icon className="h-7 w-7" />
                   </div>
                   <div>
@@ -134,7 +134,7 @@ const TrabalheConoscoBenefitsSection: React.FC = () => {
             const Icon = extra.icon;
             return (
               <div key={extra.title} className="flex items-start gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gabardo-blue text-white shadow-lg">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gabardo-blue text-white shadow-lg">
                   <Icon className="h-6 w-6" />
                 </div>
                 <div>

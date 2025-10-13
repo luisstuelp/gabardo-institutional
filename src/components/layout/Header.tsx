@@ -87,7 +87,7 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className={headerClasses}
       >
-        <div className="section-container flex items-center justify-between py-1.5 sm:py-1.5 md:py-[0.28rem] lg:py-[0.18rem]">
+        <div className="section-container flex items-center justify-between py-1 sm:py-1.5 md:py-[0.28rem] lg:py-[0.18rem]">
           <Link
             href="/"
             className="group inline-flex items-center"
@@ -97,8 +97,8 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
               <Image
                 src="/gabardo-logo.png"
                 alt="Transportes Gabardo"
-                width={isMobile ? 102 : 110}
-                height={isMobile ? 30 : 28}
+                width={isMobile ? 70 : 110}
+                height={isMobile ? 21 : 28}
                 priority
                 className="h-auto w-auto transition-transform duration-300 group-hover:scale-105"
                 style={{ filter: logoFilter, WebkitFilter: logoFilter }}
@@ -116,11 +116,11 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
 
             <button
               onClick={() => setIsMenuOpen(true)}
-              className={`group relative inline-flex h-9 w-9 lg:h-[2rem] lg:w-[2rem] items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${menuButtonClasses}`}
+              className={`group relative inline-flex h-8 w-8 lg:h-[2rem] lg:w-[2rem] items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${menuButtonClasses}`}
               aria-label="Abrir menu"
             >
               <span className="absolute inset-0 rounded-full bg-gradient-to-br from-transparent via-transparent to-gabardo-light-blue/15 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden />
-              <Menu size={isMobile ? 22 : 18} />
+              <Menu size={isMobile ? 20 : 18} />
             </button>
           </div>
         </div>

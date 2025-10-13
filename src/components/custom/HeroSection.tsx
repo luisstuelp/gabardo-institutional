@@ -142,11 +142,11 @@ export default function HeroSection() {
             <div aria-hidden className="hidden md:block" />
             {/* Text Content Block */}
             <div className="max-w-4xl xl:max-w-5xl">
-              <h1 className="font-primary text-[1.9rem] xs:text-[2.15rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6">
+              <h1 className="font-primary text-[clamp(1.8rem,5vw,2.15rem)] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6">
                 Movidos por
                 <br />
                 <span
-                  className="block text-[2.7rem] xs:text-[3.2rem] sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold"
+                  className="block text-[clamp(2.5rem,8vw,3.2rem)] sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold"
                   style={{ color: '#38B6FF' }}
                 >
                   <AnimatedWords />
