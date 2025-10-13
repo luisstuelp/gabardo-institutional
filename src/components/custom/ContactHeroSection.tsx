@@ -183,7 +183,7 @@ export default function ContactHeroSection() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => handleContactAction('tel:+551134567890')}
+                    onClick={() => handleContactAction('tel:+555133733000')}
                     className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3 transition-all duration-300 touch-manipulation group rounded-full"
                     aria-label="Ligar para Transportes Gabardo"
                   >
@@ -203,7 +203,7 @@ export default function ContactHeroSection() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => handleContactAction('https://maps.google.com?q=São+Paulo+SP')}
+                    onClick={() => handleContactAction('https://maps.google.com/?q=Rua+V%C3%ADtor+Valp%C3%ADrio,+715,+Anchieta,+Porto+Alegre+-+RS')}
                     className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3 transition-all duration-300 touch-manipulation group rounded-full"
                     aria-label="Ver localizações Gabardo no mapa"
                   >
