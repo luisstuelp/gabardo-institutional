@@ -43,9 +43,9 @@ const footerSections = [
 ];
 
 const socialLinks = [
-  { icon: Instagram, href: 'https://www.instagram.com/transportesgabardo', label: 'Instagram' },
-  { icon: Facebook, href: '#', label: 'Facebook' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
+  { icon: Instagram, href: 'https://www.instagram.com/transportesgabardo/', label: 'Instagram' },
+  { icon: Facebook, href: 'https://www.facebook.com/Transgabardo/', label: 'Facebook' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/transportes-gabardo/', label: 'LinkedIn' },
   { icon: Youtube, href: 'https://www.youtube.com/@transportesgabardo', label: 'YouTube' },
 ];
 

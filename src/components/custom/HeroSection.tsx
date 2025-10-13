@@ -1,7 +1,7 @@
 'use client';
 
 import { Mouse, ArrowRight } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import AnimatedWords from './AnimatedWords';
 import AnimatedCarbonBadge from './AnimatedCarbonBadge';
@@ -17,10 +17,25 @@ const ScrollDownIcon = () => (
 );
 
 export default function HeroSection() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const desktopVideoRef = useRef<HTMLVideoElement>(null);
+  const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    const video = videoRef.current;
+    const updateIsDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    updateIsDesktop();
+    window.addEventListener('resize', updateIsDesktop);
+
+    return () => {
+      window.removeEventListener('resize', updateIsDesktop);
+    };
+  }, []);
+
+  useEffect(() => {
+    const video = isDesktop ? desktopVideoRef.current : mobileVideoRef.current;
     if (!video) return;
 
     const attemptPlay = async () => {
@@ -72,27 +87,46 @@ export default function HeroSection() {
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [isDesktop]);
 
   return (
     <div className="relative w-full h-screen min-h-[600px] text-white overflow-hidden bg-cover bg-center md:bg-transparent"
          style={{ backgroundImage: 'url(/images/gabardo-hero-01.jpg)' }}>
       {/* Hero Video Background - Hidden on mobile */}
-      <video
-        ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover hidden md:block"
-        autoPlay
-        loop
-        muted
-        playsInline
-        webkit-playsinline="true"
-        x-webkit-airplay="allow"
-        preload="metadata"
-        controls={false}
-        style={{ backgroundColor: 'transparent' }}
-      >
-        <source src="https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd5OVWpnZMciUgloBfthZmDSj3bWQ4yPuzERXM" type="video/mp4" />
-      </video>
+      {!isDesktop && (
+        <video
+          ref={mobileVideoRef}
+          className="absolute inset-0 w-full h-full object-cover md:hidden"
+          autoPlay
+          loop
+          muted
+          playsInline
+          webkit-playsinline="true"
+          x-webkit-airplay="allow"
+          preload="metadata"
+          controls={false}
+          style={{ backgroundColor: 'transparent' }}
+        >
+          <source src="/images/truck-cut-hd-2.mp4" type="video/mp4" />
+        </video>
+      )}
+      {isDesktop && (
+        <video
+          ref={desktopVideoRef}
+          className="absolute inset-0 w-full h-full object-cover hidden md:block"
+          autoPlay
+          loop
+          muted
+          playsInline
+          webkit-playsinline="true"
+          x-webkit-airplay="allow"
+          preload="metadata"
+          controls={false}
+          style={{ backgroundColor: 'transparent' }}
+        >
+          <source src="https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd5OVWpnZMciUgloBfthZmDSj3bWQ4yPuzERXM" type="video/mp4" />
+        </video>
+      )}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div> {/* Overlay for better text contrast */}
 
       {/* Content container */}
