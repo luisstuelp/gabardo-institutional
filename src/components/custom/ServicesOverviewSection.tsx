@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface ServiceItem {
   id: string;
@@ -133,10 +134,11 @@ const ServicesOverviewSection: React.FC = () => {
               >
                 {/* Image */}
                 <div className="relative overflow-hidden">
-                  <img
+                  <Image
                     src={service.image}
                     alt={service.title}
-                    className="w-full h-48 md:h-56 object-cover object-center origin-center transition-transform duration-500 scale-[1.48] sm:scale-[1.24] md:scale-100 group-hover:scale-[1.55] sm:group-hover:scale-[1.3] md:group-hover:scale-105 -translate-x-4 sm:-translate-x-1 md:translate-x-0"
+                    fill
+                    className="object-cover object-center origin-center transition-transform duration-500 scale-[1.48] sm:scale-[1.24] md:scale-100 group-hover:scale-[1.55] sm:group-hover:scale-[1.3] md:group-hover:scale-105 -translate-x-4 sm:-translate-x-1 md:translate-x-0"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent" />
                 </div>

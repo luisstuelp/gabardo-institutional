@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 interface LocationDetailGalleryProps {
   location: {
@@ -61,10 +62,11 @@ const LocationDetailGallery: React.FC<LocationDetailGalleryProps> = () => {
               className="relative h-[400px] lg:h-[600px] rounded-2xl overflow-hidden cursor-pointer group"
               onClick={() => setSelectedImage(0)}
             >
-              <img 
+              <Image 
                 src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop"
                 alt="Área principal de trabalho"
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
               <div className="absolute top-4 left-4">
@@ -96,7 +98,7 @@ const LocationDetailGallery: React.FC<LocationDetailGalleryProps> = () => {
                   className="relative h-[135px] rounded-2xl overflow-hidden cursor-pointer group"
                   onClick={() => setSelectedImage(index)}
                 >
-                  <img 
+                  <Image 
                     src={`https://images.unsplash.com/photo-${
                       index === 1 ? '1604328727766-a151d1045ab4' :
                       index === 2 ? '1568992687947-868a62a9f521' :
@@ -104,7 +106,8 @@ const LocationDetailGallery: React.FC<LocationDetailGalleryProps> = () => {
                       '1604328703693-18313fe20f3a'
                     }?w=800&h=600&fit=crop`}
                     alt={`Espaço ${index}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -151,7 +154,7 @@ const LocationDetailGallery: React.FC<LocationDetailGalleryProps> = () => {
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="aspect-video rounded-2xl overflow-hidden">
-                  <img 
+                  <Image 
                     src={selectedImage === 0 ? 
                       'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=800&fit=crop' :
                       `https://images.unsplash.com/photo-${
@@ -162,7 +165,8 @@ const LocationDetailGallery: React.FC<LocationDetailGalleryProps> = () => {
                       }?w=1200&h=800&fit=crop`
                     }
                     alt={`Imagem ${selectedImage + 1}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
                 

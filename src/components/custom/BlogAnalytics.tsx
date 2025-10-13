@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { BlogPost } from '@/data/blogData';
 
 interface BlogAnalyticsProps {
@@ -56,12 +56,12 @@ const BlogAnalytics: React.FC<BlogAnalyticsProps> = ({ post }) => {
   }, []);
 
   // Track interactions
-  const trackInteraction = (interaction: string) => {
+  const trackInteraction = useCallback((interaction: string) => {
     setEngagementData(prev => ({
       ...prev,
       interactions: [...prev.interactions, `${interaction}:${Date.now() - startTime}`]
     }));
-  };
+  }, [startTime]);
 
   // Track social shares
   useEffect(() => {

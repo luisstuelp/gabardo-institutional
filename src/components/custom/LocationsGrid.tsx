@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MagneticCard from '@/components/ui/magnetic-card';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Location {
   id: string;
@@ -293,10 +294,11 @@ const LocationsGrid: React.FC = () => {
                   >
                     {/* Image */}
                     <div className="relative h-48 overflow-hidden">
-                      <img 
+                      <Image 
                         src={location.image} 
                         alt={`${location.name} - ${location.city}`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
 

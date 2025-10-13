@@ -8,9 +8,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'primary': ['Montserrat', 'sans-serif'],
-        'secondary': ['Roboto', 'sans-serif'],
-        'sans': ['Montserrat', 'sans-serif'],
+        'primary': ['var(--font-montserrat)', 'sans-serif'],
+        'secondary': ['var(--font-roboto)', 'sans-serif'],
+        'sans': ['var(--font-montserrat)', 'sans-serif'],
       },
       colors: {
         'accent': {

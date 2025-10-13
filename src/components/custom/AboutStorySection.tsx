@@ -91,10 +91,11 @@ const AboutStorySection: React.FC = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <img
+        <Image
           src={item.image}
           alt={item.title}
-          className={`h-full w-full object-cover ${index === 0 ? 'grayscale' : ''}`}
+          fill
+          className={`object-cover ${index === 0 ? 'grayscale' : ''}`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white">

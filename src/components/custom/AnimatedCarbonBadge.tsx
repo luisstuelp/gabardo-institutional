@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useAnimation } from 'framer-motion';
 import { type FocusEvent, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
 type AnimationPhase = 'idle' | 'expanding' | 'expanded' | 'collapsing';
 
@@ -154,9 +155,11 @@ export default function AnimatedCarbonBadge() {
         className="relative z-20 flex-shrink-0"
         style={{ originX: 0.5, originY: 0.5 }}
       >
-        <img
+        <Image
           src="/images/certifications/carbon-negative-certified.png"
           alt="Carbono Negativo"
+          width={96}
+          height={96}
           className="w-20 h-20 sm:w-24 sm:h-24"
         />
       </motion.div>

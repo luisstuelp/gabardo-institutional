@@ -15,6 +15,7 @@ const cards = [
       'Bases no Sul, Sudeste, Centro-Oeste e Nordeste conectam importações, exportações e distribuição LATAM com habilitação aduaneira (DTA).',
     accent: '#7FD7FF',
     image: '/images/New (6).png',
+    mobileImageClass: 'scale-[1.36] -translate-x-4 md:scale-100 md:translate-x-0',
     highlights: ['BASES EM 4 REGIÕES', 'COBERTURA 100% LATAM', 'HABILITAÇÃO DTA'],
     href: '/frota-e-unidades',
     ctaLabel: 'Ver mapa de unidades',
@@ -247,7 +248,8 @@ const HomeHoverCardsSection = () => {
                                   alt={card.title}
                                   fill
                                   sizes="100vw"
-                                  className="object-cover object-center"
+                                  className={`object-cover object-center scale-[1.18] md:scale-100 ${card.mobileImageClass ?? ''}`.trim()}
+                                  style={{ transformOrigin: 'center' }}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-br from-[#0a1421]/55 via-[#0a1421]/25 to-transparent" />
                                 <span className="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-white/80">
@@ -265,14 +267,6 @@ const HomeHoverCardsSection = () => {
                                   </span>
                                 ))}
                               </div>
-                              <Link
-                                href={card.href}
-                                onClick={(event) => event.stopPropagation()}
-                                className="inline-flex w-fit items-center gap-2 rounded-full border border-gabardo-blue/30 bg-gabardo-blue/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-blue transition hover:border-gabardo-blue/50 hover:bg-gabardo-blue/20"
-                              >
-                                {card.ctaLabel}
-                                <span>→</span>
-                              </Link>
                             </motion.div>
                           </motion.div>
                         )}
@@ -342,7 +336,8 @@ const HomeHoverCardsSection = () => {
                         alt={imageAlt}
                         fill
                         sizes="(min-width: 1024px) 288px, 100vw"
-                        className="object-cover object-center"
+                        className="object-cover object-center scale-[1.12]"
+                        style={{ transformOrigin: 'center' }}
                         priority={activeIndex === 0}
                       />
                       <div className="absolute inset-0 bg-gradient-to-br from-[#0a1421]/60 via-[#0a1421]/35 to-transparent" />
