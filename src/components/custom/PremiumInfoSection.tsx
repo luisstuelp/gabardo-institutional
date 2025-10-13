@@ -3,7 +3,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Lock, ClipboardCheck } from 'lucide-react';
-import Image from 'next/image';
 
 type ReliabilityItem = {
   src: string;
@@ -115,6 +114,7 @@ type VisibleLayer = {
     filter: string;
   };
   z: number;
+  isActive: boolean;
 };
 
 const ProtocolStack: React.FC = () => {
@@ -173,13 +173,14 @@ const ProtocolStack: React.FC = () => {
           const opacity = 1 - Math.abs(depth) * 0.2;
           const blur = Math.abs(depth) === 0 ? 0 : Math.abs(depth) * 1.2;
           const z = 10 - Math.abs(depth);
-
+          const isActive = depth === 0;
           const layer: VisibleLayer = {
             item,
             index,
             depth,
             animate: { y, scale, opacity, filter: `blur(${blur}px)` },
             z,
+            isActive,
           };
 
           return layer;
@@ -220,21 +221,21 @@ const ProtocolStack: React.FC = () => {
       </p>
 
       <div ref={containerRef} className="relative mt-6 sm:mt-8 flex h-[320px] sm:h-[380px] md:h-[420px] items-center justify-center overflow-hidden">
-        {visibleLayers.map(({ item, animate, z }) => (
+        {visibleLayers.map(({ item, animate, z, isActive }) => (
           <motion.div
             key={item.src}
             initial={{ y: animate.y + 40, opacity: 0, scale: animate.scale - 0.05  }}
             animate={animate}
             transition={{ duration: 0.5, ease: 'easeOut' }}
             style={{ zIndex: z }}
-            className="absolute inset-x-0 mx-auto flex w-full max-w-[280px] sm:max-w-[340px] md:max-w-[380px] items-center justify-center rounded-2xl sm:rounded-3xl bg-white/96 px-4 sm:px-5 md:px-6 py-4 sm:py-5 shadow-[0_26px_48px_-36px_rgba(19,45,81,0.65)]"
+            className="absolute inset-x-0 mx-auto flex w-full max-w-[280px] sm:max-w-[340px] md:max-w-[380px] items-center justify-center rounded-2xl sm:rounded-3xl bg-white/96 px-4 sm:px-5 md:px-6 py-4 sm:py-5 shadow-[0_26px_48px_-36px_rgba(19,45,81,0.65)"
           >
-            <Image
+            <motion.img
               src={item.src}
               alt={item.alt}
-              width={288}
-              height={224}
               className="h-52 sm:h-60 md:h-72 w-auto object-contain drop-shadow-sm"
+              animate={{ opacity: isActive ? 1 : 0.7, scale: isActive ? 1.28 : 0.92 }}
+              transition={{ duration: 0.3 }}
             />
           </motion.div>
         ))}
@@ -263,7 +264,7 @@ const ProtocolStack: React.FC = () => {
 
 const PremiumInfoSection: React.FC = () => {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gray-100 relative overflow-hidden">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-32 bg-gray-100 relative overflow-hidden">
       <div className="absolute inset-0">
         <motion.div
           aria-hidden
@@ -341,11 +342,10 @@ const PremiumInfoSection: React.FC = () => {
               variants={metricItem}
               className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/40 bg-white/70 shadow-[0_22px_40px_-46px_rgba(19,45,81,0.55)]"
             >
-              <Image
+              <img
                 src="/images/seguranca-thumbsup.jpg"
                 alt="Colaborador Gabardo em ambiente seguro"
-                fill
-                className="object-cover"
+                className="h-full w-full object-cover"
               />
               <figcaption className="absolute inset-x-0 bottom-0 px-6 pb-6">
                 <motion.div
