@@ -353,8 +353,8 @@ export default function LocationsMapInteractive() {
                           <Building2 className="h-3 w-3" />
                           {unit.infraestrutura.capacidade_veiculos} veículos
                         </span>
-                        <span className="inline-flex items-center gap-1 rounded-full bg-orange-50 px-3 py-1 text-xs font-medium text-orange-700">
-                          <Zap className="h-3 w-3" />
+                        <span className="inline-flex items-center gap-1 rounded-full bg-gabardo-blue/10 px-3 py-1 text-xs font-medium text-gabardo-blue">
+                          <Zap className="h-3 w-3 text-gabardo-blue" />
                           {unit.infraestrutura.area_total_m2.toLocaleString()} m²
                         </span>
                       </div>
