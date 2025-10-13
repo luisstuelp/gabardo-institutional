@@ -425,7 +425,7 @@ export default async function LocationDetailPage({ params }: LocationPageProps) 
       <LocationDetailTransform location={location} />
       
       {/* Contact Form Section */}
-      <LocationDetailContact location={location} />
+      <LocationDetailContact />
       
       {/* Map Section */}
       <LocationDetailMap location={location} />
