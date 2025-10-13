@@ -189,7 +189,7 @@ const AboutStorySection: React.FC = () => {
           <div className="flex items-center justify-center">
             <InfiniteScroll
               width="100%"
-              maxHeight="600px"
+              maxHeight="100vh"
               itemMinHeight={380}
               negativeMargin="-8rem"
               items={scrollItems}
