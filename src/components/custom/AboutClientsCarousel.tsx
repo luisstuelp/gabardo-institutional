@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion, useAnimationFrame } from 'framer-motion';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 
 // Client logos data with back info - 21 logos
@@ -35,9 +35,10 @@ const infiniteLogos = [...clientLogos, ...clientLogos, ...clientLogos];
 
 interface LogoItemProps {
   logo: typeof clientLogos[0];
+  onManualPause: (shouldPause: boolean, element: HTMLDivElement | null) => void;
 }
 
-const LogoItem = ({ logo }: LogoItemProps) => {
+const LogoItem = ({ logo, onManualPause }: LogoItemProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.8);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -68,7 +69,13 @@ const LogoItem = ({ logo }: LogoItemProps) => {
         width: '240px',
         transform: `scale(${scale})`,
       }}
-      onClick={() => setIsFlipped(!isFlipped)}
+      onClick={() => {
+        setIsFlipped((prev) => {
+          const next = !prev;
+          onManualPause(next, itemRef.current);
+          return next;
+        });
+      }}
     >
       <motion.div
         className="relative h-60 w-full cursor-pointer"
@@ -137,6 +144,7 @@ const AboutClientsCarousel = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const xTranslation = useRef(0);
+  const targetTranslation = useRef(0);
   const LOGO_WIDTH = 240; // Width of each logo item
   const GAP = 48; // Gap between logos (gap-12 = 3rem = 48px)
   const ITEM_SIZE = LOGO_WIDTH + GAP;
@@ -147,6 +155,32 @@ const AboutClientsCarousel = () => {
   const dragStartX = useRef(0);
   const dragStartTranslate = useRef(0);
   const DRAG_THRESHOLD = 6;
+  const manualPauseRef = useRef(false);
+  const lastPointerTypeRef = useRef<string>('');
+  const [canHover, setCanHover] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const mediaQuery = window.matchMedia('(hover: hover)');
+    const updateHoverCapability = (event: MediaQueryListEvent | MediaQueryList) => {
+      setCanHover(event.matches);
+    };
+
+    updateHoverCapability(mediaQuery);
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', updateHoverCapability);
+      return () => mediaQuery.removeEventListener('change', updateHoverCapability);
+    }
+
+    mediaQuery.addListener(updateHoverCapability);
+    return () => mediaQuery.removeListener(updateHoverCapability);
+  }, []);
+
+  const isHoverPointer = (event: ReactPointerEvent<HTMLElement>) => {
+    return event.pointerType === 'mouse' || event.pointerType === 'pen';
+  };
 
   const applyTranslation = (value: number) => {
     const totalWidth = ITEM_SIZE * clientLogos.length;
@@ -163,10 +197,13 @@ const AboutClientsCarousel = () => {
       adjusted = 0;
     }
 
-    xTranslation.current = adjusted;
+    targetTranslation.current = adjusted;
+  };
 
+  const commitTranslation = (value: number) => {
+    xTranslation.current = value;
     if (containerRef.current) {
-      containerRef.current.style.transform = `translateX(${adjusted}px)`;
+      containerRef.current.style.transform = `translateX(${value}px)`;
     }
   };
 
@@ -180,7 +217,7 @@ const AboutClientsCarousel = () => {
     dragStartX.current = event.clientX;
     dragStartTranslate.current = xTranslation.current;
     isDraggingRef.current = false;
-    setIsPaused(true);
+    lastPointerTypeRef.current = event.pointerType;
   };
 
   const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -193,6 +230,9 @@ const AboutClientsCarousel = () => {
       isDraggingRef.current = true;
       setIsDragging(true);
       event.currentTarget.setPointerCapture?.(event.pointerId);
+      if (!manualPauseRef.current) {
+        setIsPaused(true);
+      }
     }
 
     if (isDraggingRef.current) {
@@ -212,21 +252,76 @@ const AboutClientsCarousel = () => {
       event.currentTarget.releasePointerCapture?.(event.pointerId);
       isDraggingRef.current = false;
       setIsDragging(false);
-      setTimeout(() => {
-        setIsPaused(false);
-      }, 180);
-    } else {
+      if (!manualPauseRef.current) {
+        setTimeout(() => {
+          if (!manualPauseRef.current) {
+            setIsPaused(false);
+          }
+        }, 180);
+      }
+    } else if (!manualPauseRef.current) {
       setIsPaused(false);
     }
 
     activePointerId.current = null;
   };
 
+  const handlePointerEnter = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!canHover) return;
+    if (isHoverPointer(event) && !manualPauseRef.current && !isDraggingRef.current) {
+      setIsPaused(true);
+    }
+  };
+
+  const handlePointerLeave = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!canHover) {
+      endDrag(event);
+      return;
+    }
+    if (isHoverPointer(event) && !manualPauseRef.current && !pointerActiveRef.current) {
+      setIsPaused(false);
+    }
+    endDrag(event);
+  };
+
   useAnimationFrame(() => {
     if (!isPaused && !isDraggingRef.current) {
-      applyTranslation(xTranslation.current - SPEED);
+      applyTranslation(targetTranslation.current - SPEED);
+    }
+
+    const current = xTranslation.current;
+    const target = targetTranslation.current;
+    const delta = target - current;
+
+    if (Math.abs(delta) < 0.3) {
+      commitTranslation(target);
+    } else {
+      commitTranslation(current + delta * 0.15);
     }
   });
+
+  const centerElementIfNeeded = (element: HTMLDivElement | null) => {
+    if (!element) return;
+    const rect = element.getBoundingClientRect();
+    const viewportCenter = window.innerWidth / 2;
+    const elementCenter = rect.left + rect.width / 2;
+    const delta = viewportCenter - elementCenter;
+    applyTranslation(targetTranslation.current + delta);
+  };
+
+  const handleManualPause = (shouldPause: boolean, element: HTMLDivElement | null) => {
+    manualPauseRef.current = shouldPause;
+
+    if (shouldPause) {
+      const isTouchInteraction = lastPointerTypeRef.current === 'touch' || window.innerWidth < 768;
+      if (isTouchInteraction) {
+        centerElementIfNeeded(element);
+        commitTranslation(targetTranslation.current);
+      }
+    }
+
+    setIsPaused(shouldPause);
+  };
   return (
     <section className="py-16 sm:py-20 bg-gradient-to-br from-white via-gabardo-light-blue/5 to-white overflow-hidden" id="nossos-clientes">
       {/* Header */}
@@ -255,8 +350,6 @@ const AboutClientsCarousel = () => {
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
         className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
       >
         {/* Carousel Container */}
         <div
@@ -264,8 +357,10 @@ const AboutClientsCarousel = () => {
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={endDrag}
-          onPointerLeave={endDrag}
+          onPointerEnter={canHover ? handlePointerEnter : undefined}
+          onPointerLeave={canHover ? handlePointerLeave : undefined}
           onPointerCancel={endDrag}
+          style={{ touchAction: 'pan-y' }}
         >
           <div
             ref={containerRef}
@@ -276,6 +371,7 @@ const AboutClientsCarousel = () => {
               <LogoItem
                 key={`${logo.id}-${index}`}
                 logo={logo}
+                onManualPause={handleManualPause}
               />
             ))}
           </div>
