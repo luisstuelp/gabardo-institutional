@@ -130,18 +130,19 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-black bg-opacity-50"></div> {/* Overlay for better text contrast */}
 
       {/* Content container */}
-      <div className="relative z-10 flex flex-col justify-between h-full section-container pt-6 pb-10 sm:pt-8 md:pt-16 md:pb-16">
-        <div></div>
+      <div className="relative z-10 flex flex-col justify-start md:justify-between h-full section-container pt-6 pb-10 sm:pt-8 md:pt-16 md:pb-16">
+        <div className="hidden md:block"></div>
 
         {/* Left Scroll Indicator - Hidden on mobile */}
         <div className="hidden md:block absolute top-1/2 left-4 sm:left-6 md:left-10 lg:left-16 transform -translate-y-1/2">
           <ScrollDownIcon />
         </div>
-        <div className="flex flex-col justify-end h-full">
-          <div className="grid grid-cols-1 md:grid-cols-[7rem_1fr] gap-6 items-end w-full mb-8 sm:mb-12 md:mb-10">
+        <div className="flex flex-col justify-start md:justify-end h-full mt-16 sm:mt-20 md:mt-0 flex-1">
+          <div className="grid grid-cols-1 md:grid-cols-[7rem_1fr] gap-6 items-start md:items-end w-full mb-8 sm:mb-12 md:mb-10 flex-1">
+
             <div aria-hidden className="hidden md:block" />
             {/* Text Content Block */}
-            <div className="max-w-4xl xl:max-w-5xl">
+            <div className="max-w-4xl xl:max-w-5xl flex flex-col h-full justify-between">
               <h1 className="font-primary text-[clamp(1.8rem,5vw,2.15rem)] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6">
                 Movidos por
                 <br />
@@ -161,7 +162,7 @@ export default function HeroSection() {
                 Há mais de 36 anos, entendemos as necessidades dos nossos clientes para atendê-los de forma personalizada e eficiente no transporte de veículos.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-auto pb-6 sm:pb-2">
                 <Link href="/servicos" className="w-full sm:w-auto">
                   <motion.button
                     whileHover={{ scale: 1.05 }}

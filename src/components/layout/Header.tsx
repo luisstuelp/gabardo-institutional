@@ -87,7 +87,7 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className={headerClasses}
       >
-        <div className="section-container flex items-center justify-between py-1 sm:py-1.5 md:py-[0.28rem] lg:py-[0.18rem]">
+        <div className="section-container flex items-center justify-between h-[70px]">
           <Link
             href="/"
             className="group inline-flex items-center"
@@ -97,7 +97,7 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
               <Image
                 src="/gabardo-logo.png"
                 alt="Transportes Gabardo"
-                width={isMobile ? 70 : 110}
+                width={isMobile ? 70 : 128}
                 height={isMobile ? 21 : 28}
                 priority
                 className="h-auto w-auto transition-transform duration-300 group-hover:scale-105"

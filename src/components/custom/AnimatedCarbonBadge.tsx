@@ -25,7 +25,18 @@ export default function AnimatedCarbonBadge() {
     (includeButton: boolean) => {
       const baseWidth = contentRef.current?.offsetWidth ?? 0;
       const buffer = includeButton ? 160 : 110;
-      return Math.max(baseWidth + buffer, 320);
+      const desiredDistance = Math.max(baseWidth + buffer, 320);
+
+      if (typeof window === 'undefined') {
+        return desiredDistance;
+      }
+
+      const viewportWidth = window.innerWidth;
+      const coinWidth = 110;
+      const edgeBuffer = 8;
+      const maxDistance = Math.max(viewportWidth - coinWidth - edgeBuffer, 160);
+
+      return Math.min(desiredDistance, maxDistance);
     },
     []
   );
@@ -164,7 +175,7 @@ export default function AnimatedCarbonBadge() {
         />
       </motion.div>
 
-      <div ref={contentRef} className="flex flex-col relative min-w-0">
+      <div ref={contentRef} className="flex flex-col relative min-w-0 pr-28 sm:pr-40 lg:pr-48">
         <div className="flex flex-col relative overflow-hidden min-w-0">
           <div className="text-[0.6rem] sm:text-sm font-bold tracking-[0.18em] sm:tracking-[0.28em] uppercase text-white whitespace-nowrap">
             {LINE_ONE.split('').map((char, index) => (
