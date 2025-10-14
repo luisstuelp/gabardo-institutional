@@ -137,17 +137,17 @@ export default function HeroSection() {
         <div className="hidden md:block absolute top-1/2 left-4 sm:left-6 md:left-10 lg:left-16 transform -translate-y-1/2">
           <ScrollDownIcon />
         </div>
-        <div className="flex flex-col justify-start md:justify-end h-full mt-16 sm:mt-20 md:mt-0 flex-1">
+        <div className="flex flex-col justify-start md:justify-end h-full mt-16 sm:mt-20 md:mt-12 lg:mt-16 flex-1">
           <div className="grid grid-cols-1 md:grid-cols-[7rem_1fr] gap-6 items-start md:items-end w-full mb-8 sm:mb-12 md:mb-10 flex-1">
 
             <div aria-hidden className="hidden md:block" />
             {/* Text Content Block */}
             <div className="max-w-4xl xl:max-w-5xl flex flex-col h-full justify-between">
-              <h1 className="font-primary text-[clamp(1.8rem,5vw,2.15rem)] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6">
+              <h1 className="font-primary text-[clamp(1.8rem,5vw,2.15rem)] sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6">
                 Movidos por
                 <br />
                 <span
-                  className="block text-[clamp(2.5rem,8vw,3.2rem)] sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-extrabold"
+                  className="block text-[clamp(2.5rem,6.2vw,3rem)] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[8rem] font-extrabold"
                   style={{ color: '#38B6FF' }}
                 >
                   <AnimatedWords />

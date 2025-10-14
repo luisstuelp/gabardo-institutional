@@ -24,19 +24,36 @@ export default function AnimatedCarbonBadge() {
   const calculateSlideDistance = useCallback(
     (includeButton: boolean) => {
       const baseWidth = contentRef.current?.offsetWidth ?? 0;
-      const buffer = includeButton ? 160 : 110;
-      const desiredDistance = Math.max(baseWidth + buffer, 320);
 
       if (typeof window === 'undefined') {
-        return desiredDistance;
+        const defaultBuffer = includeButton ? 120 : 100;
+        return Math.max(baseWidth + defaultBuffer, 240);
       }
 
       const viewportWidth = window.innerWidth;
-      const coinWidth = 110;
-      const edgeBuffer = 8;
-      const maxDistance = Math.max(viewportWidth - coinWidth - edgeBuffer, 160);
+      const isSmallScreen = viewportWidth < 768;
 
-      return Math.min(desiredDistance, maxDistance);
+      const buffer = isSmallScreen
+        ? includeButton
+          ? 118
+          : 100
+        : includeButton
+          ? 90
+          : 70;
+
+      const minDistance = isSmallScreen ? 235 : 220;
+      const desiredDistance = Math.max(baseWidth + buffer, minDistance);
+
+      const coinWidth = 110;
+      const edgeBuffer = isSmallScreen ? 16 : 18;
+      const availableSpace = Math.max(viewportWidth - coinWidth - edgeBuffer, 0);
+      const minSeparation = baseWidth + (isSmallScreen ? 58 : 72);
+
+      if (availableSpace <= minSeparation) {
+        return availableSpace;
+      }
+
+      return Math.min(desiredDistance, availableSpace);
     },
     []
   );
@@ -175,9 +192,12 @@ export default function AnimatedCarbonBadge() {
         />
       </motion.div>
 
-      <div ref={contentRef} className="flex flex-col relative min-w-0 pr-28 sm:pr-40 lg:pr-48">
-        <div className="flex flex-col relative overflow-hidden min-w-0">
-          <div className="text-[0.6rem] sm:text-sm font-bold tracking-[0.18em] sm:tracking-[0.28em] uppercase text-white whitespace-nowrap">
+      <div
+        ref={contentRef}
+        className="flex flex-col relative min-w-0 pr-14 sm:pr-20 lg:pr-28 max-w-[calc(100vw-140px)] sm:max-w-[calc(100vw-200px)] md:max-w-none"
+      >
+        <div className="flex flex-col relative min-w-0 overflow-visible">
+          <div className="text-[0.58rem] sm:text-sm font-bold tracking-[0.12em] sm:tracking-[0.28em] uppercase text-white whitespace-nowrap leading-tight">
             {LINE_ONE.split('').map((char, index) => (
               <motion.span
                 key={`line1-${index}`}
@@ -214,7 +234,7 @@ export default function AnimatedCarbonBadge() {
 
           <div className="flex flex-col mt-2 sm:mt-3">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
-              <div className="text-[0.68rem] sm:text-sm md:text-base font-semibold tracking-[0.12em] sm:tracking-[0.18em] uppercase text-white/90 whitespace-nowrap">
+              <div className="text-[0.62rem] sm:text-sm md:text-base font-semibold tracking-[0.08em] sm:tracking-[0.18em] uppercase text-white/90 whitespace-nowrap leading-tight">
                 {LINE_TWO.split('').map((char, index) => (
                   <motion.span
                     key={`line2-${index}`}
