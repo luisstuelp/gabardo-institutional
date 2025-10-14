@@ -147,7 +147,10 @@ const HomeStripeCardSection = () => {
                         transition={{ type: 'spring', stiffness: 220, damping: 28, mass: 0.9 }}
                       >
                         <div className="space-y-2 sm:space-y-3">
-                          <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 sm:px-4 py-1 text-[0.6rem] sm:text-[11px] font-semibold uppercase tracking-[0.36em] sm:tracking-[0.42em] text-white/90">
+                          <span
+                            className="inline-flex items-center gap-2 rounded-full px-3 sm:px-4 py-1 text-[0.6rem] sm:text-[11px] font-semibold uppercase tracking-[0.36em] sm:tracking-[0.42em] text-white/90"
+                            style={{ backgroundColor: 'rgba(7, 21, 43, 0.55)' }}
+                          >
                             {feature.label}
                           </span>
                           <motion.h3
