@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useAnimationFrame } from 'framer-motion';
+import { motion, useAnimationFrame, useInView } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 
@@ -31,7 +31,7 @@ const clientLogos = [
 ];
 
 // Duplicate logos for infinite loop
-const infiniteLogos = [...clientLogos, ...clientLogos, ...clientLogos];
+const infiniteLogos = [...clientLogos];
 
 interface LogoItemProps {
   logo: typeof clientLogos[0];
@@ -68,6 +68,7 @@ const LogoItem = ({ logo, onManualPause }: LogoItemProps) => {
       style={{
         width: '240px',
         transform: `scale(${scale})`,
+        willChange: 'transform',
       }}
       onClick={() => {
         setIsFlipped((prev) => {
@@ -158,6 +159,8 @@ const AboutClientsCarousel = () => {
   const manualPauseRef = useRef(false);
   const lastPointerTypeRef = useRef<string>('');
   const [canHover, setCanHover] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -285,6 +288,8 @@ const AboutClientsCarousel = () => {
   };
 
   useAnimationFrame(() => {
+    if (!isInView) return;
+
     if (!isPaused && !isDraggingRef.current) {
       applyTranslation(targetTranslation.current - SPEED);
     }
@@ -323,7 +328,7 @@ const AboutClientsCarousel = () => {
     setIsPaused(shouldPause);
   };
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-br from-white via-gabardo-light-blue/5 to-white overflow-hidden" id="nossos-clientes">
+    <section ref={ref} className="py-16 sm:py-20 bg-gradient-to-br from-white via-gabardo-light-blue/5 to-white overflow-hidden" id="nossos-clientes">
       {/* Header */}
       <div className="container mx-auto px-4 mb-12">
         <motion.div
