@@ -36,15 +36,16 @@ const infiniteLogos = [...clientLogos];
 interface LogoItemProps {
   logo: typeof clientLogos[0];
   onManualPause: (shouldPause: boolean, element: HTMLDivElement | null) => void;
+  canHover: boolean;
 }
 
-const LogoItem = ({ logo, onManualPause }: LogoItemProps) => {
+const LogoItem = ({ logo, onManualPause, canHover }: LogoItemProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.8);
   const [isFlipped, setIsFlipped] = useState(false);
 
   useAnimationFrame(() => {
-    if (!itemRef.current) return;
+    if (!itemRef.current || !canHover) return;
 
     const itemRect = itemRef.current.getBoundingClientRect();
     
@@ -377,6 +378,7 @@ const AboutClientsCarousel = () => {
                 key={`${logo.id}-${index}`}
                 logo={logo}
                 onManualPause={handleManualPause}
+                canHover={canHover}
               />
             ))}
           </div>
