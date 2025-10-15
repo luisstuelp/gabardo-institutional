@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 
 interface ContactFormData {
   name: string;
@@ -138,6 +139,20 @@ function logContactSubmission(data: ContactFormData, ip: string, userAgent?: str
 
 
 
+function generateEmailTemplate(data: ContactFormData): string {
+  return `
+    <h1>Nova mensagem de contato</h1>
+    <p><strong>Nome:</strong> ${data.name}</p>
+    <p><strong>Email:</strong> ${data.email}</p>
+    <p><strong>Telefone:</strong> ${data.phone}</p>
+    <p><strong>Empresa:</strong> ${data.company}</p>
+    <p><strong>Interesse:</strong> ${data.interest}</p>
+    <p><strong>Assunto:</strong> ${data.subject}</p>
+    <p><strong>Mensagem:</strong></p>
+    <p>${data.message}</p>
+  `;
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Get client information
@@ -198,13 +213,7 @@ export async function POST(request: NextRequest) {
     // Log the submission
     logContactSubmission(formData, ip, userAgent || undefined);
 
-    // TODO: Replace with actual email sending logic
-    // Example integrations you could add here:
-    /*
-    
-    // Using Nodemailer with Gmail/SMTP
-    const nodemailer = require('nodemailer');
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
@@ -214,45 +223,11 @@ export async function POST(request: NextRequest) {
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: 'contato@hubplural.com',
-      subject: `[Hub Plural] ${formData.subject}`,
+      to: 'gabardo@transgabardo.com.br',
+      subject: `[Gabardo] ${formData.subject}`,
       html: generateEmailTemplate(formData),
       replyTo: formData.email
     });
-
-    // Send confirmation to user
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: formData.email,
-      subject: 'Confirmação de contato - Hub Plural',
-      html: generateConfirmationTemplate(formData.name)
-    });
-
-    // Using SendGrid
-    const sgMail = require('@sendgrid/mail');
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-    await sgMail.send({
-      to: 'contato@hubplural.com',
-      from: 'noreply@hubplural.com',
-      subject: `[Hub Plural] ${formData.subject}`,
-      html: generateEmailTemplate(formData),
-      replyTo: formData.email
-    });
-
-    // Using Resend
-    const { Resend } = require('resend');
-    const resend = new Resend(process.env.RESEND_API_KEY);
-
-    await resend.emails.send({
-      from: 'contato@hubplural.com',
-      to: 'contato@hubplural.com',
-      subject: `[Hub Plural] ${formData.subject}`,
-      html: generateEmailTemplate(formData),
-      reply_to: formData.email
-    });
-
-    */
 
     // Success response
     console.log('✅ Contact form submission successful');
@@ -277,16 +252,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-
-// Health check endpoint
-export async function GET() {
-  return NextResponse.json(
-    { 
-      status: 'ok',
-      message: 'Contact API is running',
-      timestamp: new Date().toISOString(),
-      version: '2.0.0'
-    },
-    { status: 200 }
-  );
-} 

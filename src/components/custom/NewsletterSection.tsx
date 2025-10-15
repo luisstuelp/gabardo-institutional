@@ -22,12 +22,27 @@ const NewsletterSection: React.FC = () => {
 
     setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setEmail('');
+      } else {
+        setError('Erro ao se inscrever. Tente novamente.');
+      }
+    } catch (error) {
+      setError('Erro de conexão. Verifique sua internet e tente novamente.');
+      console.log(error)
+    } finally {
       setIsLoading(false);
-      setIsSubmitted(true);
-      setEmail('');
-    }, 2000);
+    }
   };
 
   const resetForm = () => {

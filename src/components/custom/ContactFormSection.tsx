@@ -32,6 +32,7 @@ export default function ContactFormSection() {
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    console.log('Form submitted');
     event.preventDefault();
     setLoading(true);
     setError(null);
@@ -57,6 +58,7 @@ export default function ContactFormSection() {
       });
 
       if (response.ok) {
+        setSubmitted(true);
         // Reset form
         (event.target as HTMLFormElement).reset();
       } else {
@@ -73,62 +75,20 @@ export default function ContactFormSection() {
   if (submitted) {
     return (
       <section id="contact-form" className="section-shell bg-white relative overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="pointer-events-none absolute inset-0"
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(56,182,255,0.08),_transparent_68%)]" />
-          <div className="absolute -top-20 -right-28 h-[420px] w-[420px] rounded-full bg-gabardo-light-blue/14 blur-3xl" />
-          <div className="absolute -bottom-24 -left-32 h-[480px] w-[480px] rounded-full bg-gabardo-blue/12 blur-[140px]" />
-        </motion.div>
         <div className="section-container relative">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.25, type: 'spring', stiffness: 220 }}
-              className="mx-auto mb-10 flex h-24 w-24 items-center justify-center rounded-full bg-emerald-100"
-            >
-              <CheckCircle className="h-12 w-12 text-emerald-600" />
-            </motion.div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.35, ease: 'easeOut' }}
-              className="section-heading mt-6"
-            >
-              Mensagem enviada com sucesso
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.45, ease: 'easeOut' }}
-              className="section-subheading mt-6"
-            >
+          <div className="mx-auto max-w-3xl text-center">
+            <CheckCircle className="h-12 w-12 text-emerald-600 mx-auto mb-10" />
+            <h2 className="section-heading mt-6">Mensagem enviada com sucesso</h2>
+            <p className="section-subheading mt-6">
               Obrigado pelo contato! Nosso time retornará em até 24 horas úteis com um plano sob medida para a sua operação.
-            </motion.p>
-
-            <motion.button
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.55, ease: 'easeOut' }}
-              whileHover={{ y: -2, scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
+            </p>
+            <button
               onClick={() => setSubmitted(false)}
               className="inline-flex items-center gap-3 rounded-full bg-gabardo-blue px-10 py-4 text-xs font-semibold uppercase tracking-[0.32em] text-white shadow-[0_30px_70px_-40px_rgba(19,45,81,0.7)] transition-all duration-300 hover:bg-gabardo-blue/90"
             >
               Enviar nova mensagem
-            </motion.button>
-          </motion.div>
+            </button>
+          </div>
         </div>
       </section>
     );
@@ -252,6 +212,35 @@ export default function ContactFormSection() {
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: focusedField === 'email' ? '100%' : '0%' }}
+                  transition={{ duration: 0.3 }}
+                  className="h-0.5 bg-gabardo-light-blue"
+                />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="space-y-3"
+              >
+                <label htmlFor="company" className="block text-sm font-medium text-neutral-700 uppercase tracking-wider">
+                  Empresa
+                </label>
+                <motion.input
+                  type="text"
+                  id="company"
+                  name="company"
+                  maxLength={100}
+                  onFocus={() => setFocusedField('company')}
+                  onBlur={() => setFocusedField(null)}
+                  className="w-full px-0 py-3 text-base sm:text-lg border-0 border-b-2 border-neutral-200 focus:border-gabardo-light-blue focus:outline-none transition-all duration-300 bg-transparent placeholder-neutral-400"
+                  placeholder="Nome da sua empresa"
+                  whileFocus={{ scale: 1.01 }}
+                />
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: focusedField === 'company' ? '100%' : '0%' }}
                   transition={{ duration: 0.3 }}
                   className="h-0.5 bg-gabardo-light-blue"
                 />

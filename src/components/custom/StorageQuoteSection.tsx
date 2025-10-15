@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Package, MapPin, Calendar, User } from 'lucide-react';
+import { ArrowRight, Package, MapPin, Calendar, User, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 
 export default function StorageQuoteSection() {
   const [formData, setFormData] = useState({
@@ -16,6 +16,9 @@ export default function StorageQuoteSection() {
     duration: '',
     message: ''
   });
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -25,11 +28,76 @@ export default function StorageQuoteSection() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-  };
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          company: '',
+          vehicleType: '',
+          quantity: '',
+          location: '',
+          duration: '',
+          message: ''
+        });
+      } else {
+        setError('Erro ao enviar mensagem. Tente novamente.');
+      }
+    } catch (error) {
+      setError('Erro de conexão. Verifique sua internet e tente novamente.');
+      console.log(error)
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (submitted) {
+    return (
+      <section className="py-16 md:py-20 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 md:px-8 lg:px-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mx-auto max-w-3xl text-center"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
+              className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full bg-green-100"
+            >
+              <CheckCircle className="h-10 w-10 text-green-600" />
+            </motion.div>
+            <h2 className="text-3xl font-bold text-gabardo-blue md:text-4xl">Cotação enviada com sucesso!</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-gray-600 md:text-lg">
+              Agradecemos seu interesse. Nossa equipe comercial analisará sua solicitação e entrará em contato em breve com uma proposta detalhada.
+            </p>
+            <button
+              onClick={() => setSubmitted(false)}
+              className="mt-8 rounded-full bg-gabardo-blue px-8 py-3 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5"
+            >
+              Enviar Nova Cotação
+            </button>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-white">
@@ -115,7 +183,16 @@ export default function StorageQuoteSection() {
             className="bg-gray-50 p-8 lg:p-10"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
-              
+              {error && (
+                <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6">
+                  <p>{error}</p>
+                </div>
+              )}
+              {submitted && (
+                <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6">
+                  <p>Cotação enviada com sucesso!</p>
+                </div>
+              )}
               {/* Personal Info */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -263,11 +340,12 @@ export default function StorageQuoteSection() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
-                className="w-full text-white px-8 py-4 text-base font-medium uppercase tracking-wide hover:opacity-90 transition-all duration-300 flex items-center justify-center space-x-3 font-primary"
+                disabled={loading}
+                className="w-full text-white px-8 py-4 text-base font-medium uppercase tracking-wide hover:opacity-90 transition-all duration-300 flex items-center justify-center space-x-3 font-primary disabled:opacity-50"
                 style={{ backgroundColor: '#132D51' }}
               >
-                <span>Solicitar Cotação</span>
-                <ArrowRight className="w-5 h-5" />
+                {loading ? <Loader className="animate-spin" /> : <span>Solicitar Cotação</span>}
+                {!loading && <ArrowRight className="w-5 h-5" />}
               </motion.button>
             </form>
           </motion.div>

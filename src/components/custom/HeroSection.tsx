@@ -130,39 +130,39 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-black bg-opacity-50"></div> {/* Overlay for better text contrast */}
 
       {/* Content container */}
-      <div className="relative z-10 flex flex-col justify-start md:justify-between h-full section-container pt-6 pb-10 sm:pt-8 md:pt-16 md:pb-16">
+      <div className="relative z-10 flex flex-col justify-start md:justify-center md:gap-12 h-full section-container pt-6 pb-10 sm:pt-8 md:pt-12 md:pb-12">
         <div className="hidden md:block"></div>
 
         {/* Left Scroll Indicator - Hidden on mobile */}
         <div className="hidden md:block absolute top-1/2 left-4 sm:left-6 md:left-10 lg:left-16 transform -translate-y-1/2">
           <ScrollDownIcon />
         </div>
-        <div className="flex flex-col justify-start md:justify-end h-full mt-16 sm:mt-20 md:mt-12 lg:mt-16 flex-1">
-          <div className="grid grid-cols-1 md:grid-cols-[7rem_1fr] gap-6 items-start md:items-end w-full mb-8 sm:mb-12 md:mb-10 flex-1">
+        <div className="flex flex-col justify-start md:justify-center h-full mt-16 sm:mt-20 md:mt-0 lg:mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-[7rem_1fr] gap-6 items-start md:items-end w-full mb-8 sm:mb-10 md:mb-6">
 
             <div aria-hidden className="hidden md:block" />
             {/* Text Content Block */}
-            <div className="max-w-4xl xl:max-w-5xl flex flex-col h-full justify-between">
-              <h1 className="font-primary text-[clamp(1.8rem,5vw,2.15rem)] sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6">
+            <div className="max-w-4xl xl:max-w-5xl flex flex-col gap-5 md:gap-6">
+              <h1 className="font-primary hero-heading-1 sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-4 sm:mb-5 md:mb-5">
                 Movidos por
                 <br />
                 <span
-                  className="block text-[clamp(2.5rem,6.2vw,3rem)] sm:text-5xl md:text-6xl lg:text-7xl xl:text-[8rem] font-extrabold"
+                  className="block hero-heading-2 sm:text-5xl md:text-6xl lg:text-7xl xl:text-[8rem] font-extrabold"
                   style={{ color: '#38B6FF' }}
                 >
                   <AnimatedWords />
                 </span>
               </h1>
 
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-white/85 mb-5">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-white/85">
                 <AnimatedCarbonBadge />
               </div>
 
-              <p className="font-secondary mt-3 text-sm sm:text-base md:text-lg font-light leading-relaxed mb-5 sm:mb-6 md:mb-8">
+              <p className="font-secondary mt-3 text-sm sm:text-base md:text-lg font-light leading-relaxed mb-5 sm:mb-6 md:mb-6">
                 Há mais de 36 anos, entendemos as necessidades dos nossos clientes para atendê-los de forma personalizada e eficiente no transporte de veículos.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-auto pb-6 sm:pb-2">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:mt-2 pb-6 sm:pb-2 md:pb-4">
                 <Link href="/servicos" className="w-full sm:w-auto">
                   <motion.button
                     whileHover={{ scale: 1.05 }}

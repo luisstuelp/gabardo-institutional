@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Phone, Mail, MapPin, UserPlus, ClipboardCheck, MessageCircle } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, UserPlus, ClipboardCheck, MessageCircle, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 
 const journeyHighlights = [
   {
@@ -34,17 +34,82 @@ const ServicesQuoteSection: React.FC = () => {
     service: '',
     message: ''
   });
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted:', formData);
-  };
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({
+          name: '',
+          company: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: ''
+        });
+      } else {
+        setError('Erro ao enviar mensagem. Tente novamente.');
+      }
+    } catch (error) {
+      setError('Erro de conexão. Verifique sua internet e tente novamente.');
+      console.log(error)
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (submitted) {
+    return (
+      <section id="talent-form" className="relative overflow-hidden bg-gradient-to-b from-[#f5f9ff] via-white to-[#eef2f9] py-16 md:py-20 lg:py-24">
+        <div className="container relative mx-auto px-4 md:px-8 lg:px-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mx-auto max-w-3xl text-center"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
+              className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full bg-green-100"
+            >
+              <CheckCircle className="h-10 w-10 text-green-600" />
+            </motion.div>
+            <h2 className="text-3xl font-bold text-gabardo-blue md:text-4xl">Proposta enviada com sucesso!</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-gray-600 md:text-lg">
+              Agradecemos seu interesse. Nossa equipe comercial analisará sua solicitação e entrará em contato em breve com uma proposta detalhada.
+            </p>
+            <button
+              onClick={() => setSubmitted(false)}
+              className="mt-8 rounded-full bg-gabardo-blue px-8 py-3 text-sm font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5"
+            >
+              Enviar Nova Proposta
+            </button>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="talent-form" className="relative overflow-hidden bg-gradient-to-b from-[#f5f9ff] via-white to-[#eef2f9] py-16 md:py-20 lg:py-24">
@@ -130,6 +195,16 @@ const ServicesQuoteSection: React.FC = () => {
             <div className="relative overflow-hidden rounded-3xl border border-gabardo-blue/15 bg-white/90 p-8 shadow-[0_22px_40px_-22px_rgba(19,45,81,0.45)] md:p-12">
               <div className="pointer-events-none absolute -left-20 top-10 h-52 w-52 rounded-full bg-gabardo-blue/10 blur-[90px]" />
               <form onSubmit={handleSubmit} className="relative space-y-6">
+                {error && (
+                  <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6">
+                    <p>{error}</p>
+                  </div>
+                )}
+                {submitted && (
+                  <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6">
+                    <p>Proposta enviada com sucesso!</p>
+                  </div>
+                )}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium mb-2" style={{color: '#132D51'}}>
@@ -229,10 +304,11 @@ const ServicesQuoteSection: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="flex w-full items-center justify-center gap-3 rounded-full bg-gabardo-blue px-10 py-4 text-sm font-semibold uppercase tracking-[0.26em] text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[#0f1f3a] md:w-auto"
+                  disabled={loading}
+                  className="flex w-full items-center justify-center gap-3 rounded-full bg-gabardo-blue px-10 py-4 text-sm font-semibold uppercase tracking-[0.26em] text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[#0f1f3a] md:w-auto disabled:opacity-50"
                 >
-                  <Send className="w-5 h-5" />
-                  Enviar proposta
+                  {loading ? <Loader className="animate-spin" /> : <Send className="w-5 h-5" />}
+                  {loading ? 'Enviando...' : 'Enviar proposta'}
                 </button>
               </form>
             </div>
