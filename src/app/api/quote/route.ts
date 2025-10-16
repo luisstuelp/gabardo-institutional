@@ -1,0 +1,235 @@
+import { NextRequest, NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
+
+type QuoteFormData = {
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  vehicleCategory: string;
+  vehicleBrand: string;
+  vehicleModel: string;
+  vehicleYear: string;
+  vehicleValue: string;
+  vehicleObservation: string;
+  originState: string;
+  originCity: string;
+  destinationState: string;
+  destinationCity: string;
+  routeObservation: string;
+  message: string;
+  privacyAccepted: boolean;
+};
+
+type ValidationResult = {
+  isValid: boolean;
+  errors: string[];
+};
+
+const phoneRegex = /^(?:\+55)?\s?(?:\(?\d{2}\)?\s?)?(?:9\d{4}|\d{4})[-\s]?\d{4}$/;
+const yearRegex = /^(19|20|21)\d{2}$/;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const REQUIRED_FIELDS: Array<keyof QuoteFormData> = [
+  'name',
+  'email',
+  'phone',
+  'vehicleCategory',
+  'vehicleBrand',
+  'vehicleModel',
+  'vehicleYear',
+  'vehicleValue',
+  'originState',
+  'originCity',
+  'destinationState',
+  'destinationCity'
+];
+
+function sanitize(input: string): string {
+  return (input || '')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/\//g, '&#x2F;')
+    .trim();
+}
+
+function parseVehicleValue(value: string): number {
+  if (!value) {
+    return Number.NaN;
+  }
+
+  const normalized = value
+    .replace(/[\sR$]/gi, '')
+    .replace(/\./g, '')
+    .replace(',', '.');
+
+  return Number(normalized);
+}
+
+function formatCurrency(value: string): string {
+  const parsed = parseVehicleValue(value);
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    return value || 'Não informado';
+  }
+
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(parsed);
+}
+
+function formatOptional(value: string): string {
+  return value ? value : 'Não informado';
+}
+
+function validate(data: QuoteFormData): ValidationResult {
+  const errors: string[] = [];
+
+  for (const field of REQUIRED_FIELDS) {
+    const value = data[field];
+    if (typeof value !== 'string' || !value.trim()) {
+      errors.push(`Campo obrigatório ausente: ${field}`);
+    }
+  }
+
+  if (data.name && data.name.trim().length < 3) {
+    errors.push('Informe um nome com pelo menos 3 caracteres.');
+  }
+
+  if (data.email && !emailRegex.test(data.email)) {
+    errors.push('Informe um e-mail válido.');
+  }
+
+  if (data.phone && !phoneRegex.test(data.phone)) {
+    errors.push('Informe um telefone válido com DDD.');
+  }
+
+  if (data.vehicleYear && !yearRegex.test(data.vehicleYear)) {
+    errors.push('Informe o ano do veículo com 4 dígitos.');
+  }
+
+  const vehicleValueNumber = parseVehicleValue(data.vehicleValue);
+  if (!Number.isFinite(vehicleValueNumber) || vehicleValueNumber <= 0) {
+    errors.push('Informe o valor do veículo corretamente.');
+  }
+
+  if (!data.privacyAccepted) {
+    errors.push('A política de privacidade deve ser aceita.');
+  }
+
+  if (data.message && data.message.length > 2000) {
+    errors.push('Mensagem muito longa (máximo 2000 caracteres).');
+  }
+
+  if (data.routeObservation && data.routeObservation.length > 2000) {
+    errors.push('Observação de trajeto muito longa (máximo 2000 caracteres).');
+  }
+
+  if (data.vehicleObservation && data.vehicleObservation.length > 1000) {
+    errors.push('Observação do veículo muito longa (máximo 1000 caracteres).');
+  }
+
+  return { isValid: errors.length === 0, errors };
+}
+
+function renderEmailTemplate(data: QuoteFormData): string {
+  return `
+    <h1>Pedido de Cotação - Transporte de Veículos</h1>
+    <h2>Dados do Veículo</h2>
+    <p><strong>Categoria:</strong> ${data.vehicleCategory}</p>
+    <p><strong>Marca:</strong> ${data.vehicleBrand}</p>
+    <p><strong>Modelo:</strong> ${data.vehicleModel}</p>
+    <p><strong>Ano:</strong> ${data.vehicleYear}</p>
+    <p><strong>Valor declarado:</strong> ${formatCurrency(data.vehicleValue)}</p>
+    <p><strong>Observação:</strong> ${formatOptional(data.vehicleObservation)}</p>
+
+    <h2>Dados do Trajeto</h2>
+    <p><strong>Origem:</strong> ${data.originCity} - ${data.originState}</p>
+    <p><strong>Destino:</strong> ${data.destinationCity} - ${data.destinationState}</p>
+    <p><strong>Observação do trajeto:</strong> ${formatOptional(data.routeObservation)}</p>
+
+    <h2>Contato</h2>
+    <p><strong>Nome:</strong> ${data.name}</p>
+    <p><strong>Empresa:</strong> ${formatOptional(data.company)}</p>
+    <p><strong>E-mail:</strong> ${data.email}</p>
+    <p><strong>Telefone:</strong> ${data.phone}</p>
+
+    <h2>Mensagem adicional</h2>
+    <p>${formatOptional(data.message)}</p>
+  `;
+}
+
+async function sendEmail(data: QuoteFormData) {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  await transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: 'gabardo@transgabardo.com.br',
+    subject: `[Gabardo] Pedido de cotação - ${data.vehicleBrand} ${data.vehicleModel || data.vehicleCategory}`,
+    html: renderEmailTemplate(data),
+    replyTo: data.email,
+  });
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const rawBody = await request.json();
+
+    const formData: QuoteFormData = {
+      name: sanitize(rawBody.name),
+      company: sanitize(rawBody.company),
+      email: sanitize(rawBody.email),
+      phone: sanitize(rawBody.phone),
+      vehicleCategory: sanitize(rawBody.vehicleCategory),
+      vehicleBrand: sanitize(rawBody.vehicleBrand),
+      vehicleModel: sanitize(rawBody.vehicleModel),
+      vehicleYear: sanitize(rawBody.vehicleYear),
+      vehicleValue: sanitize(rawBody.vehicleValue),
+      vehicleObservation: sanitize(rawBody.vehicleObservation),
+      originState: sanitize(rawBody.originState),
+      originCity: sanitize(rawBody.originCity),
+      destinationState: sanitize(rawBody.destinationState),
+      destinationCity: sanitize(rawBody.destinationCity),
+      routeObservation: sanitize(rawBody.routeObservation),
+      message: sanitize(rawBody.message),
+      privacyAccepted: Boolean(rawBody.privacyAccepted),
+    };
+
+    const validation = validate(formData);
+    if (!validation.isValid) {
+      return NextResponse.json(
+        {
+          error: 'Dados inválidos no pedido de cotação.',
+          details: validation.errors,
+        },
+        { status: 422 }
+      );
+    }
+
+    await sendEmail(formData);
+
+    return NextResponse.json(
+      {
+        message: 'Cotação registrada com sucesso!',
+        timestamp: new Date().toISOString(),
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('Erro ao processar pedido de cotação:', error);
+    return NextResponse.json(
+      {
+        error: 'Erro interno ao enviar a cotação. Tente novamente mais tarde.',
+      },
+      { status: 500 }
+    );
+  }
+}

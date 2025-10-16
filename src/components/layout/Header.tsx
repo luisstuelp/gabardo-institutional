@@ -75,6 +75,7 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
       href: '/sustentabilidade',
       imageSrc: '/images/gabardo-hero-01.JPG',
     },
+    { id: 'orcamento', label: 'ORÇAMENTO', href: '/orcamento', imageSrc: '/images/gabardo-hero-03.JPG' },
     { id: 'contato', label: 'CONTATO', href: '/contato', imageSrc: '/images/gabardo-hero-03.JPG' },
     { id: 'blog', label: 'BLOG', href: '/blog', imageSrc: '/images/hero-blog.jpg' },
   ];
@@ -108,10 +109,10 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
 
           <div className="flex items-center gap-3 sm:gap-4 lg:gap-3">
             <Link
-              href="/contato"
+              href="/orcamento"
               className={`hidden lg:inline-flex items-center gap-2 rounded-full px-[1.1rem] py-[0.45rem] text-[0.64rem] font-semibold uppercase tracking-[0.26em] transition-all duration-300 shadow-[0_18px_35px_-28px_RGBA(19,45,81,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${ctaClasses}`}
             >
-              Fale conosco
+              Faça seu orçamento
             </Link>
 
             <button

@@ -16,7 +16,7 @@ const ScrollDownIcon = () => (
   </div>
 );
 
-export default function HeroSection() {
+export default function HeroSection({ title, subtitle, imageSrc }: { title?: string, subtitle?: string, imageSrc?: string }) {
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -91,7 +91,7 @@ export default function HeroSection() {
 
   return (
     <div className="relative w-full h-screen min-h-[600px] text-white overflow-hidden bg-cover bg-center md:bg-transparent"
-         style={{ backgroundImage: 'url(/images/gabardo-hero-01.jpg)' }}>
+         style={{ backgroundImage: `url(${imageSrc || '/images/gabardo-hero-01.jpg'})` }}>
       {/* Hero Video Background - Hidden on mobile */}
       {!isDesktop && (
         <video
@@ -144,15 +144,24 @@ export default function HeroSection() {
             {/* Text Content Block */}
             <div className="max-w-4xl xl:max-w-5xl flex flex-col gap-5 md:gap-6">
               <h1 className="font-primary hero-heading-1 sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-4 sm:mb-5 md:mb-5">
-                Movidos por
-                <br />
-                <span
-                  className="block hero-heading-2 sm:text-5xl md:text-6xl lg:text-7xl xl:text-[8rem] font-extrabold"
-                  style={{ color: '#38B6FF' }}
-                >
-                  <AnimatedWords />
-                </span>
+                {title || 'Movidos por'}
+                {!title && (
+                  <>
+                    <br />
+                    <span
+                      className="block hero-heading-2 sm:text-5xl md:text-6xl lg:text-7xl xl:text-[8rem] font-extrabold"
+                      style={{ color: '#38B6FF' }}
+                    >
+                      <AnimatedWords />
+                    </span>
+                  </>
+                )}
               </h1>
+              {subtitle && (
+                <p className="font-secondary mt-3 text-sm sm:text-base md:text-lg font-light leading-relaxed mb-5 sm:mb-6 md:mb-6">
+                  {subtitle}
+                </p>
+              )}
 
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-white/85">
                 <AnimatedCarbonBadge />
