@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useAnimationFrame, useInView } from 'framer-motion';
+import { motion, useAnimationFrame, useInView, useMotionValue, useReducedMotion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 
@@ -36,46 +36,55 @@ const infiniteLogos = [...clientLogos, ...clientLogos, ...clientLogos];
 interface LogoItemProps {
   logo: typeof clientLogos[0];
   onManualPause: (shouldPause: boolean, element: HTMLDivElement | null) => void;
+  disableDynamicEffects: boolean;
 }
 
-const LogoItem = ({ logo, onManualPause }: LogoItemProps) => {
+const MIN_SCALE = 0.85;
+const MAX_SCALE = 1.15;
+const DISABLED_SCALE = 0.96;
+
+const LogoItem = ({ logo, onManualPause, disableDynamicEffects }: LogoItemProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(0.8);
+  const scale = useMotionValue(disableDynamicEffects ? DISABLED_SCALE : MIN_SCALE);
   const [isFlipped, setIsFlipped] = useState(false);
 
+  useEffect(() => {
+    scale.set(disableDynamicEffects ? DISABLED_SCALE : MIN_SCALE);
+  }, [disableDynamicEffects, scale]);
+
   useAnimationFrame(() => {
-    if (!itemRef.current) return;
+    if (disableDynamicEffects || !itemRef.current) return;
+    if (typeof window === 'undefined') return;
 
     const itemRect = itemRef.current.getBoundingClientRect();
-    
-    // Use viewport center as reference for full-width carousel
     const viewportCenterX = window.innerWidth / 2;
     const itemCenterX = itemRect.left + itemRect.width / 2;
     const distanceFromCenter = Math.abs(viewportCenterX - itemCenterX);
-    const maxDistance = window.innerWidth / 2;
-    
-    // Calculate scale: closer to center = LARGER (1.15x), farther = SMALLER (0.85x)
+    const maxDistance = Math.max(window.innerWidth / 2, itemRect.width);
     const normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
-    const newScale = 1.15 - (normalizedDistance * 0.3); // Range: 1.15 (center) -> 0.85 (edges)
-    
-    setScale(newScale);
+    const newScale = MAX_SCALE - normalizedDistance * (MAX_SCALE - MIN_SCALE);
+
+    scale.set(newScale);
   });
 
+  const handleToggleFlip = () => {
+    setIsFlipped((prev) => {
+      const next = !prev;
+      onManualPause(next, itemRef.current);
+      return next;
+    });
+  };
+
   return (
-    <div
+    <motion.div
       ref={itemRef}
-      className="flex-shrink-0 transition-all duration-200 ease-out [perspective:1000px]"
+      className="flex-shrink-0 transition-transform duration-200 ease-out [perspective:1000px]"
       style={{
         width: '240px',
-        transform: `scale(${scale})`,
+        scale: disableDynamicEffects ? DISABLED_SCALE : scale,
+        willChange: disableDynamicEffects ? undefined : 'transform'
       }}
-      onClick={() => {
-        setIsFlipped((prev) => {
-          const next = !prev;
-          onManualPause(next, itemRef.current);
-          return next;
-        });
-      }}
+      onClick={handleToggleFlip}
     >
       <motion.div
         className="relative h-60 w-full cursor-pointer"
@@ -135,7 +144,7 @@ const LogoItem = ({ logo, onManualPause }: LogoItemProps) => {
           </div>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -157,9 +166,26 @@ const AboutClientsCarousel = () => {
   const DRAG_THRESHOLD = 6;
   const manualPauseRef = useRef(false);
   const lastPointerTypeRef = useRef<string>('');
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const disableDynamicEffects = prefersReducedMotion || isMobileViewport;
+  const baseAutoSpeed = prefersReducedMotion ? 0 : isMobileViewport ? 1 : SPEED;
   const [canHover, setCanHover] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const updateViewport = () => {
+      setIsMobileViewport(window.innerWidth < 768);
+    };
+
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+
+    return () => window.removeEventListener('resize', updateViewport);
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -289,8 +315,8 @@ const AboutClientsCarousel = () => {
   useAnimationFrame(() => {
     if (!isInView) return;
 
-    if (!isPaused && !isDraggingRef.current) {
-      applyTranslation(targetTranslation.current - SPEED);
+    if (!isPaused && !isDraggingRef.current && baseAutoSpeed > 0) {
+      applyTranslation(targetTranslation.current - baseAutoSpeed);
     }
 
     const current = xTranslation.current;
@@ -317,7 +343,7 @@ const AboutClientsCarousel = () => {
     manualPauseRef.current = shouldPause;
 
     if (shouldPause) {
-      const isTouchInteraction = lastPointerTypeRef.current === 'touch' || window.innerWidth < 768;
+      const isTouchInteraction = lastPointerTypeRef.current === 'touch' || isMobileViewport;
       if (isTouchInteraction) {
         centerElementIfNeeded(element);
         commitTranslation(targetTranslation.current);
@@ -376,6 +402,7 @@ const AboutClientsCarousel = () => {
                 key={`${logo.id}-${index}`}
                 logo={logo}
                 onManualPause={handleManualPause}
+                disableDynamicEffects={disableDynamicEffects}
               />
             ))}
           </div>

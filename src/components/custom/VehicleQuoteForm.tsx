@@ -144,6 +144,29 @@ const brazilianStates = [
   'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO',
 ];
 
+// Vehicle models by brand
+const vehicleModelsByBrand: Record<string, string[]> = {
+  'Audi': ['A3', 'A4', 'A5', 'A6', 'Q3', 'Q5', 'Q7', 'Q8', 'e-tron'],
+  'BMW': ['Série 1', 'Série 3', 'Série 5', 'X1', 'X3', 'X5', 'X6', 'iX3'],
+  'Chevrolet': ['Onix', 'Tracker', 'Spin', 'S10', 'Montana', 'Cruze', 'Equinox'],
+  'Citroën': ['C3', 'C4 Cactus', 'Aircross', 'Jumper'],
+  'Fiat': ['Argo', 'Mobi', 'Toro', 'Strada', 'Pulse', 'Fastback', 'Ducato'],
+  'Ford': ['Ka', 'EcoSport', 'Ranger', 'Bronco Sport', 'Maverick', 'Transit'],
+  'Honda': ['City', 'Civic', 'HR-V', 'CR-V', 'Accord', 'WR-V'],
+  'Hyundai': ['HB20', 'Creta', 'Tucson', 'Santa Fe', 'ix35', 'Palisade'],
+  'Jeep': ['Renegade', 'Compass', 'Commander', 'Wrangler', 'Grand Cherokee'],
+  'Kia': ['Picanto', 'Sportage', 'Sorento', 'Seltos', 'Carnival'],
+  'Mercedes-Benz': ['Classe A', 'Classe C', 'Classe E', 'GLA', 'GLC', 'GLE', 'Sprinter'],
+  'Mitsubishi': ['L200', 'Pajero', 'Eclipse Cross', 'ASX'],
+  'Nissan': ['Versa', 'Kicks', 'Sentra', 'Frontier', 'X-Trail'],
+  'Peugeot': ['208', '2008', '3008', 'Partner', 'Expert'],
+  'Renault': ['Kwid', 'Sandero', 'Duster', 'Oroch', 'Captur', 'Kardian'],
+  'Toyota': ['Corolla', 'Hilux', 'SW4', 'RAV4', 'Yaris', 'Corolla Cross'],
+  'Volkswagen': ['Gol', 'Polo', 'Virtus', 'Nivus', 'T-Cross', 'Taos', 'Amarok', 'Saveiro'],
+  'Volvo': ['XC40', 'XC60', 'XC90', 'S60', 'V60'],
+  'Outros': ['Outro modelo'],
+};
+
 const VehicleQuoteForm: React.FC = () => {
   const totalSteps = 3;
   const [step, setStep] = useState(1);
@@ -151,10 +174,24 @@ const VehicleQuoteForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [availableModels, setAvailableModels] = useState<string[]>([]);
 
   const validateStep = (currentStep: number) => {
     switch (currentStep) {
       case 1: {
+        if (!formData.name || !formData.email || !formData.phone) {
+          return 'Preencha os dados de contato obrigatórios.';
+        }
+        if (!emailRegex.test(formData.email)) {
+          return 'Informe um e-mail válido.';
+        }
+        const digits = formData.phone.replace(/\D/g, '');
+        if (digits.length < 10) {
+          return 'Informe um telefone com DDD.';
+        }
+        return null;
+      }
+      case 2: {
         if (!formData.vehicleCategory || !formData.vehicleBrand || !formData.vehicleModel || !formData.vehicleYear || !formData.vehicleValue) {
           return 'Preencha todas as informações do veículo.';
         }
@@ -167,22 +204,9 @@ const VehicleQuoteForm: React.FC = () => {
         }
         return null;
       }
-      case 2: {
+      case 3: {
         if (!formData.originState || !formData.originCity || !formData.destinationState || !formData.destinationCity) {
           return 'Informe origem e destino completos.';
-        }
-        return null;
-      }
-      case 3: {
-        if (!formData.name || !formData.email || !formData.phone) {
-          return 'Preencha os dados de contato obrigatórios.';
-        }
-        if (!emailRegex.test(formData.email)) {
-          return 'Informe um e-mail válido.';
-        }
-        const digits = formData.phone.replace(/\D/g, '');
-        if (digits.length < 10) {
-          return 'Informe um telefone com DDD.';
         }
         if (!formData.privacyAccepted) {
           return 'Você precisa aceitar a política de privacidade.';
@@ -207,7 +231,14 @@ const VehicleQuoteForm: React.FC = () => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
     setError(null);
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    
+    // If brand changes, update available models and clear model selection
+    if (name === 'vehicleBrand') {
+      setAvailableModels(vehicleModelsByBrand[value] || []);
+      setFormData((prev) => ({ ...prev, [name]: value, vehicleModel: '' }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -355,6 +386,75 @@ const VehicleQuoteForm: React.FC = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 30 }}
                   >
+                    <div className="grid gap-6 lg:grid-cols-2">
+                      <div>
+                        <label className="block text-sm font-medium text-gabardo-blue">Nome completo *</label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          required
+                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                          placeholder="Informe seu nome"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gabardo-blue">Empresa (Opcional)</label>
+                        <input
+                          type="text"
+                          name="company"
+                          value={formData.company}
+                          onChange={handleInputChange}
+                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                          placeholder="Informe sua empresa"
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-6 grid gap-6 lg:grid-cols-2">
+                      <div>
+                        <label className="block text-sm font-medium text-gabardo-blue">E-mail *</label>
+                        <input
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                          placeholder="seu@email.com"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gabardo-blue">Telefone *</label>
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          required
+                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                          placeholder="(11) 99999-9999"
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-8 flex justify-end">
+                      <button
+                        type="button"
+                        onClick={handleNextStep}
+                        className="flex items-center justify-center gap-3 rounded-full bg-gabardo-blue px-8 py-4 text-sm font-semibold uppercase tracking-[0.22em] text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[#0f1f3a]"
+                      >
+                        Prosseguir <ArrowRight className="h-5 w-5" />
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+
+                {step === 2 && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 30 }}
+                  >
                     <div className="grid gap-6 lg:grid-cols-5">
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Veículo *</label>
@@ -388,15 +488,19 @@ const VehicleQuoteForm: React.FC = () => {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Modelo *</label>
-                        <input
-                          type="text"
+                        <select
                           name="vehicleModel"
                           value={formData.vehicleModel}
                           onChange={handleInputChange}
                           required
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                          placeholder="Selecione"
-                        />
+                          disabled={!formData.vehicleBrand}
+                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                        >
+                          <option value="">{formData.vehicleBrand ? 'Selecione' : 'Selecione a marca primeiro'}</option>
+                          {availableModels.map((model) => (
+                            <option key={model} value={model}>{model}</option>
+                          ))}
+                        </select>
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Ano / Fabricação *</label>
@@ -427,32 +531,38 @@ const VehicleQuoteForm: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="mt-6 grid gap-6 lg:grid-cols-3">
-                      <div className="lg:col-span-2">
-                        <label className="block text-sm font-medium text-gabardo-blue">Observação sobre o veículo (Opcional)</label>
-                        <input
-                          type="text"
-                          name="vehicleObservation"
-                          value={formData.vehicleObservation}
-                          onChange={handleInputChange}
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                          placeholder="Ex.: Veículo sem bateria, não liga, coleção etc."
-                        />
-                      </div>
-                      <div className="lg:col-span-1 flex items-end">
-                        <button
-                          type="button"
-                          onClick={handleNextStep}
-                          className="flex w-full items-center justify-center gap-3 rounded-full bg-gabardo-blue px-8 py-4 text-sm font-semibold uppercase tracking-[0.22em] text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[#0f1f3a]"
-                        >
-                          Selecionar o trajeto <ArrowRight className="h-5 w-5" />
-                        </button>
-                      </div>
+                    <div className="mt-6">
+                      <label className="block text-sm font-medium text-gabardo-blue">Observação sobre o veículo (Opcional)</label>
+                      <input
+                        type="text"
+                        name="vehicleObservation"
+                        value={formData.vehicleObservation}
+                        onChange={handleInputChange}
+                        className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                        placeholder="Ex.: Veículo sem bateria, não liga, coleção etc."
+                      />
+                    </div>
+
+                    <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                      <button
+                        type="button"
+                        onClick={handlePreviousStep}
+                        className="flex items-center justify-center gap-3 rounded-full border border-gabardo-blue px-8 py-4 text-sm font-semibold uppercase tracking-[0.22em] text-gabardo-blue transition-transform duration-300 hover:-translate-y-0.5 hover:bg-gabardo-blue/10"
+                      >
+                        <ArrowLeft className="h-5 w-5" /> Voltar
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleNextStep}
+                        className="flex items-center justify-center gap-3 rounded-full bg-gabardo-blue px-8 py-4 text-sm font-semibold uppercase tracking-[0.22em] text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[#0f1f3a]"
+                      >
+                        Prosseguir <ArrowRight className="h-5 w-5" />
+                      </button>
                     </div>
                   </motion.div>
                 )}
 
-                {step === 2 && (
+                {step === 3 && (
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -527,93 +637,6 @@ const VehicleQuoteForm: React.FC = () => {
                         rows={3}
                         className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
                         placeholder="Detalhes adicionais sobre o trajeto"
-                      />
-                    </div>
-                    <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                      <button
-                        type="button"
-                        onClick={handlePreviousStep}
-                        className="flex items-center justify-center gap-3 rounded-full border border-gabardo-blue px-8 py-4 text-sm font-semibold uppercase tracking-[0.22em] text-gabardo-blue transition-transform duration-300 hover:-translate-y-0.5 hover:bg-gabardo-blue/10"
-                      >
-                        <ArrowLeft className="h-5 w-5" /> Voltar
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleNextStep}
-                        className="flex items-center justify-center gap-3 rounded-full bg-gabardo-blue px-8 py-4 text-sm font-semibold uppercase tracking-[0.22em] text-white transition-transform duration-300 hover:-translate-y-0.5 hover:bg-[#0f1f3a]"
-                      >
-                        Prosseguir <ArrowRight className="h-5 w-5" />
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-
-                {step === 3 && (
-                  <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 30 }}
-                  >
-                    <div className="grid gap-6 lg:grid-cols-2">
-                      <div>
-                        <label className="block text-sm font-medium text-gabardo-blue">Nome completo *</label>
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          required
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                          placeholder="Informe seu nome"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gabardo-blue">Empresa (Opcional)</label>
-                        <input
-                          type="text"
-                          name="company"
-                          value={formData.company}
-                          onChange={handleInputChange}
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                          placeholder="Informe sua empresa"
-                        />
-                      </div>
-                    </div>
-                    <div className="mt-6 grid gap-6 lg:grid-cols-2">
-                      <div>
-                        <label className="block text-sm font-medium text-gabardo-blue">E-mail *</label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                          placeholder="seu@email.com"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gabardo-blue">Telefone *</label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          required
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                          placeholder="(11) 99999-9999"
-                        />
-                      </div>
-                    </div>
-                    <div className="mt-6">
-                      <label className="block text-sm font-medium text-gabardo-blue">Mensagem (Opcional)</label>
-                      <textarea
-                        name="message"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        rows={4}
-                        className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                        placeholder="Compartilhe alguma informação adicional"
                       />
                     </div>
                     <div className="mt-6 flex items-start gap-3">
