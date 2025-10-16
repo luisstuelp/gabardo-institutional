@@ -7,7 +7,7 @@ import OrcamentoHero from '@/components/custom/OrcamentoHero';
 export default function OrcamentoPage() {
   return (
     <main className="relative bg-gray-50">
-      <Header />
+      <Header variant="dark" />
       <OrcamentoHero />
       <VehicleQuoteForm />
       <CrmDashboard />
