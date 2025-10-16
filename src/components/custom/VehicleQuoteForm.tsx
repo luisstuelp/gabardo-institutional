@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle, Loader, ArrowRight, ArrowLeft } from 'lucide-react';
 import { useFipeVehicleData } from '@/hooks/useFipeApi';
+import { VehicleModelAutocomplete } from '@/components/custom/VehicleModelAutocomplete';
 
 const currentYear = new Date().getFullYear();
 const yearOptions = Array.from({ length: currentYear - 1979 + 1 }, (_, index) => String(currentYear - index));
@@ -263,7 +264,7 @@ const VehicleQuoteForm: React.FC = () => {
         loadModels(selectedBrand.code);
       }
     }
-    // Handle model change - extract code and name
+    // Handle model change - now handled by the autocomplete component
     else if (name === 'vehicleModel') {
       const selectedModel = models.find(m => m.code === value);
       if (selectedModel) {
@@ -292,6 +293,19 @@ const VehicleQuoteForm: React.FC = () => {
       } else if (name === 'destinationCep' && value.replace(/\D/g, '').length === 8) {
         fetchAddressFromCEP(value, 'destination');
       }
+    }
+  };
+
+  const handleModelChange = (code: string, name: string) => {
+    setError(null);
+    setFormData((prev) => ({
+      ...prev,
+      vehicleModel: name,
+      vehicleModelCode: code,
+      vehicleYear: '',
+    }));
+    if (code && formData.vehicleBrandCode) {
+      loadYears(formData.vehicleBrandCode, code);
     }
   };
 
@@ -548,21 +562,15 @@ const VehicleQuoteForm: React.FC = () => {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Modelo *</label>
-                        <select
-                          name="vehicleModel"
+                        <VehicleModelAutocomplete
+                          options={models}
                           value={formData.vehicleModelCode}
-                          onChange={handleInputChange}
-                          required
-                          disabled={!formData.vehicleBrandCode || fipeLoading}
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
-                        >
-                          <option value="">
-                            {!formData.vehicleBrandCode ? 'Selecione a marca primeiro' : fipeLoading ? 'Carregando...' : 'Selecione'}
-                          </option>
-                          {models.map((model) => (
-                            <option key={model.code} value={model.code}>{model.name}</option>
-                          ))}
-                        </select>
+                          onChange={handleModelChange}
+                          disabled={!formData.vehicleBrandCode}
+                          loading={fipeLoading}
+                          placeholder={!formData.vehicleBrandCode ? 'Selecione a marca primeiro' : 'Digite ou selecione o modelo'}
+                          className="mt-2"
+                        />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Ano / Fabricação *</label>

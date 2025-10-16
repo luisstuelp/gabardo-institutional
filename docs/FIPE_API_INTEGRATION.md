@@ -143,13 +143,39 @@ Acesse: `http://localhost:3000/orcamento`
 4. **UX Aprimorada**: Busca em cascata guiada
 5. **Validação**: Apenas veículos existentes podem ser selecionados
 
+## Melhorias Implementadas
+
+### ✅ Autocomplete com Busca no Campo de Modelo
+**Arquivo:** `/src/components/custom/VehicleModelAutocomplete.tsx`
+
+Implementado componente customizado de autocomplete que permite ao usuário:
+- **Digitar** para filtrar modelos em tempo real
+- **Selecionar** da lista dropdown
+- **Navegar** com teclado (Arrow Up/Down, Enter, Escape)
+- **Limpar** seleção com botão X
+- **Acessibilidade** completa (ARIA labels, screen readers)
+
+**Funcionalidades:**
+- Busca case-insensitive enquanto digita
+- Destaque visual do item selecionado e em hover
+- Estado de loading durante requisições à API
+- Desabilitação automática quando marca não está selecionada
+- Fechamento automático ao clicar fora
+- Scroll automático para item destacado
+
+**Benefícios:**
+- ✅ Busca mais rápida em listas grandes de modelos
+- ✅ Melhor UX para usuários que já conhecem o modelo
+- ✅ Reduz erros de seleção
+- ✅ Mantém compatibilidade com seleção tradicional
+
 ## Próximos Passos (Opcional)
 
 - [ ] Adicionar campo para buscar valor FIPE do veículo
-- [ ] Implementar autocomplete com busca por nome
 - [ ] Cache local para reduzir chamadas à API
-- [ ] Adicionar debounce em campos de busca
+- [ ] Adicionar debounce em campos de busca de texto livre
 - [ ] Integrar histórico de preços FIPE
+- [ ] Expandir autocomplete para marcas e anos
 
 ## Documentação da API
 - [Documentação oficial FIPE API v2](https://deividfortuna.github.io/fipe/v2/)
