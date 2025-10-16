@@ -39,6 +39,29 @@ interface LogoItemProps {
   onManualPause: (shouldPause: boolean, element: HTMLDivElement | null) => void;
 }
 
+// Simple logo item for mobile (no flip)
+const SimpleLogo = ({ logo }: { logo: typeof clientLogos[0] }) => {
+  return (
+    <div
+      className="flex-shrink-0 flex items-center justify-center"
+      style={{ width: '200px', height: '120px' }}
+    >
+      <div className="bg-white rounded-2xl border border-gabardo-blue/10 p-6 shadow-sm w-full h-full flex items-center justify-center">
+        <Image
+          src={`/NewLogos/Nlogo (${logo.id}).png`}
+          alt={logo.name}
+          width={180}
+          height={90}
+          className="w-full h-full object-contain grayscale opacity-60"
+          draggable={false}
+          loading="lazy"
+        />
+      </div>
+    </div>
+  );
+};
+
+// Full interactive logo item for desktop
 const LogoItem = ({ logo, onManualPause }: LogoItemProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -157,8 +180,19 @@ const AboutClientsCarousel = () => {
   const prefersReducedMotion = useReducedMotion();
   const targetVelocity = prefersReducedMotion ? 0 : SPEED;
   const [canHover, setCanHover] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
 
   // Dynamic copy calculation based on viewport
@@ -263,6 +297,9 @@ const AboutClientsCarousel = () => {
   };
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    // Disable drag on mobile for smoother experience
+    if (isMobile) return;
+    
     if (event.pointerType === 'mouse' && event.button !== 0) {
       return;
     }
@@ -276,7 +313,7 @@ const AboutClientsCarousel = () => {
   };
 
   const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!pointerActiveRef.current) {
+    if (isMobile || !pointerActiveRef.current) {
       return;
     }
     const delta = event.clientX - dragStartX.current;
@@ -322,13 +359,14 @@ const AboutClientsCarousel = () => {
   };
 
   const handlePointerEnter = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!canHover) return;
+    if (isMobile || !canHover) return;
     if (isHoverPointer(event) && !manualPauseRef.current && !isDraggingRef.current) {
       setIsPaused(true);
     }
   };
 
   const handlePointerLeave = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (isMobile) return;
     if (!canHover) {
       endDrag(event);
       return;
@@ -432,14 +470,14 @@ const AboutClientsCarousel = () => {
       >
         {/* Carousel Container */}
         <div
-          className={`overflow-hidden py-12 select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={endDrag}
-          onPointerEnter={canHover ? handlePointerEnter : undefined}
-          onPointerLeave={canHover ? handlePointerLeave : undefined}
-          onPointerCancel={endDrag}
-          style={{ touchAction: 'pan-y' }}
+          className={`overflow-hidden py-12 select-none ${!isMobile && isDragging ? 'cursor-grabbing' : !isMobile ? 'cursor-grab' : ''}`}
+          onPointerDown={!isMobile ? handlePointerDown : undefined}
+          onPointerMove={!isMobile ? handlePointerMove : undefined}
+          onPointerUp={!isMobile ? endDrag : undefined}
+          onPointerEnter={!isMobile && canHover ? handlePointerEnter : undefined}
+          onPointerLeave={!isMobile && canHover ? handlePointerLeave : undefined}
+          onPointerCancel={!isMobile ? endDrag : undefined}
+          style={{ touchAction: isMobile ? 'pan-x pan-y' : 'pan-y' }}
         >
           <div
             ref={trackRef}
@@ -447,13 +485,24 @@ const AboutClientsCarousel = () => {
             style={{ width: 'fit-content', willChange: 'transform' }}
           >
             {Array.from({ length: copyCount }, (_, copyIndex) => (
-              <div key={`copy-${copyIndex}`} className="flex gap-12" ref={copyIndex === 0 ? seqRef : undefined}>
+              <div 
+                key={`copy-${copyIndex}`} 
+                className={isMobile ? "flex gap-8" : "flex gap-12"} 
+                ref={copyIndex === 0 ? seqRef : undefined}
+              >
                 {baseLogos.map((logo, index) => (
-                  <LogoItem
-                    key={`${copyIndex}-${logo.id}-${index}`}
-                    logo={logo}
-                    onManualPause={handleManualPause}
-                  />
+                  isMobile ? (
+                    <SimpleLogo
+                      key={`${copyIndex}-${logo.id}-${index}`}
+                      logo={logo}
+                    />
+                  ) : (
+                    <LogoItem
+                      key={`${copyIndex}-${logo.id}-${index}`}
+                      logo={logo}
+                      onManualPause={handleManualPause}
+                    />
+                  )
                 ))}
               </div>
             ))}
