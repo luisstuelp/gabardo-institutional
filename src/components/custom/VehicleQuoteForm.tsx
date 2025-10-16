@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle, Loader, ArrowRight, ArrowLeft } from 'lucide-react';
+import { useFipeVehicleData } from '@/hooks/useFipeApi';
 
 const currentYear = new Date().getFullYear();
 const yearOptions = Array.from({ length: currentYear - 1979 + 1 }, (_, index) => String(currentYear - index));
@@ -44,7 +45,9 @@ type QuoteFormData = {
   company: string;
   vehicleCategory: string;
   vehicleBrand: string;
+  vehicleBrandCode: string;
   vehicleModel: string;
+  vehicleModelCode: string;
   vehicleYear: string;
   vehicleValue: string;
   vehicleObservation: string;
@@ -70,7 +73,9 @@ const initialFormData: QuoteFormData = {
   company: '',
   vehicleCategory: '',
   vehicleBrand: '',
+  vehicleBrandCode: '',
   vehicleModel: '',
+  vehicleModelCode: '',
   vehicleYear: '',
   vehicleValue: '',
   vehicleObservation: '',
@@ -108,28 +113,7 @@ const vehicleTypes = [
   'Motocicleta',
 ];
 
-// Mocked vehicle brands
-const vehicleBrands = [
-  'Audi',
-  'BMW',
-  'Chevrolet',
-  'Citroën',
-  'Fiat',
-  'Ford',
-  'Honda',
-  'Hyundai',
-  'Jeep',
-  'Kia',
-  'Mercedes-Benz',
-  'Mitsubishi',
-  'Nissan',
-  'Peugeot',
-  'Renault',
-  'Toyota',
-  'Volkswagen',
-  'Volvo',
-  'Outros',
-];
+// Note: Vehicle brands are now fetched from FIPE API
 
 // Brazilian states
 const brazilianStates = [
@@ -138,28 +122,7 @@ const brazilianStates = [
   'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO',
 ];
 
-// Vehicle models by brand
-const vehicleModelsByBrand: Record<string, string[]> = {
-  'Audi': ['A3', 'A4', 'A5', 'A6', 'Q3', 'Q5', 'Q7', 'Q8', 'e-tron'],
-  'BMW': ['Série 1', 'Série 3', 'Série 5', 'X1', 'X3', 'X5', 'X6', 'iX3'],
-  'Chevrolet': ['Onix', 'Tracker', 'Spin', 'S10', 'Montana', 'Cruze', 'Equinox'],
-  'Citroën': ['C3', 'C4 Cactus', 'Aircross', 'Jumper'],
-  'Fiat': ['Argo', 'Mobi', 'Toro', 'Strada', 'Pulse', 'Fastback', 'Ducato'],
-  'Ford': ['Ka', 'EcoSport', 'Ranger', 'Bronco Sport', 'Maverick', 'Transit'],
-  'Honda': ['City', 'Civic', 'HR-V', 'CR-V', 'Accord', 'WR-V'],
-  'Hyundai': ['HB20', 'Creta', 'Tucson', 'Santa Fe', 'ix35', 'Palisade'],
-  'Jeep': ['Renegade', 'Compass', 'Commander', 'Wrangler', 'Grand Cherokee'],
-  'Kia': ['Picanto', 'Sportage', 'Sorento', 'Seltos', 'Carnival'],
-  'Mercedes-Benz': ['Classe A', 'Classe C', 'Classe E', 'GLA', 'GLC', 'GLE', 'Sprinter'],
-  'Mitsubishi': ['L200', 'Pajero', 'Eclipse Cross', 'ASX'],
-  'Nissan': ['Versa', 'Kicks', 'Sentra', 'Frontier', 'X-Trail'],
-  'Peugeot': ['208', '2008', '3008', 'Partner', 'Expert'],
-  'Renault': ['Kwid', 'Sandero', 'Duster', 'Oroch', 'Captur', 'Kardian'],
-  'Toyota': ['Corolla', 'Hilux', 'SW4', 'RAV4', 'Yaris', 'Corolla Cross'],
-  'Volkswagen': ['Gol', 'Polo', 'Virtus', 'Nivus', 'T-Cross', 'Taos', 'Amarok', 'Saveiro'],
-  'Volvo': ['XC40', 'XC60', 'XC90', 'S60', 'V60'],
-  'Outros': ['Outro modelo'],
-};
+// Note: Vehicle models are now fetched from FIPE API
 
 const VehicleQuoteForm: React.FC = () => {
   const totalSteps = 3;
@@ -168,7 +131,17 @@ const VehicleQuoteForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [availableModels, setAvailableModels] = useState<string[]>([]);
+  
+  // FIPE API integration
+  const {
+    brands,
+    models,
+    years,
+    loading: fipeLoading,
+    error: fipeError,
+    loadModels,
+    loadYears,
+  } = useFipeVehicleData(formData.vehicleCategory);
 
   const validateStep = (currentStep: number) => {
     switch (currentStep) {
@@ -263,11 +236,54 @@ const VehicleQuoteForm: React.FC = () => {
     const { name, value } = event.target;
     setError(null);
     
-    // If brand changes, update available models and clear model selection
-    if (name === 'vehicleBrand') {
-      setAvailableModels(vehicleModelsByBrand[value] || []);
-      setFormData((prev) => ({ ...prev, [name]: value, vehicleModel: '' }));
-    } else {
+    // Handle vehicle category change
+    if (name === 'vehicleCategory') {
+      setFormData((prev) => ({ 
+        ...prev, 
+        [name]: value, 
+        vehicleBrand: '',
+        vehicleBrandCode: '',
+        vehicleModel: '',
+        vehicleModelCode: '',
+        vehicleYear: '',
+      }));
+    }
+    // Handle brand change - extract code and name
+    else if (name === 'vehicleBrand') {
+      const selectedBrand = brands.find(b => b.code === value);
+      if (selectedBrand) {
+        setFormData((prev) => ({ 
+          ...prev, 
+          vehicleBrand: selectedBrand.name,
+          vehicleBrandCode: selectedBrand.code,
+          vehicleModel: '',
+          vehicleModelCode: '',
+          vehicleYear: '',
+        }));
+        loadModels(selectedBrand.code);
+      }
+    }
+    // Handle model change - extract code and name
+    else if (name === 'vehicleModel') {
+      const selectedModel = models.find(m => m.code === value);
+      if (selectedModel) {
+        setFormData((prev) => ({ 
+          ...prev, 
+          vehicleModel: selectedModel.name,
+          vehicleModelCode: selectedModel.code,
+          vehicleYear: '',
+        }));
+        loadYears(formData.vehicleBrandCode, selectedModel.code);
+      }
+    }
+    // Handle year change
+    else if (name === 'vehicleYear') {
+      const selectedYear = years.find(y => y.code === value);
+      if (selectedYear) {
+        setFormData((prev) => ({ ...prev, vehicleYear: selectedYear.name }));
+      }
+    }
+    else {
       setFormData((prev) => ({ ...prev, [name]: value }));
       
       // Auto-fill address when CEP is complete
@@ -515,30 +531,36 @@ const VehicleQuoteForm: React.FC = () => {
                         <label className="block text-sm font-medium text-gabardo-blue">Marca *</label>
                         <select
                           name="vehicleBrand"
-                          value={formData.vehicleBrand}
+                          value={formData.vehicleBrandCode}
                           onChange={handleInputChange}
                           required
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                          disabled={!formData.vehicleCategory || fipeLoading}
+                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                         >
-                          <option value="">Selecione</option>
-                          {vehicleBrands.map((brand) => (
-                            <option key={brand} value={brand}>{brand}</option>
+                          <option value="">
+                            {!formData.vehicleCategory ? 'Selecione o tipo de veículo primeiro' : fipeLoading ? 'Carregando...' : 'Selecione'}
+                          </option>
+                          {brands.map((brand) => (
+                            <option key={brand.code} value={brand.code}>{brand.name}</option>
                           ))}
                         </select>
+                        {fipeError && <p className="mt-1 text-xs text-red-600">{fipeError}</p>}
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Modelo *</label>
                         <select
                           name="vehicleModel"
-                          value={formData.vehicleModel}
+                          value={formData.vehicleModelCode}
                           onChange={handleInputChange}
                           required
-                          disabled={!formData.vehicleBrand}
+                          disabled={!formData.vehicleBrandCode || fipeLoading}
                           className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                         >
-                          <option value="">{formData.vehicleBrand ? 'Selecione' : 'Selecione a marca primeiro'}</option>
-                          {availableModels.map((model) => (
-                            <option key={model} value={model}>{model}</option>
+                          <option value="">
+                            {!formData.vehicleBrandCode ? 'Selecione a marca primeiro' : fipeLoading ? 'Carregando...' : 'Selecione'}
+                          </option>
+                          {models.map((model) => (
+                            <option key={model.code} value={model.code}>{model.name}</option>
                           ))}
                         </select>
                       </div>
@@ -549,11 +571,14 @@ const VehicleQuoteForm: React.FC = () => {
                           value={formData.vehicleYear}
                           onChange={handleInputChange}
                           required
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                          disabled={!formData.vehicleModelCode || fipeLoading}
+                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                         >
-                          <option value="">Selecione</option>
-                          {yearOptions.map((year) => (
-                            <option key={year} value={year}>{year}</option>
+                          <option value="">
+                            {!formData.vehicleModelCode ? 'Selecione o modelo primeiro' : fipeLoading ? 'Carregando...' : 'Selecione'}
+                          </option>
+                          {years.map((year) => (
+                            <option key={year.code} value={year.code}>{year.name}</option>
                           ))}
                         </select>
                       </div>
