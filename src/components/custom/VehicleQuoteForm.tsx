@@ -165,9 +165,6 @@ const VehicleQuoteForm: React.FC = () => {
         if (!formData.vehicleCategory || !formData.vehicleBrand || !formData.vehicleModel || !formData.vehicleYear || !formData.vehicleValue) {
           return 'Preencha todas as informações do veículo.';
         }
-        if (!yearOptions.includes(formData.vehicleYear)) {
-          return 'Selecione um ano válido para o veículo.';
-        }
         const value = parseVehicleValue(formData.vehicleValue);
         if (!Number.isFinite(value) || value <= 0) {
           return 'Informe o valor do veículo corretamente.';
