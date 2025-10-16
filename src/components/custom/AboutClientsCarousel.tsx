@@ -47,25 +47,74 @@ const LogoItem = ({ logo, onManualPause, disableDynamicEffects }: LogoItemProps)
   const itemRef = useRef<HTMLDivElement>(null);
   const scale = useMotionValue(disableDynamicEffects ? DISABLED_SCALE : MIN_SCALE);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const rafIdRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     scale.set(disableDynamicEffects ? DISABLED_SCALE : MIN_SCALE);
   }, [disableDynamicEffects, scale]);
 
-  useAnimationFrame(() => {
+  // Use Intersection Observer to only animate visible cards
+  useEffect(() => {
     if (disableDynamicEffects || !itemRef.current) return;
-    if (typeof window === 'undefined') return;
 
-    const itemRect = itemRef.current.getBoundingClientRect();
-    const viewportCenterX = window.innerWidth / 2;
-    const itemCenterX = itemRect.left + itemRect.width / 2;
-    const distanceFromCenter = Math.abs(viewportCenterX - itemCenterX);
-    const maxDistance = Math.max(window.innerWidth / 2, itemRect.width);
-    const normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
-    const newScale = MAX_SCALE - normalizedDistance * (MAX_SCALE - MIN_SCALE);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsVisible(entry.isIntersecting);
+        });
+      },
+      {
+        root: null,
+        rootMargin: '50px', // Pre-load slightly off-screen
+        threshold: 0,
+      }
+    );
 
-    scale.set(newScale);
-  });
+    observer.observe(itemRef.current);
+
+    return () => observer.disconnect();
+  }, [disableDynamicEffects]);
+
+  // Only calculate scale for visible cards, with throttling
+  useEffect(() => {
+    if (disableDynamicEffects || !isVisible || !itemRef.current) {
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+      return;
+    }
+
+    let lastTime = 0;
+    const throttleMs = 16; // ~60fps max
+
+    const updateScale = (currentTime: number) => {
+      if (!itemRef.current) return;
+
+      if (currentTime - lastTime >= throttleMs) {
+        const itemRect = itemRef.current.getBoundingClientRect();
+        const viewportCenterX = window.innerWidth / 2;
+        const itemCenterX = itemRect.left + itemRect.width / 2;
+        const distanceFromCenter = Math.abs(viewportCenterX - itemCenterX);
+        const maxDistance = Math.max(window.innerWidth / 2, itemRect.width);
+        const normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
+        const newScale = MAX_SCALE - normalizedDistance * (MAX_SCALE - MIN_SCALE);
+
+        scale.set(newScale);
+        lastTime = currentTime;
+      }
+
+      rafIdRef.current = requestAnimationFrame(updateScale);
+    };
+
+    rafIdRef.current = requestAnimationFrame(updateScale);
+
+    return () => {
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+    };
+  }, [disableDynamicEffects, isVisible, scale]);
 
   const handleToggleFlip = () => {
     setIsFlipped((prev) => {

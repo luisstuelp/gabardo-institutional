@@ -386,6 +386,7 @@ const VehicleQuoteForm: React.FC = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 30 }}
                   >
+                    <h3 className="mb-6 text-2xl font-bold text-gabardo-blue">Dados do Solicitante</h3>
                     <div className="grid gap-6 lg:grid-cols-2">
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Nome completo *</label>
@@ -455,6 +456,7 @@ const VehicleQuoteForm: React.FC = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 30 }}
                   >
+                    <h3 className="mb-6 text-2xl font-bold text-gabardo-blue">Dados do Veículo</h3>
                     <div className="grid gap-6 lg:grid-cols-5">
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Veículo *</label>
@@ -568,8 +570,21 @@ const VehicleQuoteForm: React.FC = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 30 }}
                   >
+                    <h3 className="mb-6 text-2xl font-bold text-gabardo-blue">Origem e Destino</h3>
                     <div className="grid gap-6 lg:grid-cols-2">
-                      <div className="grid gap-6 lg:grid-cols-2">
+                      <div className="grid gap-6 lg:grid-cols-3">
+                        <div>
+                          <label className="block text-sm font-medium text-gabardo-blue">CEP de Origem</label>
+                          <input
+                            type="text"
+                            name="originCep"
+                            value={formData.originCep}
+                            onChange={handleInputChange}
+                            maxLength={9}
+                            className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                            placeholder="00000-000"
+                          />
+                        </div>
                         <div>
                           <label className="block text-sm font-medium text-gabardo-blue">UF de Origem *</label>
                           <select
@@ -598,7 +613,19 @@ const VehicleQuoteForm: React.FC = () => {
                           />
                         </div>
                       </div>
-                      <div className="grid gap-6 lg:grid-cols-2">
+                      <div className="grid gap-6 lg:grid-cols-3">
+                        <div>
+                          <label className="block text-sm font-medium text-gabardo-blue">CEP de Destino</label>
+                          <input
+                            type="text"
+                            name="destinationCep"
+                            value={formData.destinationCep}
+                            onChange={handleInputChange}
+                            maxLength={9}
+                            className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                            placeholder="00000-000"
+                          />
+                        </div>
                         <div>
                           <label className="block text-sm font-medium text-gabardo-blue">UF de Destino *</label>
                           <select
