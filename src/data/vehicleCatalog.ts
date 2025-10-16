@@ -1,6 +1,6 @@
 export type VehicleCatalog = Record<string, Record<string, string[]>>;
 
-export const vehicleCatalog = {
+export const vehicleCatalog: VehicleCatalog = {
   Automóvel: {
     Chevrolet: ['Onix', 'Onix Plus', 'Cruze', 'Tracker'],
     Fiat: ['Argo', 'Cronos', 'Pulse', 'Mobi'],
@@ -53,4 +53,4 @@ export const vehicleCatalog = {
   Outro: {
     Especial: ['Veículo customizado', 'Protótipo', 'Colecionável'],
   },
-} satisfies VehicleCatalog;
+};
