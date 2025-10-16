@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Send, CheckCircle, Loader, ArrowRight, ArrowLeft } from 'lucide-react';
 
 const currentYear = new Date().getFullYear();
-const yearOptions = Array.from({ length: currentYear - 1979 + 1 }, (_, index) => String(currentYear - index));
+const vehicleYearRegex = /^(19|20|21)\d{2}$/;
 
 const parseVehicleValue = (value: string) => {
   if (!value) {
@@ -174,7 +174,6 @@ const VehicleQuoteForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [availableModels, setAvailableModels] = useState<string[]>([]);
 
   const validateStep = (currentStep: number) => {
     switch (currentStep) {
@@ -195,7 +194,11 @@ const VehicleQuoteForm: React.FC = () => {
         if (!formData.vehicleCategory || !formData.vehicleBrand || !formData.vehicleModel || !formData.vehicleYear || !formData.vehicleValue) {
           return 'Preencha todas as informações do veículo.';
         }
-        if (!yearOptions.includes(formData.vehicleYear)) {
+        if (!vehicleYearRegex.test(formData.vehicleYear)) {
+          return 'Selecione um ano válido para o veículo.';
+        }
+        const numericYear = Number.parseInt(formData.vehicleYear, 10);
+        if (Number.isNaN(numericYear) || numericYear < 1980 || numericYear > currentYear) {
           return 'Selecione um ano válido para o veículo.';
         }
         const value = parseVehicleValue(formData.vehicleValue);
@@ -271,7 +274,6 @@ const VehicleQuoteForm: React.FC = () => {
     
     // If brand changes, update available models and clear model selection
     if (name === 'vehicleBrand') {
-      setAvailableModels(vehicleModelsByBrand[value] || []);
       setFormData((prev) => ({ ...prev, [name]: value, vehicleModel: '' }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
@@ -534,34 +536,30 @@ const VehicleQuoteForm: React.FC = () => {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Modelo *</label>
-                        <select
+                        <input
+                          type="text"
                           name="vehicleModel"
                           value={formData.vehicleModel}
                           onChange={handleInputChange}
                           required
-                          disabled={!formData.vehicleBrand}
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
-                        >
-                          <option value="">{formData.vehicleBrand ? 'Selecione' : 'Selecione a marca primeiro'}</option>
-                          {availableModels.map((model) => (
-                            <option key={model} value={model}>{model}</option>
-                          ))}
-                        </select>
+                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                          placeholder="Informe o modelo"
+                        />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Ano / Fabricação *</label>
-                        <select
+                        <input
+                          type="text"
                           name="vehicleYear"
                           value={formData.vehicleYear}
                           onChange={handleInputChange}
                           required
+                          inputMode="numeric"
+                          pattern="^(19|20|21)\d{2}$"
+                          maxLength={4}
                           className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                        >
-                          <option value="">Selecione</option>
-                          {yearOptions.map((year) => (
-                            <option key={year} value={year}>{year}</option>
-                          ))}
-                        </select>
+                          placeholder="Ex.: 2024"
+                        />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Valor do Veículo *</label>
