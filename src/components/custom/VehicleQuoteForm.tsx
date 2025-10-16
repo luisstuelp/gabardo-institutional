@@ -228,6 +228,43 @@ const VehicleQuoteForm: React.FC = () => {
     return null;
   };
 
+  // Fetch address from CEP using BrasilAPI
+  const fetchAddressFromCEP = async (cep: string, type: 'origin' | 'destination') => {
+    // Remove any non-digit characters
+    const cleanCep = cep.replace(/\D/g, '');
+    
+    // Only fetch if CEP has exactly 8 digits
+    if (cleanCep.length !== 8) return;
+
+    try {
+      const response = await fetch(`https://brasilapi.com.br/api/cep/v1/${cleanCep}`);
+      
+      if (!response.ok) {
+        console.error('CEP não encontrado');
+        return;
+      }
+
+      const data = await response.json();
+      
+      // Update form data with the address information
+      if (type === 'origin') {
+        setFormData((prev) => ({
+          ...prev,
+          originState: data.state,
+          originCity: data.city,
+        }));
+      } else {
+        setFormData((prev) => ({
+          ...prev,
+          destinationState: data.state,
+          destinationCity: data.city,
+        }));
+      }
+    } catch (error) {
+      console.error('Erro ao buscar CEP:', error);
+    }
+  };
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
     setError(null);
@@ -238,6 +275,13 @@ const VehicleQuoteForm: React.FC = () => {
       setFormData((prev) => ({ ...prev, [name]: value, vehicleModel: '' }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
+      
+      // Auto-fill address when CEP is complete
+      if (name === 'originCep' && value.replace(/\D/g, '').length === 8) {
+        fetchAddressFromCEP(value, 'origin');
+      } else if (name === 'destinationCep' && value.replace(/\D/g, '').length === 8) {
+        fetchAddressFromCEP(value, 'destination');
+      }
     }
   };
 

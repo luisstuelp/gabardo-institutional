@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useAnimationFrame, useInView, useMotionValue, useReducedMotion } from 'framer-motion';
+import { motion, useAnimationFrame, useInView, useReducedMotion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 
@@ -30,91 +30,18 @@ const clientLogos = [
   { id: 21, name: 'CAOA', description: 'Grupo brasileiro que atua na importação, montagem e distribuição de marcas como Hyundai, Chery e Subaru, além de ter produção nacional.' },
 ];
 
-// Duplicate logos for infinite loop
-const infiniteLogos = [...clientLogos, ...clientLogos, ...clientLogos];
+// Duplicate logos for infinite loop - will be dynamically calculated
+// This is just the base data
+const baseLogos = clientLogos;
 
 interface LogoItemProps {
   logo: typeof clientLogos[0];
   onManualPause: (shouldPause: boolean, element: HTMLDivElement | null) => void;
-  disableDynamicEffects: boolean;
 }
 
-const MIN_SCALE = 0.85;
-const MAX_SCALE = 1.15;
-const DISABLED_SCALE = 0.96;
-
-const LogoItem = ({ logo, onManualPause, disableDynamicEffects }: LogoItemProps) => {
+const LogoItem = ({ logo, onManualPause }: LogoItemProps) => {
   const itemRef = useRef<HTMLDivElement>(null);
-  const scale = useMotionValue(disableDynamicEffects ? DISABLED_SCALE : MIN_SCALE);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const rafIdRef = useRef<number | undefined>(undefined);
-
-  useEffect(() => {
-    scale.set(disableDynamicEffects ? DISABLED_SCALE : MIN_SCALE);
-  }, [disableDynamicEffects, scale]);
-
-  // Use Intersection Observer to only animate visible cards
-  useEffect(() => {
-    if (disableDynamicEffects || !itemRef.current) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setIsVisible(entry.isIntersecting);
-        });
-      },
-      {
-        root: null,
-        rootMargin: '50px', // Pre-load slightly off-screen
-        threshold: 0,
-      }
-    );
-
-    observer.observe(itemRef.current);
-
-    return () => observer.disconnect();
-  }, [disableDynamicEffects]);
-
-  // Only calculate scale for visible cards, with throttling
-  useEffect(() => {
-    if (disableDynamicEffects || !isVisible || !itemRef.current) {
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current);
-      }
-      return;
-    }
-
-    let lastTime = 0;
-    const throttleMs = 16; // ~60fps max
-
-    const updateScale = (currentTime: number) => {
-      if (!itemRef.current) return;
-
-      if (currentTime - lastTime >= throttleMs) {
-        const itemRect = itemRef.current.getBoundingClientRect();
-        const viewportCenterX = window.innerWidth / 2;
-        const itemCenterX = itemRect.left + itemRect.width / 2;
-        const distanceFromCenter = Math.abs(viewportCenterX - itemCenterX);
-        const maxDistance = Math.max(window.innerWidth / 2, itemRect.width);
-        const normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
-        const newScale = MAX_SCALE - normalizedDistance * (MAX_SCALE - MIN_SCALE);
-
-        scale.set(newScale);
-        lastTime = currentTime;
-      }
-
-      rafIdRef.current = requestAnimationFrame(updateScale);
-    };
-
-    rafIdRef.current = requestAnimationFrame(updateScale);
-
-    return () => {
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current);
-      }
-    };
-  }, [disableDynamicEffects, isVisible, scale]);
 
   const handleToggleFlip = () => {
     setIsFlipped((prev) => {
@@ -125,21 +52,18 @@ const LogoItem = ({ logo, onManualPause, disableDynamicEffects }: LogoItemProps)
   };
 
   return (
-    <motion.div
+    <div
       ref={itemRef}
-      className="flex-shrink-0 transition-transform duration-200 ease-out [perspective:1000px]"
-      style={{
-        width: '240px',
-        scale: disableDynamicEffects ? DISABLED_SCALE : scale,
-        willChange: disableDynamicEffects ? undefined : 'transform'
-      }}
+      className="flex-shrink-0 transition-transform duration-300 ease-out [perspective:1000px] hover:scale-105"
+      style={{ width: '240px' }}
       onClick={handleToggleFlip}
     >
-      <motion.div
-        className="relative h-60 w-full cursor-pointer"
-        animate={{ rotateX: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.6, ease: 'easeInOut' }}
-        style={{ transformStyle: 'preserve-3d' }}
+      <div
+        className="relative h-60 w-full cursor-pointer transition-transform duration-500 ease-in-out"
+        style={{ 
+          transformStyle: 'preserve-3d',
+          transform: isFlipped ? 'rotateX(180deg)' : 'rotateX(0deg)'
+        }}
       >
         {/* Front - Logo */}
         <div
@@ -192,21 +116,36 @@ const LogoItem = ({ logo, onManualPause, disableDynamicEffects }: LogoItemProps)
             </p>
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 };
 
 const AboutClientsCarousel = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const seqRef = useRef<HTMLDivElement>(null);
+  
   const [isPaused, setIsPaused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [seqWidth, setSeqWidth] = useState<number>(0);
+  const [copyCount, setCopyCount] = useState<number>(3);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  
   const xTranslation = useRef(0);
   const targetTranslation = useRef(0);
-  const LOGO_WIDTH = 240; // Width of each logo item
-  const GAP = 48; // Gap between logos (gap-12 = 3rem = 48px)
+  const velocityRef = useRef(0);
+  const lastTimestampRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null);
+  
+  const LOGO_WIDTH = 240;
+  const GAP = 48;
   const ITEM_SIZE = LOGO_WIDTH + GAP;
-  const SPEED = 1.5; // Pixels per frame (increased speed)
+  const SPEED = 120; // Pixels per second (React Bits style)
+  const SMOOTH_TAU = 0.25; // Exponential smoothing factor
+  const MIN_COPIES = 2;
+  const COPY_HEADROOM = 2;
+  
   const isDraggingRef = useRef(false);
   const pointerActiveRef = useRef(false);
   const activePointerId = useRef<number | null>(null);
@@ -216,26 +155,75 @@ const AboutClientsCarousel = () => {
   const manualPauseRef = useRef(false);
   const lastPointerTypeRef = useRef<string>('');
   const prefersReducedMotion = useReducedMotion();
-  const [isMobileViewport, setIsMobileViewport] = useState(false);
-  const disableDynamicEffects = prefersReducedMotion || isMobileViewport;
-  const baseAutoSpeed = prefersReducedMotion ? 0 : isMobileViewport ? 1 : SPEED;
+  const targetVelocity = prefersReducedMotion ? 0 : SPEED;
   const [canHover, setCanHover] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
 
-    const updateViewport = () => {
-      setIsMobileViewport(window.innerWidth < 768);
+  // Dynamic copy calculation based on viewport
+  useEffect(() => {
+    const updateDimensions = () => {
+      const containerWidth = containerRef.current?.clientWidth ?? 0;
+      const sequenceWidth = seqRef.current?.getBoundingClientRect?.()?.width ?? 0;
+
+      if (sequenceWidth > 0) {
+        setSeqWidth(Math.ceil(sequenceWidth));
+        const copiesNeeded = Math.ceil(containerWidth / sequenceWidth) + COPY_HEADROOM;
+        setCopyCount(Math.max(MIN_COPIES, copiesNeeded));
+      }
     };
 
-    updateViewport();
-    window.addEventListener('resize', updateViewport);
+    updateDimensions();
 
-    return () => window.removeEventListener('resize', updateViewport);
+    if (!window.ResizeObserver) {
+      window.addEventListener('resize', updateDimensions);
+      return () => window.removeEventListener('resize', updateDimensions);
+    }
+
+    const observer = new ResizeObserver(updateDimensions);
+    if (containerRef.current) observer.observe(containerRef.current);
+    if (seqRef.current) observer.observe(seqRef.current);
+
+    return () => observer.disconnect();
+  }, [imagesLoaded]);
+
+  // Image loading handler
+  useEffect(() => {
+    const images = seqRef.current?.querySelectorAll('img') ?? [];
+    
+    if (images.length === 0) {
+      setImagesLoaded(true);
+      return;
+    }
+
+    let remainingImages = images.length;
+    const handleImageLoad = () => {
+      remainingImages -= 1;
+      if (remainingImages === 0) {
+        setImagesLoaded(true);
+      }
+    };
+
+    images.forEach(img => {
+      const htmlImg = img as HTMLImageElement;
+      if (htmlImg.complete) {
+        handleImageLoad();
+      } else {
+        htmlImg.addEventListener('load', handleImageLoad, { once: true });
+        htmlImg.addEventListener('error', handleImageLoad, { once: true });
+      }
+    });
+
+    return () => {
+      images.forEach(img => {
+        img.removeEventListener('load', handleImageLoad);
+        img.removeEventListener('error', handleImageLoad);
+      });
+    };
   }, []);
 
+  // Hover capability detection
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -260,27 +248,17 @@ const AboutClientsCarousel = () => {
   };
 
   const applyTranslation = (value: number) => {
-    const totalWidth = ITEM_SIZE * clientLogos.length;
-    let adjusted = value;
-
-    if (totalWidth > 0) {
-      while (adjusted <= -totalWidth) {
-        adjusted += totalWidth;
-      }
-      while (adjusted >= totalWidth) {
-        adjusted -= totalWidth;
-      }
+    if (seqWidth > 0) {
+      targetTranslation.current = ((value % seqWidth) + seqWidth) % seqWidth;
     } else {
-      adjusted = 0;
+      targetTranslation.current = 0;
     }
-
-    targetTranslation.current = adjusted;
   };
 
   const commitTranslation = (value: number) => {
     xTranslation.current = value;
-    if (containerRef.current) {
-      containerRef.current.style.transform = `translateX(${value}px)`;
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translate3d(${-value}px, 0, 0)`;
     }
   };
 
@@ -361,23 +339,45 @@ const AboutClientsCarousel = () => {
     endDrag(event);
   };
 
-  useAnimationFrame(() => {
-    if (!isInView) return;
+  // Main animation loop with exponential easing
+  useEffect(() => {
+    if (!isInView || !trackRef.current) return;
 
-    if (!isPaused && !isDraggingRef.current && baseAutoSpeed > 0) {
-      applyTranslation(targetTranslation.current - baseAutoSpeed);
-    }
+    const animate = (timestamp: number) => {
+      if (lastTimestampRef.current === null) {
+        lastTimestampRef.current = timestamp;
+      }
 
-    const current = xTranslation.current;
-    const target = targetTranslation.current;
-    const delta = target - current;
+      const deltaTime = Math.max(0, timestamp - lastTimestampRef.current) / 1000;
+      lastTimestampRef.current = timestamp;
 
-    if (Math.abs(delta) < 0.3) {
-      commitTranslation(target);
-    } else {
-      commitTranslation(current + delta * 0.15);
-    }
-  });
+      // Target velocity (0 when paused/dragging)
+      const target = (isPaused || isDraggingRef.current) ? 0 : targetVelocity;
+
+      // Exponential smoothing for velocity
+      const easingFactor = 1 - Math.exp(-deltaTime / SMOOTH_TAU);
+      velocityRef.current += (target - velocityRef.current) * easingFactor;
+
+      // Update position
+      if (seqWidth > 0 && !isDraggingRef.current) {
+        let nextOffset = xTranslation.current + velocityRef.current * deltaTime;
+        nextOffset = ((nextOffset % seqWidth) + seqWidth) % seqWidth;
+        commitTranslation(nextOffset);
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      lastTimestampRef.current = null;
+    };
+  }, [isInView, isPaused, targetVelocity, seqWidth]);
 
   const centerElementIfNeeded = (element: HTMLDivElement | null) => {
     if (!element) return;
@@ -392,7 +392,7 @@ const AboutClientsCarousel = () => {
     manualPauseRef.current = shouldPause;
 
     if (shouldPause) {
-      const isTouchInteraction = lastPointerTypeRef.current === 'touch' || isMobileViewport;
+      const isTouchInteraction = lastPointerTypeRef.current === 'touch';
       if (isTouchInteraction) {
         centerElementIfNeeded(element);
         commitTranslation(targetTranslation.current);
@@ -442,17 +442,20 @@ const AboutClientsCarousel = () => {
           style={{ touchAction: 'pan-y' }}
         >
           <div
-            ref={containerRef}
-            className="flex gap-12"
-            style={{ width: 'fit-content' }}
+            ref={trackRef}
+            className="flex"
+            style={{ width: 'fit-content', willChange: 'transform' }}
           >
-            {infiniteLogos.map((logo, index) => (
-              <LogoItem
-                key={`${logo.id}-${index}`}
-                logo={logo}
-                onManualPause={handleManualPause}
-                disableDynamicEffects={disableDynamicEffects}
-              />
+            {Array.from({ length: copyCount }, (_, copyIndex) => (
+              <div key={`copy-${copyIndex}`} className="flex gap-12" ref={copyIndex === 0 ? seqRef : undefined}>
+                {baseLogos.map((logo, index) => (
+                  <LogoItem
+                    key={`${copyIndex}-${logo.id}-${index}`}
+                    logo={logo}
+                    onManualPause={handleManualPause}
+                  />
+                ))}
+              </div>
             ))}
           </div>
         </div>
