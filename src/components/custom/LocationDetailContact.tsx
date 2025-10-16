@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, AlertCircle, Loader, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Navigation, CheckCircle, Loader } from 'lucide-react';
 
 interface FormData {
   name: string;

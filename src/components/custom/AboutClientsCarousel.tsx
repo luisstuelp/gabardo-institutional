@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useAnimationFrame, useInView, useReducedMotion } from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 
@@ -45,7 +45,7 @@ const MobileLogo = ({ logo, onClick, isDragging }: { logo: typeof clientLogos[0]
     <div
       className="flex-shrink-0 flex items-center justify-center cursor-pointer active:scale-95 transition-transform duration-150"
       style={{ width: '200px', height: '120px' }}
-      onClick={(e) => {
+      onClick={() => {
         // Only open modal if not dragging
         if (!isDragging) {
           onClick();
@@ -228,7 +228,6 @@ const AboutClientsCarousel = () => {
   
   const LOGO_WIDTH = 240;
   const GAP = 48;
-  const ITEM_SIZE = LOGO_WIDTH + GAP;
   const SPEED = 120; // Pixels per second (React Bits style)
   const SMOOTH_TAU = 0.25; // Exponential smoothing factor
   const MIN_COPIES = 2;

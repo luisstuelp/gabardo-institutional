@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Phone, Mail, MapPin, UserPlus, ClipboardCheck, MessageCircle, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, UserPlus, ClipboardCheck, MessageCircle, CheckCircle, AlertCircle, Loader, Truck, Package, Shield, Clock, CheckCircle2, ArrowRight } from 'lucide-react';
 
 const journeyHighlights = [
   {

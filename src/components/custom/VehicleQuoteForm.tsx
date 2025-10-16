@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle, Loader, ArrowRight, ArrowLeft } from 'lucide-react';
 
@@ -19,12 +19,6 @@ const parseVehicleValue = (value: string) => {
 
   return Number(normalized);
 };
-
-const sanitizeCep = (value: string) => value.replace(/\D/g, '').slice(0, 8);
-
-const formatCep = (digits: string) => (digits.length > 5 ? `${digits.slice(0, 5)}-${digits.slice(5)}` : digits);
-
-type CepType = 'origin' | 'destination';
 
 const addressFieldMap = {
   origin: {

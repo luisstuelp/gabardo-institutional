@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Package, MapPin, Calendar, User, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import { Warehouse, Shield, Clock, CheckCircle2, ArrowRight, Package, MapPin, Calendar, User, Loader } from 'lucide-react';
 
 export default function StorageQuoteSection() {
   const [formData, setFormData] = useState({
@@ -81,7 +81,7 @@ export default function StorageQuoteSection() {
               transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
               className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full bg-green-100"
             >
-              <CheckCircle className="h-10 w-10 text-green-600" />
+              <CheckCircle2 className="h-10 w-10 text-green-600" />
             </motion.div>
             <h2 className="text-3xl font-bold text-gabardo-blue md:text-4xl">Cotação enviada com sucesso!</h2>
             <p className="mx-auto mt-4 max-w-2xl text-gray-600 md:text-lg">
