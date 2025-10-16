@@ -50,6 +50,7 @@ type QuoteFormData = {
   vehicleModel: string;
   vehicleModelCode: string;
   vehicleYear: string;
+  vehicleYearCode: string;
   vehicleValue: string;
   vehicleObservation: string;
   originCep: string;
@@ -78,6 +79,7 @@ const initialFormData: QuoteFormData = {
   vehicleModel: '',
   vehicleModelCode: '',
   vehicleYear: '',
+  vehicleYearCode: '',
   vehicleValue: '',
   vehicleObservation: '',
   originCep: '',
@@ -247,6 +249,7 @@ const VehicleQuoteForm: React.FC = () => {
         vehicleModel: '',
         vehicleModelCode: '',
         vehicleYear: '',
+        vehicleYearCode: '',
       }));
     }
     // Handle brand change - extract code and name
@@ -260,6 +263,7 @@ const VehicleQuoteForm: React.FC = () => {
           vehicleModel: '',
           vehicleModelCode: '',
           vehicleYear: '',
+          vehicleYearCode: '',
         }));
         loadModels(selectedBrand.code);
       }
@@ -273,6 +277,7 @@ const VehicleQuoteForm: React.FC = () => {
           vehicleModel: selectedModel.name,
           vehicleModelCode: selectedModel.code,
           vehicleYear: '',
+          vehicleYearCode: '',
         }));
         loadYears(formData.vehicleBrandCode, selectedModel.code);
       }
@@ -281,7 +286,11 @@ const VehicleQuoteForm: React.FC = () => {
     else if (name === 'vehicleYear') {
       const selectedYear = years.find(y => y.code === value);
       if (selectedYear) {
-        setFormData((prev) => ({ ...prev, vehicleYear: selectedYear.name }));
+        setFormData((prev) => ({ 
+          ...prev, 
+          vehicleYear: selectedYear.name,
+          vehicleYearCode: selectedYear.code
+        }));
       }
     }
     else {
@@ -303,6 +312,7 @@ const VehicleQuoteForm: React.FC = () => {
       vehicleModel: name,
       vehicleModelCode: code,
       vehicleYear: '',
+      vehicleYearCode: '',
     }));
     if (code && formData.vehicleBrandCode) {
       loadYears(formData.vehicleBrandCode, code);
@@ -576,7 +586,7 @@ const VehicleQuoteForm: React.FC = () => {
                         <label className="block text-sm font-medium text-gabardo-blue">Ano / Fabricação *</label>
                         <select
                           name="vehicleYear"
-                          value={formData.vehicleYear}
+                          value={formData.vehicleYearCode}
                           onChange={handleInputChange}
                           required
                           disabled={!formData.vehicleModelCode || fipeLoading}
