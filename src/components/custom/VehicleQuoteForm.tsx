@@ -97,6 +97,53 @@ const initialFormData: QuoteFormData = {
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Mocked vehicle types based on Transportes Gabardo services
+const vehicleTypes = [
+  'Automóvel de Passeio',
+  'SUV / Utilitário',
+  'Pick-up',
+  'Van',
+  'Caminhão Leve',
+  'Caminhão Médio',
+  'Caminhão Pesado',
+  'Máquina Agrícola',
+  'Trator',
+  'Ônibus',
+  'Micro-ônibus',
+  'Veículo Especial',
+  'Motocicleta',
+];
+
+// Mocked vehicle brands
+const vehicleBrands = [
+  'Audi',
+  'BMW',
+  'Chevrolet',
+  'Citroën',
+  'Fiat',
+  'Ford',
+  'Honda',
+  'Hyundai',
+  'Jeep',
+  'Kia',
+  'Mercedes-Benz',
+  'Mitsubishi',
+  'Nissan',
+  'Peugeot',
+  'Renault',
+  'Toyota',
+  'Volkswagen',
+  'Volvo',
+  'Outros',
+];
+
+// Brazilian states
+const brazilianStates = [
+  'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA',
+  'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN',
+  'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO',
+];
+
 const VehicleQuoteForm: React.FC = () => {
   const totalSteps = 3;
   const [step, setStep] = useState(1);
