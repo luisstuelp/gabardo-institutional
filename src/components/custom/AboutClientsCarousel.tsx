@@ -39,25 +39,90 @@ interface LogoItemProps {
   onManualPause: (shouldPause: boolean, element: HTMLDivElement | null) => void;
 }
 
-// Simple logo item for mobile (no flip)
-const SimpleLogo = ({ logo }: { logo: typeof clientLogos[0] }) => {
+// Mobile logo item - click to open modal (zero overhead)
+const MobileLogo = ({ logo, onClick, isDragging }: { logo: typeof clientLogos[0]; onClick: () => void; isDragging: boolean }) => {
   return (
     <div
-      className="flex-shrink-0 flex items-center justify-center"
+      className="flex-shrink-0 flex items-center justify-center cursor-pointer active:scale-95 transition-transform duration-150"
       style={{ width: '200px', height: '120px' }}
+      onClick={(e) => {
+        // Only open modal if not dragging
+        if (!isDragging) {
+          onClick();
+        }
+      }}
     >
-      <div className="bg-white rounded-2xl border border-gabardo-blue/10 p-6 shadow-sm w-full h-full flex items-center justify-center">
+      <div className="bg-white rounded-2xl border border-gabardo-blue/10 p-4 shadow-sm w-full h-full flex items-center justify-center hover:border-gabardo-blue/20 transition-colors">
         <Image
           src={`/NewLogos/Nlogo (${logo.id}).png`}
           alt={logo.name}
-          width={180}
-          height={90}
+          width={160}
+          height={80}
           className="w-full h-full object-contain grayscale opacity-60"
           draggable={false}
           loading="lazy"
         />
       </div>
     </div>
+  );
+};
+
+// Mobile modal for client info
+const ClientModal = ({ logo, onClose }: { logo: typeof clientLogos[0] | null; onClose: () => void }) => {
+  if (!logo) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        className="bg-[#132d51] rounded-3xl p-6 max-w-sm w-full shadow-2xl relative overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Decorative blurs */}
+        <div className="absolute -top-12 right-8 h-24 w-24 rounded-full bg-gabardo-light-blue/20 blur-3xl" aria-hidden />
+        <div className="absolute -bottom-16 left-6 h-32 w-32 rounded-full bg-white/10 blur-3xl" aria-hidden />
+
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white"
+          aria-label="Fechar"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        {/* Content */}
+        <div className="relative">
+          <div className="space-y-2 mb-6">
+            <h3 className="text-2xl font-bold tracking-wide text-white">
+              {logo.name}
+            </h3>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: '4rem' }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="h-1 rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue"
+            />
+          </div>
+
+          <p className="text-sm leading-relaxed text-white/95">
+            {logo.description}
+          </p>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -181,6 +246,7 @@ const AboutClientsCarousel = () => {
   const targetVelocity = prefersReducedMotion ? 0 : SPEED;
   const [canHover, setCanHover] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [selectedLogo, setSelectedLogo] = useState<typeof clientLogos[0] | null>(null);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -297,9 +363,6 @@ const AboutClientsCarousel = () => {
   };
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    // Disable drag on mobile for smoother experience
-    if (isMobile) return;
-    
     if (event.pointerType === 'mouse' && event.button !== 0) {
       return;
     }
@@ -313,7 +376,7 @@ const AboutClientsCarousel = () => {
   };
 
   const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (isMobile || !pointerActiveRef.current) {
+    if (!pointerActiveRef.current) {
       return;
     }
     const delta = event.clientX - dragStartX.current;
@@ -329,7 +392,9 @@ const AboutClientsCarousel = () => {
 
     if (isDraggingRef.current) {
       event.preventDefault();
-      applyTranslation(dragStartTranslate.current + delta);
+      const newPosition = dragStartTranslate.current - delta;
+      commitTranslation(newPosition);
+      targetTranslation.current = newPosition;
     }
   };
 
@@ -344,6 +409,14 @@ const AboutClientsCarousel = () => {
       event.currentTarget.releasePointerCapture?.(event.pointerId);
       isDraggingRef.current = false;
       setIsDragging(false);
+
+      // Normalize position for infinite loop
+      if (seqWidth > 0) {
+        const normalized = ((xTranslation.current % seqWidth) + seqWidth) % seqWidth;
+        targetTranslation.current = normalized;
+        commitTranslation(normalized);
+      }
+
       if (!manualPauseRef.current) {
         setTimeout(() => {
           if (!manualPauseRef.current) {
@@ -359,6 +432,7 @@ const AboutClientsCarousel = () => {
   };
 
   const handlePointerEnter = (event: ReactPointerEvent<HTMLDivElement>) => {
+    // Only pause on hover for desktop with hover capability
     if (isMobile || !canHover) return;
     if (isHoverPointer(event) && !manualPauseRef.current && !isDraggingRef.current) {
       setIsPaused(true);
@@ -366,7 +440,6 @@ const AboutClientsCarousel = () => {
   };
 
   const handlePointerLeave = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (isMobile) return;
     if (!canHover) {
       endDrag(event);
       return;
@@ -389,8 +462,9 @@ const AboutClientsCarousel = () => {
       const deltaTime = Math.max(0, timestamp - lastTimestampRef.current) / 1000;
       lastTimestampRef.current = timestamp;
 
-      // Target velocity (0 when paused/dragging)
-      const target = (isPaused || isDraggingRef.current) ? 0 : targetVelocity;
+      // Target velocity (0 when paused/dragging/modal open)
+      const isModalOpen = isMobile && selectedLogo !== null;
+      const target = (isPaused || isDraggingRef.current || isModalOpen) ? 0 : targetVelocity;
 
       // Exponential smoothing for velocity
       const easingFactor = 1 - Math.exp(-deltaTime / SMOOTH_TAU);
@@ -415,7 +489,7 @@ const AboutClientsCarousel = () => {
       }
       lastTimestampRef.current = null;
     };
-  }, [isInView, isPaused, targetVelocity, seqWidth]);
+  }, [isInView, isPaused, targetVelocity, seqWidth, isMobile, selectedLogo]);
 
   const centerElementIfNeeded = (element: HTMLDivElement | null) => {
     if (!element) return;
@@ -440,7 +514,8 @@ const AboutClientsCarousel = () => {
     setIsPaused(shouldPause);
   };
   return (
-    <section ref={ref} className="py-16 sm:py-20 bg-gradient-to-br from-white via-gabardo-light-blue/5 to-white overflow-hidden" id="nossos-clientes">
+    <>
+      <section ref={ref} className="py-16 sm:py-20 bg-gradient-to-br from-white via-gabardo-light-blue/5 to-white overflow-hidden" id="nossos-clientes">
       {/* Header */}
       <div className="container mx-auto px-4 mb-12">
         <motion.div
@@ -470,14 +545,14 @@ const AboutClientsCarousel = () => {
       >
         {/* Carousel Container */}
         <div
-          className={`overflow-hidden py-12 select-none ${!isMobile && isDragging ? 'cursor-grabbing' : !isMobile ? 'cursor-grab' : ''}`}
-          onPointerDown={!isMobile ? handlePointerDown : undefined}
-          onPointerMove={!isMobile ? handlePointerMove : undefined}
-          onPointerUp={!isMobile ? endDrag : undefined}
-          onPointerEnter={!isMobile && canHover ? handlePointerEnter : undefined}
-          onPointerLeave={!isMobile && canHover ? handlePointerLeave : undefined}
-          onPointerCancel={!isMobile ? endDrag : undefined}
-          style={{ touchAction: isMobile ? 'pan-x pan-y' : 'pan-y' }}
+          className={`overflow-hidden py-12 select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={endDrag}
+          onPointerEnter={canHover && !isMobile ? handlePointerEnter : undefined}
+          onPointerLeave={canHover && !isMobile ? handlePointerLeave : undefined}
+          onPointerCancel={endDrag}
+          style={{ touchAction: 'none' }}
         >
           <div
             ref={trackRef}
@@ -492,9 +567,11 @@ const AboutClientsCarousel = () => {
               >
                 {baseLogos.map((logo, index) => (
                   isMobile ? (
-                    <SimpleLogo
+                    <MobileLogo
                       key={`${copyIndex}-${logo.id}-${index}`}
                       logo={logo}
+                      onClick={() => setSelectedLogo(logo)}
+                      isDragging={isDragging}
                     />
                   ) : (
                     <LogoItem
@@ -510,6 +587,15 @@ const AboutClientsCarousel = () => {
         </div>
       </motion.div>
     </section>
+
+    {/* Mobile Modal */}
+    {isMobile && selectedLogo && (
+      <ClientModal 
+        logo={selectedLogo} 
+        onClose={() => setSelectedLogo(null)} 
+      />
+    )}
+    </>
   );
 };
 
