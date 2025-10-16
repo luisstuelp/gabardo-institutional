@@ -89,7 +89,7 @@ const CrmDashboard: React.FC = () => {
           );})}
         </div>
 
-        <div className="mt-12 grid grid-cols-1 xl:grid-cols-[2fr_1fr] gap-8">
+        <div className="mt-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -116,7 +116,7 @@ const CrmDashboard: React.FC = () => {
                 Entregas concluídas
               </div>
             </div>
-            <div className="mt-10 flex items-end justify-between gap-4">
+            <div className="mt-10 flex flex-wrap items-end justify-center gap-x-4 gap-y-8 sm:justify-between sm:gap-x-6">
               {chartData.map((item, index) => {
                 const rotasHeight = (item.rotas / maxChartValue) * 100;
                 const entregasHeight = (item.entregas / maxChartValue) * 100;
@@ -127,15 +127,15 @@ const CrmDashboard: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.05, ease: 'easeOut' }}
-                    className="flex flex-col items-center gap-4 flex-1"
+                    className="flex flex-col items-center gap-4 flex-none min-w-[72px] sm:flex-1 sm:min-w-0"
                   >
-                    <div className="flex items-end gap-2 w-full justify-center h-40">
+                    <div className="flex items-end gap-1 w-full justify-center h-40 sm:gap-2">
                       <span
-                        className="w-7 rounded-full bg-gabardo-blue/80"
+                        className="w-4 rounded-full bg-gabardo-blue/80 sm:w-6 lg:w-7"
                         style={{ height: `${rotasHeight}%` }}
                       />
                       <span
-                        className="w-7 rounded-full bg-gabardo-light-blue"
+                        className="w-4 rounded-full bg-gabardo-light-blue sm:w-6 lg:w-7"
                         style={{ height: `${entregasHeight}%` }}
                       />
                     </div>
@@ -144,27 +144,6 @@ const CrmDashboard: React.FC = () => {
                 );
               })}
             </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-            className="rounded-3xl shadow-lg bg-gabardo-blue p-8 text-white flex flex-col justify-between"
-          >
-            <div className="space-y-4">
-              <span className="px-3 py-1 rounded-full bg-white/20 text-xs font-semibold uppercase tracking-widest">Expansão</span>
-              <h3 className="text-3xl font-bold leading-tight">
-                Novo hub Gabardo aprovado em Paulínia (SP).
-              </h3>
-              <p className="text-sm text-white/85">
-                Capacidade extra de 60 vagas/dia para veículos leves já disponível para agendamento de clientes estratégicos.
-              </p>
-            </div>
-            <button className="mt-8 inline-flex items-center justify-center rounded-full bg-white text-gabardo-blue px-6 py-3 text-sm font-semibold hover:bg-gray-100 transition-colors">
-              Agendar operação piloto
-            </button>
           </motion.div>
         </div>
 

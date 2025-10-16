@@ -710,20 +710,19 @@ const VehicleQuoteForm: React.FC = () => {
                         placeholder="Detalhes adicionais sobre o trajeto"
                       />
                     </div>
-                    <div className="mt-6 flex items-start gap-3">
+                    <label htmlFor="privacyAccepted" className="mt-6 flex items-center gap-3 text-sm text-gray-600">
                       <input
                         id="privacyAccepted"
-                        type="checkbox"
                         name="privacyAccepted"
+                        type="checkbox"
                         checked={formData.privacyAccepted}
                         onChange={handleCheckboxChange}
-                        className="mt-1 h-5 w-5 rounded border-neutral-300 text-gabardo-blue focus:ring-gabardo-blue"
+                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-gabardo-blue focus:ring-gabardo-blue"
                         required
                       />
-                      <label htmlFor="privacyAccepted" className="text-sm text-gray-600">
-                        Ao clicar em Solicitar Cotação você concorda com nossa política de privacidade.
-                      </label>
-                    </div>
+                      <span>Ao clicar em Solicitar Cotação você concorda com nossa política de privacidade.</span>
+                    </label>
+
                     <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                       <button
                         type="button"
