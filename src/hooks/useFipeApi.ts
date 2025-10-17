@@ -19,6 +19,17 @@ export interface FipeYear {
   name: string;
 }
 
+export interface FipeVehiclePrice {
+  price: string;
+  brand: string;
+  model: string;
+  modelYear: number;
+  fuel: string;
+  codeFipe: string;
+  referenceMonth: string;
+  vehicleType: number;
+}
+
 /**
  * Map vehicle category to FIPE API type
  */
@@ -139,12 +150,46 @@ export const useFipeApi = () => {
     }
   }, []);
 
+  /**
+   * Fetch vehicle price from FIPE table
+   */
+  const fetchVehiclePrice = useCallback(async (
+    vehicleType: VehicleType,
+    brandCode: string,
+    modelCode: string,
+    yearCode: string
+  ): Promise<FipeVehiclePrice | null> => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch(
+        `${FIPE_API_BASE_URL}/${vehicleType}/brands/${brandCode}/models/${modelCode}/years/${yearCode}`
+      );
+      
+      if (!response.ok) {
+        throw new Error('Erro ao buscar valor do veículo');
+      }
+      
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Erro ao buscar valor do veículo';
+      setError(errorMessage);
+      console.error('Error fetching vehicle price:', err);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   return {
     loading,
     error,
     fetchBrands,
     fetchModels,
     fetchYears,
+    fetchVehiclePrice,
   };
 };
 
@@ -152,7 +197,7 @@ export const useFipeApi = () => {
  * Hook to manage vehicle data with FIPE API integration
  */
 export const useFipeVehicleData = (vehicleCategory: string) => {
-  const { fetchBrands, fetchModels, fetchYears, loading, error } = useFipeApi();
+  const { fetchBrands, fetchModels, fetchYears, fetchVehiclePrice, loading, error } = useFipeApi();
   
   const [brands, setBrands] = useState<FipeBrand[]>([]);
   const [models, setModels] = useState<FipeModel[]>([]);
@@ -203,6 +248,20 @@ export const useFipeVehicleData = (vehicleCategory: string) => {
     setYears(yearsData);
   }, [vehicleType, fetchYears]);
 
+  // Load vehicle price from FIPE table
+  const loadVehiclePrice = useCallback(async (
+    brandCode: string,
+    modelCode: string,
+    yearCode: string
+  ): Promise<FipeVehiclePrice | null> => {
+    if (!vehicleType || !brandCode || !modelCode || !yearCode) {
+      return null;
+    }
+
+    const priceData = await fetchVehiclePrice(vehicleType, brandCode, modelCode, yearCode);
+    return priceData;
+  }, [vehicleType, fetchVehiclePrice]);
+
   return {
     brands,
     models,
@@ -211,5 +270,6 @@ export const useFipeVehicleData = (vehicleCategory: string) => {
     error,
     loadModels,
     loadYears,
+    loadVehiclePrice,
   };
 };

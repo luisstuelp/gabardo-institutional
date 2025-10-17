@@ -169,9 +169,52 @@ Implementado componente customizado de autocomplete que permite ao usuário:
 - ✅ Reduz erros de seleção
 - ✅ Mantém compatibilidade com seleção tradicional
 
+### ✅ Preenchimento Automático de Preço FIPE
+**Implementado em:** Hook `useFipeApi.ts` e Formulário `VehicleQuoteForm.tsx`
+
+Nova funcionalidade que preenche automaticamente o campo **"Valor do Veículo"** com base na tabela FIPE quando o usuário seleciona o ano.
+
+**Endpoint Utilizado:**
+```
+GET /{vehicleType}/brands/{brandCode}/models/{modelCode}/years/{yearCode}
+```
+
+**Retorno da API:**
+```typescript
+{
+  price: "R$ 120.000,00",
+  brand: "Volkswagen",
+  model: "Gol 1.0",
+  modelYear: 2020,
+  fuel: "Gasolina",
+  codeFipe: "004123-1",
+  referenceMonth: "janeiro de 2025",
+  vehicleType: 1
+}
+```
+
+**Fluxo de Funcionamento:**
+1. Usuário seleciona categoria → marca → modelo → ano
+2. Ao selecionar o ano, dispara automaticamente `loadVehiclePrice()`
+3. API FIPE retorna dados completos do veículo incluindo o preço
+4. Campo "Valor do Veículo" é preenchido automaticamente com o valor FIPE
+5. Usuário pode editar o valor manualmente se necessário
+
+**Funcionalidades Adicionadas ao Hook:**
+- Nova interface `FipeVehiclePrice` com todos os campos retornados pela API
+- Função `fetchVehiclePrice()` no hook base `useFipeApi`
+- Função `loadVehiclePrice()` no hook de alto nível `useFipeVehicleData`
+
+**Benefícios:**
+- ✅ Eliminação de digitação manual do valor do veículo
+- ✅ Referência baseada em dados oficiais da tabela FIPE
+- ✅ Redução de erros de preenchimento
+- ✅ Experiência do usuário aprimorada
+- ✅ Valor pode ser editado manualmente se necessário
+
 ## Próximos Passos (Opcional)
 
-- [ ] Adicionar campo para buscar valor FIPE do veículo
+- [x] ~~Adicionar campo para buscar valor FIPE do veículo~~ ✅ **Implementado**
 - [ ] Cache local para reduzir chamadas à API
 - [ ] Adicionar debounce em campos de busca de texto livre
 - [ ] Integrar histórico de preços FIPE
