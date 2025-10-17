@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 const stripeFeatures = [
   {
     label: 'Cobertura Nacional',
-    value: '13+ bases operacionais',
+    value: '15 bases operacionais',
     description:
       'Pontos estratégicos conectando montadoras, concessionárias e hubs logísticos em todo o país.',
     imageSrc: '/images/Design sem nome (3).png'
@@ -23,7 +23,7 @@ const stripeFeatures = [
     label: 'Compromisso ESG',
     value: 'Processos certificados',
     description:
-      'ISO 9001, 14001 e 39001 garantindo eficiência operacional e responsabilidade ambiental.',
+      'Protocolos nacionais e internacionais padronizados garantindo eficiência operacional e responsabilidade ambiental.',
     imageSrc: '/images/gabardo-certification-docs.JPG'
   }
 ];
@@ -44,17 +44,17 @@ const HomeStripeCardSection = () => {
             className="space-y-4 sm:space-y-5 md:space-y-6 text-white"
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] font-semibold leading-tight md:leading-[1.05]">
-              Logística inteligente com o DNA da <span className="font-bold">Transportes Gabardo</span>
+              Logística inteligente com o DNA <span className="font-bold">Gabardo</span>
             </h2>
             <p className="max-w-xl text-sm sm:text-base text-white/70">
               Com mais de três décadas de atuação, entregamos operações que combinam planejamento estratégico,
               tecnologia e experiência humana para acelerar a cadeia automotiva brasileira.
             </p>
-            <div className="flex flex-wrap gap-2 sm:gap-3">
-              {['Operações On-demand', 'Controle 24/7', 'Integração com OEMs'].map((badge) => (
+            <div className="flex flex-col gap-2 sm:gap-3 w-fit items-start">
+              {['Excelência operacional sustentável', 'Integração com montadoras', 'Padrões internacionais'].map((badge) => (
                 <span
                   key={badge}
-                  className="rounded-full border border-white/20 bg-white/10 px-3 sm:px-4 py-1 text-[0.65rem] sm:text-xs uppercase tracking-wider sm:tracking-widest backdrop-blur"
+                  className="rounded-full border border-white/20 bg-white/10 px-3 sm:px-4 py-1 text-[0.65rem] sm:text-xs uppercase tracking-wider sm:tracking-widest backdrop-blur whitespace-nowrap"
                 >
                   {badge}
                 </span>

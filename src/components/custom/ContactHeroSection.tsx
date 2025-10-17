@@ -149,7 +149,7 @@ export default function ContactHeroSection() {
               >
                 <div className="flex items-center space-x-2">
                   <Dot className="w-3 h-3 text-gabardo-light-blue flex-shrink-0" />
-                  <span className="text-xs sm:text-sm font-light tracking-wide font-secondary">14 Unidades</span>
+                  <span className="text-xs sm:text-sm font-light tracking-wide font-secondary">15 Unidades</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Dot className="w-3 h-3 text-gabardo-light-blue flex-shrink-0" />

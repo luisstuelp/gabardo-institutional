@@ -25,7 +25,7 @@ const stats: StatItem[] = [
   {
     id: 'unidades',
     icon: <MapPin className="w-8 h-8" />,
-    number: '14',
+    number: '15',
     label: 'Unidades Operacionais',
     description: 'Cobertura estratégica em todo território nacional',
     color: 'emerald'

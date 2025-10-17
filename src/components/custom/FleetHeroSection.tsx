@@ -59,7 +59,7 @@ const FleetHeroSection: React.FC = () => {
             className="text-xl md:text-2xl text-white/90 font-light leading-relaxed mb-12 max-w-4xl"
           >
             Frota própria e terceirizada com mais de 500 veículos especializados, 
-            cobrindo todo território nacional através de 14 unidades estrategicamente localizadas.
+            cobrindo todo território nacional através de 15 unidades estrategicamente localizadas.
           </motion.p>
 
           {/* Key Features */}
@@ -84,7 +84,7 @@ const FleetHeroSection: React.FC = () => {
                 <MapPin className="w-8 h-8 text-white" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-white">14</div>
+                <div className="text-2xl font-bold text-white">15</div>
                 <div className="text-white/80">Unidades Operacionais</div>
               </div>
             </div>
