@@ -1,116 +1,91 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import Link from 'next/link';
+import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Globe2, Leaf, Users, Truck, Server, TrendingUp } from 'lucide-react';
+import { HeartHandshake, Users, ShieldCheck, Sparkles } from 'lucide-react';
 
-const cards = [
+const cultureFocus = [
   {
-    icon: Globe2,
-    label: 'Cobertura LATAM',
-    title: 'Cobertura LATAM que antecipa demandas',
+    id: 'parcerias',
+    icon: HeartHandshake,
+    title: 'Parcerias que crescem com transparência',
+    hook: 'Co-criamos planos com clientes, compartilhando indicadores e próximos passos em ciclos curtos.',
     description:
-      'Bases no Sul, Sudeste, Centro-Oeste e Nordeste conectam importações, exportações e distribuição LATAM com habilitação aduaneira (DTA).',
-    accent: '#7FD7FF',
-    image: '/images/New (6).png',
-    mobileImageClass: 'scale-[1.36] -translate-x-4 md:scale-100 md:translate-x-0',
-    highlights: ['BASES EM 4 REGIÕES', 'COBERTURA 100% LATAM', 'HABILITAÇÃO DTA'],
-    href: '/frota-e-unidades',
-    ctaLabel: 'Ver mapa de unidades',
-  },
-  {
-    icon: Truck,
-    label: 'Frota moderna',
-    title: 'Frota jovem e padronizada',
-    description:
-      '1.311 caminhões, 1.061 cegonheiras e renovação contínua garantem disponibilidade com 79% de frota própria e idade média de 2 anos.',
-    accent: '#38B6FF',
-    image: '/images/gabardo-truck-fleet.JPG',
-    highlights: ['79% FROTA PRÓPRIA', 'IDADE MÉDIA 2 ANOS', '1.311 CAMINHÕES'],
-    href: '/transporte-de-veiculos',
-    ctaLabel: 'Detalhes da frota',
-  },
-  {
-    icon: Server,
-    label: 'Infraestrutura digital',
-    title: 'Continuidade operacional garantida',
-    description:
-      'Rede SD-WAN, links redundantes e backups Oracle asseguram disponibilidade 24/7 para faturamento, CT-e, proxy/firewall e e-mail corporativo.',
-    accent: '#00F7FF',
-    image: '/images/GabardoBastidores.JPG',
-    highlights: ['SD-WAN NACIONAL', 'BACKUPS ORACLE DIÁRIOS', 'PLANO DE CONTINGÊNCIA'],
-    href: '/infraestrutura',
-    ctaLabel: 'Ver infraestrutura',
-  },
-  {
-    icon: Users,
-    label: 'Experiência OEM',
-    title: 'Integração OEM e visibilidade total',
-    description:
-      'PDI digital, telemetria embarcada e squads dedicados integram OEMs, pátios e concessionárias com rastreabilidade ponta a ponta.',
-    accent: '#F4A8FF',
+      'Times dedicados trabalham lado a lado com embarcadores para revisar rotas, capacidade e experiência do cliente. As entregas são acompanhadas com cadência e materializadas em planos de evolução conjuntos.',
+    practices: [
+      'Workshops trimestrais com clientes para ajustar objetivos e iniciativas',
+      'Relatórios executivos colaborativos com insights de desempenho e próximos ajustes',
+    ],
+    quote: {
+      text: '“Entendemos a operação com a mesma profundidade do cliente e reagimos antes dos eventos críticos.”',
+      author: 'Equipe de Contas Estratégicas',
+    },
+    chips: ['Transparência total', 'Células dedicadas'],
     image: '/images/GabardoEquipe2.JPG',
-    highlights: ['PDI DIGITAL', 'TELEMETRIA 24/7', 'SQUADS DEDICADOS'],
-    href: '/servicos',
-    ctaLabel: 'Ver soluções OEM',
   },
   {
-    icon: TrendingUp,
-    label: 'Resultados',
-    title: 'Resultados operacionais comprovados',
+    id: 'talentos',
+    icon: Users,
+    title: 'Gente preparada para liderar o futuro',
+    hook: 'Academia Gabardo, mentorias e trilhas técnicas fortalecem protagonismo em toda a rede.',
     description:
-      'Processos padronizados de investigação de avarias sustentam a entrega de 1.455.360 veículos transportados entre 2020 e 2024.',
-    accent: '#FFB347',
-    image: '/images/Trans Gabardo - Framers produtora -5762.JPG',
-    highlights: ['1.455.360 VEÍCULOS', 'INVESTIGAÇÃO PADRONIZADA', 'MONITORAMENTO 24H'],
-    href: '/cases-de-sucesso',
-    ctaLabel: 'Conhecer cases',
+      'Programas internos desenvolvem competências em logística, tecnologia e liderança. Cada unidade possui multiplicadores responsáveis por disseminar práticas e garantir que novos talentos tenham referências claras de carreira.',
+    practices: [
+      'Mentorias cruzadas entre matriz e unidades regionais',
+      'Trilhas de capacitação com módulos presenciais e digitais certificados',
+    ],
+    quote: {
+      text: '“Compartilhamos conhecimento com quem chega e aprendemos continuamente com o campo.”',
+      author: 'Coordenação de Desenvolvimento Humano',
+    },
+    chips: ['Academia Gabardo', 'Mentorias'],
+    image: '/images/GabardoEquipe.JPG',
   },
   {
-    icon: Leaf,
-    label: 'ESG',
-    title: 'Impacto ESG carbono negativo',
+    id: 'seguranca',
+    icon: ShieldCheck,
+    title: 'Segurança que sustenta continuidade',
+    hook: 'Governança e tecnologia combinadas protegem pessoas, dados e ativos em cada etapa.',
     description:
-      'Inventários GEE anuais, programas de compensação e frota Euro 6 consolidam a primeira transportadora com produção de carbono negativa.',
-    accent: '#7DFF4B',
+      'Protocolos certificados, telemetria e redundância tecnológica mantêm as operações disponíveis mesmo em cenários de alta demanda. Toda ocorrência gera planos de prevenção compartilhados com clientes e equipes internas.',
+    practices: [
+      'Centros de monitoramento com SD-WAN e telemetria integrada 24/7',
+      'Planos de contingência documentados e testados com times multidisciplinares',
+    ],
+    quote: {
+      text: '“Segurança não é um projeto; é uma postura diária que guia decisões técnicas e humanas.”',
+      author: 'Time de Continuidade Operacional',
+    },
+    chips: ['Protocolos certificados', 'Telemetria 24/7'],
+    image: '/images/GabardoMonit.JPG',
+  },
+  {
+    id: 'inovacao',
+    icon: Sparkles,
+    title: 'Inovação aplicada ao campo',
+    hook: 'Squads testam ideias com motoristas, clientes e parceiros para acelerar melhorias.',
+    description:
+      'Laboratórios de inovação priorizam iniciativas de digitalização, sustentabilidade e experiência do cliente. Cada projeto nasce com hipóteses, métricas e rituais de acompanhamento para garantir valor real ao negócio.',
+    practices: [
+      'Programas piloto em rotas selecionadas antes da expansão para toda a rede',
+      'Painéis de inovação compartilhados com indicadores ambientais e operacionais',
+    ],
+    quote: {
+      text: '“Testamos rápido, aprendemos com os dados e escalamos o que gera valor para quem está na ponta.”',
+      author: 'Squad de Inovação e ESG',
+    },
+    chips: ['Pilotos ágeis', 'Visão ESG'],
     image: '/images/Trans Gabardo - Framers produtora -5577.JPG',
-    highlights: ['CARBONO NEGATIVO', 'GHG PROTOCOL 2017', 'META NET ZERO 2030'],
-    href: '/sustentabilidade',
-    ctaLabel: 'Ver agenda ESG',
   },
 ];
 
 const HomeHoverCardsSection = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      if (typeof window !== 'undefined') {
-        // Treat widths below the LG breakpoint (<1024px) as mobile/tablet
-        setIsMobile(window.innerWidth < 1024);
-      }
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Reset active card when switching between mobile and desktop layouts
-  useEffect(() => {
-    if (isMobile) {
-      setActiveIndex(-1);
-    } else {
-      setActiveIndex((prev) => (prev < 0 ? 0 : prev));
-    }
-  }, [isMobile]);
-
-  const safeIndex = activeIndex >= 0 ? activeIndex : 0;
-  const activeCard = useMemo(() => cards[safeIndex], [safeIndex]);
-  const imageAlt = useMemo(() => `Gabardo ${activeCard.label}`, [activeCard.label]);
+  const [activeId, setActiveId] = useState(cultureFocus[0].id);
+  const activeItem = useMemo(
+    () => cultureFocus.find((item) => item.id === activeId) ?? cultureFocus[0],
+    [activeId]
+  );
 
   return (
     <section className="relative overflow-hidden bg-white py-24">
@@ -119,7 +94,7 @@ const HomeHoverCardsSection = () => {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(circle at 20% 20%, rgba(56,182,255,0.12), transparent 55%), radial-gradient(circle at 80% 30%, rgba(19,45,81,0.12), transparent 60%)',
+            'radial-gradient(circle at 18% 22%, rgba(56,182,255,0.12), transparent 55%), radial-gradient(circle at 82% 30%, rgba(19,45,81,0.12), transparent 60%)',
         }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -136,16 +111,16 @@ const HomeHoverCardsSection = () => {
             transition={{ duration: 0.5 }}
             className="text-xs uppercase tracking-[0.4em] text-gabardo-blue/80"
           >
-            Diferenciais
+            Nossa cultura em movimento
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.65, ease: 'easeOut' }}
-            className="mt-4 text-3xl font-semibold text-gabardo-blue md:text-4xl lg:text-5xl"
+            className="mt-4 text-3xl font-semibold text-gray-900 md:text-4xl"
           >
-            Experiências de logística premium para a nova era automotiva
+            Nossos valores em prática constante
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 24 }}
@@ -154,238 +129,117 @@ const HomeHoverCardsSection = () => {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="mt-4 text-base text-neutral-600 md:max-w-3xl"
           >
-            Navegue pelos pilares que moldam a jornada Gabardo. Cada foco revela como conectamos governança, inovação e pessoas para criar experiências ímpares em logística automotiva.
+            Escolha um valor para ver como nossas equipes vivem essa cultura em rituais, práticas e iniciativas com clientes e parceiros.
           </motion.p>
         </div>
 
-        <div className="mt-20 grid gap-12 lg:grid-cols-[0.9fr_1.1fr] xl:grid-cols-[0.95fr_1.05fr]">
-          <div className="relative flex flex-col gap-8">
-            <div className="absolute inset-0 -z-10 rounded-[38px] border border-gabardo-blue/10 bg-white/70 blur-3xl" />
-            <div className="grid gap-5">
-              {cards.map((card, index) => {
-                const Icon = card.icon;
-                const isActive = activeIndex === index;
+        <div className="mt-16 grid gap-10 lg:grid-cols-[340px_1fr] xl:grid-cols-[360px_1fr]">
+          <div className="space-y-6">
+            {cultureFocus.map((item) => {
+              const Icon = item.icon;
+              const isActive = item.id === activeId;
 
-                return (
-                  <motion.div
-                    key={`${card.title}-flow`}
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.45, delay: index * 0.04 }}
-                    onClick={() => {
-                      if (isMobile) {
-                        setActiveIndex((prev) => (prev === index ? -1 : index));
-                      } else {
-                        setActiveIndex(index);
-                      }
-                    }}
-                    onKeyDown={(event) => {
-                      if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        if (isMobile) {
-                          setActiveIndex((prev) => (prev === index ? -1 : index));
-                        } else {
-                          setActiveIndex(index);
-                        }
-                      }
-                    }}
-                    role="button"
-                    tabIndex={0}
-                    aria-pressed={isActive}
-                    aria-expanded={isMobile ? isActive : undefined}
-                    className={`relative flex flex-col gap-4 rounded-3xl border px-5 py-4 backdrop-blur-md transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-blue ${
-                      isActive
-                        ? 'border-gabardo-blue/50 bg-gabardo-blue/8 shadow-[0_28px_65px_-40px_rgba(19,45,81,0.5)]'
-                        : 'border-white/40 bg-white/60 hover:border-gabardo-blue/30'
-                    }`}
-                  >
-                    <div className="relative z-10 flex w-full items-center gap-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/70 text-gabardo-blue shadow">
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      <div className="flex flex-1 flex-col justify-center gap-1">
-                        <p className="text-sm font-semibold text-gabardo-blue">{card.title}</p>
-                        <span className="text-xs uppercase tracking-[0.32em] text-gabardo-blue/60">{card.label}</span>
-                      </div>
-                      <motion.span
-                        aria-hidden
-                        initial={false}
-                        animate={{
-                          x: isMobile ? 0 : isActive ? 6 : 0,
-                          rotate: isMobile ? (isActive ? 180 : 0) : 0,
-                          opacity: isActive ? 1 : 0.55,
-                        }}
-                        className="ml-auto text-lg font-semibold text-gabardo-blue"
-                      >
-                        {isMobile ? '⌄' : '→'}
-                      </motion.span>
-                    </div>
-
-                    {isMobile && (
-                      <AnimatePresence>
-                        {isActive && (
-                          <motion.div
-                            key={`${card.title}-mobile`}
-                            layout
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3, ease: 'easeInOut' }}
-                            className="relative z-0 mt-2 w-full overflow-hidden origin-top"
-                            style={{ transformOrigin: 'top' }}
-                          >
-                            <motion.div
-                              initial={{ opacity: 0, y: -6 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: -6 }}
-                              transition={{ duration: 0.28, ease: 'easeOut' }}
-                              className="space-y-4 rounded-2xl bg-transparent p-4"
-                            >
-                              <div className="relative h-52 w-full overflow-hidden rounded-xl border border-gabardo-blue/15">
-                                <Image
-                                  src={card.image}
-                                  alt={card.title}
-                                  fill
-                                  sizes="100vw"
-                                  className={`object-cover object-center scale-[1.18] md:scale-100 ${card.mobileImageClass ?? ''}`.trim()}
-                                  style={{ transformOrigin: 'center' }}
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#0a1421]/55 via-[#0a1421]/25 to-transparent" />
-                                <span className="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-white/80">
-                                  {card.label}
-                                </span>
-                              </div>
-                              <p className="text-sm leading-relaxed text-gray-600">{card.description}</p>
-                              <div className="flex flex-wrap gap-2">
-                                {card.highlights.map((highlight) => (
-                                  <span
-                                    key={highlight}
-                                    className="rounded-full border border-gabardo-blue/20 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-gabardo-blue"
-                                  >
-                                    {highlight}
-                                  </span>
-                                ))}
-                              </div>
-                            </motion.div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    )}
-                  </motion.div>
-                );
-              })}
-            </div>
-
+              return (
+                <motion.button
+                  key={item.id}
+                  type="button"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4 }}
+                  onMouseEnter={() => setActiveId(item.id)}
+                  onFocus={() => setActiveId(item.id)}
+                  onClick={() => setActiveId(item.id)}
+                  className={`group flex w-full gap-4 rounded-3xl border px-5 py-6 text-left shadow-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-blue ${
+                    isActive
+                      ? 'border-gabardo-blue/50 bg-white'
+                      : 'border-white/40 bg-white/70 hover:border-gabardo-blue/30'
+                  }`}
+                >
+                  <span className={`flex h-12 w-12 items-center justify-center rounded-2xl border text-gabardo-blue transition ${isActive ? 'border-gabardo-blue bg-gabardo-blue/10' : 'border-gabardo-blue/25 bg-white'}`}>
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <div className="flex flex-1 flex-col gap-2">
+                    <h3 className={`text-base font-semibold ${isActive ? 'text-gabardo-blue' : 'text-gray-900'}`}>{item.title}</h3>
+                    <p className="text-sm leading-relaxed text-gray-600">{item.hook}</p>
+                    <span className={`text-[10px] font-semibold uppercase tracking-[0.28em] ${isActive ? 'text-gabardo-blue' : 'text-gabardo-blue/50'}`}>
+                      {isActive ? 'Explorando' : 'Selecionar'}
+                    </span>
+                  </div>
+                </motion.button>
+              );
+            })}
           </div>
 
-          <div className="hidden lg:flex flex-col gap-8">
-            <motion.div
-              key={activeCard.title}
-              layout
-              className="relative overflow-hidden rounded-[34px] border border-white/40 bg-white/80 p-8 shadow-[0_45px_120px_-45px_rgba(19,45,81,0.35)] backdrop-blur"
-            >
+          <div className="relative">
+            <AnimatePresence mode="wait">
               <motion.div
-                className="absolute inset-0 opacity-40"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.55 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-                style={{
-                  background: `radial-gradient(circle at 20% 20%, ${activeCard.accent}33, transparent 60%)`,
-                }}
-              />
-              <div className="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-end">
-                <div className="flex-1 space-y-6">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-gabardo-blue/30 bg-gabardo-blue/5 px-4 py-2 text-xs uppercase tracking-[0.32em] text-gabardo-blue">
-                    Ponto-chave
-                  </span>
-                  <h3 className="text-3xl font-semibold text-gabardo-blue md:text-4xl">
-                    {activeCard.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-gray-600 md:text-base">
-                    {activeCard.description}
-                  </p>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    {activeCard.highlights.map((highlight) => (
-                      <motion.div
-                        key={highlight}
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="flex items-center gap-3 rounded-2xl border border-white/60 bg-white/80 px-4 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-blue shadow-sm"
-                      >
-                        <span className="h-2 w-2 rounded-full bg-gabardo-blue" />
-                        {highlight}
-                      </motion.div>
-                    ))}
+                key={activeItem.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.45, ease: 'easeOut' }}
+                className="relative overflow-hidden rounded-[34px] border border-gabardo-blue/10 bg-white/90 shadow-[0_45px_120px_-55px_rgba(19,45,81,0.35)] backdrop-blur"
+              >
+                <div className="relative h-60 w-full overflow-hidden md:h-72">
+                  <Image
+                    src={activeItem.image}
+                    alt={activeItem.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                    className="object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#0a1421]/70 via-[#0a1421]/35 to-transparent" />
+                  <div className="absolute left-6 top-6 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-white/85">
+                    Nossa cultura
                   </div>
                 </div>
 
-                <div className="relative h-60 w-full overflow-hidden rounded-3xl border border-gabardo-blue/20 bg-black/70 shadow-inner md:h-72 lg:w-72">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={`${activeCard.title}-image`}
-                      initial={{ opacity: 0, scale: isMobile ? 1.32 : 1.08, x: isMobile ? -18 : -12 }}
-                      animate={{ opacity: 1, scale: isMobile ? 1.36 : 1.08, x: isMobile ? -6 : 0 }}
-                      exit={{ opacity: 0, scale: isMobile ? 1.28 : 1.02, x: isMobile ? -12 : -10 }}
-                      transition={{ duration: 0.6 }}
-                      className="absolute inset-0"
-                    >
-                      <Image
-                        src={activeCard.image}
-                        alt={imageAlt}
-                        fill
-                        sizes="(min-width: 1024px) 288px, 100vw"
-                        className="object-cover object-center scale-[1.12]"
-                        style={{ transformOrigin: 'center' }}
-                        priority={activeIndex === 0}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#0a1421]/60 via-[#0a1421]/35 to-transparent" />
-                    </motion.div>
-                  </AnimatePresence>
-                  <div className="absolute bottom-4 left-4 rounded-full bg-black/50 px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-white/80">
-                    {activeCard.label}
+                <div className="flex flex-col gap-6 p-8 md:p-10">
+                  <div className="space-y-4">
+                    <span className="text-xs font-semibold uppercase tracking-[0.32em] text-gabardo-blue/70">Valor em foco</span>
+                    <h3 className="text-2xl font-semibold text-gray-900 md:text-3xl">{activeItem.title}</h3>
+                    <p className="text-base leading-relaxed text-gray-600">{activeItem.description}</p>
+                  </div>
+
+                  <div className="space-y-5">
+                    <div className="space-y-3">
+                      <span className="text-xs font-semibold uppercase tracking-[0.3em] text-gabardo-blue/70">Práticas em destaque</span>
+                      <ul className="space-y-2 text-sm text-gray-700">
+                        {activeItem.practices.map((practice) => (
+                          <li key={practice} className="flex items-start gap-2">
+                            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gabardo-blue" />
+                            <span>{practice}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="space-y-3">
+                      <span className="text-xs font-semibold uppercase tracking-[0.3em] text-gabardo-blue/70">O que escutamos do time</span>
+                      <blockquote className="rounded-3xl bg-white/70 p-5 text-sm leading-relaxed text-gabardo-blue">
+                        <p className="italic">{activeItem.quote.text}</p>
+                        <span className="mt-3 block text-xs uppercase tracking-[0.25em] text-gabardo-blue/55">
+                          {activeItem.quote.author}
+                        </span>
+                      </blockquote>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      {activeItem.chips.map((chip) => (
+                        <span
+                          key={chip}
+                          className="rounded-full border border-gabardo-blue/20 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-gabardo-blue"
+                        >
+                          {chip}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative overflow-hidden rounded-[34px] border border-gabardo-blue/15 bg-gradient-to-br from-white via-gabardo-blue/5 to-white p-8 shadow-[0_35px_90px_-55px_rgba(13,28,55,0.4)]"
-            >
-              <div className="flex flex-col gap-5 text-gabardo-blue">
-                <div className="flex items-center gap-3">
-                  <Sparkles className="h-6 w-6" />
-                  <span className="text-xs uppercase tracking-[0.36em] text-gabardo-blue/70">Fluxo integrado</span>
-                </div>
-                <h3 className="text-2xl font-semibold">
-                  Cada entrega combina governança, tecnologia e pessoas para criar uma jornada memorável aos clientes.
-                </h3>
-                <p className="text-sm text-gabardo-blue/70">
-                  Nosso modelo conecta comitês, squads e hubs físicos em tempo real, garantindo previsibilidade e impacto socioambiental positivo.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {['Compliance', 'ESG', 'Tecnologia', 'Experiência do cliente'].map((chip) => (
-                    <span
-                      key={chip}
-                      className="rounded-full border border-gabardo-blue/20 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em]"
-                    >
-                      {chip}
-                    </span>
-                  ))}
-                </div>
-                <Link
-                  href={activeCard.href}
-                  className="inline-flex w-fit items-center gap-2 rounded-full border border-gabardo-blue/30 bg-gabardo-blue/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-blue transition hover:border-gabardo-blue/50 hover:bg-gabardo-blue/20"
-                >
-                  {activeCard.ctaLabel}
-                  <span>→</span>
-                </Link>
-              </div>
-            </motion.div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
