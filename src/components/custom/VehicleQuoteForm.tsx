@@ -144,6 +144,7 @@ const VehicleQuoteForm: React.FC = () => {
     error: fipeError,
     loadModels,
     loadYears,
+    loadVehiclePrice,
   } = useFipeVehicleData(formData.vehicleCategory);
 
   const validateStep = (currentStep: number) => {
@@ -279,7 +280,7 @@ const VehicleQuoteForm: React.FC = () => {
         loadYears(formData.vehicleBrandCode, selectedModel.code);
       }
     }
-    // Handle year change
+    // Handle year change and fetch price from FIPE
     else if (name === 'vehicleYear') {
       const selectedYear = years.find(y => y.code === value);
       if (selectedYear) {
@@ -288,6 +289,24 @@ const VehicleQuoteForm: React.FC = () => {
           vehicleYear: selectedYear.name,
           vehicleYearCode: selectedYear.code
         }));
+        
+        // Automatically fetch vehicle price from FIPE
+        if (formData.vehicleBrandCode && formData.vehicleModelCode) {
+          loadVehiclePrice(
+            formData.vehicleBrandCode,
+            formData.vehicleModelCode,
+            selectedYear.code
+          ).then(priceData => {
+            if (priceData?.price) {
+              setFormData((prev) => ({
+                ...prev,
+                vehicleValue: priceData.price
+              }));
+            }
+          }).catch(err => {
+            console.error('Erro ao buscar preço FIPE:', err);
+          });
+        }
       }
     }
     else {
@@ -608,6 +627,7 @@ const VehicleQuoteForm: React.FC = () => {
                           className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
                           placeholder="Ex: 150000"
                         />
+                        <p className="mt-1 text-xs text-gray-500">Valor estimado com base na tabela FIPE</p>
                       </div>
                     </div>
 
