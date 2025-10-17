@@ -218,7 +218,7 @@ const MapboxSection: React.FC = () => {
             className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4 sm:px-0"
             style={{color: '#132D51'}}
           >
-            A Gabardo está presente nas principais cidades do Brasil para oferecer o melhor serviço de transporte de veículos
+            De norte a sul, oferecemos cobertura completa em todo o território nacional.
           </motion.p>
         </div>
 
