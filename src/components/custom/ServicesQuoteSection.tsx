@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Phone, Mail, MapPin, UserPlus, ClipboardCheck, MessageCircle, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import { Send, Phone, Mail, MapPin, UserPlus, ClipboardCheck, MessageCircle, CheckCircle, AlertCircle, Loader, Truck, Package, Shield, Clock, CheckCircle2, ArrowRight } from 'lucide-react';
 
 const journeyHighlights = [
   {
@@ -357,7 +357,7 @@ const ServicesQuoteSection: React.FC = () => {
                     <div>
                       <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-gabardo-blue">Matriz</h4>
                       <p className="text-gray-600">Porto Alegre - RS</p>
-                      <p className="text-gray-600">14 unidades no Brasil</p>
+                      <p className="text-gray-600">15 unidades no Brasil</p>
                     </div>
                   </div>
                 </div>

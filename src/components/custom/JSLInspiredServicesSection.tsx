@@ -91,7 +91,7 @@ const JSLInspiredServicesSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-base md:text-lg lg:text-xl text-neutral-600 font-light max-w-4xl mx-auto leading-relaxed mt-4 sm:mt-5 md:mt-6 px-4 sm:px-0"
           >
-            A Transportes Gabardo oferece um portfólio completo de serviços para a logística automotiva, desde o transporte de veículos até a gestão de pátios e armazéns.
+            Oferecemos um portfólio completo de serviços para a logística automotiva, desde o transporte de veículos até a gestão de pátios e armazéns.
           </motion.p>
         </motion.div>
 

@@ -10,6 +10,7 @@ const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoid2Vic3RhcnN0dWRpbyIsImEiOiJjbWJqaXUyZG8w
 
 interface LocationData {
   name: string;
+  state: string;
   coordinates: [number, number];
   address: string;
   phone: string;
@@ -26,6 +27,7 @@ const mapRegion = (region: string) => {
 
 const locations: LocationData[] = units.map(unit => ({
   name: unit.nome,
+  state: unit.estado,
   coordinates: [unit.lng, unit.lat],
   address: unit.endereco,
   phone: unit.telefone,
@@ -164,7 +166,7 @@ const MapboxSection: React.FC = () => {
         }
         .marker-matriz .marker-dot,
         .marker-matriz::before {
-          background-color: #ef4444;
+          background-color: #38B6FF;
         }
         .marker-sede .marker-dot,
         .marker-sede::before {
@@ -216,7 +218,7 @@ const MapboxSection: React.FC = () => {
             className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4 sm:px-0"
             style={{color: '#132D51'}}
           >
-            A Gabardo está presente nas principais cidades do Brasil para oferecer o melhor serviço de transporte de veículos
+            De norte a sul, oferecemos cobertura completa em todo o território nacional.
           </motion.p>
         </div>
 
@@ -261,7 +263,7 @@ const MapboxSection: React.FC = () => {
                     </h3>
                     <span className={`px-2 sm:px-3 py-1 rounded-full text-[0.65rem] sm:text-xs font-medium ${
                       selectedLocation.type === 'matriz' 
-                        ? 'bg-red-100 text-red-800' 
+                        ? 'bg-[#D9F2FF] text-[#0B1B31]' 
                         : selectedLocation.type === 'sede'
                         ? 'bg-blue-100 text-blue-800'
                         : 'bg-green-100 text-green-800'
@@ -352,13 +354,15 @@ const MapboxSection: React.FC = () => {
                               >
                                 <span className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${
                                   location.type === 'matriz' 
-                                    ? 'bg-red-500' 
+                                    ? 'bg-[#38B6FF]' 
                                     : location.type === 'sede'
                                     ? 'bg-blue-500'
                                     : 'bg-green-500'
                                 }`}></span>
                                 <div className="flex-1">
-                                  <span className="font-medium text-sm" style={{color: '#132D51'}}>{location.name}</span>
+                                  <span className="font-medium text-sm" style={{color: '#132D51'}}>
+                                    {location.name}{location.state ? ` (${location.state})` : ''}
+                                  </span>
                                   <div className="text-xs" style={{color: '#132D51'}}>{location.phone}</div>
                                 </div>
                               </button>

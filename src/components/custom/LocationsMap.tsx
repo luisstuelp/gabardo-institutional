@@ -9,20 +9,21 @@ const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoid2Vic3RhcnN0dWRpbyIsImEiOiJjbWJqaXUyZG8w
 
 interface LocationData {
   name: string;
+  state: string;
   coordinates: [number, number];
   address: string;
   type: string;
 }
 
 const locations: LocationData[] = [
-  { name: 'Aflitos', coordinates: [-34.8825, -8.0476], address: 'Rua dos Aflitos, 123 - Recife, PE', type: 'sede' },
-  { name: 'Boa Viagem', coordinates: [-34.8942, -8.1194], address: 'Av. Boa Viagem, 456 - Recife, PE', type: 'filial' },
-  { name: 'Caruaru', coordinates: [-35.9762, -8.2837], address: 'Rua Central, 789 - Caruaru, PE', type: 'filial' },
-  { name: 'Fortaleza', coordinates: [-38.5267, -3.7319], address: 'Av. Beira Mar, 321 - Fortaleza, CE', type: 'filial' },
-  { name: 'Ilha do Leite', coordinates: [-34.8731, -8.0389], address: 'Rua da Ilha, 654 - Recife, PE', type: 'filial' },
-  { name: 'Petrolina', coordinates: [-40.5019, -9.3891], address: 'Av. São Francisco, 987 - Petrolina, PE', type: 'filial' },
-  { name: 'Recife Antigo', coordinates: [-34.8711, -8.0631], address: 'Rua do Bom Jesus, 159 - Recife, PE', type: 'matriz' },
-  { name: 'Várzea', coordinates: [-34.9511, -8.0389], address: 'Av. Caxangá, 753 - Recife, PE', type: 'filial' },
+  { name: 'Aflitos', state: 'PE', coordinates: [-34.8825, -8.0476], address: 'Rua dos Aflitos, 123 - Recife, PE', type: 'sede' },
+  { name: 'Boa Viagem', state: 'PE', coordinates: [-34.8942, -8.1194], address: 'Av. Boa Viagem, 456 - Recife, PE', type: 'filial' },
+  { name: 'Caruaru', state: 'PE', coordinates: [-35.9762, -8.2837], address: 'Rua Central, 789 - Caruaru, PE', type: 'filial' },
+  { name: 'Fortaleza', state: 'CE', coordinates: [-38.5267, -3.7319], address: 'Av. Beira Mar, 321 - Fortaleza, CE', type: 'filial' },
+  { name: 'Ilha do Leite', state: 'PE', coordinates: [-34.8731, -8.0389], address: 'Rua da Ilha, 654 - Recife, PE', type: 'filial' },
+  { name: 'Petrolina', state: 'PE', coordinates: [-40.5019, -9.3891], address: 'Av. São Francisco, 987 - Petrolina, PE', type: 'filial' },
+  { name: 'Recife Antigo', state: 'PE', coordinates: [-34.8711, -8.0631], address: 'Rua do Bom Jesus, 159 - Recife, PE', type: 'matriz' },
+  { name: 'Várzea', state: 'PE', coordinates: [-34.9511, -8.0389], address: 'Av. Caxangá, 753 - Recife, PE', type: 'filial' },
 ];
 
 // Função para mapear nomes das localizações para IDs das páginas
@@ -147,7 +148,7 @@ const LocationsMap: React.FC = () => {
         }
         .marker-matriz .marker-dot,
         .marker-matriz::before {
-          background-color: #ef4444;
+          background-color: #38B6FF;
         }
         .marker-sede .marker-dot,
         .marker-sede::before {
@@ -238,11 +239,11 @@ const LocationsMap: React.FC = () => {
                 <div className="bg-white rounded-2xl p-6 shadow-lg border border-neutral-200">
                   <div className="flex items-start justify-between mb-4">
                     <h3 className="text-2xl font-bold text-neutral-800">
-                      {selectedLocation.name}
+                      {selectedLocation.name} - {selectedLocation.state}
                     </h3>
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                       selectedLocation.type === 'matriz' 
-                        ? 'bg-red-100 text-red-800' 
+                        ? 'bg-[#D9F2FF] text-[#0B1B31]' 
                         : selectedLocation.type === 'sede'
                         ? 'bg-blue-100 text-blue-800'
                         : 'bg-green-100 text-green-800'
@@ -251,6 +252,8 @@ const LocationsMap: React.FC = () => {
                     </span>
                   </div>
                   <p className="text-neutral-600 mb-6">{selectedLocation.address}</p>
+                  <p className="text-neutral-500 text-sm mb-4">UF: {selectedLocation.state}</p>
+
                   <button
                     onClick={handleViewDetails}
                     className="w-full bg-neutral-900 text-white py-3 px-6 rounded-xl font-medium hover:bg-neutral-800 transition-colors"
@@ -268,7 +271,7 @@ const LocationsMap: React.FC = () => {
                   </p>
                   <div className="space-y-3">
                     <div className="flex items-center gap-3 text-sm">
-                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#38B6FF' }}></div>
                       <span className="text-neutral-600">Matriz</span>
                     </div>
                     <div className="flex items-center gap-3 text-sm">

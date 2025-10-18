@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { vehicleCatalog } from '@/data/vehicleCatalog';
+import { vehicleCatalog, VehicleCatalog } from '@/data/vehicleCatalog';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ items: categories });
   }
 
-  const categoryData = vehicleCatalog[category];
+  const categoryData = (vehicleCatalog as VehicleCatalog)[category];
   if (!categoryData) {
     return NextResponse.json({ error: 'Categoria não encontrada.' }, { status: 404 });
   }

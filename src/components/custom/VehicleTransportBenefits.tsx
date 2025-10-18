@@ -24,7 +24,7 @@ const benefits: Benefit[] = [
   {
     icon: <MapPin className="w-8 h-8" />,
     title: 'Cobertura Nacional',
-    description: '14 unidades estrategicamente localizadas em todo território brasileiro'
+    description: '15 unidades estrategicamente localizadas em todo território brasileiro'
   },
   {
     icon: <Clock className="w-8 h-8" />,

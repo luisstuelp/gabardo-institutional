@@ -8,28 +8,28 @@ const messages = [
   '36 anos de confiança',
   'Operações integradas para a cadeia automotiva',
   'Gestão ESG e certificações ISO',
-  'Cobertura nacional com 13+ bases',
+  'Cobertura nacional com 15 bases',
   'Tecnologia, eficiência e segurança para cada entrega'
 ];
 
 const highlightMoments = [
-  'Pátios homologados para OEMs em RS, SP e PR',
+  'Pátios homologados para o Brasil e LATAM',
   'Centro de controle 24/7 com telemetria em tempo real',
-  'Planos ESG conectando eficiência energética e frota dedicada'
+  'Planos ESG conectando eficiência energética e frota otimizada'
 ];
 
 const testimonialQuotes = [
   {
-    quote: 'Reduzimos 22% de tempo de entrega com a roteirização da Gabardo.',
-    author: 'Diretor de Logística, OEM premium'
+    quote: 'No CCO monitoramos todas as 15 bases em tempo real, mantendo 100% da rastreabilidade ativa.',
+    author: 'Centro de Controle Operacional Gabardo'
   },
   {
-    quote: 'A transparência dos relatórios ESG fortaleceu nossa cadeia de sustentabilidade.',
-    author: 'Gerente de Sustentabilidade, grupo automotivo'
+    quote: 'O checklist eletrônico de PDI garante que, nas 15 bases, nenhum veículo sai sem inspeção registrada.',
+    author: 'Operações de PDI Gabardo'
   },
   {
-    quote: 'Monitoramento em tempo real garante 100% de visibilidade para nossa rede.',
-    author: 'Head de Operações, rede de concessionárias'
+    quote: 'Nossos painéis de telemetria mostram reduções de até 35% no tempo de rota com os algoritmos de otimização.',
+    author: 'Analytics Logísticos Gabardo'
   }
 ];
 
@@ -93,15 +93,15 @@ const HomeMarqueeSection = () => {
               priority
               className="absolute inset-0 h-full w-full object-cover opacity-80 transition duration-700 ease-out group-hover:scale-[1.04]"
             />
-            <div className="absolute inset-0 bg-[#0B1B31]/65" />
+            <div className="absolute inset-0 bg-[#0B1B31]/80" />
             <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:bg-gabardo-light-blue/15 group-hover:opacity-100" />
             <div className="relative space-y-4 sm:space-y-5 md:space-y-6 p-6 sm:p-8 md:p-10 text-white">
               <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-[0.65rem] sm:text-[11px] font-semibold uppercase tracking-[0.32em] sm:tracking-[0.4em] text-white">
                 Bastidores Gabardo
               </span>
-              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold leading-tight">Operações que conectam frota, pessoas e tecnologia</h3>
+              <h3 className="text-lg sm:text-xl md:text-2xl font-semibold leading-tight">Operações que conectam pessoas, processos, equipamentos e tecnologia</h3>
               <p className="text-xs sm:text-sm text-white/80">
-                Da roteirização ao monitoramento de pátios, nossos squads operacionais unem experiência em campo e dados em tempo real para entregar cada veículo com excelência.
+                Da roteirização ao monitoramento de pátios, nossas equipes operacionais unem experiência em campo e dados em tempo real para entregar cada veículo com excelência.
               </p>
               <ul className="space-y-2 text-xs sm:text-sm text-white/82">
                 {highlightMoments.map((item) => (

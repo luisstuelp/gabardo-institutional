@@ -96,10 +96,10 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
           >
             <div className="lg:transform lg:scale-[1.12]">
               <Image
-                src="/gabardo-logo.png"
+                src="/images/Design sem nome (53).png"
                 alt="Transportes Gabardo"
-                width={isMobile ? 70 : 128}
-                height={isMobile ? 21 : 28}
+                width={isMobile ? 72 : 123}
+                height={isMobile ? 22 : 28}
                 priority
                 className="h-auto w-auto transition-transform duration-300 group-hover:scale-105"
                 style={{ filter: logoFilter, WebkitFilter: logoFilter }}

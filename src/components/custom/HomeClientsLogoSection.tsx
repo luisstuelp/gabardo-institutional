@@ -7,27 +7,27 @@ import { useState, useEffect } from 'react';
 
 // Client logos with bento grid layout positions
 const clientLogosWithLayout = [
-  { id: 1, name: 'Cliente 1', span: 'md:col-span-2 md:row-span-2' }, // Large featured
-  { id: 2, name: 'Cliente 2', span: 'md:col-span-1 md:row-span-1' },
-  { id: 3, name: 'Cliente 3', span: 'md:col-span-1 md:row-span-1' },
-  { id: 4, name: 'Cliente 4', span: 'md:col-span-2 md:row-span-1' }, // Wide
-  { id: 5, name: 'Cliente 5', span: 'md:col-span-1 md:row-span-1' },
-  { id: 6, name: 'Cliente 6', span: 'md:col-span-1 md:row-span-2' }, // Tall
-  { id: 7, name: 'Cliente 7', span: 'md:col-span-1 md:row-span-1' },
-  { id: 8, name: 'Cliente 8', span: 'md:col-span-1 md:row-span-1' },
-  { id: 9, name: 'Cliente 9', span: 'md:col-span-1 md:row-span-1' },
-  { id: 10, name: 'Cliente 10', span: 'md:col-span-2 md:row-span-2' }, // Large featured
-  { id: 11, name: 'Cliente 11', span: 'md:col-span-1 md:row-span-1' },
-  { id: 12, name: 'Cliente 12', span: 'md:col-span-1 md:row-span-1' },
-  { id: 13, name: 'Cliente 13', span: 'md:col-span-1 md:row-span-1' },
-  { id: 14, name: 'Cliente 14', span: 'md:col-span-2 md:row-span-1' }, // Wide
-  { id: 15, name: 'Cliente 15', span: 'md:col-span-1 md:row-span-1' },
-  { id: 16, name: 'Cliente 16', span: 'md:col-span-1 md:row-span-1' },
-  { id: 17, name: 'Cliente 17', span: 'md:col-span-1 md:row-span-1' },
-  { id: 18, name: 'Cliente 18', span: 'md:col-span-1 md:row-span-2' }, // Tall
-  { id: 19, name: 'Cliente 19', span: 'md:col-span-1 md:row-span-1' },
-  { id: 20, name: 'Cliente 20', span: 'md:col-span-1 md:row-span-1' },
-  { id: 21, name: 'Cliente 21', span: 'md:col-span-1 md:row-span-1' },
+  { id: 1, name: 'Cliente 1', span: 'md:col-span-2 md:row-span-2', assetId: 11 }, // Large featured
+  { id: 2, name: 'Cliente 2', span: 'md:col-span-1 md:row-span-1', assetId: 1 },
+  { id: 7, name: 'Cliente 7', span: 'md:col-span-1 md:row-span-1', assetId: 4 },
+  { id: 3, name: 'Cliente 3', span: 'md:col-span-1 md:row-span-1', assetId: 2 },
+  { id: 11, name: 'Cliente 11', span: 'md:col-span-1 md:row-span-1', assetId: 7 },
+  { id: 14, name: 'Cliente 14', span: 'md:col-span-2 md:row-span-1', assetId: 12 }, // Wide
+  { id: 4, name: 'Cliente 4', span: 'md:col-span-2 md:row-span-2', assetId: 9 }, // Large featured
+  { id: 15, name: 'Cliente 15', span: 'md:col-span-1 md:row-span-1', assetId: 13 },
+  { id: 8, name: 'Cliente 8', span: 'md:col-span-1 md:row-span-1', assetId: 5 },
+  { id: 18, name: 'Cliente 18', span: 'md:col-span-1 md:row-span-2', assetId: 16 }, // Tall
+  { id: 5, name: 'Cliente 5', span: 'md:col-span-1 md:row-span-1', assetId: 3 },
+  { id: 17, name: 'Cliente 17', span: 'md:col-span-1 md:row-span-1', assetId: 15 },
+  { id: 9, name: 'Cliente 9', span: 'md:col-span-1 md:row-span-1', assetId: 6 },
+  { id: 19, name: 'Cliente 19', span: 'md:col-span-1 md:row-span-1', assetId: 18 },
+  { id: 12, name: 'Cliente 12', span: 'md:col-span-1 md:row-span-1', assetId: 8 },
+  { id: 6, name: 'Cliente 6', span: 'md:col-span-2 md:row-span-2', assetId: 17 }, // Large featured
+  { id: 20, name: 'Cliente 20', span: 'md:col-span-1 md:row-span-1', assetId: 19 },
+  { id: 13, name: 'Cliente 13', span: 'md:col-span-1 md:row-span-1', assetId: 10 },
+  { id: 10, name: 'Cliente 10', span: 'md:col-span-2 md:row-span-2', assetId: 21 }, // Large featured
+  { id: 16, name: 'Cliente 16', span: 'md:col-span-1 md:row-span-1', assetId: 14 },
+  { id: 21, name: 'Cliente 21', span: 'md:col-span-1 md:row-span-1', assetId: 20 },
 ];
 
 const clientDetails: Record<number, { name: string; description: string }> = {
@@ -166,16 +166,15 @@ const HomeClientsLogoSection = () => {
         />
       </motion.div>
 
-      <div className="section-container">
-        <div className="grid items-center gap-8 sm:gap-10 md:gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Left Column - Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-6 sm:space-y-8 md:space-y-10"
-          >
+      <div className="section-container flex flex-col gap-12">
+        {/* Text Content */}
+        <motion.div
+          initial={{ opacity: 0, x: -60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mx-auto text-center space-y-6 sm:space-y-8 md:space-y-10 max-w-4xl"
+        >
             <motion.div
               initial={{ opacity: 0, scale: 0.5, rotateX: -90 }}
               whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
@@ -193,7 +192,7 @@ const HomeClientsLogoSection = () => {
                 <path d="M12 12c2.209 0 4-1.791 4-4s-1.791-4-4-4-4 1.791-4 4 1.791 4 4 4Z" />
                 <path d="M4 20c0-3.314 3.134-6 7-6h2c3.866 0 7 2.686 7 6" strokeLinecap="round" />
               </svg>
-              <span>Clientes Gabardo</span>
+              <span>Nossos Clientes</span>
             </motion.div>
 
             <div className="space-y-4 sm:space-y-5 md:space-y-6">
@@ -202,7 +201,7 @@ const HomeClientsLogoSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-                className="section-heading text-left text-gabardo-blue text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+                className="section-heading text-center text-gabardo-blue text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
               >
                 <motion.span
                   initial={{ opacity: 0, y: 20 }}
@@ -219,7 +218,7 @@ const HomeClientsLogoSection = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.7 }}
                 >
-                  na Transportes Gabardo
+                  na Gabardo
                 </motion.span>
               </motion.h2>
 
@@ -228,7 +227,7 @@ const HomeClientsLogoSection = () => {
                 whileInView={{ width: '5.5rem', opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.9 }}
-                className="h-0.5 sm:h-1 rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue relative overflow-hidden"
+                className="mx-auto h-0.5 sm:h-1 rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue relative overflow-hidden"
               >
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent"
@@ -242,61 +241,44 @@ const HomeClientsLogoSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 1.1 }}
-                className="section-subheading text-left text-sm sm:text-base md:text-lg"
+                className="section-subheading text-center text-sm sm:text-base md:text-lg"
               >
                 Parcerias sólidas com marcas globais, sustentadas por tecnologia, compliance e equipes especializadas para cada operação.
               </motion.p>
 
-              <motion.div 
-                className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 pt-3 sm:pt-4 text-[0.65rem] sm:text-xs font-semibold uppercase tracking-[0.28em] sm:tracking-[0.32em] text-gabardo-blue/60"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 1.3 }}
-              >
-                {['ISO 9001', 'ESG+', 'Cobertura nacional'].map((badge, i) => (
-                  <motion.span
-                    key={badge}
-                    className="inline-flex items-center gap-2 rounded-full bg-gabardo-light-blue/15 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2"
-                    initial={{ opacity: 0, scale: 0, rotateZ: -180 }}
-                    whileInView={{ opacity: 1, scale: 1, rotateZ: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.6,
-                      delay: 1.3 + (i * 0.1),
-                      ease: [0.16, 1, 0.3, 1]
-                    }}
-                    whileHover={{ scale: 1.1, backgroundColor: 'rgba(96,165,250,0.25)' }}
-                  >
-                    {badge}
-                  </motion.span>
-                ))}
-              </motion.div>
             </div>
 
-          </motion.div>
+        </motion.div>
 
-          {/* Right Column - Bento Grid */}
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-          >
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 auto-rows-[100px] sm:auto-rows-[110px] md:auto-rows-[120px] gap-2 sm:gap-2.5 md:gap-3">
-            {clientLogosWithLayout.map((logo, index) => (
-              <Link
-                key={logo.id}
-                href="/sobre/secao-institucional"
-                className={`${logo.span} group relative rounded-xl sm:rounded-2xl bg-white border border-gabardo-blue/10 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:z-10 hover:shadow-xl [perspective:1200px]`}
-                onMouseEnter={() => !isMobile && setFlippedLogo(logo.id)}
-                onMouseLeave={() => !isMobile && setFlippedLogo(null)}
-              >
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8, rotateY: -45 }}
-                  whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
+        {/* Logos Carousel */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          className="relative"
+        >
+          <div className="overflow-x-auto pb-6" role="list">
+            <div className="min-w-[900px] sm:min-w-[1024px] lg:min-w-[1280px] grid grid-flow-dense grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-[repeat(6,minmax(160px,_1fr))] auto-rows-[100px] sm:auto-rows-[110px] md:auto-rows-[120px] gap-2 sm:gap-2.5 md:gap-3 px-4 sm:px-6 md:px-8">
+            {clientLogosWithLayout.map((logo, index) => {
+              const detailId = logo.assetId ?? logo.id;
+              const detail = clientDetails[detailId];
+              const displayName = detail?.name ?? logo.name ?? `Cliente ${detailId}`;
+              const displayDescription = detail?.description ?? 'Parceiro estratégico da Gabardo em soluções logísticas personalizadas em todo o Brasil.';
+
+              return (
+                <Link
+                  key={logo.id}
+                  href="/sobre/secao-institucional"
+                  className={`${logo.span ?? ''} group relative rounded-xl sm:rounded-2xl bg-white border border-gabardo-blue/10 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:z-10 hover:shadow-xl [perspective:1200px]`}
+                  onMouseEnter={() => !isMobile && setFlippedLogo(logo.id)}
+                  onMouseLeave={() => !isMobile && setFlippedLogo(null)}
+                >
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8, rotateY: -45 }}
+                    whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
                     duration: 0.6,
                     delay: 0.5 + (index * 0.05),
                     ease: [0.16, 1, 0.3, 1]
@@ -324,8 +306,8 @@ const HomeClientsLogoSection = () => {
                       />
 
                       <Image
-                        src={`/NewLogos/Nlogo (${logo.id}).png`}
-                        alt={logo.name}
+                        src={`/NewLogos/Nlogo (${detailId}).png`}
+                        alt={displayName}
                         width={300}
                         height={300}
                         className="w-full h-full object-contain transition-all duration-500 grayscale group-hover:grayscale-0 opacity-60 group-hover:opacity-100"
@@ -349,10 +331,10 @@ const HomeClientsLogoSection = () => {
                       }}
                     >
                       <h3 className="text-xs sm:text-sm md:text-base font-semibold uppercase tracking-[0.14em] sm:tracking-[0.18em]">
-                        {clientDetails[logo.id]?.name ?? `Cliente ${logo.id}`}
+                        {displayName}
                       </h3>
                       <p className="text-[0.65rem] sm:text-xs text-white/80 leading-relaxed hidden sm:block">
-                        {clientDetails[logo.id]?.description ?? 'Parceiro estratégico da Gabardo em soluções logísticas personalizadas em todo o Brasil.'}
+                        {displayDescription}
                       </p>
                       <span className="mt-1 sm:mt-2 inline-flex items-center justify-center rounded-full bg-white/15 px-2 sm:px-3 py-0.5 sm:py-1 text-[0.5rem] sm:text-[10px] uppercase tracking-[0.22em] sm:tracking-[0.28em] text-white/70 hidden sm:inline-flex">
                         Clique para voltar
@@ -361,10 +343,11 @@ const HomeClientsLogoSection = () => {
                   </div>
                 </motion.div>
               </Link>
-            ))}
+            );
+            })}
+            </div>
           </div>
-          </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

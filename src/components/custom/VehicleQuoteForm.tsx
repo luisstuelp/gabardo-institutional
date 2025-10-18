@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle, Loader, ArrowRight, ArrowLeft } from 'lucide-react';
+import { useFipeVehicleData } from '@/hooks/useFipeApi';
+import { VehicleModelAutocomplete } from '@/components/custom/VehicleModelAutocomplete';
 
 const currentYear = new Date().getFullYear();
-const vehicleYearRegex = /^(19|20|21)\d{2}$/;
 
 const parseVehicleValue = (value: string) => {
   if (!value) {
@@ -19,12 +20,6 @@ const parseVehicleValue = (value: string) => {
 
   return Number(normalized);
 };
-
-const sanitizeCep = (value: string) => value.replace(/\D/g, '').slice(0, 8);
-
-const formatCep = (digits: string) => (digits.length > 5 ? `${digits.slice(0, 5)}-${digits.slice(5)}` : digits);
-
-type CepType = 'origin' | 'destination';
 
 const addressFieldMap = {
   origin: {
@@ -50,8 +45,11 @@ type QuoteFormData = {
   company: string;
   vehicleCategory: string;
   vehicleBrand: string;
+  vehicleBrandCode: string;
   vehicleModel: string;
+  vehicleModelCode: string;
   vehicleYear: string;
+  vehicleYearCode: string;
   vehicleValue: string;
   vehicleObservation: string;
   originCep: string;
@@ -76,8 +74,11 @@ const initialFormData: QuoteFormData = {
   company: '',
   vehicleCategory: '',
   vehicleBrand: '',
+  vehicleBrandCode: '',
   vehicleModel: '',
+  vehicleModelCode: '',
   vehicleYear: '',
+  vehicleYearCode: '',
   vehicleValue: '',
   vehicleObservation: '',
   originCep: '',
@@ -114,28 +115,7 @@ const vehicleTypes = [
   'Motocicleta',
 ];
 
-// Mocked vehicle brands
-const vehicleBrands = [
-  'Audi',
-  'BMW',
-  'Chevrolet',
-  'Citroën',
-  'Fiat',
-  'Ford',
-  'Honda',
-  'Hyundai',
-  'Jeep',
-  'Kia',
-  'Mercedes-Benz',
-  'Mitsubishi',
-  'Nissan',
-  'Peugeot',
-  'Renault',
-  'Toyota',
-  'Volkswagen',
-  'Volvo',
-  'Outros',
-];
+// Note: Vehicle brands are now fetched from FIPE API
 
 // Brazilian states
 const brazilianStates = [
@@ -144,28 +124,7 @@ const brazilianStates = [
   'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO',
 ];
 
-// Vehicle models by brand
-const vehicleModelsByBrand: Record<string, string[]> = {
-  'Audi': ['A3', 'A4', 'A5', 'A6', 'Q3', 'Q5', 'Q7', 'Q8', 'e-tron'],
-  'BMW': ['Série 1', 'Série 3', 'Série 5', 'X1', 'X3', 'X5', 'X6', 'iX3'],
-  'Chevrolet': ['Onix', 'Tracker', 'Spin', 'S10', 'Montana', 'Cruze', 'Equinox'],
-  'Citroën': ['C3', 'C4 Cactus', 'Aircross', 'Jumper'],
-  'Fiat': ['Argo', 'Mobi', 'Toro', 'Strada', 'Pulse', 'Fastback', 'Ducato'],
-  'Ford': ['Ka', 'EcoSport', 'Ranger', 'Bronco Sport', 'Maverick', 'Transit'],
-  'Honda': ['City', 'Civic', 'HR-V', 'CR-V', 'Accord', 'WR-V'],
-  'Hyundai': ['HB20', 'Creta', 'Tucson', 'Santa Fe', 'ix35', 'Palisade'],
-  'Jeep': ['Renegade', 'Compass', 'Commander', 'Wrangler', 'Grand Cherokee'],
-  'Kia': ['Picanto', 'Sportage', 'Sorento', 'Seltos', 'Carnival'],
-  'Mercedes-Benz': ['Classe A', 'Classe C', 'Classe E', 'GLA', 'GLC', 'GLE', 'Sprinter'],
-  'Mitsubishi': ['L200', 'Pajero', 'Eclipse Cross', 'ASX'],
-  'Nissan': ['Versa', 'Kicks', 'Sentra', 'Frontier', 'X-Trail'],
-  'Peugeot': ['208', '2008', '3008', 'Partner', 'Expert'],
-  'Renault': ['Kwid', 'Sandero', 'Duster', 'Oroch', 'Captur', 'Kardian'],
-  'Toyota': ['Corolla', 'Hilux', 'SW4', 'RAV4', 'Yaris', 'Corolla Cross'],
-  'Volkswagen': ['Gol', 'Polo', 'Virtus', 'Nivus', 'T-Cross', 'Taos', 'Amarok', 'Saveiro'],
-  'Volvo': ['XC40', 'XC60', 'XC90', 'S60', 'V60'],
-  'Outros': ['Outro modelo'],
-};
+// Note: Vehicle models are now fetched from FIPE API
 
 const VehicleQuoteForm: React.FC = () => {
   const totalSteps = 3;
@@ -174,6 +133,18 @@ const VehicleQuoteForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // FIPE API integration
+  const {
+    brands,
+    models,
+    years,
+    loading: fipeLoading,
+    error: fipeError,
+    loadModels,
+    loadYears,
+    loadVehiclePrice,
+  } = useFipeVehicleData(formData.vehicleCategory);
 
   const validateStep = (currentStep: number) => {
     switch (currentStep) {
@@ -193,13 +164,6 @@ const VehicleQuoteForm: React.FC = () => {
       case 2: {
         if (!formData.vehicleCategory || !formData.vehicleBrand || !formData.vehicleModel || !formData.vehicleYear || !formData.vehicleValue) {
           return 'Preencha todas as informações do veículo.';
-        }
-        if (!vehicleYearRegex.test(formData.vehicleYear)) {
-          return 'Selecione um ano válido para o veículo.';
-        }
-        const numericYear = Number.parseInt(formData.vehicleYear, 10);
-        if (Number.isNaN(numericYear) || numericYear < 1980 || numericYear > currentYear) {
-          return 'Selecione um ano válido para o veículo.';
         }
         const value = parseVehicleValue(formData.vehicleValue);
         if (!Number.isFinite(value) || value <= 0) {
@@ -272,10 +236,79 @@ const VehicleQuoteForm: React.FC = () => {
     const { name, value } = event.target;
     setError(null);
     
-    // If brand changes, update available models and clear model selection
-    if (name === 'vehicleBrand') {
-      setFormData((prev) => ({ ...prev, [name]: value, vehicleModel: '' }));
-    } else {
+    // Handle vehicle category change
+    if (name === 'vehicleCategory') {
+      setFormData((prev) => ({ 
+        ...prev, 
+        [name]: value, 
+        vehicleBrand: '',
+        vehicleBrandCode: '',
+        vehicleModel: '',
+        vehicleModelCode: '',
+        vehicleYear: '',
+        vehicleYearCode: '',
+      }));
+    }
+    // Handle brand change - extract code and name
+    else if (name === 'vehicleBrand') {
+      const selectedBrand = brands.find(b => b.code === value);
+      if (selectedBrand) {
+        setFormData((prev) => ({ 
+          ...prev, 
+          vehicleBrand: selectedBrand.name,
+          vehicleBrandCode: selectedBrand.code,
+          vehicleModel: '',
+          vehicleModelCode: '',
+          vehicleYear: '',
+          vehicleYearCode: '',
+        }));
+        loadModels(selectedBrand.code);
+      }
+    }
+    // Handle model change - now handled by the autocomplete component
+    else if (name === 'vehicleModel') {
+      const selectedModel = models.find(m => m.code === value);
+      if (selectedModel) {
+        setFormData((prev) => ({ 
+          ...prev, 
+          vehicleModel: selectedModel.name,
+          vehicleModelCode: selectedModel.code,
+          vehicleYear: '',
+          vehicleYearCode: '',
+        }));
+        loadYears(formData.vehicleBrandCode, selectedModel.code);
+      }
+    }
+    // Handle year change and fetch price from FIPE
+    else if (name === 'vehicleYear') {
+      const selectedYear = years.find(y => y.code === value);
+      if (selectedYear) {
+        setFormData((prev) => ({ 
+          ...prev, 
+          vehicleYear: selectedYear.name,
+          vehicleYearCode: selectedYear.code
+        }));
+        
+        // Automatically fetch vehicle price from FIPE
+        if (formData.vehicleBrandCode && formData.vehicleModelCode) {
+          loadVehiclePrice(
+            formData.vehicleBrandCode,
+            formData.vehicleModelCode,
+            selectedYear.code
+          ).then(priceData => {
+            if (priceData?.price) {
+              setFormData((prev) => ({
+                ...prev,
+                vehicleValue: priceData.price
+              }));
+            }
+          }).catch(err => {
+            console.error('Erro ao buscar preço FIPE:', err);
+          });
+        }
+      }
+    }
+    else {
       setFormData((prev) => ({ ...prev, [name]: value }));
       
       // Auto-fill address when CEP is complete
@@ -284,6 +317,20 @@ const VehicleQuoteForm: React.FC = () => {
       } else if (name === 'destinationCep' && value.replace(/\D/g, '').length === 8) {
         fetchAddressFromCEP(value, 'destination');
       }
+    }
+  };
+
+  const handleModelChange = (code: string, name: string) => {
+    setError(null);
+    setFormData((prev) => ({
+      ...prev,
+      vehicleModel: name,
+      vehicleModelCode: code,
+      vehicleYear: '',
+      vehicleYearCode: '',
+    }));
+    if (code && formData.vehicleBrandCode) {
+      loadYears(formData.vehicleBrandCode, code);
     }
   };
 
@@ -523,43 +570,50 @@ const VehicleQuoteForm: React.FC = () => {
                         <label className="block text-sm font-medium text-gabardo-blue">Marca *</label>
                         <select
                           name="vehicleBrand"
-                          value={formData.vehicleBrand}
+                          value={formData.vehicleBrandCode}
                           onChange={handleInputChange}
                           required
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                          disabled={!formData.vehicleCategory || fipeLoading}
+                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                         >
-                          <option value="">Selecione</option>
-                          {vehicleBrands.map((brand) => (
-                            <option key={brand} value={brand}>{brand}</option>
+                          <option value="">
+                            {!formData.vehicleCategory ? 'Selecione o tipo de veículo primeiro' : fipeLoading ? 'Carregando...' : 'Selecione'}
+                          </option>
+                          {brands.map((brand) => (
+                            <option key={brand.code} value={brand.code}>{brand.name}</option>
                           ))}
                         </select>
+                        {fipeError && <p className="mt-1 text-xs text-red-600">{fipeError}</p>}
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Modelo *</label>
-                        <input
-                          type="text"
-                          name="vehicleModel"
-                          value={formData.vehicleModel}
-                          onChange={handleInputChange}
-                          required
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                          placeholder="Informe o modelo"
+                        <VehicleModelAutocomplete
+                          options={models}
+                          value={formData.vehicleModelCode}
+                          onChange={handleModelChange}
+                          disabled={!formData.vehicleBrandCode}
+                          loading={fipeLoading}
+                          placeholder={!formData.vehicleBrandCode ? 'Selecione a marca primeiro' : 'Digite ou selecione o modelo'}
+                          className="mt-2"
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Ano / Fabricação *</label>
-                        <input
-                          type="text"
+                        <select
                           name="vehicleYear"
-                          value={formData.vehicleYear}
+                          value={formData.vehicleYearCode}
                           onChange={handleInputChange}
                           required
-                          inputMode="numeric"
-                          pattern="^(19|20|21)\d{2}$"
-                          maxLength={4}
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                          placeholder="Ex.: 2024"
-                        />
+                          disabled={!formData.vehicleModelCode || fipeLoading}
+                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                        >
+                          <option value="">
+                            {!formData.vehicleModelCode ? 'Selecione o modelo primeiro' : fipeLoading ? 'Carregando...' : 'Selecione'}
+                          </option>
+                          {years.map((year) => (
+                            <option key={year.code} value={year.code}>{year.name}</option>
+                          ))}
+                        </select>
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Valor do Veículo *</label>
@@ -572,6 +626,7 @@ const VehicleQuoteForm: React.FC = () => {
                           className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
                           placeholder="Ex: 150000"
                         />
+                        <p className="mt-1 text-xs text-gray-500">Valor estimado com base na tabela FIPE</p>
                       </div>
                     </div>
 

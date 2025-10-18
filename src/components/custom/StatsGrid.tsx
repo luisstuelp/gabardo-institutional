@@ -28,10 +28,10 @@ const stats: Stat[] = [
     id: "veiculos",
     value: 350000,
     title: "Veículos transportados (ano)",
-    description: "Mais de 1.4 milhão de veículos transportados nos últimos 5 anos.",
+    description: "Mais de 1,5 milhão de veículos transportados nos últimos 5 anos.",
     accent: "dark",
     duration: 3400,
-    formatValue: (value) => `${Math.floor(value / 1000).toLocaleString("pt-BR")}.000+`
+    formatValue: (value) => `${Math.round(value).toLocaleString("en-US")}+`
   },
   {
     id: "idade-media",
@@ -45,8 +45,7 @@ const stats: Stat[] = [
   },
   {
     id: "frota-propria",
-    value: 13,
-    suffix: "+",
+    value: 15,
     title: "Bases e unidades",
     description: "Cobertura estratégica em todo o território nacional.",
     accent: "dark",
@@ -59,7 +58,8 @@ const stats: Stat[] = [
     title: "Frota própria Gabardo",
     description: "Caminhões, carretas e plataformas próprios dedicados à operação nacional.",
     accent: "light",
-    duration: 2800
+    duration: 2800,
+    formatValue: (value) => `${Math.round(value).toLocaleString("en-US")}+`
   }
 ];
 

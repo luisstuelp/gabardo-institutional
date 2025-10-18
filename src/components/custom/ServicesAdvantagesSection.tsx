@@ -27,7 +27,7 @@ const advantages: Advantage[] = [
     icon: Target,
     title: 'COBERTURA NACIONAL',
     description: 'Presença estratégica em todo território nacional com unidades nas principais regiões e centros de distribuição.',
-    stats: '14 unidades',
+    stats: '15 unidades',
     color: 'accent',
   },
   {
