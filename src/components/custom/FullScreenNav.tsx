@@ -99,7 +99,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
       exit={{ opacity: 0, x: 30 }}
       transition={{ duration: 0.4 }}
     >
-      <nav className="space-y-1 md:space-y-1 mb-6 md:mb-0">
+      <nav className="space-y-1 md:space-y-1 mb-6 md:mb-0 pl-2 md:pl-6 lg:pl-10">
         {menuItems.map((item, index) => (
           <motion.div
             key={item.id}
@@ -158,7 +158,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
           <ChevronLeft size={16} className="mr-2" />
           Voltar
         </button>
-        <nav className="space-y-1 md:space-y-1">
+        <nav className="space-y-1 md:space-y-1 pl-2 md:pl-6 lg:pl-10">
           {activeItem.subMenu.map((subItem, index) => (
             <motion.div
               key={subItem.id}
@@ -239,15 +239,17 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
                 <Link href="/" onClick={onClose} className="inline-block w-full">
                   <div className="flex items-center justify-start overflow-hidden">
                     <Image
-                      src="/gabardo-logo.png"
-                      alt="Gabardo Logo"
+                      src="/images/Design sem nome (53).png"
+                      alt="Transportes Gabardo"
                       width={isMobile ? 120 : 160}
                       height={isMobile ? 32 : 43}
                       priority
                       className="h-auto w-auto max-w-[90%] object-contain"
-                      style={{ 
-                        filter: 'brightness(2) contrast(1.5) opacity(0.95)',
-                        WebkitFilter: 'brightness(2) contrast(1.5) opacity(0.95)'
+                      style={{
+                        filter:
+                          'brightness(0) saturate(100%) invert(95%) sepia(7%) saturate(138%) hue-rotate(183deg) brightness(112%) contrast(100%)',
+                        WebkitFilter:
+                          'brightness(0) saturate(100%) invert(95%) sepia(7%) saturate(138%) hue-rotate(183deg) brightness(112%) contrast(100%)'
                       }}
                     />
                   </div>
@@ -354,7 +356,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
                       </div>
                       
                       <Link
-                        href="/contato"
+                        href="/orcamento"
                         onClick={onClose}
                         className="inline-flex items-center space-x-2 text-gabardo-light-blue hover:text-white transition-colors duration-300"
                       >
