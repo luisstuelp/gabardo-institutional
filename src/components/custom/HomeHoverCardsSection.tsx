@@ -50,14 +50,14 @@ const cultureFocus = [
     description:
       'Protocolos certificados, telemetria e redundância tecnológica mantêm as operações disponíveis mesmo em cenários de alta demanda. Toda ocorrência gera planos de prevenção compartilhados com clientes e equipes internas.',
     practices: [
-      'Centros de monitoramento com SD-WAN e telemetria integrada 24/7',
+      'Centros de monitoramento com SD-WAN e telemetria integrada 24h/7d',
       'Planos de contingência documentados e testados com times multidisciplinares',
     ],
     quote: {
       text: '“Segurança não é um projeto; é uma postura diária que guia decisões técnicas e humanas.”',
       author: 'Time de Continuidade Operacional',
     },
-    chips: ['Protocolos certificados', 'Telemetria 24/7'],
+    chips: ['Protocolos certificados', 'Telemetria 24h/7d'],
     image: '/images/GabardoMonit.JPG',
   },
   {

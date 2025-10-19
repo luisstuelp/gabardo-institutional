@@ -106,7 +106,7 @@ const ServicesOverviewSection: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-base md:text-lg text-neutral-600 leading-relaxed"
             >
-              Da transferência entre plantas à entrega final para o cliente, estruturamos operações tailor-made com tecnologia, previsibilidade e acompanhamento em tempo real.
+              Da transferência entre plantas à entrega final para o cliente, estruturamos operações com tecnologia, previsibilidade e acompanhamento em tempo real.
             </motion.p>
           </div>
         </motion.div>
@@ -164,7 +164,7 @@ const ServicesOverviewSection: React.FC = () => {
 
                   <div className="mt-8 flex items-center justify-between text-xs uppercase tracking-[0.3em] text-neutral-400">
                     <span>Operação tailor-made</span>
-                    <span className="text-gabardo-light-blue">Transportes Gabardo</span>
+                    <span className="text-gabardo-light-blue">Gabardo</span>
                   </div>
                 </div>
               </motion.div>

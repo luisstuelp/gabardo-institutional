@@ -27,7 +27,7 @@ const serviceFeatures: FeatureItem[] = [
     icon: <Clock className="w-10 h-10" />,
     title: 'AGILIDADE',
     subtitle: 'Prazos Cumpridos',
-    description: 'Otimização de rotas, frota dedicada e processos eficientes que garantem entregas dentro dos prazos estabelecidos.',
+    description: 'Otimização de rotas, frota otimizada e processos eficientes que garantem entregas dentro dos prazos estabelecidos.',
     color: 'gabardo'
   },
   {
@@ -35,14 +35,14 @@ const serviceFeatures: FeatureItem[] = [
     icon: <Award className="w-10 h-10" />,
     title: 'QUALIDADE',
     subtitle: 'Certificação ISO',
-    description: 'Processos certificados ISO 9001, ISO 14001 e ISO 39001, garantindo os mais altos padrões de qualidade e sustentabilidade.',
+    description: 'Processos certificados ISO 9001, ISO 14001 e ISO 39001, além de certificação AEO e controle de Transit time, garantindo os mais altos padrões de qualidade e sustentabilidade.',
     color: 'gabardo'
   },
   {
     id: 'atendimento',
     icon: <Users className="w-10 h-10" />,
     title: 'ATENDIMENTO',
-    subtitle: 'Suporte 24/7',
+    subtitle: 'Suporte 24h/7d',
     description: 'Equipe especializada disponível 24 horas para acompanhamento, suporte e comunicação proativa sobre o status das entregas.',
     color: 'gabardo'
   },
@@ -65,7 +65,7 @@ const serviceFeatures: FeatureItem[] = [
 ];
 
 const ServicesFeaturesSection: React.FC = () => {
-  const [activeItem, setActiveItem] = useState<string>('seguranca');
+  const [activeItem, setActiveItem] = useState<string>('');
 
   return (
     <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-[#F7FAFF] relative overflow-hidden">
@@ -121,6 +121,7 @@ const ServicesFeaturesSection: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: index * 0.05 }}
               onMouseEnter={() => setActiveItem(feature.id)}
+              onMouseLeave={() => setActiveItem('')}
               className={`group w-full cursor-default rounded-3xl border px-8 py-9 text-left transition-all duration-300 ease-in-out ${
                 activeItem === feature.id
                   ? 'border-gabardo-blue bg-white shadow-[0_25px_60px_-32px_rgba(19,45,81,0.38)]'

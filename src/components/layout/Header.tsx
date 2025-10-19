@@ -92,12 +92,12 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
           <Link
             href="/"
             className="group inline-flex items-center"
-            aria-label="Transportes Gabardo - Página inicial"
+            aria-label="Gabardo - Página inicial"
           >
             <div className="lg:transform lg:scale-[1.12]">
               <Image
                 src="/images/Design sem nome (53).png"
-                alt="Transportes Gabardo"
+                alt="Gabardo"
                 width={isMobile ? 72 : 123}
                 height={isMobile ? 22 : 28}
                 priority

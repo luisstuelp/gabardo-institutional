@@ -14,7 +14,7 @@ const messages = [
 
 const highlightMoments = [
   'Pátios homologados para o Brasil e LATAM',
-  'Centro de controle 24/7 com telemetria em tempo real',
+  'Centro de controle 24h/7d com telemetria em tempo real',
   'Planos ESG conectando eficiência energética e frota otimizada'
 ];
 
@@ -134,9 +134,7 @@ const HomeMarqueeSection = () => {
               className="font-semibold uppercase tracking-[0.28em] text-gabardo-blue"
               gradient={false}
             >
-              {messages
-                .map(message => message.replace('Gabardo', 'Transportes Gabardo'))
-                .join('   •   ')}
+              {messages.join('   •   ')}
             </ScrollMarquee>
           </div>
 

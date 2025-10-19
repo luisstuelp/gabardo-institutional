@@ -14,7 +14,7 @@ const fleetHighlights = [
   },
   {
     title: 'Disponibilidade garantida',
-    value: '20%',
+    value: '120%',
     description: 'equipamentos sobressalentes para absorver picos de demanda com agilidade.'
   },
   {
@@ -27,6 +27,15 @@ const fleetHighlights = [
     value: '2 anos',
     description: 'idade média da frota, assegurando eficiência e confiabilidade.'
   }
+];
+
+const fleetComposition = [
+  { label: "Caminhões", value: "1.311" },
+  { label: "Carretas cegonheiras", value: "1.061" },
+  { label: "Trucks", value: "17" },
+  { label: "Carretas sider", value: "42" },
+  { label: "Plataformas", value: "39" },
+  { label: "Plataformas sider", value: "6" }
 ];
 
 const fleetTypes = [
@@ -74,7 +83,7 @@ const fleetTypes = [
     metrics: [
       'Transporte de 1 a 3 veículos',
       'Fixação especializada para alto padrão',
-      'Monitoramento 24/7 pelo CCO',
+      'Monitoramento 24h/7d pelo CCO',
       'Disponibilidade nacional com cobertura Mercosul'
     ],
     specs: {
@@ -115,8 +124,8 @@ export default function ServicesFleetSection() {
   const handleToggle = (index: number) => {
     setOpenItems((current) =>
       current.includes(index)
-        ? current.filter((item) => item !== index)
-        : [...current, index]
+        ? []
+        : [index]
     );
   };
 
@@ -169,6 +178,26 @@ export default function ServicesFleetSection() {
                   <p className="mt-3 text-sm text-neutral-600 leading-relaxed">
                     {item.description}
                   </p>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {fleetComposition.map((item, index) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                  className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-[0_18px_35px_-28px_rgba(19,45,81,0.35)]"
+                >
+                  <div className="text-sm font-semibold uppercase tracking-[0.25em] text-gabardo-light-blue">
+                    {item.label}
+                  </div>
+                  <div className="mt-4 text-3xl font-bold text-gabardo-blue">
+                    {item.value}
+                  </div>
                 </motion.div>
               ))}
             </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 
@@ -241,8 +241,7 @@ const AboutClientsCarousel = () => {
   const DRAG_THRESHOLD = 6;
   const manualPauseRef = useRef(false);
   const lastPointerTypeRef = useRef<string>('');
-  const prefersReducedMotion = useReducedMotion();
-  const targetVelocity = prefersReducedMotion ? 0 : SPEED;
+  const targetVelocity = SPEED;
   const [canHover, setCanHover] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [selectedLogo, setSelectedLogo] = useState<typeof clientLogos[0] | null>(null);
@@ -488,7 +487,7 @@ const AboutClientsCarousel = () => {
       }
       lastTimestampRef.current = null;
     };
-  }, [isInView, isPaused, targetVelocity, seqWidth, isMobile, selectedLogo]);
+  }, [isInView, isPaused, seqWidth, isMobile, selectedLogo]);
 
   const centerElementIfNeeded = (element: HTMLDivElement | null) => {
     if (!element) return;

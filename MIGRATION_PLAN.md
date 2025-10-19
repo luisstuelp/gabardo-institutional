@@ -1,6 +1,6 @@
-# Plano de Migração — Site Institucional Transportes Gabardo
+# Plano de Migração — Site Institucional Gabardo
 
-Este documento descreve o plano para migrar/adaptar o repositório atual (baseado em um site de coworking) para um site institucional da Transportes Gabardo, mantendo o visual e a arquitetura da UI, e substituindo conteúdo, branding e dados.
+Este documento descreve o plano para migrar/adaptar o repositório atual (baseado em um site de coworking) para um site institucional da Gabardo, mantendo o visual e a arquitetura da UI, e substituindo conteúdo, branding e dados.
 
 ## 1. Objetivos e Escopo
 
@@ -67,7 +67,7 @@ Fora de escopo (neste momento): redesign completo, mudança de framework, reestr
 
 Critérios de aceite
 - `gabardoContent.ts` existe e os componentes citados passaram a importar dele.
-- Logos e navegação exibem a marca Transportes Gabardo.
+- Logos e navegação exibem a marca Gabardo.
 - Build local sem erros; páginas principais carregam.
 
 ### Fase 2 — Home

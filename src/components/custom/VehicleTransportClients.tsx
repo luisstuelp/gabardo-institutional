@@ -186,7 +186,7 @@ const VehicleTransportClients: React.FC = () => {
               <div className="text-sm uppercase tracking-wide opacity-90">Acidentes Graves</div>
             </div>
             <div>
-              <div className="text-4xl md:text-5xl font-bold mb-2">24/7</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">24h/7d</div>
               <div className="text-sm uppercase tracking-wide opacity-90">Monitoramento</div>
             </div>
           </div>

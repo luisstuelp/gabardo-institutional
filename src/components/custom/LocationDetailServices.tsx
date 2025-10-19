@@ -100,7 +100,7 @@ const LocationDetailServices: React.FC<LocationDetailServicesProps> = ({ locatio
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { icon: '🌐', title: 'WiFi Premium', subtitle: '1GB Fibra' },
-              { icon: '🔒', title: 'Acesso 24/7', subtitle: 'Segurança Total' },
+              { icon: '🔒', title: 'Acesso 24h/7d', subtitle: 'Segurança Total' },
               { icon: '🍕', title: 'Área Gourmet', subtitle: 'Coffee & Food' },
               { icon: '🚗', title: 'Estacionamento', subtitle: 'Vagas Disponíveis' }
             ].map((feature, index) => (

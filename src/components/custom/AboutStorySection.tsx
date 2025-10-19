@@ -17,8 +17,8 @@ interface TimelineItem {
 const timeline: TimelineItem[] = [
   {
     year: '1989',
-    title: 'Fundação da Transportes Gabardo',
-    description: 'A Transportes Gabardo foi fundada em Porto Alegre, capital do Rio Grande do Sul, por Sérgio Mário Gabardo.',
+    title: 'Fundação da Gabardo',
+    description: 'A Gabardo foi fundada em Porto Alegre, capital do Rio Grande do Sul, por Sérgio Mário Gabardo.',
     icon: <Building className="w-6 h-6" />,
     image: '/images/vintage-truck-1989.JPG'
   },
@@ -136,7 +136,7 @@ const AboutStorySection: React.FC = () => {
             className="space-y-6"
           >
             <h1 className="text-4xl md:text-5xl font-bold text-gabardo-blue">Uma Jornada de Confiança e Inovação</h1>
-            <p className="text-lg text-gray-600 leading-relaxed">Desde 1989, a Transportes Gabardo tem sido uma força motriz na logística automotiva brasileira. Nossa história é marcada por um compromisso incansável com a excelência, a inovação e a satisfação de nossos clientes. A cada ano, expandimos nossas fronteiras, aprimoramos nossos processos e fortalecemos nossas parcerias, sempre com o objetivo de entregar mais do que veículos: entregamos confiança.</p>
+            <p className="text-lg text-gray-600 leading-relaxed">Desde 1989, a Gabardo tem sido uma força motriz na logística automotiva brasileira. Nossa história é marcada por um compromisso incansável com a excelência, a inovação e a satisfação de nossos clientes. A cada ano, expandimos nossas fronteiras, aprimoramos nossos processos e fortalecemos nossas parcerias, sempre com o objetivo de entregar mais do que veículos: entregamos confiança.</p>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -147,7 +147,7 @@ const AboutStorySection: React.FC = () => {
           >
             <Image
               src="/images/historia1.JPG"
-              alt="Gestão de Transportes Gabardo"
+              alt="Gestão de Gabardo"
               fill
               className="object-cover"
             />
@@ -180,7 +180,7 @@ const AboutStorySection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="section-heading mt-6 text-center"
           >
-            36 anos de excelência e confiança Transportes Gabardo
+            36 anos de excelência e confiança Gabardo
           </motion.h2>
         </motion.div>
 
@@ -212,7 +212,7 @@ const AboutStorySection: React.FC = () => {
           className="text-center mt-24"
         >
           <blockquote className="text-2xl md:text-[30px] font-light italic text-gabardo-blue/80 max-w-4xl mx-auto leading-relaxed">
-            &ldquo;Ao longo de seus 36 anos, a Transportes Gabardo procura entender as necessidades dos clientes para
+            &ldquo;Ao longo de seus 36 anos, a Gabardo procura entender as necessidades dos clientes para
             atendê-los de forma personalizada e eficiente. Nossa missão é transportar mais que veículos.&rdquo;
           </blockquote>
           <div className="mt-6 text-xs font-semibold uppercase tracking-[0.32em] text-gabardo-blue/60">

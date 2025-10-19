@@ -14,7 +14,7 @@ const benefits: Benefit[] = [
   {
     icon: <Shield className="w-8 h-8" />,
     title: 'Rastreamento em Tempo Real',
-    description: 'Monitoramento GPS 24/7 de toda a frota com central própria de rastreamento'
+    description: 'Monitoramento GPS 24h/7d de toda a frota com central própria de rastreamento'
   },
   {
     icon: <Award className="w-8 h-8" />,
@@ -38,7 +38,7 @@ const benefits: Benefit[] = [
   },
   {
     icon: <Headphones className="w-8 h-8" />,
-    title: 'Atendimento 24/7',
+    title: 'Atendimento 24h/7d',
     description: 'Suporte especializado disponível 24 horas para tracking e emergências'
   }
 ];

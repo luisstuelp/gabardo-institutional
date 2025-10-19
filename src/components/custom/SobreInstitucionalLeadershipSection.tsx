@@ -118,10 +118,10 @@ const SobreInstitucionalLeadershipSection = () => {
               Liderança & governança
             </span>
             <h2 className="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
-              Estruturas que preservam o DNA Transportes Gabardo em cada decisão
+              Estruturas que preservam o DNA Gabardo em cada decisão
             </h2>
             <p className="mt-4 text-base text-gray-600 md:text-lg">
-              Nossa governança combina compliance, inteligência de dados e cultura de alto desempenho para garantir execução consistente da estratégia Transportes Gabardo em toda a LATAM.
+              Nossa governança combina compliance, inteligência de dados e cultura de alto desempenho para garantir execução consistente da estratégia Gabardo em toda a LATAM.
             </p>
           </motion.div>
 

@@ -37,7 +37,7 @@ export default function NewSustainabilityHeroSection({ activeTab, onTabClick }: 
           transition={{ duration: 0.6, delay: 0.5 }}
           className="text-lg sm:text-xl md:text-2xl font-light leading-relaxed max-w-full md:max-w-4xl mb-12"
         >
-          A Transportes Gabardo tem como valor crescer com sustentabilidade, zelando pelos recursos próprios e de seus públicos de relacionamento, incluindo credores, investidores e a sociedade em geral. As dimensões Econômica, Ambiental, Social e de Governança (ESG) estão enraizadas na cultura da companhia.
+          A Gabardo tem como valor crescer com sustentabilidade, zelando pelos recursos próprios e de seus públicos de relacionamento, incluindo credores, investidores e a sociedade em geral. As dimensões Econômica, Ambiental, Social e de Governança (ESG) estão enraizadas na cultura da companhia.
         </motion.p>
 
         <div className="flex border-b border-gray-500">

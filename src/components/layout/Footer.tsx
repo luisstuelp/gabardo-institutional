@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
           >
             <Image
               src="/gabardo-logo.png"
-              alt="Transportes Gabardo"
+              alt="Gabardo"
               width={160}
               height={48}
               priority
@@ -175,7 +175,7 @@ const Footer: React.FC = () => {
         className="border-t border-white/10 bg-white/5"
       >
         <div className="section-container flex flex-col gap-3 sm:gap-4 py-4 sm:py-5 md:py-6 text-xs sm:text-sm text-white/60 md:flex-row md:items-center md:justify-between">
-          <p>2025 Transportes Gabardo. Todos os direitos reservados.</p>
+          <p>2025 Gabardo. Todos os direitos reservados.</p>
           <div className="flex flex-wrap gap-4 sm:gap-6">
             <Link href="/politica-de-privacidade" className="transition-colors duration-200 hover:text-gabardo-light-blue">
               Política de Privacidade

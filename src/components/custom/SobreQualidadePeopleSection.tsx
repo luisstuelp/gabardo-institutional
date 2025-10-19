@@ -34,7 +34,7 @@ const developmentTracks = [
 const testimonies = [
   {
     quote:
-      '"A cultura da Transportes Gabardo nos incentiva a inovar e compartilhar conhecimento. Ver um indicador melhorar porque colaboramos em conjunto é a nossa maior motivação."',
+      '"A cultura da Gabardo nos incentiva a inovar e compartilhar conhecimento. Ver um indicador melhorar porque colaboramos em conjunto é a nossa maior motivação."',
     name: 'Fernanda Lopes',
     role: 'Gerente de Operações Integradas'
   },
@@ -127,7 +127,7 @@ const SobreQualidadePeopleSection = () => {
             <div className="relative mt-6 overflow-hidden rounded-3xl border border-white/40">
               <Image
                 src="/images/Trans Gabardo - Framers produtora -5684.JPG"
-                alt="Equipe Transportes Gabardo"
+                alt="Equipe Gabardo"
                 width={720}
                 height={420}
                 className="h-full w-full object-cover"

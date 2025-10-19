@@ -12,7 +12,7 @@ const operations = [
   {
     title: 'Monitoramento em tempo real',
     description:
-      'Torre de controle 24/7 com telemetria embarcada e alertas preditivos acionados por IA proprietária.',
+      'Torre de controle 24h/7d com telemetria embarcada e alertas preditivos acionados por IA proprietária.',
     kpi: 'Redução de 37% em desvios críticos 2024',
   },
   {

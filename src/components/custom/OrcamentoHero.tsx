@@ -7,7 +7,7 @@ const OrcamentoHero: React.FC = () => {
   return (
     <section
       className="relative flex w-full items-center justify-center text-white overflow-hidden bg-cover bg-center min-h-[520px] md:min-h-[640px]"
-      style={{ backgroundImage: 'url(/images/Design%20sem%20nome.png)' }}
+      style={{ backgroundImage: 'url(/images/gabardo-truck-fleet.JPG)' }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-60"></div>
       <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center md:px-10 lg:px-16">
@@ -18,7 +18,7 @@ const OrcamentoHero: React.FC = () => {
           className="font-primary text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight mb-6 uppercase"
         >
           <span className="block text-white">Solicite seu orçamento</span>
-          <span className="block text-gabardo-light-blue">com a Transportes Gabardo</span>
+          <span className="block text-gabardo-light-blue">com a Gabardo</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 30 }}

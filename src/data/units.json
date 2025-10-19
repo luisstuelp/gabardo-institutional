@@ -11,7 +11,7 @@
     "email": "gabardo@transgabardo.com.br",
     "lat": -30.0219,
     "lng": -51.1858,
-    "horario": "Seg–Sex 08:00–18:00 (Operação 24/7 sob agenda)",
+    "horario": "Seg–Sex 08:00–18:00 (Operação 24h/7d sob agenda)",
     "servicos": ["Transporte", "PDI", "Parqueamento", "Armazenagem", "Distribuição", "Manutenção"],
     "infraestrutura": {
       "area_total_m2": 45000,
@@ -99,7 +99,7 @@
     "seguranca": { "cftv_24x7": true, "controle_acesso": true, "iluminacao_perimetral": true, "portaria": true },
     "ti": { "sdwan": true, "link_principal": "fibra", "link_backup": "4G/5G", "backups": "noturno completo" },
     "fotos": ["/images/unidades/jaragua-1.jpg"],
-    "observacoes": "Base operacional em São Paulo focada em Pátios e PDI para OEMs."
+    "observacoes": "Base operacional em São Paulo focada em Pátios e PDI para montadoras."
   },
   {
     "slug": "sao-jose-dos-pinhais",
@@ -133,7 +133,7 @@
     "seguranca": { "cftv_24x7": true, "controle_acesso": true, "iluminacao_perimetral": true, "portaria": true },
     "ti": { "sdwan": true, "link_principal": "fibra", "link_backup": "4G/5G", "backups": "noturno completo + incrementais" },
     "fotos": ["/images/unidades/sjp-1.jpg", "/images/unidades/sjp-2.jpg"],
-    "observacoes": "Unidade estratégica Paranaense conectando OEMs e rede Sul/Sudeste."
+    "observacoes": "Unidade estratégica Paranaense conectando montadoras e rede Sul/Sudeste."
   },
   {
     "slug": "palhoca",

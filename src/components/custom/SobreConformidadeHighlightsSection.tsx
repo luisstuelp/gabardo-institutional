@@ -9,7 +9,7 @@ const highlights = [
     description: 'Inventário completo de dados pessoais com revisões periódicas e auditorias independentes.',
   },
   {
-    value: '24/7',
+    value: '24h/7d',
     label: 'monitoramento de segurança',
     description: 'Equipe dedicada e sistemas automatizados acompanhando incidentes de segurança em tempo real.',
   },

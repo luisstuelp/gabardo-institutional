@@ -58,7 +58,7 @@ const reliabilityItems: ReliabilityItem[] = [
 
 const highlightPillars = [
   {
-    title: 'Proteção ativa 24/7',
+    title: 'Proteção ativa 24h/7d',
     description: 'Centro de controle Gabardo monitora rotas, clima e riscos em tempo real com acionamento imediato de contingência.',
     icon: ShieldCheck,
   },

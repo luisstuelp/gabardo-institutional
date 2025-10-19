@@ -51,7 +51,7 @@ export interface ScrapedContent {
 
 export const hubPluralContent: ScrapedContent = {
   "hero": {
-    "title": "Transportes Gabardo – Transporte de Veículos",
+    "title": "Gabardo – Transporte de Veículos",
     "description": "Atendimento em todo território nacional e países do Mercosul. Seguro total do seu veículo, frota com veículos novos e tecnologia embarcada, profissionais treinados e capacitados, serviço de coleta e entrega (pátio a pátio).",
     "images": []
   },
@@ -121,8 +121,8 @@ export const hubPluralContent: ScrapedContent = {
     }
   ],
   "about": {
-    "title": "Sobre a Transportes Gabardo",
-    "description": "Fundada em 1989 por Sérgio Mário Gabardo em Porto Alegre/RS, a Transportes Gabardo é referência no transporte de veículos. Com frota moderna e tecnologia embarcada, oferece serviços seguros e eficientes em todo território nacional e países do Mercosul.",
+    "title": "Sobre a Gabardo",
+    "description": "Fundada em 1989 por Sérgio Mário Gabardo em Porto Alegre/RS, a Gabardo é referência no transporte de veículos. Com frota moderna e tecnologia embarcada, oferece serviços seguros e eficientes em todo território nacional e países do Mercosul.",
     "values": [
       "Segurança",
       "Qualidade",
@@ -142,7 +142,7 @@ export const hubPluralContent: ScrapedContent = {
     }
   },
   "meta": {
-    "title": "Transportes Gabardo - Transporte de Veículos em todo Brasil e Mercosul",
+    "title": "Gabardo - Transporte de Veículos em todo Brasil e Mercosul",
     "description": "Transporte seguro de veículos com frota moderna, seguro total e rastreamento satelital. Atendimento nacional e internacional."
   }
 };

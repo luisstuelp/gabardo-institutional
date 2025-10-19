@@ -8,7 +8,7 @@ const highlights = [
     id: 'processo-carbono-negativo',
     title: 'O processo para atingir o carbono negativo',
     description:
-      'Desde que iniciou seus inventários de emissões, a Transportes Gabardo adotou uma série de práticas sustentáveis para reduzir emissões. Entre as ações mais impactantes, destacam-se:',
+      'Desde que iniciou seus inventários de emissões, a Gabardo adotou uma série de práticas sustentáveis para reduzir emissões. Entre as ações mais impactantes, destacam-se:',
     bullets: [
       'Otimização de combustível com tecnologias de monitoramento e rotas inteligentes.',
       'Frota moderna com caminhões e carretas mais eficientes e menores emissões.',
@@ -24,7 +24,7 @@ const highlights = [
     id: 'carbono-negativo-certificacao',
     title: 'Gabardo: pioneirismo e sustentabilidade no setor logístico',
     description:
-      'Em 2024 a Transportes Gabardo se tornou a primeira transportadora no mundo a alcançar o status de carbono negativo, resultado de inventários GEE contínuos desde 2017.',
+      'Em 2024 a Gabardo se tornou a primeira transportadora no mundo a alcançar o status de carbono negativo, resultado de inventários GEE contínuos desde 2017.',
     bullets: [
       'Saldo negativo de emissões em 2024: -23.890,90 tCO2, com 57.884,58 tCO2 inventariados e 81.775,48 tCO2 capturados.',
       'Certificação de carbono negativo emitida em 2025 pela Wtoron ESG, validando monitoramento contínuo e projetos de captura de CO₂.',
@@ -33,7 +33,7 @@ const highlights = [
     footer:
       'A liderança em carbono negativo transforma o setor logístico brasileiro, definindo um novo padrão de sustentabilidade e inspirando toda a cadeia.',
     imageSrc: '/images/sustentabilidade/pioneirismo-carbono-negativo.jpg',
-    imageAlt: 'Equipe celebrando certificação de carbono negativo da Transportes Gabardo',
+    imageAlt: 'Equipe celebrando certificação de carbono negativo da Gabardo',
   },
 ];
 

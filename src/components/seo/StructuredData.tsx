@@ -5,8 +5,7 @@ import Script from 'next/script';
 export default function StructuredData() {
   const organizationSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'Transportes Gabardo',
+name: 'Gabardo',
     alternateName: 'Gabardo',
     url: 'https://www.transgabardo.com.br',
     logo: 'https://www.transgabardo.com.br/gabardo-logo.png',
@@ -22,13 +21,13 @@ export default function StructuredData() {
       addressLocality: 'Porto Alegre',
       addressRegion: 'RS',
       postalCode: '90200-230',
-      addressCountry: 'BR'
+      addressCountry: 'continental'
     },
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+55-51-3373-3000',
       contactType: 'customer service',
-      areaServed: ['BR', 'AR', 'UY', 'PY'],
+      areaServed: ['continental', 'AR', 'UY', 'PY'],
       availableLanguage: ['pt', 'es']
     },
     sameAs: [
@@ -38,7 +37,7 @@ export default function StructuredData() {
     ],
     areaServed: {
       '@type': 'Country',
-      name: 'Brasil'
+      name: 'continental'
     },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
@@ -76,7 +75,7 @@ export default function StructuredData() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     '@id': 'https://www.transgabardo.com.br/#localbusiness',
-    name: 'Transportes Gabardo',
+    name: 'Gabardo',
     image: 'https://www.transgabardo.com.br/gabardo-logo.png',
     telephone: '+55-51-3373-3000',
     email: 'gabardo@transgabardo.com.br',
@@ -86,7 +85,7 @@ export default function StructuredData() {
       addressLocality: 'Porto Alegre',
       addressRegion: 'RS',
       postalCode: '90200-230',
-      addressCountry: 'BR'
+      addressCountry: 'continental'
     },
     geo: {
       '@type': 'GeoCoordinates',

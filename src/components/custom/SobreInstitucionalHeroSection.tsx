@@ -25,7 +25,7 @@ const SobreInstitucionalHeroSection = () => {
       <motion.div className="absolute inset-0" style={{ y: backgroundShift }}>
         <Image
           src={heroImage}
-          alt="Centro operacional da Transportes Gabardo"
+          alt="Centro operacional da Gabardo"
           fill
           priority
           className="object-cover object-center"
@@ -61,7 +61,7 @@ const SobreInstitucionalHeroSection = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase leading-tight tracking-tight mb-5 sm:mb-6"
         >
-          Estrutura que sustenta a Transportes Gabardo
+          Estrutura que sustenta a Gabardo
         </motion.h1>
 
         <motion.p

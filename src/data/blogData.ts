@@ -516,7 +516,7 @@ export const blogPosts: BlogPost[] = [
       {
         type: 'quote',
         content: 'A transparência total no transporte de veículos não é apenas uma vantagem competitiva, é uma expectativa do cliente moderno.',
-        author: 'Transportes Gabardo'
+        author: 'Gabardo'
       },
       {
         type: 'list',

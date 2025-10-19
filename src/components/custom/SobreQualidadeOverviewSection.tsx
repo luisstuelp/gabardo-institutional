@@ -21,7 +21,7 @@ const pillars = [
   {
     title: 'Segurança em Primeiro Lugar',
     description:
-      'Processos certificados para segurança viária, checklist eletrônico e central de controle operacional 24/7.',
+      'Processos certificados para segurança viária, checklist eletrônico e central de controle operacional 24h/7d.',
     stats: '0,30%',
     statsLabel: 'Índice anual de avarias gerais — muito abaixo da meta setorial',
   },

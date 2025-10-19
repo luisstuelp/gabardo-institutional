@@ -35,7 +35,7 @@ const TeamHeroSection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="mt-6 max-w-3xl text-sm sm:text-base md:text-lg text-white/80 leading-relaxed"
         >
-          Conheça as pessoas que movem a Transportes Gabardo. Uma equipe de especialistas apaixonados por logística e comprometidos com a excelência.
+          Conheça as pessoas que movem a Gabardo. Uma equipe de especialistas apaixonados por logística e comprometidos com a excelência.
         </motion.p>
       </div>
     </section>

@@ -2,9 +2,9 @@
 
 ## 1. Visão Geral do Projeto
 
-**Nome do Projeto:** Transportes Gabardo - Site Institucional
-**Empresa:** Transportes Gabardo
-**Objetivo Principal:** Desenvolver um site intitucional inovador e profissional para o Transportes Gabardo, diferenciando-o da concorrência e do site atual.
+**Nome do Projeto:** Gabardo - Site Institucional
+**Empresa:** Gabardo
+**Objetivo Principal:** Desenvolver um site intitucional inovador e profissional para o Gabardo, diferenciando-o da concorrência e do site atual.
 **Linguagem de Design:** Moderna, limpa, profissional, acolhedora.
 **Público-Alvo:** Clientes de logística, empresas de transporte e empresas de logística.
 

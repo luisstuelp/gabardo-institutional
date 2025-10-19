@@ -20,7 +20,7 @@ const infraHighlights = [
     icon: SatelliteDish,
     title: 'Controle em Tempo Real',
     description:
-      'Sala de comando 24/7 com telemetria, monitoramento por câmeras IP e dashboards preditivos para tomada de decisão rápida.'
+      'Sala de comando 24h/7d com telemetria, monitoramento por câmeras IP e dashboards preditivos para tomada de decisão rápida.'
   },
   {
     icon: ShieldCheck,
@@ -40,7 +40,7 @@ const capabilityPillars = [
 const metrics = [
   { label: '60k m²', text: 'de estrutura coberta dedicada ao preparo de veículos' },
   { label: '99,2% SLA', text: 'de disponibilidade monitorada em nossos centros de controle' },
-  { label: '24/7', text: 'monitoramento ativo com equipes especializadas' }
+  { label: '24h/7d', text: 'monitoramento ativo com equipes especializadas' }
 ];
 
 const MotionIconWrapper = ({ icon: Icon }: { icon: typeof Warehouse }) => (

@@ -24,7 +24,7 @@ export default function ClimateChangeSection() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-lg text-gray-600 font-light leading-relaxed"
             >
-              A Transportes Gabardo alcançou, em 2024, um feito histórico no setor logístico: se tornou a primeira transportadora no mundo a atingir o status de carbono negativo. Este marco é resultado de um esforço contínuo desde 2017, quando a empresa começou a realizar seus inventários de emissões de gases de efeito estufa (GEE), com o objetivo de medir e reduzir seu impacto ambiental.
+              A Gabardo alcançou, em 2024, um feito histórico no setor logístico: se tornou a primeira transportadora no mundo a atingir o status de carbono negativo. Este marco é resultado de um esforço contínuo desde 2017, quando a empresa começou a realizar seus inventários de emissões de gases de efeito estufa (GEE), com o objetivo de medir e reduzir seu impacto ambiental.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -45,7 +45,7 @@ export default function ClimateChangeSection() {
           >
             <Image
               src="/images/Design sem nome (51).png"
-              alt="Certificação de carbono negativo da Transportes Gabardo"
+              alt="Certificação de carbono negativo da Gabardo"
               width={720}
               height={480}
               className="w-full max-w-xl h-auto"

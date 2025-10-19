@@ -26,7 +26,7 @@
     "src": "/content/blog/meu-artigo-exemplo.mdx"
   },
   "seo": {
-    "title": "Título SEO (até ~60c) | Transportes Gabardo",
+    "title": "Título SEO (até ~60c) | Gabardo",
     "description": "Descrição SEO (até ~155c): resumo claro do benefício do artigo.",
     "ogImage": "/images/blog/og/meu-artigo-exemplo.png",
     "canonical": "https://www.seudominio.com.br/blog/meu-artigo-exemplo"
@@ -37,10 +37,10 @@
     "headline": "Título do post (máx. ~70 caracteres)",
     "datePublished": "2025-09-28",
     "dateModified": "2025-09-28",
-    "author": { "@type": "Organization", "name": "Transportes Gabardo" },
+    "author": { "@type": "Organization", "name": "Gabardo" },
     "publisher": {
       "@type": "Organization",
-      "name": "Transportes Gabardo",
+      "name": "Gabardo",
       "logo": { "@type": "ImageObject", "url": "https://www.seudominio.com.br/logo.png" }
     },
     "image": ["https://www.seudominio.com.br/images/blog/cover-exemplo.jpg"],

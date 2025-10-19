@@ -60,12 +60,12 @@ function parseVehicleValue(value: string): number {
     return Number.NaN;
   }
 
-  const normalized = value
-    .replace(/[\sR$]/gi, '')
-    .replace(/\./g, '')
-    .replace(',', '.');
+  const digitsOnly = value.replace(/[^0-9]/g, '');
+  if (!digitsOnly) {
+    return Number.NaN;
+  }
 
-  return Number(normalized);
+  return Number(digitsOnly) / 100;
 }
 
 function formatCurrency(value: string): string {

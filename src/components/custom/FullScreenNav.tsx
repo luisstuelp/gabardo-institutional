@@ -240,7 +240,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
                   <div className="flex items-center justify-start overflow-hidden">
                     <Image
                       src="/images/Design sem nome (53).png"
-                      alt="Transportes Gabardo"
+                      alt="Gabardo"
                       width={isMobile ? 120 : 160}
                       height={isMobile ? 32 : 43}
                       priority
@@ -345,7 +345,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
                     className="space-y-6"
                   >
                     <div className="text-white/80">
-                      <h3 className="text-lg font-light mb-3">Transportes Gabardo</h3>
+                      <h3 className="text-lg font-light mb-3">Gabardo</h3>
                       <p className="text-base font-light leading-relaxed mb-4">
                         Há mais de 36 anos transportando veículos com segurança, tecnologia e excelência em todo o Brasil.
                       </p>

@@ -16,7 +16,7 @@ const SobreHistoriaCTASection = () => {
         >
           <span className="section-eyebrow text-gabardo-light-blue/80">Próximo capítulo</span>
           <h2 className="section-heading mt-5 text-white">
-            Vamos construir novas conquistas com a Transportes Gabardo
+            Vamos construir novas conquistas com a Gabardo
           </h2>
           <p className="section-subheading mt-6 text-white/70">
             Conecte-se com nosso time para destravar oportunidades estratégicas, projetos sob medida e experiências logísticas que impulsionam o futuro automotivo.

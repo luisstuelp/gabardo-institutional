@@ -6,13 +6,13 @@
   "intro": {
     "title": "O que entregamos",
     "paragraphs": [
-      "A TRANSPORTES GABARDO integra transporte de veículos, PDI digital, parqueamento, armazenagem, distribuição e gestão de riscos em uma única plataforma operacional.",
+      "A GABARDO integra transporte de veículos, PDI digital, parqueamento, armazenagem, distribuição e gestão de riscos em uma única plataforma operacional.",
       "Com processos padronizados, telemetria, indicadores e certificações ISO, garantimos previsibilidade, controle e SLA em toda a LATAM."
     ],
     "bullets": [
       "Operação nacional com cobertura LATAM",
       "Frota jovem e padronizada",
-      "Gerenciamento de riscos 24/7",
+      "Gerenciamento de riscos 24h/7d",
       "Integração de sistemas e rastreabilidade",
       "Planos sob medida por cliente e rota"
     ]
@@ -47,7 +47,7 @@
         "slug": "pdi-digital",
         "icon": "clipboard-check",
         "title": "PDI Digital",
-        "description": "Inspeção pré-entrega com registro eletrônico de não conformidades, fotos, laudos e integração ao seu sistema (OEM, pátio ou concessionária).",
+        "description": "Inspeção pré-entrega com registro eletrônico de não conformidades, fotos, laudos e integração ao seu sistema (montadora, pátio ou concessionária).",
         "features": [
           "App de checklist com anexos de imagem",
           "Etiquetagem, códigos e rastreio por lote/vin",
@@ -69,11 +69,11 @@
         "slug": "parqueamento",
         "icon": "warehouse",
         "title": "Parqueamento",
-        "description": "Gestão de pátios com controle sistêmico de entrada/saída, posicionamento e inventário, incluindo áreas dedicadas a OEMs e operadores.",
+        "description": "Gestão de pátios com controle sistêmico de entrada/saída, posicionamento e inventário, incluindo áreas dedicadas a montadoras e operadores.",
         "features": [
           "Gate-in/gate-out com registro eletrônico",
           "Mapeamento de posições e giro de pátio",
-          "Segurança patrimonial 24/7"
+          "Segurança patrimonial 24h/7d"
         ],
         "deliverables": [
           "Inventário diário e auditorias",
@@ -137,7 +137,7 @@
         "title": "Gestão de Riscos",
         "description": "Time dedicado, procedimentos, tecnologia embarcada e protocolos de resposta para proteger pessoas, cargas e ativos.",
         "features": [
-          "Central 24/7, telemetria e cercas eletrônicas",
+          "Central 24h/7d, telemetria e cercas eletrônicas",
           "Protocolos de emergência e contingência",
           "Auditorias e treinamentos recorrentes"
         ],
@@ -193,7 +193,7 @@
     "items": [
       "Tripla certificação ISO (9001, 14001, 39001)",
       "Frota jovem, padronizada e com manutenção própria",
-      "Gerenciadora de riscos 24/7 e protocolos de segurança",
+      "Gerenciadora de riscos 24h/7d e protocolos de segurança",
       "Integração sistêmica e rastreabilidade ponta a ponta",
       "Cobertura LATAM com bases estrategicamente distribuídas",
       "Cultura de dados e melhoria contínua"
@@ -213,8 +213,8 @@
     "title": "Tecnologia e integração",
     "paragraphs": [
       "Telemetria, rastreamento e controle de velocidade embarcados; checklists eletrônicos e POD digital.",
-      "Integrações via API com ERPs, CRMs e sistemas OEM/pátios/concessionárias; dashboards e relatórios automatizados.",
-      "SD-WAN e links redundantes em todas as bases, com rotinas de backup noturno e incrementais."
+      "Integrações via API com ERPs, CRMs e sistemas de montadoras/pátios/concessionárias; dashboards e relatórios automatizados.",
+      "Links redundantes em todas as bases, com rotinas de backup noturno e incrementais."
     ]
   },
   "compliance": {
@@ -236,7 +236,7 @@
       },
       {
         "question": "É possível integrar sistemas?",
-        "answer": "Sim. Possuímos APIs e conectores para integração com ERPs, CRMs, WMS e sistemas de OEMs e operadores de pátio."
+        "answer": "Sim. Possuímos APIs e conectores para integração com ERPs, CRMs, WMS e sistemas de montadoras e operadores de pátio."
       },
       {
         "question": "Como são medidos os SLAs?",

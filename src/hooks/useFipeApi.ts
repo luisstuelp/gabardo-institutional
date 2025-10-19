@@ -233,7 +233,7 @@ export const useFipeVehicleData = (vehicleCategory: string) => {
     }
 
     const modelsData = await fetchModels(vehicleType, brandCode);
-    setModels(modelsData);
+    setModels([...modelsData, { code: 'outros', name: 'Outros' }]);
     setYears([]);
   }, [vehicleType, fetchModels]);
 

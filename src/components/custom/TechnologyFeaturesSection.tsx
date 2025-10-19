@@ -15,7 +15,7 @@ const features: Feature[] = [
   {
     icon: MapPin,
     title: 'Rastreamento em Tempo Real',
-    description: 'Visibilidade total da sua carga com nossa tecnologia de rastreamento GPS, permitindo o acompanhamento de cada veículo 24/7.',
+    description: 'Visibilidade total da sua carga com nossa tecnologia de rastreamento GPS, permitindo o acompanhamento de cada veículo 24h/7d.',
   },
   {
     icon: Warehouse,

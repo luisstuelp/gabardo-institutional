@@ -54,14 +54,14 @@ export default function GovernanceClimateSection() {
             />
             <Image
               src="/images/Trans Gabardo - Framers produtora -5623.JPG"
-              alt="Comitê executivo Transportes Gabardo"
+              alt="Comitê executivo Gabardo"
               fill
               priority={false}
               loading="lazy"
               className="object-cover object-center"
             />
             <figcaption className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.26em] text-gabardo-blue">
-              Comitê executivo Transportes Gabardo
+              Comitê executivo Gabardo
             </figcaption>
           </motion.figure>
         </div>

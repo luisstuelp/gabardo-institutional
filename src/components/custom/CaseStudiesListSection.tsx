@@ -41,7 +41,7 @@ const caseStudies: CaseStudy[] = [
   {
     client: 'JSL',
     title: 'Parceria Estratégica para Expansão no Sul',
-    summary: 'Em parceria com a JSL, expandimos nossa capacidade de atendimento na região Sul, aumentando a frota dedicada em 30% e melhorando o nível de serviço.',
+    summary: 'Em parceria com a JSL, expandimos nossa capacidade de atendimento na região Sul, aumentando a frota otimizada em 30% e melhorando o nível de serviço.',
     imageUrl: '/images/Trans Gabardo - Framers produtora -5818.JPG',
     logoUrl: '/images/clients/jsl-logo.svg',
     slug: 'jsl-parceria-expansao',

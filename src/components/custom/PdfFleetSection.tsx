@@ -13,7 +13,7 @@ const nossaFrota = {
   facts: [
     'Idade média dos equipamentos: 2,5 anos.',
     'Frota própria: 79%. Frota terceiros: 21%.',
-    'Carretas cegonhas: 100% de propriedade da Transportes Gabardo.',
+    'Carretas cegonhas: 100% de propriedade da Gabardo.',
     '100% padronizada, logotipada e higienizada.',
     'Protocolos de qualidade conforme normas ISO 9001, 14001 e 39001.',
     'Possuímos oficinas dedicadas para manutenção preventiva e corretiva dos equipamentos.',

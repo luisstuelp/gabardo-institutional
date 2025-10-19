@@ -1,6 +1,6 @@
 {
   "hero": {
-    "title": "Sobre a Transportes Gabardo",
+    "title": "Sobre a Gabardo",
     "subtitle": "Liderança em logística automotiva no Brasil e LATAM, com excelência operacional, segurança viária e gestão ambiental certificadas."
   },
   "missionVisionValues": {
@@ -40,7 +40,7 @@
   "whoWeAre": {
     "title": "Quem somos",
     "paragraphs": [
-      "A Transportes Gabardo é uma operadora logística automotiva com 36 anos de atuação, especializada no transporte de veículos leves e pesados, logística de pátio, PDI digital, armazenagem e distribuição.",
+      "A Gabardo é uma operadora logística automotiva com 36 anos de atuação, especializada no transporte de veículos leves e pesados, logística de pátio, PDI digital, armazenagem e distribuição.",
       "Com frota moderna, processos padronizados e cobertura em toda a LATAM, sustentamos a operação dos principais players do setor com confiabilidade, visibilidade e SLAs rigorosos."
     ]
   },
@@ -50,9 +50,9 @@
       { "year": 1982, "event": "Início das atividades pelo fundador Sérgio M. Gabardo." },
       { "year": 1989, "event": "Constituição da empresa e expansão regional." },
       { "year": 2000, "event": "Padronização de frota e processos de qualidade." },
-      { "year": 2010, "event": "Ampliação de bases e integração sistêmica com clientes OEM." },
+      { "year": 2010, "event": "Ampliação de bases e integração sistêmica com clientes montadoras." },
       { "year": 2017, "event": "Inventário anual de emissões GEE (GHG Protocol) e agenda ESG estruturada." },
-      { "year": 2020, "event": "Aceleração tecnológica: telemetria, SD-WAN e redundância completa." },
+      { "year": 2020, "event": "Aceleração tecnológica: telemetria, rede corporativa inteligente e redundância completa." },
       { "year": 2024, "event": "Consolidação de atuação LATAM e frota jovem com manutenção dedicada." },
       { "year": 2025, "event": "Certificações e metas ambientais ampliadas; operação carbono negativa em destaque." }
     ]
@@ -111,7 +111,7 @@
       "Frota padronizada e jovem, com manutenção própria",
       "Procedimentos de segurança viária e investigação de avarias com KPIs",
       "Gerenciadora de riscos própria e monitoramento 24h",
-      "Conectividade SD-WAN e links redundantes em todas as bases",
+      "Conectividade corporativa inteligente com links redundantes em todas as bases",
       "Planos de contingência e continuidade de negócios",
       "Equipe treinada continuamente e cultura de excelência"
     ]
@@ -144,10 +144,10 @@
   "infrastructureAndTech": {
     "title": "Infraestrutura e tecnologia",
     "bullets": [
-      "Data centers e servidores dedicados para faturamento, CT-e, proxy/firewall e e-mail corporativo",
+      "Data centers e servidores dedicados para faturamento, documentos fiscais eletrônicos, proxy/firewall e e-mail corporativo",
       "Backups noturnos completos e incrementais diários",
-      "Rede SD-WAN e redundância de links em todas as bases",
-      "Telemetria e integração com sistemas dos clientes (OEMs, pátios e concessionárias)"
+      "Rede corporativa com redundância de links em todas as bases",
+      "Telemetria e integração com sistemas dos clientes (montadoras, pátios e concessionárias)"
     ]
   },
   "governanceAndEthics": {

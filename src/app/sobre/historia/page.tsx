@@ -6,11 +6,11 @@ import SobreHistoriaTimelineSection from '@/components/custom/SobreHistoriaTimel
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gabardo.com.br'),
-  title: 'Linha do Tempo | Transportes Gabardo',
+  title: 'Linha do Tempo | Gabardo',
   description:
-    'Conheça a trajetória da Transportes Gabardo desde 1989, com marcos de inovação, expansão e excelência logística em todo o Brasil.',
+    'Conheça a trajetória da Gabardo desde 1989, com marcos de inovação, expansão e excelência logística em todo o Brasil.',
   keywords: [
-    'Transportes Gabardo',
+    'Gabardo',
     'História Gabardo',
     'Linha do tempo logística',
     'Transporte automotivo',
@@ -21,23 +21,23 @@ export const metadata: Metadata = {
     'Transporte multimodal',
     'Distribuição automotiva',
   ],
-  authors: [{ name: 'Transportes Gabardo' }],
-  creator: 'Transportes Gabardo',
-  publisher: 'Transportes Gabardo',
+  authors: [{ name: 'Gabardo' }],
+  creator: 'Gabardo',
+  publisher: 'Gabardo',
   openGraph: {
-    title: 'Linha do Tempo | Transportes Gabardo',
+    title: 'Linha do Tempo | Gabardo',
     description:
-      'Evolução da Transportes Gabardo ao longo das décadas, com marcos em certificações, sustentabilidade e expansão nacional.',
+      'Evolução da Gabardo ao longo das décadas, com marcos em certificações, sustentabilidade e expansão nacional.',
     url: 'https://gabardo.com.br/sobre/historia',
     images: [
       {
         url: 'https://gabardo.com.br/og/gabardo-historia.jpg',
         width: 1200,
         height: 630,
-        alt: 'Transportes Gabardo - Linha do Tempo',
+        alt: 'Gabardo - Linha do Tempo',
       },
     ],
-    siteName: 'Transportes Gabardo',
+    siteName: 'Gabardo',
     locale: 'pt_BR',
     type: 'website',
   },
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: 'Linha do Tempo Gabardo',
     images: ['https://gabardo.com.br/og/gabardo-historia.jpg'],
     description:
-      'História da Transportes Gabardo com marcos de crescimento, certificações ISO e compromisso ambiental.',
+      'História da Gabardo com marcos de crescimento, certificações ISO e compromisso ambiental.',
     creator: '@gabardo',
   },
   robots: {

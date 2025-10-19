@@ -13,7 +13,7 @@ type ContactCard = {
   action: string | null;
 };
 
-// Transportes Gabardo contact information
+// Gabardo contact information
 const contactInfo: ContactCard[] = [
   {
     icon: <Phone className="w-6 h-6" />,
@@ -87,7 +87,7 @@ export default function ContactInfoSection() {
           >
             Fale com a
             <br />
-            <span style={{color: '#38B6FF'}}>Transportes Gabardo</span>
+            <span style={{color: '#38B6FF'}}>Gabardo</span>
           </motion.h2>
         </motion.div>
 

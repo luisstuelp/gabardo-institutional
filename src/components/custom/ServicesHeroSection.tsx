@@ -65,7 +65,7 @@ export default function ServicesHeroSection() {
           >
             <Image
               src={img}
-              alt="Transportes Gabardo - Serviços"
+              alt="Gabardo - Serviços"
               fill
               className="object-cover object-center"
               priority={index === 0}
@@ -123,7 +123,7 @@ export default function ServicesHeroSection() {
                 transition={{ duration: 0.6, delay: 0.8 }}
                 className="text-sm md:text-base lg:text-lg xl:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-5 sm:mb-6 md:mb-8 font-secondary"
               >
-                Operações dedicadas, equipe especializada e preços competitivos. 
+                Operações dedicadas, equipe especializada e custo x beneficio. 
                 Atendemos montadoras e empresas com a excelência que seu negócio merece.
               </motion.p>
 
@@ -144,7 +144,7 @@ export default function ServicesHeroSection() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Dot className="w-3 h-3 text-gabardo-light-blue flex-shrink-0" />
-                  <span className="text-xs sm:text-sm font-light tracking-wide font-secondary">Preços Competitivos</span>
+                  <span className="text-xs sm:text-sm font-light tracking-wide font-secondary">Custo x Benefício</span>
                 </div>
               </motion.div>
             </div>

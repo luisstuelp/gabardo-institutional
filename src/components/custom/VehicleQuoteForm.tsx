@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { Send, CheckCircle, Loader, ArrowRight, ArrowLeft } from 'lucide-react';
 import { useFipeVehicleData } from '@/hooks/useFipeApi';
 import { VehicleModelAutocomplete } from '@/components/custom/VehicleModelAutocomplete';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
 const currentYear = new Date().getFullYear();
 
@@ -13,12 +15,12 @@ const parseVehicleValue = (value: string) => {
     return NaN;
   }
 
-  const normalized = value
-    .replace(/[\sR$]/gi, '')
-    .replace(/\./g, '')
-    .replace(',', '.');
+  const digitsOnly = value.replace(/[^0-9]/g, '');
+  if (!digitsOnly) {
+    return NaN;
+  }
 
-  return Number(normalized);
+  return Number(digitsOnly) / 100;
 };
 
 const addressFieldMap = {
@@ -98,7 +100,7 @@ const initialFormData: QuoteFormData = {
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Mocked vehicle types based on Transportes Gabardo services
+// Mocked vehicle types based on Gabardo services
 const vehicleTypes = [
   'Automóvel de Passeio',
   'SUV / Utilitário',
@@ -125,6 +127,14 @@ const brazilianStates = [
 ];
 
 // Note: Vehicle models are now fetched from FIPE API
+
+const formatCurrencyFromDigits = (digits: string) => {
+  const normalized = Number(digits) / 100;
+  return normalized.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
+};
 
 const VehicleQuoteForm: React.FC = () => {
   const totalSteps = 3;
@@ -308,6 +318,13 @@ const VehicleQuoteForm: React.FC = () => {
         }
       }
     }
+    else if (name === 'vehicleValue') {
+      const digitsOnly = value.replace(/[^0-9]/g, '');
+      setFormData((prev) => ({
+        ...prev,
+        vehicleValue: digitsOnly ? formatCurrencyFromDigits(digitsOnly) : '',
+      }));
+    }
     else {
       setFormData((prev) => ({ ...prev, [name]: value }));
       
@@ -318,6 +335,10 @@ const VehicleQuoteForm: React.FC = () => {
         fetchAddressFromCEP(value, 'destination');
       }
     }
+  };
+
+  const handlePhoneChange = (value?: string) => {
+    setFormData((prev) => ({ ...prev, phone: value ?? '' }));
   };
 
   const handleModelChange = (code: string, name: string) => {
@@ -520,12 +541,11 @@ const VehicleQuoteForm: React.FC = () => {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Telefone *</label>
-                        <input
-                          type="tel"
-                          name="phone"
+                        <PhoneInput
+                          international
+                          defaultCountry="BR"
                           value={formData.phone}
-                          onChange={handleInputChange}
-                          required
+                          onChange={handlePhoneChange}
                           className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
                           placeholder="(11) 99999-9999"
                         />
@@ -624,9 +644,9 @@ const VehicleQuoteForm: React.FC = () => {
                           onChange={handleInputChange}
                           required
                           className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                          placeholder="Ex: 150000"
+                          placeholder="R$ 0,00"
+                          inputMode="numeric"
                         />
-                        <p className="mt-1 text-xs text-gray-500">Valor estimado com base na tabela FIPE</p>
                       </div>
                     </div>
 

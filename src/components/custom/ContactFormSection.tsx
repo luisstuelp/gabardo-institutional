@@ -131,6 +131,15 @@ export default function ContactFormSection() {
 
         {/* Refined Form */}
         <div className="max-w-4xl mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center text-lg text-gray-600 mb-8"
+          >
+            Preencha o formulário abaixo com os detalhes da sua necessidade e um de nossos especialistas entrará em contato em breve. Para um atendimento mais ágil, selecione o principal interesse e forneça o máximo de detalhes possível.
+          </motion.p>
           <motion.form
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}

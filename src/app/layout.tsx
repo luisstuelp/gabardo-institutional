@@ -8,7 +8,7 @@ import { meta } from "@/data/hubPluralContent";
 export const metadata: Metadata = {
   title: {
     default: meta.title,
-    template: '%s | Transportes Gabardo'
+    template: '%s | Gabardo'
   },
   description: meta.description,
   keywords: [
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     'Porto Alegre',
     'Brasil'
   ],
-  authors: [{ name: 'Transportes Gabardo' }],
-  creator: 'Transportes Gabardo',
-  publisher: 'Transportes Gabardo',
+  authors: [{ name: 'Gabardo' }],
+  creator: 'Gabardo',
+  publisher: 'Gabardo',
   formatDetection: {
     email: false,
     address: false,
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: meta.title,
     description: meta.description,
     url: 'https://www.transgabardo.com.br',
-    siteName: 'Transportes Gabardo',
+    siteName: 'Gabardo',
     locale: 'pt_BR',
     type: 'website',
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Transportes Gabardo - Logística Automotiva',
+        alt: 'Gabardo - Logística Automotiva',
       },
     ],
   },

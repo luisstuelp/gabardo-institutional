@@ -30,7 +30,7 @@ const StatsSection: React.FC = () => {
             {[
               { number: '35+', label: 'Anos de Experiência', description: 'Mercado consolidado', type: 'text' },
               { number: '500+', label: 'Clientes Atendidos', description: 'Confiança nacional', type: 'text' },
-              { number: '24/7', label: 'Suporte Disponível', description: 'Sempre conectados', type: 'text' },
+              { number: '24h/7d', label: 'Suporte Disponível', description: 'Sempre conectados', type: 'text' },
               { number: '98%', label: 'Satisfação', description: 'Excelência comprovada', type: 'star' }
             ].map((stat, index) => (
               <motion.div

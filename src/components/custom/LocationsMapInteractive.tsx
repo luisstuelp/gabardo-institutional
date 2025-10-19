@@ -18,13 +18,13 @@ const regionColors: Record<Region, string> = {
 const regionMeta: Record<Exclude<Region, 'all'>, { tagline: string; summary: string; funFact: string }> = {
   'Sul': {
     tagline: 'Hub exportador e base de inovação',
-    summary: 'Integramos manufatura, pátios portuários e a matriz SJP com operações 24/7 e frota dedicada.',
+    summary: 'Integramos manufatura, pátios portuários e a matriz SJP com operações 24h/7d e frota otimizada.',
     funFact: 'Mais de 50% da energia consumida na região vem de geração solar própria.'
   },
   'Sudeste': {
     tagline: 'Coração da cadeia automotiva',
     summary: 'Proximidade com montadoras, polos industriais e portos garante lead times agressivos e SLAs rigorosos.',
-    funFact: 'Equipe OEM dedicada com squads para OEMs de SP, RJ e ES.'
+    funFact: 'Equipe dedicada com squads para montadoras de SP, RJ e ES.'
   },
   'Centro-Oeste': {
     tagline: 'Conexão logística para o interior do país',
@@ -34,7 +34,7 @@ const regionMeta: Record<Exclude<Region, 'all'>, { tagline: string; summary: str
   'Nordeste': {
     tagline: 'Porta de entrada para o Norte e LATAM',
     summary: 'Eusébio e operações no Ceará conectam importações, exportações e distribuição regional com preparo EV.',
-    funFact: 'Hub com telemetria 24/7 e plano de contingência completo.'
+    funFact: 'Hub com telemetria 24h/7d e plano de contingência completo.'
   }
 };
 

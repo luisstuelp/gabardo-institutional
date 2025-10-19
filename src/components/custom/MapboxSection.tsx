@@ -98,8 +98,8 @@ const MapboxSection: React.FC = () => {
         [-15, 32],
       ],
       attributionControl: false,
-      scrollZoom: false,
-      touchZoomRotate: false,
+      scrollZoom: true,
+      touchZoomRotate: true,
     });
 
     mapRef.current = map;
