@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Header } from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 // Content model with Gabardo's actual history and values
 const STORY_SECTIONS = [
@@ -61,45 +62,6 @@ const STORY_SECTIONS = [
 
 const HERO_BACKGROUND = STORY_SECTIONS[0].videoPoster;
 
-const VALORES = [
-  {
-    title: 'Integridade e Ética',
-    description: 'Administramos recursos com honestidade, integridade e idoneidade, repudiando práticas fraudulentas e atos de corrupção.',
-  },
-  {
-    title: 'Inovação e Inclusão',
-    description: 'Valorizamos novas ideias e soluções criativas, privilegiando o trabalho em equipe e a diversidade.',
-  },
-  {
-    title: 'Respeito e Responsabilidade',
-    description: 'Respeitamos pessoas e o ambiente em que vivemos, conduzindo todas as ações com sustentabilidade.',
-  },
-  {
-    title: 'Credibilidade e Confiança',
-    description: 'Agimos com consciência e coerência entre palavras e ações, essencial para nossa imagem e reputação.',
-  },
-  {
-    title: 'Agilidade e Disciplina',
-    description: 'Tomamos decisões ágeis, prestigiando segurança, meio ambiente e qualidade, observando processos e regras.',
-  },
-  {
-    title: 'Superação e Excelência',
-    description: 'Buscamos superar desafios e melhorar nosso desempenho diariamente, de forma ética, justa e sustentável.',
-  },
-  {
-    title: 'Desenvolvimento Pessoal',
-    description: 'Capacitação, conscientização e reconhecimento de nossa equipe, com foco no crescimento sustentável.',
-  },
-  {
-    title: 'Saúde e Segurança',
-    description: 'Garantimos um ambiente de trabalho saudável, valorizando a saúde física, mental e a segurança.',
-  },
-  {
-    title: 'Sustentabilidade',
-    description: 'Agimos com responsabilidade socioambiental, respeitando a natureza e incentivando programas ambientais.',
-  },
-];
-
 // Custom hook for reduced motion preference
 const usePrefersReducedMotion = () => {
   const [reduced, setReduced] = useState(false);
@@ -125,12 +87,14 @@ function StoryCard({ section, reverse }: { section: typeof STORY_SECTIONS[number
         transition={{ duration: 0.7 }}
         className={reverse ? 'lg:col-start-2' : ''}
       >
-        <div className="relative block w-full overflow-hidden rounded-3xl shadow-lg">
-          <img
+        <div className="relative block w-full overflow-hidden rounded-3xl shadow-lg h-[500px]">
+          <Image
             src={section.videoPoster}
             alt={section.heading}
-            loading="lazy"
-            className="w-full h-[500px] object-cover"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
+            priority={false}
           />
         </div>
       </motion.div>
@@ -228,7 +192,7 @@ function Tabs({
             ref={tabsRef}
             role="tablist"
             aria-label="Navegação da jornada"
-            className="relative flex items-stretch gap-2 sm:gap-0 sm:justify-between min-w-max sm:w-full h-full"
+            className="relative flex items-stretch gap-3 sm:gap-0 sm:justify-between min-w-max sm:w-full h-full"
           >
             {sections.map((section) => (
               <button
@@ -308,11 +272,14 @@ export default function CulturaClient() {
         {/* Hero Section */}
         <section className="relative overflow-hidden min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
           <div aria-hidden className="absolute inset-0 -z-10">
-            <img
+            <Image
               src={heroBackground}
               alt=""
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="lazy"
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority={true}
+              quality={85}
             />
             <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/75 md:from-black/65 md:via-black/45 md:to-black/65" />
           </div>

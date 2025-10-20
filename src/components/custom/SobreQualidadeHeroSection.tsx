@@ -82,7 +82,7 @@ const SobreQualidadeHeroSection: React.FC = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-8 sm:mt-10 md:mt-12 grid w-full max-w-6xl grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5"
+          className="mt-8 sm:mt-10 md:mt-12 grid w-full max-w-6xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5"
         >
           {highlights.map((item, index) => {
             return (
@@ -92,7 +92,7 @@ const SobreQualidadeHeroSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 * index }}
-                className="group relative flex h-full min-h-[180px] flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-white/15 bg-white/8 px-6 sm:px-7 md:px-8 py-4 sm:py-5 text-left backdrop-blur-lg shadow-[0_18px_40px_-18px_RGBA(8,22,42,0.55)]"
+                className="group relative flex h-full min-h-[220px] flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-white/15 bg-white/8 px-5 sm:px-6 md:px-7 py-5 sm:py-6 text-left backdrop-blur-lg shadow-[0_18px_40px_-18px_RGBA(8,22,42,0.55)]"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-gabardo-light-blue/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <div className="absolute -top-16 right-0 h-28 w-28 rounded-full bg-gabardo-light-blue/10 blur-3xl" aria-hidden />
@@ -100,7 +100,7 @@ const SobreQualidadeHeroSection: React.FC = () => {
 
                 <div className="relative flex flex-col gap-3">
                   <div className="flex items-start gap-3">
-                    <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 md:h-18 md:w-18 flex-shrink-0 items-center justify-center">
+                    <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 md:h-[4.5rem] md:w-[4.5rem] flex-shrink-0 items-center justify-center">
                       <Image
                         src={item.logo}
                         alt={`Selo ${item.value}`}
@@ -110,10 +110,10 @@ const SobreQualidadeHeroSection: React.FC = () => {
                       />
                     </div>
                     <div className="flex flex-col gap-0.5 pt-0.5">
-                      <div className="text-[0.6rem] sm:text-[0.65rem] md:text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-light-blue leading-tight">
+                      <div className="text-[0.65rem] sm:text-[0.7rem] md:text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-light-blue leading-tight">
                         {item.value}
                       </div>
-                      <p className="text-xs sm:text-sm md:text-base font-semibold text-white leading-tight">
+                      <p className="text-sm sm:text-base md:text-lg font-semibold text-white leading-tight">
                         {item.label}
                       </p>
                     </div>
@@ -133,7 +133,7 @@ const SobreQualidadeHeroSection: React.FC = () => {
                       )}
                     </div>
 
-                    <p className="text-[0.68rem] sm:text-[0.7rem] md:text-xs text-white/70 leading-relaxed">
+                    <p className="text-[0.7rem] sm:text-xs md:text-sm text-white/70 leading-relaxed">
                       Auditorias recorrentes, relatórios de conformidade e cultura ESG ativa consolidam nossa governança.
                     </p>
                   </div>

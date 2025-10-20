@@ -40,12 +40,12 @@ export default function HowWeActSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-3xl md:text-4xl font-bold uppercase tracking-tight leading-tight text-gabardo-blue mb-1 text-center"
+          className="text-3xl md:text-4xl font-bold uppercase tracking-tight leading-tight text-gabardo-blue mb-6 md:mb-8 text-center"
         >
           Como atuamos em relação à gestão de nossas emissões?
         </motion.h2>
         <div className="relative mt-0">
-          <div className="mx-auto h-[75vh] max-w-4xl">
+          <div className="mx-auto min-h-[600px] h-[75vh] max-w-4xl">
             <ScrollStack
               className="h-full"
               itemDistance={90}
@@ -58,18 +58,18 @@ export default function HowWeActSection() {
               {items.map((item) => (
                 <ScrollStackItem
                   key={item.title}
-                  itemClassName="bg-white/95 border border-gabardo-blue/10 shadow-[0_28px_80px_-48px_rgba(19,45,81,0.35)] px-8 py-10 rounded-3xl"
+                  itemClassName="bg-white/95 border border-gabardo-blue/10 shadow-[0_28px_80px_-48px_rgba(19,45,81,0.35)] px-6 py-8 sm:px-8 sm:py-10 rounded-3xl"
                 >
-                  <div className="flex flex-col gap-5">
-                    <div className="flex items-center gap-4">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gabardo-light-blue text-white">
+                  <div className="flex flex-col gap-4 sm:gap-5">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-gabardo-light-blue text-white flex-shrink-0">
                         {item.icon}
                       </div>
-                      <h3 className="text-lg font-semibold uppercase tracking-[0.2em] text-gabardo-blue">
+                      <h3 className="text-base sm:text-lg font-semibold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-gabardo-blue leading-tight">
                         {item.title}
                       </h3>
                     </div>
-                    <p className="text-sm leading-relaxed text-gray-600">
+                    <p className="text-sm sm:text-base leading-relaxed text-gray-600">
                       {item.description}
                     </p>
                   </div>
