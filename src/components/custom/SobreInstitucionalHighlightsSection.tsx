@@ -15,7 +15,7 @@ const institutionalHighlights = [
   {
     title: 'Operação inteligente e tecnologia',
     description:
-      'Frota 79% própria com idade média de 2,5 anos, rede SD-WAN e telemetria integrada sustentam SLAs rigorosos em toda a LATAM.',
+      'Frota majoritariamente própria, com renovação constante, rede corporativa segura e telemetria integrada sustentando SLAs rigorosos no Brasil e em países estratégicos da América Latina.',
     imageAlt: 'Profissionais monitorando operações logísticas de alta tecnologia',
     imagePlaceholder: '/images/GabardoMonit.JPG',
     actionLabel: 'Ver infraestrutura',
@@ -24,7 +24,7 @@ const institutionalHighlights = [
   {
     title: 'Impacto socioambiental e ESG',
     description:
-      'Operação carbono negativa, inventários GEE desde 2017 e metas net zero 2030 sustentam programas de compensação e frota Euro 6.',
+      'Projetos de redução de carbono, inventários GEE recorrentes e meta declarada de avanço rumo ao net zero sustentam programas de compensação e frota com padrão Euro 6.',
     imageAlt: 'Colaboradores em iniciativa de sustentabilidade e reflorestamento',
     imagePlaceholder: '/images/gabardo-hero-03.jpg',
     actionLabel: 'Agenda ESG',

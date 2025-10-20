@@ -38,7 +38,7 @@ const governancePractices = [
 ];
 
 
-const governancePillars = [
+const governanceThemes = [
   {
     icon: ShieldCheck,
     title: 'Governança e Compliance',
@@ -53,9 +53,9 @@ const governancePillars = [
     icon: Workflow,
     title: 'Modelos Operacionais Integrados',
     description:
-      'Torre de controle com squads ágeis, conectando operações, tecnologia e ESG em rituais semanais.',
+      'Torre de controle com squads ágeis, conectando operações, tecnologia e ESG em encontros semanais.',
     bullets: [
-      'OKRs de governança compartilhados entre operações e clientes premium.',
+      'Indicadores OKR (Objectives and Key Results) de governança compartilhados entre operações e clientes premium.',
       'Planos de continuidade com simulações trimestrais e gestão de crises.',
     ],
   },
@@ -65,7 +65,7 @@ const governancePillars = [
     description:
       'Telemetria embarcada e BI proprietários que ancoram decisões estratégicas e táticas em tempo real.',
     bullets: [
-      'Dashboards ESG integrados ao inventário GEE desde 2017.',
+      'Dashboards ESG integrados ao inventário GEE acompanhado pelas equipes Gabardo.',
       'KPIs de SLA, segurança e eficiência monitorados 24h pela equipe Gabardo.',
     ],
   },
@@ -75,7 +75,7 @@ const governancePillars = [
     description:
       'Programas de liderança e trilhas da Academia Gabardo sustentam sucessão interna e engajamento em larga escala.',
     bullets: [
-      '74% das posições de liderança ocupadas por talentos formados na empresa.',
+      'Lideranças desenvolvidas internamente pela Academia Gabardo.',
       'Planos de carreiras estruturados para operação, tecnologia e áreas corporativas.',
     ],
   },
@@ -152,11 +152,11 @@ const SobreInstitucionalLeadershipSection = () => {
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {governancePillars.map((pillar, index) => {
-            const Icon = pillar.icon;
+          {governanceThemes.map((theme, index) => {
+            const Icon = theme.icon;
             return (
               <motion.article
-                key={pillar.title}
+                key={theme.title}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -169,11 +169,11 @@ const SobreInstitucionalLeadershipSection = () => {
                     <Icon className="h-6 w-6" />
                   </span>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900">{pillar.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-gray-600">{pillar.description}</p>
+                    <h3 className="text-xl font-semibold text-gray-900">{theme.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-gray-600">{theme.description}</p>
                   </div>
                   <ul className="space-y-2 text-sm text-gray-600">
-                    {pillar.bullets.map((bullet) => (
+                    {theme.bullets.map((bullet) => (
                       <li key={bullet} className="flex items-start gap-2">
                         <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-gabardo-blue" />
                         <span>{bullet}</span>
@@ -195,7 +195,7 @@ const SobreInstitucionalLeadershipSection = () => {
         >
           <h3 className="text-2xl font-semibold text-gray-900 md:text-3xl">Como garantimos governança sólida</h3>
           <p className="mt-3 max-w-3xl text-sm text-gray-600 md:text-base">
-            Esses pilares se materializam em práticas diárias que protegem o negócio, fortalecem relações e mantêm a Gabardo preparada para evoluir em qualquer cenário.
+            Esses temas se materializam em práticas diárias que protegem o negócio, fortalecem relações e mantêm a Gabardo preparada para evoluir em qualquer cenário.
           </p>
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {governancePractices.map((practice, index) => {

@@ -216,7 +216,7 @@ export const useFipeVehicleData = (vehicleCategory: string) => {
 
     const loadBrands = async () => {
       const brandsData = await fetchBrands(vehicleType);
-      setBrands(brandsData);
+      setBrands([...brandsData, { code: 'outros', name: 'Outros' }]);
       setModels([]);
       setYears([]);
     };

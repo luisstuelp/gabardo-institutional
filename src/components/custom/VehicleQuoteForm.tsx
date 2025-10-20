@@ -46,12 +46,16 @@ type QuoteFormData = {
   phone: string;
   company: string;
   vehicleCategory: string;
+  vehicleCategoryManual: string;
   vehicleBrand: string;
   vehicleBrandCode: string;
+  vehicleBrandManual: string;
   vehicleModel: string;
   vehicleModelCode: string;
+  vehicleModelManual: string;
   vehicleYear: string;
   vehicleYearCode: string;
+  vehicleYearManual: string;
   vehicleValue: string;
   vehicleObservation: string;
   originCep: string;
@@ -75,12 +79,16 @@ const initialFormData: QuoteFormData = {
   phone: '',
   company: '',
   vehicleCategory: '',
+  vehicleCategoryManual: '',
   vehicleBrand: '',
   vehicleBrandCode: '',
+  vehicleBrandManual: '',
   vehicleModel: '',
   vehicleModelCode: '',
+  vehicleModelManual: '',
   vehicleYear: '',
   vehicleYearCode: '',
+  vehicleYearManual: '',
   vehicleValue: '',
   vehicleObservation: '',
   originCep: '',
@@ -102,7 +110,7 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Mocked vehicle types based on Gabardo services
 const vehicleTypes = [
-  'Automóvel de Passeio',
+  'Carro',
   'SUV / Utilitário',
   'Pick-up',
   'Van',
@@ -115,6 +123,7 @@ const vehicleTypes = [
   'Micro-ônibus',
   'Veículo Especial',
   'Motocicleta',
+  'Outros'
 ];
 
 // Note: Vehicle brands are now fetched from FIPE API
@@ -144,6 +153,8 @@ const VehicleQuoteForm: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
+  const effectiveVehicleCategory = vehicleTypes.includes(formData.vehicleCategory) ? formData.vehicleCategory : '';
+
   // FIPE API integration
   const {
     brands,
@@ -154,7 +165,7 @@ const VehicleQuoteForm: React.FC = () => {
     loadModels,
     loadYears,
     loadVehiclePrice,
-  } = useFipeVehicleData(formData.vehicleCategory);
+  } = useFipeVehicleData(effectiveVehicleCategory);
 
   const validateStep = (currentStep: number) => {
     switch (currentStep) {
@@ -172,7 +183,20 @@ const VehicleQuoteForm: React.FC = () => {
         return null;
       }
       case 2: {
-        if (!formData.vehicleCategory || !formData.vehicleBrand || !formData.vehicleModel || !formData.vehicleYear || !formData.vehicleValue) {
+        const categoryFilled = formData.vehicleCategory === 'Outros' || !vehicleTypes.includes(formData.vehicleCategory)
+          ? formData.vehicleCategoryManual.trim()
+          : formData.vehicleCategory.trim();
+        const brandFilled = formData.vehicleBrandCode === 'outros'
+          ? formData.vehicleBrandManual.trim()
+          : formData.vehicleBrand.trim();
+        const modelFilled = formData.vehicleBrandCode === 'outros' || formData.vehicleModelCode === 'outros'
+          ? formData.vehicleModelManual.trim()
+          : formData.vehicleModel.trim();
+        const yearFilled = formData.vehicleBrandCode === 'outros' || formData.vehicleModelCode === 'outros'
+          ? formData.vehicleYearManual.trim()
+          : formData.vehicleYear.trim();
+
+        if (!categoryFilled || !brandFilled || !modelFilled || !yearFilled || !formData.vehicleValue) {
           return 'Preencha todas as informações do veículo.';
         }
         const value = parseVehicleValue(formData.vehicleValue);
@@ -248,31 +272,79 @@ const VehicleQuoteForm: React.FC = () => {
     
     // Handle vehicle category change
     if (name === 'vehicleCategory') {
+      const isOther = value === 'Outros';
       setFormData((prev) => ({ 
         ...prev, 
         [name]: value, 
+        vehicleCategoryManual: isOther ? '' : prev.vehicleCategoryManual,
         vehicleBrand: '',
-        vehicleBrandCode: '',
+        vehicleBrandCode: isOther ? 'outros' : '',
+        vehicleBrandManual: '',
         vehicleModel: '',
-        vehicleModelCode: '',
+        vehicleModelCode: isOther ? 'outros' : '',
+        vehicleModelManual: '',
         vehicleYear: '',
         vehicleYearCode: '',
+        vehicleYearManual: '',
+        vehicleValue: '',
       }));
+      if (isOther) {
+        loadModels('');
+        loadYears('', '');
+      }
     }
     // Handle brand change - extract code and name
     else if (name === 'vehicleBrand') {
-      const selectedBrand = brands.find(b => b.code === value);
-      if (selectedBrand) {
-        setFormData((prev) => ({ 
-          ...prev, 
-          vehicleBrand: selectedBrand.name,
-          vehicleBrandCode: selectedBrand.code,
+      if (!value) {
+        setFormData((prev) => ({
+          ...prev,
+          vehicleBrand: '',
+          vehicleBrandCode: '',
+          vehicleBrandManual: '',
           vehicleModel: '',
           vehicleModelCode: '',
+          vehicleModelManual: '',
           vehicleYear: '',
           vehicleYearCode: '',
+          vehicleYearManual: '',
+          vehicleValue: '',
         }));
-        loadModels(selectedBrand.code);
+        loadModels('');
+        loadYears('', '');
+      } else if (value === 'outros') {
+        setFormData((prev) => ({
+          ...prev,
+          vehicleBrand: '',
+          vehicleBrandCode: 'outros',
+          vehicleBrandManual: '',
+          vehicleModel: '',
+          vehicleModelCode: 'outros',
+          vehicleModelManual: '',
+          vehicleYear: '',
+          vehicleYearCode: '',
+          vehicleYearManual: '',
+          vehicleValue: '',
+        }));
+        loadModels('');
+        loadYears('', '');
+      } else {
+        const selectedBrand = brands.find(b => b.code === value);
+        if (selectedBrand) {
+          setFormData((prev) => ({ 
+            ...prev, 
+            vehicleBrand: selectedBrand.name,
+            vehicleBrandCode: selectedBrand.code,
+            vehicleBrandManual: '',
+            vehicleModel: '',
+            vehicleModelCode: '',
+            vehicleModelManual: '',
+            vehicleYear: '',
+            vehicleYearCode: '',
+            vehicleYearManual: '',
+            vehicleValue: '',
+          }));
+          loadModels(selectedBrand.code);
+        }
       }
     }
     // Handle model change - now handled by the autocomplete component
@@ -283,10 +355,14 @@ const VehicleQuoteForm: React.FC = () => {
           ...prev, 
           vehicleModel: selectedModel.name,
           vehicleModelCode: selectedModel.code,
+          vehicleModelManual: '',
           vehicleYear: '',
           vehicleYearCode: '',
+          vehicleYearManual: '',
         }));
-        loadYears(formData.vehicleBrandCode, selectedModel.code);
+        if (formData.vehicleBrandCode) {
+          loadYears(formData.vehicleBrandCode, selectedModel.code);
+        }
       }
     }
     // Handle year change and fetch price from FIPE
@@ -300,7 +376,12 @@ const VehicleQuoteForm: React.FC = () => {
         }));
         
         // Automatically fetch vehicle price from FIPE
-        if (formData.vehicleBrandCode && formData.vehicleModelCode) {
+        if (
+          formData.vehicleBrandCode &&
+          formData.vehicleBrandCode !== 'outros' &&
+          formData.vehicleModelCode &&
+          formData.vehicleModelCode !== 'outros'
+        ) {
           loadVehiclePrice(
             formData.vehicleBrandCode,
             formData.vehicleModelCode,
@@ -316,7 +397,42 @@ const VehicleQuoteForm: React.FC = () => {
             console.error('Erro ao buscar preço FIPE:', err);
           });
         }
+        setFormData((prev) => ({
+          ...prev,
+          vehicleYearManual: '',
+        }));
       }
+    }
+    else if (name === 'vehicleCategoryManual') {
+      setFormData((prev) => ({
+        ...prev,
+        vehicleCategoryManual: value,
+        vehicleCategory: value,
+        vehicleBrandCode: 'outros',
+        vehicleModelCode: 'outros',
+      }));
+    }
+    else if (name === 'vehicleBrandManual') {
+      setFormData((prev) => ({
+        ...prev,
+        vehicleBrandManual: value,
+        vehicleBrand: value,
+      }));
+    }
+    else if (name === 'vehicleModelManual') {
+      setFormData((prev) => ({
+        ...prev,
+        vehicleModelManual: value,
+        vehicleModel: value,
+      }));
+    }
+    else if (name === 'vehicleYearManual') {
+      setFormData((prev) => ({
+        ...prev,
+        vehicleYearManual: value,
+        vehicleYear: value,
+        vehicleYearCode: value,
+      }));
     }
     else if (name === 'vehicleValue') {
       const digitsOnly = value.replace(/[^0-9]/g, '');
@@ -342,16 +458,34 @@ const VehicleQuoteForm: React.FC = () => {
   };
 
   const handleModelChange = (code: string, name: string) => {
-    setError(null);
+  setError(null);
+  if (code === 'outros') {
+    setFormData((prev) => ({
+      ...prev,
+      vehicleModel: '',
+      vehicleModelCode: 'outros',
+      vehicleModelManual: '',
+      vehicleYear: '',
+      vehicleYearCode: '',
+      vehicleYearManual: '',
+      vehicleValue: '',
+    }));
+    loadYears('', '');
+  }
+  else {
     setFormData((prev) => ({
       ...prev,
       vehicleModel: name,
       vehicleModelCode: code,
+      vehicleModelManual: '',
       vehicleYear: '',
       vehicleYearCode: '',
+      vehicleYearManual: '',
+      vehicleValue: '',
     }));
-    if (code && formData.vehicleBrandCode) {
-      loadYears(formData.vehicleBrandCode, code);
+  }
+  if (code && code !== 'outros' && formData.vehicleBrandCode && formData.vehicleBrandCode !== 'outros') {
+    loadYears(formData.vehicleBrandCode, code);
     }
   };
 
@@ -570,12 +704,12 @@ const VehicleQuoteForm: React.FC = () => {
                     exit={{ opacity: 0, x: 30 }}
                   >
                     <h3 className="mb-6 text-2xl font-bold text-gabardo-blue">Dados do Veículo</h3>
-                    <div className="grid gap-6 lg:grid-cols-5">
+                    <div className="grid gap-6 lg:grid-cols-2">
                       <div>
-                        <label className="block text-sm font-medium text-gabardo-blue">Veículo *</label>
+                        <label className="block text-sm font-medium text-gabardo-blue">Tipo de veículo *</label>
                         <select
                           name="vehicleCategory"
-                          value={formData.vehicleCategory}
+                          value={vehicleTypes.includes(formData.vehicleCategory) ? formData.vehicleCategory : 'Outros'}
                           onChange={handleInputChange}
                           required
                           className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
@@ -585,6 +719,17 @@ const VehicleQuoteForm: React.FC = () => {
                             <option key={type} value={type}>{type}</option>
                           ))}
                         </select>
+                        {(!vehicleTypes.includes(formData.vehicleCategory) || formData.vehicleCategory === 'Outros') && (
+                          <input
+                            type="text"
+                            name="vehicleCategoryManual"
+                            value={formData.vehicleCategoryManual}
+                            onChange={handleInputChange}
+                            required
+                            className="mt-3 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                            placeholder="Informe o tipo de veículo"
+                          />
+                        )}
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Marca *</label>
@@ -593,47 +738,95 @@ const VehicleQuoteForm: React.FC = () => {
                           value={formData.vehicleBrandCode}
                           onChange={handleInputChange}
                           required
-                          disabled={!formData.vehicleCategory || fipeLoading}
+                          disabled={!effectiveVehicleCategory || formData.vehicleCategory === 'Outros' || fipeLoading}
                           className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                         >
                           <option value="">
-                            {!formData.vehicleCategory ? 'Selecione o tipo de veículo primeiro' : fipeLoading ? 'Carregando...' : 'Selecione'}
+                            {!effectiveVehicleCategory ? 'Selecione o tipo de veículo primeiro' : fipeLoading ? 'Carregando...' : 'Selecione'}
                           </option>
                           {brands.map((brand) => (
                             <option key={brand.code} value={brand.code}>{brand.name}</option>
                           ))}
                         </select>
                         {fipeError && <p className="mt-1 text-xs text-red-600">{fipeError}</p>}
+                        {formData.vehicleBrandCode === 'outros' && (
+                          <input
+                            type="text"
+                            name="vehicleBrandManual"
+                            value={formData.vehicleBrandManual}
+                            onChange={handleInputChange}
+                            required
+                            className="mt-3 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                            placeholder="Informe a marca"
+                          />
+                        )}
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Modelo *</label>
-                        <VehicleModelAutocomplete
-                          options={models}
-                          value={formData.vehicleModelCode}
-                          onChange={handleModelChange}
-                          disabled={!formData.vehicleBrandCode}
-                          loading={fipeLoading}
-                          placeholder={!formData.vehicleBrandCode ? 'Selecione a marca primeiro' : 'Digite ou selecione o modelo'}
-                          className="mt-2"
-                        />
+                        {formData.vehicleBrandCode === 'outros' ? (
+                          <input
+                            type="text"
+                            name="vehicleModelManual"
+                            value={formData.vehicleModelManual}
+                            onChange={handleInputChange}
+                            required
+                            className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                            placeholder="Informe o modelo"
+                          />
+                        ) : (
+                          <>
+                            <VehicleModelAutocomplete
+                              options={models}
+                              value={formData.vehicleModelCode}
+                              onChange={handleModelChange}
+                              disabled={!formData.vehicleBrandCode || formData.vehicleBrandCode === 'outros'}
+                              loading={fipeLoading}
+                              placeholder={!formData.vehicleBrandCode ? 'Selecione a marca primeiro' : 'Digite ou selecione o modelo'}
+                              className="mt-2"
+                            />
+                            {formData.vehicleModelCode === 'outros' && (
+                              <input
+                                type="text"
+                                name="vehicleModelManual"
+                                value={formData.vehicleModelManual}
+                                onChange={handleInputChange}
+                                required
+                                className="mt-3 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                                placeholder="Informe o modelo"
+                              />
+                            )}
+                          </>
+                        )}
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Ano / Fabricação *</label>
-                        <select
-                          name="vehicleYear"
-                          value={formData.vehicleYearCode}
-                          onChange={handleInputChange}
-                          required
-                          disabled={!formData.vehicleModelCode || fipeLoading}
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
-                        >
-                          <option value="">
-                            {!formData.vehicleModelCode ? 'Selecione o modelo primeiro' : fipeLoading ? 'Carregando...' : 'Selecione'}
-                          </option>
-                          {years.map((year) => (
-                            <option key={year.code} value={year.code}>{year.name}</option>
-                          ))}
-                        </select>
+                        {formData.vehicleBrandCode === 'outros' || formData.vehicleModelCode === 'outros' ? (
+                          <input
+                            type="text"
+                            name="vehicleYearManual"
+                            value={formData.vehicleYearManual}
+                            onChange={handleInputChange}
+                            required
+                            className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                            placeholder="Informe o ano de fabricação"
+                          />
+                        ) : (
+                          <select
+                            name="vehicleYear"
+                            value={formData.vehicleYearCode}
+                            onChange={handleInputChange}
+                            required
+                            disabled={!formData.vehicleModelCode || formData.vehicleModelCode === 'outros' || fipeLoading}
+                            className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                          >
+                            <option value="">
+                              {!formData.vehicleModelCode ? 'Selecione o modelo primeiro' : fipeLoading ? 'Carregando...' : 'Selecione'}
+                            </option>
+                            {years.map((year) => (
+                              <option key={year.code} value={year.code}>{year.name}</option>
+                            ))}
+                          </select>
+                        )}
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Valor do Veículo *</label>

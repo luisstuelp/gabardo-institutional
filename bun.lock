@@ -27,6 +27,7 @@
         "react-phone-number-input": "^3.4.12",
         "react-responsive-masonry": "^2.7.1",
         "recharts": "^3.2.1",
+        "svg-dotted-map": "^2.0.1",
         "swiper": "^12.0.2",
         "tailwind-merge": "^3.3.0",
       },
@@ -1197,6 +1198,8 @@
     "supports-color": ["supports-color@7.2.0", "", { "dependencies": { "has-flag": "^4.0.0" } }, "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="],
 
     "supports-preserve-symlinks-flag": ["supports-preserve-symlinks-flag@1.0.0", "", {}, "sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w=="],
+
+    "svg-dotted-map": ["svg-dotted-map@2.0.1", "", {}, "sha512-eeI2XzIKm23gmSVr7ASTMNVJvxAvBfyL30tN33Y/DcZCJXvC/Br/cxQp9Ts6jDK/e7fkE5TpZStEfduPqPXrIw=="],
 
     "swiper": ["swiper@12.0.2", "", {}, "sha512-y8F6fDGXmTVVgwqJj6I00l4FdGuhpFJn0U/9Ucn1MwWOw3NdLV8aH88pZOjyhBgU/6PyBlUx+JuAQ5KMWz906Q=="],
 

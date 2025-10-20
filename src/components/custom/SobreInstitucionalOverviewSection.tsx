@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Folder from '@/components/Folder';
 
 const structureHighlights = [
   {
@@ -21,7 +22,7 @@ const structureHighlights = [
   {
     title: 'Tecnologia aplicada ao transporte',
     description:
-      'Telemetria, IoT embarcada e analytics proprietários garantem visibilidade 24h/7d e decisões baseadas em dados.',
+      'Telemetria, IoT (Internet das Coisas) embarcada — com sensores conectados nos veículos — e analytics proprietários garantem visibilidade 24h/7d e decisões baseadas em dados.',
     image: '/images/GabardoBastidores.JPG',
     imageAlt: 'Profissionais acompanhando dados em painéis digitais',
   },
@@ -77,6 +78,26 @@ const SobreInstitucionalOverviewSection = () => {
               <p className="mt-3 text-base text-gray-600 leading-relaxed">
                 Cada área corporativa contribui para uma jornada simples para o cliente: planejamento e engenharia definem a rota ideal, a torre de controle acompanha indicadores em tempo real e as equipes de suporte garantem respostas rápidas aos eventos.
               </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+              className="rounded-[28px] border border-gabardo-blue/10 bg-white/80 p-6 shadow-lg backdrop-blur-sm"
+            >
+              <h3 className="text-sm uppercase tracking-[0.32em] text-gabardo-blue">Acervo institucional</h3>
+              <p className="mt-3 text-base text-gray-600 leading-relaxed">
+                Explore a pasta interativa para visualizar materiais internos e entender como consolidamos nossas rotinas corporativas.
+              </p>
+              <div className="relative mt-6 h-64 w-full">
+                <Folder
+                  size={2}
+                  color="#17315C"
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                />
+              </div>
             </motion.div>
 
             <motion.div
