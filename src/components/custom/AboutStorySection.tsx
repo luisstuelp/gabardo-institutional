@@ -198,7 +198,7 @@ const AboutStorySection: React.FC = () => {
               pauseOnHover={false}
               isTilted
               tiltDirection="left"
-              allowManualScroll={false}
+
             />
           </div>
         </div>
