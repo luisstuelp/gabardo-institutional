@@ -22,6 +22,11 @@ const highlights = [
     logo: '/images/certifications/iso-39001-seguranca-viaria.png',
   },
   {
+    value: 'OEA',
+    label: 'Operador Econômico Autorizado',
+    logo: '/images/certifications/Design sem nome (59).png',
+  },
+  {
     value: 'CO₂ Negativo',
     label: 'Certificação Carbono Negativo',
     logo: '/images/certifications/carbon-negative-certified.png',
@@ -77,11 +82,9 @@ const SobreQualidadeHeroSection: React.FC = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-8 sm:mt-10 md:mt-12 grid w-full max-w-5xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+          className="mt-8 sm:mt-10 md:mt-12 grid w-full max-w-6xl grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5"
         >
           {highlights.map((item, index) => {
-            const isCarbonNegative = item.value === 'CO₂ Negativo';
-
             return (
               <motion.div
                 key={item.value}
@@ -89,55 +92,51 @@ const SobreQualidadeHeroSection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 * index }}
-                className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/15 bg-white/8 px-4 sm:px-5 md:px-6 py-5 sm:py-6 md:py-7 text-left backdrop-blur-lg shadow-[0_18px_40px_-18px_RGBA(8,22,42,0.55)]"
+                className="group relative flex h-full min-h-[180px] flex-col justify-between overflow-hidden rounded-2xl sm:rounded-3xl border border-white/15 bg-white/8 px-6 sm:px-7 md:px-8 py-4 sm:py-5 text-left backdrop-blur-lg shadow-[0_18px_40px_-18px_RGBA(8,22,42,0.55)]"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-gabardo-light-blue/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <div className="absolute -top-16 right-0 h-28 w-28 rounded-full bg-gabardo-light-blue/10 blur-3xl" aria-hidden />
                 <div className="absolute -bottom-20 left-2 h-24 w-24 rounded-full bg-white/10 blur-2xl" aria-hidden />
 
-                <div className={`relative flex flex-col ${isCarbonNegative ? 'gap-2 sm:gap-3' : 'gap-3 sm:gap-4'}`}>
-                  <div className={`flex items-center ${isCarbonNegative ? 'gap-2 sm:gap-3' : 'gap-3 sm:gap-4'}`}>
-                    <div
-                      className="relative h-16 w-16 sm:h-18 sm:w-18 md:h-20 md:w-20 flex-shrink-0"
-                      style={isCarbonNegative ? { transform: 'translateY(-12px)' } : undefined}
-                    >
+                <div className="relative flex flex-col gap-3">
+                  <div className="flex items-start gap-3">
+                    <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 md:h-18 md:w-18 flex-shrink-0 items-center justify-center">
                       <Image
                         src={item.logo}
                         alt={`Selo ${item.value}`}
                         fill
-                        sizes="80px"
+                        sizes="72px"
                         className="object-contain"
                       />
                     </div>
-                    <div>
-                      <div className="text-[0.65rem] sm:text-xs md:text-sm font-semibold uppercase tracking-[0.24em] sm:tracking-[0.28em] text-gabardo-light-blue leading-[1.15]">
+                    <div className="flex flex-col gap-0.5 pt-0.5">
+                      <div className="text-[0.6rem] sm:text-[0.65rem] md:text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-light-blue leading-tight">
                         {item.value}
                       </div>
-                      <p className={`${isCarbonNegative ? 'mt-0.5' : 'mt-1 sm:mt-1.5'} text-xs sm:text-sm md:text-base font-medium text-white leading-snug`}>
+                      <p className="text-xs sm:text-sm md:text-base font-semibold text-white leading-tight">
                         {item.label}
                       </p>
                     </div>
                   </div>
 
-                  <div
-                    className="relative mt-1 h-[3px] w-16 overflow-hidden rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue"
-                    style={isCarbonNegative ? { marginTop: '-10px' } : undefined}
-                  >
-                    {prefersReducedMotion ? (
-                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-80" />
-                    ) : (
-                      <motion.span
-                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/85 to-transparent"
-                        initial={{ x: '-160%' }}
-                        animate={{ x: '160%' }}
-                        transition={{ duration: 1.8, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
-                      />
-                    )}
-                  </div>
+                  <div className="flex flex-col gap-2.5">
+                    <div className="relative h-[2.5px] w-16 overflow-hidden rounded-full bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue">
+                      {prefersReducedMotion ? (
+                        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/70 to-transparent opacity-80" />
+                      ) : (
+                        <motion.span
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/85 to-transparent"
+                          initial={{ x: '-160%' }}
+                          animate={{ x: '160%' }}
+                          transition={{ duration: 1.8, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
+                        />
+                      )}
+                    </div>
 
-                  <p className="relative text-[0.7rem] sm:text-xs text-white/65 leading-relaxed">
-                    Auditorias recorrentes, relatórios de conformidade e cultura ESG ativa consolidam nossa governança.
-                  </p>
+                    <p className="text-[0.68rem] sm:text-[0.7rem] md:text-xs text-white/70 leading-relaxed">
+                      Auditorias recorrentes, relatórios de conformidade e cultura ESG ativa consolidam nossa governança.
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             );

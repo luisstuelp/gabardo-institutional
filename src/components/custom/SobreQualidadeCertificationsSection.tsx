@@ -128,6 +128,12 @@ const galleryCards = [
     description: 'Segurança viária com telemetria embarcada e protocolos de investigação de ocorrências.',
   },
   {
+    src: '/images/certifications/Design sem nome (59).png',
+    alt: 'Certificado Operador Econômico Autorizado (OEA)',
+    label: 'OEA - Receita Federal',
+    description: 'Compliance aduaneiro reconhecido com selo Operador Econômico Autorizado.',
+  },
+  {
     src: '/images/certifications/gcs-abnt-pr2030-esg.png',
     alt: 'Certificado GCS ABNT PR2030 ESG',
     label: 'PR2030 ESG',

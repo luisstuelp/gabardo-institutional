@@ -27,6 +27,10 @@ const reliabilityItems: ReliabilityItem[] = [
     alt: 'Selo Global Certification System ABNT PR 2030 ESG',
   },
   {
+    src: '/images/certifications/Design sem nome (59).png',
+    alt: 'Selo Operador Econômico Autorizado (OEA)',
+  },
+  {
     src: '/images/certifications/ghg-protocol-membro-ciclo-2024.png',
     alt: 'Selo Membro Ciclo 2024 do GHG Protocol',
   },

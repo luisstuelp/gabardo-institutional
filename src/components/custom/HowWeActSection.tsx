@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { Zap, BarChart2, Briefcase, GitBranch, Users } from 'lucide-react';
+import ScrollStack, { ScrollStackItem } from '@/components/Scrollstack';
 
 const items = [
   {
@@ -39,29 +40,43 @@ export default function HowWeActSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-3xl md:text-4xl font-bold uppercase tracking-tight leading-tight text-gabardo-blue mb-12 text-center"
+          className="text-3xl md:text-4xl font-bold uppercase tracking-tight leading-tight text-gabardo-blue mb-1 text-center"
         >
           Como atuamos em relação à gestão de nossas emissões?
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {items.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="p-8 border border-gray-200 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300 bg-white"
+        <div className="relative mt-0">
+          <div className="mx-auto h-[75vh] max-w-4xl">
+            <ScrollStack
+              className="h-full"
+              itemDistance={90}
+              itemStackDistance={42}
+              baseScale={0.9}
+              itemScale={0.04}
+              stackPosition="22%"
+              scaleEndPosition="12%"
             >
-              <div className="flex items-center mb-4">
-                <div className="p-3 rounded-full bg-gabardo-light-blue text-white mr-4">
-                  {item.icon}
-                </div>
-                <h3 className="text-xl font-bold text-gabardo-blue">{item.title}</h3>
-              </div>
-              <p className="text-gray-600 font-light leading-relaxed">{item.description}</p>
-            </motion.div>
-          ))}
+              {items.map((item) => (
+                <ScrollStackItem
+                  key={item.title}
+                  itemClassName="bg-white/95 border border-gabardo-blue/10 shadow-[0_28px_80px_-48px_rgba(19,45,81,0.35)] px-8 py-10 rounded-3xl"
+                >
+                  <div className="flex flex-col gap-5">
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gabardo-light-blue text-white">
+                        {item.icon}
+                      </div>
+                      <h3 className="text-lg font-semibold uppercase tracking-[0.2em] text-gabardo-blue">
+                        {item.title}
+                      </h3>
+                    </div>
+                    <p className="text-sm leading-relaxed text-gray-600">
+                      {item.description}
+                    </p>
+                  </div>
+                </ScrollStackItem>
+              ))}
+            </ScrollStack>
+          </div>
         </div>
       </div>
     </section>

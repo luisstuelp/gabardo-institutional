@@ -38,6 +38,10 @@ const certificateBadges = [
     label: 'Selo ESG PR2030',
     image: '/images/certifications/gcs-abnt-pr2030-esg.png',
   },
+  {
+    label: 'Operador Econômico Autorizado (OEA)',
+    image: '/images/certifications/Design sem nome (59).png',
+  },
 ];
 
 const metrics = [
