@@ -237,10 +237,10 @@ function Tabs({
                 aria-selected={activeId === section.id}
                 aria-controls={section.id}
                 className={`
-                  flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8 transition-all outline-none flex-shrink-0 sm:flex-1 min-w-[118px] max-w-[140px] sm:max-w-[200px] h-full rounded-[18px] sm:rounded-none snap-center first:ml-3 md:first:ml-0 last:mr-3 md:last:mr-0
+                  flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8 transition-all outline-none flex-shrink-0 sm:flex-1 min-w-[118px] max-w-[140px] sm:max-w-[200px] h-full rounded-none border border-transparent sm:border-0 snap-center first:ml-3 md:first:ml-0 last:mr-3 md:last:mr-0
                   ${activeId === section.id 
-                    ? 'bg-gabardo-blue text-white shadow-lg shadow-gabardo-blue/25' 
-                    : 'text-slate-500 hover:text-gabardo-blue hover:bg-slate-50/90'
+                    ? 'bg-gabardo-blue text-white shadow-lg shadow-gabardo-blue/25 border-gabardo-blue sm:border-0' 
+                    : 'text-slate-500 hover:text-gabardo-blue hover:bg-slate-50/90 border-slate-200 sm:border-0'
                   }
                 `}
                 onClick={() => handleTabClick(section.id)}
