@@ -198,7 +198,7 @@ const HomeHoverCardsSection = () => {
                     <div className="space-y-3">
                       <span className="text-xs font-semibold uppercase tracking-[0.3em] text-gabardo-blue/70">Práticas em destaque</span>
                       <ul className="space-y-2 text-sm text-gray-700">
-                        {activeItem.practices.map((practice) => (
+                        {activeItem.practices && activeItem.practices.map((practice) => (
                           <li key={practice} className="flex items-start gap-2">
                             <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gabardo-blue" />
                             <span>{practice}</span>
@@ -207,15 +207,17 @@ const HomeHoverCardsSection = () => {
                       </ul>
                     </div>
 
-                    <div className="space-y-3">
-                      <span className="text-xs font-semibold uppercase tracking-[0.3em] text-gabardo-blue/70">O que escutamos do time</span>
-                      <blockquote className="rounded-3xl bg-white/70 p-5 text-sm leading-relaxed text-gabardo-blue">
-                        <p className="italic">{activeItem.quote.text}</p>
-                        <span className="mt-3 block text-xs uppercase tracking-[0.25em] text-gabardo-blue/55">
-                          {activeItem.quote.author}
-                        </span>
-                      </blockquote>
-                    </div>
+                    {activeItem.quote && (
+                      <div className="space-y-3">
+                        <span className="text-xs font-semibold uppercase tracking-[0.3em] text-gabardo-blue/70">O que escutamos do time</span>
+                        <blockquote className="rounded-3xl bg-white/70 p-5 text-sm leading-relaxed text-gabardo-blue">
+                          <p className="italic">{activeItem.quote.text}</p>
+                          <span className="mt-3 block text-xs uppercase tracking-[0.25em] text-gabardo-blue/55">
+                            {activeItem.quote.author}
+                          </span>
+                        </blockquote>
+                      </div>
+                    )}
 
                     <div className="flex flex-wrap gap-2">
                       {activeItem.chips.map((chip) => (
