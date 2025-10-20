@@ -24,7 +24,7 @@ const regionMeta: Record<Exclude<Region, 'all'>, { tagline: string; summary: str
   'Sudeste': {
     tagline: 'Coração da cadeia automotiva',
     summary: 'Proximidade com montadoras, polos industriais e portos garante lead times agressivos e SLAs rigorosos.',
-    funFact: 'Equipe dedicada com squads para montadoras de SP, RJ e ES.'
+    funFact: 'Equipes dedicadas para montadoras de SP, RJ e ES.'
   },
   'Centro-Oeste': {
     tagline: 'Conexão logística para o interior do país',

@@ -1,40 +1,35 @@
 import type { Metadata } from 'next';
-import { Header } from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import SobreHistoriaHeroSection from '@/components/custom/SobreHistoriaHeroSection';
-import SobreHistoriaTimelineSection from '@/components/custom/SobreHistoriaTimelineSection';
+import HistoriaClient from './historia-client';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gabardo.com.br'),
-  title: 'Linha do Tempo | Gabardo',
-  description:
-    'Conheça a trajetória da Gabardo desde 1989, com marcos de inovação, expansão e excelência logística em todo o Brasil.',
+  title: 'Nossa História | Gabardo',
+  description: 'Conheça a história da Gabardo desde 1989: valores sólidos, desenvolvimento e compromisso com excelência. Uma jornada de integridade, inovação e respeito.',
   keywords: [
-    'Gabardo',
     'História Gabardo',
-    'Linha do tempo logística',
-    'Transporte automotivo',
+    'Linha do tempo Gabardo',
+    'Valores empresariais',
+    'Missão e Visão',
+    'Desenvolvimento profissional',
     'ISO 9001 Gabardo',
     'Sustentabilidade logística',
-    'Operador logístico Brasil',
-    'Histórico empresarial',
-    'Transporte multimodal',
-    'Distribuição automotiva',
+    'Integridade e ética',
+    'Inovação logística',
+    'Carreira em logística',
   ],
   authors: [{ name: 'Gabardo' }],
   creator: 'Gabardo',
   publisher: 'Gabardo',
   openGraph: {
-    title: 'Linha do Tempo | Gabardo',
-    description:
-      'Evolução da Gabardo ao longo das décadas, com marcos em certificações, sustentabilidade e expansão nacional.',
+    title: 'Nossa História | Gabardo',
+    description: 'Descubra como construímos uma empresa onde pessoas transformam desafios em conquistas com integridade, inovação e respeito desde 1989.',
     url: 'https://gabardo.com.br/sobre/historia',
     images: [
       {
         url: 'https://gabardo.com.br/og/gabardo-historia.jpg',
         width: 1200,
         height: 630,
-        alt: 'Gabardo - Linha do Tempo',
+        alt: 'História Gabardo - Nossa Jornada',
       },
     ],
     siteName: 'Gabardo',
@@ -43,10 +38,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Linha do Tempo Gabardo',
+    title: 'Nossa História | Gabardo',
+    description: 'Uma jornada de 36 anos construindo excelência em logística com valores sólidos e pessoas extraordinárias.',
     images: ['https://gabardo.com.br/og/gabardo-historia.jpg'],
-    description:
-      'História da Gabardo com marcos de crescimento, certificações ISO e compromisso ambiental.',
     creator: '@gabardo',
   },
   robots: {
@@ -62,13 +56,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SobreHistoriaPage() {
-  return (
-    <main className="relative bg-gray-50">
-      <Header variant="dark" />
-      <SobreHistoriaHeroSection />
-      <SobreHistoriaTimelineSection />
-      <Footer />
-    </main>
-  );
+export default function HistoriaPage() {
+  return <HistoriaClient />;
 }

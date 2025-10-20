@@ -169,7 +169,7 @@ const ServicesAdvantagesSection: React.FC = () => {
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="rounded-2xl border border-white/15 bg-white/10 p-5 text-sm leading-relaxed text-white/75">
-                  Programas contínuos de inovação, acompanhamento de KPIs e squads multidisciplinares garantem que cada diferencial se traduza em performance real.
+                  Programas contínuos de inovação, acompanhamento de KPIs e equipes multidisciplinares garantem que cada diferencial se traduza em performance real.
                 </div>
                 <div className="rounded-2xl border border-white/15 bg-white/10 p-5 text-sm leading-relaxed text-white/75">
                   Nossos times contam com rituais de aprendizagem, feedbacks estruturados e roadmaps claros para transformar vantagem competitiva em evolução de carreira.

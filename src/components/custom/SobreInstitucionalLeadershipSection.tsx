@@ -53,7 +53,7 @@ const governanceThemes = [
     icon: Workflow,
     title: 'Modelos Operacionais Integrados',
     description:
-      'Torre de controle com squads ágeis, conectando operações, tecnologia e ESG em encontros semanais.',
+      'Torre de controle com equipes ágeis, conectando operações, tecnologia e ESG em encontros semanais.',
     bullets: [
       'Indicadores OKR (Objectives and Key Results) de governança compartilhados entre operações e clientes premium.',
       'Planos de continuidade com simulações trimestrais e gestão de crises.',

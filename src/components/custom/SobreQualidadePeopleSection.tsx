@@ -19,7 +19,7 @@ const developmentTracks = [
   },
   {
     icon: Users2,
-    title: 'Squads Multidisciplinares',
+    title: 'Equipes Multidisciplinares',
     description:
       'Times dedicados por cliente conectam operações, TI, compliance e ESG para decisões rápidas e padronizadas em todo o Brasil.'
   },

@@ -64,17 +64,8 @@ const cultureFocus = [
     id: 'inovacao',
     icon: Sparkles,
     title: 'Inovação aplicada ao campo',
-    hook: 'Squads testam ideias com motoristas, clientes e parceiros para acelerar melhorias.',
-    description:
-      'Laboratórios de inovação priorizam iniciativas de digitalização, sustentabilidade e experiência do cliente. Cada projeto nasce com hipóteses, métricas e rituais de acompanhamento para garantir valor real ao negócio.',
-    practices: [
-      'Programas piloto em rotas selecionadas antes da expansão para toda a rede',
-      'Painéis de inovação compartilhados com indicadores ambientais e operacionais',
-    ],
-    quote: {
-      text: '“Testamos rápido, aprendemos com os dados e escalamos o que gera valor para quem está na ponta.”',
-      author: 'Squad de Inovação e ESG',
-    },
+    hook: 'Equipes testam ideias com motoristas, clientes e parceiros para acelerar melhorias.',
+    author: 'Equipe de Inovação e ESG',
     chips: ['Pilotos ágeis', 'Visão ESG'],
     image: '/images/Trans Gabardo - Framers produtora -5577.JPG',
   },

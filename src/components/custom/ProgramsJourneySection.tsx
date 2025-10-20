@@ -20,7 +20,7 @@ const journeySteps = [
     icon: <Rocket className="w-8 h-8" />,
     title: 'Aceleramos Resultados',
     description:
-      'Projetos pilotos, squads multidisciplinares e desafios reais que geram inovação, eficiência e impacto social para nossos clientes.',
+      'Projetos pilotos, equipes multidisciplinares e desafios reais que geram inovação, eficiência e impacto social para nossos clientes.',
   },
 ];
 

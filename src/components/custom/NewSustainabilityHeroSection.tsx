@@ -2,14 +2,15 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const TABS = ["AMBIENTAL", "SOCIAL", "GOVERNANÇA", "INOVAÇÕES"];
-
 interface NewSustainabilityHeroSectionProps {
   activeTab: string;
   onTabClick: (tab: string) => void;
+  tabs?: string[];
 }
 
-export default function NewSustainabilityHeroSection({ activeTab, onTabClick }: NewSustainabilityHeroSectionProps) {
+const DEFAULT_TABS = ["AMBIENTAL", "SOCIAL", "GOVERNANÇA", "INOVAÇÕES"];
+
+export default function NewSustainabilityHeroSection({ activeTab, onTabClick, tabs = DEFAULT_TABS }: NewSustainabilityHeroSectionProps) {
   return (
     <div className="relative w-full pt-48 pb-24 text-white">
       <div className="absolute inset-0">
@@ -41,7 +42,7 @@ export default function NewSustainabilityHeroSection({ activeTab, onTabClick }: 
         </motion.p>
 
         <div className="flex border-b border-gray-500">
-          {TABS.map((tab) => (
+          {tabs.map((tab) => (
             <button
               type="button"
               key={tab}

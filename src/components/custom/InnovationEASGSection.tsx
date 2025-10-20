@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 const innovationLevers = [
-  'Laboratório de inovação logística com squads multidisciplinares',
+  'Laboratório de inovação logística com equipes multidisciplinares',
   'Parcerias com startups e universidades para novos modais',
   'Investimentos em energia limpa e biocombustíveis para a frota',
   'Projetos piloto de veículos autônomos e elétricos',

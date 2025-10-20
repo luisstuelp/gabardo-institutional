@@ -5,19 +5,6 @@ import { Header } from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import NewSustainabilityHeroSection from '@/components/custom/NewSustainabilityHeroSection';
 
-import ClimateChangeSection from '@/components/custom/ClimateChangeSection';
-import HowWeActSection from '@/components/custom/HowWeActSection';
-import CarbonCompensationSection from '@/components/custom/CarbonCompensationSection';
-import SustainabilityReportSection from '@/components/custom/SustainabilityReportSection';
-import ESGSection from '@/components/custom/EASGSection';
-import HomeSustainabilitySpotlight from '@/components/custom/HomeSustainabilitySpotlight';
-import MaxAgeSection from '@/components/custom/MaxAgeSection';
-import InnovativeSolutionsSection from '@/components/custom/InnovativeSolutionsSection';
-import InitiativesSection from '@/components/custom/InitiativesSection';
-
-import SocialClimateSection from '@/components/custom/SocialClimateSection';
-import SocialCommitmentSection from '@/components/custom/SocialCommitmentSection';
-import SocialInnovationSection from '@/components/custom/SocialInnovationSection';
 
 import SobreInstitucionalLeadershipSection from '@/components/custom/SobreInstitucionalLeadershipSection';
 import GovernanceClimateSection from '@/components/custom/GovernanceClimateSection';
@@ -30,14 +17,12 @@ import InnovationCommitmentSection from '@/components/custom/InnovationCommitmen
 import InovacoesSection from '@/components/custom/InovacoesSection';
 
 const TAB_TO_SECTION: Record<string, string> = {
-  AMBIENTAL: 'ambiental',
-  SOCIAL: 'social',
   'GOVERNANÇA': 'governanca',
   'INOVAÇÕES': 'inovacoes',
 };
 
 export default function SustentabilidadePage() {
-  const [activeTab, setActiveTab] = useState('AMBIENTAL');
+  const [activeTab, setActiveTab] = useState('GOVERNANÇA');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -83,25 +68,11 @@ export default function SustentabilidadePage() {
   return (
     <main className="relative bg-gray-50">
       <Header variant="dark" />
-      <NewSustainabilityHeroSection activeTab={activeTab} onTabClick={handleTabClick} />
-
-      <section id="ambiental" className="scroll-mt-32">
-        <ClimateChangeSection />
-        <HowWeActSection />
-        <CarbonCompensationSection />
-        <SustainabilityReportSection />
-        <ESGSection />
-        <HomeSustainabilitySpotlight />
-        <MaxAgeSection />
-        <InnovativeSolutionsSection />
-        <InitiativesSection />
-      </section>
-
-      <section id="social" className="scroll-mt-32">
-        <SocialClimateSection />
-        <SocialCommitmentSection />
-        <SocialInnovationSection />
-      </section>
+      <NewSustainabilityHeroSection
+        activeTab={activeTab}
+        onTabClick={handleTabClick}
+        tabs={Object.keys(TAB_TO_SECTION)}
+      />
 
       <section id="governanca" className="scroll-mt-32">
         <SobreInstitucionalLeadershipSection />

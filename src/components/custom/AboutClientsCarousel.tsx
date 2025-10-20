@@ -529,7 +529,6 @@ const AboutClientsCarousel = () => {
           <p className="text-lg text-gray-600 mt-4">
             Confiança e parceria que nos movem.
           </p>
-          <p className="text-sm uppercase tracking-[0.35em] text-gabardo-blue mt-6">Trusted by</p>
         </motion.div>
       </div>
 

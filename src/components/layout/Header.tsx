@@ -8,7 +8,12 @@ import { motion } from 'framer-motion';
 
 import FullScreenNav from '@/components/custom/FullScreenNav';
 
-const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) => {
+type HeaderProps = {
+  variant?: 'light' | 'dark';
+  isHidden?: boolean;
+};
+
+const HeaderRevised = ({ variant = 'light', isHidden = false }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,13 +45,17 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
     ? 'brightness(0) saturate(100%) invert(95%) sepia(7%) saturate(138%) hue-rotate(183deg) brightness(112%) contrast(100%)'
     : 'brightness(0) saturate(100%) invert(17%) sepia(27%) saturate(2060%) hue-rotate(185deg) brightness(90%) contrast(88%)';
 
-  const headerClasses = `fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
+  const visibilityClasses = isHidden
+    ? '-translate-y-full pointer-events-none'
+    : 'translate-y-0 pointer-events-auto';
+
+  const headerClasses = `fixed inset-x-0 top-0 z-40 transition-transform transition-all duration-500 ${
     isDarkSurface
       ? 'bg-transparent'
       : isScrolled
         ? 'bg-white/90 backdrop-blur-xl shadow-[0_12px_35px_-20px_RGBA(19,45,81,0.45)]'
         : 'bg-white/70 backdrop-blur-xl'
-  }`;
+  } ${visibilityClasses}`;
 
   const menuItems = [
     { id: 'home', label: 'HOME', href: '/', imageSrc: '/images/hero-home.jpg' },
@@ -75,6 +84,7 @@ const HeaderRevised = ({ variant = 'light' }: { variant?: 'light' | 'dark' }) =>
       href: '/sustentabilidade',
       imageSrc: '/images/gabardo-hero-01.JPG',
     },
+
     { id: 'orcamento', label: 'ORÇAMENTO', href: '/orcamento', imageSrc: '/images/gabardo-hero-03.JPG' },
     { id: 'contato', label: 'CONTATO', href: '/contato', imageSrc: '/images/gabardo-hero-03.JPG' },
     { id: 'blog', label: 'BLOG', href: '/blog', imageSrc: '/images/hero-blog.jpg' },
