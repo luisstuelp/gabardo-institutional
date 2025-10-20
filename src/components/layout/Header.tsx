@@ -11,9 +11,10 @@ import FullScreenNav from '@/components/custom/FullScreenNav';
 type HeaderProps = {
   variant?: 'light' | 'dark';
   isHidden?: boolean;
+  isFloating?: boolean;
 };
 
-const HeaderRevised = ({ variant = 'light', isHidden = false }: HeaderProps) => {
+const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,13 +27,15 @@ const HeaderRevised = ({ variant = 'light', isHidden = false }: HeaderProps) => 
   }, []);
 
   useEffect(() => {
+    if (!isFloating) return;
+
     const handleScroll = () => setIsScrolled(window.scrollY > 12);
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isFloating]);
 
-  const isDarkSurface = variant === 'dark' && !isScrolled;
+  const isDarkSurface = variant === 'dark' && (!isFloating || !isScrolled);
 
   const ctaClasses = isDarkSurface
     ? 'bg-white text-gabardo-blue hover:bg-white/90'
@@ -45,17 +48,25 @@ const HeaderRevised = ({ variant = 'light', isHidden = false }: HeaderProps) => 
     ? 'brightness(0) saturate(100%) invert(95%) sepia(7%) saturate(138%) hue-rotate(183deg) brightness(112%) contrast(100%)'
     : 'brightness(0) saturate(100%) invert(17%) sepia(27%) saturate(2060%) hue-rotate(185deg) brightness(90%) contrast(88%)';
 
-  const visibilityClasses = isHidden
+  const floatingVisibility = isHidden
     ? '-translate-y-full pointer-events-none'
     : 'translate-y-0 pointer-events-auto';
 
-  const headerClasses = `fixed inset-x-0 top-0 z-40 transition-transform transition-all duration-500 ${
+  const staticVisibility = !isFloating && isHidden
+    ? 'opacity-0 pointer-events-none'
+    : 'opacity-100 pointer-events-auto';
+
+  const positionClasses = isFloating
+    ? 'fixed inset-x-0 top-0 z-40'
+    : 'absolute inset-x-0 top-0 z-40';
+
+  const headerClasses = `${positionClasses} transition-transform transition-all duration-500 ${
     isDarkSurface
       ? 'bg-transparent'
       : isScrolled
         ? 'bg-white/90 backdrop-blur-xl shadow-[0_12px_35px_-20px_RGBA(19,45,81,0.45)]'
         : 'bg-white/70 backdrop-blur-xl'
-  } ${visibilityClasses}`;
+  } ${isFloating ? floatingVisibility : staticVisibility}`;
 
   const menuItems = [
     { id: 'home', label: 'HOME', href: '/', imageSrc: '/images/hero-home.jpg' },

@@ -5,8 +5,6 @@ import { motion } from 'framer-motion';
 import { Send, CheckCircle, Loader, ArrowRight, ArrowLeft } from 'lucide-react';
 import { useFipeVehicleData } from '@/hooks/useFipeApi';
 import { VehicleModelAutocomplete } from '@/components/custom/VehicleModelAutocomplete';
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
 
 const currentYear = new Date().getFullYear();
 
@@ -143,6 +141,34 @@ const formatCurrencyFromDigits = (digits: string) => {
     style: 'currency',
     currency: 'BRL',
   });
+};
+
+const formatPhoneNumber = (value: string) => {
+  const digits = value.replace(/\D/g, '').slice(0, 11);
+  if (!digits) {
+    return '';
+  }
+
+  if (digits.length === 1) {
+    return `(${digits}`;
+  }
+
+  if (digits.length === 2) {
+    return `(${digits}) `;
+  }
+
+  const area = digits.slice(0, 2);
+  const rest = digits.slice(2);
+
+  if (rest.length <= 4) {
+    return `(${area}) ${rest}`;
+  }
+
+  if (digits.length <= 10) {
+    return `(${area}) ${rest.slice(0, rest.length - 4)}-${rest.slice(-4)}`;
+  }
+
+  return `(${area}) ${rest.slice(0, 5)}-${rest.slice(5, 9)}`;
 };
 
 const VehicleQuoteForm: React.FC = () => {
@@ -453,8 +479,10 @@ const VehicleQuoteForm: React.FC = () => {
     }
   };
 
-  const handlePhoneChange = (value?: string) => {
-    setFormData((prev) => ({ ...prev, phone: value ?? '' }));
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    const formatted = formatPhoneNumber(value);
+    setFormData((prev) => ({ ...prev, phone: formatted }));
   };
 
   const handleModelChange = (code: string, name: string) => {
@@ -675,9 +703,11 @@ const VehicleQuoteForm: React.FC = () => {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Telefone *</label>
-                        <PhoneInput
-                          international
-                          defaultCountry="BR"
+                        <input
+                          type="tel"
+                          name="phone"
+                          inputMode="tel"
+                          maxLength={16}
                           value={formData.phone}
                           onChange={handlePhoneChange}
                           className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"

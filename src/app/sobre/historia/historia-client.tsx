@@ -157,40 +157,18 @@ function StoryCard({ section, reverse }: { section: typeof STORY_SECTIONS[number
 }
 
 // Tabs Component with scrollspy
-function Tabs({ 
-  sections, 
-  activeId, 
+function Tabs({
+  sections,
+  activeId,
   setActiveId,
-  timelineRef
-}: { 
-  sections: typeof STORY_SECTIONS; 
-  activeId: string; 
+}: {
+  sections: typeof STORY_SECTIONS;
+  activeId: string;
   setActiveId: (id: string) => void;
-  timelineRef?: React.RefObject<HTMLDivElement | null>;
 }) {
   const indicatorRef = useRef<HTMLDivElement | null>(null);
   const tabsRef = useRef<HTMLDivElement | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  // Scroll detection for sticky positioning
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!timelineRef?.current) return;
-      
-      const timelineRect = timelineRef.current.getBoundingClientRect();
-      // Trigger when timeline reaches the position where header ends (80px from top)
-      setIsScrolled(timelineRect.top <= 80);
-    };
-    
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
-  }, [timelineRef]);
 
   useEffect(() => {
     const tabsContainer = tabsRef.current;
@@ -234,18 +212,23 @@ function Tabs({
 
   return (
     <div 
-      ref={timelineRef}
-      className={`sticky top-20 z-10 -mx-4 sm:-mx-6 lg:-mx-8 bg-white border-b border-gabardo-blue/10 transition-all duration-300 h-[70px] ${
-        isScrolled ? 'shadow-md' : ''
-      }`}
+      className="sticky top-0 z-30 -mx-4 sm:-mx-6 lg:-mx-8 bg-white/95 backdrop-blur supports-[backdrop-filter]:backdrop-blur-md border-b border-gabardo-blue/10 transition-all duration-300 h-[86px] sm:h-[74px]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-        <div className="relative overflow-x-auto h-full scrollbar-hide">
+        <div className="relative h-full overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-white to-transparent md:hidden"
+          />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-white to-transparent md:hidden"
+          />
           <div
             ref={tabsRef}
             role="tablist"
             aria-label="Navegação da jornada"
-            className="relative flex items-center gap-2 sm:gap-0 sm:justify-between min-w-max sm:w-full h-full"
+            className="relative flex items-stretch gap-2 sm:gap-0 sm:justify-between min-w-max sm:w-full h-full"
           >
             {sections.map((section) => (
               <button
@@ -254,15 +237,15 @@ function Tabs({
                 aria-selected={activeId === section.id}
                 aria-controls={section.id}
                 className={`
-                  flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 transition-all outline-none flex-shrink-0 sm:flex-1 max-w-[140px] sm:max-w-[200px] h-full rounded-none
+                  flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8 transition-all outline-none flex-shrink-0 sm:flex-1 min-w-[118px] max-w-[140px] sm:max-w-[200px] h-full rounded-[18px] sm:rounded-none snap-center first:ml-3 md:first:ml-0 last:mr-3 md:last:mr-0
                   ${activeId === section.id 
-                    ? 'bg-gabardo-blue text-white shadow-lg' 
-                    : 'text-slate-500 hover:text-gabardo-blue hover:bg-slate-50'
+                    ? 'bg-gabardo-blue text-white shadow-lg shadow-gabardo-blue/25' 
+                    : 'text-slate-500 hover:text-gabardo-blue hover:bg-slate-50/90'
                   }
                 `}
                 onClick={() => handleTabClick(section.id)}
               >
-                <span className={`text-xs sm:text-sm md:text-base font-medium ${
+                <span className={`text-[0.65rem] sm:text-sm md:text-base font-medium tracking-wide ${
                   activeId === section.id ? 'text-white' : 'text-slate-600'
                 }`}>
                   {section.tabTop}
@@ -288,30 +271,7 @@ function Tabs({
 
 export default function CulturaClient() {
   const [activeId, setActiveId] = useState(STORY_SECTIONS[0].id);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const prefersReducedMotion = usePrefersReducedMotion();
   const heroBackground = HERO_BACKGROUND;
-  const timelineRef = useRef<HTMLDivElement | null>(null);
-
-  // Hide header when timeline reaches top position
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!timelineRef.current) return;
-      
-      const timelineRect = timelineRef.current.getBoundingClientRect();
-      // Trigger when timeline reaches the position where header ends (80px from top)
-      // This is when timeline would naturally want to be at top-0 instead of top-20
-      setIsScrolled(timelineRect.top <= 80);
-    };
-    
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
-  }, []);
 
   // Scrollspy implementation
   useEffect(() => {
@@ -342,7 +302,7 @@ export default function CulturaClient() {
 
   return (
     <>
-      <Header variant="dark" isHidden={isScrolled} />
+      <Header variant="dark" isFloating={false} />
 
       <main className="min-h-screen bg-transparent text-slate-900">
         {/* Hero Section */}
@@ -379,7 +339,7 @@ export default function CulturaClient() {
         </section>
 
         {/* Tabs Navigation */}
-        <Tabs sections={STORY_SECTIONS} activeId={activeId} setActiveId={setActiveId} timelineRef={timelineRef} />
+        <Tabs sections={STORY_SECTIONS} activeId={activeId} setActiveId={setActiveId} />
 
         {/* Story Sections */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-32">
