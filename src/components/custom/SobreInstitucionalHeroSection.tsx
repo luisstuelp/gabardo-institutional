@@ -61,7 +61,7 @@ const SobreInstitucionalHeroSection = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase leading-tight tracking-tight mb-5 sm:mb-6"
         >
-          Estrutura que sustenta a Gabardo
+          Nossa estrutura institucional
         </motion.h1>
 
         <motion.p
@@ -70,7 +70,7 @@ const SobreInstitucionalHeroSection = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-8 sm:mb-10 px-2 sm:px-0"
         >
-          Somos uma operação integrada com governança sólida, tecnologia aplicada e equipes multidisciplinares que garantem eficiência do planejamento ao pós-entrega.
+          Contamos com operações integradas, governança sólida, tecnologia aplicada e equipes multidisciplinares. Nossa estrutura garante eficiência em cada etapa da jornada logística.
         </motion.p>
 
         <motion.div
@@ -79,7 +79,7 @@ const SobreInstitucionalHeroSection = () => {
           transition={{ duration: 1, delay: 1.2 }}
           className="hidden md:flex flex-col items-center gap-3"
         >
-          <span className="text-xs tracking-[0.3em] uppercase text-white/70">Role para conhecer nossa cultura</span>
+          <span className="text-xs tracking-[0.3em] uppercase text-white/70">Role para conhecer nossa instituição</span>
           <ChevronDown className="w-8 h-8 animate-bounce" />
         </motion.div>
       </div>

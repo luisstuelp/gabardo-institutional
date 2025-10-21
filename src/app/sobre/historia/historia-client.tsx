@@ -176,10 +176,10 @@ function Tabs({
 
   return (
     <div 
-      className="sticky top-0 z-30 -mx-4 sm:-mx-6 lg:-mx-8 bg-white/95 backdrop-blur supports-[backdrop-filter]:backdrop-blur-md border-b border-gabardo-blue/10 transition-all duration-300 h-[86px] sm:h-[74px]"
+      className="sticky top-0 z-30 left-0 right-0 bg-white/95 backdrop-blur supports-[backdrop-filter]:backdrop-blur-md border-b border-gabardo-blue/10 transition-all duration-300 min-h-[86px] sm:min-h-[74px]"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-        <div className="relative h-full overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full py-2 sm:py-0">
+        <div className="relative h-full overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory">
           <span
             aria-hidden
             className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-white to-transparent md:hidden"
@@ -193,6 +193,7 @@ function Tabs({
             role="tablist"
             aria-label="Navegação da jornada"
             className="relative flex items-stretch gap-3 sm:gap-0 sm:justify-between min-w-max sm:w-full h-full"
+            style={{ paddingBottom: '1px' }}
           >
             {sections.map((section) => (
               <button
@@ -201,9 +202,9 @@ function Tabs({
                 aria-selected={activeId === section.id}
                 aria-controls={section.id}
                 className={`
-                  flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8 transition-all outline-none flex-shrink-0 sm:flex-1 min-w-[118px] max-w-[140px] sm:max-w-[200px] h-full rounded-none border border-transparent sm:border-0 snap-center first:ml-3 md:first:ml-0 last:mr-3 md:last:mr-0
+                  flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8 transition-all outline-none flex-shrink-0 sm:flex-1 min-w-[118px] max-w-[140px] sm:max-w-[200px] py-4 sm:py-5 rounded-none border border-transparent sm:border-0 snap-center first:ml-3 md:first:ml-0 last:mr-3 md:last:mr-0 will-change-transform
                   ${activeId === section.id 
-                    ? 'bg-gabardo-blue text-white shadow-lg shadow-gabardo-blue/25 border-gabardo-blue sm:border-0' 
+                    ? 'bg-gabardo-blue text-white shadow-lg shadow-gabardo-blue/25 border-gabardo-blue sm:border-0 sm:shadow-none' 
                     : 'text-slate-500 hover:text-gabardo-blue hover:bg-slate-50/90 border-slate-200 sm:border-0'
                   }
                 `}
@@ -224,7 +225,8 @@ function Tabs({
             <div
               aria-hidden
               ref={indicatorRef}
-              className="absolute bottom-0 h-1 bg-gabardo-light-blue transition-all duration-500 shadow-md rounded-none"
+              className="absolute bottom-0 h-1 bg-gabardo-light-blue transition-all duration-500 shadow-md rounded-none will-change-transform"
+              style={{ transformOrigin: 'left center' }}
             />
           </div>
         </div>

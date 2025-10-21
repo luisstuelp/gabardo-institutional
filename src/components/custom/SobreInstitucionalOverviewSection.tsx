@@ -1,41 +1,72 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Folder from '@/components/Folder';
+import FolderGalleryModal from '@/components/FolderGalleryModal';
 
 const structureHighlights = [
   {
-    title: 'Controle integrado',
+    title: 'Centro de controle operacional',
     description:
-      'Nosso centro operacional conecta bases, clientes e motoristas em uma rotina contínua de planejamento, acompanhamento e pós-entrega.',
+      'Nosso centro de comando conecta bases, clientes e motoristas em tempo real. Acompanhamos cada entrega com visibilidade total da operação.',
     image: '/images/GabardoMonit.JPG',
     imageAlt: 'Equipe da Gabardo monitorando operações em tempo real',
   },
   {
-    title: 'Gestão de riscos contínua',
+    title: 'Políticas de segurança e compliance',
     description:
-      'Protocolos certificados, auditorias internas e seguros corporativos mantêm a cadeia automotiva protegida em cada etapa.',
+      'Mantemos auditorias internas regulares, seguros corporativos abrangentes e protocolos certificados que protegem toda a cadeia automotiva.',
     image: '/images/Trans Gabardo - Framers produtora -5726.JPG',
     imageAlt: 'Time de gestão de riscos realizando checklist de segurança',
   },
   {
-    title: 'Tecnologia aplicada ao transporte',
+    title: 'Infraestrutura tecnológica avançada',
     description:
-      'Telemetria, IoT (Internet das Coisas) embarcada — com sensores conectados nos veículos — e analytics proprietários garantem visibilidade 24h/7d e decisões baseadas em dados.',
+      'Investimos em telemetria, IoT embarcada e analytics proprietários. Nossos sistemas fornecem dados em tempo real para decisões estratégicas.',
     image: '/images/GabardoBastidores.JPG',
     imageAlt: 'Profissionais acompanhando dados em painéis digitais',
   },
   {
-    title: 'Pessoas especializadas',
+    title: 'Capital humano qualificado',
     description:
-      'Equipes multidisciplinares em logística, TI, jurídico e atendimento sustentam operações estratégicas no Brasil e na LATAM.',
+      'Desenvolvemos nossos talentos internos em logística, TI, jurídico e atendimento. Nossas equipes multidisciplinares são a base de nossas operações no Brasil e LATAM.',
     image: '/images/GabardoEquipe.JPG',
     imageAlt: 'Equipe corporativa da Gabardo reunida em escritório',
   },
 ];
 
+const galleryImages = [
+  {
+    src: '/images/GabardoMonit.JPG',
+    alt: 'Centro de controle operacional Gabardo',
+    title: 'Centro de Controle',
+    description: 'Nossa torre de controle monitora todas as operações em tempo real 24h/7d.',
+  },
+  {
+    src: '/images/GabardoEquipe.JPG',
+    alt: 'Equipe corporativa Gabardo',
+    title: 'Nosso Time',
+    description: 'Profissionais especializados em logística, TI, jurídico e atendimento.',
+  },
+  {
+    src: '/images/GabardoBastidores.JPG',
+    alt: 'Infraestrutura tecnológica',
+    title: 'Tecnologia Aplicada',
+    description: 'Sistemas avançados de telemetria e analytics proprietários.',
+  },
+  {
+    src: '/images/Trans Gabardo - Framers produtora -5726.JPG',
+    alt: 'Gestão de segurança e compliance',
+    title: 'Segurança e Compliance',
+    description: 'Protocolos certificados e auditorias contínuas em toda operação.',
+  },
+];
+
 const SobreInstitucionalOverviewSection = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section
       id="estrutura-institucional"
@@ -50,7 +81,7 @@ const SobreInstitucionalOverviewSection = () => {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="text-3xl md:text-4xl font-bold text-gray-800 mb-4"
           >
-            Estrutura institucional que entrega confiança
+            Pilares da nossa organização
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -59,7 +90,7 @@ const SobreInstitucionalOverviewSection = () => {
             transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
             className="text-lg text-gray-600 max-w-4xl mx-auto"
           >
-            Da sala de controle aos times de campo, reunimos governança, tecnologia e pessoas preparadas para atender montadoras, frotistas e concessionárias com padrão Gabardo.
+            Construimos uma estrutura sólida que integra governança corporativa, infraestrutura tecnológica e desenvolvimento de pessoas. Cada pilar foi desenhado para entregar excelência operacional aos nossos clientes.
           </motion.p>
         </div>
 
@@ -73,11 +104,14 @@ const SobreInstitucionalOverviewSection = () => {
               className="rounded-[28px] border border-gabardo-blue/10 bg-white/80 p-6 shadow-lg backdrop-blur-sm"
             >
               <h3 className="text-sm uppercase tracking-[0.32em] text-gabardo-blue">
-                Como nos organizamos
+                Governança corporativa
               </h3>
               <p className="mt-3 text-base text-gray-600 leading-relaxed">
-                Cada área corporativa contribui para uma jornada simples para o cliente: planejamento e engenharia definem a rota ideal, a torre de controle acompanha indicadores em tempo real e as equipes de suporte garantem respostas rápidas aos eventos.
+                Organizamos nossa estrutura em áreas especializadas que colaboram de forma integrada. Planejamento estratégico, engenharia de rotas, torre de controle e equipes de suporte trabalham em sinergia para entregar resultados consistentes.
               </p>
+              <div className="mt-4 h-48 bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-300">
+                <span className="text-sm text-gray-500 font-medium">Espaço reservado para imagem institucional</span>
+              </div>
             </motion.div>
 
             <motion.div
@@ -87,15 +121,16 @@ const SobreInstitucionalOverviewSection = () => {
               transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
               className="rounded-[28px] border border-gabardo-blue/10 bg-white/80 p-6 shadow-lg backdrop-blur-sm"
             >
-              <h3 className="text-sm uppercase tracking-[0.32em] text-gabardo-blue">Acervo institucional</h3>
+              <h3 className="text-sm uppercase tracking-[0.32em] text-gabardo-blue">Documentação e processos</h3>
               <p className="mt-3 text-base text-gray-600 leading-relaxed">
-                Explore a pasta interativa para visualizar materiais internos e entender como consolidamos nossas rotinas corporativas.
+                Mantemos todos os nossos processos documentados e acessíveis. Clique na pasta abaixo para explorar materiais que demonstram como operamos no dia a dia.
               </p>
               <div className="relative mt-6 h-64 w-full">
                 <Folder
                   size={2}
                   color="#17315C"
                   className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                  onOpen={() => setIsModalOpen(true)}
                 />
               </div>
             </motion.div>
@@ -108,11 +143,14 @@ const SobreInstitucionalOverviewSection = () => {
               className="rounded-[28px] border border-gabardo-blue/10 bg-white/80 p-6 shadow-lg backdrop-blur-sm"
             >
               <h3 className="text-sm uppercase tracking-[0.32em] text-gabardo-blue">
-                DTA habilitado e operações aduaneiras
+                Habilitações e certificações
               </h3>
               <p className="mt-3 text-base text-gray-600 leading-relaxed">
-                A Gabardo possui Declaração de Trânsito Aduaneiro (DTA) habilitada, documento que autoriza o transporte sob regime aduaneiro com controles fiscais reforçados. Isso viabiliza transferências entre portos, pátios e montadoras com segurança jurídica.
+                Possuimos Declaração de Trânsito Aduaneiro (DTA) e demais certificações necessárias para operações internacionais. Nossos processos aduaneiros seguem rigorosos controles fiscais, permitindo transferências seguras entre portos, pátios e montadoras.
               </p>
+              <div className="mt-4 h-48 bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-300">
+                <span className="text-sm text-gray-500 font-medium">Espaço reservado para certificações</span>
+              </div>
             </motion.div>
           </div>
 
@@ -144,6 +182,12 @@ const SobreInstitucionalOverviewSection = () => {
           </div>
         </div>
       </div>
+
+      <FolderGalleryModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        images={galleryImages}
+      />
     </section>
   );
 };

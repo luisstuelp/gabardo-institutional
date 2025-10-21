@@ -6,6 +6,7 @@ interface FolderProps {
   size?: number;
   items?: React.ReactNode[];
   className?: string;
+  onOpen?: () => void;
 }
 
 const darkenColor = (hex: string, percent: number): string => {
@@ -26,7 +27,7 @@ const darkenColor = (hex: string, percent: number): string => {
   return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
 };
 
-const Folder: React.FC<FolderProps> = ({ color = '#5227FF', size = 1, items = [], className = '' }) => {
+const Folder: React.FC<FolderProps> = ({ color = '#5227FF', size = 1, items = [], className = '', onOpen }) => {
   const maxItems = 3;
   const papers = items.slice(0, maxItems);
   while (papers.length < maxItems) {
@@ -44,9 +45,13 @@ const Folder: React.FC<FolderProps> = ({ color = '#5227FF', size = 1, items = []
   const paper3 = '#ffffff';
 
   const handleClick = () => {
-    setOpen(prev => !prev);
-    if (open) {
-      setPaperOffsets(Array.from({ length: maxItems }, () => ({ x: 0, y: 0 })));
+    if (onOpen) {
+      onOpen();
+    } else {
+      setOpen(prev => !prev);
+      if (open) {
+        setPaperOffsets(Array.from({ length: maxItems }, () => ({ x: 0, y: 0 })));
+      }
     }
   };
 

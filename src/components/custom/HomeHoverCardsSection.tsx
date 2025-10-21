@@ -60,15 +60,6 @@ const cultureFocus = [
     chips: ['Protocolos certificados', 'Telemetria 24h/7d'],
     image: '/images/GabardoMonit.JPG',
   },
-  {
-    id: 'inovacao',
-    icon: Sparkles,
-    title: 'Inovação aplicada ao campo',
-    hook: 'Equipes testam ideias com motoristas, clientes e parceiros para acelerar melhorias.',
-    author: 'Equipe de Inovação e ESG',
-    chips: ['Pilotos ágeis', 'Visão ESG'],
-    image: '/images/Trans Gabardo - Framers produtora -5577.JPG',
-  },
 ];
 
 const HomeHoverCardsSection = () => {
@@ -182,9 +173,6 @@ const HomeHoverCardsSection = () => {
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-br from-[#0a1421]/70 via-[#0a1421]/35 to-transparent" />
-                  <div className="absolute left-6 top-6 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-[11px] uppercase tracking-[0.3em] text-white/85">
-                    Nossa cultura
-                  </div>
                 </div>
 
                 <div className="flex flex-col gap-6 p-8 md:p-10">

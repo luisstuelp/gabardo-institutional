@@ -5,28 +5,28 @@ import { DottedMap } from '@/components/ui/dotted-map';
 
 const operations = [
   {
-    title: 'Unidades brasileiras conectando a região',
+    title: 'Nossas bases no Brasil',
     description:
-      'Centros operacionais no Sudeste e Sul coordenam fluxos de veículos e autopeças para montadoras e frotistas latino-americanos.',
-    kpi: 'Planejamento integrado com times locais e parceiros homologados',
+      'Operamos centros logísticos estratégicos no Sudeste e Sul do Brasil. Daqui, coordenamos fluxos de veículos e autopeças para toda a América Latina.',
+    kpi: 'Coordenação centralizada com parceiros homologados',
   },
   {
-    title: 'Operações transfronteiriças Mercosul',
+    title: 'Expertise em comércio exterior',
     description:
-      'Equipes bilíngues gerenciam documentação alfandegária e DTA em corredores Brasil-Paraguai-Argentina, garantindo compliance.',
-    kpi: 'Processos aduaneiros monitorados em tempo real',
+      'Nossas equipes bilíngues dominam processos aduaneiros complexos. Gerenciamos DTA e documentação alfandegária nos principais corredores do Mercosul.',
+    kpi: 'Compliance aduaneiro 100% rastreado',
   },
   {
-    title: 'Rede Pacífico & Andina',
+    title: 'Expansão na região andina',
     description:
-      'Parcerias especializadas conectam Chile e Peru às rotas brasileiras com protocolos Gabardo de segurança e sustentabilidade.',
-    kpi: 'Parcerias auditadas e KPIs compartilhados com clientes regionais',
+      'Desenvolvemos parcerias estratégicas no Chile e Peru. Aplicamos nossos protocolos de segurança e sustentabilidade em todas as operações regionais.',
+    kpi: 'Rede auditada com indicadores unificados',
   },
   {
-    title: 'Suporte regional integrado',
+    title: 'Suporte multicultural 24h/7d',
     description:
-      'Service desk 24h/7d coordena manutenção, TI e atendimento jurídico em português e espanhol para toda a base LATAM.',
-    kpi: 'Chamados tratados com contexto único em toda a região',
+      'Nosso service desk opera ininterruptamente em português e espanhol. Atendemos demandas de manutenção, TI e compliance em toda a LATAM.',
+    kpi: 'Atendimento regionalizado com gestão integrada',
   },
 ];
 
@@ -60,14 +60,14 @@ const SobreInstitucionalOperationsSection = () => {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="space-y-6"
           >
-            <span className="text-xs uppercase tracking-[0.38em] text-gabardo-blue">Cobertura LATAM</span>
+            <span className="text-xs uppercase tracking-[0.38em] text-gabardo-blue">Nossa cobertura regional</span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Presença Gabardo na América Latina
+              Atuamos em toda América Latina
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Integramos operações no Brasil e nos principais corredores latino-americanos com governança unificada, parceiros homologados e suporte bilíngue para montadoras e frotistas.
+              Expandimos nossa presença para os principais mercados latino-americanos. Mantemos governança unificada, parcerias estratégicas e equipes multiculturais preparadas para atender montadoras e grandes frotistas.
             </p>
-            <div className="relative h-[550px] w-full overflow-hidden rounded-3xl border border-white/60 bg-white/80">
+            <div className="relative h-[550px] w-full overflow-hidden rounded-3xl">
               <DottedMap
                 className="h-full w-full text-gabardo-blue/60"
                 markerColor="#4BABFF"

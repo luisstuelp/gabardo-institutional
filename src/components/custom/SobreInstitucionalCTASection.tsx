@@ -13,9 +13,9 @@ const SobreInstitucionalCTASection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Fale com nossa equipe institucional</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Conheça mais sobre nossa instituição</h2>
           <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8">
-            Estamos prontos para apresentar nossa estrutura, governança e soluções customizadas para o seu negócio.
+            Queremos compartilhar mais detalhes sobre nossa estrutura, governança e capacidade operacional. Entre em contato conosco.
           </p>
           <motion.div whileTap={{ scale: 0.95 }}>
             <Link
