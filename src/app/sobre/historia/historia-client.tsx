@@ -13,49 +13,49 @@ const STORY_SECTIONS = [
     tab: '1989 - Fundação',
     tabTop: '1989',
     tabBottom: 'Fundação',
-    kicker: 'O início de uma jornada',
-    heading: 'A Gabardo nasce em Porto Alegre',
-    body: 'Fundada em 1989 por Sérgio Mário Gabardo, natural de Nova Bassano/RS. Agricultor e motorista de caminhão, Sérgio iniciou no transporte de veículos em 1982 para a montadora gaúcha Miura. Com visão empreendedora, estabeleceu as bases de uma empresa que se tornaria referência na logística automotiva.',
+    kicker: 'Do sonho de um caminhoneiro',
+    heading: 'Nascemos em Porto Alegre com um compromisso',
+    body: 'Em 1989, Sérgio Mário Gabardo fundou a Transportes Gabardo em Porto Alegre/RS com um único caminhão e uma promessa clara: fazer o transporte de forma correta, segura e confiável. Natural de Nova Bassano/RS, Sérgio iniciou no transporte de veículos em 1982 para a montadora gaúcha Miura. Esse compromisso inicial se tornou o pilar de tudo o que construímos.',
     videoPoster: '/images/vintage-truck-1989.JPG',
   },
   {
     id: 'expansao-1992-1998',
-    tab: '1992-1998 - Expansão',
-    tabTop: '1992-1998',
+    tab: '1994-1998 - Expansão',
+    tabTop: '1994-1998',
     tabBottom: 'Expansão',
-    kicker: 'Crescimento e tecnologia',
-    heading: 'Primeira grande expansão',
-    body: '1992 marcou a grande expansão com a abertura econômica do Governo Collor. Em 1993, Sérgio comprou o primeiro caminhão trator. Até 1998, viajou diretamente na estrada, conciliando depois as viagens com a administração. Neste período, a empresa percebeu a necessidade crucial de investir em tecnologia e inovação.',
+    kicker: 'Crescimento estratégico nacional',
+    heading: 'Expandimos para além do Sul',
+    body: 'Em 1994, demos nosso primeiro grande salto ao adquirir a unidade de Cariacica/ES, estratégica pela proximidade ao Porto de Vitória. Em 1998, consolidamos nossa presença nacional com aberturas em São Bernardo do Campo/SP e São José dos Pinhais/PR. Nossa frota crescia e a tecnologia começava a fazer parte do DNA operacional.',
     videoPoster: '/images/gabardo-truck-fleet.JPG',
   },
   {
     id: 'certificacao-2001-2008',
-    tab: '2001-2008 - Certificação',
+    tab: '2001-2008 - Qualidade',
     tabTop: '2001-2008',
-    tabBottom: 'Certificação',
-    kicker: 'Excelência reconhecida',
-    heading: 'ISO 9001 e expansão nacional',
-    body: 'Expansão no Sudeste com unidades em Duque de Caxias/RJ (2001) e Porto Real/RJ (2003). Em 2004, sob coordenação de Mário Sérgio Gabardo (in memoriam), conquistamos a certificação ISO 9001:2000. Em 2008, renovamos contrato CAOA Hyundai por 30 anos e inauguramos a unidade de Anápolis/GO com 1.200.000m².',
+    tabBottom: 'Qualidade',
+    kicker: 'Excelência certificada',
+    heading: 'Construímos nossa gestão de qualidade',
+    body: 'Continuamos expandindo com Duque de Caxias/RJ (2001) e Porto Real/RJ (2003). Em 2004, iniciamos um marco: a certificação ISO 9001:2000 em Porto Alegre, coordenada por Mário Sérgio Gabardo (in memoriam). Em 2008, renovamos por 30 anos o contrato com CAOA/Hyundai e inauguramos Anápolis/GO com 1.200.000m² — consolidando nossa capacidade de armazenagem e operação em grande escala.',
     videoPoster: '/images/gabardo-certification-docs.JPG',
   },
   {
     id: 'modernizacao-2014-2019',
-    tab: '2014-2019 - Modernização',
+    tab: '2014-2019 - Capilaridade',
     tabTop: '2014-2019',
-    tabBottom: 'Modernização',
-    kicker: 'Inovação e crescimento',
-    heading: '30 anos de excelência',
-    body: 'Reformulação completa da sede em Porto Alegre (2014) e inauguração em Chuí/RS. Certificação ISO 9001:2008 em Piracicaba (2015). Expansões em Eusébio/CE e Mogi das Cruzes/SP (2016-2017). Em 2018, conquistamos ISO 9001:2015 e inauguramos novo restaurante em Porto Alegre. 2019 celebrou nossos 30 anos de mercado.',
+    tabBottom: 'Capilaridade',
+    kicker: 'Consolidação e maturidade',
+    heading: 'Chegamos aos 30 anos com 13 pátios',
+    body: 'Reformulamos completamente Porto Alegre (2014) e inauguramos Chuí/RS. Certificamos ISO 9001:2008 em Piracicaba (2015). Expandimos para Eusébio/CE com unidade própria (2016) e segundo pátio (2017), além de Mogi das Cruzes/SP (16.000m²). Em 2018, conquistamos ISO 9001:2015 (SGI) e inauguramos Jacareí/SP. 2019 marcou nossos 30 anos: maior frota própria de cegonhas do Brasil.',
     videoPoster: '/images/Trans Gabardo - Framers produtora -5388.JPG',
   },
   {
     id: 'sustentabilidade-2020-2025',
-    tab: '2020-2025 - Sustentabilidade',
+    tab: '2020-2025 - ESG',
     tabTop: '2020-2025',
-    tabBottom: 'Sustentabilidade',
-    kicker: 'Compromisso com o futuro',
-    heading: 'Liderança em sustentabilidade',
-    body: 'Em 2020, conquistamos ISO 14001 e ISO 39001, firmamos parceria CHILDHOOD e lançamos Projeto PESCAR. Prêmios CAOA CHERY consecutivos (2020-2021). Em 2022, vencemos o 9º Prêmio Transporte Responsável. 2024 trouxe certificação OEA e adesão ao Pacto Global da ONU. Em 2025, alcançamos o Selo Verde e Certificação Carbono Negativo.',
+    tabBottom: 'ESG',
+    kicker: 'Liderança sustentável',
+    heading: 'Somos referência em ESG no setor',
+    body: 'Em 2020, implantamos ISO 14001 (Meio Ambiente) e ISO 39001 (Segurança Viária), firmamos parceria com Childhood (Programa Na Mão Certa) e Projeto Pescar. Ganhamos prêmios CAOA Chery (2020-2021) e o 9º Prêmio Transporte Responsável (2022). Em 2023, certificamos todas as unidades ISO 9001/14001/39001 e iniciamos contrato GWM para veículos híbridos/elétricos. 2024 trouxe adesão ao Pacto Global da ONU. Em 2025, alcançamos Selo Verde e Certificação Carbono Negativo — pioneiros no setor.',
     videoPoster: '/images/Trans Gabardo - Framers produtora -5495.JPG',
   },
 ];
@@ -293,15 +293,15 @@ export default function CulturaClient() {
               className="max-w-5xl mx-auto"
             >
               <span className="inline-block text-[0.65rem] sm:text-xs md:text-sm font-light tracking-[0.18em] sm:tracking-[0.2em] text-gabardo-light-blue uppercase mb-4 sm:mb-5 md:mb-6 font-secondary">
-                Nossa Cultura Gabardo
+                Nossa História
               </span>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase leading-tight tracking-tight text-white mb-6 sm:mb-7 md:mb-8">
-                Aqui é a História da
+                Do sonho de um caminhoneiro
                 <br />
-                <span className="text-gabardo-light-blue">Gabardo</span>
+                <span className="text-gabardo-light-blue">à liderança em logística LATAM</span>
               </h1>
               <p className="text-base md:text-lg lg:text-xl xl:text-2xl font-light text-white/90 leading-relaxed max-w-3xl mx-auto font-secondary">
-                Desde 1989, construímos mais que uma empresa de logística. Criamos um lugar onde pessoas transformam desafios em conquistas, com integridade, inovação e respeito por cada jornada.
+                Desde 1989, seguimos uma jornada de expansão contínua, combinando tradição com inovação. Hoje, operamos a maior frota própria de cegonhas do Brasil, 100% rastreada, com presença em toda a América Latina.
               </p>
             </motion.div>
           </div>
@@ -326,6 +326,161 @@ export default function CulturaClient() {
             </section>
           ))}
         </div>
+
+        {/* Nosso Legado de Crescimento */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-gabardo-blue via-gabardo-blue/95 to-[#0d1f3a] py-20 md:py-28">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              <span className="inline-block text-xs uppercase tracking-[0.3em] text-gabardo-light-blue mb-4">
+                Nosso Legado
+              </span>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                Liderança e Capilaridade
+              </h2>
+              <p className="text-xl text-white/90 max-w-3xl mx-auto">
+                Maior frota própria de cegonhas do país, com 13 pátios no Brasil e presença operacional em toda a América Latina.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { number: '+350.000', label: 'Veículos transportados/ano', icon: '🚗' },
+                { number: '+50.000', label: 'Capacidade de armazenagem', icon: '📦' },
+                { number: '+2.000', label: 'Caminhões e carretas', icon: '🚛' },
+                { number: '+1.500', label: 'Colaboradores e motoristas', icon: '👥' },
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 text-center border border-white/20"
+                >
+                  <div className="text-5xl mb-4">{stat.icon}</div>
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">{stat.number}</div>
+                  <div className="text-sm text-white/80 uppercase tracking-wider">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="mt-16 grid md:grid-cols-2 gap-8"
+            >
+              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
+                <h3 className="text-2xl font-bold text-white mb-4">Escala e Eficiência</h3>
+                <p className="text-white/90 leading-relaxed">
+                  Frota com idade média próxima de 2 anos, 100% rastreada com monitoramento 24h/7d e operação com SLAs objetivos.
+                </p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
+                <h3 className="text-2xl font-bold text-white mb-4">Pessoas no Centro</h3>
+                <p className="text-white/90 leading-relaxed">
+                  Escola de Motoristas, programas de desenvolvimento e condutores reserva para sazonalidades.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Os 4 P's do Compromisso Gabardo */}
+        <section className="py-20 md:py-28 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              <span className="inline-block text-xs uppercase tracking-[0.3em] text-gabardo-blue mb-4">
+                Nossa Cultura
+              </span>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Os 4 P's do Compromisso Gabardo
+              </h2>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { title: 'Precisão', desc: 'SGQ e PDI padronizado', color: 'from-blue-500 to-blue-600' },
+                { title: 'Previsibilidade', desc: 'Rastreamento e comunicação proativa', color: 'from-cyan-500 to-cyan-600' },
+                { title: 'Proteção', desc: 'Gestão de riscos e segurança viária', color: 'from-indigo-500 to-indigo-600' },
+                { title: 'Planeta', desc: 'Gestão ambiental e metas anuais de emissões', color: 'from-green-500 to-green-600' },
+              ].map((p, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow"
+                >
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${p.color} flex items-center justify-center text-white text-2xl font-bold mb-6`}>
+                    P
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{p.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{p.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Palavra do Fundador */}
+        <section className="py-20 md:py-28 bg-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <span className="inline-block text-xs uppercase tracking-[0.3em] text-gabardo-blue mb-6">
+                Palavra do Fundador
+              </span>
+              <blockquote className="text-2xl md:text-3xl font-light text-gray-700 leading-relaxed mb-8 italic">
+                "Quando comecei em 1989, com um único caminhão, eu tinha um compromisso: fazer o transporte de forma correta, segura e confiável. Hoje, 36 anos depois, olho para nossa frota de mais de mil caminhões, para nossa equipe e para os grandes parceiros que confiam em nós, e vejo que esse compromisso inicial não apenas se manteve, como se tornou o pilar de tudo o que fazemos."
+              </blockquote>
+              <div className="flex flex-col items-center">
+                <div className="w-20 h-1 bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue rounded-full mb-4"></div>
+                <p className="text-lg font-semibold text-gabardo-blue">Sérgio M. Gabardo</p>
+                <p className="text-sm text-gray-500 uppercase tracking-wider">Fundador</p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Onde Chegamos */}
+        <section className="py-20 md:py-28 bg-gradient-to-br from-gray-900 via-gabardo-blue/20 to-gray-900 text-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Onde Chegamos (e para onde vamos)
+              </h2>
+              <p className="text-xl text-white/90 leading-relaxed">
+                De um pátio em Porto Alegre para uma malha integrada que conecta fábricas, pátios e concessionárias em todo o Brasil e países do Mercosul. O que nos trouxe até aqui — disciplina operacional, inovação tecnológica e responsabilidade ambiental — é o que segue guiando nossos próximos capítulos.
+              </p>
+            </motion.div>
+          </div>
+        </section>
 
       </main>
 
