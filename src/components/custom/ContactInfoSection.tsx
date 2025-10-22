@@ -3,7 +3,7 @@
 
 import { type ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, ArrowRight, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, ArrowRight } from 'lucide-react';
 
 type ContactCard = {
   icon: ReactNode;
@@ -33,8 +33,8 @@ const contactInfo: ContactCard[] = [
     icon: <MapPin className="w-6 h-6" />,
     title: 'Matriz',
     primary: 'Porto Alegre - RS',
-    secondary: 'Rua Vítor Valpírio, 715 • CEP 90200-230',
-    action: 'https://maps.google.com/?q=Rua+V%C3%ADtor+Valp%C3%ADrio,+715,+Anchieta,+Porto+Alegre+-+RS'
+    secondary: 'Av. Fernando Ferrari, 700 • CEP 90200-040',
+    action: 'https://maps.google.com/?q=Av.+Fernando+Ferrari,+700,+Anchieta,+Porto+Alegre+-+RS'
   },
   {
     icon: <Clock className="w-6 h-6" />,
@@ -146,11 +146,7 @@ export default function ContactInfoSection() {
                   <span className="mr-2">
                     {info.action.startsWith('http') ? 'Abrir' : 'Contatar'}
                   </span>
-                  {info.action.startsWith('http') ? (
-                    <ExternalLink className="w-4 h-4" />
-                  ) : (
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                  )}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                 </motion.div>
               )}
             </motion.div>

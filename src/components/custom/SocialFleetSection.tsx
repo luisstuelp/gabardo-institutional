@@ -8,7 +8,7 @@ const highlights = [
     label: 'horas de treinamento social e comportamental por ano'
   },
   {
-    value: '24h/7d',
+    value: '24/7',
     label: 'centros de apoio ao motorista e familiares'
   },
   {

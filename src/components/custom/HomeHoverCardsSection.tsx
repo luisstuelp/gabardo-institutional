@@ -63,11 +63,16 @@ const cultureFocus = [
 ];
 
 const HomeHoverCardsSection = () => {
-  const [activeId, setActiveId] = useState(cultureFocus[0].id);
+  const [activeId, setActiveId] = useState<string | null>(cultureFocus[0].id);
   const activeItem = useMemo(
     () => cultureFocus.find((item) => item.id === activeId) ?? cultureFocus[0],
     [activeId]
   );
+
+  const handleCardClick = (itemId: string) => {
+    // Toggle: if clicking the same card, close it. Otherwise, open the new one
+    setActiveId(prev => prev === itemId ? null : itemId);
+  };
 
   return (
     <section className="relative overflow-hidden bg-white py-24">
@@ -115,8 +120,139 @@ const HomeHoverCardsSection = () => {
           </motion.p>
         </div>
 
-        <div className="mt-16 grid gap-10 lg:grid-cols-[340px_1fr] xl:grid-cols-[360px_1fr]">
-          <div className="space-y-6">
+        <div className="mt-16 grid gap-8 lg:gap-10 lg:grid-cols-[340px_1fr] xl:grid-cols-[360px_1fr]">
+          {/* Mobile: Accordion Style Cards */}
+          <div className="space-y-4 lg:hidden">
+            {cultureFocus.map((item) => {
+              const Icon = item.icon;
+              const isActive = item.id === activeId;
+
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4 }}
+                  className="overflow-hidden rounded-3xl border border-gabardo-blue/10 bg-white shadow-sm"
+                >
+                  {/* Card Header - Always Visible */}
+                  <button
+                    type="button"
+                    onClick={() => handleCardClick(item.id)}
+                    className="flex w-full items-start gap-4 p-5 text-left transition-colors duration-200 hover:bg-gray-50/50"
+                    aria-expanded={isActive}
+                    aria-controls={`card-content-${item.id}`}
+                  >
+                    <span className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border text-gabardo-blue transition-all duration-300 ${isActive ? 'border-gabardo-blue bg-gabardo-blue/10' : 'border-gabardo-blue/25 bg-white'}`}>
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <div className="flex flex-1 flex-col gap-2">
+                      <h3 className={`text-base font-semibold transition-colors duration-300 ${isActive ? 'text-gabardo-blue' : 'text-gray-900'}`}>{item.title}</h3>
+                      <p className="text-sm leading-relaxed text-gray-600">{item.hook}</p>
+                      <span className={`text-[10px] font-semibold uppercase tracking-wide transition-colors duration-300 ${isActive ? 'text-gabardo-blue' : 'text-gabardo-blue/50'}`}>
+                        {isActive ? '▼ Ver detalhes' : '▶ Expandir'}
+                      </span>
+                    </div>
+                  </button>
+
+                  {/* Expanded Content - Shows when active */}
+                  <AnimatePresence initial={false}>
+                    {isActive && (
+                      <motion.div
+                        id={`card-content-${item.id}`}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ 
+                          height: 'auto', 
+                          opacity: 1,
+                          transition: {
+                            height: { duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] },
+                            opacity: { duration: 0.25, delay: 0.1 }
+                          }
+                        }}
+                        exit={{ 
+                          height: 0, 
+                          opacity: 0,
+                          transition: {
+                            height: { duration: 0.25, ease: [0.04, 0.62, 0.23, 0.98] },
+                            opacity: { duration: 0.15 }
+                          }
+                        }}
+                        className="overflow-hidden origin-top"
+                      >
+                        <motion.div 
+                          className="border-t border-gabardo-blue/10"
+                          initial={{ y: -10 }}
+                          animate={{ y: 0 }}
+                          transition={{ duration: 0.2, delay: 0.1 }}
+                        >
+                          {/* Image */}
+                          <div className="relative h-56 w-full overflow-hidden">
+                            <Image
+                              src={item.image}
+                              alt={item.title}
+                              fill
+                              sizes="100vw"
+                              className="object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-br from-[#0a1421]/70 via-[#0a1421]/35 to-transparent" />
+                          </div>
+
+                          {/* Detailed Content */}
+                          <div className="flex flex-col gap-5 p-5">
+                            <div className="space-y-3">
+                              <span className="text-xs font-semibold uppercase tracking-wider text-gabardo-blue/70">Valor em foco</span>
+                              <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
+                            </div>
+
+                            <div className="space-y-4">
+                              <div className="space-y-2">
+                                <span className="text-xs font-semibold uppercase tracking-wider text-gabardo-blue/70">Práticas em destaque</span>
+                                <ul className="space-y-2 text-sm text-gray-700">
+                                  {item.practices && item.practices.map((practice) => (
+                                    <li key={practice} className="flex items-start gap-2">
+                                      <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gabardo-blue" />
+                                      <span>{practice}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+
+                              {item.quote && (
+                                <div className="space-y-2">
+                                  <span className="text-xs font-semibold uppercase tracking-wider text-gabardo-blue/70">O que escutamos do time</span>
+                                  <blockquote className="rounded-2xl bg-gabardo-blue/5 p-4 text-sm leading-relaxed text-gabardo-blue">
+                                    <p className="italic">{item.quote.text}</p>
+                                    <span className="mt-2 block text-[11px] uppercase tracking-wide text-gabardo-blue/55">
+                                      {item.quote.author}
+                                    </span>
+                                  </blockquote>
+                                </div>
+                              )}
+
+                              <div className="flex flex-wrap gap-2">
+                                {item.chips.map((chip) => (
+                                  <span
+                                    key={chip}
+                                    className="rounded-full border border-gabardo-blue/20 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-gabardo-blue"
+                                  >
+                                    {chip}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Desktop: Sidebar Cards */}
+          <div className="hidden space-y-6 lg:block">
             {cultureFocus.map((item) => {
               const Icon = item.icon;
               const isActive = item.id === activeId;
@@ -131,7 +267,7 @@ const HomeHoverCardsSection = () => {
                   transition={{ duration: 0.4 }}
                   onMouseEnter={() => setActiveId(item.id)}
                   onFocus={() => setActiveId(item.id)}
-                  onClick={() => setActiveId(item.id)}
+                  onClick={() => handleCardClick(item.id)}
                   className={`group flex w-full gap-4 rounded-3xl border px-5 py-6 text-left shadow-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-blue ${
                     isActive
                       ? 'border-gabardo-blue/50 bg-white'
@@ -153,7 +289,8 @@ const HomeHoverCardsSection = () => {
             })}
           </div>
 
-          <div className="relative">
+          {/* Desktop: Full Content Panel */}
+          <div className="relative hidden lg:block">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeItem.id}

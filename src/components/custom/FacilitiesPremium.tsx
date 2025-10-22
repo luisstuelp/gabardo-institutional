@@ -50,28 +50,114 @@ const facilities = [
   },
 ];
 
+type Facility = typeof facilities[number];
+
+function FacilityDetails({ facility }: { facility: Facility }) {
+  const Icon = facility.icon;
+  return (
+    <div className="rounded-2xl border border-gabardo-blue/15 bg-white p-6 sm:p-7 md:p-8 shadow-lg shadow-gabardo-blue/10">
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
+        <div className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gabardo-blue/10 text-gabardo-blue">
+          <Icon className="h-7 w-7" />
+        </div>
+        <div className="flex-1 space-y-4">
+          <div className="space-y-2">
+            <h3 className="text-2xl font-bold text-gabardo-blue">{facility.name}</h3>
+            <p className="text-sm text-gray-600 sm:text-base">{facility.description}</p>
+          </div>
+          <div className="flex flex-wrap gap-2.5">
+            {facility.features.map((feature) => (
+              <span
+                key={feature}
+                className="inline-flex items-center gap-2 rounded-full border border-gabardo-blue/15 bg-gabardo-blue/5 px-3 py-1 text-xs font-medium text-gabardo-blue sm:text-sm"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-gabardo-blue" />
+                {feature}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function FacilitiesPremium() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const selected = facilities[selectedIndex];
-  const SelectedIcon = selected.icon;
 
   return (
     <section className="relative overflow-hidden bg-white py-20 sm:py-28">
-      {/* Connecting Wave Transition from Previous Section */}
-      <div className="absolute left-0 top-0 h-32 w-full">
-        <svg className="h-full w-full" preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M0,0 C300,100 600,100 900,0 L900,120 L0,120 Z"
-            fill="url(#gradient1)"
-            opacity="0.1"
-          />
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#132D51" />
-              <stop offset="100%" stopColor="#38B6FF" />
-            </linearGradient>
-          </defs>
-        </svg>
+      {/* Floating Decorative SVG Elements */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {/* Top Left Blob */}
+        <motion.svg
+          className="absolute -left-20 top-10 h-64 w-64 text-gabardo-blue/5"
+          viewBox="0 0 200 200"
+          animate={{ 
+            y: [0, 30, 0],
+            x: [0, 15, 0],
+            rotate: [0, 10, 0]
+          }}
+          transition={{ 
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <path fill="currentColor" d="M43.3,-76.3C56.4,-69.7,67.6,-58.1,75.7,-44.3C83.8,-30.5,88.8,-14.5,89.2,1.8C89.6,18.1,85.4,34.7,76.9,48.1C68.4,61.5,55.6,71.7,41.3,78.3C27,84.9,11.2,87.9,-4.8,85.8C-20.8,83.7,-37,76.5,-50.9,66.9C-64.8,57.3,-76.4,45.3,-82.7,30.8C-89,16.3,-90,-0.7,-85.7,-16.3C-81.4,-31.9,-71.8,-46.1,-59.1,-53.3C-46.4,-60.5,-30.6,-60.7,-15.7,-64C-0.8,-67.3,13.2,-73.7,27.1,-76.3C41,-78.9,54.8,-77.7,43.3,-76.3Z" transform="translate(100 100)" />
+        </motion.svg>
+
+        {/* Top Right Circle */}
+        <motion.svg
+          className="absolute -right-32 top-40 h-96 w-96 text-gabardo-light-blue/5"
+          viewBox="0 0 200 200"
+          animate={{ 
+            y: [0, -25, 0],
+            scale: [1, 1.1, 1]
+          }}
+          transition={{ 
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <circle cx="100" cy="100" r="80" fill="currentColor" />
+        </motion.svg>
+
+        {/* Middle Left Wave */}
+        <motion.svg
+          className="absolute left-0 top-1/2 -translate-y-1/2 h-full w-1/3 text-gabardo-blue/3"
+          preserveAspectRatio="none"
+          viewBox="0 0 100 800"
+          animate={{ 
+            x: [0, 10, 0]
+          }}
+          transition={{ 
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <path d="M0,0 Q25,200 0,400 T0,800 L0,800 L0,0 Z" fill="currentColor" />
+        </motion.svg>
+
+        {/* Bottom Right Organic Shape */}
+        <motion.svg
+          className="absolute -bottom-20 -right-20 h-80 w-80 text-gabardo-light-blue/5"
+          viewBox="0 0 200 200"
+          animate={{ 
+            rotate: [0, 360],
+            scale: [1, 1.15, 1]
+          }}
+          transition={{ 
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        >
+          <path fill="currentColor" d="M47.1,-78.6C61.4,-71.2,73.3,-58.4,80.9,-43.2C88.5,-28,91.8,-10.4,89.7,6.4C87.6,23.2,80.1,39.2,69.8,52.5C59.5,65.8,46.4,76.4,31.5,81.7C16.6,87,-0.1,86.9,-16.5,82.4C-32.9,77.9,-49,68.9,-61.7,56.2C-74.4,43.5,-83.7,27.1,-86.8,9.5C-89.9,-8.1,-86.8,-26.9,-78.2,-42.5C-69.6,-58.1,-55.5,-70.5,-40,-77.5C-24.5,-84.5,-7.7,-86.1,7.5,-85.2C22.7,-84.3,32.8,-86,47.1,-78.6Z" transform="translate(100 100)" />
+        </motion.svg>
       </div>
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
@@ -163,7 +249,7 @@ export default function FacilitiesPremium() {
                     <AnimatePresence>
                       {isSelected && (
                         <motion.div
-                          className="mt-4 lg:hidden"
+                          className="mt-4 lg:hidden space-y-4"
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
@@ -178,14 +264,7 @@ export default function FacilitiesPremium() {
                               sizes="(max-width: 1024px) 100vw, 60vw"
                             />
                           </div>
-                          <div className="mt-4 space-y-2">
-                            {selected.features.map((feature) => (
-                              <div key={feature} className="flex items-center gap-2 text-white/90">
-                                <div className="h-1.5 w-1.5 rounded-full bg-white/60" />
-                                <span className="text-sm">{feature}</span>
-                              </div>
-                            ))}
-                          </div>
+                          <FacilityDetails facility={selected} />
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -215,88 +294,51 @@ export default function FacilitiesPremium() {
                     priority={selectedIndex === 0}
                   />
 
-                  {/* Gradient Overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-gabardo-blue/20 to-transparent" />
-
-                  {/* Content Overlay */}
-                  <div className="absolute inset-0 flex flex-col justify-end p-8">
-                    {/* Icon Badge */}
-                    <motion.div
-                      initial={{ scale: 0, rotate: -180 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ delay: 0.2, type: 'spring' }}
-                      className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white/90 backdrop-blur-sm shadow-lg"
-                    >
-                      <SelectedIcon className="h-8 w-8 text-gabardo-blue" />
-                    </motion.div>
-
-                    {/* Title */}
-                    <motion.h3
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="mb-3 text-4xl font-bold text-white"
-                    >
-                      {selected.name}
-                    </motion.h3>
-
-                    {/* Description */}
-                    <motion.p
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="mb-6 max-w-xl text-lg text-white/90"
-                    >
-                      {selected.description}
-                    </motion.p>
-
-                    {/* Features */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                      className="grid gap-3 sm:grid-cols-3"
-                    >
-                      {selected.features.map((feature, idx) => (
-                        <motion.div
-                          key={feature}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.6 + idx * 0.1 }}
-                          className="flex items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-md"
-                        >
-                          <div className="h-2 w-2 rounded-full bg-gabardo-light-blue" />
-                          <span className="text-sm font-medium text-white">{feature}</span>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  </div>
-
-                  {/* Decorative Border */}
-                  <div className="absolute inset-0 rounded-3xl border-2 border-white/10" />
+                  <div className="absolute inset-0 rounded-3xl border border-white/10" />
                 </motion.div>
               </AnimatePresence>
             </div>
           </div>
+
         </div>
       </div>
 
-      {/* Connecting Wave Transition to Next Section */}
-      <div className="absolute bottom-0 left-0 h-32 w-full">
-        <svg className="h-full w-full" preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M0,120 C300,20 600,20 900,120 L900,0 L0,0 Z"
+      {/* Bottom Transition Wave */}
+      <div className="absolute bottom-0 left-0 h-48 w-full">
+        <motion.svg 
+          className="h-full w-full" 
+          preserveAspectRatio="none" 
+          viewBox="0 0 1200 120"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+        >
+          <motion.path
+            d="M0,60 Q150,100 300,60 T600,60 Q750,20 900,60 T1200,60 L1200,120 L0,120 Z"
             fill="url(#gradient2)"
-            opacity="0.05"
+            opacity="0.08"
+            animate={{ 
+              d: [
+                "M0,60 Q150,100 300,60 T600,60 Q750,20 900,60 T1200,60 L1200,120 L0,120 Z",
+                "M0,60 Q150,20 300,60 T600,60 Q750,100 900,60 T1200,60 L1200,120 L0,120 Z",
+                "M0,60 Q150,100 300,60 T600,60 Q750,20 900,60 T1200,60 L1200,120 L0,120 Z"
+              ]
+            }}
+            transition={{ 
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
           />
           <defs>
             <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#132D51" />
-              <stop offset="100%" stopColor="#38B6FF" />
+              <stop offset="50%" stopColor="#38B6FF" />
+              <stop offset="100%" stopColor="#132D51" />
             </linearGradient>
           </defs>
-        </svg>
+        </motion.svg>
       </div>
     </section>
   );

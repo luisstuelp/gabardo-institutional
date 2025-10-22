@@ -26,14 +26,14 @@ const TrabalheConoscoHeroSection: React.FC = () => {
       </div>
 
       <div className="relative z-10 flex flex-col justify-center items-center min-h-screen text-center px-4 sm:px-6 md:px-10 lg:px-16 py-20 sm:py-24">
-        <motion.span
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-[0.65rem] sm:text-xs md:text-sm font-light tracking-[0.26em] sm:tracking-[0.3em] text-gabardo-light-blue uppercase mb-4 sm:mb-5"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="inline-flex items-center gap-2 sm:gap-3 rounded-full border border-white/30 bg-white/10 px-4 sm:px-6 md:px-7 py-2 sm:py-2.5 md:py-3 text-[0.65rem] sm:text-xs md:text-sm font-medium tracking-wider uppercase text-white mb-4 sm:mb-5 md:mb-6"
         >
-          Nosso time move a logística do Brasil
-        </motion.span>
+          Estamos prontos para atender você
+        </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 50 }}
@@ -41,7 +41,7 @@ const TrabalheConoscoHeroSection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase leading-tight tracking-tight mb-5 sm:mb-6"
         >
-          Construa sua carreira com a Gabardo
+          Fale Conosco
         </motion.h1>
 
         <motion.p
@@ -50,7 +50,7 @@ const TrabalheConoscoHeroSection: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-8 sm:mb-10 px-2 sm:px-0"
         >
-          Somos apaixonados por desenvolver pessoas, acelerar talentos e criar oportunidades em um ambiente que valoriza diversidade, inovação e resultados.
+          Entre em contato com a Gabardo. Seja para dúvidas, parcerias, orçamentos ou sugestões, nossa equipe está pronta para conversar com você.
         </motion.p>
 
         <motion.div
@@ -60,20 +60,20 @@ const TrabalheConoscoHeroSection: React.FC = () => {
           className="flex flex-col gap-3 sm:gap-4 md:gap-5 sm:flex-row w-full sm:w-auto"
         >
           <motion.a
-            href="#talent-form"
+            href="/orcamento"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center justify-center rounded-full bg-white px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] text-gabardo-blue shadow-lg"
           >
-            Cadastrar currículo
+            Solicitar orçamento
           </motion.a>
           <motion.a
-            href="#beneficios-gabardo"
+            href="#contact-form"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center justify-center rounded-full border border-white/70 px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] text-white backdrop-blur-md"
           >
-            Conhecer jornada
+            Enviar mensagem
           </motion.a>
         </motion.div>
 
@@ -83,7 +83,7 @@ const TrabalheConoscoHeroSection: React.FC = () => {
           transition={{ duration: 1, delay: 1.2 }}
           className="hidden md:flex flex-col items-center gap-3 mt-12 sm:mt-16"
         >
-          <span className="text-xs tracking-[0.3em] uppercase text-white/70">Role para conhecer nossas iniciativas</span>
+          <span className="text-xs tracking-[0.3em] uppercase text-white/70">Role para ver formas de contato</span>
           <ChevronDown className="w-8 h-8 animate-bounce" />
         </motion.div>
       </div>

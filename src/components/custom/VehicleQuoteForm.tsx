@@ -891,29 +891,32 @@ const VehicleQuoteForm: React.FC = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 30 }}
                   >
-                    <h3 className="mb-6 text-2xl font-bold text-gabardo-blue">Origem e Destino</h3>
-                    <div className="grid gap-6 lg:grid-cols-2">
-                      <div className="grid gap-6 lg:grid-cols-3">
-                        <div>
-                          <label className="block text-sm font-medium text-gabardo-blue">CEP de Origem</label>
+                    <h3 className="mb-8 text-2xl font-bold text-gabardo-blue">Origem e Destino</h3>
+                    
+                    {/* Origem */}
+                    <div className="mb-8">
+                      <h4 className="mb-4 text-base font-semibold text-gabardo-blue uppercase tracking-wide">Origem</h4>
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="w-full">
+                          <label className="block text-sm font-medium text-gabardo-blue mb-2 min-h-[20px]">CEP de Origem</label>
                           <input
                             type="text"
                             name="originCep"
                             value={formData.originCep}
                             onChange={handleInputChange}
                             maxLength={9}
-                            className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                            className="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm focus:border-gabardo-blue focus:outline-none focus:ring-1 focus:ring-gabardo-blue"
                             placeholder="00000-000"
                           />
                         </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gabardo-blue">UF de Origem *</label>
+                        <div className="w-full">
+                          <label className="block text-sm font-medium text-gabardo-blue mb-2 min-h-[20px]">UF de Origem *</label>
                           <select
                             name="originState"
                             value={formData.originState}
                             onChange={handleInputChange}
                             required
-                            className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                            className="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm focus:border-gabardo-blue focus:outline-none focus:ring-1 focus:ring-gabardo-blue"
                           >
                             <option value="">Selecione</option>
                             {brazilianStates.map((state) => (
@@ -921,40 +924,45 @@ const VehicleQuoteForm: React.FC = () => {
                             ))}
                           </select>
                         </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gabardo-blue">Município de Origem *</label>
+                        <div className="w-full sm:col-span-2 lg:col-span-1">
+                          <label className="block text-sm font-medium text-gabardo-blue mb-2 min-h-[20px]">Município de Origem *</label>
                           <input
                             type="text"
                             name="originCity"
                             value={formData.originCity}
                             onChange={handleInputChange}
                             required
-                            className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                            placeholder="Selecione um município"
+                            className="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm focus:border-gabardo-blue focus:outline-none focus:ring-1 focus:ring-gabardo-blue"
+                            placeholder="Nome do município"
                           />
                         </div>
                       </div>
-                      <div className="grid gap-6 lg:grid-cols-3">
-                        <div>
-                          <label className="block text-sm font-medium text-gabardo-blue">CEP de Destino</label>
+                    </div>
+
+                    {/* Destino */}
+                    <div className="mb-8">
+                      <h4 className="mb-4 text-base font-semibold text-gabardo-blue uppercase tracking-wide">Destino</h4>
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="w-full">
+                          <label className="block text-sm font-medium text-gabardo-blue mb-2 min-h-[20px]">CEP de Destino</label>
                           <input
                             type="text"
                             name="destinationCep"
                             value={formData.destinationCep}
                             onChange={handleInputChange}
                             maxLength={9}
-                            className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                            className="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm focus:border-gabardo-blue focus:outline-none focus:ring-1 focus:ring-gabardo-blue"
                             placeholder="00000-000"
                           />
                         </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gabardo-blue">UF de Destino *</label>
+                        <div className="w-full">
+                          <label className="block text-sm font-medium text-gabardo-blue mb-2 min-h-[20px]">UF de Destino *</label>
                           <select
                             name="destinationState"
                             value={formData.destinationState}
                             onChange={handleInputChange}
                             required
-                            className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                            className="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm focus:border-gabardo-blue focus:outline-none focus:ring-1 focus:ring-gabardo-blue"
                           >
                             <option value="">Selecione</option>
                             {brazilianStates.map((state) => (
@@ -962,43 +970,48 @@ const VehicleQuoteForm: React.FC = () => {
                             ))}
                           </select>
                         </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gabardo-blue">Município de Destino *</label>
+                        <div className="w-full sm:col-span-2 lg:col-span-1">
+                          <label className="block text-sm font-medium text-gabardo-blue mb-2 min-h-[20px]">Município de Destino *</label>
                           <input
                             type="text"
                             name="destinationCity"
                             value={formData.destinationCity}
                             onChange={handleInputChange}
                             required
-                            className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                            placeholder="Selecione um município"
+                            className="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm focus:border-gabardo-blue focus:outline-none focus:ring-1 focus:ring-gabardo-blue"
+                            placeholder="Nome do município"
                           />
                         </div>
                       </div>
                     </div>
-                    <div className="mt-6">
-                      <label className="block text-sm font-medium text-gabardo-blue">Observação (Opcional)</label>
+                    {/* Observação */}
+                    <div className="mb-6">
+                      <label className="block text-sm font-medium text-gabardo-blue mb-2">Observação (Opcional)</label>
                       <textarea
                         name="routeObservation"
                         value={formData.routeObservation}
                         onChange={handleInputChange}
                         rows={3}
-                        className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
+                        className="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm focus:border-gabardo-blue focus:outline-none focus:ring-1 focus:ring-gabardo-blue resize-none"
                         placeholder="Detalhes adicionais sobre o trajeto"
                       />
                     </div>
-                    <label htmlFor="privacyAccepted" className="mt-6 flex items-center gap-3 text-sm text-gray-600">
-                      <input
-                        id="privacyAccepted"
-                        name="privacyAccepted"
-                        type="checkbox"
-                        checked={formData.privacyAccepted}
-                        onChange={handleCheckboxChange}
-                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-gabardo-blue focus:ring-gabardo-blue"
-                        required
-                      />
-                      <span>Ao clicar em Solicitar Cotação você concorda com nossa política de privacidade.</span>
-                    </label>
+
+                    {/* Política de Privacidade */}
+                    <div className="mb-8 rounded-lg border border-gabardo-blue/20 bg-gabardo-blue/5 p-4">
+                      <label htmlFor="privacyAccepted" className="flex items-start gap-3 text-sm text-gray-700 cursor-pointer">
+                        <input
+                          id="privacyAccepted"
+                          name="privacyAccepted"
+                          type="checkbox"
+                          checked={formData.privacyAccepted}
+                          onChange={handleCheckboxChange}
+                          className="mt-0.5 h-4 w-4 flex-shrink-0 rounded border-gray-300 text-gabardo-blue focus:ring-gabardo-blue cursor-pointer"
+                          required
+                        />
+                        <span>Ao clicar em <strong>Solicitar Cotação</strong> você concorda com nossa política de privacidade.</span>
+                      </label>
+                    </div>
 
                     <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                       <button
@@ -1060,8 +1073,9 @@ const VehicleQuoteForm: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-gabardo-blue">Matriz</h4>
-                    <p className="text-gray-600">Porto Alegre - RS</p>
-                    <p className="text-gray-600">15 unidades no Brasil</p>
+                    <p className="text-gray-600">Av. Fernando Ferrari, 700</p>
+                    <p className="text-gray-600">Anchieta - Porto Alegre/RS</p>
+                    <p className="text-gray-500 text-xs uppercase tracking-[0.2em] mt-1">15 unidades no Brasil</p>
                   </div>
                 </div>
               </div>

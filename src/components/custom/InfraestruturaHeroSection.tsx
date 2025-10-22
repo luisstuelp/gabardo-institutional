@@ -7,7 +7,7 @@ const backgroundImage = '/images/gabardo-truck-fleet.JPG';
 
 export default function InfraestruturaHeroSection() {
   return (
-    <section className="relative w-full min-h-screen text-white overflow-hidden py-20 sm:py-24">
+    <section className="relative w-full h-screen text-white overflow-hidden">
       <div className="absolute inset-0">
         <Image
           src={backgroundImage}
@@ -21,7 +21,7 @@ export default function InfraestruturaHeroSection() {
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/65 to-black/80" />
       </div>
 
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 sm:px-6 md:px-10 lg:px-16 text-center py-24 sm:py-20">
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 md:px-10 lg:px-16 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -48,6 +48,29 @@ export default function InfraestruturaHeroSection() {
         >
           Instalações modernas, pátios estrategicamente localizados e tecnologia de ponta para garantir a excelência operacional no transporte de veículos por todo o Brasil.
         </motion.p>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="mt-12 sm:mt-16 flex flex-col items-center gap-3"
+        >
+          <span className="text-xs sm:text-sm tracking-[0.3em] uppercase text-white/70 font-medium">Conheça nossa estrutura</span>
+          <motion.svg
+            className="w-6 h-6 text-white/70"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </motion.svg>
+        </motion.div>
       </div>
     </section>
   );

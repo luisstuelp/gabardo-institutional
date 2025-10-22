@@ -182,13 +182,13 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
                     <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
                   </motion.button>
                 </Link>
-                <Link href="/contato" className="w-full sm:w-auto">
+                <Link href="/trabalhe-conosco" className="w-full sm:w-auto">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="w-full sm:w-auto group bg-transparent border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-medium uppercase tracking-wide hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center justify-center space-x-2 sm:space-x-3 touch-manipulation font-primary rounded-full"
                   >
-                    <span>Seja nosso parceiro</span>
+                    <span>Fale conosco</span>
                     <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
                   </motion.button>
                 </Link>

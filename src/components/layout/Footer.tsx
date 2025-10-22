@@ -37,7 +37,7 @@ const footerSections = [
       { label: 'Institucional', href: '/sobre/secao-institucional' },
       { label: 'Blog', href: '/blog' },
       { label: 'Carreiras', href: '/trabalhe-conosco' },
-      { label: 'Contato', href: '/contato' },
+      { label: 'Contato', href: '/orcamento' },
     ],
   },
 ];
@@ -50,7 +50,11 @@ const socialLinks = [
 ];
 
 const contactInfo = [
-  { icon: MapPin, text: 'Matriz — Porto Alegre, RS' },
+  { 
+    icon: MapPin, 
+    text: 'Av. Fernando Ferrari, 700 - Anchieta, Porto Alegre/RS', 
+    href: 'https://www.google.com/maps/search/?api=1&query=Av+Fernando+Ferrari+700+Anchieta+Porto+Alegre+RS'
+  },
   { icon: Phone, text: '+55 (51) 3373-3000', href: 'tel:+555133733000' },
   { icon: Mail, text: 'gabardo@transgabardo.com.br', href: 'mailto:gabardo@transgabardo.com.br' },
 ];

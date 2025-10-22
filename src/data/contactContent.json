@@ -24,7 +24,7 @@
     {
       "icon": "map",
       "title": "Endereço Matriz",
-      "details": ["BR-277, Km 72, São José dos Pinhais – PR", "CEP 83000-000"]
+      "details": ["Curitiba – Rua Silvio Pinto Ribeiro, 707, Jardim Quississana, São José dos Pinhais/PR", "CEP 83085-400"]
     },
     {
       "icon": "briefcase",
@@ -55,7 +55,7 @@
   },
   "map": {
     "title": "Onde estamos",
-    "description": "Nossa matriz está em São José dos Pinhais/PR, e temos bases estrategicamente localizadas em todo o Brasil.",
+    "description": "Nossa matriz está em Curitiba/PR, e temos bases estrategicamente localizadas em todo o Brasil.",
     "defaultZoom": 5,
     "defaultCenter": { "lat": -15.7797, "lng": -47.9297 },
     "markersFrom": "/data/units.json"

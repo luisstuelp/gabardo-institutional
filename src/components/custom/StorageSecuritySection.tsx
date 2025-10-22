@@ -7,7 +7,7 @@ import { Shield, Camera, Lock, Users } from 'lucide-react';
 const securityFeatures = [
   {
     icon: <Camera className="w-6 h-6" />,
-    title: 'CFTV 24h/7d',
+    title: 'CFTV 24/7',
     description: 'Monitoramento por câmeras em tempo real'
   },
   {
@@ -120,7 +120,7 @@ export default function StorageSecuritySection() {
               </div>
               <div className="mt-6 text-center">
                 <h3 className="text-xl font-bold mb-2 font-primary" style={{ color: '#132D51' }}>
-                  SEGURANÇA 24h/7d
+                  SEGURANÇA 24/7
                 </h3>
                 <p className="text-gray-600 font-secondary">
                   Monitoramento contínuo e proteção total

@@ -14,7 +14,7 @@ const principles = [
     icon: Lock,
     title: 'Segurança da informação',
     description:
-      'Tecnologias de criptografia, gestão de acessos e monitoramento 24h/7d das nossas plataformas.',
+      'Tecnologias de criptografia, gestão de acessos e monitoramento 24/7 das nossas plataformas.',
   },
   {
     icon: Scale,

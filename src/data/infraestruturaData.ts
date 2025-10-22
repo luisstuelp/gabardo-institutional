@@ -41,7 +41,7 @@ export const locations: Location[] = [
     region: 'Centro Oeste/Sudeste',
   },
   {
-    name: 'São Bernardo do Campo',
+    name: 'São Paulo',
     state: 'São Paulo (SP)',
     capacity: '200 veículos',
     coordinates: [-46.5447, -23.6914],
@@ -61,7 +61,7 @@ export const locations: Location[] = [
     region: 'Centro Oeste/Sudeste',
   },
   {
-    name: 'Duque de Caxias',
+    name: 'Rio de Janeiro',
     state: 'Rio de Janeiro (RJ)',
     capacity: '1.500 veículos',
     coordinates: [-43.3117, -22.7856],
@@ -81,7 +81,7 @@ export const locations: Location[] = [
     region: 'Sul',
   },
   {
-    name: 'Palhoça',
+    name: 'Florianópolis',
     state: 'Santa Catarina (SC)',
     capacity: '150 veículos',
     coordinates: [-48.67, -27.6384],
@@ -101,7 +101,7 @@ export const locations: Location[] = [
     region: 'Sul',
   },
   {
-    name: 'São José dos Pinhais',
+    name: 'Curitiba',
     state: 'Paraná (PR)',
     capacity: '400 veículos',
     coordinates: [-49.2063, -25.5335],
@@ -111,7 +111,7 @@ export const locations: Location[] = [
     region: 'Sul',
   },
   {
-    name: 'Eusébio',
+    name: 'Fortaleza',
     state: 'Ceará (CE)',
     capacity: '200 veículos',
     coordinates: [-38.4507, -3.89],

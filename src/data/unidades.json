@@ -1,9 +1,9 @@
 [
   {
-    "nome": "Matriz Curitiba",
+    "nome": "Unidade Curitiba",
     "estado": "PR",
     "cidade": "São José dos Pinhais",
-    "endereco": "Rodovia BR-277, Km 72, São José dos Pinhais - PR",
+    "endereco": "Rua Silvio Pinto Ribeiro, 707, Jardim Quississana, São José dos Pinhais - PR",
     "telefone": "+55 (41) 3333-0000",
     "lat": -25.532,
     "lng": -49.203,
@@ -18,7 +18,7 @@
     "nome": "Unidade Porto Alegre",
     "estado": "RS",
     "cidade": "Porto Alegre",
-    "endereco": "Av. das Indústrias, 1200, Porto Alegre - RS",
+    "endereco": "Av. Fernando Ferrari, 700, Anchieta, Porto Alegre - RS",
     "telefone": "+55 (51) 3222-1111",
     "lat": -30.0277,
     "lng": -51.2287,

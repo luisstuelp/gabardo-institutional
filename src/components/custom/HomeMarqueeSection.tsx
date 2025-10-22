@@ -12,6 +12,14 @@ const messages = [
   'Tecnologia, eficiência e segurança para cada entrega'
 ];
 
+const carbonZeroMessages = [
+  'Primeira transportadora do mundo carbono neutro certificada',
+  'Compromisso ESG e sustentabilidade desde 2017',
+  '100% das emissões neutralizadas',
+  'Matriz energética renovável',
+  'Liderança global em logística sustentável'
+];
+
 const highlightMoments = [
   'Pátios homologados para atender o Brasil e LATAM',
   'Centro de controle 24/7 com telemetria em tempo real',
@@ -134,7 +142,7 @@ const HomeMarqueeSection = () => {
               className="font-semibold uppercase tracking-wider text-gabardo-blue"
               gradient={false}
             >
-              {messages.join('   •   ')}
+              {carbonZeroMessages.join('   •   ')}
             </ScrollMarquee>
           </div>
 
@@ -142,11 +150,11 @@ const HomeMarqueeSection = () => {
             <ScrollMarquee
               delay={1000}
               baseVelocity={0.22}
-              className="text-[0.9rem] sm:text-base font-medium text-gabardo-blue/90"
+              className="font-medium text-gabardo-blue/90"
               gradient={false}
             >
               {testimonialQuotes
-                .map(({ quote, author }) => `“${quote}” — ${author}`)
+                .map(({ quote }) => `"${quote}"`)
                 .join('   •   ')}
             </ScrollMarquee>
           </div>

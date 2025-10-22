@@ -258,8 +258,8 @@ const HomeClientsLogoSection = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           className="relative"
         >
-          <div className="overflow-x-auto pb-6" role="list">
-            <div className="min-w-[900px] sm:min-w-[1024px] lg:min-w-[1280px] grid grid-flow-dense grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-[repeat(6,minmax(160px,_1fr))] auto-rows-[100px] sm:auto-rows-[110px] md:auto-rows-[120px] gap-2 sm:gap-2.5 md:gap-3 px-4 sm:px-6 md:px-8">
+          <div className="overflow-x-auto pb-6 scrollbar-thin scrollbar-thumb-gabardo-blue/30 scrollbar-track-transparent" role="list">
+            <div className="min-w-full sm:min-w-[1024px] lg:min-w-[1280px] grid grid-flow-dense grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-[repeat(6,minmax(140px,_1fr))] auto-rows-[90px] sm:auto-rows-[110px] md:auto-rows-[120px] gap-2 sm:gap-2.5 md:gap-3 px-2 sm:px-6 md:px-8">
             {clientLogosWithLayout.map((logo, index) => {
               const detailId = logo.assetId ?? logo.id;
               const detail = clientDetails[detailId];
@@ -269,10 +269,11 @@ const HomeClientsLogoSection = () => {
               return (
                 <Link
                   key={logo.id}
-                  href="/sobre/secao-institucional"
+                  href="/sobre/secao-institucional#nossos-clientes"
                   className={`${logo.span ?? ''} group relative rounded-xl sm:rounded-2xl bg-white border border-gabardo-blue/10 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:z-10 hover:shadow-xl [perspective:1200px]`}
                   onMouseEnter={() => !isMobile && setFlippedLogo(logo.id)}
                   onMouseLeave={() => !isMobile && setFlippedLogo(null)}
+                  scroll={true}
                 >
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8, rotateY: -45 }}
@@ -283,23 +284,13 @@ const HomeClientsLogoSection = () => {
                     delay: 0.5 + (index * 0.05),
                     ease: [0.16, 1, 0.3, 1]
                   }}
-                  className="absolute inset-0 p-2 sm:p-3 md:p-4"
-                  onClick={(event) => {
-                    if (isMobile) {
-                      event.preventDefault();
-                      setFlippedLogo((prev) => (prev === logo.id ? null : logo.id));
-                    }
-                  }}
+                  className="absolute inset-0 p-2 sm:p-3 md:p-4 pointer-events-none"
                   animate={{ rotateY: flippedLogo === logo.id ? 180 : 0 }}
                 >
                   <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-white shadow-sm transition-all duration-300 [transform-style:preserve-3d]">
                     <div
                       className="absolute inset-0 flex items-center justify-center p-2 sm:p-3 md:p-4"
                       style={{ backfaceVisibility: 'hidden' }}
-                      onClick={(event) => {
-                        event.preventDefault();
-                        setFlippedLogo((prev) => (prev === logo.id ? null : logo.id));
-                      }}
                     >
                       <motion.div 
                         className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br from-gabardo-light-blue/5 via-transparent to-gabardo-blue/5"
@@ -325,10 +316,6 @@ const HomeClientsLogoSection = () => {
                     <div
                       className="absolute inset-0 flex h-full w-full flex-col justify-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#08162a] via-[#0b2242] to-[#0d2b53] p-3 sm:p-4 md:p-6 text-white text-center [transform:rotateY(180deg)]"
                       style={{ backfaceVisibility: 'hidden' }}
-                      onClick={(event) => {
-                        event.preventDefault();
-                        setFlippedLogo((prev) => (prev === logo.id ? null : logo.id));
-                      }}
                     >
                       <h3 className="text-xs sm:text-sm md:text-base font-semibold uppercase tracking-[0.14em] sm:tracking-[0.18em]">
                         {displayName}

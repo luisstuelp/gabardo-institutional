@@ -42,7 +42,7 @@ const serviceFeatures: FeatureItem[] = [
     id: 'atendimento',
     icon: <Users className="w-10 h-10" />,
     title: 'ATENDIMENTO',
-    subtitle: 'Suporte 24h/7d',
+    subtitle: 'Suporte 24/7',
     description: 'Equipe especializada disponível 24 horas para acompanhamento, suporte e comunicação proativa sobre o status das entregas.',
     color: 'gabardo'
   },

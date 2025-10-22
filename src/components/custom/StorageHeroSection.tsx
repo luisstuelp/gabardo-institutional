@@ -84,7 +84,7 @@ const StorageHeroSection: React.FC = () => {
                 <Shield className="w-8 h-8 text-white" />
               </div>
               <div>
-                <div className="text-2xl font-bold text-white">24h/7d</div>
+                <div className="text-2xl font-bold text-white">24/7</div>
                 <div className="text-white/80">Segurança Ativa</div>
               </div>
             </div>

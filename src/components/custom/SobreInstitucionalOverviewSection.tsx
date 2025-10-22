@@ -39,67 +39,69 @@ const SobreInstitucionalOverviewSection = () => {
   return (
     <section
       id="estrutura-institucional"
-      className="relative overflow-hidden bg-white py-16 sm:py-20 md:py-24 lg:py-28"
+      aria-labelledby="estrutura-heading"
+      className="relative overflow-hidden bg-white py-16 sm:py-20 md:py-24 lg:py-32 scroll-mt-20"
     >
       <div className="container mx-auto px-4 md:px-8 lg:px-16">
-        <div className="mb-16 text-center">
+        <header className="mb-16 sm:mb-20 text-center">
           <motion.h2
+            id="estrutura-heading"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="text-3xl md:text-4xl font-bold text-gray-800 mb-4"
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-5 sm:mb-6"
           >
-            Pilares da nossa organização
+            Pilares da nossa <span className="text-gabardo-blue">organização</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-            className="text-lg text-gray-600 max-w-4xl mx-auto"
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+            className="text-base sm:text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed"
           >
-            Construimos uma estrutura sólida que integra governança corporativa, infraestrutura tecnológica e desenvolvimento de pessoas. Cada pilar foi desenhado para entregar excelência operacional aos nossos clientes.
+            Construímos uma estrutura sólida que integra governança corporativa, infraestrutura tecnológica e desenvolvimento de pessoas. Cada pilar foi desenhado para entregar excelência operacional aos nossos clientes.
           </motion.p>
-        </div>
+        </header>
 
         <div className="grid gap-12 xl:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-8">
-            <motion.div
+            <motion.article
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: 'easeOut' }}
-              className="rounded-[28px] border border-gabardo-blue/10 bg-white/80 p-6 shadow-lg backdrop-blur-sm"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              className="group rounded-[28px] border border-gabardo-blue/10 bg-white/80 p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm"
             >
-              <h3 className="text-sm uppercase tracking-[0.32em] text-gabardo-blue">
+              <h3 className="text-xs sm:text-sm uppercase tracking-[0.32em] text-gabardo-blue font-semibold">
                 Governança corporativa
               </h3>
-              <p className="mt-3 text-base text-gray-600 leading-relaxed">
+              <p className="mt-4 text-base sm:text-lg text-gray-700 leading-relaxed">
                 Organizamos nossa estrutura em áreas especializadas que colaboram de forma integrada. Planejamento estratégico, engenharia de rotas, torre de controle e equipes de suporte trabalham em sinergia para entregar resultados consistentes.
               </p>
-              <div className="mt-4 h-48 bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-300">
+              <div className="mt-5 h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-300 group-hover:border-gabardo-blue/30 transition-colors duration-300" role="img" aria-label="Placeholder para imagem de governança corporativa">
                 <span className="text-sm text-gray-500 font-medium">Espaço reservado para imagem institucional</span>
               </div>
-            </motion.div>
+            </motion.article>
 
-            <motion.div
+            <motion.article
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
-              className="rounded-[28px] border border-gabardo-blue/10 bg-white/80 p-6 shadow-lg backdrop-blur-sm"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+              className="group rounded-[28px] border border-gabardo-blue/10 bg-white/80 p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm"
             >
-              <h3 className="text-sm uppercase tracking-[0.32em] text-gabardo-blue">
+              <h3 className="text-xs sm:text-sm uppercase tracking-[0.32em] text-gabardo-blue font-semibold">
                 Habilitações e certificações
               </h3>
-              <p className="mt-3 text-base text-gray-600 leading-relaxed">
-                Possuimos Declaração de Trânsito Aduaneiro (DTA) e demais certificações necessárias para operações internacionais. Nossos processos aduaneiros seguem rigorosos controles fiscais, permitindo transferências seguras entre portos, pátios e montadoras.
+              <p className="mt-4 text-base sm:text-lg text-gray-700 leading-relaxed">
+                Possuímos Declaração de Trânsito Aduaneiro (DTA) e demais certificações necessárias para operações internacionais. Nossos processos aduaneiros seguem rigorosos controles fiscais, permitindo transferências seguras entre portos, pátios e montadoras.
               </p>
-              <div className="mt-4 h-48 bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-300">
+              <div className="mt-5 h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-300 group-hover:border-gabardo-blue/30 transition-colors duration-300" role="img" aria-label="Placeholder para certificações e habilitações">
                 <span className="text-sm text-gray-500 font-medium">Espaço reservado para certificações</span>
               </div>
-            </motion.div>
+            </motion.article>
           </div>
 
           <div className="space-y-6">
@@ -109,9 +111,9 @@ const SobreInstitucionalOverviewSection = () => {
                   key={item.title}
                   initial={{ opacity: 0, y: 32 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className="flex flex-col overflow-hidden rounded-3xl border border-neutral-100 bg-white shadow-sm"
+                  viewport={{ once: true, amount: 0.2, margin: "-30px" }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  className="group flex flex-col overflow-hidden rounded-3xl border border-neutral-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
                 >
                   <div className="relative h-44 w-full overflow-hidden">
                     <Image

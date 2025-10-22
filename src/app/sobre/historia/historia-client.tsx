@@ -177,13 +177,20 @@ function Tabs({
     if (!element) return;
     
     const behavior = prefersReducedMotion ? 'auto' : 'smooth';
-    element.scrollIntoView({ behavior, block: 'start' });
+    const headerOffset = 100; // Account for sticky header
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: behavior as ScrollBehavior
+    });
     history.replaceState(null, '', `#${sectionId}`);
   };
 
   return (
     <div 
-      className="sticky top-0 z-30 left-0 right-0 bg-white/95 backdrop-blur supports-[backdrop-filter]:backdrop-blur-md border-b border-gabardo-blue/10 transition-all duration-300 min-h-[86px] sm:min-h-[74px]"
+      className="sticky top-0 z-40 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gabardo-blue/10 transition-all duration-300 shadow-sm"
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full py-2 sm:py-0">
         <div className="relative h-full overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory">
@@ -252,6 +259,11 @@ export default function CulturaClient() {
   const [activeId, setActiveId] = useState(STORY_SECTIONS[0].id);
   const heroBackground = HERO_BACKGROUND;
 
+  // Scroll to top on mount to fix initial position
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
   // Scrollspy implementation
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -281,11 +293,11 @@ export default function CulturaClient() {
 
   return (
     <>
-      <Header variant="dark" isFloating={false} />
+      <Header variant="dark" />
 
       <main className="min-h-screen bg-transparent text-slate-900">
         {/* Hero Section */}
-        <section className="relative overflow-hidden min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
           <div aria-hidden className="absolute inset-0 -z-10">
             <Image
               src={heroBackground}
@@ -333,7 +345,7 @@ export default function CulturaClient() {
               key={section.id}
               id={section.id}
               aria-labelledby={`${section.id}-title`}
-              className="scroll-mt-28"
+              className="scroll-mt-24 md:scroll-mt-20"
             >
               <StoryCard 
                 section={section}

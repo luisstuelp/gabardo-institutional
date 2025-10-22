@@ -1,243 +1,122 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Phone, Mail, MapPin, Dot, Mouse } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 import Image from 'next/image';
 
-// Gabardo background images
-const backgroundImages = [
-  '/images/gabardo-hero-01.JPG',
-  '/images/gabardo-hero-02.JPG',
-  '/images/gabardo-hero-03.JPG',
-  '/images/gabardo-hero-04.JPG'
-];
-
-const ScrollDownIcon = () => (
-  <motion.div 
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, delay: 1.5 }}
-    className="hidden md:flex flex-col items-center space-y-2"
-  >
-    <Mouse className="w-8 h-8" />
-    <span className="text-xs font-light tracking-widest uppercase" style={{ writingMode: 'vertical-rl' }}>
-      Solicite Orçamento
-    </span>
-  </motion.div>
-);
+const backgroundImage = '/images/gabardo-hero-01.JPG';
 
 export default function OrcamentoHero() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Mobile detection
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Background rotation
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
-    }, isMobile ? 8000 : 6000);
-    return () => clearInterval(interval);
-  }, [isMobile]);
-
-  const scrollToForm = () => {
-    const formElement = document.querySelector('form');
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleContactAction = (action: string) => {
-    if (action.startsWith('http')) {
-      window.location.href = action;
-    } else {
-      window.open(action, '_blank');
-    }
-  };
 
   return (
-    <div className="relative w-full min-h-[680px] md:min-h-screen text-white overflow-hidden">
-      {/* Dynamic Background */}
+    <section className="relative w-full h-screen text-white overflow-hidden">
+      {/* Background Image */}
       <div className="absolute inset-0">
-        {backgroundImages.map((img, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: index === currentImageIndex ? 1 : 0 }}
-            transition={{ duration: isMobile ? 2.5 : 2, ease: 'easeInOut' }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={img}
-              alt="Gabardo - Orçamento"
-              fill
-              className="object-cover object-center"
-              priority={index === 0}
-              sizes="100vw"
-              quality={isMobile ? 85 : 95}
-            />
-          </motion.div>
-        ))}
-
-        {/* Enhanced gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/75 md:from-black/65 md:via-black/45 md:to-black/65" />
+        <Image
+          src={backgroundImage}
+          alt="Gabardo - Orçamento"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+          quality={85}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/65 to-black/80" />
       </div>
 
       {/* Content container */}
-      <div className="relative z-10 flex min-h-[680px] md:min-h-screen flex-col p-6 sm:p-8 md:p-10 lg:p-16">
-        {/* Top spacer for header */}
-        <div className="h-6 sm:h-10 md:h-14"></div>
-
-        {/* Left Scroll Indicator - Hidden on mobile */}
-        <div className="absolute top-1/2 left-6 md:left-8 lg:left-16 -translate-y-1/2">
-          <ScrollDownIcon />
-        </div>
-
-        {/* Main Content */}
-        <div className="flex flex-1 flex-col items-center justify-center">
-          <div className="flex flex-col md:flex-row md:items-center w-full gap-6 max-w-5xl">
-            {/* Spacer for scroll indicator */}
-            <div className="hidden md:block flex-shrink-0 md:w-24 lg:w-32"></div>
-
-            {/* Text Content */}
-            <div className="flex-grow max-w-full text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-sm sm:text-base font-light tracking-[0.24em] text-gabardo-light-blue mb-5 md:mb-7 uppercase font-secondary"
-              >
-                Orçamento Gabardo
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase leading-tight tracking-tight mb-5 md:mb-7 font-primary"
-              >
-                Solicite seu Orçamento,
-                <br />
-                <span className="text-gabardo-light-blue">Transporte com Excelência</span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className="text-base sm:text-lg md:text-xl lg:text-2xl font-light leading-relaxed max-w-3xl mx-auto mb-7 md:mb-9 font-secondary"
-              >
-                Preencha o formulário e receba uma cotação personalizada para o transporte do seu veículo. Rápido, fácil e seguro.
-              </motion.p>
-
-              {/* Contact stats */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.0 }}
-                className="flex flex-col sm:flex-row sm:items-center justify-center gap-3 sm:gap-5 md:gap-7"
-              >
-                <div className="flex items-center space-x-2">
-                  <Dot className="w-4 h-4 text-gabardo-light-blue flex-shrink-0" />
-                  <span className="text-sm sm:text-base font-light tracking-wide font-secondary">15 Unidades</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Dot className="w-4 h-4 text-gabardo-light-blue flex-shrink-0" />
-                  <span className="text-sm sm:text-base font-light tracking-wide font-secondary">Atendimento 24/7</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Dot className="w-4 h-4 text-gabardo-light-blue flex-shrink-0" />
-                  <span className="text-sm sm:text-base font-light tracking-wide font-secondary">Suporte Nacional</span>
-                </div>
-              </motion.div>
-
-              {/* CTA Button & Social Icons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.2 }}
-                className="mt-7 sm:mt-9 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5"
-              >
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={scrollToForm}
-                  className="group bg-gabardo-light-blue text-white px-10 py-5 text-lg font-semibold uppercase tracking-[0.24em] hover:bg-white hover:text-gabardo-light-blue transition-all duration-300 flex items-center space-x-3 touch-manipulation font-primary rounded-full"
-                >
-                  <span>Solicitar Orçamento</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </motion.button>
-
-                {/* Social Icons */}
-                <div className="flex gap-3">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleContactAction('tel:+555133733000')}
-                    className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3.5 transition-all duration-300 touch-manipulation group rounded-full"
-                    aria-label="Ligar para Gabardo"
-                  >
-                    <Phone className="w-6 h-6 transition-colors duration-300" />
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleContactAction('mailto:contato@gabardotransportadora.com.br')}
-                    className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3.5 transition-all duration-300 touch-manipulation group rounded-full"
-                    aria-label="Enviar e-mail para Gabardo"
-                  >
-                    <Mail className="w-6 h-6 transition-colors duration-300" />
-                  </motion.button>
-
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => handleContactAction('https://maps.google.com/?q=Rua+V%C3%ADtor+Valp%C3%ADrio,+715,+Anchieta,+Porto+Alegre+-+RS')}
-                    className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3.5 transition-all duration-300 touch-manipulation group rounded-full"
-                    aria-label="Ver localizações Gabardo no mapa"
-                  >
-                    <MapPin className="w-6 h-6 transition-colors duration-300" />
-                  </motion.button>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom spacer for balance */}
-        <div className="h-8 sm:h-10 md:h-12"></div>
-
-        {/* Mobile scroll indicator */}
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 md:px-10 lg:px-16 text-center">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 2 }}
-          className="md:hidden absolute bottom-6 left-1/2 -translate-x-1/2"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="inline-flex items-center gap-2 sm:gap-3 rounded-full border border-white/30 bg-white/10 px-4 sm:px-6 md:px-7 py-2 sm:py-2.5 md:py-3 text-[0.65rem] sm:text-xs md:text-sm font-medium tracking-wider uppercase text-white mb-4 sm:mb-5 md:mb-6"
         >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-5 h-8 border-2 border-white/40 rounded-full flex justify-center"
+          Orçamento Gabardo
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-5 sm:mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight tracking-tight max-w-5xl px-2 sm:px-0"
+        >
+          Solicite seu <span className="text-gabardo-light-blue">orçamento</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-4 sm:mt-5 md:mt-6 max-w-3xl text-xs sm:text-sm md:text-base lg:text-lg text-white/85 leading-relaxed px-2 sm:px-0"
+        >
+          Preencha o formulário e receba uma cotação personalizada. Transporte seguro com a excelência Gabardo.
+        </motion.p>
+
+
+        {/* Contact Icons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-8 sm:mt-10 flex items-center justify-center gap-3"
+        >
+          <motion.a
+            href="tel:+555133733000"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-white/20 hover:bg-gabardo-light-blue backdrop-blur-sm text-white p-4 transition-all duration-300 rounded-full"
+            aria-label="Ligar para Gabardo"
           >
-            <motion.div
-              animate={{ height: [0, 16, 0], opacity: [0, 1, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-0.5 bg-gabardo-light-blue rounded-full mt-1"
-            />
-          </motion.div>
+            <Phone className="w-6 h-6" />
+          </motion.a>
+
+          <motion.a
+            href="mailto:comercial@transgabardo.com.br"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-white/20 hover:bg-gabardo-light-blue backdrop-blur-sm text-white p-4 transition-all duration-300 rounded-full"
+            aria-label="Enviar e-mail para Gabardo"
+          >
+            <Mail className="w-6 h-6" />
+          </motion.a>
+
+          <motion.a
+            href="https://maps.google.com/?q=Av+Fernando+Ferrari+700+Anchieta+Porto+Alegre+RS"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-white/20 hover:bg-gabardo-light-blue backdrop-blur-sm text-white p-4 transition-all duration-300 rounded-full"
+            aria-label="Ver localização Gabardo no mapa"
+          >
+            <MapPin className="w-6 h-6" />
+          </motion.a>
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="mt-12 sm:mt-16 flex flex-col items-center gap-3"
+        >
+          <span className="text-xs sm:text-sm tracking-[0.3em] uppercase text-white/70 font-medium">Preencha o formulário</span>
+          <motion.svg
+            className="w-6 h-6 text-white/70"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </motion.svg>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 }

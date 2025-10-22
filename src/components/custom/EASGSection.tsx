@@ -19,7 +19,7 @@ export default function ESGSection() {
     <section className="relative py-20 md:py-32 bg-gray-800 text-white">
       <div className="absolute inset-0">
         <Image
-          src="/images/gabardo-hero-03.JPG"
+          src="/images/truckSustentavel.jpeg"
           alt="ESG"
           fill
           className="object-cover opacity-30"

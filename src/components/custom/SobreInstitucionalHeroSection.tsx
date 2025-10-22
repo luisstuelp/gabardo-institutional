@@ -1,86 +1,75 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ChevronDown } from 'lucide-react';
 
 const heroImage = '/images/gabardo-hero-02.JPG';
 
 const SobreInstitucionalHeroSection = () => {
-  const containerRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end start'],
-  });
-
-  const backgroundShift = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
-  const foregroundShift = useTransform(scrollYProgress, [0, 1], ['0%', '8%']);
 
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen w-full overflow-hidden text-white"
-    >
-      <motion.div className="absolute inset-0" style={{ y: backgroundShift }}>
+    <section className="relative w-full min-h-screen text-white overflow-hidden py-20 sm:py-24">
+      <div className="absolute inset-0">
         <Image
           src={heroImage}
-          alt="Centro operacional da Gabardo"
+          alt="Centro operacional Gabardo – estrutura institucional integrada"
           fill
           priority
           className="object-cover object-center"
           sizes="100vw"
-          quality={95}
+          quality={85}
         />
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/80"
-          style={{ y: foregroundShift }}
-        />
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute -bottom-20 right-1/4 h-64 w-64 rounded-full bg-gabardo-blue/30 blur-[120px]"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.4 }}
-        />
-      </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/65 to-black/80" />
+      </div>
 
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 text-center sm:px-6 md:px-8 lg:px-16 py-20 sm:py-24">
-        <motion.span
+      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 sm:px-6 md:px-10 lg:px-16 text-center py-24 sm:py-20">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-xs sm:text-sm md:text-base lg:text-lg font-semibold tracking-[0.28em] sm:tracking-[0.32em] text-gabardo-light-blue uppercase mb-5 sm:mb-6"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="inline-flex items-center gap-2 sm:gap-3 rounded-full border border-white/30 bg-white/10 px-4 sm:px-6 md:px-7 py-2 sm:py-2.5 md:py-3 text-[0.65rem] sm:text-xs md:text-sm font-medium tracking-[0.28em] sm:tracking-[0.35em] uppercase backdrop-blur-sm"
         >
           Seção Institucional
-        </motion.span>
+        </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase leading-tight tracking-tight mb-5 sm:mb-6"
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-5 sm:mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight tracking-tight max-w-5xl px-2 sm:px-0"
         >
-          Nossa estrutura institucional
+          Estrutura <span className="text-gabardo-light-blue">institucional</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-8 sm:mb-10 px-2 sm:px-0"
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-4 sm:mt-5 md:mt-6 max-w-3xl text-sm sm:text-base md:text-lg lg:text-xl text-white/85 leading-relaxed px-2 sm:px-0"
         >
           Contamos com operações integradas, governança sólida, tecnologia aplicada e equipes multidisciplinares. Nossa estrutura garante eficiência em cada etapa da jornada logística.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="hidden md:flex flex-col items-center gap-3"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-center gap-3"
         >
-          <span className="text-xs tracking-[0.3em] uppercase text-white/70">Role para conhecer nossa instituição</span>
-          <ChevronDown className="w-8 h-8 animate-bounce" />
+          <span className="text-xs sm:text-sm tracking-[0.3em] sm:tracking-[0.35em] uppercase text-white/70 font-medium">Role para conhecer nossa instituição</span>
+          <motion.svg
+            className="w-6 h-6 text-white/70"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </motion.svg>
         </motion.div>
       </div>
     </section>

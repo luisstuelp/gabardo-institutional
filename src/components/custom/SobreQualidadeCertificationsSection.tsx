@@ -29,7 +29,7 @@ const certifications = [
     title: 'ISO 39001',
     subtitle: 'Segurança Viária',
     description:
-      'Protocolos rigorosos de segurança, central de controle 24h/7d e treinamentos que garantem operações com zero avarias críticas.',
+      'Protocolos rigorosos de segurança, central de controle 24/7 e treinamentos que garantem operações com zero avarias críticas.',
     highlight: 'Segurança viária certificada',
   },
   {
@@ -99,7 +99,7 @@ const pillars = [
   {
     title: 'Segurança em Primeiro Lugar',
     description:
-      'Checklists eletrônicos, telemetria 24h/7d e protocolos certificados reduzem ocorrências viárias abaixo da média setorial.',
+      'Checklists eletrônicos, telemetria 24/7 e protocolos certificados reduzem ocorrências viárias abaixo da média setorial.',
     stats: '0,30%',
     statsLabel: 'Índice anual de avarias gerais',
   },

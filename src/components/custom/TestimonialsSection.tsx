@@ -354,7 +354,7 @@ const TestimonialsSection: React.FC = () => {
               {[
                 { number: '500+', label: 'Empresas Transformadas', description: 'Crescimento comprovado', type: 'text' },
                 { number: '98%', label: 'Taxa de Satisfação', description: 'Clientes recomendariam', type: 'text' },
-                { number: '24h/7d', label: 'Suporte Disponível', description: 'Sempre aqui para você', type: 'text' },
+                { number: '24/7', label: 'Suporte Disponível', description: 'Sempre aqui para você', type: 'text' },
                 { number: '5.0', label: 'Avaliação Média', description: 'Excelência reconhecida', type: 'star' }
               ].map((stat, index) => (
                 <motion.div

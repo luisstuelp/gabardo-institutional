@@ -74,7 +74,7 @@ const fleetTypes = [
     metrics: [
       'Transporte de 1 a 3 veículos',
       'Fixação especializada para alto padrão',
-      'Monitoramento 24h/7d pelo CCO',
+      'Monitoramento 24/7 pelo CCO',
       'Disponibilidade nacional com cobertura Mercosul'
     ],
     specs: {

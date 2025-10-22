@@ -56,7 +56,7 @@ const processSteps: ProcessStep[] = [
     title: 'Transporte Monitorado',
     description: 'Acompanhamento em tempo real durante todo o trajeto',
     details: [
-      'Rastreamento GPS 24h/7d',
+      'Rastreamento GPS 24/7',
       'Comunicação proativa de marcos',
       'Monitoramento de rota otimizada',
       'Suporte técnico especializado'

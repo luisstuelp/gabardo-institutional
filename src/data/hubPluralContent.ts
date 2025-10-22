@@ -88,19 +88,19 @@ export const hubPluralContent: ScrapedContent = {
     }
   ],
   "locations": [
-    { "name": "Matriz Porto Alegre", "address": "Rua Vitor Valpírio, 715 - Anchieta - Porto Alegre/RS - CEP 90200-230", "description": "Sede da empresa com infraestrutura completa" },
-    { "name": "Iracemápolis", "address": "Rodovia Luiz Ometto - SP 306 - KM 44 - Iracemápolis/SP", "description": "Filial estratégica em São Paulo" },
+    { "name": "Matriz Porto Alegre", "address": "Av. Fernando Ferrari, 700 - Anchieta - Porto Alegre/RS - CEP 90200-040", "description": "Sede da empresa com infraestrutura completa" },
+    { "name": "Iracemápolis", "address": "Rodovia Luiz Ometto - SP 306 - KM 44 - S/N - Sala 30 - Geada - Iracemápolis/SP - CEP 13496-540", "description": "Filial estratégica em São Paulo" },
     { "name": "Jacareí", "address": "Rua Haroldo Barnsley Holland, 211 - Rio Abaixo - Jacareí/SP", "description": "Unidade no Vale do Paraíba" },
-    { "name": "Palhoça", "address": "Av. Gentil Reinaldo Cordioli, S/N - Jardim Eldorado - Palhoça/SC", "description": "Atendimento em Santa Catarina" },
-    { "name": "Cariacica", "address": "ROD GOVERNADOR MARIO COVAS GALPÃO 01 - Cariacica/ES", "description": "Presença no Espírito Santo" },
-    { "name": "Anápolis", "address": "Rua Via Primaria, S/N - Quadra 11-E - DAIA - Anápolis/GO", "description": "Centro-Oeste brasileiro" },
-    { "name": "Piracicaba", "address": "Via Mario Sergio Gabardo, 555 - Piracicaba/SP", "description": "Interior paulista estratégico" },
-    { "name": "Porto Real", "address": "Estrada Renato Monteiro, S/N - Tecnopolo Agroindustrial - Porto Real/RJ", "description": "Região do Vale do Paraíba fluminense" },
-    { "name": "Chuí", "address": "Rodovia BR 471, 3400 - Centro - Chuí/RS", "description": "Fronteira com Uruguai" },
-    { "name": "São Bernardo do Campo", "address": "Av. Robert Kennedy, 581 - Piraporinha - São Bernardo do Campo/SP", "description": "Grande São Paulo" },
-    { "name": "Duque de Caxias", "address": "Rodovia Washington Luiz, 6399 - Jardim Gramacho - Duque de Caxias/RJ", "description": "Grande Rio de Janeiro" },
-    { "name": "São José dos Pinhais", "address": "Rua Silvio Pinto Ribeiro, 707 - Jardim Quississana - São José dos Pinhais/PR", "description": "Região metropolitana de Curitiba" },
-    { "name": "Eusébio", "address": "Rua Dos Moraes, 1011 - Bairro Jabuti - Eusébio/CE", "description": "Presença no Nordeste" },
+    { "name": "Florianópolis", "address": "Av. Gentil Reinaldo Cordioli, s/nº - Lote 01 - Quadra A - Area Industrial - Jardim Eldorado - Palhoça/SC - CEP 88133-500", "description": "Atendimento em Santa Catarina" },
+    { "name": "Vitória", "address": "Rodovia Governador Mario Covas, s/n - Galpão 01 - Pavilhão 01 - Bloco 01 - Patio 01 - Padre Mathias - Cariacica/ES - CEP 29157-100", "description": "Presença no Espírito Santo" },
+    { "name": "Anápolis", "address": "Via Principal VP 1, S/N - Quadra 11-E Mod. 07 a 12 - Distrito Agroindustrial de Anapolis - Anápolis/GO - CEP 75132-030", "description": "Centro-Oeste brasileiro" },
+    { "name": "Piracicaba", "address": "Rua Mario Sergio Gabardo, 555 - Bairro Agua Santa - Piracicaba/SP - CEP 13413-510", "description": "Interior paulista estratégico" },
+    { "name": "Porto Real", "address": "Av. Renato Monteiro, s/nº - Area AA-AD-AE - Polo Urbo Agro Industrial - Porto Real/RJ - CEP 27570-000", "description": "Região do Vale do Paraíba fluminense" },
+    { "name": "Chuí", "address": "Rod. BR 471, nº 3400 - Centro - Chuí/RS - CEP 96255-000", "description": "Fronteira com Uruguai" },
+    { "name": "São Paulo", "address": "Av. Robert Kennedy, 581 - Bairro Planalto - São Bernardo do Campo/SP - CEP 09895-003", "description": "Grande São Paulo" },
+    { "name": "Rio de Janeiro", "address": "Rod. Washington Luiz, 6399-B - Lotes 05 à 11 da quadra 13, e Rua Piracicaba, lotes 28 a 34 da quadra 13, todos interligados - Jardim Gramacho - Duque de Caxias/RJ - CEP 25065-007", "description": "Grande Rio de Janeiro" },
+    { "name": "Curitiba", "address": "Rua Silvio Pinto Ribeiro, 707 - Jardim Quississana - São José dos Pinhais/PR - CEP 83085-400", "description": "Região metropolitana de Curitiba" },
+    { "name": "Fortaleza", "address": "Rua dos Moraes, 1011 - Bairro Jabuti - Eusébio/CE - CEP 61760-000", "description": "Presença no Nordeste" },
     { "name": "Pátio Jaraguá", "address": "Estrada Turística do Jaraguá, 2989 - São Paulo/SP", "description": "Zona norte de São Paulo" }
   ],
   "testimonials": [
@@ -134,7 +134,7 @@ export const hubPluralContent: ScrapedContent = {
   "contact": {
     "phone": "+55 (51) 3373.3000",
     "email": "gabardo@transgabardo.com.br",
-    "address": "Rua Vitor Valpírio, 715 - Anchieta - CEP 90200-230 - Porto Alegre/RS",
+    "address": "Av. Fernando Ferrari, 700 - Anchieta - CEP 90200-040 - Porto Alegre/RS",
     "socialMedia": {
       "whatsapp": "https://wa.me/5551933733000",
       "website": "https://www.transgabardo.com.br",

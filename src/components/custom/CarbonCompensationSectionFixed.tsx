@@ -26,7 +26,6 @@ const actionCards = [
   },
 ];
 
-
 const metrics = [
   {
     icon: ArrowDownToLine,
@@ -163,141 +162,136 @@ const CarbonCompensationSection = () => {
                 baseScale={0.9}
               >
                 {actionCards.map((card, index) => {
-                const Icon = card.icon;
-                const isGreenIcon = card.icon === Trees || card.icon === Leaf;
-                return (
-                  <ScrollStackItem key={card.title}>
-                    <div
-                      className="relative overflow-hidden rounded-3xl border border-gabardo-blue/15 bg-gradient-to-br from-white via-white to-gabardo-light-blue/10 p-8 shadow-xl"
-                      style={{
-                        boxShadow: '0 25px 60px -30px rgba(19, 45, 81, 0.3)',
-                        height: 'auto',
-                        minHeight: index < 3 ? '200px' : '240px'
-                      }}
-                    >
-                      <div className={`absolute inset-0 bg-gradient-to-br ${card.accent} opacity-0 transition-opacity duration-500 hover:opacity-90`} />
-                      <div className="relative z-10 flex flex-col gap-5">
-                        <div className="flex items-start gap-5">
-                          <div
-                            className={`flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-white shadow-md ${isGreenIcon ? 'text-emerald-500' : 'text-gabardo-blue'}`}
-                          >
-                            <Icon className="h-8 w-8" strokeWidth={2} />
+                  const Icon = card.icon;
+                  const isGreenIcon = card.icon === Trees || card.icon === Leaf;
+                  return (
+                    <ScrollStackItem key={card.title}>
+                      <div
+                        className="relative overflow-hidden rounded-3xl border border-gabardo-blue/15 bg-gradient-to-br from-white via-white to-gabardo-light-blue/10 p-8 shadow-xl"
+                        style={{
+                          boxShadow: '0 25px 60px -30px rgba(19, 45, 81, 0.3)',
+                          height: 'auto',
+                          minHeight: index < 3 ? '200px' : '240px'
+                        }}
+                      >
+                        <div className={`absolute inset-0 bg-gradient-to-br ${card.accent} opacity-0 transition-opacity duration-500 hover:opacity-90`} />
+                        <div className="relative z-10 flex flex-col gap-5">
+                          <div className="flex items-start gap-5">
+                            <div
+                              className={`flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-white shadow-md ${isGreenIcon ? 'text-emerald-500' : 'text-gabardo-blue'}`}
+                            >
+                              <Icon className="h-8 w-8" strokeWidth={2} />
+                            </div>
+                            <div className="flex-1 space-y-3">
+                              <h3 className="text-2xl font-bold uppercase tracking-[0.15em] text-gabardo-blue leading-tight">
+                                {card.title}
+                              </h3>
+                              <p className="text-base text-slate-600 leading-relaxed">
+                                {card.description}
+                              </p>
+                            </div>
                           </div>
-                          <div className="flex-1 space-y-3">
-                            <h3 className="text-2xl font-bold uppercase tracking-[0.15em] text-gabardo-blue leading-tight">
+                        </div>
+                        <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-gabardo-light-blue via-gabardo-blue to-gabardo-light-blue" />
+                      </div>
+                    </ScrollStackItem>
+                  );
+                })}
+                
+                <ScrollStackItem>
+                  <div 
+                    className="relative rounded-3xl border-2 border-gabardo-blue/20 bg-white p-8 shadow-xl"
+                    style={{
+                      boxShadow: '0 25px 60px -30px rgba(19, 45, 81, 0.3)',
+                      height: 'auto',
+                      minHeight: '280px'
+                    }}
+                  >
+                    <div className="flex flex-col gap-6">
+                      <div className="flex items-start gap-5">
+                        <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/20 to-gabardo-blue/20 text-gabardo-blue shadow-md">
+                          <Award className="h-8 w-8" strokeWidth={2} />
+                        </div>
+                        <div className="flex-1 space-y-3">
+                          <h3 className="text-2xl font-bold uppercase tracking-[0.15em] text-gabardo-blue leading-tight">
+                            Programa Carbono Negativo Gabardo
+                          </h3>
+                          <p className="text-base text-slate-600 leading-relaxed">
+                            Plataforma integrada de sustentabilidade com inventário GEE, compensação florestal e relatórios de impacto social e ambiental.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="rounded-2xl border border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/10 via-white to-white p-5 text-sm text-slate-600 leading-relaxed">
+                        Monitoramento digital assegura rastreabilidade do crédito, com dashboards conectados a indicadores ESG.
+                      </div>
+                    </div>
+                    <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-gabardo-blue via-gabardo-light-blue to-gabardo-blue" />
+                  </div>
+                </ScrollStackItem>
+              </ScrollStack>
+            ) : (
+              <div className="space-y-6">
+                {actionCards.map((card, index) => {
+                  const Icon = card.icon;
+                  const isGreenIcon = card.icon === Trees || card.icon === Leaf;
+                  return (
+                    <motion.div
+                      key={card.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.3 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className="relative overflow-hidden rounded-3xl border border-gabardo-blue/15 bg-gradient-to-br from-white via-white to-gabardo-light-blue/10 p-6 shadow-lg"
+                    >
+                      <div className="flex flex-col gap-4">
+                        <div className="flex items-start gap-4">
+                          <div
+                            className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-white shadow-md ${isGreenIcon ? 'text-emerald-500' : 'text-gabardo-blue'}`}
+                          >
+                            <Icon className="h-7 w-7" strokeWidth={2} />
+                          </div>
+                          <div className="flex-1 space-y-2">
+                            <h3 className="text-xl font-bold uppercase tracking-wide text-gabardo-blue leading-tight">
                               {card.title}
                             </h3>
-                            <p className="text-base text-slate-600 leading-relaxed">
+                            <p className="text-sm text-slate-600 leading-relaxed">
                               {card.description}
                             </p>
                           </div>
                         </div>
                       </div>
                       <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-gabardo-light-blue via-gabardo-blue to-gabardo-light-blue" />
-                    </div>
-                  </ScrollStackItem>
-                );
+                    </motion.div>
+                  );
                 })}
                 
-                <ScrollStackItem>
-                <div 
-                  className="relative rounded-3xl border-2 border-gabardo-blue/20 bg-white p-8 shadow-xl"
-                  style={{
-                    boxShadow: '0 25px 60px -30px rgba(19, 45, 81, 0.3)',
-                    height: 'auto',
-                    minHeight: '280px'
-                  }}
+                {/* Final Card - Programa Carbono Negativo */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="relative rounded-3xl border-2 border-gabardo-blue/20 bg-white p-6 shadow-lg"
                 >
-                  <div className="flex flex-col gap-6">
-                    <div className="flex items-start gap-5">
-                      <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/20 to-gabardo-blue/20 text-gabardo-blue shadow-md">
-                        <Award className="h-8 w-8" strokeWidth={2} />
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/20 to-gabardo-blue/20 text-gabardo-blue shadow-md">
+                        <Award className="h-7 w-7" strokeWidth={2} />
                       </div>
-                      <div className="flex-1 space-y-3">
-                        <h3 className="text-xl font-bold uppercase tracking-[0.18em] text-gabardo-blue leading-tight">
+                      <div className="flex-1 space-y-2">
+                        <h3 className="text-xl font-bold uppercase tracking-wide text-gabardo-blue leading-tight">
                           Programa Carbono Negativo Gabardo
                         </h3>
-                        <p className="text-base text-slate-600 leading-relaxed">
-                          Inventário GEE auditado, selo GHG Protocol Prata 2025 e compromissos net zero 2030 guiando nossas operações.
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                          Plataforma integrada de sustentabilidade com inventário GEE, compensação florestal e relatórios de impacto social e ambiental.
                         </p>
-                      </div>
-                    </div>
-                    <div className="grid gap-4 sm:grid-cols-2 mt-2">
-                      <div className="rounded-2xl border border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/10 via-white to-white p-5 text-sm text-slate-600 leading-relaxed">
-                        Capturamos carbono via projetos proprietários, restauração de matas ciliares e parcerias locais de preservação.
-                      </div>
-                      <div className="rounded-2xl border border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/10 via-white to-white p-5 text-sm text-slate-600 leading-relaxed">
-                        Monitoramento digital assegura rastreabilidade do crédito, com dashboards conectados a indicadores ESG.
                       </div>
                     </div>
                   </div>
                   <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-gabardo-blue via-gabardo-light-blue to-gabardo-blue" />
-                </div>
-              </ScrollStackItem>
-            </ScrollStack>
-            ) : (
-              <div className="space-y-6">
-              {actionCards.map((card, index) => {
-                const Icon = card.icon;
-                const isGreenIcon = card.icon === Trees || card.icon === Leaf;
-                return (
-                  <motion.div
-                    key={card.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="relative overflow-hidden rounded-3xl border border-gabardo-blue/15 bg-gradient-to-br from-white via-white to-gabardo-light-blue/10 p-6 shadow-lg"
-                  >
-                    <div className="flex flex-col gap-4">
-                      <div className="flex items-start gap-4">
-                        <div
-                          className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-white shadow-md ${isGreenIcon ? 'text-emerald-500' : 'text-gabardo-blue'}`}
-                        >
-                          <Icon className="h-7 w-7" strokeWidth={2} />
-                        </div>
-                        <div className="flex-1 space-y-2">
-                          <h3 className="text-xl font-bold uppercase tracking-wide text-gabardo-blue leading-tight">
-                            {card.title}
-                          </h3>
-                          <p className="text-sm text-slate-600 leading-relaxed">
-                            {card.description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-gabardo-light-blue via-gabardo-blue to-gabardo-light-blue" />
-                  </motion.div>
-                );
-              })}
-              
-              {/* Final Card - Programa Carbono Negativo */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="relative rounded-3xl border-2 border-gabardo-blue/20 bg-white p-6 shadow-lg"
-              >
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/20 to-gabardo-blue/20 text-gabardo-blue shadow-md">
-                      <Award className="h-7 w-7" strokeWidth={2} />
-                    </div>
-                    <div className="flex-1 space-y-2">
-                      <h3 className="text-xl font-bold uppercase tracking-wide text-gabardo-blue leading-tight">
-                        Programa Carbono Negativo Gabardo
-                      </h3>
-                      <p className="text-sm text-slate-600 leading-relaxed">
-                        Plataforma integrada de sustentabilidade com inventário GEE, compensação florestal e relatórios de impacto social e ambiental.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-gabardo-blue via-gabardo-light-blue to-gabardo-blue" />
-              </motion.div>
-            </div>
-          )}
+                </motion.div>
+              </div>
+            )}
           </div>
         </div>
       </div>

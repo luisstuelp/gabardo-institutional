@@ -26,7 +26,7 @@ const items = [
     icon: Headset,
     title: 'Suporte ao motorista agregado',
     description:
-      'Centros de atendimento 24h/7d, assistência jurídica e programas de orientação financeira para nossos parceiros de estrada.'
+      'Centros de atendimento 24/7, assistência jurídica e programas de orientação financeira para nossos parceiros de estrada.'
   },
   {
     icon: ShieldCheck,
