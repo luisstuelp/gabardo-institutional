@@ -6,15 +6,10 @@
  * npm install web-vitals
  */
 
-interface WebVitalMetric {
-  name: string;
-  value: number;
-  rating?: 'good' | 'needs-improvement' | 'poor';
-  delta?: number;
-}
+import type { ReportHandler, WebVitalsMetric } from 'web-vitals';
 
 // Send metrics to analytics endpoint
-function sendToAnalytics(metric: WebVitalMetric) {
+function sendToAnalytics(metric: WebVitalsMetric) {
   const body = JSON.stringify(metric);
   
   // Use `navigator.sendBeacon()` if available, falling back to `fetch()`
@@ -24,7 +19,7 @@ function sendToAnalytics(metric: WebVitalMetric) {
 }
 
 // Log metrics to console in development
-function logMetric(metric: WebVitalMetric) {
+function logMetric(metric: WebVitalsMetric) {
   if (process.env.NODE_ENV === 'development') {
     console.log(`[Web Vitals] ${metric.name}:`, {
       value: `${metric.value.toFixed(2)}ms`,
@@ -39,33 +34,18 @@ export function reportWebVitals() {
 
   try {
     // Use dynamic import for web-vitals if available
-    // @ts-expect-error - web-vitals is optional dependency
     import('web-vitals')
       .then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-        getCLS((metric: any) => {
+        const handleMetric: ReportHandler = (metric) => {
           logMetric(metric);
           sendToAnalytics(metric);
-        });
-        
-        getFID((metric: any) => {
-          logMetric(metric);
-          sendToAnalytics(metric);
-        });
-        
-        getFCP((metric: any) => {
-          logMetric(metric);
-          sendToAnalytics(metric);
-        });
-        
-        getLCP((metric: any) => {
-          logMetric(metric);
-          sendToAnalytics(metric);
-        });
-        
-        getTTFB((metric: any) => {
-          logMetric(metric);
-          sendToAnalytics(metric);
-        });
+        };
+
+        getCLS(handleMetric);
+        getFID(handleMetric);
+        getFCP(handleMetric);
+        getLCP(handleMetric);
+        getTTFB(handleMetric);
       })
       .catch(() => {
         // Fallback to basic performance metrics if web-vitals is not installed
