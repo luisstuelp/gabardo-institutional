@@ -39,6 +39,7 @@ export function reportWebVitals() {
 
   try {
     // Use dynamic import for web-vitals if available
+    // @ts-expect-error - web-vitals is optional dependency
     import('web-vitals')
       .then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
         getCLS((metric: any) => {
