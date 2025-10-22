@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, Building2, Package, Wrench, Zap, Shield, Truck, ChevronRight, X, Sparkles, Car, Warehouse } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Building2, Package, Wrench, Zap, Shield, Truck, ChevronRight, X, Car, Warehouse } from 'lucide-react';
 import units from '@/data/units.json';
 
 type Region = 'Sul' | 'Sudeste' | 'Centro-Oeste' | 'Nordeste' | 'all';
@@ -233,10 +233,6 @@ export default function LocationsMapInteractive() {
               />
             <div className="relative z-10 flex h-full flex-col justify-between gap-8">
               <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 rounded-full border border-gabardo-blue/20 bg-white/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-gabardo-blue">
-                  <Sparkles className="h-4 w-4" />
-                  {activeRegion === 'all' ? 'Cobertura nacional' : `Região ${activeRegion}`}
-                </div>
                 <div className="space-y-2">
                   <p className="text-sm font-semibold uppercase tracking-[0.4em] text-gabardo-blue/70">
                     {tagline}

@@ -3,7 +3,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Wrench, Zap, Users, Building, Truck, HeartPulse } from 'lucide-react';
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import unitsPageContent from '@/data/unitsPageContent.json';
 import Image from 'next/image';
 
 const facilities = [
@@ -20,19 +19,8 @@ const facilities = [
   { name: 'Box de Manutenção', description: 'Baias dedicadas para a manutenção dos caminhões.', icon: <Truck className="w-6 h-6 text-gabardo-blue" />, image: '/images/Box.JPG' },
 ];
 
-const textVariants = {
-  hidden: { opacity: 0, y: 50, skewY: 5 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    skewY: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
-  },
-};
-
 export default function FacilitiesSection() {
   const [selectedFacility, setSelectedFacility] = useState(facilities[0]);
-  const { infrastructure } = unitsPageContent;
   const leftColumnRef = useRef<HTMLDivElement>(null);
   const [leftColumnHeight, setLeftColumnHeight] = useState(0);
 
@@ -128,34 +116,6 @@ export default function FacilitiesSection() {
             </AnimatePresence>
           </div>
         </div>
-      </div>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 relative overflow-hidden">
-        <div className="moving-lines-background"></div>
-        <div className="text-center mb-12">
-          <motion.h2
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={textVariants}
-            className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight"
-          >
-            {infrastructure.title}
-          </motion.h2>
-        </div>
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ visible: { transition: { staggerChildren: 0.3 } } }}>
-          <motion.p 
-            className="text-xl text-gray-700 leading-relaxed text-center"
-            variants={textVariants}
-          >
-            Nossas unidades seguem um padrão de infraestrutura que inclui pátios dimensionados para alto giro de veículos, boxes de manutenção, áreas de PDI e inspeção eletrônica. A <span className="font-bold text-blue-500">conectividade</span> é garantida por SD-WAN e links redundantes, com monitoramento de rede e rotinas de backup noturno para os sistemas corporativos.
-          </motion.p>
-          <motion.p 
-            className="mt-8 text-xl text-gray-700 leading-relaxed text-center"
-            variants={textVariants}
-          >
-            A <span className="font-bold text-blue-500">segurança</span> é um pilar fundamental, com CFTV 24/7, controle de acesso, portaria dedicada e iluminação perimetral em todas as nossas instalações. A <span className="font-bold text-blue-500">operação</span> é otimizada com PDI digital, parqueamento, armazenagem e distribuição. Nossas <span className="font-bold text-blue-500">oficinas próprias</span> com boxes cobertos e checklists eletrônicos garantem a manutenção de nossa frota. Em nosso compromisso com a <span className="font-bold text-blue-500">sustentabilidade</span>, estamos expandindo o uso de energia solar, fazemos a gestão de resíduos e estamos nos preparando para a era dos veículos elétricos.
-          </motion.p>
-        </motion.div>
       </div>
     </div>
   );
