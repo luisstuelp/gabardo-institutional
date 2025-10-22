@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, Building2, Package, Wrench, Zap, Shield, Truck, ChevronRight, X, Sparkles } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Building2, Package, Wrench, Zap, Shield, Truck, ChevronRight, X, Sparkles, Car, Warehouse } from 'lucide-react';
 import units from '@/data/units.json';
 
 type Region = 'Sul' | 'Sudeste' | 'Centro-Oeste' | 'Nordeste' | 'all';
@@ -18,7 +18,7 @@ const regionColors: Record<Region, string> = {
 const regionMeta: Record<Exclude<Region, 'all'>, { tagline: string; summary: string; funFact: string }> = {
   'Sul': {
     tagline: 'Hub exportador e base de inovação',
-    summary: 'Integramos manufatura, pátios portuários e a matriz SJP com operações 24h/7d e frota otimizada.',
+    summary: 'Integramos manufatura, pátios portuários e a matriz SJP com operações 24/7 e frota otimizada.',
     funFact: 'Mais de 50% da energia consumida na região vem de geração solar própria.'
   },
   'Sudeste': {
@@ -34,7 +34,7 @@ const regionMeta: Record<Exclude<Region, 'all'>, { tagline: string; summary: str
   'Nordeste': {
     tagline: 'Porta de entrada para o Norte e LATAM',
     summary: 'Eusébio e operações no Ceará conectam importações, exportações e distribuição regional com preparo EV.',
-    funFact: 'Hub com telemetria 24h/7d e plano de contingência completo.'
+    funFact: 'Hub com telemetria 24/7 e plano de contingência completo.'
   }
 };
 
@@ -62,6 +62,7 @@ const computeMetrics = (selectedUnits: typeof units) => {
 
 const getTopServices = (frequency: Record<string, number>) =>
   Object.entries(frequency)
+    .filter(([service]) => !service.toLowerCase().includes('distribui'))
     .sort((a, b) => b[1] - a[1])
     .slice(0, 4)
     .map(([service]) => service);
@@ -105,7 +106,8 @@ export default function LocationsMapInteractive() {
   const getIconForService = (service: string) => {
     if (service.includes('PDI')) return Package;
     if (service.includes('Manutenção')) return Wrench;
-    if (service.includes('Distribuição')) return Truck;
+    if (service.includes('Transporte')) return Truck;
+    if (service.includes('Armazenagem')) return Warehouse;
     return Building2;
   };
 
@@ -350,18 +352,20 @@ export default function LocationsMapInteractive() {
                       {/* Quick Stats */}
                       <div className="mt-3 flex flex-wrap gap-2">
                         <span className="inline-flex items-center gap-1 rounded-full bg-gabardo-blue/5 px-3 py-1 text-xs font-medium text-gabardo-blue">
-                          <Building2 className="h-3 w-3" />
+                          <Car className="h-3 w-3" />
                           {unit.infraestrutura.capacidade_veiculos} veículos
                         </span>
                         <span className="inline-flex items-center gap-1 rounded-full bg-gabardo-blue/10 px-3 py-1 text-xs font-medium text-gabardo-blue">
-                          <Zap className="h-3 w-3 text-gabardo-blue" />
                           {unit.infraestrutura.area_total_m2.toLocaleString()} m²
                         </span>
                       </div>
 
                       {/* Services Preview */}
                       <div className="mt-3 flex flex-wrap gap-2">
-                        {unit.servicos.slice(0, 3).map((service, i) => {
+                        {unit.servicos
+                          .filter((s) => !s.toLowerCase().includes('distribui'))
+                          .slice(0, 3)
+                          .map((service, i) => {
                           const Icon = getIconForService(service);
                           return (
                             <span key={i} className="inline-flex items-center gap-1 text-xs text-gray-600">
@@ -460,7 +464,9 @@ export default function LocationsMapInteractive() {
                       Serviços Disponíveis
                     </h3>
                     <div className="grid gap-3 md:grid-cols-2">
-                      {selectedUnit.servicos.map((service, i) => (
+                      {selectedUnit.servicos
+                        .filter((s) => !s.toLowerCase().includes('distribui'))
+                        .map((service, i) => (
                         <motion.div
                           key={i}
                           initial={{ opacity: 0, x: -10 }}

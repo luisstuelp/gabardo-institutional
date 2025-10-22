@@ -5,27 +5,15 @@ import { DottedMap } from '@/components/ui/dotted-map';
 
 const operations = [
   {
-    title: 'Nossas bases no Brasil',
-    description:
-      'Operamos centros logísticos estratégicos no Sudeste e Sul do Brasil. Daqui, coordenamos fluxos de veículos e autopeças para toda a América Latina.',
+    title: 'Cobertura nacional',
     kpi: 'Coordenação centralizada com parceiros homologados',
   },
   {
-    title: 'Expertise em comércio exterior',
-    description:
-      'Nossas equipes bilíngues dominam processos aduaneiros complexos. Gerenciamos DTA e documentação alfandegária nos principais corredores do Mercosul.',
+    title: 'Expertise em comércio intra-continental',
     kpi: 'Compliance aduaneiro 100% rastreado',
   },
   {
-    title: 'Expansão na região andina',
-    description:
-      'Desenvolvemos parcerias estratégicas no Chile e Peru. Aplicamos nossos protocolos de segurança e sustentabilidade em todas as operações regionais.',
-    kpi: 'Rede auditada com indicadores unificados',
-  },
-  {
-    title: 'Suporte multicultural 24h/7d',
-    description:
-      'Nosso service desk opera ininterruptamente em português e espanhol. Atendemos demandas de manutenção, TI e compliance em toda a LATAM.',
+    title: 'Suporte multinacional 24/7',
     kpi: 'Atendimento regionalizado com gestão integrada',
   },
 ];
@@ -60,7 +48,7 @@ const SobreInstitucionalOperationsSection = () => {
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className="space-y-6"
           >
-            <span className="text-xs uppercase tracking-[0.38em] text-gabardo-blue">Nossa cobertura regional</span>
+            <span className="text-xs uppercase tracking-[0.38em] text-gabardo-blue">Cobertura regional</span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
               Atuamos em toda América Latina
             </h2>
@@ -83,7 +71,7 @@ const SobreInstitucionalOperationsSection = () => {
             </div>
           </motion.div>
 
-          <div className="relative">
+          <div className="relative mt-16 lg:mt-28">
             <div className="space-y-8">
               {operations.map((operation, index) => (
                 <motion.div
@@ -103,7 +91,6 @@ const SobreInstitucionalOperationsSection = () => {
                       className="absolute left-0 top-6 hidden h-3 w-3 rounded-full bg-gabardo-blue sm:block"
                     />
                     <h3 className="text-xl font-semibold text-gray-900">{operation.title}</h3>
-                    <p className="text-sm leading-relaxed text-gray-600">{operation.description}</p>
                     <div className="inline-flex w-fit items-center gap-2 rounded-full bg-gabardo-blue/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-gabardo-blue">
                       {operation.kpi}
                     </div>

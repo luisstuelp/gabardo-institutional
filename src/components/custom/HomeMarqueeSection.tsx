@@ -13,8 +13,8 @@ const messages = [
 ];
 
 const highlightMoments = [
-  'Pátios homologados para o Brasil e LATAM',
-  'Centro de controle 24h/7d com telemetria em tempo real',
+  'Pátios homologados para atender o Brasil e LATAM',
+  'Centro de controle 24/7 com telemetria em tempo real',
   'Planos ESG conectando eficiência energética e frota otimizada'
 ];
 
@@ -118,9 +118,9 @@ const HomeMarqueeSection = () => {
         <div className="mt-10 sm:mt-12 md:mt-14 lg:mt-16 space-y-6 sm:space-y-8">
           <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
             <ScrollMarquee
-              delay={280}
-              baseVelocity={0.65}
-              className="font-semibold uppercase tracking-[0.28em] text-gabardo-blue/80"
+              delay={0}
+              baseVelocity={0.2}
+              className="font-semibold uppercase tracking-wider text-gabardo-blue/80"
               gradient={false}
             >
               {messages.join('   •   ')}
@@ -129,9 +129,9 @@ const HomeMarqueeSection = () => {
 
           <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
             <ScrollMarquee
-              delay={420}
-              baseVelocity={0.85}
-              className="font-semibold uppercase tracking-[0.28em] text-gabardo-blue"
+              delay={500}
+              baseVelocity={0.25}
+              className="font-semibold uppercase tracking-wider text-gabardo-blue"
               gradient={false}
             >
               {messages.join('   •   ')}
@@ -140,8 +140,8 @@ const HomeMarqueeSection = () => {
 
           <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
             <ScrollMarquee
-              delay={520}
-              baseVelocity={0.7}
+              delay={1000}
+              baseVelocity={0.22}
               className="text-[0.9rem] sm:text-base font-medium text-gabardo-blue/90"
               gradient={false}
             >

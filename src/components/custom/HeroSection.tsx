@@ -182,7 +182,7 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
                     <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
                   </motion.button>
                 </Link>
-                <Link href="/trabalhe-conosco" className="w-full sm:w-auto">
+                <Link href="/contato" className="w-full sm:w-auto">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}

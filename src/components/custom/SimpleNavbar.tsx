@@ -16,9 +16,7 @@ const navItems: NavItem[] = [
   { label: 'HOME', href: '/' },
   { label: 'SOBRE', href: '/sobre' },
   { label: 'SERVIÇOS', href: '/servicos' },
-  { label: 'NOSSA GENTE', href: '/nossa-gente' },
-  { label: 'SUSTENTABILIDADE', href: '/sustentabilidade' },
-  { label: 'CONTATO', href: '/contato' },
+  { label: 'ORÇAMENTO', href: '/contato' },
   { label: 'BLOG', href: '/blog' },
 ];
 

@@ -1,18 +1,14 @@
-import { Header } from "@/components/layout/Header";
+import VehicleQuoteForm from '@/components/custom/VehicleQuoteForm';
+import { Header } from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import ContactHeroSection from '@/components/custom/ContactHeroSection';
-import ContactFormSection from '@/components/custom/ContactFormSection';
-import ContactInfoSection from '@/components/custom/ContactInfoSection';
-import MapboxSection from '@/components/custom/MapboxSection';
+import OrcamentoHero from '@/components/custom/OrcamentoHero';
 
 export default function ContatoPage() {
   return (
     <main className="relative bg-gray-50">
       <Header variant="dark" />
-      <ContactHeroSection />
-      <ContactFormSection />
-      <ContactInfoSection />
-      <MapboxSection />
+      <OrcamentoHero />
+      <VehicleQuoteForm />
       <Footer />
     </main>
   );

@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HeartHandshake, Users, ShieldCheck, Sparkles } from 'lucide-react';
+import { HeartHandshake, Users, ShieldCheck } from 'lucide-react';
 
 const cultureFocus = [
   {
@@ -50,14 +50,14 @@ const cultureFocus = [
     description:
       'Protocolos certificados, telemetria e redundância tecnológica mantêm as operações disponíveis mesmo em cenários de alta demanda. Toda ocorrência gera planos de prevenção compartilhados com clientes e equipes internas.',
     practices: [
-      'Centros de monitoramento com SD-WAN e telemetria integrada 24h/7d',
+      'Centros de monitoramento com SD-WAN e telemetria integrada 24/7',
       'Planos de contingência documentados e testados com times multidisciplinares',
     ],
     quote: {
       text: '“Segurança não é um projeto; é uma postura diária que guia decisões técnicas e humanas.”',
       author: 'Time de Continuidade Operacional',
     },
-    chips: ['Protocolos certificados', 'Telemetria 24h/7d'],
+    chips: ['Protocolos certificados', 'Telemetria 24/7'],
     image: '/images/GabardoMonit.JPG',
   },
 ];
@@ -91,9 +91,9 @@ const HomeHoverCardsSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.6 }}
             transition={{ duration: 0.5 }}
-            className="text-xs uppercase tracking-[0.4em] text-gabardo-blue/80"
+            className="text-xs uppercase tracking-wider text-gabardo-blue/80"
           >
-            Nossa cultura em movimento
+            Cultura em movimento
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -144,7 +144,7 @@ const HomeHoverCardsSection = () => {
                   <div className="flex flex-1 flex-col gap-2">
                     <h3 className={`text-base font-semibold ${isActive ? 'text-gabardo-blue' : 'text-gray-900'}`}>{item.title}</h3>
                     <p className="text-sm leading-relaxed text-gray-600">{item.hook}</p>
-                    <span className={`text-[10px] font-semibold uppercase tracking-[0.28em] ${isActive ? 'text-gabardo-blue' : 'text-gabardo-blue/50'}`}>
+                    <span className={`text-[10px] font-semibold uppercase tracking-wide ${isActive ? 'text-gabardo-blue' : 'text-gabardo-blue/50'}`}>
                       {isActive ? 'Explorando' : 'Selecionar'}
                     </span>
                   </div>
@@ -177,14 +177,14 @@ const HomeHoverCardsSection = () => {
 
                 <div className="flex flex-col gap-6 p-8 md:p-10">
                   <div className="space-y-4">
-                    <span className="text-xs font-semibold uppercase tracking-[0.32em] text-gabardo-blue/70">Valor em foco</span>
+                    <span className="text-xs font-semibold uppercase tracking-wider text-gabardo-blue/70">Valor em foco</span>
                     <h3 className="text-2xl font-semibold text-gray-900 md:text-3xl">{activeItem.title}</h3>
                     <p className="text-base leading-relaxed text-gray-600">{activeItem.description}</p>
                   </div>
 
                   <div className="space-y-5">
                     <div className="space-y-3">
-                      <span className="text-xs font-semibold uppercase tracking-[0.3em] text-gabardo-blue/70">Práticas em destaque</span>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-gabardo-blue/70">Práticas em destaque</span>
                       <ul className="space-y-2 text-sm text-gray-700">
                         {activeItem.practices && activeItem.practices.map((practice) => (
                           <li key={practice} className="flex items-start gap-2">
@@ -197,10 +197,10 @@ const HomeHoverCardsSection = () => {
 
                     {activeItem.quote && (
                       <div className="space-y-3">
-                        <span className="text-xs font-semibold uppercase tracking-[0.3em] text-gabardo-blue/70">O que escutamos do time</span>
+                        <span className="text-xs font-semibold uppercase tracking-wider text-gabardo-blue/70">O que escutamos do time</span>
                         <blockquote className="rounded-3xl bg-white/70 p-5 text-sm leading-relaxed text-gabardo-blue">
                           <p className="italic">{activeItem.quote.text}</p>
-                          <span className="mt-3 block text-xs uppercase tracking-[0.25em] text-gabardo-blue/55">
+                          <span className="mt-3 block text-xs uppercase tracking-wide text-gabardo-blue/55">
                             {activeItem.quote.author}
                           </span>
                         </blockquote>
@@ -211,7 +211,7 @@ const HomeHoverCardsSection = () => {
                       {activeItem.chips.map((chip) => (
                         <span
                           key={chip}
-                          className="rounded-full border border-gabardo-blue/20 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-gabardo-blue"
+                          className="rounded-full border border-gabardo-blue/20 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-gabardo-blue"
                         >
                           {chip}
                         </span>

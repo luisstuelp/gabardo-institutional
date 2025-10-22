@@ -46,22 +46,22 @@ const shareLinks = [
   {
     icon: Linkedin,
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/shareArticle?mini=true&url=https://www.gabardo.com.br/sustentabilidade'
+    href: 'https://www.linkedin.com/shareArticle?mini=true&url=https://www.gabardo.com.br'
   },
   {
     icon: Facebook,
     label: 'Facebook',
-    href: 'https://www.facebook.com/sharer/sharer.php?u=https://www.gabardo.com.br/sustentabilidade'
+    href: 'https://www.facebook.com/sharer/sharer.php?u=https://www.gabardo.com.br'
   },
   {
     icon: MessageCircle,
     label: 'WhatsApp',
-    href: 'https://api.whatsapp.com/send?text=Conheça%20as%20iniciativas%20de%20sustentabilidade%20da%20Gabardo:%20https://www.gabardo.com.br/sustentabilidade'
+    href: 'https://api.whatsapp.com/send?text=Conheça%20as%20iniciativas%20da%20Gabardo:%20https://www.gabardo.com.br'
   },
   {
     icon: Mail,
     label: 'E-mail',
-    href: 'mailto:?subject=Iniciativas%20de%20sustentabilidade%20Gabardo&body=Veja%20como%20a%20Gabardo%20atua:%20https://www.gabardo.com.br/sustentabilidade'
+    href: 'mailto:?subject=Conheça%20a%20Gabardo&body=Veja%20como%20a%20Gabardo%20atua:%20https://www.gabardo.com.br'
   }
 ];
 
@@ -70,7 +70,7 @@ export default function SocialSection() {
 
   const copyLink = useCallback(() => {
     navigator.clipboard
-      .writeText('https://www.gabardo.com.br/sustentabilidade')
+      .writeText('https://www.gabardo.com.br')
       .then(() => {
         setCopied(true);
         window.setTimeout(() => setCopied(false), 3200);

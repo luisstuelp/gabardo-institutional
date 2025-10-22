@@ -150,7 +150,7 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
 
       <div className="relative flex flex-col gap-4 sm:gap-5 md:gap-6">
         <span
-          className={`text-[0.6rem] sm:text-[0.65rem] md:text-[11px] font-semibold uppercase tracking-[0.2em] sm:tracking-[0.24em] leading-tight ${
+          className={`text-[0.6rem] sm:text-[0.65rem] md:text-[11px] font-semibold uppercase tracking-wide leading-tight ${
             isDark ? "text-white/80" : "text-gabardo-blue"
           }`}
         >

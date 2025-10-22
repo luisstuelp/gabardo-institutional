@@ -62,7 +62,7 @@ const reliabilityItems: ReliabilityItem[] = [
 
 const highlightPillars = [
   {
-    title: 'Proteção ativa 24h/7d',
+    title: 'Proteção ativa 24/7',
     description: 'Centro de controle Gabardo monitora rotas, clima e riscos em tempo real com acionamento imediato de contingência.',
     icon: ShieldCheck,
   },
@@ -217,12 +217,9 @@ const ProtocolStack: React.FC = () => {
           animate={{ letterSpacing: ['0.34em', '0.36em', '0.34em'] }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         >
-          Protocolos em Camadas
+          Qualidade Garantida
         </motion.h3>
       </motion.div>
-      <p className="text-sm leading-relaxed text-gray-600">
-        Interaja para percorrer cada etapa que protege a operação Gabardo, da análise à execução.
-      </p>
 
       <div ref={containerRef} className="relative mt-6 sm:mt-8 flex h-[320px] sm:h-[380px] md:h-[420px] items-center justify-center overflow-hidden">
         {visibleLayers.map(({ item, animate, z, isActive }) => (

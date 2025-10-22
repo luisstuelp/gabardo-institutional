@@ -21,7 +21,7 @@ export default function MaxAgeSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-3xl md:text-5xl font-bold uppercase"
         >
-          Hoje a idade máxima para os veículos dos nossos agregados é de 12 anos.
+          Nossa frota opera com padrão Euro 6, garantindo eficiência e menor impacto ambiental.
         </motion.h2>
       </div>
     </section>

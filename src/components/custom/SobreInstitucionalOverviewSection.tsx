@@ -1,10 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Folder from '@/components/Folder';
-import FolderGalleryModal from '@/components/FolderGalleryModal';
+import PartnersSection from '@/components/custom/PartnersSection';
 
 const structureHighlights = [
   {
@@ -37,36 +35,7 @@ const structureHighlights = [
   },
 ];
 
-const galleryImages = [
-  {
-    src: '/images/GabardoMonit.JPG',
-    alt: 'Centro de controle operacional Gabardo',
-    title: 'Centro de Controle',
-    description: 'Nossa torre de controle monitora todas as operações em tempo real 24h/7d.',
-  },
-  {
-    src: '/images/GabardoEquipe.JPG',
-    alt: 'Equipe corporativa Gabardo',
-    title: 'Nosso Time',
-    description: 'Profissionais especializados em logística, TI, jurídico e atendimento.',
-  },
-  {
-    src: '/images/GabardoBastidores.JPG',
-    alt: 'Infraestrutura tecnológica',
-    title: 'Tecnologia Aplicada',
-    description: 'Sistemas avançados de telemetria e analytics proprietários.',
-  },
-  {
-    src: '/images/Trans Gabardo - Framers produtora -5726.JPG',
-    alt: 'Gestão de segurança e compliance',
-    title: 'Segurança e Compliance',
-    description: 'Protocolos certificados e auditorias contínuas em toda operação.',
-  },
-];
-
 const SobreInstitucionalOverviewSection = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <section
       id="estrutura-institucional"
@@ -118,27 +87,6 @@ const SobreInstitucionalOverviewSection = () => {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
-              className="rounded-[28px] border border-gabardo-blue/10 bg-white/80 p-6 shadow-lg backdrop-blur-sm"
-            >
-              <h3 className="text-sm uppercase tracking-[0.32em] text-gabardo-blue">Documentação e processos</h3>
-              <p className="mt-3 text-base text-gray-600 leading-relaxed">
-                Mantemos todos os nossos processos documentados e acessíveis. Clique na pasta abaixo para explorar materiais que demonstram como operamos no dia a dia.
-              </p>
-              <div className="relative mt-6 h-64 w-full">
-                <Folder
-                  size={2}
-                  color="#17315C"
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-                  onOpen={() => setIsModalOpen(true)}
-                />
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
               className="rounded-[28px] border border-gabardo-blue/10 bg-white/80 p-6 shadow-lg backdrop-blur-sm"
             >
@@ -154,40 +102,38 @@ const SobreInstitucionalOverviewSection = () => {
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {structureHighlights.map((item) => (
-              <motion.article
-                key={item.title}
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, ease: 'easeOut' }}
-                className="flex flex-col overflow-hidden rounded-3xl border border-neutral-100 bg-white shadow-sm"
-              >
-                <div className="relative h-44 w-full overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.imageAlt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="space-y-3 p-6">
-                  <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
-                  <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
-                </div>
-              </motion.article>
-            ))}
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {structureHighlights.map((item) => (
+                <motion.article
+                  key={item.title}
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  className="flex flex-col overflow-hidden rounded-3xl border border-neutral-100 bg-white shadow-sm"
+                >
+                  <div className="relative h-44 w-full overflow-hidden">
+                    <Image
+                      src={item.image}
+                      alt={item.imageAlt}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="space-y-3 px-6 py-5">
+                    <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
+                    <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      <FolderGalleryModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        images={galleryImages}
-      />
+      <PartnersSection />
     </section>
   );
 };

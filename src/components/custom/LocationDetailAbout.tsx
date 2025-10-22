@@ -144,7 +144,7 @@ const LocationDetailAbout: React.FC<LocationDetailAboutProps> = ({ location }) =
             {[
               { number: '320m²', label: 'Área Total' },
               { number: '45', label: 'Capacidade' },
-              { number: '24h/7d', label: 'Acesso' },
+              { number: '24/7', label: 'Acesso' },
               { number: '100%', label: 'Ocupação' }
             ].map((stat, index) => (
               <motion.div

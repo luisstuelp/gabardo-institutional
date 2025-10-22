@@ -1,94 +1,29 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { Header } from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import NewSustainabilityHeroSection from '@/components/custom/NewSustainabilityHeroSection';
-
-
-import SobreInstitucionalLeadershipSection from '@/components/custom/SobreInstitucionalLeadershipSection';
-import GovernanceClimateSection from '@/components/custom/GovernanceClimateSection';
-import GovernanceHowWeActSection from '@/components/custom/GovernanceHowWeActSection';
-import GovernanceFleetSection from '@/components/custom/GovernanceFleetSection';
-import GovernanceCommitmentSection from '@/components/custom/GovernanceCommitmentSection';
-
-import InnovationClimateSection from '@/components/custom/InnovationClimateSection';
-import InnovationCommitmentSection from '@/components/custom/InnovationCommitmentSection';
-import InovacoesSection from '@/components/custom/InovacoesSection';
-
-const TAB_TO_SECTION: Record<string, string> = {
-  'GOVERNANÇA': 'governanca',
-  'INOVAÇÕES': 'inovacoes',
-};
+import Link from 'next/link';
 
 export default function SustentabilidadePage() {
-  const [activeTab, setActiveTab] = useState('GOVERNANÇA');
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-
-        if (visible.length > 0) {
-          const id = visible[0].target.getAttribute('id');
-          if (!id) return;
-          const tab = Object.entries(TAB_TO_SECTION).find(([, value]) => value === id)?.[0];
-          if (tab) {
-            setActiveTab((prev) => (prev === tab ? prev : tab));
-          }
-        }
-      },
-      {
-        rootMargin: '-40% 0px -40% 0px',
-        threshold: [0.25, 0.5, 0.75],
-      }
-    );
-
-    Object.values(TAB_TO_SECTION).forEach((sectionId) => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        observer.observe(element);
-      }
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const handleTabClick = (tab: string) => {
-    const sectionId = TAB_TO_SECTION[tab];
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    setActiveTab(tab);
-  };
-
   return (
-    <main className="relative bg-gray-50">
-      <Header variant="dark" />
-      <NewSustainabilityHeroSection
-        activeTab={activeTab}
-        onTabClick={handleTabClick}
-        tabs={Object.keys(TAB_TO_SECTION)}
-      />
-
-      <section id="governanca" className="scroll-mt-32">
-        <SobreInstitucionalLeadershipSection />
-        <GovernanceClimateSection />
-        <GovernanceHowWeActSection />
-        <GovernanceFleetSection />
-        <GovernanceCommitmentSection />
-      </section>
-
-      <section id="inovacoes" className="scroll-mt-32">
-        <InnovationClimateSection />
-        <InnovationCommitmentSection />
-        <InovacoesSection />
-      </section>
-
-      <Footer />
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-6 py-24 text-center">
+      <div className="max-w-xl space-y-6">
+        <p className="text-sm font-semibold uppercase tracking-[0.28em] text-gabardo-blue">Página indisponível</p>
+        <h1 className="text-3xl font-bold text-gabardo-blue md:text-4xl">Conteúdo de Sustentabilidade indisponível</h1>
+        <p className="text-base text-neutral-600 md:text-lg">
+          Esta página foi desativada temporariamente. Para falar com nossa equipe ou conhecer outros serviços, utilize os canais principais.
+        </p>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center rounded-full bg-gabardo-blue px-6 py-3 text-sm font-semibold uppercase tracking-[0.26em] text-white transition-transform duration-300 hover:-translate-y-0.5"
+          >
+            Voltar ao início
+          </Link>
+          <Link
+            href="/orcamento"
+            className="inline-flex items-center justify-center rounded-full border border-gabardo-blue px-6 py-3 text-sm font-semibold uppercase tracking-[0.26em] text-gabardo-blue transition-transform duration-300 hover:-translate-y-0.5 hover:bg-gabardo-blue/10"
+          >
+            Solicitar orçamento
+          </Link>
+        </div>
+      </div>
     </main>
   );
 }

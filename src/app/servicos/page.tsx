@@ -2,7 +2,6 @@ import { Header } from "@/components/layout/Header";
 import Footer from '@/components/layout/Footer';
 import ServicesHeroSection from '@/components/custom/ServicesHeroSection';
 import ServicesOverviewSection from '@/components/custom/ServicesOverviewSection';
-import ServicesFeaturesSection from '@/components/custom/ServicesFeaturesSection';
 import ServicesFleetSection from '@/components/custom/ServicesFleetSection';
 import ServicesGridSection from '@/components/custom/ServicesGridSection';
 
@@ -14,7 +13,6 @@ export default function ServicosPage() {
       <ServicesOverviewSection />
       <ServicesGridSection />
       <ServicesFleetSection />
-      <ServicesFeaturesSection />
       <Footer />
     </main>
   );

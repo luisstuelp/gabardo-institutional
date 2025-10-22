@@ -15,7 +15,6 @@ const InnovativeSolutionsSection = dynamic(() => import('@/components/custom/Inn
 const InitiativesSection = dynamic(() => import('@/components/custom/InitiativesSection'));
 const SocialClimateSection = dynamic(() => import('@/components/custom/SocialClimateSection'));
 const SocialCommitmentSection = dynamic(() => import('@/components/custom/SocialCommitmentSection'));
-const SocialInnovationSection = dynamic(() => import('@/components/custom/SocialInnovationSection'));
 const Footer = dynamic(() => import('@/components/layout/Footer'));
 
 export default function SobreQualidadePage() {
@@ -39,7 +38,6 @@ export default function SobreQualidadePage() {
       <section className="scroll-mt-32" id="qualidade-impacto-social">
         <SocialClimateSection />
         <SocialCommitmentSection />
-        <SocialInnovationSection />
       </section>
       <Footer />
     </main>

@@ -1,8 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Leaf, Globe2, Award, Factory, Shield, Building2 } from 'lucide-react';
+import { ShieldCheck, Leaf, Globe2, Award, Factory, Shield } from 'lucide-react';
+import Folder from '@/components/Folder';
+import FolderGalleryModal from '@/components/FolderGalleryModal';
 
 const certifications = [
   {
@@ -102,12 +105,6 @@ const pillars = [
   },
 ];
 
-const galleryMain = {
-  src: '/images/Certificados.JPG',
-  alt: 'Acervo de troféus e certificados exibido na sede da Gabardo',
-  caption: 'Painel físico utilizado nas auditorias presenciais de 2025.',
-};
-
 const galleryCards = [
   {
     src: '/images/certifications/iso-9001-qualidade.png',
@@ -147,30 +144,42 @@ const galleryHighlights = [
   'Uso do acervo visual em onboarding de fornecedores e apresentações comerciais.',
 ];
 
-const recognitionBadges = [
+const galleryImages = [
   {
-    icon: Building2,
-    title: 'Prêmio Transporte Responsável',
-    description: 'Vencedores 2022/2023 em Gestão Ambiental e Desenvolvimento Humano.',
+    src: '/images/Certificados.JPG',
+    alt: 'Painel de certificados da Gabardo',
+    title: 'Acervo institucional',
+    description: 'Painel físico utilizado em auditorias externas e apresentações corporativas.',
   },
   {
-    icon: Leaf,
-    title: 'Selo Verde 2024',
-    description: 'Certificação estadual pelas iniciativas de neutralização e reciclagem.',
+    src: '/images/certifications/iso-9001-qualidade.png',
+    alt: 'Certificado ISO 9001',
+    title: 'ISO 9001',
+    description: 'Escopo completo de logística automotiva e preparação de veículos.',
   },
   {
-    icon: Globe2,
-    title: 'Pacto Global da ONU',
-    description: 'Relatórios anuais alinhados aos objetivos de desenvolvimento sustentável.',
+    src: '/images/certifications/iso-14001-meio-ambiente.png',
+    alt: 'Certificado ISO 14001',
+    title: 'ISO 14001',
+    description: 'Gestão ambiental integrada aos pátios, oficinas e operações de transporte.',
   },
   {
-    icon: Award,
-    title: 'Top ESG Latam 2025',
-    description: 'Reconhecimento regional por governança, inovação e impacto social.',
+    src: '/images/certifications/iso-39001-seguranca-viaria.png',
+    alt: 'Certificado ISO 39001',
+    title: 'ISO 39001',
+    description: 'Segurança viária com telemetria embarcada e protocolos de investigação de ocorrências.',
+  },
+  {
+    src: '/images/certifications/Design sem nome (59).png',
+    alt: 'Certificado OEA',
+    title: 'OEA - Receita Federal',
+    description: 'Compliance aduaneiro reconhecido com selo Operador Econômico Autorizado.',
   },
 ];
 
 const SobreQualidadeCertificationsSection: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section className="relative bg-neutral-950 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 text-white overflow-hidden">
       <div className="absolute inset-0 opacity-60">
@@ -257,20 +266,22 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-6 md:p-8 backdrop-blur-sm transition-transform duration-300"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 px-5 pt-5 pb-2 sm:px-6 sm:pt-6 sm:pb-2 md:px-6 md:pt-6 md:pb-3 backdrop-blur-sm transition-transform duration-300"
                 >
                   <div className="absolute -top-16 -right-16 h-32 w-32 rounded-full bg-gabardo-light-blue/20 blur-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <div className="relative flex items-start gap-3 sm:gap-4 md:gap-5">
                     <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl sm:rounded-2xl bg-white/10 text-gabardo-light-blue">
                       <cert.icon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" strokeWidth={2.2} />
                     </div>
-                    <div>
+                    <div className="flex flex-1 flex-col gap-1 sm:gap-1.5">
                       <div className="text-xs sm:text-sm uppercase tracking-[0.28em] sm:tracking-[0.35em] text-white/60">{cert.subtitle}</div>
-                      <h3 className="mt-1.5 sm:mt-2 text-lg sm:text-xl md:text-2xl font-semibold text-white">{cert.title}</h3>
-                      <p className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-white/70 leading-relaxed">{cert.description}</p>
-                      <div className="mt-4 sm:mt-5 md:mt-6 inline-flex items-center rounded-full bg-white/10 px-3 sm:px-4 py-1.5 sm:py-2 text-[0.65rem] sm:text-xs font-semibold uppercase tracking-[0.26em] sm:tracking-[0.3em] text-gabardo-light-blue">
-                        {cert.highlight}
-                      </div>
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-white">{cert.title}</h3>
+                      <p className="text-xs sm:text-sm md:text-base text-white/70 leading-relaxed">{cert.description}</p>
+                    </div>
+                  </div>
+                  <div className="relative mt-auto pt-1.5 sm:pt-2">
+                    <div className="inline-flex items-center rounded-full bg-white/10 px-3 sm:px-4 py-1.5 sm:py-2 text-[0.65rem] sm:text-xs font-semibold uppercase tracking-[0.26em] sm:tracking-[0.3em] text-gabardo-light-blue">
+                      {cert.highlight}
                     </div>
                   </div>
                 </motion.div>
@@ -288,14 +299,15 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
             <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-sm shadow-[0_28px_80px_-38px_rgba(10,20,36,0.6)]">
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-gabardo-light-blue/20" aria-hidden />
               <div className="relative">
-                <div className="relative h-52 w-full overflow-hidden">
-                  <Image
-                    src={galleryMain.src}
-                    alt={galleryMain.alt}
-                    fill
-                    sizes="(min-width: 1280px) 22vw, (min-width: 768px) 45vw, 90vw"
-                    className="object-cover"
-                  />
+                <div className="relative h-60 w-full flex items-end justify-center px-10 pb-8 pt-4">
+                  <div className="flex items-center justify-center rounded-3xl border border-white/15 bg-white/10 px-8 py-8 backdrop-blur-sm shadow-[0_18px_50px_-25px_rgba(19,45,81,0.65)]">
+                    <Folder
+                      size={1.9}
+                      color="#38B6FF"
+                      className="cursor-pointer"
+                      onOpen={() => setIsModalOpen(true)}
+                    />
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-6 p-6 pt-7">
@@ -343,35 +355,15 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {recognitionBadges.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <motion.div
-                    key={`${item.title}-gallery`}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: 0.5, delay: 0.05 * index }}
-                    className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm shadow-[0_20px_45px_-28px_rgba(15,24,44,0.45)]"
-                  >
-                    <div className="relative flex flex-col gap-3">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-gabardo-light-blue">
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-white/85">{item.title}</h4>
-                        <p className="mt-1 text-xs text-white/70 leading-relaxed">{item.description}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
           </motion.div>
         </div>
       </div>
+
+      <FolderGalleryModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        images={galleryImages}
+      />
     </section>
   );
 };

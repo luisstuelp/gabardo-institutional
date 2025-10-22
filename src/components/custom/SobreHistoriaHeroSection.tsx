@@ -45,40 +45,40 @@ const SobreHistoriaHeroSection = () => {
       </div>
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center md:px-12">
-        <motion.span
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="section-eyebrow text-gabardo-light-blue uppercase text-sm md:text-base lg:text-lg tracking-[0.4em] md:tracking-[0.48em]"
+          className="inline-flex items-center gap-2 sm:gap-3 rounded-full border border-white/30 bg-white/10 px-4 sm:px-6 md:px-7 py-2 sm:py-2.5 md:py-3 text-[0.65rem] sm:text-xs md:text-sm font-medium tracking-wider uppercase"
         >
           Nossa História
-        </motion.span>
+        </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="section-heading mt-5 text-center text-white text-4xl md:text-5xl lg:text-[56px]"
+          className="mt-5 sm:mt-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase leading-tight tracking-tight max-w-4xl px-2 sm:px-0"
         >
-          36 anos movendo o Brasil
+          <span className="text-gabardo-light-blue">Três Décadas</span> de <span className="text-gabardo-light-blue">Excelência</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="section-subheading mt-6 max-w-3xl text-center text-white/75"
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="mt-4 sm:mt-5 md:mt-6 max-w-3xl text-xs sm:text-sm md:text-base lg:text-lg text-white/80 leading-relaxed px-2 sm:px-0"
         >
-          De um sonho familiar à referência nacional em transporte de veículos, nossa trajetória é guiada por inovação, confiança e parcerias duradouras.
+          Referência nacional em transporte de veículos com inovação e confiança.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="hidden flex-col items-center gap-3 md:flex"
+          className="hidden flex-col items-center gap-3 md:flex mt-8"
         >
-          <p className="mt-1.5 text-xs uppercase tracking-[0.45em] text-white/80">
+          <p className="mt-1.5 text-xs uppercase tracking-wider text-white/80">
             Role para percorrer a linha do tempo
           </p>
           <ChevronDown className="h-8 w-8 animate-bounce" />

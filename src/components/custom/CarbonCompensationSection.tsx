@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Award, Leaf, Recycle, Trees, ArrowDownToLine, Users } from 'lucide-react';
 
@@ -25,24 +24,6 @@ const actionCards = [
   },
 ];
 
-const certificateBadges = [
-  {
-    label: 'Carbono Negativo Certificado',
-    image: '/images/certifications/carbon-negative-certified.png',
-  },
-  {
-    label: 'GHG Protocol Prata 2024',
-    image: '/images/certifications/ghg-protocol-2024-prata.png',
-  },
-  {
-    label: 'Selo ESG PR2030',
-    image: '/images/certifications/gcs-abnt-pr2030-esg.png',
-  },
-  {
-    label: 'Operador Econômico Autorizado (OEA)',
-    image: '/images/certifications/Design sem nome (59).png',
-  },
-];
 
 const metrics = [
   {
@@ -202,38 +183,6 @@ const CarbonCompensationSection = () => {
                 </motion.div>
               );
             })}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="grid gap-4 sm:grid-cols-3 lg:row-start-2 lg:col-start-1"
-          >
-            {certificateBadges.map((badge) => (
-              <motion.div
-                key={badge.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5 }}
-                className="group flex flex-col items-center gap-3 rounded-2xl border border-gabardo-blue/10 bg-white/90 px-4 py-5 text-center shadow-sm transition-all duration-300 hover:border-gabardo-light-blue/60 hover:bg-white hover:shadow-xl"
-              >
-                <div className="relative h-16 w-16 overflow-hidden rounded-full bg-white">
-                  <Image
-                    fill
-                    sizes="64px"
-                    src={badge.image}
-                    alt={badge.label}
-                    className="object-contain scale-110"
-                  />
-                </div>
-                <p className="text-xs font-semibold uppercase tracking-[0.26em] text-slate-600 group-hover:text-gabardo-blue">
-                  {badge.label}
-                </p>
-              </motion.div>
-            ))}
           </motion.div>
 
           <motion.div

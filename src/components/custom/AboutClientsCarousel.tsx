@@ -553,7 +553,7 @@ const AboutClientsCarousel = () => {
         >
           <div
             ref={trackRef}
-            className="flex"
+            className="flex gap-6 sm:gap-8 lg:gap-12"
             style={{ width: 'fit-content', willChange: 'transform' }}
           >
             {Array.from({ length: copyCount }, (_, copyIndex) => (

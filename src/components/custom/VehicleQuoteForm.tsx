@@ -2,11 +2,9 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, CheckCircle, Loader, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Send, CheckCircle, Loader, ArrowRight, ArrowLeft, Phone, Mail, MapPin } from 'lucide-react';
 import { useFipeVehicleData } from '@/hooks/useFipeApi';
 import { VehicleModelAutocomplete } from '@/components/custom/VehicleModelAutocomplete';
-
-const currentYear = new Date().getFullYear();
 
 const parseVehicleValue = (value: string) => {
   if (!value) {
@@ -21,22 +19,7 @@ const parseVehicleValue = (value: string) => {
   return Number(digitsOnly) / 100;
 };
 
-const addressFieldMap = {
-  origin: {
-    cep: 'originCep',
-    state: 'originState',
-    city: 'originCity',
-    address: 'originAddress',
-    neighborhood: 'originNeighborhood',
-  },
-  destination: {
-    cep: 'destinationCep',
-    state: 'destinationState',
-    city: 'destinationCity',
-    address: 'destinationAddress',
-    neighborhood: 'destinationNeighborhood',
-  },
-} as const;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type QuoteFormData = {
   name: string;
@@ -103,8 +86,6 @@ const initialFormData: QuoteFormData = {
   message: '',
   privacyAccepted: false,
 };
-
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Mocked vehicle types based on Gabardo services
 const vehicleTypes = [
@@ -635,7 +616,7 @@ const VehicleQuoteForm: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="lg:col-span-12"
+            className="lg:col-span-8"
           >
             <div className="relative overflow-hidden rounded-3xl border border-gabardo-blue/15 bg-white/90 p-8 shadow-[0_22px_40px_-22px_rgba(19,45,81,0.45)] md:p-12">
               <div className="mb-8">
@@ -1039,6 +1020,51 @@ const VehicleQuoteForm: React.FC = () => {
                   </motion.div>
                 )}
               </form>
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="lg:col-span-4"
+          >
+            <div className="sticky top-8 space-y-6 overflow-hidden rounded-3xl border border-gabardo-blue/15 bg-white/90 p-8 shadow-[0_18px_32px_-18px_rgba(19,45,81,0.4)]">
+              <h3 className="text-xl font-semibold text-gabardo-blue">Atendimento Comercial</h3>
+              <p className="text-sm leading-relaxed text-gray-600">
+                Nossa equipe conecta soluções logísticas no Brasil e LATAM com SLA ágil e acompanhamento consultivo.
+              </p>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gabardo-blue text-white shadow-md">
+                    <Mail className="h-5 w-5" strokeWidth={1.8} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-gabardo-blue">E-mail</h4>
+                    <p className="text-gray-600">comercial@transgabardo.com.br</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gabardo-blue text-white shadow-md">
+                    <Phone className="h-5 w-5" strokeWidth={1.8} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-gabardo-blue">Central</h4>
+                    <p className="text-gray-600">(51) 2108-2400</p>
+                    <p className="text-gray-500 text-xs uppercase tracking-[0.2em]">Atendimento em horário comercial</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gabardo-blue text-white shadow-md">
+                    <MapPin className="h-5 w-5" strokeWidth={1.8} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-gabardo-blue">Matriz</h4>
+                    <p className="text-gray-600">Porto Alegre - RS</p>
+                    <p className="text-gray-600">15 unidades no Brasil</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>

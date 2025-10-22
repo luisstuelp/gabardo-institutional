@@ -5,7 +5,6 @@ import TrabalheConoscoIntroSection from '@/components/custom/TrabalheConoscoIntr
 import TrabalheConoscoBenefitsSection from '@/components/custom/TrabalheConoscoBenefitsSection';
 import ServicesQuoteSection from '@/components/custom/ServicesQuoteSection';
 import ServicesAdvantagesSection from '@/components/custom/ServicesAdvantagesSection';
-import PartnersSection from '@/components/custom/PartnersSection';
 
 export default function TrabalheConoscoPage() {
   return (
@@ -13,9 +12,6 @@ export default function TrabalheConoscoPage() {
       <Header variant="dark" />
       <TrabalheConoscoHeroSection />
       <TrabalheConoscoIntroSection />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <PartnersSection />
-      </div>
       <TrabalheConoscoBenefitsSection />
       <ServicesAdvantagesSection />
       <ServicesQuoteSection />

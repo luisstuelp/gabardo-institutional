@@ -356,7 +356,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
                       </div>
                       
                       <Link
-                        href="/orcamento"
+                        href="/contato"
                         onClick={onClose}
                         className="inline-flex items-center space-x-2 text-gabardo-light-blue hover:text-white transition-colors duration-300"
                       >

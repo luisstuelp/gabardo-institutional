@@ -162,10 +162,6 @@ const ServicesOverviewSection: React.FC = () => {
                     ))}
                   </div>
 
-                  <div className="mt-8 flex items-center justify-between text-xs uppercase tracking-[0.3em] text-neutral-400">
-                    <span>Operação tailor-made</span>
-                    <span className="text-gabardo-light-blue">Gabardo</span>
-                  </div>
                 </div>
               </motion.div>
             </motion.div>

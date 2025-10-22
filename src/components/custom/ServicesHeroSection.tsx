@@ -1,6 +1,5 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Dot, Mouse } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
@@ -11,20 +10,6 @@ const backgroundImages = [
   '/images/gabardo-hero-03.JPG',
   '/images/Trans Gabardo - Framers produtora -5476.JPG'
 ];
-
-const ScrollDownIcon = () => (
-  <motion.div 
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, delay: 1.5 }}
-    className="hidden md:flex flex-col items-center space-y-2"
-  >
-    <Mouse className="w-8 h-8" />
-    <span className="text-xs font-light tracking-widest uppercase" style={{ writingMode: 'vertical-rl' }}>
-      Nossos Serviços
-    </span>
-  </motion.div>
-);
 
 export default function ServicesHeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -80,76 +65,56 @@ export default function ServicesHeroSection() {
       </div>
 
       {/* Content container */}
-      <div className="relative z-10 flex flex-col justify-between min-h-screen p-4 sm:p-6 md:p-8 lg:p-16">
-        {/* Top spacer for header */}
-        <div className="h-16 md:h-20"></div>
+      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 sm:px-6 md:px-10 lg:px-16 text-center py-24">
+        <div className="w-full max-w-4xl md:max-w-5xl space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-base sm:text-lg uppercase tracking-[0.26em] sm:tracking-[0.3em] font-semibold text-gabardo-light-blue"
+          >
+            Serviços Gabardo
+          </motion.div>
 
-        {/* Left Scroll Indicator - Hidden on mobile */}
-        <div className="absolute top-1/2 left-6 md:left-8 lg:left-16 transform -translate-y-1/2">
-          <ScrollDownIcon />
-        </div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight tracking-tight font-primary"
+          >
+            Soluções Completas,
+            <br />
+            <span className="text-gabardo-light-blue">Resultados Garantidos</span>
+          </motion.h1>
 
-        {/* Main Content */}
-        <div className="flex flex-col justify-end flex-grow pb-8 md:pb-12 lg:pb-16">
-          <div className="flex items-end w-full">
-            {/* Spacer for scroll indicator */}
-            <div className="flex-shrink-0 w-0 md:w-24 lg:w-32"></div>
+          <motion.p 
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="text-sm md:text-base lg:text-lg xl:text-xl font-light leading-relaxed text-white/85 max-w-3xl mx-auto"
+          >
+            Operações dedicadas, equipe especializada e custo x benefício. Atendemos montadoras e empresas com a excelência que seu negócio merece.
+          </motion.p>
 
-            {/* Text Content */}
-            <div className="flex-grow max-w-full md:max-w-4xl xl:max-w-5xl">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-[0.65rem] sm:text-xs md:text-sm font-light tracking-[0.18em] sm:tracking-[0.2em] text-gabardo-light-blue mb-3 sm:mb-4 md:mb-6 uppercase font-secondary"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
+            className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8"
+          >
+            {[
+              'Operações Exclusivas',
+              'Frotas Especializadas',
+              'Custo x Benefício',
+            ].map((label) => (
+              <span
+                key={label}
+                className="inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-2.5 rounded-full border border-white/35 bg-white/18 backdrop-blur-md text-[0.65rem] sm:text-xs md:text-sm uppercase tracking-[0.28em] sm:tracking-[0.32em] font-semibold text-white/95"
               >
-                Serviços Gabardo
-              </motion.div>
-
-              <motion.h1 
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-3xl sm:text-4xl md:text-5xl font-bold uppercase leading-tight tracking-tight mb-4 sm:mb-5 md:mb-6 font-primary"
-              >
-                Soluções Completas,
-                <br />
-                <span className="text-gabardo-light-blue">Resultados Garantidos</span>
-              </motion.h1>
-
-              <motion.p 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className="text-sm md:text-base lg:text-lg xl:text-xl font-light leading-relaxed max-w-full md:max-w-3xl mb-5 sm:mb-6 md:mb-8 font-secondary"
-              >
-                Operações dedicadas, equipe especializada e custo x beneficio. 
-                Atendemos montadoras e empresas com a excelência que seu negócio merece.
-              </motion.p>
-
-              {/* Services stats */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.0 }}
-                className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8"
-              >
-                <div className="flex items-center space-x-2">
-                  <Dot className="w-3 h-3 text-gabardo-light-blue flex-shrink-0" />
-                  <span className="text-xs sm:text-sm font-light tracking-wide font-secondary">Operações Exclusivas</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Dot className="w-3 h-3 text-gabardo-light-blue flex-shrink-0" />
-                  <span className="text-xs sm:text-sm font-light tracking-wide font-secondary">Frotas Especializadas</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Dot className="w-3 h-3 text-gabardo-light-blue flex-shrink-0" />
-                  <span className="text-xs sm:text-sm font-light tracking-wide font-secondary">Custo x Benefício</span>
-                </div>
-              </motion.div>
-            </div>
-
-          </div>
+                {label}
+              </span>
+            ))}
+          </motion.div>
         </div>
 
         {/* Mobile scroll indicator */}

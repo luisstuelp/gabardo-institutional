@@ -12,6 +12,16 @@ module.exports = {
         'secondary': ['var(--font-roboto)', 'sans-serif'],
         'sans': ['var(--font-montserrat)', 'sans-serif'],
       },
+      letterSpacing: {
+        'tightest': '-0.05em',
+        'tighter': '-0.025em',
+        'tight': '-0.0125em',
+        'normal': '0',
+        'wide': '0.025em',
+        'wider': '0.05em',
+        'widest': '0.1em',
+        'ultra': '0.15em',
+      },
       colors: {
         'accent': {
           DEFAULT: '#c42723',

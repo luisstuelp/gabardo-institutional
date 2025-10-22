@@ -18,24 +18,15 @@ const fleetHighlights = [
     description: 'equipamentos sobressalentes para absorver picos de demanda com agilidade.'
   },
   {
-    title: 'Padrão ambiental',
-    value: '50%',
-    description: 'da frota já opera com tecnologia EURO 6, reduzindo emissões.'
+    title: 'Carbono Negativo',
+    value: '1º Transportadora no mundo',
+    description: 'Primeira transportadora com certificação Carbono Negativo em toda a frota operacional.'
   },
   {
     title: 'Modernidade',
     value: '2 anos',
     description: 'idade média da frota, assegurando eficiência e confiabilidade.'
   }
-];
-
-const fleetComposition = [
-  { label: "Caminhões", value: "1.311" },
-  { label: "Carretas cegonheiras", value: "1.061" },
-  { label: "Trucks", value: "17" },
-  { label: "Carretas sider", value: "42" },
-  { label: "Plataformas", value: "39" },
-  { label: "Plataformas sider", value: "6" }
 ];
 
 const fleetTypes = [
@@ -149,7 +140,7 @@ export default function ServicesFleetSection() {
                 transition={{ duration: 0.4, delay: 0.1 }}
                 className="inline-flex items-center gap-2 rounded-full border border-gabardo-light-blue/50 bg-[#F3F8FF] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.35em] text-gabardo-blue"
               >
-                Frota Gabardo
+                Nossa Frota
               </motion.span>
               <h2 className="text-3xl md:text-4xl lg:text-[2.65rem] font-bold leading-tight text-gabardo-blue">
                 A maior frota própria do Brasil, preparada para cada desafio logístico
@@ -157,6 +148,26 @@ export default function ServicesFleetSection() {
               <p className="text-base md:text-lg text-neutral-600 leading-relaxed">
                 Frota moderna, padronizada e 100% monitorada para garantir disponibilidade, segurança e otimização de custos em toda a cadeia automotiva.
               </p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="flex flex-col sm:flex-row gap-3"
+              >
+                <a
+                  href="/orcamento"
+                  className="inline-flex items-center justify-center rounded-xl bg-gabardo-blue px-6 py-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.28em] text-white shadow-lg transition-transform duration-200 hover:-translate-y-0.5"
+                >
+                  Solicitar proposta
+                </a>
+                <a
+                  href="/cases-de-sucesso"
+                  className="inline-flex items-center justify-center rounded-xl border border-gabardo-blue px-6 py-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.28em] text-gabardo-blue transition-transform duration-200 hover:-translate-y-0.5 hover:bg-gabardo-blue/5"
+                >
+                  Ver cases de sucesso
+                </a>
+              </motion.div>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
@@ -182,29 +193,6 @@ export default function ServicesFleetSection() {
               ))}
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              {fleetComposition.map((item, index) => (
-                <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                  className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-[0_18px_35px_-28px_rgba(19,45,81,0.35)]"
-                >
-                  <div className="text-sm font-semibold uppercase tracking-[0.25em] text-gabardo-light-blue">
-                    {item.label}
-                  </div>
-                  <div className="mt-4 text-3xl font-bold text-gabardo-blue">
-                    {item.value}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="rounded-2xl border border-gabardo-light-blue/30 bg-[#F6FAFF] px-6 py-5 text-sm md:text-base text-neutral-600 leading-relaxed shadow-[0_18px_40px_-32px_rgba(19,45,81,0.35)]">
-              Contamos com 20% de equipamentos reserva, manutenção própria e telemetria completa para garantir que cada veículo chegue ao destino com segurança e previsibilidade.
-            </div>
           </motion.div>
 
           <div className="space-y-4">

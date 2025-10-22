@@ -87,7 +87,7 @@
   }
 
   .section-eyebrow {
-    @apply text-[11px] uppercase tracking-[0.4em] text-gabardo-light-blue/80 font-semibold;
+    @apply text-[11px] uppercase tracking-wider text-gabardo-light-blue/80 font-semibold;
   }
 
   .section-heading {
