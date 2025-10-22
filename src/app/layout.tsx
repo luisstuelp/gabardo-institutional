@@ -4,6 +4,7 @@ import WhatsAppFloat from "@/components/custom/WhatsAppFloat";
 import CookieConsentBanner from "@/components/custom/CookieConsentBanner";
 import StructuredData from "@/components/seo/StructuredData";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { meta } from "@/data/hubPluralContent";
 
 export const metadata: Metadata = {
@@ -114,6 +115,7 @@ export default function RootLayout({
         {children}
         <WhatsAppFloat />
         <CookieConsentBanner />
+        <SpeedInsights />
       </body>
     </html>
   );
