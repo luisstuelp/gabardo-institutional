@@ -1,25 +1,24 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Database, Cloud, Zap, Lock, Radio, Activity } from 'lucide-react';
-import { useState } from 'react';
+import { Database, Cloud, Zap, Lock, Radio, Activity, Smartphone, Eye, GitBranch, HardDrive, Server, Wifi } from 'lucide-react';
 
-const techFeatures = [
+const techLayers = [
   {
     id: 'client',
     title: 'Camada Cliente',
     subtitle: 'Interfaces & Experiência',
     color: 'from-blue-500 to-cyan-500',
     systems: [
-      { 
-        icon: Smartphone, 
-        name: 'Apps Mobile', 
+      {
+        icon: Smartphone,
+        name: 'Apps Mobile',
         description: 'iOS & Android para operação em campo',
         tech: 'React Native'
       },
-      { 
-        icon: Eye, 
-        name: 'Dashboards', 
+      {
+        icon: Eye,
+        name: 'Dashboards',
         description: 'Painéis em tempo real para gestão',
         tech: 'Next.js + D3.js'
       }
@@ -31,15 +30,15 @@ const techFeatures = [
     subtitle: 'APIs & Conectividade',
     color: 'from-purple-500 to-pink-500',
     systems: [
-      { 
-        icon: GitBranch, 
-        name: 'API Gateway', 
+      {
+        icon: GitBranch,
+        name: 'API Gateway',
         description: 'Integração com ERPs e TMS clientes',
         tech: 'REST + GraphQL'
       },
-      { 
-        icon: Radio, 
-        name: 'SD-WAN', 
+      {
+        icon: Radio,
+        name: 'SD-WAN',
         description: 'Rede corporativa com redundância',
         tech: 'Links múltiplos'
       }
@@ -51,15 +50,15 @@ const techFeatures = [
     subtitle: 'Lógica & Inteligência',
     color: 'from-orange-500 to-red-500',
     systems: [
-      { 
-        icon: Zap, 
-        name: 'Motor de Regras', 
+      {
+        icon: Zap,
+        name: 'Motor de Regras',
         description: 'Automação de processos e workflows',
         tech: 'Node.js + Python'
       },
-      { 
-        icon: Activity, 
-        name: 'Analytics', 
+      {
+        icon: Activity,
+        name: 'Analytics',
         description: 'BI e dashboards preditivos',
         tech: 'Machine Learning'
       }
@@ -71,15 +70,15 @@ const techFeatures = [
     subtitle: 'Armazenamento & Backup',
     color: 'from-green-500 to-emerald-500',
     systems: [
-      { 
-        icon: Database, 
-        name: 'Bancos de Dados', 
+      {
+        icon: Database,
+        name: 'Bancos de Dados',
         description: 'PostgreSQL replicado multi-região',
         tech: 'Alta disponibilidade'
       },
-      { 
-        icon: HardDrive, 
-        name: 'Storage', 
+      {
+        icon: HardDrive,
+        name: 'Storage',
         description: 'Backup noturno automático + DR',
         tech: 'S3 + Backup local'
       }
@@ -91,15 +90,15 @@ const techFeatures = [
     subtitle: 'Cloud & Segurança',
     color: 'from-gabardo-blue to-gabardo-light-blue',
     systems: [
-      { 
-        icon: Cloud, 
-        name: 'Cloud Híbrida', 
+      {
+        icon: Cloud,
+        name: 'Cloud Híbrida',
         description: 'AWS + On-premise para compliance',
         tech: 'Kubernetes'
       },
-      { 
-        icon: Lock, 
-        name: 'Segurança', 
+      {
+        icon: Lock,
+        name: 'Segurança',
         description: 'Firewall, VPN, certificados SSL/TLS',
         tech: 'Zero Trust'
       }
