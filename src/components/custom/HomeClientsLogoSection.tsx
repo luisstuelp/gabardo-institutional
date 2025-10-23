@@ -13,7 +13,7 @@ const clientLogosWithLayout = [
   { id: 3, name: 'Cliente 3', span: 'md:col-span-1 md:row-span-1', assetId: 2 },
   { id: 11, name: 'Cliente 11', span: 'md:col-span-1 md:row-span-1', assetId: 7 },
   { id: 14, name: 'Cliente 14', span: 'md:col-span-2 md:row-span-1', assetId: 12 }, // Wide
-  { id: 4, name: 'Cliente 4', span: 'md:col-span-2 md:row-span-2', assetId: 9 }, // Large featured
+  { id: 4, name: 'Cliente 4', span: 'md:col-span-2 md:row-span-2', assetId: 9 }, // Large featured - proportionally scaled
   { id: 15, name: 'Cliente 15', span: 'md:col-span-1 md:row-span-1', assetId: 13 },
   { id: 8, name: 'Cliente 8', span: 'md:col-span-1 md:row-span-1', assetId: 5 },
   { id: 18, name: 'Cliente 18', span: 'md:col-span-1 md:row-span-2', assetId: 16 }, // Tall
@@ -284,7 +284,7 @@ const HomeClientsLogoSection = () => {
                     delay: 0.5 + (index * 0.05),
                     ease: [0.16, 1, 0.3, 1]
                   }}
-                  className="absolute inset-0 p-2 sm:p-3 md:p-4 pointer-events-none"
+                  className={`absolute inset-0 pointer-events-none ${detailId === 9 ? 'p-8 sm:p-10 md:p-12' : 'p-2 sm:p-3 md:p-4'}`}
                   animate={{ rotateY: flippedLogo === logo.id ? 180 : 0 }}
                 >
                   <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-white shadow-sm transition-all duration-300 [transform-style:preserve-3d]">
@@ -301,7 +301,7 @@ const HomeClientsLogoSection = () => {
                         alt={displayName}
                         width={300}
                         height={300}
-                        className="w-full h-full object-contain transition-all duration-500 grayscale group-hover:grayscale-0 opacity-60 group-hover:opacity-100"
+                        className={`w-full h-full object-contain transition-all duration-500 grayscale group-hover:grayscale-0 opacity-60 group-hover:opacity-100 ${detailId === 9 ? 'scale-75' : ''} ${detailId === 21 ? 'scale-150' : ''}`}
                       />
 
                       <motion.div
