@@ -413,12 +413,12 @@ export default function PatiosUnidadesPremium() {
                 <Gauge className="h-7 w-7 text-white" />
               </div>
               <span className="text-sm sm:text-base font-bold text-gray-700 uppercase tracking-wide">
-                Capacidade Total
+                Capacidade total de veículos
               </span>
             </div>
             <div className="h-12 w-px bg-gabardo-blue/20 hidden sm:block" />
             <span className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-gabardo-blue to-gabardo-light-blue bg-clip-text text-transparent">
-              5,840
+              6,000+
             </span>
           </div>
         </motion.div>

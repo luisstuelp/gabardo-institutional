@@ -160,6 +160,62 @@ export default function FacilitiesPremium() {
         </motion.svg>
       </div>
 
+      {/* Animated Flow Line Behind Content */}
+      <svg
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] max-w-none hidden md:block"
+        viewBox="0 0 1500 520"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient id="facilities-flow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#38B6FF" stopOpacity="0.15" />
+            <stop offset="28%" stopColor="#38B6FF" stopOpacity="0.65" />
+            <stop offset="54%" stopColor="#7FD7FF" stopOpacity="0.85" />
+            <stop offset="82%" stopColor="#38B6FF" stopOpacity="0.65" />
+            <stop offset="100%" stopColor="#38B6FF" stopOpacity="0.2" />
+          </linearGradient>
+          <linearGradient id="facilities-flow-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#7FD7FF" stopOpacity="0.4" />
+            <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#7FD7FF" stopOpacity="0.35" />
+          </linearGradient>
+          <filter id="facilities-flow-filter" x="-20%" y="-30%" width="140%" height="160%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <motion.path
+          d="M 1500 120 C 1320 110, 1210 160, 1070 190 S 840 240, 750 205 S 620 140, 520 210 S 410 360, 320 350 S 170 290, 40 360 L -80 420"
+          fill="none"
+          stroke="url(#facilities-flow-gradient)"
+          strokeWidth={24}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          filter="url(#facilities-flow-filter)"
+          initial={{ pathLength: 0, opacity: 0 }}
+          whileInView={{ pathLength: 1, opacity: 1 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 1.8, ease: "easeOut" }}
+        />
+
+        <motion.path
+          d="M 1500 120 C 1320 110, 1210 160, 1070 190 S 840 240, 750 205 S 620 140, 520 210 S 410 360, 320 350 S 170 290, 40 360 L -80 420"
+          fill="none"
+          stroke="url(#facilities-flow-glow)"
+          strokeWidth={8}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          whileInView={{ pathLength: 1, opacity: 1 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 1.6, delay: 0.15, ease: "easeOut" }}
+        />
+      </svg>
+
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-16 text-center">
@@ -301,44 +357,6 @@ export default function FacilitiesPremium() {
           </div>
 
         </div>
-      </div>
-
-      {/* Bottom Transition Wave */}
-      <div className="absolute bottom-0 left-0 h-48 w-full">
-        <motion.svg 
-          className="h-full w-full" 
-          preserveAspectRatio="none" 
-          viewBox="0 0 1200 120"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-        >
-          <motion.path
-            d="M0,60 Q150,100 300,60 T600,60 Q750,20 900,60 T1200,60 L1200,120 L0,120 Z"
-            fill="url(#gradient2)"
-            opacity="0.08"
-            animate={{ 
-              d: [
-                "M0,60 Q150,100 300,60 T600,60 Q750,20 900,60 T1200,60 L1200,120 L0,120 Z",
-                "M0,60 Q150,20 300,60 T600,60 Q750,100 900,60 T1200,60 L1200,120 L0,120 Z",
-                "M0,60 Q150,100 300,60 T600,60 Q750,20 900,60 T1200,60 L1200,120 L0,120 Z"
-              ]
-            }}
-            transition={{ 
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          <defs>
-            <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#132D51" />
-              <stop offset="50%" stopColor="#38B6FF" />
-              <stop offset="100%" stopColor="#132D51" />
-            </linearGradient>
-          </defs>
-        </motion.svg>
       </div>
     </section>
   );

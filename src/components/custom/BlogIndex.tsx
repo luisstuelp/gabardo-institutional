@@ -101,7 +101,7 @@ const BlogIndex: React.FC = () => {
                   className="group relative"
                   
                 >
-                  <MagneticCard strength={0.2} scale={1.03}>
+                  <MagneticCard strength={0.05} scale={1.01}>
                     <Link href={`/blog/${post.slug}`}>
                       <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10 transition-all duration-500 hover:border-white/30 hover:bg-white/10">
                       
@@ -231,7 +231,7 @@ const BlogIndex: React.FC = () => {
                       className="group relative"
                       
                     >
-                      <MagneticCard strength={0.15} scale={1.02}>
+                      <MagneticCard strength={0.03} scale={1.005}>
                         <Link href={`/blog/${post.slug}`}>
                           <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 transition-all duration-500 hover:border-white/30 hover:bg-white/10">
                           

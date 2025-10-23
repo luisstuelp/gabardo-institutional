@@ -6,61 +6,64 @@ import { Building2 } from 'lucide-react';
 const SobreQualidadeInfraestruturaSection = () => {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-16 sm:py-24">
-      {/* Animated Decorative SVG Elements */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        {/* Floating Circle Top Left */}
-        <motion.svg
-          className="absolute left-10 top-20 h-72 w-72 text-gabardo-blue/5"
-          viewBox="0 0 200 200"
-          animate={{ 
-            y: [0, -20, 0],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{ 
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <circle cx="100" cy="100" r="90" fill="currentColor" />
-        </motion.svg>
+      {/* Animated Flow Line Behind Content - Left to Right */}
+      <svg
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] max-w-none hidden md:block"
+        viewBox="0 0 1500 520"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient id="quality-flow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#38B6FF" stopOpacity="0.15" />
+            <stop offset="28%" stopColor="#38B6FF" stopOpacity="0.65" />
+            <stop offset="54%" stopColor="#7FD7FF" stopOpacity="0.85" />
+            <stop offset="82%" stopColor="#38B6FF" stopOpacity="0.65" />
+            <stop offset="100%" stopColor="#38B6FF" stopOpacity="0.2" />
+          </linearGradient>
+          <linearGradient id="quality-flow-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#7FD7FF" stopOpacity="0.4" />
+            <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#7FD7FF" stopOpacity="0.35" />
+          </linearGradient>
+          <filter id="quality-flow-filter" x="-20%" y="-30%" width="140%" height="160%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
 
-        {/* Organic Shape Bottom Right */}
-        <motion.svg
-          className="absolute right-10 bottom-20 h-96 w-96 text-gabardo-light-blue/8"
-          viewBox="0 0 200 200"
-          animate={{ 
-            rotate: [0, 180, 360],
-            y: [0, 15, 0]
-          }}
-          transition={{ 
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        >
-          <path fill="currentColor" d="M41.5,-72.3C54.4,-65.7,65.8,-56.2,73.4,-44.2C81,-32.2,84.8,-17.7,85.3,-3C85.8,11.7,83,26.6,75.9,39.2C68.8,51.8,57.4,62.1,44.3,68.7C31.2,75.3,16.6,78.2,1.8,75.2C-13,72.2,-28.1,63.3,-41.5,53.1C-54.9,42.9,-66.6,31.4,-73.8,17.3C-81,-3.2,-83.7,-26.3,-77.4,-45.8C-71.1,-65.3,-55.8,-81.2,-38.6,-85.8C-21.4,-90.4,-2.3,-83.7,13.8,-78.9C29.9,-74.1,28.6,-78.9,41.5,-72.3Z" transform="translate(100 100)" />
-        </motion.svg>
+        <motion.path
+          d="M -80 120 C 100 110, 210 160, 350 190 S 580 240, 670 205 S 800 140, 900 210 S 1010 360, 1100 350 S 1250 290, 1380 360 L 1500 420"
+          fill="none"
+          stroke="url(#quality-flow-gradient)"
+          strokeWidth={24}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          filter="url(#quality-flow-filter)"
+          initial={{ pathLength: 0, opacity: 0 }}
+          whileInView={{ pathLength: 1, opacity: 1 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 1.8, ease: "easeOut" }}
+        />
 
-        {/* Wave on Right */}
-        <motion.svg
-          className="absolute right-0 top-1/3 h-full w-1/4 text-gabardo-light-blue/4"
-          preserveAspectRatio="none"
-          viewBox="0 0 100 800"
-          animate={{ 
-            x: [0, -15, 0]
-          }}
-          transition={{ 
-            duration: 14,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <path d="M100,0 Q75,200 100,400 T100,800 L100,0 Z" fill="currentColor" />
-        </motion.svg>
-      </div>
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
-        <div className="max-w-4xl mx-auto">
+        <motion.path
+          d="M -80 120 C 100 110, 210 160, 350 190 S 580 240, 670 205 S 800 140, 900 210 S 1010 360, 1100 350 S 1250 290, 1380 360 L 1500 420"
+          fill="none"
+          stroke="url(#quality-flow-glow)"
+          strokeWidth={8}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          whileInView={{ pathLength: 1, opacity: 1 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 1.6, delay: 0.15, ease: "easeOut" }}
+        />
+      </svg>
+
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 relative">
+        <div className="max-w-4xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -88,44 +91,6 @@ const SobreQualidadeInfraestruturaSection = () => {
             </div>
           </motion.div>
         </div>
-      </div>
-
-      {/* Smooth Animated Bottom Wave */}
-      <div className="absolute bottom-0 left-0 h-40 w-full">
-        <motion.svg 
-          className="h-full w-full" 
-          preserveAspectRatio="none" 
-          viewBox="0 0 1200 120"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-        >
-          <motion.path
-            d="M0,40 Q200,80 400,40 T800,40 Q1000,10 1200,40 L1200,120 L0,120 Z"
-            fill="url(#gradient3)"
-            opacity="0.1"
-            animate={{ 
-              d: [
-                "M0,40 Q200,80 400,40 T800,40 Q1000,10 1200,40 L1200,120 L0,120 Z",
-                "M0,40 Q200,10 400,40 T800,40 Q1000,80 1200,40 L1200,120 L0,120 Z",
-                "M0,40 Q200,80 400,40 T800,40 Q1000,10 1200,40 L1200,120 L0,120 Z"
-              ]
-            }}
-            transition={{ 
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          <defs>
-            <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#132D51" />
-              <stop offset="50%" stopColor="#38B6FF" />
-              <stop offset="100%" stopColor="#132D51" />
-            </linearGradient>
-          </defs>
-        </motion.svg>
       </div>
     </section>
   );
