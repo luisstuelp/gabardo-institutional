@@ -10,11 +10,11 @@ export default function AnimatedCarbonBadge() {
     <div className="relative inline-flex items-center gap-4 py-4">
       <div className="relative z-20 flex-shrink-0 block rounded-full">
         <Image
-          src="/images/Instagram - Gabardo.png"
-          alt="Selo Instagram Gabardo"
+          src="/images/2025 CERTIFICAÇÕES + CARBONO NEGATIVO.png"
+          alt="Selo 2025 Certificações Carbono Negativo"
           width={96}
           height={96}
-          className="w-20 h-20 sm:w-24 sm:h-24"
+          className="h-20 w-auto sm:h-24"
         />
       </div>
 
