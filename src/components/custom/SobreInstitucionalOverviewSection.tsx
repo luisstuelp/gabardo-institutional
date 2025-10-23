@@ -65,73 +65,31 @@ const SobreInstitucionalOverviewSection = () => {
           </motion.p>
         </header>
 
-        <div className="grid gap-12 xl:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-8">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 max-w-7xl mx-auto">
+          {structureHighlights.map((item, index) => (
             <motion.article
-              initial={{ opacity: 0, y: 24 }}
+              key={item.title}
+              initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              className="group rounded-[28px] border border-gabardo-blue/10 bg-white/80 p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm"
+              viewport={{ once: true, amount: 0.2, margin: "-30px" }}
+              transition={{ duration: 0.5, delay: index * 0.1, ease: 'easeOut' }}
+              className="group flex flex-col overflow-hidden rounded-3xl border border-neutral-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
             >
-              <h3 className="text-xs sm:text-sm uppercase tracking-[0.32em] text-gabardo-blue font-semibold">
-                Governança corporativa
-              </h3>
-              <p className="mt-4 text-base sm:text-lg text-gray-700 leading-relaxed">
-                Organizamos nossa estrutura em áreas especializadas que colaboram de forma integrada. Planejamento estratégico, engenharia de rotas, torre de controle e equipes de suporte trabalham em sinergia para entregar resultados consistentes.
-              </p>
-              <div className="mt-5 h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-300 group-hover:border-gabardo-blue/30 transition-colors duration-300" role="img" aria-label="Placeholder para imagem de governança corporativa">
-                <span className="text-sm text-gray-500 font-medium">Espaço reservado para imagem institucional</span>
+              <div className="relative h-64 w-full overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={item.imageAlt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="space-y-3 px-6 py-6">
+                <h3 className="text-xl font-semibold text-gray-900">{item.title}</h3>
+                <p className="text-base leading-relaxed text-gray-600">{item.description}</p>
               </div>
             </motion.article>
-
-            <motion.article
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-              className="group rounded-[28px] border border-gabardo-blue/10 bg-white/80 p-6 sm:p-8 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm"
-            >
-              <h3 className="text-xs sm:text-sm uppercase tracking-[0.32em] text-gabardo-blue font-semibold">
-                Habilitações e certificações
-              </h3>
-              <p className="mt-4 text-base sm:text-lg text-gray-700 leading-relaxed">
-                Possuímos Declaração de Trânsito Aduaneiro (DTA) e demais certificações necessárias para operações internacionais. Nossos processos aduaneiros seguem rigorosos controles fiscais, permitindo transferências seguras entre portos, pátios e montadoras.
-              </p>
-              <div className="mt-5 h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-300 group-hover:border-gabardo-blue/30 transition-colors duration-300" role="img" aria-label="Placeholder para certificações e habilitações">
-                <span className="text-sm text-gray-500 font-medium">Espaço reservado para certificações</span>
-              </div>
-            </motion.article>
-          </div>
-
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              {structureHighlights.map((item) => (
-                <motion.article
-                  key={item.title}
-                  initial={{ opacity: 0, y: 32 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2, margin: "-30px" }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
-                  className="group flex flex-col overflow-hidden rounded-3xl border border-neutral-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="relative h-44 w-full overflow-hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.imageAlt}
-                      fill
-                      sizes="(max-width: 640px) 100vw, 50vw"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="space-y-3 px-6 py-5">
-                    <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
-                    <p className="text-sm leading-relaxed text-gray-600">{item.description}</p>
-                  </div>
-                </motion.article>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 

@@ -90,7 +90,7 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
   }, [isDesktop]);
 
   return (
-    <div className="relative w-full h-screen min-h-[600px] text-white overflow-hidden bg-cover bg-center md:bg-transparent"
+    <div className="relative w-full h-[100dvh] min-h-[100dvh] md:h-screen md:min-h-[600px] text-white overflow-hidden bg-cover bg-center md:bg-transparent"
          style={{ backgroundImage: `url(${imageSrc || '/images/gabardo-hero-01.jpg'})` }}>
       {/* Hero Video Background - Hidden on mobile */}
       {!isDesktop && (
@@ -130,26 +130,26 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
       <div className="absolute inset-0 bg-black bg-opacity-50"></div> {/* Overlay for better text contrast */}
 
       {/* Content container */}
-      <div className="relative z-10 flex flex-col justify-start md:justify-center md:gap-12 h-full section-container pt-6 pb-10 sm:pt-8 md:pt-12 md:pb-12">
+      <div className="relative z-10 flex flex-col justify-center md:gap-12 h-full section-container py-6 sm:py-8 md:pt-12 md:pb-12">
         <div className="hidden md:block"></div>
 
         {/* Left Scroll Indicator - Hidden on mobile */}
         <div className="hidden md:block absolute top-1/2 left-4 sm:left-6 md:left-10 lg:left-16 transform -translate-y-1/2">
           <ScrollDownIcon />
         </div>
-        <div className="flex flex-col justify-start md:justify-center h-full mt-16 sm:mt-20 md:mt-0 lg:mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-[7rem_1fr] gap-6 items-start md:items-end w-full mb-8 sm:mb-10 md:mb-6">
+        <div className="flex flex-col justify-center h-full">
+          <div className="grid grid-cols-1 md:grid-cols-[7rem_1fr] gap-4 md:gap-6 items-start md:items-end w-full">
 
             <div aria-hidden className="hidden md:block" />
             {/* Text Content Block */}
-            <div className="max-w-4xl xl:max-w-5xl flex flex-col gap-5 md:gap-6">
-              <h1 className="font-primary hero-heading-1 sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-4 sm:mb-5 md:mb-5">
+            <div className="max-w-4xl xl:max-w-5xl flex flex-col gap-3 md:gap-5">
+              <h1 className="font-primary text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-2 sm:mb-3 md:mb-4">
                 {title || 'Movidos por'}
                 {!title && (
                   <>
                     <br />
                     <span
-                      className="block hero-heading-2 sm:text-5xl md:text-6xl lg:text-7xl xl:text-[8rem] font-extrabold"
+                      className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[8rem] font-extrabold overflow-hidden"
                       style={{ color: '#38B6FF' }}
                     >
                       <AnimatedWords />
@@ -158,20 +158,20 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
                 )}
               </h1>
               {subtitle && (
-                <p className="font-secondary mt-3 text-sm sm:text-base md:text-lg font-light leading-relaxed mb-5 sm:mb-6 md:mb-6">
+                <p className="font-secondary text-sm sm:text-base md:text-lg font-light leading-relaxed mb-3 md:mb-4">
                   {subtitle}
                 </p>
               )}
 
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 text-white/85">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-white/85 my-2">
                 <AnimatedCarbonBadge />
               </div>
 
-              <p className="font-secondary mt-3 text-sm sm:text-base md:text-lg font-light leading-relaxed mb-5 sm:mb-6 md:mb-6">
+              <p className="font-secondary text-sm sm:text-base md:text-lg font-light leading-relaxed mb-3 md:mb-4">
                 Há mais de 36 anos, entendemos as necessidades dos nossos clientes para atendê-los de forma personalizada e eficiente no transporte de veículos.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:mt-2 pb-6 sm:pb-2 md:pb-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-2 md:mt-3">
                 <Link href="/servicos" className="w-full sm:w-auto">
                   <motion.button
                     whileHover={{ scale: 1.05 }}

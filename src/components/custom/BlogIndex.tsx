@@ -8,7 +8,6 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import NewsletterSection from '@/components/custom/NewsletterSection';
-import MagneticCard from '@/components/ui/magnetic-card';
 import BlogHeroSection from '@/components/custom/BlogHeroSection';
 import { getAllBlogPosts, getFeaturedBlogPosts, blogCategories, type BlogPost } from '@/data/blogData';
 
@@ -99,11 +98,9 @@ const BlogIndex: React.FC = () => {
                   key={post.id}
                   variants={itemVariants}
                   className="group relative"
-                  
                 >
-                  <MagneticCard strength={0.05} scale={1.01}>
-                    <Link href={`/blog/${post.slug}`}>
-                      <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10 transition-all duration-500 hover:border-white/30 hover:bg-white/10">
+                  <Link href={`/blog/${post.slug}`}>
+                    <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10 transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:shadow-xl">
                       
                       {/* Image */}
                       <div className="relative h-80 md:h-96 overflow-hidden">
@@ -178,7 +175,6 @@ const BlogIndex: React.FC = () => {
                       </div>
                     </div>
                   </Link>
-                </MagneticCard>
                 </motion.article>
               ))}
             </div>
@@ -229,11 +225,9 @@ const BlogIndex: React.FC = () => {
                       key={post.id}
                       variants={itemVariants}
                       className="group relative"
-                      
                     >
-                      <MagneticCard strength={0.03} scale={1.005}>
-                        <Link href={`/blog/${post.slug}`}>
-                          <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 transition-all duration-500 hover:border-white/30 hover:bg-white/10">
+                      <Link href={`/blog/${post.slug}`}>
+                        <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:shadow-xl">
                           
                           {/* Image */}
                           <div className="relative h-48 overflow-hidden">
@@ -300,7 +294,6 @@ const BlogIndex: React.FC = () => {
                           </div>
                         </div>
                       </Link>
-                    </MagneticCard>
                     </motion.article>
                   ))}
                 </motion.div>

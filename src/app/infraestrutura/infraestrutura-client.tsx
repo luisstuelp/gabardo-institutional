@@ -6,6 +6,7 @@ import { Header } from '@/components/layout/Header';
 import InfraestruturaHeroSection from '@/components/custom/InfraestruturaHeroSection';
 import FacilitiesPremium from '@/components/custom/FacilitiesPremium';
 import SobreQualidadeInfraestruturaSection from '@/components/custom/SobreQualidadeInfraestruturaSection';
+import InfraestruturaVideoSection from '@/components/custom/InfraestruturaVideoSection';
 import PatiosUnidadesPremium from '@/components/custom/PatiosUnidadesPremium';
 
 const MapboxSection = dynamic(() => import('@/components/custom/MapboxSection'), {
@@ -25,6 +26,7 @@ export default function InfraestruturaClient() {
       <InfraestruturaHeroSection />
       <FacilitiesPremium />
       <SobreQualidadeInfraestruturaSection />
+      <InfraestruturaVideoSection />
       <PatiosUnidadesPremium />
       <MapboxSection />
       <Footer />

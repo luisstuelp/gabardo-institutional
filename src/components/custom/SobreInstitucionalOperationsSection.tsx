@@ -40,7 +40,7 @@ const SobreInstitucionalOperationsSection = () => {
         transition={{ duration: 1.2, ease: 'easeOut' }}
       />
       <div className="container mx-auto px-4 md:px-8 lg:px-16">
-        <div className="grid items-start gap-12 lg:grid-cols-[5fr_7fr]">
+        <div className="grid items-start gap-8 lg:gap-12 lg:grid-cols-[5fr_7fr]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -62,7 +62,7 @@ const SobreInstitucionalOperationsSection = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-              className="relative h-[550px] w-full"
+              className="relative h-[340px] sm:h-[420px] lg:h-[550px] w-full"
               role="img"
               aria-label="Mapa interativo mostrando cobertura Gabardo na América Latina"
             >
@@ -81,7 +81,7 @@ const SobreInstitucionalOperationsSection = () => {
             </motion.div>
           </motion.div>
 
-          <div className="relative mt-16 lg:mt-28">
+          <div className="relative mt-0 lg:mt-28">
             <div className="space-y-6 sm:space-y-8">
               {operations.map((operation, index) => (
                 <motion.article
