@@ -132,7 +132,7 @@ export const hubPluralContent: ScrapedContent = {
     ]
   },
   "contact": {
-    "phone": "+55 (51) 3373.3000",
+    "phone": "+55 (51) 3373-3000",
     "email": "gabardo@transgabardo.com.br",
     "address": "Av. Fernando Ferrari, 700 - Anchieta - CEP 90200-040 - Porto Alegre/RS",
     "socialMedia": {

@@ -41,7 +41,7 @@ const TrabalheConoscoHeroSection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase leading-tight tracking-tight mb-5 sm:mb-6"
         >
-          Fale Conosco
+          Fale <span className="text-gabardo-light-blue">Conosco</span>
         </motion.h1>
 
         <motion.p

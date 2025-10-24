@@ -63,7 +63,7 @@ const CarbonCompensationSection = () => {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
+      setIsMobile(window.innerWidth < 768);
     };
     
     checkMobile();
@@ -160,7 +160,7 @@ const CarbonCompensationSection = () => {
                 itemStackDistance={50}
                 stackPosition="20%"
                 scaleEndPosition="12%"
-                baseScale={0.9}
+                baseScale={0.92}
               >
                 {actionCards.map((card, index) => {
                 const Icon = card.icon;
@@ -168,26 +168,26 @@ const CarbonCompensationSection = () => {
                 return (
                   <ScrollStackItem key={card.title}>
                     <div
-                      className="relative overflow-hidden rounded-3xl border border-gabardo-blue/15 bg-gradient-to-br from-white via-white to-gabardo-light-blue/10 p-8 shadow-xl"
+                      className="relative overflow-hidden rounded-3xl border border-gabardo-blue/15 bg-gradient-to-br from-white via-white to-gabardo-light-blue/10 p-6 md:p-8 shadow-xl"
                       style={{
                         boxShadow: '0 25px 60px -30px rgba(19, 45, 81, 0.3)',
                         height: 'auto',
-                        minHeight: index < 3 ? '200px' : '240px'
+                        minHeight: index < 3 ? '180px' : '220px'
                       }}
                     >
                       <div className={`absolute inset-0 bg-gradient-to-br ${card.accent} opacity-0 transition-opacity duration-500 hover:opacity-90`} />
-                      <div className="relative z-10 flex flex-col gap-5">
-                        <div className="flex items-start gap-5">
+                      <div className="relative z-10 flex flex-col gap-4 md:gap-5">
+                        <div className="flex items-start gap-4 md:gap-5">
                           <div
-                            className={`flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-white shadow-md ${isGreenIcon ? 'text-emerald-500' : 'text-gabardo-blue'}`}
+                            className={`flex h-14 w-14 md:h-16 md:w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-white shadow-md ${isGreenIcon ? 'text-emerald-500' : 'text-gabardo-blue'}`}
                           >
-                            <Icon className="h-8 w-8" strokeWidth={2} />
+                            <Icon className="h-7 w-7 md:h-8 md:w-8" strokeWidth={2} />
                           </div>
-                          <div className="flex-1 space-y-3">
-                            <h3 className="text-2xl font-bold uppercase tracking-[0.15em] text-gabardo-blue leading-tight">
+                          <div className="flex-1 space-y-2 md:space-y-3">
+                            <h3 className="text-xl md:text-2xl font-bold uppercase tracking-[0.12em] md:tracking-[0.15em] text-gabardo-blue leading-tight">
                               {card.title}
                             </h3>
-                            <p className="text-base text-slate-600 leading-relaxed">
+                            <p className="text-sm md:text-base text-slate-600 leading-relaxed">
                               {card.description}
                             </p>
                           </div>
@@ -201,23 +201,23 @@ const CarbonCompensationSection = () => {
                 
                 <ScrollStackItem>
                 <div 
-                  className="relative rounded-3xl border-2 border-gabardo-blue/20 bg-white p-8 shadow-xl"
+                  className="relative rounded-3xl border-2 border-gabardo-blue/20 bg-white p-6 md:p-8 shadow-xl"
                   style={{
                     boxShadow: '0 25px 60px -30px rgba(19, 45, 81, 0.3)',
                     height: 'auto',
-                    minHeight: '280px'
+                    minHeight: '260px'
                   }}
                 >
-                  <div className="flex flex-col gap-6">
-                    <div className="flex items-start gap-5">
-                      <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/20 to-gabardo-blue/20 text-gabardo-blue shadow-md">
-                        <Award className="h-8 w-8" strokeWidth={2} />
+                  <div className="flex flex-col gap-5 md:gap-6">
+                    <div className="flex items-start gap-4 md:gap-5">
+                      <div className="flex h-14 w-14 md:h-16 md:w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/20 to-gabardo-blue/20 text-gabardo-blue shadow-md">
+                        <Award className="h-7 w-7 md:h-8 md:w-8" strokeWidth={2} />
                       </div>
-                      <div className="flex-1 space-y-3">
-                        <h3 className="text-xl font-bold uppercase tracking-[0.18em] text-gabardo-blue leading-tight">
+                      <div className="flex-1 space-y-2 md:space-y-3">
+                        <h3 className="text-lg md:text-xl font-bold uppercase tracking-[0.15em] md:tracking-[0.18em] text-gabardo-blue leading-tight">
                           Programa Carbono Negativo Gabardo
                         </h3>
-                        <p className="text-base text-slate-600 leading-relaxed">
+                        <p className="text-sm md:text-base text-slate-600 leading-relaxed">
                           Inventário GEE auditado, selo GHG Protocol Prata 2025 e compromissos net zero 2030 guiando nossas operações.
                         </p>
                       </div>

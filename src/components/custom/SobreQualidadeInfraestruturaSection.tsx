@@ -14,16 +14,16 @@ const SobreQualidadeInfraestruturaSection = () => {
       >
         <defs>
           <linearGradient id="quality-flow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#38B6FF" stopOpacity="0.15" />
-            <stop offset="28%" stopColor="#38B6FF" stopOpacity="0.65" />
-            <stop offset="54%" stopColor="#7FD7FF" stopOpacity="0.85" />
-            <stop offset="82%" stopColor="#38B6FF" stopOpacity="0.65" />
-            <stop offset="100%" stopColor="#38B6FF" stopOpacity="0.2" />
+            <stop offset="0%" stopColor="#38B6FF" stopOpacity="0.08" />
+            <stop offset="28%" stopColor="#38B6FF" stopOpacity="0.32" />
+            <stop offset="54%" stopColor="#7FD7FF" stopOpacity="0.42" />
+            <stop offset="82%" stopColor="#38B6FF" stopOpacity="0.32" />
+            <stop offset="100%" stopColor="#38B6FF" stopOpacity="0.1" />
           </linearGradient>
           <linearGradient id="quality-flow-glow" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#7FD7FF" stopOpacity="0.4" />
-            <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#7FD7FF" stopOpacity="0.35" />
+            <stop offset="0%" stopColor="#7FD7FF" stopOpacity="0.2" />
+            <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#7FD7FF" stopOpacity="0.18" />
           </linearGradient>
           <filter id="quality-flow-filter" x="-20%" y="-30%" width="140%" height="160%">
             <feGaussianBlur in="SourceGraphic" stdDeviation="22" result="blur" />

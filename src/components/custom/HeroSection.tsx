@@ -90,7 +90,7 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
   }, [isDesktop]);
 
   return (
-    <div className="relative w-full h-[100dvh] min-h-[100dvh] md:h-screen md:min-h-[600px] text-white overflow-hidden bg-cover bg-center md:bg-transparent"
+    <div className="relative w-full h-screen min-h-screen text-white overflow-hidden bg-cover bg-center md:bg-transparent"
          style={{ backgroundImage: `url(${imageSrc || '/images/gabardo-hero-01.jpg'})` }}>
       {/* Hero Video Background - Hidden on mobile */}
       {!isDesktop && (
@@ -137,8 +137,8 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
         <div className="hidden md:block absolute top-1/2 left-4 sm:left-6 md:left-10 lg:left-16 transform -translate-y-1/2">
           <ScrollDownIcon />
         </div>
-        <div className="flex flex-col justify-center h-full">
-          <div className="grid grid-cols-1 md:grid-cols-[7rem_1fr] gap-4 md:gap-6 items-start md:items-end w-full">
+        <div className="flex flex-col justify-center h-full py-8 md:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-[7rem_1fr] gap-4 md:gap-6 items-start md:items-center w-full">
 
             <div aria-hidden className="hidden md:block" />
             {/* Text Content Block */}
@@ -149,7 +149,7 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
                   <>
                     <br />
                     <span
-                      className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[8rem] font-extrabold overflow-hidden"
+                      className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[7rem] font-extrabold leading-none"
                       style={{ color: '#38B6FF' }}
                     >
                       <AnimatedWords />

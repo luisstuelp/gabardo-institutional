@@ -65,10 +65,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/trabalhe-conosco`,
+      url: `${baseUrl}/contato`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 0.7,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/orcamento`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/cases-de-sucesso`,
@@ -83,10 +89,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/contato`,
+      url: `${baseUrl}/midia`,
       lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.8,
+      changeFrequency: 'monthly',
+      priority: 0.6,
     },
   ]
 }

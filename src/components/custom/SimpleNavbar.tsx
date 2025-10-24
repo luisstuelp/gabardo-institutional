@@ -16,7 +16,7 @@ const navItems: NavItem[] = [
   { label: 'HOME', href: '/' },
   { label: 'SOBRE', href: '/sobre' },
   { label: 'SERVIÇOS', href: '/servicos' },
-  { label: 'ORÇAMENTO', href: '/contato' },
+  { label: 'ORÇAMENTO', href: '/orcamento' },
   { label: 'BLOG', href: '/blog' },
 ];
 

@@ -1054,7 +1054,9 @@ const VehicleQuoteForm: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-gabardo-blue">E-mail</h4>
-                    <p className="text-gray-600">comercial@transgabardo.com.br</p>
+                    <a href="mailto:comercial@transgabardo.com.br" className="text-gray-600 hover:text-gabardo-blue transition-colors">
+                      comercial@transgabardo.com.br
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -1063,7 +1065,9 @@ const VehicleQuoteForm: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-gabardo-blue">Central</h4>
-                    <p className="text-gray-600">(51) 2108-2400</p>
+                    <a href="tel:+555121082400" className="text-gray-600 hover:text-gabardo-blue transition-colors">
+                      (51) 2108-2400
+                    </a>
                     <p className="text-gray-500 text-xs uppercase tracking-[0.2em]">Atendimento em horário comercial</p>
                   </div>
                 </div>

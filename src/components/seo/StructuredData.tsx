@@ -17,11 +17,11 @@ name: 'Gabardo',
     },
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Rua Vitor Valpírio, 715 - Anchieta',
+      streetAddress: 'Av. Fernando Ferrari, 700 - Anchieta',
       addressLocality: 'Porto Alegre',
       addressRegion: 'RS',
-      postalCode: '90200-230',
-      addressCountry: 'continental'
+      postalCode: '90200-040',
+      addressCountry: 'BR'
     },
     contactPoint: {
       '@type': 'ContactPoint',
@@ -81,11 +81,11 @@ name: 'Gabardo',
     email: 'gabardo@transgabardo.com.br',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Rua Vitor Valpírio, 715 - Anchieta',
+      streetAddress: 'Av. Fernando Ferrari, 700 - Anchieta',
       addressLocality: 'Porto Alegre',
       addressRegion: 'RS',
-      postalCode: '90200-230',
-      addressCountry: 'continental'
+      postalCode: '90200-040',
+      addressCountry: 'BR'
     },
     geo: {
       '@type': 'GeoCoordinates',

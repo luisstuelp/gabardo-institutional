@@ -11,19 +11,7 @@ interface FormData {
   company: string;
   subject: string;
   message: string;
-  interest: string;
 }
-
-const interestOptions = [
-  'Transporte de veículos leves',
-  'Transporte em prancha & maquinário',
-  'Armazenagem e pátios dedicados',
-  'Operações multimodais & cabotagem',
-  'Projetos ESG e compliance',
-  'Outra necessidade logística'
-];
-
-
 
 export default function ContactFormSection() {
   const [loading, setLoading] = useState(false);
@@ -45,7 +33,6 @@ export default function ContactFormSection() {
       company: formData.get('company') as string,
       subject: formData.get('subject') as string,
       message: formData.get('message') as string,
-      interest: formData.get('interest') as string,
     };
 
     try {
@@ -280,40 +267,6 @@ export default function ContactFormSection() {
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: focusedField === 'phone' ? '100%' : '0%' }}
-                  transition={{ duration: 0.3 }}
-                  className="h-0.5 bg-gabardo-light-blue"
-                />
-              </motion.div>
-
-              {/* Interest Field */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.7 }}
-                className="space-y-3"
-              >
-                <label htmlFor="interest" className="block text-sm font-medium text-neutral-700 uppercase tracking-wider">
-                  Interesse
-                </label>
-                <motion.select
-                  id="interest"
-                  name="interest"
-                  onFocus={() => setFocusedField('interest')}
-                  onBlur={() => setFocusedField(null)}
-                  className="w-full px-0 py-3 text-base sm:text-lg border-0 border-b-2 border-neutral-200 focus:border-gabardo-light-blue focus:outline-none transition-all duration-300 bg-transparent"
-                  whileFocus={{ scale: 1.01 }}
-                >
-                  <option value="">Selecione seu interesse</option>
-                  {interestOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </motion.select>
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: focusedField === 'interest' ? '100%' : '0%' }}
                   transition={{ duration: 0.3 }}
                   className="h-0.5 bg-gabardo-light-blue"
                 />

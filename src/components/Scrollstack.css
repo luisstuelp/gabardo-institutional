@@ -31,17 +31,31 @@
 }
 
 .scroll-stack-inner {
-  padding: 0 1rem 18rem;
-  min-height: 80vh;
+  padding: 0 0.5rem 16rem;
+  min-height: 70vh;
 }
 
 @media (min-width: 640px) {
   .scroll-stack-inner {
-    padding: 0 2rem 20rem;
+    padding: 0 1rem 18rem;
+    min-height: 75vh;
+  }
+}
+
+@media (min-width: 768px) {
+  .scroll-stack-inner {
+    padding: 0 1.5rem 20rem;
+    min-height: 80vh;
   }
 }
 
 @media (min-width: 1024px) {
+  .scroll-stack-inner {
+    padding: 0 2rem 22rem;
+  }
+}
+
+@media (min-width: 1280px) {
   .scroll-stack-inner {
     padding: 0 3rem 24rem;
   }

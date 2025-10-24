@@ -256,10 +256,10 @@ const HomeClientsLogoSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-          className="relative"
+          className="relative w-full overflow-hidden"
         >
-          <div className="overflow-x-auto pb-6 scrollbar-thin scrollbar-thumb-gabardo-blue/30 scrollbar-track-transparent" role="list">
-            <div className="min-w-full sm:min-w-[1024px] lg:min-w-[1280px] grid grid-flow-dense grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-[repeat(6,minmax(140px,_1fr))] auto-rows-[90px] sm:auto-rows-[110px] md:auto-rows-[120px] gap-2 sm:gap-2.5 md:gap-3 px-2 sm:px-6 md:px-8">
+          <div className="w-full" role="list">
+            <div className="w-full grid grid-flow-dense grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 auto-rows-[90px] sm:auto-rows-[110px] md:auto-rows-[120px] gap-2 sm:gap-2.5 md:gap-3 px-2 sm:px-4 md:px-6">
             {clientLogosWithLayout.map((logo, index) => {
               const detailId = logo.assetId ?? logo.id;
               const detail = clientDetails[detailId];

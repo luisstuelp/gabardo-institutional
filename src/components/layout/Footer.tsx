@@ -36,8 +36,8 @@ const footerSections = [
       { label: 'Sobre Nós', href: '/sobre/historia' },
       { label: 'Institucional', href: '/sobre/secao-institucional' },
       { label: 'Blog', href: '/blog' },
-      { label: 'Carreiras', href: '/trabalhe-conosco' },
-      { label: 'Contato', href: '/orcamento' },
+      { label: 'Contato', href: '/contato' },
+      { label: 'Orçamento', href: '/orcamento' },
     ],
   },
 ];

@@ -45,12 +45,12 @@ export default function HowWeActSection() {
           Como atuamos em relação à gestão de nossas emissões?
         </motion.h2>
         <div className="relative mt-0">
-          <div className="mx-auto min-h-[600px] h-[75vh] max-w-4xl">
+          <div className="mx-auto min-h-[500px] md:min-h-[600px] h-[70vh] md:h-[75vh] max-w-4xl">
             <ScrollStack
               className="h-full"
-              itemDistance={90}
-              itemStackDistance={42}
-              baseScale={0.9}
+              itemDistance={80}
+              itemStackDistance={40}
+              baseScale={0.92}
               itemScale={0.04}
               stackPosition="22%"
               scaleEndPosition="12%"
