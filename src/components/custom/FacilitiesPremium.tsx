@@ -38,7 +38,7 @@ const facilities = [
     name: 'Pilates', 
     description: 'Espaço dedicado à saúde e bem-estar dos colaboradores.',
     icon: HeartPulse,
-    image: '/images/Escritorio.JPG',
+    image: '/images/Trans Gabardo - Framers produtora -5724.JPG',
     features: ['Instrutor profissional', 'Equipamentos modernos', 'Aulas regulares']
   },
   { 
@@ -50,41 +50,14 @@ const facilities = [
   },
 ];
 
-type Facility = typeof facilities[number];
-
-function FacilityDetails({ facility }: { facility: Facility }) {
-  const Icon = facility.icon;
-  return (
-    <div className="rounded-2xl border border-gabardo-blue/15 bg-white p-6 sm:p-7 md:p-8 shadow-lg shadow-gabardo-blue/10">
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
-        <div className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gabardo-blue/10 text-gabardo-blue">
-          <Icon className="h-7 w-7" />
-        </div>
-        <div className="flex-1 space-y-4">
-          <div className="space-y-2">
-            <h3 className="text-2xl font-bold text-gabardo-blue">{facility.name}</h3>
-            <p className="text-sm text-gray-600 sm:text-base">{facility.description}</p>
-          </div>
-          <div className="flex flex-wrap gap-2.5">
-            {facility.features.map((feature) => (
-              <span
-                key={feature}
-                className="inline-flex items-center gap-2 rounded-full border border-gabardo-blue/15 bg-gabardo-blue/5 px-3 py-1 text-xs font-medium text-gabardo-blue sm:text-sm"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-gabardo-blue" />
-                {feature}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function FacilitiesPremium() {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [mobileOpenIndex, setMobileOpenIndex] = useState<number | null>(null);
   const selected = facilities[selectedIndex];
+
+  const handleMobileToggle = (index: number) => {
+    setMobileOpenIndex(mobileOpenIndex === index ? null : index);
+  };
 
   return (
     <section className="relative overflow-hidden bg-white py-20 sm:py-28">
@@ -257,10 +230,15 @@ export default function FacilitiesPremium() {
                 const Icon = facility.icon;
                 const isSelected = selectedIndex === index;
                 
+                const isMobileOpen = mobileOpenIndex === index;
+                
                 return (
                   <motion.button
                     key={facility.name}
-                    onClick={() => setSelectedIndex(index)}
+                    onClick={() => {
+                      setSelectedIndex(index);
+                      handleMobileToggle(index);
+                    }}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -301,9 +279,9 @@ export default function FacilitiesPremium() {
                       />
                     </div>
 
-                    {/* Mobile: Show image inline */}
+                    {/* Mobile: Show image and features inline */}
                     <AnimatePresence>
-                      {isSelected && (
+                      {isMobileOpen && (
                         <motion.div
                           className="mt-4 lg:hidden space-y-4"
                           initial={{ opacity: 0, height: 0 }}
@@ -313,14 +291,27 @@ export default function FacilitiesPremium() {
                         >
                           <div className="relative h-48 w-full overflow-hidden rounded-xl">
                             <Image
-                              src={selected.image}
-                              alt={selected.name}
+                              src={facility.image}
+                              alt={facility.name}
                               fill
                               className="object-cover"
                               sizes="(max-width: 1024px) 100vw, 60vw"
                             />
                           </div>
-                          <FacilityDetails facility={selected} />
+                          <div className="space-y-3">
+                            <p className="text-sm text-white/90">{facility.description}</p>
+                            <div className="flex flex-wrap gap-2">
+                              {facility.features.map((feature) => (
+                                <span
+                                  key={feature}
+                                  className="inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm"
+                                >
+                                  <span className="h-1.5 w-1.5 rounded-full bg-white" />
+                                  {feature}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
                         </motion.div>
                       )}
                     </AnimatePresence>

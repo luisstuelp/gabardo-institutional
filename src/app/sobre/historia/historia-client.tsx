@@ -16,7 +16,8 @@ const STORY_SECTIONS = [
     kicker: 'Do sonho de um caminhoneiro',
     heading: 'Nascemos em Porto Alegre com um compromisso',
     body: 'Início das operações com um único fundador, Sérgio Mario Gabardo, utilizando o saldo de um caminhoneiro. Natural de Nova Bassano/RS, Sérgio iniciou no transporte de veículos em 1982 e, em 1989, fundou a Transportes Gabardo em Porto Alegre/RS com uma promessa clara: fazer o transporte de forma correta, segura e confiável.',
-    videoPoster: '/images/vintage-truck-1989.JPG',
+    videoPoster: '/images/27 (1).jpg',
+    imagePosition: 'center 45%',
   },
   {
     id: 'expansao-1992-1998',
@@ -26,7 +27,8 @@ const STORY_SECTIONS = [
     kicker: 'Crescimento estratégico nacional',
     heading: 'Expandimos para além do Sul',
     body: 'Em 1994, demos nosso primeiro grande salto ao adquirir a unidade de Cariacica/ES, estratégica pela proximidade ao Porto de Vitória. Em 1998, consolidamos nossa presença nacional com aberturas em São Bernardo do Campo/SP e São José dos Pinhais/PR. Nossa frota crescia e a tecnologia começava a fazer parte do DNA operacional.',
-    videoPoster: '/images/gabardo-truck-fleet.JPG',
+    videoPoster: '/images/37.jpg',
+    imagePosition: '18% 50%',
   },
   {
     id: 'certificacao-2001-2008',
@@ -36,7 +38,8 @@ const STORY_SECTIONS = [
     kicker: 'Excelência certificada',
     heading: 'Construímos nossa gestão de qualidade',
     body: 'Continuamos expandindo com Duque de Caxias/RJ (2001) e Porto Real/RJ (2003). Em 2004, alcançamos o cadastro oficial na ANTT (Agência Nacional de Transportes Terrestres), marcando nossa conformidade regulatória, e iniciamos a certificação ISO 9001:2000 em Porto Alegre. Em 2008, renovamos por 30 anos o contrato com CAOA/Hyundai e inauguramos Anápolis/GO com 1.200.000m².',
-    videoPoster: '/images/gabardo-certification-docs.JPG',
+    videoPoster: '/images/40.jpg',
+    imagePosition: 'center 38%',
   },
   {
     id: 'modernizacao-2014-2019',
@@ -46,7 +49,8 @@ const STORY_SECTIONS = [
     kicker: 'Consolidação e maturidade',
     heading: 'Chegamos aos 30 anos com 13 pátios',
     body: 'Reformulamos completamente Porto Alegre (2014) e inauguramos Chuí/RS. Certificamos ISO 9001:2008 em Piracicaba (2015). Em 2017, iniciamos voluntariamente o inventário e neutralização de emissões de carbono, demonstrando nosso compromisso ambiental pioneiro. Expandimos para Eusébio/CE, Mogi das Cruzes/SP e Jacareí/SP. 2019 marcou nossos 30 anos como maior frota própria de cegonhas do Brasil.',
-    videoPoster: '/images/Trans Gabardo - Framers produtora -5388.JPG',
+    videoPoster: '/images/GABARDO 2023_INSTITUCIONAL COMERCIAL_ImgID1.png',
+    imagePosition: 'center 35%',
   },
   {
     id: 'sustentabilidade-2020-2025',
@@ -56,7 +60,8 @@ const STORY_SECTIONS = [
     kicker: 'Liderança sustentável',
     heading: 'Somos referência em ESG no setor',
     body: 'Em 2020, implantamos ISO 14001 e ISO 39001, firmamos parceria com Childhood e Projeto Pescar. Ganhamos prêmios CAOA Chery e o 9º Prêmio Transporte Responsável. Em 2023, certificamos todas as unidades ISO 9001/14001/39001 e iniciamos contrato GWM para veículos híbridos/elétricos. 2024 trouxe adesão ao Pacto Global da ONU. Em 2025, consolidamos nossa posição como a maior frota própria de cegonhas do Brasil e líder de mercado em transporte de veículos, com Certificação Carbono Negativo.',
-    videoPoster: '/images/Trans Gabardo - Framers produtora -5495.JPG',
+    videoPoster: '/images/iso14001.jpg',
+    imagePosition: 'center 45%',
   },
 ];
 
@@ -94,6 +99,7 @@ function StoryCard({ section, reverse }: { section: typeof STORY_SECTIONS[number
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"
+            style={{ objectPosition: section.imagePosition ?? 'center' }}
             priority={false}
           />
         </div>

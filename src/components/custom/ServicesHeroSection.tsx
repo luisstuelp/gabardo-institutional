@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const backgroundImage = '/images/gabardo-hero-01.JPG';
+const backgroundImage = '/images/e21eabe0-ed72-4cb2-81b8-81a4400c9cbf.jpeg';
 
 export default function ServicesHeroSection() {
   return (

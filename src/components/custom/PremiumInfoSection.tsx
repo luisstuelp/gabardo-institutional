@@ -127,8 +127,6 @@ const ProtocolStack: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
-  const touchStartX = useRef<number | null>(null);
-  const touchEndX = useRef<number | null>(null);
 
   const cycle = useCallback(
     (direction: number) => {
@@ -155,41 +153,6 @@ const ProtocolStack: React.FC = () => {
     startAutoplay();
     return stopAutoplay;
   }, [startAutoplay, stopAutoplay]);
-
-  // Touch handlers for mobile swipe
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-    stopAutoplay();
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    
-    const distance = touchStartX.current - touchEndX.current;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe) {
-      cycle(1);
-    } else if (isRightSwipe) {
-      cycle(-1);
-    }
-
-    touchStartX.current = null;
-    touchEndX.current = null;
-    
-    // Restart autoplay after swipe
-    setTimeout(startAutoplay, 100);
-  };
-
-  useEffect(() => {
-    // Wheel navigation disabled per request; keep empty effect to maintain reference availability if needed later.
-    return undefined;
-  }, [cycle, stopAutoplay]);
 
   const positions = reliabilityItems.map((_, index) => {
     const diffRaw = (index - activeIndex + total) % total;
@@ -256,11 +219,7 @@ const ProtocolStack: React.FC = () => {
 
       <div 
         ref={containerRef} 
-        className="relative mt-6 sm:mt-8 flex h-[320px] sm:h-[380px] md:h-[420px] items-center justify-center overflow-hidden select-none"
-        style={{ touchAction: 'pan-x' }}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
+        className="relative mt-6 sm:mt-8 flex h-[320px] sm:h-[380px] md:h-[420px] items-center justify-center overflow-hidden"
       >
         {visibleLayers.map(({ item, animate, z, isActive }) => (
           <motion.div
@@ -268,14 +227,13 @@ const ProtocolStack: React.FC = () => {
             initial={{ y: animate.y + 40, opacity: 0, scale: animate.scale - 0.05  }}
             animate={animate}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            style={{ zIndex: z, pointerEvents: 'none' }}
+            style={{ zIndex: z }}
             className="absolute inset-x-0 mx-auto flex w-full max-w-[280px] sm:max-w-[340px] md:max-w-[380px] items-center justify-center rounded-2xl sm:rounded-3xl bg-white/96 px-4 sm:px-5 md:px-6 py-4 sm:py-5 shadow-[0_26px_48px_-36px_rgba(19,45,81,0.65)"
           >
             <motion.img
               src={item.src}
               alt={item.alt}
-              className="h-52 sm:h-60 md:h-72 w-auto object-contain drop-shadow-sm select-none"
-              draggable={false}
+              className="h-52 sm:h-60 md:h-72 w-auto object-contain drop-shadow-sm"
               animate={{ opacity: isActive ? 1 : 0.7, scale: isActive ? 1.28 : 0.92 }}
               transition={{ duration: 0.3 }}
             />

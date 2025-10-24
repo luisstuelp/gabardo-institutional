@@ -23,6 +23,7 @@ const cultureFocus = [
     },
     chips: ['Transparência total', 'Células dedicadas'],
     image: '/images/GabardoEquipe2.JPG',
+    imagePosition: 'center',
   },
   {
     id: 'talentos',
@@ -40,7 +41,8 @@ const cultureFocus = [
       author: 'Coordenação de Desenvolvimento Humano',
     },
     chips: ['Academia Gabardo', 'Mentorias'],
-    image: '/images/GabardoEquipe.JPG',
+    image: '/images/Trans Gabardo - Framers produtora -5097.JPG',
+    imagePosition: 'center 45%',
   },
   {
     id: 'seguranca',
@@ -58,7 +60,8 @@ const cultureFocus = [
       author: 'Time de Continuidade Operacional',
     },
     chips: ['Protocolos certificados', 'Telemetria 24/7'],
-    image: '/images/GabardoMonit.JPG',
+    image: '/images/Trans Gabardo - Framers produtora -5767 (2).JPG',
+    imagePosition: 'center 40%',
   },
 ];
 
@@ -194,6 +197,7 @@ const HomeHoverCardsSection = () => {
                               fill
                               sizes="100vw"
                               className="object-cover"
+                              style={{ objectPosition: item.imagePosition ?? 'center' }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-br from-[#0a1421]/70 via-[#0a1421]/35 to-transparent" />
                           </div>
@@ -307,6 +311,7 @@ const HomeHoverCardsSection = () => {
                     fill
                     sizes="(max-width: 1024px) 100vw, 55vw"
                     className="object-cover"
+                    style={{ objectPosition: activeItem.imagePosition ?? 'center' }}
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-br from-[#0a1421]/70 via-[#0a1421]/35 to-transparent" />

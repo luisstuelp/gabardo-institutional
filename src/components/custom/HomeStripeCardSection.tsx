@@ -17,14 +17,14 @@ const stripeFeatures = [
     value: 'Transporte | Pátios | PDI',
     description:
       'Gestão ponta a ponta com tecnologia, rastreabilidade total e equipe especializada.',
-    imageSrc: '/images/TransGabardoGestao.JPG'
+    imageSrc: '/images/PatiosPdi.jpg'
   },
   {
     label: 'Compromisso ESG',
     value: 'Processos certificados',
     description:
       'Protocolos nacionais e internacionais padronizados garantindo eficiência operacional e responsabilidade ambiental.',
-    imageSrc: '/images/gabardo-certification-docs.JPG'
+    imageSrc: '/images/ProcessCert.jpg'
   }
 ];
 

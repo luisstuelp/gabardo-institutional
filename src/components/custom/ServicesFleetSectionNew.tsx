@@ -283,15 +283,9 @@ export default function ServicesFleetSectionNew() {
               >
                 <a
                   href="/orcamento"
-                  className="inline-flex items-center justify-center rounded-xl bg-gabardo-blue px-6 py-3 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white shadow-lg transition-transform duration-200 hover:-translate-y-0.5"
-                >
-                  Solicitar proposta
-                </a>
-                <a
-                  href="/cases-de-sucesso"
                   className="inline-flex items-center justify-center rounded-xl border border-gabardo-blue px-6 py-3 text-xs sm:text-sm font-semibold uppercase tracking-wider text-gabardo-blue transition-transform duration-200 hover:-translate-y-0.5 hover:bg-gabardo-blue/5"
                 >
-                  Ver cases de sucesso
+                  Solicitar proposta
                 </a>
               </motion.div>
             </div>

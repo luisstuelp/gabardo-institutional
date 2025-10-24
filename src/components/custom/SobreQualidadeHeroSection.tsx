@@ -3,11 +3,11 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const backgroundImage = '/images/gabardo-hero-04.JPG';
+const backgroundImage = '/images/IMG_20220207_130041652.jpg';
 
 const SobreQualidadeHeroSection: React.FC = () => {
   return (
-    <section className="relative w-full min-h-screen text-white overflow-hidden py-20 sm:py-24">
+    <section className="relative w-full h-screen text-white overflow-hidden">
       <div className="absolute inset-0">
         <Image
           src={backgroundImage}
@@ -21,7 +21,7 @@ const SobreQualidadeHeroSection: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/65 to-black/80" />
       </div>
 
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 sm:px-6 md:px-10 lg:px-16 text-center py-24 sm:py-20">
+      <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 sm:px-6 md:px-10 lg:px-16 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
