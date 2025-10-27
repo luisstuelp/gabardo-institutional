@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ShieldCheck, Award, Globe2, Factory } from 'lucide-react';
+import { ShieldCheck, Award, Globe2 } from 'lucide-react';
 
 const pillars = [
   {
@@ -43,11 +43,6 @@ const SobreQualidadeOverviewSection: React.FC = () => {
       icon: Globe2,
       title: 'Pacto Global ONU',
       description: 'Compromisso público com os 10 princípios de sustentabilidade e direitos humanos.',
-    },
-    {
-      icon: Factory,
-      title: 'ISO 45001 em implantação',
-      description: 'Programa estruturado de saúde e segurança ocupacional em fase final de certificação.',
     },
   ];
   return (

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Leaf, Globe2, Award, Factory, Shield } from 'lucide-react';
+import { ShieldCheck, Leaf, Globe2, Award, Shield } from 'lucide-react';
 import Folder from '@/components/Folder';
 import FolderGalleryModal from '@/components/FolderGalleryModal';
 
@@ -41,14 +41,6 @@ const certifications = [
     highlight: 'Compromisso ESG reconhecido',
   },
   {
-    icon: Factory,
-    title: 'ISO 45001 (Implantação)',
-    subtitle: 'Saúde e Segurança',
-    description:
-      'Sistema de gestão ocupacional em implantação com auditorias piloto e indicadores de segurança avançados.',
-    highlight: 'Programa de SST estruturado',
-  },
-  {
     icon: Shield,
     title: 'OEA - Receita Federal',
     subtitle: 'Operador Econômico Autorizado',
@@ -73,11 +65,6 @@ const qualityBadges = [
     icon: Globe2,
     title: 'Pacto Global ONU',
     description: 'Compromisso público com os 10 princípios de sustentabilidade e direitos humanos.',
-  },
-  {
-    icon: Factory,
-    title: 'ISO 45001 em implantação',
-    description: 'Programa estruturado de saúde e segurança ocupacional em fase final de certificação.',
   },
 ];
 
@@ -109,13 +96,13 @@ const galleryCards = [
   {
     src: '/images/certifications/iso-9001-qualidade.png',
     alt: 'Certificado ISO 9001',
-    label: 'ISO 9001:2025',
+    label: 'ISO 9001:2015',
     description: 'Recertificação com escopo completo de logística automotiva e preparação de veículos.',
   },
   {
     src: '/images/certifications/iso-14001-meio-ambiente.png',
     alt: 'Certificado ISO 14001',
-    label: 'ISO 14001:2025',
+    label: 'ISO 14001:2015',
     description: 'Gestão ambiental integrada aos pátios, oficinas e operações de transporte.',
   },
   {
@@ -133,7 +120,7 @@ const galleryCards = [
   {
     src: '/images/certifications/gcs-abnt-pr2030-esg.png',
     alt: 'Certificado GCS ABNT PR2030 ESG',
-    label: 'PR2030 ESG',
+    label: 'ABNT PR 2030:2022 - ESG',
     description: 'Agenda ESG monitorada por indicadores e comitês dedicados.',
   },
 ];
@@ -201,8 +188,8 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
             Padrões globais que elevam a confiança dos nossos parceiros
           </h2>
           <p className="mt-3 sm:mt-4 md:mt-5 text-sm sm:text-base md:text-lg text-white/70 leading-relaxed">
-            Integramos ISO 9001, ISO 14001 e ISO 39001 a uma agenda ESG reconhecida, ampliando governança com OEA, Pacto Global ONU
-            e implantação da ISO 45001. Conheça como estruturamos essa rede de confiança.
+            Integramos ISO 9001, ISO 14001 e ISO 39001 a uma agenda ESG reconhecida, ampliando governança com OEA e Pacto Global ONU.
+            Conheça como estruturamos essa rede de confiança.
           </p>
         </motion.div>
 
