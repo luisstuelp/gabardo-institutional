@@ -28,30 +28,6 @@ const MediaNewsHeroSection = () => {
         />
       </div>
 
-      {/* Animated Line */}
-      <svg
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] max-w-none hidden lg:block"
-        viewBox="0 0 1400 400"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <linearGradient id="media-hero-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#38B6FF" stopOpacity="0.1" />
-            <stop offset="50%" stopColor="#38B6FF" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#38B6FF" stopOpacity="0.1" />
-          </linearGradient>
-        </defs>
-        <motion.path
-          d="M 0 200 Q 350 150, 700 200 T 1400 200"
-          fill="none"
-          stroke="url(#media-hero-gradient)"
-          strokeWidth={2}
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 2, ease: 'easeOut' }}
-        />
-      </svg>
-
       <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-16 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div

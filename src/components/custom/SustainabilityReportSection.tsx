@@ -8,9 +8,9 @@ const SustainabilityReportSection: React.FC = () => {
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-white">
       <div className="container mx-auto px-4 md:px-8">
-        <div className="relative bg-gray-800 text-white p-12 rounded-lg shadow-xl text-center overflow-hidden">
+        <div className="relative bg-gray-800/70 text-white p-12 rounded-2xl shadow-2xl text-center overflow-hidden backdrop-blur-md border border-white/10">
           <div 
-            className="absolute inset-0 bg-cover bg-center opacity-20" 
+            className="absolute inset-0 bg-cover bg-center opacity-40" 
             style={{ backgroundImage: "url('/images/photo-1661435036699-8686dbfc5304.jpg')" }}
           />
           <motion.div
@@ -19,17 +19,17 @@ const SustainabilityReportSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gabardo-light-blue drop-shadow-[0_8px_18px_rgba(0,0,0,0.45)]">
               Relatório de Sustentabilidade 2024
             </h2>
-            <p className="max-w-2xl mx-auto text-lg text-gray-300 mb-8">
+            <p className="max-w-2xl mx-auto text-lg text-white drop-shadow-[0_6px_14px_rgba(0,0,0,0.45)] mb-8">
               Acesse nosso relatório completo para um mergulho profundo em nossas iniciativas, dados de performance e compromissos para o futuro.
             </p>
             <button
               disabled
-              className="inline-flex items-center px-8 py-4 font-semibold bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 disabled:bg-gray-500 disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-2 px-8 py-4 font-semibold rounded-lg bg-gabardo-light-blue/80 text-white shadow-xl shadow-gabardo-blue/40 border border-white/15 transition-transform duration-300 disabled:opacity-95 disabled:cursor-not-allowed"
             >
-              <Download className="mr-3 w-5 h-5" />
+              <Download className="w-5 h-5" />
               Download do Relatório (Em Breve)
             </button>
           </motion.div>

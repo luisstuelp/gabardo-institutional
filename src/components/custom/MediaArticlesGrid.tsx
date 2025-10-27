@@ -13,72 +13,68 @@ interface Article {
   date: string;
   readTime: string;
   image: string;
+  url: string;
   featured?: boolean;
   author?: string;
 }
 
-// Sample articles data
+// Real articles from press coverage
 const articles: Article[] = [
   {
     id: '1',
-    title: 'Gabardo investe R$ 50 milhões em nova frota sustentável',
-    excerpt: 'Empresa anuncia expansão com veículos de baixa emissão e tecnologia embarcada de ponta para transporte automotivo.',
+    title: 'Na contramão, Transportes Gabardo investe em 300 caminhões pesados e projeta crescer 30% em 2025',
+    excerpt: 'Mesmo em cenário econômico desafiador, a transportadora de veículos do RS reforça frota com caminhões VW 19.380 Constellation.',
     category: 'Expansão',
-    date: '2024-10-20',
+    date: '2025-09-15',
     readTime: '5 min',
-    image: '/images/frota-principal.jpg',
+    image: '/images/gabardo-truck-fleet.JPG',
+    url: 'https://transportemoderno.com.br/2025/09/15/na-contramao-transportes-gabardo-investe-em-300-caminhoes-pesados-e-projeta-crescer-30-em-2025/',
     featured: true,
-    author: 'Assessoria de Imprensa'
+    author: 'Transporte Moderno'
   },
   {
     id: '2',
-    title: 'Programa de carbono negativo atinge marco histórico',
-    excerpt: 'Com mais de 27 mil árvores plantadas, Gabardo se consolida como referência em sustentabilidade no transporte de veículos.',
+    title: 'Transportes Gabardo recebe reconhecimento do SETCERGS por certificação inédita de Carbono Negativo',
+    excerpt: 'Distinção foi entregue durante a 24ª TranspoSul. A Gabardo conquistou a certificação de primeira transportadora do mundo a se tornar Carbono Negativo.',
     category: 'Sustentabilidade',
-    date: '2024-10-15',
+    date: '2025-09-25',
     readTime: '4 min',
     image: '/images/sustentabilidade-hero.jpg',
-    author: 'Equipe Sustentabilidade'
+    url: 'https://transposul.com/2025/09/25/transportes-gabardo-recebe-reconhecimento-do-setcergs-por-certificacao-inedita-de-carbono-negativo/',
+    author: 'TranspoSul'
   },
   {
     id: '3',
-    title: 'Tecnologia de rastreamento reduz sinistros em 40%',
-    excerpt: 'Sistema inteligente de monitoramento 24/7 traz segurança recorde e otimiza operações logísticas em toda a cadeia.',
-    category: 'Tecnologia',
-    date: '2024-10-10',
-    readTime: '6 min',
-    image: '/images/tecnologia-hero.jpg',
-    author: 'Inovação Gabardo'
+    title: 'Transportes Gabardo transporta o Hyundai HB20 para a Argentina',
+    excerpt: 'O primeiro lote de HB20 foi transportado pela Transportes Gabardo para a Argentina. Hyundai HB20 brasileiro chega com versão 1.6 hatch; exportação marca novo passo para o modelo líder no Mercosul.',
+    category: 'Parceiros',
+    date: '2025-01-10',
+    readTime: '3 min',
+    image: '/images/Trans Gabardo - Framers produtora -5377.JPG',
+    url: 'https://frotanews.com.br/transportes-gabardo-transporta-o-hyundai-hb20-para-a-argentina/',
+    author: 'Frota News'
   },
   {
     id: '4',
-    title: 'Gabardo é reconhecida como Great Place to Work',
-    excerpt: 'Pelo terceiro ano consecutivo, empresa se destaca como um dos melhores lugares para trabalhar no setor de logística.',
-    category: 'Cultura',
-    date: '2024-10-05',
-    readTime: '3 min',
-    image: '/images/nossa-gente-hero.jpg',
-    author: 'RH Gabardo'
+    title: 'Sérgio Mário Gabardo: "Somos uma empresa carbono zero, aumentamos a qualidade das operações em uma gestão voltada para a sustentabilidade"',
+    excerpt: 'Em 2023, a empresa comprou 300 caminhões Euro 6 – 150 da Volvo e 150 da Volkswagen – e diversificou os negócios com foco em sustentabilidade.',
+    category: 'Sustentabilidade',
+    date: '2023-03-30',
+    readTime: '6 min',
+    image: '/images/iso14001.jpg',
+    url: 'https://transportemoderno.com.br/2023/03/30/sergio-mario-gabardo-proprietario-da-gabardo-transportes-de-veiculos-somos-uma-empresa-carbono-zero-aumentamos-a-qualidade-das-operacoes-em-uma-gestao-voltada-para-a-sustentabilidade/',
+    author: 'Transporte Moderno'
   },
   {
     id: '5',
-    title: 'Nova unidade em Eusébio dobra capacidade no Nordeste',
-    excerpt: 'Inauguração marca expansão estratégica da Gabardo na região, com 15 mil m² de área operacional.',
-    category: 'Expansão',
-    date: '2024-09-28',
-    readTime: '5 min',
-    image: '/images/infraestrutura-hero.jpg',
-    author: 'Comunicação Corporativa'
-  },
-  {
-    id: '6',
-    title: 'Parceria com montadoras eleva padrão de serviço',
-    excerpt: 'Acordos com principais fabricantes garantem excelência e inovação contínua no transporte automotivo.',
+    title: 'Transportes Gabardo renova com VWCO',
+    excerpt: 'Com frota que soma mais de setecentos caminhões Volkswagen, a Transportes Gabardo renova parte da garagem com 55 Constellation 19.360 para operações de cegonha.',
     category: 'Parceiros',
-    date: '2024-09-20',
-    readTime: '4 min',
-    image: '/images/servicos-hero.jpg',
-    author: 'Assessoria de Imprensa'
+    date: '2019-02-13',
+    readTime: '3 min',
+    image: '/images/gabardo-hero-01.JPG',
+    url: 'https://www.autoindustria.com.br/2019/02/13/transportes-gabardo-renova-com-vwco/',
+    author: 'AutoIndústria'
   },
 ];
 
@@ -135,7 +131,10 @@ const MediaArticlesGrid = () => {
             transition={{ duration: 0.8 }}
             className="mb-12 md:mb-16"
           >
-            <div className="relative h-[400px] sm:h-[500px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl group cursor-pointer">
+            <div 
+              className="relative h-[400px] sm:h-[500px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl group cursor-pointer"
+              onClick={() => window.open(featuredArticle.url, '_blank', 'noopener,noreferrer')}
+            >
               <Image
                 src={featuredArticle.image}
                 alt={featuredArticle.title}
@@ -176,6 +175,10 @@ const MediaArticlesGrid = () => {
                   
                   <motion.button
                     whileHover={{ x: 5 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(featuredArticle.url, '_blank', 'noopener,noreferrer');
+                    }}
                     className="inline-flex items-center gap-2 text-white font-semibold group/btn"
                   >
                     <span>Ler artigo completo</span>
@@ -203,6 +206,7 @@ const MediaArticlesGrid = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               onHoverStart={() => setHoveredCard(article.id)}
               onHoverEnd={() => setHoveredCard(null)}
+              onClick={() => window.open(article.url, '_blank', 'noopener,noreferrer')}
               className="group cursor-pointer"
             >
               <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col border border-gray-100">
@@ -252,14 +256,18 @@ const MediaArticlesGrid = () => {
                   </p>
 
                   {/* Read More */}
-                  <motion.div
+                  <motion.button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(article.url, '_blank', 'noopener,noreferrer');
+                    }}
                     className="flex items-center gap-2 text-gabardo-blue font-semibold text-sm"
                     animate={{ x: hoveredCard === article.id ? 5 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
                     <span>Ler mais</span>
                     <ArrowRight className="w-4 h-4" />
-                  </motion.div>
+                  </motion.button>
                 </div>
               </div>
             </motion.article>

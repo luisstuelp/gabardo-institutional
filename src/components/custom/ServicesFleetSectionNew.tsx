@@ -47,9 +47,9 @@ const fleetTypes = [
       pallets: 'Até 11 veículos'
     },
     images: [
-      'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd1njU0I1pLrmFsdPHE9JOfiSqog0puWCXIUQj',
-      '/images/gabardo-truck-fleet.JPG',
-      '/images/gabardo-hero-01.JPG'
+      '/images/Cegonhas/FFIMG_20190327_120648375.jpg',
+      '/images/Cegonhas/IMG_20191023_151329837.jpg',
+      '/images/Cegonhas/IMG_20200803_174158.jpg'
     ]
   },
   {
@@ -68,8 +68,9 @@ const fleetTypes = [
       pallets: 'Até 6 veículos'
     },
     images: [
-      'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd4IQi2bknI6fVUiN4gAm5SK8M9Ltw7jpxPBy3',
-      '/images/gabardo-hero-02.JPG'
+      '/images/Truck/1e9ec99d-d0eb-4066-9663-84d67d3b198b (1).jpg',
+      '/images/Truck/3515f715-fa33-490c-8665-b742b2fb6c20.jpg',
+      '/images/Truck/a198266c-e54f-4fc1-bceb-25e0adc078e7.jfif'
     ]
   },
   {
@@ -88,8 +89,9 @@ const fleetTypes = [
       pallets: '1 a 3 veículos'
     },
     images: [
-      'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd9cM9R6jH3PTfNeJvuGs1x5ObW7katmg28XS9',
-      '/images/Oficina.JPG'
+      '/images/Plataforma/71f96d7c-0b79-4548-8c47-ebcce6c17f7c.jpeg',
+      '/images/Plataforma/983973b1-02e9-4ed1-9fc1-44221e66e03f.jpeg',
+      '/images/Plataforma/IMG_20200113_174121337_HDR (1).jpg'
     ]
   },
   {
@@ -108,8 +110,9 @@ const fleetTypes = [
       pallets: 'Carga sob medida'
     },
     images: [
-      'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgdNO8UgYRq6mid9MhAEW7F1UvCcbQK4luYro8Z',
-      '/images/Box.JPG'
+      '/images/Prancha/1b95de23-c7d7-4174-a119-18a9126c5ccc.jfif',
+      '/images/Prancha/20221104_133737.jpg',
+      '/images/Prancha/8ef95092-7066-4148-bccd-f39c330b6f4e.jpeg'
     ]
   }
 ];

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const backgroundImage = '/images/universal_upscale_0_a1fa18a5-024d-4d77-8268-43c1efc1583e_0.jpg';
+const backgroundImage = '/images/7a9722b1-3711-4b0e-b245-6782d4e93713.jpg';
 
 const SobreQualidadeHeroSection: React.FC = () => {
   return (
