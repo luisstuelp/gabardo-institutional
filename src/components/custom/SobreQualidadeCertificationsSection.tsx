@@ -367,13 +367,15 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                       >
                         <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-gabardo-light-blue/15 opacity-60" aria-hidden />
                         <div className="relative flex items-center gap-4">
-                          <div className="relative h-20 w-20 flex-shrink-0">
+                          <div className="relative h-20 w-20 flex-shrink-0 overflow-visible">
                             <Image
                               src={item.src}
                               alt={item.alt}
                               fill
                               sizes="80px"
-                              className="object-contain"
+                              className={`object-contain ${
+                                item.label === 'OEA - Receita Federal' ? 'scale-125' : ''
+                              }`}
                             />
                           </div>
                           <div>
