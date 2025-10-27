@@ -34,7 +34,7 @@ const contactInfo: ContactCard[] = [
     title: 'Matriz',
     primary: 'Porto Alegre - RS',
     secondary: 'Av. Fernando Ferrari, 700 • CEP 90200-040',
-    action: 'https://maps.google.com/?q=Av.+Fernando+Ferrari,+700,+Anchieta,+Porto+Alegre+-+RS'
+    action: 'https://www.google.com/maps/search/?api=1&query=Av+Fernando+Ferrari+700+Anchieta+Porto+Alegre+RS'
   },
   {
     icon: <Clock className="w-6 h-6" />,

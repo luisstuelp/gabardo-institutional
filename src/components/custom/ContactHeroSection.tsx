@@ -59,9 +59,9 @@ export default function ContactHeroSection() {
 
   const handleContactAction = (action: string) => {
     if (action.startsWith('http')) {
-      window.location.href = action;
-    } else {
       window.open(action, '_blank');
+    } else {
+      window.location.href = action;
     }
   };
 
@@ -203,7 +203,7 @@ export default function ContactHeroSection() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => handleContactAction('https://maps.google.com/?q=Rua+V%C3%ADtor+Valp%C3%ADrio,+715,+Anchieta,+Porto+Alegre+-+RS')}
+                    onClick={() => handleContactAction('https://www.google.com/maps/search/?api=1&query=Av+Fernando+Ferrari+700+Anchieta+Porto+Alegre+RS')}
                     className="bg-white/20 hover:bg-gabardo-light-blue hover:text-white backdrop-blur-sm text-white p-3 transition-all duration-300 touch-manipulation group rounded-full"
                     aria-label="Ver localizações Gabardo no mapa"
                   >

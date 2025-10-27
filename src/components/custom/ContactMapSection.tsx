@@ -35,7 +35,7 @@ const landmarks = [
 
 export default function ContactMapSection() {
   const handleMapClick = () => {
-    window.open('https://maps.google.com?q=Rua+da+Inovação+123+Boa+Viagem+Recife', '_blank');
+    window.open('https://www.google.com/maps/search/?api=1&query=Rua+da+Inovação+123+Boa+Viagem+Recife', '_blank');
   };
 
   return (

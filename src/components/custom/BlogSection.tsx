@@ -2,17 +2,27 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, ArrowRight, Clock, User, ChevronRight, Sparkles } from 'lucide-react';
+import { Calendar, ArrowRight, Clock, Tag, ChevronRight, Sparkles } from 'lucide-react';
 import Image from 'next/image';
-import { getAllBlogPosts, getFeaturedBlogPosts } from '@/data/blogData';
-
-const allBlogPosts = getAllBlogPosts();
-const featuredBlogPosts = getFeaturedBlogPosts();
+import {
+  getFeaturedMediaArticle,
+  getRegularMediaArticles,
+} from '@/data/mediaArticles';
 
 const BlogSection: React.FC = () => {
+  const featuredArticle = getFeaturedMediaArticle();
+  const regularArticles = getRegularMediaArticles().slice(0, 3);
 
-  const featuredPost = featuredBlogPosts[0]; // Get first featured post
-  const regularPosts = allBlogPosts.filter(post => !post.featured).slice(0, 3); // Get first 3 non-featured posts
+  const openArticle = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const formatDate = (date: string) =>
+    new Date(date).toLocaleDateString('pt-BR', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    });
 
   return (
     <section className="py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 bg-gray-50 text-gray-900 relative overflow-hidden">
@@ -43,7 +53,7 @@ const BlogSection: React.FC = () => {
             className="inline-flex items-center space-x-2 bg-gabardo-light-blue/10 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium text-gabardo-blue mb-4 sm:mb-5 md:mb-6 border border-gabardo-light-blue/30"
           >
             <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="uppercase tracking-wider">Blog Gabardo</span>
+            <span className="uppercase tracking-wider">Gabardo na mídia</span>
           </motion.div>
 
           {/* Main Title */}
@@ -54,7 +64,7 @@ const BlogSection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4 sm:mb-5 md:mb-6 px-2 sm:px-0"
           >
-            <p><span className="text-gabardo-blue">INOVAÇÃO EM</span> <span className="text-gabardo-light-blue">TRANSPORTE</span> <span className="text-gabardo-blue">DE VEÍCULOS</span></p>
+            <p><span className="text-gabardo-blue">EM DESTAQUE</span> <span className="text-gabardo-light-blue">NAS MAIORES</span> <span className="text-gabardo-blue">PUBLICAÇÕES</span></p>
 
 
 
@@ -68,7 +78,7 @@ const BlogSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4 sm:px-0"
           >
-            Descubra as últimas tendências, tecnologias e inovações que estão transformando o transporte de veículos no Brasil
+            Acompanhe como a imprensa nacional destaca as conquistas, investimentos e iniciativas sustentáveis da Gabardo.
           </motion.p>
         </motion.div>
 
@@ -79,7 +89,7 @@ const BlogSection: React.FC = () => {
           <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 lg:items-stretch">
 
             {/* Featured Post */}
-            {featuredPost && (
+            {featuredArticle && (
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -89,14 +99,15 @@ const BlogSection: React.FC = () => {
               >
                 <div
                   className="group relative bg-white backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200 transition-all duration-500 hover:border-gabardo-light-blue/50 hover:shadow-lg cursor-pointer w-full flex flex-col"
+                  onClick={() => openArticle(featuredArticle.url)}
 
                 >
 
                   {/* Image */}
                   <div className="relative h-56 sm:h-72 md:h-80 lg:h-96 overflow-hidden flex-shrink-0">
                     <Image
-                      src={featuredPost.image}
-                      alt={featuredPost.title}
+                      src={featuredArticle.image}
+                      alt={featuredArticle.title}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 1024px) 100vw, 58vw"
@@ -110,7 +121,7 @@ const BlogSection: React.FC = () => {
 
                     {/* Category */}
                     <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white/90 backdrop-blur-sm text-gabardo-blue px-2 sm:px-3 py-1 rounded-full text-[0.65rem] sm:text-xs font-medium border border-gabardo-light-blue/30">
-                      {featuredPost.category}
+                      {featuredArticle.category}
                     </div>
                   </div>
 
@@ -123,32 +134,34 @@ const BlogSection: React.FC = () => {
                       <div className="flex items-center space-x-3 sm:space-x-4 text-gray-500 text-xs sm:text-sm mb-3 sm:mb-4">
                         <div className="flex items-center space-x-1">
                           <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <span>{featuredPost.date}</span>
+                          <span>{formatDate(featuredArticle.date)}</span>
                         </div>
                         <div className="flex items-center space-x-1">
                           <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <span>{featuredPost.readTime}</span>
+                          <span>{featuredArticle.readTime}</span>
                         </div>
-                        <div className="flex items-center space-x-1">
-                          <User className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <span>{featuredPost.author}</span>
-                        </div>
+                        {featuredArticle.author && (
+                          <div className="flex items-center space-x-1">
+                            <Tag className="w-3 h-3 sm:w-4 sm:h-4" />
+                            <span>{featuredArticle.author}</span>
+                          </div>
+                        )}
                       </div>
 
                       {/* Title */}
                       <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight group-hover:text-gabardo-blue transition-colors duration-300">
-                        {featuredPost.title}
+                        {featuredArticle.title}
                       </h3>
 
                       {/* Excerpt */}
                       <p className="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed">
-                        {featuredPost.excerpt}
+                        {featuredArticle.excerpt}
                       </p>
                     </div>
 
                     {/* Read More */}
                     <div className="flex items-center space-x-2 text-gabardo-blue group-hover:text-gabardo-blue/80 transition-colors duration-300 mt-4 sm:mt-5 md:mt-6">
-                      <span className="font-medium text-sm sm:text-base">Ler artigo completo</span>
+                      <span className="font-medium text-sm sm:text-base">Ler matéria completa</span>
                       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-2" />
                     </div>
                   </div>
@@ -166,14 +179,15 @@ const BlogSection: React.FC = () => {
             >
               {/* Posts Container */}
               <div className="space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-14 flex-grow">
-                {regularPosts.map((post, index) => (
+                {regularArticles.map((article, index) => (
                   <motion.div
-                    key={post.id}
+                    key={article.id}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.5 + (index * 0.1) }}
                     className="group relative bg-white backdrop-blur-sm rounded-lg sm:rounded-xl overflow-hidden border border-gray-200 transition-all duration-300 hover:border-gabardo-light-blue/50 hover:shadow-md cursor-pointer"
+                    onClick={() => openArticle(article.url)}
 
                   >
                     <div className="flex">
@@ -181,8 +195,8 @@ const BlogSection: React.FC = () => {
                       {/* Image */}
                       <div className="relative w-24 sm:w-32 md:w-40 flex-shrink-0 overflow-hidden rounded-l-lg sm:rounded-l-xl min-h-[5rem] sm:min-h-[6rem] md:min-h-[7rem]">
                         <Image
-                          src={post.image}
-                          alt={post.title}
+                          src={article.image}
+                          alt={article.title}
                           fill
                           className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                           sizes="160px"
@@ -195,19 +209,19 @@ const BlogSection: React.FC = () => {
 
                         {/* Category */}
                         <div className="text-gabardo-light-blue text-[0.65rem] sm:text-xs font-medium uppercase tracking-wide mb-1.5 sm:mb-2">
-                          {post.category}
+                          {article.category}
                         </div>
 
                         {/* Title */}
                         <h4 className="text-gray-900 font-bold text-xs sm:text-sm md:text-base leading-tight mb-1.5 sm:mb-2 group-hover:text-gabardo-blue transition-colors duration-300 line-clamp-2">
-                          {post.title}
+                          {article.title}
                         </h4>
 
                         {/* Meta */}
                         <div className="flex items-center space-x-2 sm:space-x-3 text-gray-400 text-[0.65rem] sm:text-xs">
-                          <span>{post.date}</span>
+                          <span>{formatDate(article.date)}</span>
                           <span>•</span>
-                          <span>{post.readTime}</span>
+                          <span>{article.readTime}</span>
                         </div>
                       </div>
 
@@ -228,10 +242,13 @@ const BlogSection: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.8 }}
                 className="pt-4 sm:pt-5 md:pt-6"
               >
-                <button className="w-full bg-gabardo-light-blue/10 backdrop-blur-sm border border-gabardo-light-blue/30 text-gabardo-blue py-3 sm:py-3.5 md:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 hover:bg-gabardo-light-blue/20 hover:border-gabardo-light-blue/50 flex items-center justify-center space-x-2 group">
-                  <span>Ver todos os artigos</span>
+                <a
+                  href="/midia"
+                  className="w-full bg-gabardo-light-blue/10 backdrop-blur-sm border border-gabardo-light-blue/30 text-gabardo-blue py-3 sm:py-3.5 md:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 hover:bg-gabardo-light-blue/20 hover:border-gabardo-light-blue/50 flex items-center justify-center space-x-2 group"
+                >
+                  <span>Ver todas as matérias</span>
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-2" />
-                </button>
+                </a>
               </motion.div>
             </motion.div>
           </div>
