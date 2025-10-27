@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { CegonhaTruckIcon, TruckUrbanIcon, PlataformaTruckIcon, PranchaTruckIcon } from '../icons/TruckIcons';
 
 const fleetHighlights = [
   {
@@ -44,10 +43,9 @@ const fleetTypes = [
       'Checklist eletrônico e inspeção antes de cada carregamento'
     ],
     specs: {
-      payload: 'Até 44.000 kg',
+      payload: 'Até 33.000 kg',
       pallets: 'Até 11 veículos'
     },
-    icon: CegonhaTruckIcon,
     images: [
       'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd1njU0I1pLrmFsdPHE9JOfiSqog0puWCXIUQj',
       '/images/gabardo-truck-fleet.JPG',
@@ -69,7 +67,6 @@ const fleetTypes = [
       payload: 'Até 26.000 kg',
       pallets: 'Até 6 veículos'
     },
-    icon: TruckUrbanIcon,
     images: [
       'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd4IQi2bknI6fVUiN4gAm5SK8M9Ltw7jpxPBy3',
       '/images/gabardo-hero-02.JPG'
@@ -90,7 +87,6 @@ const fleetTypes = [
       payload: 'Até 18.000 kg',
       pallets: '1 a 3 veículos'
     },
-    icon: PlataformaTruckIcon,
     images: [
       'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd9cM9R6jH3PTfNeJvuGs1x5ObW7katmg28XS9',
       '/images/Oficina.JPG'
@@ -111,7 +107,6 @@ const fleetTypes = [
       payload: '30.000 kg',
       pallets: 'Carga sob medida'
     },
-    icon: PranchaTruckIcon,
     images: [
       'https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgdNO8UgYRq6mid9MhAEW7F1UvCcbQK4luYro8Z',
       '/images/Box.JPG'
@@ -317,7 +312,6 @@ export default function ServicesFleetSectionNew() {
 
           <div className="space-y-4">
             {fleetTypes.map((type, index) => {
-              const Icon = type.icon;
               const isOpen = openItems.includes(index);
 
               return (
@@ -336,13 +330,8 @@ export default function ServicesFleetSectionNew() {
                   <button
                     type="button"
                     onClick={() => handleToggle(index)}
-                    className="flex w-full items-center gap-4 px-6 py-6 text-left"
+                    className="flex w-full items-center justify-between gap-4 px-6 py-6 text-left"
                   >
-                    <div className={`flex h-12 w-12 items-center justify-center rounded-full transition-all ${
-                      isOpen ? 'bg-gabardo-blue text-white' : 'bg-gabardo-blue/10 text-gabardo-blue'
-                    }`}>
-                      <Icon className="h-7 w-7" />
-                    </div>
                     <div className="flex-1">
                       <div className="text-lg font-bold text-gabardo-blue">
                         {type.name}

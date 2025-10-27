@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const backgroundImage = '/images/IMG_20220207_130041652.jpg';
+const backgroundImage = '/images/universal_upscale_0_a1fa18a5-024d-4d77-8268-43c1efc1583e_0.jpg';
 
 const SobreQualidadeHeroSection: React.FC = () => {
   return (
@@ -48,6 +48,28 @@ const SobreQualidadeHeroSection: React.FC = () => {
         >
           Somos pioneiros em gestão integrada com tripla certificação ISO e primeira transportadora no mundo com certificação Carbono Negativo. Nossa equipe mantém processos auditados, segurança viária exemplar e responsabilidade ambiental constante.
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+          className="mt-8 sm:mt-10 flex flex-col items-center gap-3"
+        >
+          <span className="text-xs sm:text-sm tracking-[0.3em] uppercase text-white/70 font-medium">Role para baixo</span>
+          <motion.svg
+            className="w-6 h-6 text-white/70"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </motion.svg>
+        </motion.div>
 
       </div>
     </section>

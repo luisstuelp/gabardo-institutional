@@ -9,38 +9,34 @@ import InfrastructureSVGBackground from './InfrastructureSVGBackground';
 const regioes = [
   {
     regiao: 'Sul',
-    destaque: 'Hub Exportador',
     unidades: '4 unidades',
     capacidade: '2.060 veículos',
     imagem: '/images/gabardo-truck-fleet.JPG',
-    cidades: ['Porto Alegre', 'Chuí', 'Curitiba', 'Palhoça'],
+    estados: ['RS', 'PR', 'SC'],
     recursos: ['Pátios portuários', 'Conexão LATAM', 'Operação 24/7']
   },
   {
     regiao: 'Sudeste',
-    destaque: 'Proximidade Montadoras',
     unidades: '7 unidades',
     capacidade: '2.780 veículos',
-    imagem: '/images/Oficina.JPG',
-    cidades: ['São Paulo', 'Piracicaba', 'São Bernardo', 'Iracemápolis', 'Duque de Caxias', 'Porto Real', 'Cariacica'],
+    imagem: '/images/Trans Gabardo - Framers produtora -5377.JPG',
+    estados: ['SP', 'RJ', 'ES'],
     recursos: ['Alto volume PDI', 'Boxes climatizados', 'Oficinas próprias']
   },
   {
     regiao: 'Centro-Oeste',
-    destaque: 'Conexão Nacional',
     unidades: '1 unidade',
     capacidade: '420 veículos',
-    imagem: '/images/Box.JPG',
-    cidades: ['Anápolis'],
+    imagem: '/images/AFrotaTruck.png',
+    estados: ['GO'],
     recursos: ['Hub logístico', 'Distribuição nacional', 'Centro-Oeste']
   },
   {
     regiao: 'Nordeste',
-    destaque: 'Expansão Estratégica',
     unidades: '3 unidades',
     capacidade: '580 veículos',
-    imagem: '/images/Escritorio.JPG',
-    cidades: ['Eusébio', 'Suape', 'Camaçari'],
+    imagem: '/images/b197d725-92db-4f9c-907c-30f42ba2f49b.jpeg',
+    estados: ['CE', 'PE', 'BA'],
     recursos: ['Cobertura Nordeste', 'Acesso portuário', 'Polo industrial']
   }
 ];
@@ -349,18 +345,11 @@ export default function PatiosUnidadesPremium() {
 
                 {/* Content */}
                 <div className="p-5 space-y-3">
-                  {/* Title & Stats Row */}
-                  <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-gabardo-blue leading-tight">
-                      {regiao.destaque}
+                  {/* Unidades Highlight */}
+                  <div>
+                    <h3 className="text-xl font-bold text-gabardo-blue leading-tight uppercase tracking-[0.15em]">
+                      {regiao.unidades}
                     </h3>
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs text-gray-500 font-semibold uppercase tracking-wide">{regiao.unidades}</p>
-                      <div className="flex items-center gap-1.5 rounded-lg bg-gabardo-blue/10 px-2.5 py-1">
-                        <Gauge className="h-3.5 w-3.5 text-gabardo-blue" />
-                        <span className="text-xs font-bold text-gabardo-blue">{regiao.capacidade}</span>
-                      </div>
-                    </div>
                   </div>
 
                   {/* Divider */}
@@ -368,14 +357,14 @@ export default function PatiosUnidadesPremium() {
 
                   {/* Cidades */}
                   <div className="space-y-1.5">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-gabardo-blue/60">Cidades</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-gabardo-blue/60">Estados</span>
                     <div className="flex flex-wrap gap-1.5">
-                      {regiao.cidades.map((cidade) => (
+                      {regiao.estados.map((estado) => (
                         <span
-                          key={cidade}
+                          key={estado}
                           className="inline-flex items-center rounded-md bg-gradient-to-r from-gabardo-blue/5 to-gabardo-light-blue/5 px-2 py-0.5 text-[10px] font-medium text-gray-600 border border-gabardo-blue/10"
                         >
-                          {cidade}
+                          {estado}
                         </span>
                       ))}
                     </div>

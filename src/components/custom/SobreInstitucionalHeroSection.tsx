@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const heroImage = '/images/gabardo-hero-02.JPG';
+const heroImage = '/images/universal_upscale_0_90bde37f-eade-465d-b597-37b6cc4eb697_0.jpg';
 
 const SobreInstitucionalHeroSection = () => {
 

@@ -2,7 +2,6 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
-import { ChevronDown } from 'lucide-react';
 
 const heroImage = '/images/gabardo-hero-03.JPG';
 
@@ -73,15 +72,27 @@ const SobreHistoriaHeroSection = () => {
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="hidden flex-col items-center gap-3 md:flex mt-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="mt-8 flex flex-col items-center gap-3"
         >
-          <p className="mt-1.5 text-xs uppercase tracking-wider text-white/80">
-            Role para percorrer a linha do tempo
-          </p>
-          <ChevronDown className="h-8 w-8 animate-bounce" />
+          <span className="text-xs sm:text-sm tracking-[0.3em] uppercase text-white/75 font-medium">
+            Role para baixo
+          </span>
+          <motion.svg
+            className="w-6 h-6 text-white/70"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            animate={prefersReducedMotion ? { y: 0 } : { y: [0, 8, 0] }}
+            transition={prefersReducedMotion ? undefined : { duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </motion.svg>
         </motion.div>
       </div>
     </section>

@@ -8,7 +8,11 @@ const SustainabilityReportSection: React.FC = () => {
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-white">
       <div className="container mx-auto px-4 md:px-8">
-        <div className="bg-gray-800 text-white p-12 rounded-lg shadow-xl text-center">
+        <div className="relative bg-gray-800 text-white p-12 rounded-lg shadow-xl text-center overflow-hidden">
+          <div 
+            className="absolute inset-0 bg-cover bg-center opacity-20" 
+            style={{ backgroundImage: "url('/images/photo-1661435036699-8686dbfc5304.jpg')" }}
+          />
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

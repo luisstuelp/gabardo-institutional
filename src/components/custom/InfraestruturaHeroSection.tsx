@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const backgroundImage = '/images/gabardo-truck-fleet.JPG';
+const backgroundImage = '/images/Trans Gabardo - Framers produtora -5452 (1).JPG';
 
 export default function InfraestruturaHeroSection() {
   return (

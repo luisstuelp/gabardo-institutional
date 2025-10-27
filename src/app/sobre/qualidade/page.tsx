@@ -9,7 +9,6 @@ const CarbonCompensationSection = dynamic(() => import('@/components/custom/Carb
 const SustainabilityReportSection = dynamic(() => import('@/components/custom/SustainabilityReportSection'));
 const ESGSection = dynamic(() => import('@/components/custom/EASGSection'));
 const SocialClimateSection = dynamic(() => import('@/components/custom/SocialClimateSection'));
-const SocialCommitmentSection = dynamic(() => import('@/components/custom/SocialCommitmentSection'));
 const Footer = dynamic(() => import('@/components/layout/Footer'));
 
 export default function SobreQualidadePage() {
@@ -27,7 +26,6 @@ export default function SobreQualidadePage() {
 
       <section className="scroll-mt-32" id="qualidade-impacto-social">
         <SocialClimateSection />
-        <SocialCommitmentSection />
       </section>
       <Footer />
     </main>

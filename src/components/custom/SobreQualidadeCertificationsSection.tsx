@@ -146,39 +146,40 @@ const galleryHighlights = [
 
 const galleryImages = [
   {
-    src: '/images/Certificados.JPG',
-    alt: 'Painel de certificados da Gabardo',
-    title: 'Acervo institucional',
-    description: 'Painel físico utilizado em auditorias externas e apresentações corporativas.',
+    src: '/images/GaleriaDeCert/Trans Gabardo - Framers produtora -5810.JPG',
+    alt: 'Galeria de Conquistas Gabardo',
+    title: 'Certificados e Conquistas',
+    description: 'Acervo de certificações e reconhecimentos institucionais.',
   },
   {
-    src: '/images/certifications/iso-9001-qualidade.png',
-    alt: 'Certificado ISO 9001',
-    title: 'ISO 9001',
-    description: 'Escopo completo de logística automotiva e preparação de veículos.',
+    src: '/images/GaleriaDeCert/Trans Gabardo - Framers produtora -5811.JPG',
+    alt: 'Certificações Gabardo',
+    title: 'Certificações',
+    description: 'Documentação completa de certificações internacionais.',
   },
   {
-    src: '/images/certifications/iso-14001-meio-ambiente.png',
-    alt: 'Certificado ISO 14001',
-    title: 'ISO 14001',
-    description: 'Gestão ambiental integrada aos pátios, oficinas e operações de transporte.',
+    src: '/images/GaleriaDeCert/Trans Gabardo - Framers produtora -5812-2.JPG',
+    alt: 'Selos e Reconhecimentos',
+    title: 'Selos e Reconhecimentos',
+    description: 'Selos de qualidade e reconhecimentos do setor.',
   },
   {
-    src: '/images/certifications/iso-39001-seguranca-viaria.png',
-    alt: 'Certificado ISO 39001',
-    title: 'ISO 39001',
-    description: 'Segurança viária com telemetria embarcada e protocolos de investigação de ocorrências.',
+    src: '/images/GaleriaDeCert/Trans Gabardo - Framers produtora -5813.JPG',
+    alt: 'Painel de Certificados',
+    title: 'Painel Institucional',
+    description: 'Painel completo de certificações da Gabardo.',
   },
   {
-    src: '/images/certifications/Design sem nome (59).png',
-    alt: 'Certificado OEA',
-    title: 'OEA - Receita Federal',
-    description: 'Compliance aduaneiro reconhecido com selo Operador Econômico Autorizado.',
+    src: '/images/GaleriaDeCert/Trans Gabardo - Framers produtora -5821-2.JPG',
+    alt: 'Acervo de Conquistas',
+    title: 'Acervo de Conquistas',
+    description: 'Galeria completa de conquistas e certificações.',
   },
 ];
 
 const SobreQualidadeCertificationsSection: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFolderHovered, setIsFolderHovered] = useState(false);
 
   return (
     <section className="relative bg-neutral-950 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 text-white overflow-hidden">
@@ -300,19 +301,59 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-gabardo-light-blue/20" aria-hidden />
               <div className="relative">
                 <div className="relative h-60 w-full flex items-end justify-center px-10 pb-8 pt-4">
-                  <div className="flex items-center justify-center rounded-3xl border border-white/15 bg-white/10 px-8 py-8 backdrop-blur-sm shadow-[0_18px_50px_-25px_rgba(19,45,81,0.65)]">
-                    <Folder
-                      size={1.9}
-                      color="#38B6FF"
-                      className="cursor-pointer"
-                      onOpen={() => setIsModalOpen(true)}
-                    />
+                  {/* Left Arrow - Points right towards folder */}
+                  <motion.div
+                    animate={{ x: [-4, 0, -4] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-gabardo-light-blue z-10"
+                  >
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </motion.div>
+                  
+                  <div 
+                    className={`flex items-center justify-center rounded-3xl border border-white/15 bg-white/10 px-8 py-8 backdrop-blur-sm shadow-[0_18px_50px_-25px_rgba(19,45,81,0.65)] cursor-pointer group transition-all ${
+                      isFolderHovered ? 'border-gabardo-light-blue/40' : ''
+                    }`}
+                    onClick={() => setIsModalOpen(true)}
+                    onMouseEnter={() => setIsFolderHovered(true)}
+                    onMouseLeave={() => setIsFolderHovered(false)}
+                  >
+                    <div className={`transition-transform ${
+                      isFolderHovered ? 'scale-105' : ''
+                    }`}>
+                      <Folder
+                        size={1.9}
+                        color="#38B6FF"
+                        className="cursor-pointer"
+                        onOpen={() => setIsModalOpen(true)}
+                      />
+                    </div>
                   </div>
+                  
+                  {/* Right Arrow - Points left towards folder */}
+                  <motion.div
+                    animate={{ x: [4, 0, 4] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gabardo-light-blue z-10"
+                  >
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </motion.div>
                 </div>
 
                 <div className="flex flex-col gap-6 p-6 pt-7">
                   <div>
-                    <h3 className="text-lg font-semibold uppercase tracking-[0.32em] text-white/80">Galeria de Certificados</h3>
+                    <h3 
+                      className="text-lg font-semibold uppercase tracking-[0.32em] text-white/80 hover:text-gabardo-light-blue transition-colors cursor-pointer"
+                      onClick={() => setIsModalOpen(true)}
+                      onMouseEnter={() => setIsFolderHovered(true)}
+                      onMouseLeave={() => setIsFolderHovered(false)}
+                    >
+                      Galeria de Conquistas
+                    </h3>
                     <p className="mt-3 text-sm text-white/70 leading-relaxed">
                       Certificados físicos e digitais exibidos nas auditorias externas, apresentações comerciais e data rooms.
                     </p>
@@ -326,13 +367,13 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                       >
                         <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-gabardo-light-blue/15 opacity-60" aria-hidden />
                         <div className="relative flex items-center gap-4">
-                          <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl bg-white/10">
+                          <div className="relative h-20 w-20 flex-shrink-0">
                             <Image
                               src={item.src}
                               alt={item.alt}
                               fill
-                              sizes="(min-width: 768px) 20vw, 45vw"
-                              className="object-contain p-2"
+                              sizes="80px"
+                              className="object-contain"
                             />
                           </div>
                           <div>

@@ -201,14 +201,14 @@ const CarbonCompensationSection = () => {
                 
                 <ScrollStackItem>
                 <div 
-                  className="relative rounded-3xl border-2 border-gabardo-blue/20 bg-white p-6 md:p-8 shadow-xl"
+                  className="relative overflow-hidden rounded-3xl border-2 border-gabardo-blue/20 bg-white p-6 md:p-8 shadow-xl"
                   style={{
                     boxShadow: '0 25px 60px -30px rgba(19, 45, 81, 0.3)',
                     height: 'auto',
                     minHeight: '260px'
                   }}
                 >
-                  <div className="flex flex-col gap-5 md:gap-6">
+                  <div className="flex flex-col gap-5 md:gap-6 pb-2">
                     <div className="flex items-start gap-4 md:gap-5">
                       <div className="flex h-14 w-14 md:h-16 md:w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/20 to-gabardo-blue/20 text-gabardo-blue shadow-md">
                         <Award className="h-7 w-7 md:h-8 md:w-8" strokeWidth={2} />
@@ -231,7 +231,7 @@ const CarbonCompensationSection = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-gabardo-blue via-gabardo-light-blue to-gabardo-blue" />
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-gabardo-blue via-gabardo-light-blue to-gabardo-blue" />
                 </div>
               </ScrollStackItem>
             </ScrollStack>

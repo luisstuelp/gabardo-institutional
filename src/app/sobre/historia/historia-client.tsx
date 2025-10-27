@@ -49,7 +49,7 @@ const STORY_SECTIONS = [
     kicker: 'Consolidação e maturidade',
     heading: 'Chegamos aos 30 anos com 13 pátios',
     body: 'Reformulamos completamente Porto Alegre (2014) e inauguramos Chuí/RS. Certificamos ISO 9001:2008 em Piracicaba (2015). Em 2017, iniciamos voluntariamente o inventário e neutralização de emissões de carbono, demonstrando nosso compromisso ambiental pioneiro. Expandimos para Eusébio/CE, Mogi das Cruzes/SP e Jacareí/SP. 2019 marcou nossos 30 anos como maior frota própria de cegonhas do Brasil.',
-    videoPoster: '/images/GABARDO 2023_INSTITUCIONAL COMERCIAL_ImgID1.png',
+    videoPoster: '/images/AAIMG_20160702_073337243_HDR (3).jpg',
     imagePosition: 'center 35%',
   },
   {
@@ -66,6 +66,7 @@ const STORY_SECTIONS = [
 ];
 
 const HERO_BACKGROUND = '/images/05A.jpg';
+const HERO_VIDEO = '/images/Make_the_image_202509021134%20(1).mp4';
 
 // Custom hook for reduced motion preference
 const usePrefersReducedMotion = () => {
@@ -264,6 +265,7 @@ function Tabs({
 export default function CulturaClient() {
   const [activeId, setActiveId] = useState(STORY_SECTIONS[0].id);
   const heroBackground = HERO_BACKGROUND;
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   // Scroll to top on mount to fix initial position
   useEffect(() => {
@@ -305,15 +307,27 @@ export default function CulturaClient() {
         {/* Hero Section */}
         <section className="relative overflow-hidden h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
           <div aria-hidden className="absolute inset-0 -z-10">
-            <Image
-              src={heroBackground}
-              alt=""
-              fill
-              sizes="100vw"
-              className="object-cover"
-              priority={true}
-              quality={85}
-            />
+            {prefersReducedMotion ? (
+              <Image
+                src={heroBackground}
+                alt=""
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority={true}
+                quality={85}
+              />
+            ) : (
+              <video
+                className="h-full w-full object-cover"
+                src={HERO_VIDEO}
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={heroBackground}
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/75 md:from-black/65 md:via-black/45 md:to-black/65" />
           </div>
           <div className="max-w-7xl mx-auto text-center py-20">
@@ -337,6 +351,29 @@ export default function CulturaClient() {
               <p className="text-xs sm:text-sm md:text-base lg:text-lg text-white/80 leading-relaxed max-w-3xl mx-auto font-secondary px-2 sm:px-0">
                 Desde 1989, seguimos uma jornada de expansão contínua, combinando tradição com inovação. Hoje, operamos a maior frota própria de cegonhas do Brasil, 100% rastreada, com presença em toda a América Latina.
               </p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1 }}
+                className="mt-8 flex flex-col items-center gap-3"
+              >
+                <span className="text-xs sm:text-sm tracking-[0.3em] uppercase text-white/75 font-medium">
+                  Role para baixo
+                </span>
+                <motion.svg
+                  className="w-6 h-6 text-white/70"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  animate={prefersReducedMotion ? { y: 0 } : { y: [0, 8, 0] }}
+                  transition={prefersReducedMotion ? undefined : { duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </motion.svg>
+              </motion.div>
             </motion.div>
           </div>
         </section>
@@ -374,7 +411,7 @@ export default function CulturaClient() {
                 Palavra do Fundador
               </span>
               <blockquote className="text-2xl md:text-3xl font-light text-gray-700 leading-relaxed mb-8 italic">
-                "Quando comecei em 1989, com um único caminhão, eu tinha um compromisso: fazer o transporte de forma correta, segura e confiável. Hoje, 36 anos depois, olho para nossa frota de mais de mil caminhões, para nossa equipe e para os grandes parceiros que confiam em nós, e vejo que esse compromisso inicial não apenas se manteve, como se tornou o pilar de tudo o que fazemos."
+                &ldquo;Quando comecei em 1989, com um único caminhão, eu tinha um compromisso: fazer o transporte de forma correta, segura e confiável. Hoje, 36 anos depois, olho para nossa frota de mais de dois mil caminhões, para nossa equipe e para os grandes parceiros que confiam em nós, e vejo que esse compromisso inicial não apenas se manteve, como se tornou o pilar de tudo o que fazemos.&rdquo;
               </blockquote>
               <div className="flex flex-col items-center">
                 <div className="w-20 h-1 bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue rounded-full mb-4"></div>

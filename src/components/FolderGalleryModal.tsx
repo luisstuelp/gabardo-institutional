@@ -67,14 +67,11 @@ const FolderGalleryModal: React.FC<FolderGalleryModalProps> = ({ isOpen, onClose
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="mb-6 text-center"
+              className="mb-4 text-center"
             >
-              <h2 id="gallery-modal-title" className="text-2xl font-bold text-white md:text-3xl">
-                {currentImage.title || 'Acervo Institucional Gabardo'}
-              </h2>
-              <p className="mt-2 text-sm text-white/70">
+              <span id="gallery-modal-title" className="text-sm font-semibold uppercase tracking-[0.35em] text-white/70">
                 {currentIndex + 1} de {images.length}
-              </p>
+              </span>
             </motion.div>
 
             {/* Image Container */}
@@ -97,18 +94,6 @@ const FolderGalleryModal: React.FC<FolderGalleryModalProps> = ({ isOpen, onClose
                 />
               </div>
             </motion.div>
-
-            {/* Description */}
-            {currentImage.description && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="mt-6 max-w-2xl text-center"
-              >
-                <p className="text-base text-white/90 md:text-lg">{currentImage.description}</p>
-              </motion.div>
-            )}
 
             {/* Navigation Buttons */}
             {images.length > 1 && (
