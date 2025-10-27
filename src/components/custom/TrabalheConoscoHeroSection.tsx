@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ChevronDown } from 'lucide-react';
 
-const heroImage = '/images/gabardo-hero-03.JPG';
+const heroImage = '/images/WWIMG_20200130_103015003B.jpg';
 
 const TrabalheConoscoHeroSection: React.FC = () => {
   return (

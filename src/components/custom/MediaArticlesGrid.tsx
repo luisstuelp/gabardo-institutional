@@ -27,7 +27,7 @@ const articles: Article[] = [
     category: 'Expansão',
     date: '2025-09-15',
     readTime: '5 min',
-    image: '/images/gabardo-truck-fleet.JPG',
+    image: '/images/Trans Gabardo - Framers produtora -5437.JPG',
     url: 'https://transportemoderno.com.br/2025/09/15/na-contramao-transportes-gabardo-investe-em-300-caminhoes-pesados-e-projeta-crescer-30-em-2025/',
     featured: true,
     author: 'Transporte Moderno'
@@ -39,7 +39,7 @@ const articles: Article[] = [
     category: 'Sustentabilidade',
     date: '2025-09-25',
     readTime: '4 min',
-    image: '/images/sustentabilidade-hero.jpg',
+    image: '/images/Site-TranspoSul-Noticias-Interna-15-3-1024x452.png.webp',
     url: 'https://transposul.com/2025/09/25/transportes-gabardo-recebe-reconhecimento-do-setcergs-por-certificacao-inedita-de-carbono-negativo/',
     author: 'TranspoSul'
   },
@@ -50,7 +50,7 @@ const articles: Article[] = [
     category: 'Parceiros',
     date: '2025-01-10',
     readTime: '3 min',
-    image: '/images/Trans Gabardo - Framers produtora -5377.JPG',
+    image: '/images/Captura-de-tela-2024-11-23-120740.webp',
     url: 'https://frotanews.com.br/transportes-gabardo-transporta-o-hyundai-hb20-para-a-argentina/',
     author: 'Frota News'
   },
@@ -72,7 +72,7 @@ const articles: Article[] = [
     category: 'Parceiros',
     date: '2019-02-13',
     readTime: '3 min',
-    image: '/images/gabardo-hero-01.JPG',
+    image: '/images/VW-Constellation-19.360-4x2.jpg',
     url: 'https://www.autoindustria.com.br/2019/02/13/transportes-gabardo-renova-com-vwco/',
     author: 'AutoIndústria'
   },
@@ -87,6 +87,7 @@ const MediaArticlesGrid = () => {
   const filteredArticles = selectedCategory === 'Todos' 
     ? articles 
     : articles.filter(article => article.category === selectedCategory);
+  const showLoadMore = false;
 
   const featuredArticle = articles.find(a => a.featured);
   const regularArticles = filteredArticles.filter(a => !a.featured);
@@ -275,22 +276,24 @@ const MediaArticlesGrid = () => {
         </div>
 
         {/* Load More Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-12 md:mt-16 text-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gabardo-blue text-white font-semibold uppercase tracking-wider shadow-lg hover:bg-gabardo-light-blue transition-all duration-300"
+        {showLoadMore && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-12 md:mt-16 text-center"
           >
-            <span>Carregar mais artigos</span>
-            <ArrowRight className="w-5 h-5" />
-          </motion.button>
-        </motion.div>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gabardo-blue text-white font-semibold uppercase tracking-wider shadow-lg hover:bg-gabardo-light-blue transition-all duration-300"
+            >
+              <span>Carregar mais artigos</span>
+              <ArrowRight className="w-5 h-5" />
+            </motion.button>
+          </motion.div>
+        )}
       </div>
     </section>
   );

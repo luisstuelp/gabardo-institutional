@@ -125,7 +125,7 @@ export default function ContactFormSection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-center text-lg text-gray-600 mb-8"
           >
-            Preencha o formulário abaixo com os detalhes da sua necessidade e um de nossos especialistas entrará em contato em breve. Para um atendimento mais ágil, selecione o principal interesse e forneça o máximo de detalhes possível.
+            Preencha o formulário abaixo com os detalhes da sua necessidade e um de nossos especialistas entrará em contato em breve.
           </motion.p>
           <motion.form
             initial={{ opacity: 0, y: 50 }}
