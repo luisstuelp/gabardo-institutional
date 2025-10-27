@@ -89,6 +89,27 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
     };
   }, [isDesktop]);
 
+  // Force autoplay on mobile
+  useEffect(() => {
+    const playVideo = async () => {
+      if (mobileVideoRef.current && !isDesktop) {
+        try {
+          await mobileVideoRef.current.play();
+        } catch (err) {
+          console.log('Mobile video autoplay blocked:', err);
+        }
+      }
+      if (desktopVideoRef.current && isDesktop) {
+        try {
+          await desktopVideoRef.current.play();
+        } catch (err) {
+          console.log('Desktop video autoplay blocked:', err);
+        }
+      }
+    };
+    playVideo();
+  }, [isDesktop]);
+
   return (
     <div className="relative w-full h-screen min-h-screen text-white overflow-hidden bg-cover bg-center md:bg-transparent"
          style={{ backgroundImage: `url(${imageSrc || '/images/gabardo-hero-01.jpg'})` }}>

@@ -262,10 +262,25 @@ function Tabs({
   );
 }
 
-export default function CulturaClient() {
+export default function HistoriaClientPage() {
   const [activeId, setActiveId] = useState(STORY_SECTIONS[0].id);
   const heroBackground = HERO_BACKGROUND;
+  const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
+
+  // Force video autoplay on mount
+  useEffect(() => {
+    const playVideo = async () => {
+      if (videoRef.current && !prefersReducedMotion) {
+        try {
+          await videoRef.current.play();
+        } catch (err) {
+          console.log('Video autoplay blocked:', err);
+        }
+      }
+    };
+    playVideo();
+  }, [prefersReducedMotion]);
 
   // Scroll to top on mount to fix initial position
   useEffect(() => {
@@ -319,6 +334,7 @@ export default function CulturaClient() {
               />
             ) : (
               <video
+                ref={videoRef}
                 className="h-full w-full object-cover"
                 src={HERO_VIDEO}
                 autoPlay

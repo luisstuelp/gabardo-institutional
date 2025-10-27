@@ -137,6 +137,8 @@ function FleetCarousel({ images, name }: { images: string[]; name: string }) {
           width={960}
           height={540}
           className="h-[220px] w-full object-cover md:h-[280px]"
+          unoptimized
+          loading="eager"
         />
       </div>
     );
@@ -154,6 +156,8 @@ function FleetCarousel({ images, name }: { images: string[]; name: string }) {
                 width={960}
                 height={540}
                 className="h-[220px] w-full object-cover md:h-[280px]"
+                unoptimized
+                loading="eager"
               />
             </div>
           ))}

@@ -6,8 +6,8 @@ export default function ClimateChangeSection() {
   return (
     <section className="relative overflow-hidden py-16 md:py-20 lg:py-24 bg-gradient-to-br from-emerald-50/30 via-white to-green-50/20">
       {/* Epic Animated Forest - Layered Pine Trees Growing from Ground */}
-      <div className="pointer-events-none absolute inset-0 opacity-40 md:opacity-30">
-        <svg className="absolute inset-0 h-full w-full origin-bottom scale-[2] sm:scale-150 md:scale-100" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+      <div className="pointer-events-none absolute inset-0 opacity-30 sm:opacity-35 md:opacity-30">
+        <svg className="absolute inset-0 h-full w-full origin-bottom scale-[2.5] sm:scale-150 md:scale-100" viewBox="0 0 1400 600" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
           <defs>
             {/* Reference Image Inspired Color Palette */}
             <linearGradient id="pineLight" x1="0%" y1="0%" x2="0%" y2="100%">

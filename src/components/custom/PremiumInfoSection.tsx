@@ -340,14 +340,15 @@ const PremiumInfoSection: React.FC = () => {
             <ProtocolStack />
             <motion.figure
               variants={metricItem}
-              className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/40 bg-white/70 shadow-[0_22px_40px_-46px_rgba(19,45,81,0.55)] h-full"
+              className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/40 bg-white/70 shadow-[0_22px_40px_-46px_rgba(19,45,81,0.55)] h-[320px] sm:h-[380px] md:h-full min-h-[320px]"
             >
               <Image
                 src="/images/seguranca-thumbsup.jpg"
                 alt="Colaborador Gabardo em ambiente seguro"
                 fill
-                className="object-cover"
+                className="object-cover object-center"
                 sizes="(max-width: 768px) 100vw, 50vw"
+                priority
               />
               <figcaption className="absolute inset-x-0 bottom-0 px-6 pb-6">
                 <motion.div
