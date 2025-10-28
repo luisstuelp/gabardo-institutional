@@ -2,26 +2,26 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Award, Leaf, Recycle, Trees, ArrowDownToLine, Users } from 'lucide-react';
+import { Award, Leaf, Recycle, ArrowDownToLine } from 'lucide-react';
 import ScrollStack, { ScrollStackItem } from '@/components/Scrollstack';
 
 const actionCards = [
   {
-    title: 'Mais Árvores',
-    description: '26,54 hectares de eucalipto com 27.706 mudas plantadas e preservação permanente.',
-    icon: Trees,
+    title: 'Gestão de Resíduos 2024',
+    description: '97,927 t de recicláveis tratados e 59,855 t destinados a coprocessamento controlado.',
+    icon: Recycle,
     accent: 'from-gabardo-light-blue/40 via-gabardo-light-blue/20 to-transparent',
   },
   {
-    title: 'Menos CO₂',
-    description: 'Neutralização de 100% das emissões certificadas em toda a cadeia logística.',
-    icon: Recycle,
+    title: 'Energia Fotovoltaica',
+    description: '949,76 MWh gerados nas unidades, ampliando a participação de fontes renováveis na matriz.',
+    icon: Leaf,
     accent: 'from-gabardo-blue/35 via-gabardo-light-blue/25 to-transparent',
   },
   {
-    title: 'Menos Impacto Negativo',
-    description: 'Mitigamos impactos ambientais com gestão circular de resíduos e monitoramento contínuo.',
-    icon: Leaf,
+    title: 'Inventário GEE 2024',
+    description: 'Escopo 1: 57.664,58 tCO₂e • Escopo 2: 46,399 tCO₂e • Escopo 3: 173,594 tCO₂e.',
+    icon: ArrowDownToLine,
     accent: 'from-gabardo-blue/30 via-gabardo-light-blue/20 to-transparent',
   },
 ];
@@ -29,32 +29,32 @@ const actionCards = [
 
 const metrics = [
   {
-    icon: ArrowDownToLine,
-    value: '12%',
-    label: 'Redução de Emissões CO₂',
+    icon: Recycle,
+    value: '97,927 t',
+    label: 'Recicláveis encaminhados',
     description:
-      'Desde 2022 reduzimos 12% das emissões por km rodado com renovação de frota e rotas eficientes.',
-  },
-  {
-    icon: Leaf,
-    value: '45%',
-    label: 'Energia Renovável',
-    description:
-      '45% da energia consumida em sedes e pátios já é proveniente de fontes renováveis certificadas.',
+      'Volume de papel, plástico, vidro e metal destinados à reciclagem em 2024.',
   },
   {
     icon: Recycle,
-    value: '300t',
-    label: 'Resíduos Reciclados',
+    value: '59,855 t',
+    label: 'Coprocessamento de resíduos',
     description:
-      'Mais de 300 toneladas de pneus, óleos e resíduos técnicos receberam destinação correta em 2023.',
+      'Resíduos não recicláveis conduzidos para coprocessamento com controle ambiental.',
   },
   {
-    icon: Users,
-    value: '1.200+',
-    label: 'Pessoas Impactadas',
+    icon: Leaf,
+    value: '949,76 MWh',
+    label: 'Energia fotovoltaica',
     description:
-      'Programas socioambientais e de segurança no trânsito alcançaram mais de 1.200 pessoas.',
+      'Geração solar total do ano, reduzindo o consumo de fontes fósseis.',
+  },
+  {
+    icon: ArrowDownToLine,
+    value: '55.868 tCO₂e',
+    label: 'Emissões totais 2024',
+    description:
+      'Inventário consolidado dos escopos 1, 2 e 3 reportado no GHG Protocol.',
   },
 ];
 
@@ -118,7 +118,7 @@ const CarbonCompensationSection = () => {
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               {metrics.map((metric, index) => {
                 const Icon = metric.icon;
-                const isGreenMetricIcon = metric.icon === Trees || metric.icon === Leaf;
+                const isGreenMetricIcon = metric.icon === Leaf;
                 return (
                   <motion.div
                     key={metric.label}
@@ -164,7 +164,7 @@ const CarbonCompensationSection = () => {
               >
                 {actionCards.map((card, index) => {
                 const Icon = card.icon;
-                const isGreenIcon = card.icon === Trees || card.icon === Leaf;
+                const isGreenIcon = card.icon === Leaf;
                 return (
                   <ScrollStackItem key={card.title}>
                     <div
@@ -218,7 +218,7 @@ const CarbonCompensationSection = () => {
                           Programa Carbono Negativo Gabardo
                         </h3>
                         <p className="text-sm md:text-base text-slate-600 leading-relaxed">
-                          Inventário GEE auditado, selo GHG Protocol Prata 2025 e compromissos net zero 2030 guiando nossas operações.
+                          Em 2024 transportamos 25,1% mais veículos, com 71,6 milhões de km percorridos (+34,8%) e consumo de 24,8 milhões de litros de diesel (+33,9%), mantendo evolução contínua dos indicadores específicos.
                         </p>
                       </div>
                     </div>
@@ -239,7 +239,7 @@ const CarbonCompensationSection = () => {
               <div className="space-y-6">
               {actionCards.map((card, index) => {
                 const Icon = card.icon;
-                const isGreenIcon = card.icon === Trees || card.icon === Leaf;
+                const isGreenIcon = card.icon === Leaf;
                 return (
                   <motion.div
                     key={card.title}
@@ -289,7 +289,7 @@ const CarbonCompensationSection = () => {
                         Programa Carbono Negativo Gabardo
                       </h3>
                       <p className="text-sm text-slate-600 leading-relaxed">
-                        Plataforma integrada de sustentabilidade com inventário GEE, compensação florestal e relatórios de impacto social e ambiental.
+                        Em 2024 transportamos 25,1% mais veículos, com 71,6 milhões de km percorridos (+34,8%) e consumo de 24,8 milhões de litros de diesel (+33,9%), mantendo evolução contínua dos indicadores específicos.
                       </p>
                     </div>
                   </div>

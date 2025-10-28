@@ -79,9 +79,9 @@ const pillars = [
   {
     title: 'Gestão Sustentável',
     description:
-      'Matriz energética limpa, inventário de emissões desde 2017 e neutralização total de CO₂ no programa Carbono Negativo.',
+      'Matriz energética com geração fotovoltaica, inventário de emissões desde 2017 e compensação de CO₂ no programa Carbono Negativo Gabardo.',
     stats: '100%',
-    statsLabel: 'Emissões neutralizadas no inventário GHG Protocol',
+    statsLabel: 'Emissões reportadas no inventário GHG Protocol',
   },
   {
     title: 'Segurança em Primeiro Lugar',
