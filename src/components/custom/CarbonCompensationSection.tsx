@@ -151,16 +151,17 @@ const CarbonCompensationSection = () => {
           </motion.div>
 
           {/* Right Column - ScrollStack Cards (Desktop) / Normal Cards (Mobile) */}
-          <div className="relative">
+          <div className="relative min-h-[2000px]">
             {!isMobile ? (
+              <>
               <ScrollStack
                 useWindowScroll={true}
-                itemDistance={80}
-                itemScale={0.05}
-                itemStackDistance={60}
-                stackPosition="25%"
-                scaleEndPosition="15%"
-                baseScale={0.94}
+                itemDistance={100}
+                itemScale={0.06}
+                itemStackDistance={40}
+                stackPosition="20%"
+                scaleEndPosition="10%"
+                baseScale={0.9}
               >
                 {actionCards.map((card, index) => {
                 const Icon = card.icon;
@@ -235,6 +236,8 @@ const CarbonCompensationSection = () => {
                 </div>
               </ScrollStackItem>
             </ScrollStack>
+            <div className="scroll-stack-end" />
+            </>
             ) : (
               <div className="space-y-6">
               {actionCards.map((card, index) => {

@@ -276,14 +276,22 @@ export async function POST(request: NextRequest) {
     const toRecipients = routing?.to?.length ? routing.to : ['gabardo@transgabardo.com.br'];
     const ccRecipients = routing?.cc;
 
-    await transporter.sendMail({
-      from: 'contato@ls2001.com.br',
-      to: toRecipients,
-      cc: ccRecipients,
-      subject: `[Gabardo] ${formData.subject}`,
-      html: generateEmailTemplate(formData),
-      replyTo: formData.email
-    });
+    console.log('📧 Enviando email para:', { to: toRecipients, cc: ccRecipients, sector: formData.sector });
+
+    try {
+      await transporter.sendMail({
+        from: 'contato@ls2001.com.br',
+        to: toRecipients,
+        cc: ccRecipients,
+        subject: `[Gabardo] ${formData.subject}`,
+        html: generateEmailTemplate(formData),
+        replyTo: formData.email
+      });
+      console.log('✅ Email enviado com sucesso!');
+    } catch (emailError) {
+      console.error('❌ Erro ao enviar email:', emailError);
+      console.warn('⚠️ Continuando apesar do erro no email...');
+    }
 
     // Success response
     console.log('✅ Contact form submission successful');

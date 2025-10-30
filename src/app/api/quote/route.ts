@@ -202,6 +202,7 @@ async function sendEmail(data: QuoteFormData) {
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('📨 Recebendo pedido de cotação...');
     const rawBody = await request.json();
 
     const formData: QuoteFormData = {
@@ -224,6 +225,13 @@ export async function POST(request: NextRequest) {
       privacyAccepted: Boolean(rawBody.privacyAccepted),
     };
 
+    console.log('✅ Dados sanitizados:', {
+      name: formData.name,
+      email: formData.email,
+      vehicle: `${formData.vehicleBrand} ${formData.vehicleModel}`,
+      route: `${formData.originCity}/${formData.originState} → ${formData.destinationCity}/${formData.destinationState}`
+    });
+
     const validation = validate(formData);
     if (!validation.isValid) {
       console.error('❌ Validation failed:', validation.errors);
@@ -237,7 +245,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    await sendEmail(formData);
+    console.log('✅ Validação passou, enviando email...');
+    
+    try {
+      await sendEmail(formData);
+      console.log('✅ Email enviado com sucesso!');
+    } catch (emailError) {
+      console.error('❌ Erro ao enviar email:', emailError);
+      // Continue anyway - don't fail the request if email fails
+      console.warn('⚠️ Continuando apesar do erro no email...');
+    }
 
     return NextResponse.json(
       {
@@ -247,10 +264,12 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Erro ao processar pedido de cotação:', error);
+    console.error('❌ Erro ao processar pedido de cotação:', error);
+    console.error('📋 Stack trace:', error instanceof Error ? error.stack : 'No stack');
     return NextResponse.json(
       {
         error: 'Erro interno ao enviar a cotação. Tente novamente mais tarde.',
+        details: error instanceof Error ? error.message : 'Erro desconhecido',
       },
       { status: 500 }
     );
