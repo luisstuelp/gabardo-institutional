@@ -119,10 +119,18 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     cardsRef.current.forEach((card, i) => {
       if (!card) return;
 
+      const isFirstCard = i === 0;
       const cardTop = cardInitialOffsetsRef.current[i];
-      const triggerStart = cardTop - stackPositionPx - itemStackDistance * i;
+      
+      // For first card: pin at its natural position
+      // For other cards: stack on top of the first card
+      const triggerStart = isFirstCard 
+        ? cardTop - stackPositionPx 
+        : cardTop - stackPositionPx - itemStackDistance * i;
       const triggerEnd = cardTop - scaleEndPositionPx;
-      const pinStart = cardTop - stackPositionPx - itemStackDistance * i;
+      const pinStart = isFirstCard
+        ? cardTop - stackPositionPx
+        : cardTop - stackPositionPx - itemStackDistance * i;
       const pinEnd = endElementTop - containerHeight / 2;
 
       const scaleProgress = calculateProgress(scrollTop, triggerStart, triggerEnd);
@@ -139,10 +147,20 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
       let translateY = 0;
       const isPinned = scrollTop >= pinStart && scrollTop <= pinEnd;
 
-      if (isPinned) {
-        translateY = scrollTop - cardTop + stackPositionPx + itemStackDistance * i;
-      } else if (scrollTop > pinEnd) {
-        translateY = pinEnd - cardTop + stackPositionPx + itemStackDistance * i;
+      if (isFirstCard) {
+        // First card: pin at stackPosition, no stacking offset
+        if (isPinned) {
+          translateY = scrollTop - cardTop + stackPositionPx;
+        } else if (scrollTop > pinEnd) {
+          translateY = pinEnd - cardTop + stackPositionPx;
+        }
+      } else {
+        // Other cards: pin and stack on top of first card
+        if (isPinned) {
+          translateY = scrollTop - cardTop + stackPositionPx + itemStackDistance * i;
+        } else if (scrollTop > pinEnd) {
+          translateY = pinEnd - cardTop + stackPositionPx + itemStackDistance * i;
+        }
       }
 
       const newTransform = {
