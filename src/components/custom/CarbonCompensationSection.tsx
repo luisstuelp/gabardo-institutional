@@ -155,12 +155,12 @@ const CarbonCompensationSection = () => {
             {!isMobile ? (
               <ScrollStack
                 useWindowScroll={true}
-                itemDistance={60}
-                itemScale={0.04}
-                itemStackDistance={50}
-                stackPosition="20%"
-                scaleEndPosition="12%"
-                baseScale={0.92}
+                itemDistance={80}
+                itemScale={0.05}
+                itemStackDistance={60}
+                stackPosition="25%"
+                scaleEndPosition="15%"
+                baseScale={0.94}
               >
                 {actionCards.map((card, index) => {
                 const Icon = card.icon;

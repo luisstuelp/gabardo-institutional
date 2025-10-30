@@ -1,9 +1,9 @@
 export type BlogContentBlock =
   | { type: 'paragraph'; content: string }
-  | { type: 'heading'; content: string; level?: number }
+  | { type: 'heading'; content: string; level?: 2 | 3 }
   | { type: 'quote'; content: string; author?: string }
   | { type: 'image'; content: string; alt?: string }
-  | { type: 'list'; content?: string; items?: string[] }
+  | { type: 'list'; content?: string; items?: string[]; ordered?: boolean }
   | { type: 'divider'; content?: string }
   | { type: 'highlight'; content: string };
 

@@ -21,39 +21,107 @@ function parseContent(content: string): BlogContentBlock[] {
     }
   }
 
-  // Parse plain text into content blocks
+  // Parse plain text into structured content blocks
   const blocks: BlogContentBlock[] = [];
-  const paragraphs = content.split('\n\n').filter(p => p.trim());
-
-  for (const para of paragraphs) {
-    const trimmed = para.trim();
+  const lines = content.split('\n').map(l => l.trim()).filter(l => l);
+  
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
     
-    // Check if it's a heading (all caps or starts with ##)
-    if (trimmed === trimmed.toUpperCase() && trimmed.length < 100 && trimmed.length > 3) {
+    // Detect markdown headings (##, ###, etc.)
+    if (line.startsWith('#')) {
+      const level = line.match(/^#+/)?.[0].length || 2;
+      const heading = line.replace(/^#+\s*/, '').trim();
       blocks.push({
         type: 'heading',
-        content: trimmed,
-        level: 2,
+        content: heading,
+        level: Math.min(level, 3) as 2 | 3,
       });
+      i++;
+      continue;
     }
-    // Check if it starts with markdown heading
-    else if (trimmed.startsWith('##')) {
+    
+    // Detect all-caps headings (minimum 4 chars, max 100 chars)
+    if (line === line.toUpperCase() && 
+        line.length >= 4 && 
+        line.length < 100 && 
+        /^[A-Z0-9À-Ú\s\-:()]+$/.test(line)) {
       blocks.push({
         type: 'heading',
-        content: trimmed.replace(/^#+\s*/, ''),
+        content: line,
         level: 2,
       });
+      i++;
+      continue;
     }
-    // Regular paragraph
-    else {
+    
+    // Detect bullet lists (lines starting with -, *, •)
+    if (line.match(/^[-*•]\s/)) {
+      const listItems: string[] = [];
+      while (i < lines.length && lines[i].match(/^[-*•]\s/)) {
+        listItems.push(lines[i].replace(/^[-*•]\s*/, '').trim());
+        i++;
+      }
+      blocks.push({
+        type: 'list',
+        items: listItems,
+      });
+      continue;
+    }
+    
+    // Detect numbered lists (lines starting with 1., 2., etc.)
+    if (line.match(/^\d+\.\s/)) {
+      const listItems: string[] = [];
+      while (i < lines.length && lines[i].match(/^\d+\.\s/)) {
+        listItems.push(lines[i].replace(/^\d+\.\s*/, '').trim());
+        i++;
+      }
+      blocks.push({
+        type: 'list',
+        items: listItems,
+        ordered: true,
+      });
+      continue;
+    }
+    
+    // Detect blockquotes (lines starting with >)
+    if (line.startsWith('>')) {
+      blocks.push({
+        type: 'quote',
+        content: line.replace(/^>\s*/, '').trim(),
+      });
+      i++;
+      continue;
+    }
+    
+    // Regular paragraph - accumulate multiple lines until empty line or special marker
+    let paragraph = line;
+    i++;
+    
+    // Keep adding lines that are not special markers and not empty
+    while (i < lines.length && 
+           !lines[i].startsWith('#') && 
+           !lines[i].match(/^[-*•]\s/) &&
+           !lines[i].match(/^\d+\.\s/) &&
+           !lines[i].startsWith('>') &&
+           !(lines[i] === lines[i].toUpperCase() && 
+             lines[i].length >= 4 && 
+             lines[i].length < 100 &&
+             /^[A-Z0-9À-Ú\s\-:()]+$/.test(lines[i]))) {
+      paragraph += ' ' + lines[i];
+      i++;
+    }
+    
+    if (paragraph.trim()) {
       blocks.push({
         type: 'paragraph',
-        content: trimmed,
+        content: paragraph.trim(),
       });
     }
   }
 
-  return blocks;
+  return blocks.length > 0 ? blocks : [{ type: 'paragraph', content: content }];
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {

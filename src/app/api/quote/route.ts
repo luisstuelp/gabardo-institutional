@@ -169,13 +169,21 @@ function renderEmailTemplate(data: QuoteFormData): string {
 }
 
 async function sendEmail(data: QuoteFormData) {
+  // Use env vars with fallback to default config
+  const smtpHost = process.env.SMTP_HOST || 'smtp.ls2001.com.br';
+  const smtpPort = Number(process.env.SMTP_PORT || 587);
+  const smtpSecure = process.env.SMTP_SECURE === 'true';
+  const smtpUser = process.env.SMTP_USER || 'contato@ls2001.com.br';
+  const smtpPass = process.env.SMTP_PASS || 'C99995000c';
+  const smtpFrom = process.env.SMTP_FROM || 'contato@ls2001.com.br';
+
   const transporter = nodemailer.createTransport({
-    host: 'smtp.ls2001.com.br',
-    port: 587,
-    secure: false,
+    host: smtpHost,
+    port: smtpPort,
+    secure: smtpSecure,
     auth: {
-      user: 'contato@ls2001.com.br',
-      pass: 'C99995000c',
+      user: smtpUser,
+      pass: smtpPass,
     },
     tls: {
       rejectUnauthorized: false,
@@ -183,8 +191,8 @@ async function sendEmail(data: QuoteFormData) {
   });
 
   await transporter.sendMail({
-    from: 'contato@ls2001.com.br',
-    to:  'comercial@transgabardo.com.br',
+    from: smtpFrom,
+    to: 'comercial@transgabardo.com.br',
     cc: 'ls2001@terra.com.br',
     subject: `[Gabardo] Pedido de cotação - ${data.vehicleBrand} ${data.vehicleModel || data.vehicleCategory}`,
     html: renderEmailTemplate(data),

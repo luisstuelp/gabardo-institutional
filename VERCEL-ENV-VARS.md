@@ -39,15 +39,29 @@ NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET=content-images
 
 ---
 
-### 📧 Email Service (OPCIONAL)
+### 📧 Email Service (OPCIONAL - mas recomendado)
 
 ```bash
-# Serviço de email para formulário de contato
-EMAIL_SERVICE_URL=https://seu-servico-email.com/api
-EMAIL_SERVICE_KEY=sua-chave-aqui
+# Configuração SMTP para formulários de cotação
+SMTP_HOST=smtp.seu-provedor.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=seu-email@dominio.com
+SMTP_PASS=sua-senha-smtp
+SMTP_FROM=seu-email@dominio.com
+SMTP_TO=comercial@transgabardo.com.br
+SMTP_CC=ls2001@terra.com.br
 ```
 
-**Nota**: Se você não usa email service, pode deixar vazio ou remover.
+**Nota**: 
+- Se não configurar, o formulário ainda funcionará mas **NÃO enviará emails**
+- Os dados serão apenas logados no console do Vercel
+- **Recomendado configurar** para receber cotações dos clientes
+
+**Como obter:**
+- Use o SMTP do seu provedor de email (Gmail, Outlook, etc.)
+- Gmail: https://support.google.com/mail/answer/7126229
+- Outlook: https://support.microsoft.com/pt-br/office/configura%C3%A7%C3%B5es-de-servidor-pop-imap-e-smtp-para-outlook-com-d088b986-291d-42b8-9564-9c414e2aa040
 
 ---
 

@@ -134,6 +134,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         );
 
       case 'list':
+        const ListTag = content.ordered ? 'ol' : 'ul';
         return (
           <motion.div
             key={index}
@@ -146,20 +147,20 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
             {content.content && (
               <p className="text-xl font-medium text-white mb-6">{content.content}</p>
             )}
-            <ul className="space-y-4">
+            <ListTag className={`space-y-4 ${content.ordered ? 'list-decimal list-inside' : ''}`}>
               {content.items?.map((item, itemIndex) => (
                 <motion.li
                   key={itemIndex}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: itemIndex * 0.1 }}
-                  className="flex items-start space-x-4 text-lg text-white/80"
+                  className={`flex items-start space-x-4 text-lg text-white/80 ${content.ordered ? 'ml-0' : ''}`}
                 >
-                  <div className="w-2 h-2 bg-white/60 rounded-full mt-3 flex-shrink-0" />
-                  <span>{item}</span>
+                  {!content.ordered && <div className="w-2 h-2 bg-white/60 rounded-full mt-3 flex-shrink-0" />}
+                  <span className={content.ordered ? 'ml-2' : ''}>{item}</span>
                 </motion.li>
               ))}
-            </ul>
+            </ListTag>
           </motion.div>
         );
 
