@@ -546,7 +546,10 @@ const VehicleQuoteForm: React.FC = () => {
         setStep(1);
       } else {
         const data = await response.json().catch(() => null);
-        setError((data?.error as string | undefined) ?? 'Erro ao enviar a cotação. Tente novamente.');
+        console.error('❌ Quote submission failed:', data);
+        const errorMessage = data?.error ?? 'Erro ao enviar a cotação. Tente novamente.';
+        const details = data?.details ? `\n\nDetalhes: ${data.details.join(', ')}` : '';
+        setError(errorMessage + details);
       }
     } catch (err) {
       console.error(err);

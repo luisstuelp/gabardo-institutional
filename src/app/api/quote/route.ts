@@ -27,7 +27,7 @@ type ValidationResult = {
 };
 
 const phoneRegex = /^(?:\+55)?\s?(?:\(?\d{2}\)?\s?)?(?:9\d{4}|\d{4})[-\s]?\d{4}$/;
-const yearRegex = /^(19|20|21)\d{2}$/;
+const yearRegex = /^(19|20|21)\d{2}/; // Matches year at start, allows additional text (e.g., "1997 Diesel")
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const REQUIRED_FIELDS: Array<keyof QuoteFormData> = [
@@ -172,7 +172,8 @@ async function sendEmail(data: QuoteFormData) {
 
   await transporter.sendMail({
     from: process.env.EMAIL_USER,
-    to: 'gabardo@transgabardo.com.br',
+    to:  'comercial@transgabardo.com.br',
+    cc: 'ls2001@terra.com.br',
     subject: `[Gabardo] Pedido de cotação - ${data.vehicleBrand} ${data.vehicleModel || data.vehicleCategory}`,
     html: renderEmailTemplate(data),
     replyTo: data.email,
@@ -205,6 +206,8 @@ export async function POST(request: NextRequest) {
 
     const validation = validate(formData);
     if (!validation.isValid) {
+      console.error('❌ Validation failed:', validation.errors);
+      console.error('📋 Form data received:', formData);
       return NextResponse.json(
         {
           error: 'Dados inválidos no pedido de cotação.',
