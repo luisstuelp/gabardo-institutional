@@ -73,7 +73,7 @@ export default function ContactInfoSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xs sm:text-sm font-light tracking-[0.3em] text-neutral-500 mb-4 md:mb-6 uppercase"
+            className="text-xs sm:text-sm font-medium tracking-[0.12em] text-neutral-500 mb-4 md:mb-6 uppercase"
           >
             Informações de Contato
           </motion.div>
@@ -124,7 +124,7 @@ export default function ContactInfoSection() {
                 {info.icon}
               </motion.div>
 
-              <h3 className="text-base sm:text-lg md:text-xl font-bold text-black uppercase tracking-wide mb-2 sm:mb-3 md:mb-4 group-hover:text-gabardo-light-blue transition-colors duration-300 font-primary">
+              <h3 className="text-base sm:text-lg md:text-xl font-semibold text-black tracking-tight mb-2 sm:mb-3 md:mb-4 group-hover:text-gabardo-light-blue transition-colors duration-300 font-primary">
                 {info.title}
               </h3>
 
@@ -141,7 +141,7 @@ export default function ContactInfoSection() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="flex items-center text-neutral-600 text-xs sm:text-sm font-medium uppercase tracking-wide opacity-60 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300"
+                  className="flex items-center text-neutral-600 text-xs sm:text-sm font-medium uppercase tracking-[0.12em] opacity-60 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300"
                 >
                   <span className="mr-2">
                     {info.action.startsWith('http') ? 'Abrir' : 'Contatar'}

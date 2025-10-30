@@ -1026,7 +1026,7 @@ const VehicleQuoteForm: React.FC = () => {
                     <Mail className="h-5 w-5" strokeWidth={1.8} />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-gabardo-blue">E-mail</h4>
+                    <h4 className="text-sm font-semibold text-gabardo-blue tracking-tight">E-mail</h4>
                     <a href="mailto:comercial@transgabardo.com.br" className="text-gray-600 hover:text-gabardo-blue transition-colors">
                       comercial@transgabardo.com.br
                     </a>
@@ -1037,11 +1037,11 @@ const VehicleQuoteForm: React.FC = () => {
                     <Phone className="h-5 w-5" strokeWidth={1.8} />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-gabardo-blue">Central</h4>
+                    <h4 className="text-sm font-semibold text-gabardo-blue tracking-tight">Central</h4>
                     <a href="tel:+555121082400" className="text-gray-600 hover:text-gabardo-blue transition-colors">
                       (51) 2108-2400
                     </a>
-                    <p className="text-gray-500 text-xs uppercase tracking-[0.2em]">Atendimento em horário comercial</p>
+                    <p className="text-gray-500 text-xs tracking-wide">Atendimento em horário comercial</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -1049,10 +1049,10 @@ const VehicleQuoteForm: React.FC = () => {
                     <MapPin className="h-5 w-5" strokeWidth={1.8} />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold uppercase tracking-[0.24em] text-gabardo-blue">Matriz</h4>
+                    <h4 className="text-sm font-semibold text-gabardo-blue tracking-tight">Matriz</h4>
                     <p className="text-gray-600">Av. Fernando Ferrari, 700</p>
                     <p className="text-gray-600">Anchieta - Porto Alegre/RS</p>
-                    <p className="text-gray-500 text-xs uppercase tracking-[0.2em] mt-1">15 unidades no Brasil</p>
+                    <p className="text-gray-500 text-xs tracking-wide mt-1">15 unidades no Brasil</p>
                   </div>
                 </div>
               </div>

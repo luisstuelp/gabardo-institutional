@@ -114,7 +114,7 @@ export default function ContactFormSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-sm font-light tracking-[0.3em] text-neutral-500 mb-6 uppercase"
+            className="text-sm font-medium tracking-[0.16em] text-neutral-500 mb-6 uppercase"
           >
             Formulário de Contato
           </motion.div>
@@ -124,7 +124,7 @@ export default function ContactFormSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black uppercase tracking-tight leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black tracking-tight leading-tight font-primary"
           >
             Como Podemos
             <br />
