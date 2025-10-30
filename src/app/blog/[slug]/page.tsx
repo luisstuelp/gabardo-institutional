@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import BlogPost from '@/components/custom/BlogPost';
-import { fetchPostBySlugServer, fetchPublishedPostsServer } from '@/services/posts';
+import { fetchPostBySlugServer } from '@/services/posts';
+// import { fetchPublishedPostsServer } from '@/services/posts'; // Temporarily unused
 import type { BlogPostDetail, BlogContentBlock } from '@/types/blog';
 
 interface BlogPostPageProps {
@@ -95,15 +96,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 }
 
-export async function generateStaticParams() {
-  try {
-    const posts = await fetchPublishedPostsServer();
-    return posts.map((post) => ({ slug: post.slug }));
-  } catch (error) {
-    console.error('Error generating static params:', error);
-    return [];
-  }
-}
+// Temporarily disabled to allow build without Supabase keys
+// Enable this after configuring environment variables in Vercel
+export const dynamic = 'force-dynamic';
+
+// export async function generateStaticParams() {
+//   try {
+//     const posts = await fetchPublishedPostsServer();
+//     return posts.map((post) => ({ slug: post.slug }));
+//   } catch (error) {
+//     console.error('Error generating static params:', error);
+//     return [];
+//   }
+// }
 
 export async function generateMetadata({ params }: BlogPostPageProps) {
   const resolvedParams = await params;
