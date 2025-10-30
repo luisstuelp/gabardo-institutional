@@ -180,12 +180,18 @@ const Footer: React.FC = () => {
       >
         <div className="section-container flex flex-col gap-3 sm:gap-4 py-4 sm:py-5 md:py-6 text-xs sm:text-sm text-white/60 md:flex-row md:items-center md:justify-between">
           <p>2025 Transportes Gabardo. Todos os direitos reservados.</p>
-          <div className="flex flex-wrap gap-4 sm:gap-6">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <Link href="/politica-de-privacidade" className="transition-colors duration-200 hover:text-gabardo-light-blue">
               Política de Privacidade
             </Link>
             <Link href="/termos-de-uso" className="transition-colors duration-200 hover:text-gabardo-light-blue">
               Termos de Uso
+            </Link>
+            <Link
+              href="/admin"
+              className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white transition-all duration-200 hover:border-gabardo-light-blue/60 hover:bg-gabardo-light-blue/20 hover:text-white"
+            >
+              Admin
             </Link>
           </div>
         </div>

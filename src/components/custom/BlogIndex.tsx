@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Clock, User, ArrowRight, Eye } from 'lucide-react';
 import Image from 'next/image';
@@ -9,15 +9,19 @@ import { Header } from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import NewsletterSection from '@/components/custom/NewsletterSection';
 import BlogHeroSection from '@/components/custom/BlogHeroSection';
-import { getAllBlogPosts, getFeaturedBlogPosts, blogCategories, type BlogPost } from '@/data/blogData';
+import { blogCategories, type BlogPost } from '@/data/blogData';
 
-const BlogIndex: React.FC = () => {
+interface BlogIndexProps {
+  posts?: BlogPost[];
+}
+
+const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
 
-  const allPosts = getAllBlogPosts();
-  const featuredPosts = getFeaturedBlogPosts();
+  const allPosts = useMemo(() => posts || [], [posts]);
+  const featuredPosts = useMemo(() => allPosts.filter(post => post.featured), [allPosts]);
 
   const filterPosts = useCallback(() => {
     let filtered = allPosts;

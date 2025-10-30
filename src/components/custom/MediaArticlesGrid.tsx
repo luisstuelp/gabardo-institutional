@@ -5,24 +5,28 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Calendar, Clock, ArrowRight, Tag } from 'lucide-react';
 import {
-  getFeaturedMediaArticle,
-  getMediaArticlesByCategory,
-  getRegularMediaArticles,
   mediaCategories,
+  type MediaArticle,
 } from '@/data/mediaArticles';
 
-const MediaArticlesGrid = () => {
+interface MediaArticlesGridProps {
+  articles?: MediaArticle[];
+}
+
+const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
-  const filteredArticles = getMediaArticlesByCategory(selectedCategory);
+  const filteredArticles = selectedCategory === 'Todos' 
+    ? articles 
+    : articles.filter(article => article.category === selectedCategory);
   const showLoadMore = false;
 
   const featuredArticle = selectedCategory === 'Todos'
-    ? getFeaturedMediaArticle()
+    ? articles.find(article => article.featured) || articles[0]
     : undefined;
   const regularArticles = selectedCategory === 'Todos'
-    ? getRegularMediaArticles()
+    ? articles.filter(article => article.id !== featuredArticle?.id)
     : filteredArticles;
 
   return (

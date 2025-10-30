@@ -4,6 +4,7 @@ import WhatsAppFloat from "@/components/custom/WhatsAppFloat";
 import CookieConsentBanner from "@/components/custom/CookieConsentBanner";
 import StructuredData from "@/components/seo/StructuredData";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
+import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { meta } from "@/data/hubPluralContent";
 
@@ -110,12 +111,14 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Supermolot+Neue:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-primary">
-        <PerformanceMonitor />
-        <StructuredData />
-        {children}
-        <WhatsAppFloat />
-        <CookieConsentBanner />
-        <SpeedInsights />
+        <ReactQueryProvider>
+          <PerformanceMonitor />
+          <StructuredData />
+          {children}
+          <WhatsAppFloat />
+          <CookieConsentBanner />
+          <SpeedInsights />
+        </ReactQueryProvider>
       </body>
     </html>
   );
