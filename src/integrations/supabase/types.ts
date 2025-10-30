@@ -233,6 +233,20 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: never; Returns: boolean }
+      increment_post_metric: {
+        Args: {
+          content_id: string
+          metric_type: string
+        }
+        Returns: void
+      }
+      increment_midia_metric: {
+        Args: {
+          content_id: string
+          metric_type: string
+        }
+        Returns: void
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"

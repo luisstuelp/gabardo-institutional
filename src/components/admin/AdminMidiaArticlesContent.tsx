@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useMemo } from 'react';
-import { ArrowUpRight, CalendarDays, Loader2, Trash2 } from 'lucide-react';
+import { ArrowUpRight, CalendarDays, Loader2, Trash2, Plus } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { useDeleteMidia, useMidia } from '@/hooks/useMidia';
@@ -117,7 +117,11 @@ export default function AdminMidiaArticlesContent() {
                   type="button"
                   variant="destructive"
                   className="justify-center gap-2 transition-colors hover:bg-red-500/70"
-                  onClick={() => deleteMutation.mutate(article.id)}
+                  onClick={() => {
+                    if (confirm(`Tem certeza que deseja excluir o artigo "${article.title}"? Esta ação não pode ser desfeita.`)) {
+                      deleteMutation.mutate(article.id);
+                    }
+                  }}
                   disabled={deleteMutation.isPending}
                 >
                   {deleteMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
@@ -141,6 +145,12 @@ export default function AdminMidiaArticlesContent() {
             Supabase.
           </p>
         </div>
+        <Link href="/admin/midia/artigos/novo">
+          <Button className="flex items-center gap-2 bg-gabardo-light-blue px-6 py-3 text-neutral-900 hover:bg-gabardo-light-blue/90">
+            <Plus className="h-4 w-4" />
+            Novo Artigo
+          </Button>
+        </Link>
       </header>
 
       {renderContent()}

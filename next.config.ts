@@ -39,6 +39,22 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**.ufs.sh",
       },
+      {
+        protocol: "https",
+        hostname: "**.supabase.co",
+      },
+      {
+        protocol: "https",
+        hostname: "www.osul.com.br",
+      },
+      {
+        protocol: "https",
+        hostname: "**.com.br",
+      },
+      {
+        protocol: "https",
+        hostname: "**.com",
+      },
     ],
   },
   

@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { BlogPost } from '@/data/blogData';
+import type { BlogPostSummary } from '@/types/blog';
 
 interface BlogAnalyticsProps {
-  post: BlogPost;
+  post: BlogPostSummary;
 }
 
 interface EngagementData {

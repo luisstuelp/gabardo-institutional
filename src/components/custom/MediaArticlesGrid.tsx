@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Image from 'next/image';
 import { Calendar, Clock, ArrowRight, Tag } from 'lucide-react';
+import { trackMetricEvent } from '@/hooks/useTrackView';
 import {
   mediaCategories,
   type MediaArticle,
@@ -16,6 +17,13 @@ interface MediaArticlesGridProps {
 const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+
+  const handleArticleClick = (articleId: string, url: string) => {
+    // Track external click
+    trackMetricEvent('midia', articleId, 'external_click');
+    // Open external link
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
 
   const filteredArticles = selectedCategory === 'Todos' 
     ? articles 
@@ -71,7 +79,7 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
           >
             <div 
               className="relative h-[400px] sm:h-[500px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl group cursor-pointer"
-              onClick={() => window.open(featuredArticle.url, '_blank', 'noopener,noreferrer')}
+              onClick={() => handleArticleClick(featuredArticle.id, featuredArticle.url)}
             >
               <Image
                 src={featuredArticle.image}
@@ -115,7 +123,7 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
                     whileHover={{ x: 5 }}
                     onClick={(e) => {
                       e.stopPropagation();
-                      window.open(featuredArticle.url, '_blank', 'noopener,noreferrer');
+                      handleArticleClick(featuredArticle.id, featuredArticle.url);
                     }}
                     className="inline-flex items-center gap-2 text-white font-semibold group/btn"
                   >
@@ -144,7 +152,7 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
               transition={{ duration: 0.6, delay: index * 0.1 }}
               onHoverStart={() => setHoveredCard(article.id)}
               onHoverEnd={() => setHoveredCard(null)}
-              onClick={() => window.open(article.url, '_blank', 'noopener,noreferrer')}
+              onClick={() => handleArticleClick(article.id, article.url)}
               className="group cursor-pointer"
             >
               <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col border border-gray-100">
@@ -197,7 +205,7 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
                   <motion.button
                     onClick={(e) => {
                       e.stopPropagation();
-                      window.open(article.url, '_blank', 'noopener,noreferrer');
+                      handleArticleClick(article.id, article.url);
                     }}
                     className="flex items-center gap-2 text-gabardo-blue font-semibold text-sm"
                     animate={{ x: hoveredCard === article.id ? 5 : 0 }}

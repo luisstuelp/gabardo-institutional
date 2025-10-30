@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import type { JSX } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Calendar, Clock, User, ArrowLeft, Eye, ArrowRight, Tag } from 'lucide-react';
+import { Calendar, Clock, User, ArrowLeft, Eye, Tag } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
@@ -11,13 +11,16 @@ import Footer from '@/components/layout/Footer';
 import SocialShare from '@/components/custom/SocialShare';
 import ReadingProgress from '@/components/custom/ReadingProgress';
 import BlogAnalytics from '@/components/custom/BlogAnalytics';
-import { BlogPost as BlogPostType, BlogContent, getRelatedPosts } from '@/data/blogData';
+import { useTrackView } from '@/hooks/useTrackView';
+import type { BlogPostDetail, BlogContentBlock } from '@/types/blog';
 
 interface BlogPostProps {
-  post: BlogPostType;
+  post: BlogPostDetail;
 }
 
 const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
+  // Track view of this post
+  useTrackView({ contentType: 'post', contentId: post.id });
   
   const contentRef = useRef<HTMLDivElement>(null);
   
@@ -29,11 +32,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   const headerOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.9]);
   const titleScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
 
-  const relatedPosts = getRelatedPosts(post.slug, post.category, 3);
-
-  
-
-  const renderContent = (content: BlogContent, index: number) => {
+  const renderContent = (content: BlogContentBlock, index: number) => {
     const variants = {
       hidden: { opacity: 0, y: 30 },
       visible: {
@@ -210,7 +209,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      <Header />
+      <Header variant="dark" />
       
       {/* Reading Progress */}
       <ReadingProgress readTime={post.readTime} />
@@ -370,66 +369,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           </div>
         </motion.section>
 
-        {/* Related Posts */}
-        {relatedPosts.length > 0 && (
-          <motion.section
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="container mx-auto px-4 md:px-8 lg:px-16 mb-20"
-          >
-            <h3 className="text-3xl md:text-4xl font-bold text-center mb-12">
-              <span className="text-white/40">ARTIGOS</span>
-              <br />
-              <span>RELACIONADOS</span>
-            </h3>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {relatedPosts.map((relatedPost, index) => (
-                <motion.article
-                  key={relatedPost.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="group"
-                >
-                  <Link href={`/blog/${relatedPost.slug}`}>
-                    <div className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 transition-all duration-500 hover:border-white/30 hover:bg-white/10">
-                      
-                      {/* Image */}
-                      <div className="relative h-48 overflow-hidden">
-                        <Image
-                          src={relatedPost.image}
-                          alt={relatedPost.title}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                      </div>
-
-                      {/* Content */}
-                      <div className="p-6">
-                        <h4 className="text-lg font-bold text-white mb-3 line-clamp-2 group-hover:text-white/90 transition-colors duration-300">
-                          {relatedPost.title}
-                        </h4>
-                        <p className="text-white/70 text-sm line-clamp-2 mb-4">
-                          {relatedPost.excerpt}
-                        </p>
-                        <div className="flex items-center justify-between text-white/60 text-sm">
-                          <span>{relatedPost.readTime}</span>
-                          <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.article>
-              ))}
-            </div>
-          </motion.section>
-        )}
+        {/* Related Posts - TODO: Re-implement with Supabase query */}
       </main>
 
       <Footer />

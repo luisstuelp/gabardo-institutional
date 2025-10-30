@@ -3,19 +3,26 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Share2, Twitter, Linkedin, Facebook, Check, Copy, MessageCircle } from 'lucide-react';
-import { BlogPost } from '@/data/blogData';
+import { trackMetricEvent } from '@/hooks/useTrackView';
+import type { BlogPostSummary } from '@/types/blog';
 
 interface SocialShareProps {
-  post: BlogPost;
+  post: BlogPostSummary;
   className?: string;
+  contentType?: 'post' | 'midia';
 }
 
-const SocialShare: React.FC<SocialShareProps> = ({ post, className = '' }) => {
+const SocialShare: React.FC<SocialShareProps> = ({ post, className = '', contentType = 'post' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
   const shareText = `${post.title} - ${post.excerpt}`;
+
+  const handleShare = () => {
+    // Track the share event
+    trackMetricEvent(contentType, post.id, 'share');
+  };
 
   const socialPlatforms = [
     {
@@ -59,6 +66,7 @@ const SocialShare: React.FC<SocialShareProps> = ({ post, className = '' }) => {
   };
 
   const openShareWindow = (url: string) => {
+    handleShare();
     window.open(url, '_blank', 'width=600,height=400');
   };
 

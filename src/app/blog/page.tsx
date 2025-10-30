@@ -27,7 +27,7 @@ export default async function BlogPage() {
     slug: post.slug,
     title: post.title,
     excerpt: post.excerpt || '',
-    content: typeof post.content === 'string' ? JSON.parse(post.content) : post.content,
+    content: [], // Content not needed for listing page, only for individual post
     category: post.category || 'Sem categoria',
     date: new Date(post.created_at || '').toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }),
     readTime: post.read_time || '5 min',

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useMemo } from 'react';
-import { ArrowUpRight, BadgeCheck, CalendarDays, Loader2, PencilLine, Trash2 } from 'lucide-react';
+import { ArrowUpRight, BadgeCheck, CalendarDays, Loader2, Plus, Trash2 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { useDeletePost, usePosts } from '@/hooks/usePosts';
@@ -128,7 +128,11 @@ export default function AdminBlogPostsContent() {
                   type="button"
                   variant="destructive"
                   className="justify-center gap-2 transition-colors hover:bg-red-500/70"
-                  onClick={() => deleteMutation.mutate(post.id)}
+                  onClick={() => {
+                    if (confirm(`Tem certeza que deseja excluir o post "${post.title}"? Esta ação não pode ser desfeita.`)) {
+                      deleteMutation.mutate(post.id);
+                    }
+                  }}
                   disabled={deleteMutation.isPending}
                 >
                   {deleteMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
@@ -152,10 +156,10 @@ export default function AdminBlogPostsContent() {
             Supabase.
           </p>
         </div>
-        <Button asChild className="flex items-center gap-2">
+        <Button asChild className="flex items-center gap-2 bg-gabardo-light-blue px-6 py-3 text-neutral-900 hover:bg-gabardo-light-blue/90">
           <Link href="/admin/blog/posts/novo">
-            <PencilLine className="h-4 w-4" />
-            Novo post
+            <Plus className="h-4 w-4" />
+            Novo Post
           </Link>
         </Button>
       </header>

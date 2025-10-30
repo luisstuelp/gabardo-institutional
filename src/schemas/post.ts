@@ -7,6 +7,13 @@ export const postSchema = z.object({
   excerpt: z.string().max(500, { message: "Excerpt must be less than 500 characters" }).optional(),
   cover_image: z.string().url({ message: "Please enter a valid URL" }).optional().or(z.literal('')),
   published: z.boolean().default(false),
+  category: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  author: z.string().optional(),
+  read_time: z.string().optional(),
+  featured: z.boolean().optional(),
+  seo_description: z.string().optional(),
+  seo_keywords: z.array(z.string()).optional(),
 });
 
 export type PostFormData = z.infer<typeof postSchema>;

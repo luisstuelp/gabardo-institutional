@@ -25,14 +25,16 @@ create table if not exists public.midia_metrics (
 );
 
 create or replace function public.increment_post_metric(
-  target_post_id uuid,
-  view_increment integer default 0,
-  click_increment integer default 0,
-  share_increment integer default 0
+  content_id uuid,
+  metric_type text
 ) returns void as $$
+declare
+  view_inc integer := case when metric_type = 'view' then 1 else 0 end;
+  click_inc integer := case when metric_type = 'external_click' then 1 else 0 end;
+  share_inc integer := case when metric_type = 'share' then 1 else 0 end;
 begin
   insert into public.post_metrics (post_id, views, external_clicks, shares, last_viewed_at)
-  values (target_post_id, view_increment, click_increment, share_increment, now())
+  values (content_id, view_inc, click_inc, share_inc, now())
   on conflict (post_id)
   do update set
     views = public.post_metrics.views + excluded.views,
@@ -47,14 +49,16 @@ end;
 $$ language plpgsql security definer;
 
 create or replace function public.increment_midia_metric(
-  target_midia_id uuid,
-  view_increment integer default 0,
-  click_increment integer default 0,
-  share_increment integer default 0
+  content_id uuid,
+  metric_type text
 ) returns void as $$
+declare
+  view_inc integer := case when metric_type = 'view' then 1 else 0 end;
+  click_inc integer := case when metric_type = 'external_click' then 1 else 0 end;
+  share_inc integer := case when metric_type = 'share' then 1 else 0 end;
 begin
   insert into public.midia_metrics (midia_id, views, external_clicks, shares, last_viewed_at)
-  values (target_midia_id, view_increment, click_increment, share_increment, now())
+  values (content_id, view_inc, click_inc, share_inc, now())
   on conflict (midia_id)
   do update set
     views = public.midia_metrics.views + excluded.views,

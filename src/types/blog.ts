@@ -23,4 +23,8 @@ export interface BlogPostSummary {
 
 export interface BlogPostDetail extends BlogPostSummary {
   content: BlogContentBlock[];
+  seo?: {
+    description: string;
+    keywords: string[];
+  };
 }

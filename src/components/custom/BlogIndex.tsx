@@ -7,7 +7,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import NewsletterSection from '@/components/custom/NewsletterSection';
 import BlogHeroSection from '@/components/custom/BlogHeroSection';
 import { blogCategories, type BlogPost } from '@/data/blogData';
 
@@ -414,9 +413,6 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
           </div>
         </motion.section>
       </main>
-
-      {/* Newsletter Section */}
-      <NewsletterSection />
 
       <Footer />
     </div>
