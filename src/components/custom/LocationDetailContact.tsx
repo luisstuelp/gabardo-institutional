@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Navigation, CheckCircle, Loader } from 'lucide-react';
+import InternationalPhoneInput from '@/components/custom/InternationalPhoneInput';
 
 interface FormData {
   name: string;
@@ -16,6 +17,7 @@ const LocationDetailContact = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [phone, setPhone] = useState('');
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -26,7 +28,7 @@ const LocationDetailContact = () => {
     const data: FormData = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
+      phone: phone,
       interest: formData.get('interest') as string,
       message: formData.get('message') as string,
     };
@@ -43,6 +45,8 @@ const LocationDetailContact = () => {
       if (response.ok) {
         setSubmitted(true);
         (event.target as HTMLFormElement).reset();
+        setPhone('');
+
       } else {
         setError('Erro ao enviar mensagem. Tente novamente.');
       }
@@ -181,11 +185,14 @@ const LocationDetailContact = () => {
                 <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Telefone
                 </label>
-                <input
-                  type="tel"
+                <InternationalPhoneInput
+                  value={phone}
+                  onChange={setPhone}
                   name="phone"
-                  className="w-full px-4 py-3 border border-neutral-300 rounded-xl focus:ring-2 focus:ring-neutral-500 focus:border-transparent"
-                  placeholder="(11) 99999-9999"
+                  className="w-full border border-neutral-300 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-neutral-500 focus-within:border-transparent"
+                  inputClassName="!px-0"
+                  placeholder="Seu telefone com código internacional"
+                  autoComplete="tel"
                 />
               </div>
               

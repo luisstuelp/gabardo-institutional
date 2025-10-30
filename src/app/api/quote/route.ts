@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { parsePhoneNumberFromString } from 'libphonenumber-js/min';
 
 type QuoteFormData = {
   name: string;
@@ -26,7 +27,6 @@ type ValidationResult = {
   errors: string[];
 };
 
-const phoneRegex = /^(?:\+55)?\s?(?:\(?\d{2}\)?\s?)?(?:9\d{4}|\d{4})[-\s]?\d{4}$/;
 const yearRegex = /^(19|20|21)\d{2}/; // Matches year at start, allows additional text (e.g., "1997 Diesel")
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -45,8 +45,12 @@ const REQUIRED_FIELDS: Array<keyof QuoteFormData> = [
   'destinationCity'
 ];
 
-function sanitize(input: string): string {
-  return (input || '')
+function sanitize(input: unknown): string {
+  if (typeof input !== 'string') {
+    return '';
+  }
+
+  return input
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
@@ -102,8 +106,11 @@ function validate(data: QuoteFormData): ValidationResult {
     errors.push('Informe um e-mail válido.');
   }
 
-  if (data.phone && !phoneRegex.test(data.phone)) {
-    errors.push('Informe um telefone válido com DDD.');
+  if (data.phone) {
+    const parsedNumber = parsePhoneNumberFromString(data.phone);
+    if (!parsedNumber?.isValid()) {
+      errors.push('Informe um telefone válido com DDI.');
+    }
   }
 
   if (data.vehicleYear && !yearRegex.test(data.vehicleYear)) {
@@ -163,15 +170,20 @@ function renderEmailTemplate(data: QuoteFormData): string {
 
 async function sendEmail(data: QuoteFormData) {
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.ls2001.com.br',
+    port: 587,
+    secure: false,
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
+      user: 'contato@ls2001.com.br',
+      pass: 'C99995000c',
+    },
+    tls: {
+      rejectUnauthorized: false,
     },
   });
 
   await transporter.sendMail({
-    from: process.env.EMAIL_USER,
+    from: 'contato@ls2001.com.br',
     to:  'comercial@transgabardo.com.br',
     cc: 'ls2001@terra.com.br',
     subject: `[Gabardo] Pedido de cotação - ${data.vehicleBrand} ${data.vehicleModel || data.vehicleCategory}`,

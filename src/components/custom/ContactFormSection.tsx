@@ -3,12 +3,14 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, AlertCircle, Loader, ArrowRight } from 'lucide-react';
+import InternationalPhoneInput from '@/components/custom/InternationalPhoneInput';
 
 interface FormData {
   name: string;
   email: string;
   phone: string;
   company: string;
+  sector: string;
   subject: string;
   message: string;
 }
@@ -18,6 +20,18 @@ export default function ContactFormSection() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [phone, setPhone] = useState('');
+  const sectorOptions = [
+    'Operacional',
+    'Frota',
+    'Trabalhe Conosco',
+    'Comercial',
+    'Qualidade e Meio Ambiente',
+    'Sugestões',
+    'Reclamações',
+    'Canal de Denúncias',
+    'Outros'
+  ];
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     console.log('Form submitted');
@@ -29,8 +43,9 @@ export default function ContactFormSection() {
     const data: FormData = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
+      phone: phone,
       company: formData.get('company') as string,
+      sector: formData.get('sector') as string,
       subject: formData.get('subject') as string,
       message: formData.get('message') as string,
     };
@@ -48,6 +63,7 @@ export default function ContactFormSection() {
         setSubmitted(true);
         // Reset form
         (event.target as HTMLFormElement).reset();
+        setPhone('');
       } else {
         setError('Erro ao enviar mensagem. Tente novamente.');
       }
@@ -253,20 +269,58 @@ export default function ContactFormSection() {
                 <label htmlFor="phone" className="block text-sm font-medium text-neutral-700 uppercase tracking-wider">
                   Telefone
                 </label>
-                <motion.input
-                  type="tel"
-                  id="phone"
+                <InternationalPhoneInput
+                  value={phone}
+                  onChange={setPhone}
                   name="phone"
-                  maxLength={20}
+                  className="w-full border-b-2 border-neutral-200 pb-3"
+                  inputClassName="px-0 py-0 text-base sm:text-lg"
+                  placeholder="Seu telefone com código internacional"
                   onFocus={() => setFocusedField('phone')}
                   onBlur={() => setFocusedField(null)}
-                  className="w-full px-0 py-3 text-base sm:text-lg border-0 border-b-2 border-neutral-200 focus:border-gabardo-light-blue focus:outline-none transition-all duration-300 bg-transparent placeholder-neutral-400"
-                  placeholder="(00) 0000-0000"
-                  whileFocus={{ scale: 1.01 }}
+                  autoComplete="tel"
                 />
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: focusedField === 'phone' ? '100%' : '0%' }}
+                  transition={{ duration: 0.3 }}
+                  className="h-0.5 bg-gabardo-light-blue"
+                />
+              </motion.div>
+
+              {/* Sector Field */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+                className="space-y-3"
+              >
+                <label htmlFor="sector" className="block text-sm font-medium text-neutral-700 uppercase tracking-wider">
+                  Setor *
+                </label>
+                <motion.select
+                  id="sector"
+                  name="sector"
+                  required
+                  onFocus={() => setFocusedField('sector')}
+                  onBlur={() => setFocusedField(null)}
+                  className="w-full px-0 py-3 text-base sm:text-lg border-0 border-b-2 border-neutral-200 focus:border-gabardo-light-blue focus:outline-none transition-all duration-300 bg-transparent"
+                  defaultValue=""
+                  whileFocus={{ scale: 1.01 }}
+                >
+                  <option value="" disabled>
+                    Selecione
+                  </option>
+                  {sectorOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </motion.select>
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: focusedField === 'sector' ? '100%' : '0%' }}
                   transition={{ duration: 0.3 }}
                   className="h-0.5 bg-gabardo-light-blue"
                 />

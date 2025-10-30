@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Warehouse, Shield, Clock, CheckCircle2, ArrowRight, Package, MapPin, Calendar, User, Loader } from 'lucide-react';
+import InternationalPhoneInput from '@/components/custom/InternationalPhoneInput';
 
 export default function StorageQuoteSection() {
   const [formData, setFormData] = useState({
@@ -26,6 +27,10 @@ export default function StorageQuoteSection() {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handlePhoneChange = (value: string) => {
+    setFormData(prev => ({ ...prev, phone: value }));
   };
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -240,13 +245,15 @@ export default function StorageQuoteSection() {
                   <label className="block text-sm font-medium mb-2 font-secondary" style={{ color: '#132D51' }}>
                     Telefone *
                   </label>
-                  <input
-                    type="tel"
-                    name="phone"
+                  <InternationalPhoneInput
                     value={formData.phone}
-                    onChange={handleInputChange}
+                    onChange={handlePhoneChange}
+                    name="phone"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-secondary"
+                    className="px-4 py-3 border border-gray-300 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 font-secondary"
+                    inputClassName="!px-0"
+                    placeholder="Seu telefone com código internacional"
+                    autoComplete="tel"
                   />
                 </div>
               </div>

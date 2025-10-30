@@ -1,8 +1,10 @@
 /* Import Gabardo Custom Fonts */
+@import 'react-phone-number-input/style.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /* Base font setup */
 @layer base {
   html {

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, UserPlus, ClipboardCheck, MessageCircle, CheckCircle, AlertCircle, Loader, Truck, Package, Shield, Clock, CheckCircle2, ArrowRight } from 'lucide-react';
+import InternationalPhoneInput from '@/components/custom/InternationalPhoneInput';
 
 const journeyHighlights = [
   {
@@ -38,6 +39,10 @@ const ServicesQuoteSection: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handlePhoneChange = (value: string) => {
+    setFormData(prev => ({ ...prev, phone: value }));
   };
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -254,14 +259,15 @@ const ServicesQuoteSection: React.FC = () => {
                     <label className="block text-sm font-medium mb-2" style={{color: '#132D51'}}>
                       Telefone *
                     </label>
-                    <input
-                      type="tel"
-                      name="phone"
+                    <InternationalPhoneInput
                       value={formData.phone}
-                      onChange={handleInputChange}
+                      onChange={handlePhoneChange}
+                      name="phone"
                       required
-                      className="w-full px-4 py-3 border border-neutral-300 rounded focus:outline-none focus:border-gabardo-blue transition-colors"
-                      placeholder="(11) 99999-9999"
+                      className="px-4 py-3 border border-neutral-300 rounded focus-within:border-gabardo-blue transition-colors"
+                      inputClassName="!px-0"
+                      placeholder="Seu telefone com código internacional"
+                      autoComplete="tel"
                     />
                   </div>
                 </div>

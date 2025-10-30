@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { Send, CheckCircle, Loader, ArrowRight, ArrowLeft, Phone, Mail, MapPin } from 'lucide-react';
 import { useFipeVehicleData } from '@/hooks/useFipeApi';
 import { VehicleModelAutocomplete } from '@/components/custom/VehicleModelAutocomplete';
+import InternationalPhoneInput from '@/components/custom/InternationalPhoneInput';
+import { isValidPhoneNumber } from 'libphonenumber-js/min';
 
 const parseVehicleValue = (value: string) => {
   if (!value) {
@@ -124,33 +126,6 @@ const formatCurrencyFromDigits = (digits: string) => {
   });
 };
 
-const formatPhoneNumber = (value: string) => {
-  const digits = value.replace(/\D/g, '').slice(0, 11);
-  if (!digits) {
-    return '';
-  }
-
-  if (digits.length === 1) {
-    return `(${digits}`;
-  }
-
-  if (digits.length === 2) {
-    return `(${digits}) `;
-  }
-
-  const area = digits.slice(0, 2);
-  const rest = digits.slice(2);
-
-  if (rest.length <= 4) {
-    return `(${area}) ${rest}`;
-  }
-
-  if (digits.length <= 10) {
-    return `(${area}) ${rest.slice(0, rest.length - 4)}-${rest.slice(-4)}`;
-  }
-
-  return `(${area}) ${rest.slice(0, 5)}-${rest.slice(5, 9)}`;
-};
 
 const VehicleQuoteForm: React.FC = () => {
   const totalSteps = 3;
@@ -183,9 +158,8 @@ const VehicleQuoteForm: React.FC = () => {
         if (!emailRegex.test(formData.email)) {
           return 'Informe um e-mail válido.';
         }
-        const digits = formData.phone.replace(/\D/g, '');
-        if (digits.length < 10) {
-          return 'Informe um telefone com DDD.';
+        if (!isValidPhoneNumber(formData.phone || '', { defaultCountry: 'BR' })) {
+          return 'Informe um telefone válido com DDI.';
         }
         return null;
       }
@@ -460,10 +434,8 @@ const VehicleQuoteForm: React.FC = () => {
     }
   };
 
-  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    const formatted = formatPhoneNumber(value);
-    setFormData((prev) => ({ ...prev, phone: formatted }));
+  const handlePhoneChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, phone: value }));
   };
 
   const handleModelChange = (code: string, name: string) => {
@@ -687,15 +659,13 @@ const VehicleQuoteForm: React.FC = () => {
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gabardo-blue">Telefone *</label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          inputMode="tel"
-                          maxLength={16}
+                        <InternationalPhoneInput
                           value={formData.phone}
                           onChange={handlePhoneChange}
-                          className="mt-2 w-full rounded border border-neutral-300 px-4 py-3 focus:border-gabardo-blue focus:outline-none"
-                          placeholder="(11) 99999-9999"
+                          name="phone"
+                          required
+                          className="mt-2 rounded border border-neutral-300 focus-within:border-gabardo-blue focus-within:outline-none"
+                          inputClassName="px-4 py-3"
                         />
                       </div>
                     </div>

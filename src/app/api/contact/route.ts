@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { parsePhoneNumberFromString } from 'libphonenumber-js/min';
 
 interface ContactFormData {
   name: string;
   email: string;
   phone: string;
   company: string;
+  sector?: string;
   subject: string;
   message: string;
   interest: string;
@@ -41,12 +43,23 @@ function validateFormData(data: ContactFormData): { isValid: boolean; errors: st
     errors.push('E-mail muito longo (máximo 150 caracteres)');
   }
 
-  if (data.phone && data.phone.length > 20) {
-    errors.push('Telefone muito longo (máximo 20 caracteres)');
+  if (data.phone && data.phone.length > 25) {
+    errors.push('Telefone muito longo (máximo 25 caracteres)');
+  }
+
+  if (data.phone) {
+    const parsedNumber = parsePhoneNumberFromString(data.phone);
+    if (!parsedNumber?.isValid()) {
+      errors.push('Informe um telefone válido com DDI.');
+    }
   }
 
   if (data.company && data.company.length > 100) {
     errors.push('Nome da empresa muito longo (máximo 100 caracteres)');
+  }
+
+  if (data.sector && data.sector.length > 100) {
+    errors.push('Setor muito longo (máximo 100 caracteres)');
   }
 
   if (data.subject && data.subject.length > 150) {
@@ -81,6 +94,36 @@ function sanitizeInput(input: string): string {
 const submissionLog = new Map<string, number[]>();
 const MAX_SUBMISSIONS_PER_HOUR = 3;
 const HOUR_IN_MS = 3600000;
+
+const sectorRouting: Record<string, { to: string[]; cc?: string[] }> = {
+  'Operacional': {
+    to: ['arlindo@transgabardo.com.br'],
+  },
+  'Frota': {
+    to: ['nevio@transgabardo.com.br'],
+  },
+  'Trabalhe Conosco': {
+    to: ['selecao@transgabardo.com.br'],
+  },
+  'Comercial': {
+    to: ['comercial@transgabardo.com.br'],
+  },
+  'Qualidade e Meio Ambiente': {
+    to: ['qualidade2@transgabardo.com.br'],
+    cc: ['adm.pir6@transgabardo.com.br'],
+  },
+  'Sugestões': {
+    to: ['qualidade2@transgabardo.com.br'],
+    cc: ['adm.pir6@transgabardo.com.br'],
+  },
+  'Reclamações': {
+    to: ['qualidade2@transgabardo.com.br'],
+    cc: ['adm.pir6@transgabardo.com.br'],
+  },
+  'Canal de Denúncias': {
+    to: ['gestorarh@transgabardo.com.br'],
+  },
+};
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
@@ -123,6 +166,7 @@ function logContactSubmission(data: ContactFormData, ip: string, userAgent?: str
     email: data.email,
     empresa: data.company || 'Não informado',
     telefone: data.phone || 'Não informado',
+    setor: data.sector || 'Não informado',
     interesse: data.interest || 'Não especificado',
     assunto: data.subject,
     mensagem: data.message.substring(0, 100) + (data.message.length > 100 ? '...' : ''),
@@ -145,6 +189,7 @@ function generateEmailTemplate(data: ContactFormData): string {
     <p><strong>Nome:</strong> ${data.name}</p>
     <p><strong>Email:</strong> ${data.email}</p>
     <p><strong>Telefone:</strong> ${data.phone}</p>
+    <p><strong>Setor:</strong> ${data.sector || 'Não informado'}</p>
     <p><strong>Empresa:</strong> ${data.company}</p>
     <p><strong>Interesse:</strong> ${data.interest}</p>
     <p><strong>Assunto:</strong> ${data.subject}</p>
@@ -191,6 +236,7 @@ export async function POST(request: NextRequest) {
       email: sanitizeInput(body.email || ''),
       phone: sanitizeInput(body.phone || ''),
       company: sanitizeInput(body.company || ''),
+      sector: sanitizeInput(body.sector || ''),
       subject: sanitizeInput(body.subject || ''),
       message: sanitizeInput(body.message || ''),
       interest: sanitizeInput(body.interest || ''),
@@ -214,16 +260,26 @@ export async function POST(request: NextRequest) {
     logContactSubmission(formData, ip, userAgent || undefined);
 
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.ls2001.com.br',
+      port: 587,
+      secure: false,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
+        user: 'contato@ls2001.com.br',
+        pass: 'C99995000c',
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
 
+    const routing = formData.sector ? sectorRouting[formData.sector] : undefined;
+    const toRecipients = routing?.to?.length ? routing.to : ['gabardo@transgabardo.com.br'];
+    const ccRecipients = routing?.cc;
+
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: 'gabardo@transgabardo.com.br',
+      from: 'contato@ls2001.com.br',
+      to: toRecipients,
+      cc: ccRecipients,
       subject: `[Gabardo] ${formData.subject}`,
       html: generateEmailTemplate(formData),
       replyTo: formData.email
