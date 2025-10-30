@@ -17,10 +17,12 @@ export type Database = {
       midia: {
         Row: {
           author_id: string | null
+          category: string | null
           created_at: string | null
           description: string | null
           id: string
           published_date: string | null
+          read_time: string | null
           source: string
           thumbnail: string | null
           title: string
@@ -29,10 +31,12 @@ export type Database = {
         }
         Insert: {
           author_id?: string | null
+          category?: string | null
           created_at?: string | null
           description?: string | null
           id?: string
           published_date?: string | null
+          read_time?: string | null
           source: string
           thumbnail?: string | null
           title: string
@@ -41,10 +45,12 @@ export type Database = {
         }
         Update: {
           author_id?: string | null
+          category?: string | null
           created_at?: string | null
           description?: string | null
           id?: string
           published_date?: string | null
+          read_time?: string | null
           source?: string
           thumbnail?: string | null
           title?: string
@@ -53,44 +59,145 @@ export type Database = {
         }
         Relationships: []
       }
+      midia_metrics: {
+        Row: {
+          created_at: string
+          external_clicks: number
+          id: string
+          last_viewed_at: string | null
+          midia_id: string | null
+          shares: number
+          updated_at: string
+          views: number
+        }
+        Insert: {
+          created_at?: string
+          external_clicks?: number
+          id?: string
+          last_viewed_at?: string | null
+          midia_id?: string | null
+          shares?: number
+          updated_at?: string
+          views?: number
+        }
+        Update: {
+          created_at?: string
+          external_clicks?: number
+          id?: string
+          last_viewed_at?: string | null
+          midia_id?: string | null
+          shares?: number
+          updated_at?: string
+          views?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "midia_metrics_midia_id_fkey"
+            columns: ["midia_id"]
+            referencedRelation: "midia"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       posts: {
         Row: {
           author_id: string | null
+          author: string | null
           content: string
           cover_image: string | null
           created_at: string | null
+          featured: boolean | null
           excerpt: string | null
           id: string
           published: boolean | null
+          read_time: string | null
           slug: string
           title: string
+          category: string | null
+          tags: string[] | null
+          seo_description: string | null
+          seo_keywords: string[] | null
           updated_at: string | null
         }
         Insert: {
           author_id?: string | null
+          author?: string | null
           content: string
           cover_image?: string | null
           created_at?: string | null
+          featured?: boolean | null
           excerpt?: string | null
           id?: string
           published?: boolean | null
+          read_time?: string | null
           slug: string
           title: string
+          category?: string | null
+          tags?: string[] | null
+          seo_description?: string | null
+          seo_keywords?: string[] | null
           updated_at?: string | null
         }
         Update: {
           author_id?: string | null
+          author?: string | null
           content?: string
           cover_image?: string | null
           created_at?: string | null
+          featured?: boolean | null
           excerpt?: string | null
           id?: string
           published?: boolean | null
+          read_time?: string | null
           slug?: string
           title?: string
+          category?: string | null
+          tags?: string[] | null
+          seo_description?: string | null
+          seo_keywords?: string[] | null
           updated_at?: string | null
         }
         Relationships: []
+      }
+      post_metrics: {
+        Row: {
+          created_at: string
+          external_clicks: number
+          id: string
+          last_viewed_at: string | null
+          post_id: string | null
+          shares: number
+          updated_at: string
+          views: number
+        }
+        Insert: {
+          created_at?: string
+          external_clicks?: number
+          id?: string
+          last_viewed_at?: string | null
+          post_id?: string | null
+          shares?: number
+          updated_at?: string
+          views?: number
+        }
+        Update: {
+          created_at?: string
+          external_clicks?: number
+          id?: string
+          last_viewed_at?: string | null
+          post_id?: string | null
+          shares?: number
+          updated_at?: string
+          views?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_metrics_post_id_fkey"
+            columns: ["post_id"]
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {

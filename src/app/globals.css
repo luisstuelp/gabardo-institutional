@@ -29,6 +29,24 @@
   }
 }
 
+/* International phone input adjustments */
+.PhoneInput {
+  --PhoneInputCountryFlag-height: 1.125rem;
+  --PhoneInputCountrySelect-marginRight: 0.5rem;
+}
+
+.PhoneInputCountry {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+}
+
+.PhoneInputCountryIcon {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
 /* Font utilities */
 @layer utilities {
   .font-primary {
@@ -334,7 +352,6 @@
     @apply bg-background text-foreground;
   }
 }
-*/
 
 /* Scrollbar Hide utility */
 .scrollbar-hide::-webkit-scrollbar,

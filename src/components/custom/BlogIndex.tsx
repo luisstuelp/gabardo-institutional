@@ -21,6 +21,16 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
 
   const allPosts = useMemo(() => posts || [], [posts]);
+  const categories = useMemo(() => {
+    const unique = new Set<string>();
+    allPosts.forEach((post) => {
+      if (post.category) {
+        unique.add(post.category);
+      }
+    });
+
+    return Array.from(unique).sort();
+  }, [allPosts]);
   const featuredPosts = useMemo(() => allPosts.filter(post => post.featured), [allPosts]);
 
   const filterPosts = useCallback(() => {
@@ -75,6 +85,7 @@ const BlogIndex: React.FC<BlogIndexProps> = ({ posts }) => {
         setSearchTerm={setSearchTerm}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
+        categories={categories}
       />
 
       <main className="relative z-10 bg-black">{/* Ensure background continues */}

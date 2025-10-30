@@ -47,6 +47,18 @@ export async function fetchPostBySlug(slug: string) {
   return data;
 }
 
+export async function fetchPostBySlugServer(slug: string) {
+  const supabase = createServerSupabaseClient();
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
 export async function createPost(post: PostFormData) {
   const { data: { user } } = await supabase.auth.getUser();
   

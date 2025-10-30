@@ -97,19 +97,26 @@ export default function AdminMidiaArticlesContent() {
               </div>
 
               <div className="flex w-full flex-col gap-3 md:w-auto md:flex-row">
-                <Button asChild variant="outline" className="justify-between gap-2 text-white">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="justify-between gap-2 border-white/15 bg-white/5 text-white transition-colors hover:border-gabardo-light-blue/60 hover:bg-gabardo-light-blue/20 hover:text-white"
+                >
                   <Link href={article.url} target="_blank" rel="noreferrer">
                     Abrir publicação
                     <ArrowUpRight className="h-4 w-4" />
                   </Link>
                 </Button>
-                <Button asChild variant="secondary" className="justify-center gap-2 text-neutral-900">
+                <Button
+                  asChild
+                  className="justify-center gap-2 bg-gabardo-light-blue text-neutral-900 transition-colors hover:bg-gabardo-light-blue/80"
+                >
                   <Link href={`/admin/midia/artigos/${article.id}`}>Editar</Link>
                 </Button>
                 <Button
                   type="button"
                   variant="destructive"
-                  className="justify-center gap-2"
+                  className="justify-center gap-2 transition-colors hover:bg-red-500/70"
                   onClick={() => deleteMutation.mutate(article.id)}
                   disabled={deleteMutation.isPending}
                 >

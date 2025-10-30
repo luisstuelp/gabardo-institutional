@@ -14,6 +14,7 @@ const navLinks = [
   { href: '/admin', label: 'Início' },
   { href: '/admin/blog/posts', label: 'Blog' },
   { href: '/admin/midia/artigos', label: 'Mídia' },
+  { href: '/admin/metricas', label: 'Métricas' },
 ];
 
 interface AdminDashboardShellProps {
@@ -31,7 +32,15 @@ export default function AdminDashboardShell({ children, email }: AdminDashboardS
       return '';
     }
 
-    return navLinks.find((link) => pathname === link.href || pathname.startsWith(`${link.href}/`))?.href ?? '';
+    const matchingLink = navLinks.find((link) => {
+      if (link.href === '/admin') {
+        return pathname === '/admin';
+      }
+
+      return pathname === link.href || pathname.startsWith(`${link.href}/`);
+    });
+
+    return matchingLink?.href ?? '/admin';
   }, [pathname]);
 
   const handleLogout = async () => {

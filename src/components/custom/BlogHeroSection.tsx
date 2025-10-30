@@ -3,20 +3,21 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { motion } from 'framer-motion';
 import { Tag, Search } from 'lucide-react';
-import { blogCategories } from '@/data/blogData';
 
 interface BlogHeroProps {
   searchTerm: string;
   setSearchTerm: Dispatch<SetStateAction<string>>;
   selectedCategory: string;
   setSelectedCategory: Dispatch<SetStateAction<string>>;
+  categories: string[];
 }
 
 const BlogHeroSection: React.FC<BlogHeroProps> = ({ 
   searchTerm, 
   setSearchTerm, 
   selectedCategory, 
-  setSelectedCategory 
+  setSelectedCategory,
+  categories,
 }) => {
   return (
     <section className="relative pt-24 pb-16 md:pt-32 md:pb-20 bg-black overflow-hidden">
@@ -77,7 +78,7 @@ const BlogHeroSection: React.FC<BlogHeroProps> = ({
                   className="w-full md:w-auto appearance-none bg-white/10 text-white/80 px-6 py-3 pr-10 rounded-lg border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300 cursor-pointer"
                 >
                   <option value="all">Todas as Categorias</option>
-                  {blogCategories.map(cat => (
+                  {categories.map(cat => (
                     <option key={cat} value={cat}>{cat}</option>
                   ))}
                 </select>
