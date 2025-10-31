@@ -16,10 +16,13 @@ const ScrollDownIcon = () => (
   </div>
 );
 
+const VIDEO_MAX_DURATION = 77;
+
 export default function HeroSection({ title, subtitle, imageSrc }: { title?: string, subtitle?: string, imageSrc?: string }) {
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
+  const isResettingRef = useRef(false);
 
   useEffect(() => {
     const updateIsDesktop = () => {
@@ -38,6 +41,57 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
     const video = isDesktop ? desktopVideoRef.current : mobileVideoRef.current;
     if (!video) return;
 
+    isResettingRef.current = false;
+    video.loop = false;
+
+    let fallbackListenersAttached = false;
+
+    const cleanupFallbackListeners = () => {
+      if (!fallbackListenersAttached) return;
+      document.removeEventListener('touchstart', playOnInteraction);
+      document.removeEventListener('click', playOnInteraction);
+      document.removeEventListener('scroll', playOnInteraction);
+      fallbackListenersAttached = false;
+    };
+
+    const handleTimeUpdate = () => {
+      if (isResettingRef.current || video.currentTime < VIDEO_MAX_DURATION) return;
+
+      isResettingRef.current = true;
+      video.pause();
+      const restartPlayback = async () => {
+        try {
+          video.currentTime = 0;
+          await video.play();
+          cleanupFallbackListeners();
+        } catch (error) {
+          console.log('Loop restart failed, setting up fallback:', error);
+          setupFallbackPlay();
+        } finally {
+          isResettingRef.current = false;
+        }
+      };
+
+      restartPlayback();
+    };
+
+    const playOnInteraction = async () => {
+      try {
+        await video.play();
+        cleanupFallbackListeners();
+      } catch (error) {
+        console.log('Manual play failed:', error);
+      }
+    };
+
+    const setupFallbackPlay = () => {
+      if (fallbackListenersAttached) return;
+      fallbackListenersAttached = true;
+      document.addEventListener('touchstart', playOnInteraction, { once: true });
+      document.addEventListener('click', playOnInteraction, { once: true });
+      document.addEventListener('scroll', playOnInteraction, { once: true });
+    };
+
     const attemptPlay = async () => {
       try {
         video.muted = true; // Ensure muted for autoplay
@@ -47,24 +101,6 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
         console.log('Autoplay failed, setting up fallback:', error);
         setupFallbackPlay();
       }
-    };
-
-    const setupFallbackPlay = () => {
-      // Try to play on any user interaction
-      const playOnInteraction = async () => {
-        try {
-          await video.play();
-          document.removeEventListener('touchstart', playOnInteraction);
-          document.removeEventListener('click', playOnInteraction);
-          document.removeEventListener('scroll', playOnInteraction);
-        } catch (error) {
-          console.log('Manual play failed:', error);
-        }
-      };
-
-      document.addEventListener('touchstart', playOnInteraction, { once: true });
-      document.addEventListener('click', playOnInteraction, { once: true });
-      document.addEventListener('scroll', playOnInteraction, { once: true });
     };
 
     // Use Intersection Observer to play when video is visible
@@ -80,12 +116,15 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
     );
 
     observer.observe(video);
+    video.addEventListener('timeupdate', handleTimeUpdate);
 
     // Initial play attempt
     attemptPlay();
 
     return () => {
       observer.disconnect();
+      cleanupFallbackListeners();
+      video.removeEventListener('timeupdate', handleTimeUpdate);
     };
   }, [isDesktop]);
 
@@ -119,7 +158,7 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
           ref={mobileVideoRef}
           className="absolute inset-0 w-full h-full object-cover md:hidden"
           autoPlay
-          loop
+          loop={false}
           muted
           playsInline
           webkit-playsinline="true"
@@ -136,7 +175,7 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
           ref={desktopVideoRef}
           className="absolute inset-0 w-full h-full object-cover hidden md:block"
           autoPlay
-          loop
+          loop={false}
           muted
           playsInline
           webkit-playsinline="true"
