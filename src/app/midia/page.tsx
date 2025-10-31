@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { fetchMidiaServer } from '@/services/midia';
 import MidiaClient from './midia-client';
 
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.transgabardo.com.br'),
   title: 'Mídia | Gabardo Transportes - Notícias e Artigos',
