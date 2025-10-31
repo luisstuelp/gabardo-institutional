@@ -32,7 +32,7 @@ const DEFAULT_STATE: FormState = {
   publishedDate: '',
 };
 
-const STORAGE_BUCKET = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET ?? 'content-assets';
+const STORAGE_BUCKET = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET ?? 'content-images';
 
 function normalizeDate(value: string): string {
   if (!value) {
