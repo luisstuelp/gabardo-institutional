@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { ArrowUpRight, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 import FullScreenNav from '@/components/custom/FullScreenNav';
@@ -111,7 +111,7 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
     },
     {
       id: 'transportes-diversos',
-      label: 'Transportes Diversos',
+      label: 'Transportes',
       href: 'https://transgabardo.com.br/sistemas/siga.php',
       variant: 'secondary',
     },
@@ -144,7 +144,9 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
                 />
               </div>
             </Link>
+          </div>
 
+          <div className="flex items-center gap-3 sm:gap-5">
             <div className="hidden xl:flex items-center gap-2.5">
               {quickPortalLinks.map(({ id, label, href, variant }) => (
                 <Link
@@ -154,16 +156,10 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
                   rel="noreferrer"
                   className={`${quickLinkBaseClasses} ${variant === 'primary' ? quickLinkPrimaryClasses : quickLinkSecondaryClasses}`}
                 >
-                  <span className="flex items-center gap-2 leading-tight">
-                    <span>{label}</span>
-                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                  </span>
+                  <span className="leading-tight">{label}</span>
                 </Link>
               ))}
             </div>
-          </div>
-
-          <div className="flex items-center gap-3 sm:gap-5">
             <Link
               href="/orcamento"
               className={`hidden lg:inline-flex items-center gap-2 rounded-full px-[1.1rem] py-[0.45rem] text-[0.64rem] font-semibold uppercase tracking-[0.26em] transition-all duration-300 shadow-[0_18px_35px_-28px_RGBA(19,45,81,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${ctaClasses}`}

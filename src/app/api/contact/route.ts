@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { parsePhoneNumberFromString } from 'libphonenumber-js/min';
 
+import { createServerSupabaseClient } from '@/integrations/supabase/server';
+
 interface ContactFormData {
   name: string;
   email: string;
@@ -258,6 +260,31 @@ export async function POST(request: NextRequest) {
 
     // Log the submission
     logContactSubmission(formData, ip, userAgent || undefined);
+
+    // Persist to database
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const supabase = createServerSupabaseClient() as any;
+
+    const { error: insertError } = await supabase.from('contact_messages').insert({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone || null,
+      company: formData.company || null,
+      sector: formData.sector || null,
+      interest: formData.interest || null,
+      subject: formData.subject,
+      message: formData.message,
+      privacy_accepted: false,
+      raw_data: {
+        ip,
+        userAgent,
+        source: 'web_form',
+      },
+    });
+
+    if (insertError) {
+      console.error('❌ Erro ao registrar mensagem no banco:', insertError);
+    }
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.ls2001.com.br',

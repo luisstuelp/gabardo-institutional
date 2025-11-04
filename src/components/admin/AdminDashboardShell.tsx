@@ -15,6 +15,7 @@ const navLinks = [
   { href: '/admin/blog/posts', label: 'Blog' },
   { href: '/admin/midia/artigos', label: 'Mídia' },
   { href: '/admin/orcamentos', label: 'Orçamentos' },
+  { href: '/admin/contatos', label: 'Contatos' },
   { href: '/admin/metricas', label: 'Métricas' },
 ];
 

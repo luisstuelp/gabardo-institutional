@@ -93,6 +93,27 @@ export default async function AdminDashboardPage() {
           </div>
 
           <div className="rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur-xl">
+            <h2 className="text-xl font-semibold text-white">Contatos</h2>
+            <p className="mt-2 text-sm text-white/60">
+              Centralize as mensagens enviadas pelo formulário de contato e acompanhe o atendimento.
+            </p>
+            <div className="mt-4 flex gap-3">
+              <Button asChild>
+                <Link href="/admin/contatos">Mensagens recebidas</Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="border-gabardo-light-blue/40 text-white transition-colors hover:border-gabardo-light-blue/70 hover:bg-gabardo-light-blue/20 hover:text-white"
+              >
+                <Link href="/contato" target="_blank" rel="noreferrer">
+                  Ver página pública
+                </Link>
+              </Button>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur-xl">
             <h2 className="text-xl font-semibold text-white">Métricas</h2>
             <p className="mt-2 text-sm text-white/60">
               Visualize indicadores de desempenho e acompanhe a evolução do site.
