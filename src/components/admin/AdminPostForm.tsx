@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Loader2, Save, X, UploadCloud, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -29,6 +29,115 @@ type FormState = {
   featured: boolean;
   seoDescription: string;
   seoKeywords: string;
+};
+
+type TemplateState = {
+  introduction: string;
+  problemContext: string;
+  solutionOverview: string;
+  highlights: string;
+  implementationSteps: string;
+  quote: string;
+  quoteAuthor: string;
+  results: string;
+  nextSteps: string;
+};
+
+const DEFAULT_TEMPLATE_STATE: TemplateState = {
+  introduction: '',
+  problemContext: '',
+  solutionOverview: '',
+  highlights: '',
+  implementationSteps: '',
+  quote: '',
+  quoteAuthor: '',
+  results: '',
+  nextSteps: '',
+};
+
+const createTemplateState = (overrides: Partial<TemplateState> = {}): TemplateState => ({
+  ...DEFAULT_TEMPLATE_STATE,
+  ...overrides,
+});
+
+const splitLines = (value: string): string[] =>
+  value
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+const formatBulletList = (value: string): string => {
+  const items = splitLines(value);
+  if (items.length === 0) return '';
+  return items.map((item) => `- ${item}`).join('\n');
+};
+
+const formatOrderedList = (value: string): string => {
+  const items = splitLines(value);
+  if (items.length === 0) return '';
+  return items.map((item, index) => `${index + 1}. ${item}`).join('\n');
+};
+
+const formatQuote = (text: string, author: string): string => {
+  const trimmed = text.trim();
+  if (!trimmed) return '';
+
+  const lines = trimmed.split('\n').map((line) => `> ${line.trim()}`);
+
+  if (author.trim()) {
+    lines.push(`> — ${author.trim()}`);
+  }
+
+  return lines.join('\n');
+};
+
+const buildMarkdown = (template: TemplateState): string => {
+  const lines: string[] = [];
+
+  const addParagraph = (heading: string, body: string) => {
+    lines.push(heading);
+    if (body.trim()) {
+      lines.push(body.trim());
+    }
+    lines.push('');
+  };
+
+  addParagraph('## INTRODUÇÃO', template.introduction);
+  addParagraph('### Contexto do Problema', template.problemContext);
+  addParagraph('## SOLUÇÃO', template.solutionOverview);
+
+  const highlights = formatBulletList(template.highlights);
+  if (highlights) {
+    lines.push(highlights);
+    lines.push('');
+  }
+
+  lines.push('### Implementação');
+  const implementation = formatOrderedList(template.implementationSteps);
+  if (implementation) {
+    lines.push(implementation);
+  }
+  lines.push('');
+
+  const quote = formatQuote(template.quote, template.quoteAuthor);
+  if (quote) {
+    lines.push(quote);
+    lines.push('');
+  }
+
+  addParagraph('## RESULTADOS', template.results);
+
+  lines.push('### Próximos Passos');
+  const nextSteps = formatBulletList(template.nextSteps);
+  if (nextSteps) {
+    lines.push(nextSteps);
+  }
+  lines.push('');
+
+  return lines
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trimEnd();
 };
 
 const DEFAULT_STATE: FormState = {
@@ -96,10 +205,30 @@ export default function AdminPostFormOptimized({ initialData }: AdminPostFormPro
     };
   });
 
+  const [templateState, setTemplateState] = useState<TemplateState>(() => createTemplateState());
+  const [useTemplate, setUseTemplate] = useState(!initialData);
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(false);
   const [isUploadingCover, setIsUploadingCover] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [seoExpanded, setSeoExpanded] = useState(false);
+
+  useEffect(() => {
+    if (!useTemplate) {
+      return;
+    }
+
+    const nextContent = buildMarkdown(templateState);
+    setFormState((previous) => {
+      if (previous.content === nextContent) {
+        return previous;
+      }
+
+      return {
+        ...previous,
+        content: nextContent,
+      };
+    });
+  }, [templateState, useTemplate]);
 
   const isSubmitting = useMemo(
     () => createMutation.isPending || updateMutation.isPending,
@@ -130,6 +259,17 @@ export default function AdminPostFormOptimized({ initialData }: AdminPostFormPro
       ...previous,
       title: newTitle,
       slug: slugManuallyEdited ? previous.slug : slugify(newTitle),
+    }));
+  };
+
+  const handleTemplateFieldChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = event.target;
+    const field = name as keyof TemplateState;
+    setTemplateState((previous) => ({
+      ...previous,
+      [field]: value,
     }));
   };
 
@@ -446,7 +586,191 @@ export default function AdminPostFormOptimized({ initialData }: AdminPostFormPro
           </div>
         </div>
 
-        {/* SEÇÃO 4: CONTEÚDO */}
+        {/* SEÇÃO 4: TEMPLATE ESTRUTURADO */}
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-6">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+                🧩 Template Estruturado
+              </h2>
+              <p className="text-sm text-white/60">
+                Preencha os campos abaixo e geramos automaticamente o markdown no formato padrão do blog.
+              </p>
+            </div>
+            <label className="inline-flex items-center gap-2 text-sm font-medium text-white/80">
+              <input
+                type="checkbox"
+                checked={useTemplate}
+                onChange={(event) => setUseTemplate(event.target.checked)}
+                className="h-4 w-4 rounded border-white/30 bg-neutral-900 text-gabardo-light-blue focus:ring-gabardo-light-blue"
+              />
+              Usar template automático
+            </label>
+          </div>
+
+          {useTemplate && (
+            <div className="space-y-5">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="space-y-2">
+                  <label htmlFor="introduction" className="flex items-center gap-2 text-sm font-medium text-white">
+                    Introdução
+                    <span className="text-xs text-white/40">(2-3 frases iniciais)</span>
+                  </label>
+                  <textarea
+                    id="introduction"
+                    name="introduction"
+                    rows={3}
+                    value={templateState.introduction}
+                    onChange={handleTemplateFieldChange}
+                    disabled={isSubmitting}
+                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
+                    placeholder="Apresente rapidamente o tema e o contexto do artigo."
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="problemContext" className="flex items-center gap-2 text-sm font-medium text-white">
+                    Contexto do Problema
+                    <span className="text-xs text-white/40">(situação atual e desafios)</span>
+                  </label>
+                  <textarea
+                    id="problemContext"
+                    name="problemContext"
+                    rows={3}
+                    value={templateState.problemContext}
+                    onChange={handleTemplateFieldChange}
+                    disabled={isSubmitting}
+                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
+                    placeholder="Explique o cenário atual, impactos e porque o tema importa."
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="solutionOverview" className="flex items-center gap-2 text-sm font-medium text-white">
+                  Solução / Abordagem
+                  <span className="text-xs text-white/40">(como a Gabardo resolve o desafio)</span>
+                </label>
+                <textarea
+                  id="solutionOverview"
+                  name="solutionOverview"
+                  rows={3}
+                  value={templateState.solutionOverview}
+                  onChange={handleTemplateFieldChange}
+                  disabled={isSubmitting}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
+                  placeholder="Descreva a solução, metodologia ou diferencial aplicado."
+                />
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="space-y-2">
+                  <label htmlFor="highlights" className="flex items-center gap-2 text-sm font-medium text-white">
+                    Destaques em Lista
+                    <span className="text-xs text-white/40">(uma linha por item)</span>
+                  </label>
+                  <textarea
+                    id="highlights"
+                    name="highlights"
+                    rows={4}
+                    value={templateState.highlights}
+                    onChange={handleTemplateFieldChange}
+                    disabled={isSubmitting}
+                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
+                    placeholder={'Infraestrutura dedicada\nTecnologia embarcada\nEquipe especializada'}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="implementationSteps" className="flex items-center gap-2 text-sm font-medium text-white">
+                    Passos de Implementação
+                    <span className="text-xs text-white/40">(uma linha por etapa)</span>
+                  </label>
+                  <textarea
+                    id="implementationSteps"
+                    name="implementationSteps"
+                    rows={4}
+                    value={templateState.implementationSteps}
+                    onChange={handleTemplateFieldChange}
+                    disabled={isSubmitting}
+                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
+                    placeholder={'Mapeamento inicial\nDefinição de indicadores\nImplementação e revisão'}
+                  />
+                </div>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-[2fr_1fr]">
+                <div className="space-y-2">
+                  <label htmlFor="quote" className="flex items-center gap-2 text-sm font-medium text-white">
+                    Citação / Insight
+                  </label>
+                  <textarea
+                    id="quote"
+                    name="quote"
+                    rows={3}
+                    value={templateState.quote}
+                    onChange={handleTemplateFieldChange}
+                    disabled={isSubmitting}
+                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
+                    placeholder="Texto marcante ou declaração relevante."
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="quoteAuthor" className="flex items-center gap-2 text-sm font-medium text-white">
+                    Autor da Citação
+                    <span className="text-xs text-white/40">(opcional)</span>
+                  </label>
+                  <input
+                    id="quoteAuthor"
+                    name="quoteAuthor"
+                    type="text"
+                    value={templateState.quoteAuthor}
+                    onChange={handleTemplateFieldChange}
+                    disabled={isSubmitting}
+                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
+                    placeholder="Equipe Gabardo"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="results" className="flex items-center gap-2 text-sm font-medium text-white">
+                  Resultados Alcançados
+                  <span className="text-xs text-white/40">(dados, métricas, impactos)</span>
+                </label>
+                <textarea
+                  id="results"
+                  name="results"
+                  rows={3}
+                  value={templateState.results}
+                  onChange={handleTemplateFieldChange}
+                  disabled={isSubmitting}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
+                  placeholder="Detalhe resultados concretos, ganhos ou diferenciais comprovados."
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="nextSteps" className="flex items-center gap-2 text-sm font-medium text-white">
+                  Próximos Passos
+                  <span className="text-xs text-white/40">(uma linha por ação futura)</span>
+                </label>
+                <textarea
+                  id="nextSteps"
+                  name="nextSteps"
+                  rows={3}
+                  value={templateState.nextSteps}
+                  onChange={handleTemplateFieldChange}
+                  disabled={isSubmitting}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
+                  placeholder={'Expandir operação\nInvestir em tecnologia\nAmpliar treinamentos'}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* SEÇÃO 5: CONTEÚDO */}
         <div className="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-4">
           <h2 className="text-lg font-semibold text-white flex items-center gap-2">
             ✍️ Conteúdo do Post *
@@ -458,21 +782,33 @@ export default function AdminPostFormOptimized({ initialData }: AdminPostFormPro
               name="content"
               value={formState.content}
               onChange={handleChange}
-              required
+              required={!useTemplate}
+              readOnly={useTemplate}
               disabled={isSubmitting}
               rows={20}
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 font-mono text-sm text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
-              placeholder="Cole aqui o texto completo do post..."
+              className={`w-full rounded-xl border border-white/10 px-4 py-3 font-mono text-sm text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40 ${
+                useTemplate ? 'bg-white/10 cursor-not-allowed opacity-90' : 'bg-white/5'
+              }`}
+              placeholder={useTemplate ? 'O conteúdo será gerado automaticamente conforme o template acima.' : 'Cole aqui o texto completo do post...'}
             />
-            <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg text-sm text-blue-200">
-              <p className="font-semibold mb-2">💡 Como formatar o conteúdo:</p>
-              <ul className="list-disc list-inside space-y-1 text-xs">
-                <li>Cole o texto completo diretamente aqui</li>
-                <li>Use parágrafos vazios para separar seções</li>
-                <li>Mantenha títulos e subtítulos destacados com maiúsculas</li>
-                <li>O sistema vai processar automaticamente a formatação</li>
-              </ul>
-            </div>
+            {useTemplate ? (
+              <div className="bg-gabardo-blue/10 border border-gabardo-light-blue/30 p-4 rounded-lg text-sm text-gabardo-light-blue/90">
+                <p className="font-semibold mb-1">📄 Conteúdo gerado automaticamente</p>
+                <p className="text-xs">
+                  Este campo é apenas para visualização do markdown. Ajuste os campos do template acima para atualizar o texto.
+                </p>
+              </div>
+            ) : (
+              <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg text-sm text-blue-200">
+                <p className="font-semibold mb-2">💡 Como formatar o conteúdo:</p>
+                <ul className="list-disc list-inside space-y-1 text-xs">
+                  <li>Cole o texto completo diretamente aqui</li>
+                  <li>Use parágrafos vazios para separar seções</li>
+                  <li>Mantenha títulos e subtítulos destacados com maiúsculas ou markdown</li>
+                  <li>O sistema vai processar automaticamente a formatação</li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
 

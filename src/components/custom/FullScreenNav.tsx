@@ -329,7 +329,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 100, opacity: 0 }}
               transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
-              className="hidden md:flex relative w-2/5 lg:w-1/2 h-full overflow-hidden"
+              className="hidden md:flex relative w-2/5 lg:w-1/2 h-full overflow-hidden bg-gabardo-blue"
             >
               {SLIDES.map((slide, index) => (
                 <div

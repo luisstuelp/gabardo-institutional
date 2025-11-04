@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { Menu } from 'lucide-react';
+import { ArrowUpRight, Menu } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 import FullScreenNav from '@/components/custom/FullScreenNav';
@@ -44,15 +44,16 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
     ? 'border-white/25 text-white hover:border-white/60 hover:bg-white/10'
     : 'border-gabardo-blue/20 text-gabardo-blue hover:border-gabardo-blue hover:bg-gabardo-blue/10';
 
-  const quickLinkBaseClasses = `inline-flex items-center justify-center rounded-full border px-4 py-1.5 text-[0.56rem] font-semibold uppercase tracking-[0.22em] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent`;
+  const quickLinkBaseClasses =
+    'group inline-flex items-center gap-2 rounded-full border px-5 py-2 text-[0.58rem] font-semibold uppercase tracking-[0.24em] transition-all duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent';
 
   const quickLinkPrimaryClasses = isDarkSurface
-    ? 'border-white/15 bg-white/12 text-white hover:bg-white/18'
-    : 'border-gabardo-blue/20 bg-white text-gabardo-blue hover:bg-gabardo-light-blue/10';
+    ? 'border-white/35 bg-transparent text-white hover:bg-white/12 hover:text-white focus-visible:ring-white/50'
+    : 'border-gabardo-blue/30 bg-transparent text-gabardo-blue hover:bg-gabardo-light-blue/10 focus-visible:ring-gabardo-blue/40';
 
   const quickLinkSecondaryClasses = isDarkSurface
-    ? 'border-white/10 bg-transparent text-white/80 hover:bg-white/10 hover:text-white'
-    : 'border-gabardo-blue/10 bg-transparent text-gabardo-blue/80 hover:bg-gabardo-light-blue/10 hover:text-gabardo-blue';
+    ? 'border-white/25 bg-transparent text-white/80 hover:bg-white/10 hover:text-white focus-visible:ring-white/40'
+    : 'border-gabardo-blue/25 bg-transparent text-gabardo-blue/80 hover:bg-gabardo-light-blue/10 hover:text-gabardo-blue focus-visible:ring-gabardo-light-blue/30';
 
   const logoFilter = isDarkSurface
     ? 'brightness(0) saturate(100%) invert(95%) sepia(7%) saturate(138%) hue-rotate(183deg) brightness(112%) contrast(100%)'
@@ -125,25 +126,25 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
         className={headerClasses}
       >
         <div className="section-container flex items-center justify-between h-[70px]">
-          <Link
-            href="/"
-            className="group inline-flex items-center"
-            aria-label="Gabardo - Página inicial"
-          >
-            <div className="lg:transform lg:scale-[1.12]">
-              <Image
-                src="/images/Design sem nome (53).png"
-                alt="Gabardo"
-                width={isMobile ? 72 : 123}
-                height={isMobile ? 22 : 28}
-                priority
-                className="h-auto w-auto transition-transform duration-300 group-hover:scale-105"
-                style={{ filter: logoFilter, WebkitFilter: logoFilter }}
-              />
-            </div>
-          </Link>
+          <div className="flex items-center gap-3 lg:gap-5">
+            <Link
+              href="/"
+              className="group inline-flex items-center"
+              aria-label="Gabardo - Página inicial"
+            >
+              <div className="lg:transform lg:scale-[1.12]">
+                <Image
+                  src="/images/Design sem nome (53).png"
+                  alt="Gabardo"
+                  width={isMobile ? 72 : 123}
+                  height={isMobile ? 22 : 28}
+                  priority
+                  className="h-auto w-auto transition-transform duration-300 group-hover:scale-105"
+                  style={{ filter: logoFilter, WebkitFilter: logoFilter }}
+                />
+              </div>
+            </Link>
 
-          <div className="flex items-center gap-3 sm:gap-5">
             <div className="hidden xl:flex items-center gap-2.5">
               {quickPortalLinks.map(({ id, label, href, variant }) => (
                 <Link
@@ -153,11 +154,16 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
                   rel="noreferrer"
                   className={`${quickLinkBaseClasses} ${variant === 'primary' ? quickLinkPrimaryClasses : quickLinkSecondaryClasses}`}
                 >
-                  <span className="leading-tight">{label}</span>
+                  <span className="flex items-center gap-2 leading-tight">
+                    <span>{label}</span>
+                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </span>
                 </Link>
               ))}
             </div>
+          </div>
 
+          <div className="flex items-center gap-3 sm:gap-5">
             <Link
               href="/orcamento"
               className={`hidden lg:inline-flex items-center gap-2 rounded-full px-[1.1rem] py-[0.45rem] text-[0.64rem] font-semibold uppercase tracking-[0.26em] transition-all duration-300 shadow-[0_18px_35px_-28px_RGBA(19,45,81,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${ctaClasses}`}
