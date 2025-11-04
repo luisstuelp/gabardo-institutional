@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bunx supabase:*)",
+      "Bash(npx supabase:*)",
+      "Bash(temp_types.ts)",
+      "Bash(npm run build:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

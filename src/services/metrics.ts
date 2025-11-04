@@ -34,3 +34,16 @@ export async function fetchMidiaMetrics() {
 
   return data as MidiaMetricRecord[];
 }
+
+export async function fetchQuoteMetrics() {
+  const { data, error } = await supabase
+    .from('quotes')
+    .select('status, created_at')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    throw error;
+  }
+
+  return data ?? [];
+}

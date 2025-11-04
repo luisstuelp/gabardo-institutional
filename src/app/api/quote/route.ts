@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { parsePhoneNumberFromString } from 'libphonenumber-js/min';
 
+import { createServerSupabaseClient } from '@/integrations/supabase/server';
+
 type QuoteFormData = {
   name: string;
   company: string;
@@ -86,6 +88,48 @@ function formatCurrency(value: string): string {
 
 function formatOptional(value: string): string {
   return value ? value : 'Não informado';
+}
+
+function optionalOrNull(value: string) {
+  const trimmed = value?.trim();
+  return trimmed ? trimmed : null;
+}
+
+async function persistQuote(data: QuoteFormData) {
+  const supabase = createServerSupabaseClient();
+
+  const payload = {
+    name: data.name,
+    company: optionalOrNull(data.company),
+    email: data.email,
+    phone: data.phone,
+    vehicle_category: data.vehicleCategory,
+    vehicle_brand: data.vehicleBrand,
+    vehicle_model: data.vehicleModel,
+    vehicle_year: data.vehicleYear,
+    vehicle_value: data.vehicleValue,
+    vehicle_observation: optionalOrNull(data.vehicleObservation),
+    origin_state: data.originState,
+    origin_city: data.originCity,
+    destination_state: data.destinationState,
+    destination_city: data.destinationCity,
+    route_observation: optionalOrNull(data.routeObservation),
+    message: optionalOrNull(data.message),
+    privacy_accepted: data.privacyAccepted,
+    raw_data: data,
+  };
+
+  const { data: inserted, error } = await supabase
+    .from('quotes')
+    .insert(payload)
+    .select('id, status, created_at')
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
+  return inserted;
 }
 
 function validate(data: QuoteFormData): ValidationResult {
@@ -245,7 +289,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('✅ Validação passou, enviando email...');
+    console.log('✅ Validação passou, registrando solicitação...');
+
+    const quoteRecord = await persistQuote(formData);
+
+    console.log('🗂️ Cotação armazenada com ID:', quoteRecord?.id);
+
+    console.log('✅ Registro salvo, enviando email...');
     
     try {
       await sendEmail(formData);
