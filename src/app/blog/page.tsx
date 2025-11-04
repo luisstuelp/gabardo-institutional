@@ -1,6 +1,9 @@
 import { fetchPublishedPostsServer } from '@/services/posts';
 import BlogIndex from '@/components/custom/BlogIndex';
 
+// Revalidate this page every 60 seconds (ISR - Incremental Static Regeneration)
+export const revalidate = 60;
+
 type SupabasePost = {
   id: string;
   slug: string;

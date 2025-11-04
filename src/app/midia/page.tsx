@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { fetchMidiaServer } from '@/services/midia';
 import MidiaClient from './midia-client';
 
-export const revalidate = 0;
+// Revalidate this page every 60 seconds (ISR - Incremental Static Regeneration)
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.transgabardo.com.br'),

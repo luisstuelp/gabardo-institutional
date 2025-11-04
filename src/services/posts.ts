@@ -61,7 +61,7 @@ export async function fetchPostBySlugServer(slug: string) {
 
 export async function createPost(post: PostFormData) {
   const { data: { user } } = await supabase.auth.getUser();
-  
+
   const { data, error } = await supabase
     .from('posts')
     .insert([{
@@ -75,8 +75,22 @@ export async function createPost(post: PostFormData) {
     }])
     .select()
     .single();
-  
+
   if (error) throw error;
+
+  // Revalidate blog pages after creation
+  if (post.published) {
+    try {
+      await fetch('/api/revalidate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: '/blog' }),
+      });
+    } catch (revalidateError) {
+      console.warn('Failed to revalidate blog page:', revalidateError);
+    }
+  }
+
   return data;
 }
 
@@ -87,8 +101,22 @@ export async function updatePost(id: string, post: PostFormData) {
     .eq('id', id)
     .select()
     .single();
-  
+
   if (error) throw error;
+
+  // Revalidate blog pages after update
+  if (post.published) {
+    try {
+      await fetch('/api/revalidate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path: '/blog' }),
+      });
+    } catch (revalidateError) {
+      console.warn('Failed to revalidate blog page:', revalidateError);
+    }
+  }
+
   return data;
 }
 
@@ -97,6 +125,18 @@ export async function deletePost(id: string) {
     .from('posts')
     .delete()
     .eq('id', id);
-  
+
   if (error) throw error;
+
+  // Revalidate blog pages after deletion
+  try {
+    await fetch('/api/revalidate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: '/blog' }),
+    });
+  } catch (revalidateError) {
+    console.warn('Failed to revalidate blog page:', revalidateError);
+    // Don't throw - deletion was successful even if revalidation failed
+  }
 }

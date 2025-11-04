@@ -26,7 +26,7 @@ export async function fetchMidiaServer() {
 
 export async function createMidia(midia: MidiaFormData) {
   const { data: { user } } = await supabase.auth.getUser();
-  
+
   const { data, error } = await supabase
     .from('midia')
     .insert([{
@@ -40,8 +40,20 @@ export async function createMidia(midia: MidiaFormData) {
     }])
     .select()
     .single();
-  
+
   if (error) throw error;
+
+  // Revalidate midia page after creation
+  try {
+    await fetch('/api/revalidate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: '/midia' }),
+    });
+  } catch (revalidateError) {
+    console.warn('Failed to revalidate midia page:', revalidateError);
+  }
+
   return data;
 }
 
@@ -55,8 +67,20 @@ export async function updateMidia(id: string, midia: MidiaFormData) {
     .eq('id', id)
     .select()
     .single();
-  
+
   if (error) throw error;
+
+  // Revalidate midia page after update
+  try {
+    await fetch('/api/revalidate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: '/midia' }),
+    });
+  } catch (revalidateError) {
+    console.warn('Failed to revalidate midia page:', revalidateError);
+  }
+
   return data;
 }
 
@@ -65,6 +89,18 @@ export async function deleteMidia(id: string) {
     .from('midia')
     .delete()
     .eq('id', id);
-  
+
   if (error) throw error;
+
+  // Revalidate midia page after deletion
+  try {
+    await fetch('/api/revalidate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: '/midia' }),
+    });
+  } catch (revalidateError) {
+    console.warn('Failed to revalidate midia page:', revalidateError);
+    // Don't throw - deletion was successful even if revalidation failed
+  }
 }
