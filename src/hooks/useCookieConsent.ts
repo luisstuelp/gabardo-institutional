@@ -1,51 +1,15 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
-type ConsentStatus = 'accepted' | 'rejected' | 'unknown';
-
-const STORAGE_KEY = 'gabardo-cookie-consent';
+import { CookieConsentContext } from '@/components/providers/CookieConsentProvider';
 
 export const useCookieConsent = () => {
-  const [status, setStatus] = useState<ConsentStatus>('unknown');
-  const [isVisible, setIsVisible] = useState(false);
+  const context = useContext(CookieConsentContext);
 
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
+  if (!context) {
+    throw new Error('useCookieConsent must be used within a CookieConsentProvider');
+  }
 
-    const stored = window.localStorage.getItem(STORAGE_KEY) as ConsentStatus | null;
-    if (stored === 'accepted' || stored === 'rejected') {
-      setStatus(stored);
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
-  }, []);
-
-  const acceptCookies = useCallback(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    window.localStorage.setItem(STORAGE_KEY, 'accepted');
-    setStatus('accepted');
-    setIsVisible(false);
-  }, []);
-
-  const rejectCookies = useCallback(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    window.localStorage.setItem(STORAGE_KEY, 'rejected');
-    setStatus('rejected');
-    setIsVisible(false);
-  }, []);
-
-  return {
-    status,
-    isVisible,
-    acceptCookies,
-    rejectCookies,
-  };
+  return context;
 };

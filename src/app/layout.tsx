@@ -5,6 +5,7 @@ import CookieConsentBanner from "@/components/custom/CookieConsentBanner";
 import StructuredData from "@/components/seo/StructuredData";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
+import { CookieConsentProvider } from "@/components/providers/CookieConsentProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { meta } from "@/data/hubPluralContent";
 
@@ -112,12 +113,14 @@ export default function RootLayout({
       </head>
       <body className="font-primary">
         <ReactQueryProvider>
-          <PerformanceMonitor />
-          <StructuredData />
-          {children}
-          <WhatsAppFloat />
-          <CookieConsentBanner />
-          <SpeedInsights />
+          <CookieConsentProvider>
+            <PerformanceMonitor />
+            <StructuredData />
+            {children}
+            <WhatsAppFloat />
+            <CookieConsentBanner />
+            <SpeedInsights />
+          </CookieConsentProvider>
         </ReactQueryProvider>
       </body>
     </html>
