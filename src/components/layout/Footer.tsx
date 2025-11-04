@@ -27,6 +27,7 @@ const footerSections = [
     title: 'Suporte',
     links: [
       { label: 'Privacidade', href: '#' },
+      { label: 'Canal de Denúncias', href: '/contato?setor=Canal+de+Denúncias' },
       { label: 'Termos', href: '#' },
     ],
   },
@@ -53,7 +54,7 @@ const contactInfo = [
   { 
     icon: MapPin, 
     text: 'Av. Fernando Ferrari, 700 - Anchieta, Porto Alegre/RS', 
-    href: 'https://www.google.com/maps/search/?api=1&query=Av+Fernando+Ferrari+700+Anchieta+Porto+Alegre+RS'
+    href: 'https://maps.app.goo.gl/XUcq2YCMRnNZcwrz5'
   },
   { icon: Phone, text: '+55 (51) 3373-3000', href: 'tel:+555133733000' },
   { icon: Mail, text: 'gabardo@transgabardo.com.br', href: 'mailto:gabardo@transgabardo.com.br' },
@@ -91,14 +92,16 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="space-y-5 sm:space-y-6 md:space-y-8 lg:col-span-4"
           >
-            <Image
-              src="/gabardo-logo.png"
-              alt="Gabardo"
-              width={160}
-              height={48}
-              priority
-              className="h-auto w-auto drop-shadow-[0_12px_30px_-15px_rgba(0,0,0,0.7)]"
-            />
+            <Link href="/">
+              <Image
+                src="/gabardo-logo.png"
+                alt="Gabardo"
+                width={160}
+                height={48}
+                priority
+                className="h-auto w-auto drop-shadow-[0_12px_30px_-15px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:scale-[1.03]"
+              />
+            </Link>
             <p className="text-xs sm:text-sm leading-relaxed text-white/70">
               Distribuindo eficiência logística e conectando marcas líderes às melhores soluções em transporte automotivo há mais de três décadas.
             </p>

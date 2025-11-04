@@ -19,15 +19,16 @@ export default function ESGSection() {
     <section className="relative py-20 md:py-32 bg-gray-800 text-white">
       <div className="absolute inset-0">
         <Image
-          src="/images/truckSustentavel.jpeg"
+          src="/images/Imagem1.png"
           alt="ESG"
           fill
           className="object-cover opacity-30"
+          priority={false}
         />
       </div>
       <div className="relative container mx-auto px-4 md:px-8 lg:px-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="bg-black/50 p-8 rounded-lg">
+          <div className="bg-black/50 p-8 rounded-3xl">
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}

@@ -315,8 +315,8 @@ export default function LocationsMapInteractive() {
                     transition={{ delay: idx * 0.1 }}
                     whileHover={{ scale: 1.02, x: 4 }}
                     onClick={() => {
-                      const query = encodeURIComponent(unit.endereco);
-                      window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
+                      const mapUrl = unit.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(unit.endereco)}`;
+                      window.open(mapUrl, '_blank');
                     }}
                     className="group relative cursor-pointer overflow-hidden rounded-2xl border-2 border-transparent bg-white p-6 shadow-lg transition-all duration-300 hover:border-gabardo-light-blue hover:shadow-2xl"
                   >

@@ -1038,8 +1038,8 @@ const VehicleQuoteForm: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-sm font-semibold text-gabardo-blue tracking-tight">Central</h4>
-                    <a href="tel:+555121082400" className="text-gray-600 hover:text-gabardo-blue transition-colors">
-                      (51) 2108-2400
+                    <a href="tel:+555133733000" className="text-gray-600 hover:text-gabardo-blue transition-colors">
+                      (51) 3373-3000
                     </a>
                     <p className="text-gray-500 text-xs tracking-wide">Atendimento em horário comercial</p>
                   </div>

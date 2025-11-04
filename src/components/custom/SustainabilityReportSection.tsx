@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Download } from 'lucide-react';
 
@@ -8,12 +9,18 @@ const SustainabilityReportSection: React.FC = () => {
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-white">
       <div className="container mx-auto px-4 md:px-8">
-        <div className="relative bg-gray-800/70 text-white p-12 rounded-2xl shadow-2xl text-center overflow-hidden backdrop-blur-md border border-white/10">
-          <div 
-            className="absolute inset-0 bg-cover bg-center opacity-40" 
-            style={{ backgroundImage: "url('/images/photo-1661435036699-8686dbfc5304.jpg')" }}
-          />
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#163049]/85 text-white p-12 text-center shadow-2xl backdrop-blur-md">
+          <div className="absolute inset-0">
+            <Image
+              src="/images/photo-1661435036699-8686dbfc5304.jpg"
+              alt="Rodovia em meio à natureza"
+              fill
+              className="object-cover opacity-30"
+              priority={false}
+            />
+          </div>
           <motion.div
+            className="relative"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

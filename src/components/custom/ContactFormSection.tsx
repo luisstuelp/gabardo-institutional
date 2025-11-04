@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, AlertCircle, Loader, ArrowRight } from 'lucide-react';
 import InternationalPhoneInput from '@/components/custom/InternationalPhoneInput';
+import { useSearchParams } from 'next/navigation';
 
 interface FormData {
   name: string;
@@ -20,8 +21,11 @@ export default function ContactFormSection() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const searchParams = useSearchParams();
   const [phone, setPhone] = useState('');
-  const sectorOptions = [
+  const [selectedSector, setSelectedSector] = useState('');
+  const [initialSector, setInitialSector] = useState('');
+  const sectorOptions = useMemo(() => [
     'Operacional',
     'Frota',
     'Trabalhe Conosco',
@@ -31,7 +35,25 @@ export default function ContactFormSection() {
     'Reclamações',
     'Canal de Denúncias',
     'Outros'
-  ];
+  ], []);
+
+  const sectorParam = searchParams?.get('setor') ?? '';
+
+  useEffect(() => {
+    if (!sectorParam) {
+      return;
+    }
+
+    const normalizedParam = sectorParam.replace(/\+/g, ' ');
+    const match = sectorOptions.find(
+      option => option.toLowerCase() === normalizedParam.toLowerCase()
+    );
+
+    if (match) {
+      setSelectedSector(match);
+      setInitialSector(match);
+    }
+  }, [sectorParam, sectorOptions]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     console.log('Form submitted');
@@ -45,7 +67,7 @@ export default function ContactFormSection() {
       email: formData.get('email') as string,
       phone: phone,
       company: formData.get('company') as string,
-      sector: formData.get('sector') as string,
+      sector: (formData.get('sector') as string) || selectedSector,
       subject: formData.get('subject') as string,
       message: formData.get('message') as string,
     };
@@ -64,6 +86,7 @@ export default function ContactFormSection() {
         // Reset form
         (event.target as HTMLFormElement).reset();
         setPhone('');
+        setSelectedSector(initialSector);
       } else {
         setError('Erro ao enviar mensagem. Tente novamente.');
       }
@@ -303,10 +326,12 @@ export default function ContactFormSection() {
                   id="sector"
                   name="sector"
                   required
+                  value={selectedSector}
+                  onChange={(event) => setSelectedSector(event.target.value)}
                   onFocus={() => setFocusedField('sector')}
                   onBlur={() => setFocusedField(null)}
                   className="w-full px-0 py-3 text-base sm:text-lg border-0 border-b-2 border-neutral-200 focus:border-gabardo-light-blue focus:outline-none transition-all duration-300 bg-transparent"
-                  defaultValue=""
+                  defaultValue={undefined}
                   whileFocus={{ scale: 1.01 }}
                 >
                   <option value="" disabled>

@@ -21,7 +21,7 @@ const contactMethods = [
     icon: <MapPin className="h-5 w-5" />,
     title: 'Localização',
     description: 'Av. Fernando Ferrari, 700 - Porto Alegre/RS',
-    href: 'https://www.google.com/maps/search/?api=1&query=Av+Fernando+Ferrari+700+Anchieta+Porto+Alegre+RS'
+    href: 'https://maps.app.goo.gl/XUcq2YCMRnNZcwrz5'
   },
 ];
 

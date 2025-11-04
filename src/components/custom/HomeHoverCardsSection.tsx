@@ -269,14 +269,14 @@ const HomeHoverCardsSection = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4 }}
-                  onMouseEnter={() => setActiveId(item.id)}
                   onFocus={() => setActiveId(item.id)}
-                  onClick={() => handleCardClick(item.id)}
+                  onClick={() => setActiveId(item.id)}
                   className={`group flex w-full gap-4 rounded-3xl border px-5 py-6 text-left shadow-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-blue ${
                     isActive
                       ? 'border-gabardo-blue/50 bg-white'
                       : 'border-white/40 bg-white/70 hover:border-gabardo-blue/30'
                   }`}
+                  aria-pressed={isActive}
                 >
                   <span className={`flex h-12 w-12 items-center justify-center rounded-2xl border text-gabardo-blue transition ${isActive ? 'border-gabardo-blue bg-gabardo-blue/10' : 'border-gabardo-blue/25 bg-white'}`}>
                     <Icon className="h-5 w-5" />

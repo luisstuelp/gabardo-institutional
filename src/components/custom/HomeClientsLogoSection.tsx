@@ -14,18 +14,18 @@ const clientLogosWithLayout = [
   { id: 11, name: 'Cliente 11', span: 'md:col-span-1 md:row-span-1', assetId: 7 },
   { id: 14, name: 'Cliente 14', span: 'md:col-span-2 md:row-span-1', assetId: 12 }, // Wide
   { id: 4, name: 'Cliente 4', span: 'md:col-span-2 md:row-span-1', assetId: 9 }, // Wide
+  { id: 6, name: 'Cliente 6', span: 'md:col-span-2 md:row-span-2', assetId: 17 }, // Large featured
+  { id: 18, name: 'Cliente 18', span: 'md:col-span-1 md:row-span-2', assetId: 16 }, // Tall
   { id: 15, name: 'Cliente 15', span: 'md:col-span-1 md:row-span-1', assetId: 13 },
   { id: 8, name: 'Cliente 8', span: 'md:col-span-1 md:row-span-1', assetId: 5 },
-  { id: 18, name: 'Cliente 18', span: 'md:col-span-1 md:row-span-2', assetId: 16 }, // Tall
+  { id: 19, name: 'Cliente 19', span: 'md:col-span-2 md:row-span-1', assetId: 18 },
+  { id: 12, name: 'Cliente 12', span: 'md:col-span-1 md:row-span-1', assetId: 8 },
   { id: 5, name: 'Cliente 5', span: 'md:col-span-1 md:row-span-1', assetId: 3 },
   { id: 17, name: 'Cliente 17', span: 'md:col-span-1 md:row-span-1', assetId: 15 },
-  { id: 9, name: 'Cliente 9', span: 'md:col-span-1 md:row-span-1', assetId: 6 },
-  { id: 19, name: 'Cliente 19', span: 'md:col-span-1 md:row-span-1', assetId: 18 },
-  { id: 12, name: 'Cliente 12', span: 'md:col-span-1 md:row-span-1', assetId: 8 },
-  { id: 6, name: 'Cliente 6', span: 'md:col-span-2 md:row-span-2', assetId: 17 }, // Large featured
-  { id: 20, name: 'Cliente 20', span: 'md:col-span-1 md:row-span-1', assetId: 19 },
-  { id: 13, name: 'Cliente 13', span: 'md:col-span-1 md:row-span-1', assetId: 10 },
   { id: 10, name: 'Cliente 10', span: 'md:col-span-2 md:row-span-2', assetId: 21 }, // Large featured
+  { id: 9, name: 'Cliente 9', span: 'md:col-span-1 md:row-span-1', assetId: 6 },
+  { id: 20, name: 'Cliente 20', span: 'md:col-span-2 md:row-span-1', assetId: 19 },
+  { id: 13, name: 'Cliente 13', span: 'md:col-span-1 md:row-span-1', assetId: 10 },
   { id: 16, name: 'Cliente 16', span: 'md:col-span-1 md:row-span-1', assetId: 14 },
   { id: 21, name: 'Cliente 21', span: 'md:col-span-1 md:row-span-1', assetId: 20 },
 ];
@@ -259,7 +259,7 @@ const HomeClientsLogoSection = () => {
           className="relative w-full overflow-hidden"
         >
           <div className="w-full" role="list">
-            <div className="w-full grid grid-flow-dense grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 auto-rows-[90px] sm:auto-rows-[110px] md:auto-rows-[120px] gap-2 sm:gap-2.5 md:gap-3 px-2 sm:px-4 md:px-6">
+            <div className="w-full grid grid-flow-dense grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 auto-rows-[90px] sm:auto-rows-[110px] md:auto-rows-[120px] gap-2 sm:gap-2.5 md:gap-3 px-2 sm:px-4 md:px-6">
             {clientLogosWithLayout.map((logo, index) => {
               const detailId = logo.assetId ?? logo.id;
               const detail = clientDetails[detailId];

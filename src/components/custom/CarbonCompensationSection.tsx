@@ -1,9 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Award, Leaf, Recycle, ArrowDownToLine } from 'lucide-react';
-import ScrollStack, { ScrollStackItem } from '@/components/Scrollstack';
 
 const actionCards = [
   {
@@ -26,6 +24,10 @@ const actionCards = [
   },
 ];
 
+const programHighlights = [
+  'Capturamos carbono via projetos proprietários, restauração de matas ciliares e parcerias locais de preservação.',
+  'Monitoramento digital assegura rastreabilidade do crédito, com dashboards conectados a indicadores ESG.'
+];
 
 const metrics = [
   {
@@ -59,18 +61,6 @@ const metrics = [
 ];
 
 const CarbonCompensationSection = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   return (
     <section className="relative overflow-visible bg-white py-20 text-gabardo-blue">
       <div className="pointer-events-none absolute inset-0 opacity-30">
@@ -150,157 +140,80 @@ const CarbonCompensationSection = () => {
             </div>
           </motion.div>
 
-          {/* Right Column - ScrollStack Cards (Desktop) / Normal Cards (Mobile) */}
-          <div className="relative min-h-[2000px]">
-            {!isMobile ? (
-              <>
-              <ScrollStack
-                useWindowScroll={true}
-                itemDistance={100}
-                itemScale={0.06}
-                itemStackDistance={40}
-                stackPosition="20%"
-                scaleEndPosition="10%"
-                baseScale={0.9}
-              >
-                {actionCards.map((card, index) => {
-                const Icon = card.icon;
-                const isGreenIcon = card.icon === Leaf;
-                return (
-                  <ScrollStackItem key={card.title}>
-                    <div
-                      className="relative overflow-hidden rounded-3xl border border-gabardo-blue/15 bg-gradient-to-br from-white via-white to-gabardo-light-blue/10 p-6 md:p-8 shadow-xl"
-                      style={{
-                        boxShadow: '0 25px 60px -30px rgba(19, 45, 81, 0.3)',
-                        height: 'auto',
-                        minHeight: index < 3 ? '180px' : '220px'
-                      }}
-                    >
-                      <div className={`absolute inset-0 bg-gradient-to-br ${card.accent} opacity-0 transition-opacity duration-500 hover:opacity-90`} />
-                      <div className="relative z-10 flex flex-col gap-4 md:gap-5">
-                        <div className="flex items-start gap-4 md:gap-5">
-                          <div
-                            className={`flex h-14 w-14 md:h-16 md:w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-white shadow-md ${isGreenIcon ? 'text-emerald-500' : 'text-gabardo-blue'}`}
-                          >
-                            <Icon className="h-7 w-7 md:h-8 md:w-8" strokeWidth={2} />
-                          </div>
-                          <div className="flex-1 space-y-2 md:space-y-3">
-                            <h3 className="text-xl md:text-2xl font-bold uppercase tracking-[0.12em] md:tracking-[0.15em] text-gabardo-blue leading-tight">
-                              {card.title}
-                            </h3>
-                            <p className="text-sm md:text-base text-slate-600 leading-relaxed">
-                              {card.description}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-gabardo-light-blue via-gabardo-blue to-gabardo-light-blue" />
-                    </div>
-                  </ScrollStackItem>
-                );
-                })}
-                
-                <ScrollStackItem>
-                <div 
-                  className="relative overflow-hidden rounded-3xl border-2 border-gabardo-blue/20 bg-white p-6 md:p-8 shadow-xl"
-                  style={{
-                    boxShadow: '0 25px 60px -30px rgba(19, 45, 81, 0.3)',
-                    height: 'auto',
-                    minHeight: '260px'
-                  }}
+          {/* Right Column - Redesigned Cards */}
+          <div className="space-y-8">
+            {actionCards.map((card, index) => {
+              const Icon = card.icon;
+              const isGreenIcon = card.icon === Leaf;
+              return (
+                <motion.div
+                  key={card.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.55, delay: index * 0.08 }}
+                  className="group relative overflow-hidden rounded-3xl border border-gabardo-blue/15 bg-white/95 p-6 md:p-8 shadow-xl"
+                  style={{ boxShadow: '0 25px 60px -30px rgba(19, 45, 81, 0.28)' }}
                 >
-                  <div className="flex flex-col gap-5 md:gap-6 pb-2">
+                  <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${card.accent} opacity-0 transition-opacity duration-500 group-hover:opacity-90`} />
+                  <div className="relative z-10 flex flex-col gap-5">
                     <div className="flex items-start gap-4 md:gap-5">
-                      <div className="flex h-14 w-14 md:h-16 md:w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/20 to-gabardo-blue/20 text-gabardo-blue shadow-md">
-                        <Award className="h-7 w-7 md:h-8 md:w-8" strokeWidth={2} />
+                      <div
+                        className={`flex h-14 w-14 md:h-16 md:w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-white shadow-md ${isGreenIcon ? 'text-emerald-500' : 'text-gabardo-blue'}`}
+                      >
+                        <Icon className="h-7 w-7 md:h-8 md:w-8" strokeWidth={2} />
                       </div>
-                      <div className="flex-1 space-y-2 md:space-y-3">
-                        <h3 className="text-lg md:text-xl font-bold uppercase tracking-[0.15em] md:tracking-[0.18em] text-gabardo-blue leading-tight">
-                          Programa Carbono Negativo Gabardo
+                      <div className="flex-1 space-y-3">
+                        <h3 className="text-xl md:text-2xl font-bold uppercase tracking-[0.12em] text-gabardo-blue leading-tight">
+                          {card.title}
                         </h3>
                         <p className="text-sm md:text-base text-slate-600 leading-relaxed">
-                          Em 2024 transportamos 25,1% mais veículos, com 71,6 milhões de km percorridos (+34,8%) e consumo de 24,8 milhões de litros de diesel (+33,9%), mantendo evolução contínua dos indicadores específicos.
+                          {card.description}
                         </p>
                       </div>
                     </div>
-                    <div className="grid gap-4 sm:grid-cols-2 mt-2">
-                      <div className="rounded-2xl border border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/10 via-white to-white p-5 text-sm text-slate-600 leading-relaxed">
-                        Capturamos carbono via projetos proprietários, restauração de matas ciliares e parcerias locais de preservação.
-                      </div>
-                      <div className="rounded-2xl border border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/10 via-white to-white p-5 text-sm text-slate-600 leading-relaxed">
-                        Monitoramento digital assegura rastreabilidade do crédito, com dashboards conectados a indicadores ESG.
-                      </div>
-                    </div>
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-gabardo-blue via-gabardo-light-blue to-gabardo-blue" />
-                </div>
-              </ScrollStackItem>
-            </ScrollStack>
-            <div className="scroll-stack-end" />
-            </>
-            ) : (
-              <div className="space-y-6">
-              {actionCards.map((card, index) => {
-                const Icon = card.icon;
-                const isGreenIcon = card.icon === Leaf;
-                return (
-                  <motion.div
-                    key={card.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="relative overflow-hidden rounded-3xl border border-gabardo-blue/15 bg-gradient-to-br from-white via-white to-gabardo-light-blue/10 p-6 shadow-lg"
-                  >
-                    <div className="flex flex-col gap-4">
-                      <div className="flex items-start gap-4">
-                        <div
-                          className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-white shadow-md ${isGreenIcon ? 'text-emerald-500' : 'text-gabardo-blue'}`}
-                        >
-                          <Icon className="h-7 w-7" strokeWidth={2} />
-                        </div>
-                        <div className="flex-1 space-y-2">
-                          <h3 className="text-xl font-bold uppercase tracking-wide text-gabardo-blue leading-tight">
-                            {card.title}
-                          </h3>
-                          <p className="text-sm text-slate-600 leading-relaxed">
-                            {card.description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-gabardo-light-blue via-gabardo-blue to-gabardo-light-blue" />
-                  </motion.div>
-                );
-              })}
-              
-              {/* Final Card - Programa Carbono Negativo */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="relative rounded-3xl border-2 border-gabardo-blue/20 bg-white p-6 shadow-lg"
-              >
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/20 to-gabardo-blue/20 text-gabardo-blue shadow-md">
-                      <Award className="h-7 w-7" strokeWidth={2} />
-                    </div>
-                    <div className="flex-1 space-y-2">
-                      <h3 className="text-xl font-bold uppercase tracking-wide text-gabardo-blue leading-tight">
-                        Programa Carbono Negativo Gabardo
-                      </h3>
-                      <p className="text-sm text-slate-600 leading-relaxed">
-                        Em 2024 transportamos 25,1% mais veículos, com 71,6 milhões de km percorridos (+34,8%) e consumo de 24,8 milhões de litros de diesel (+33,9%), mantendo evolução contínua dos indicadores específicos.
-                      </p>
-                    </div>
+                  <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-gabardo-light-blue via-gabardo-blue to-gabardo-light-blue" />
+                </motion.div>
+              );
+            })}
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.55, delay: actionCards.length * 0.08 }}
+              className="relative overflow-hidden rounded-3xl border-2 border-gabardo-blue/20 bg-white p-6 md:p-8 shadow-xl"
+              style={{ boxShadow: '0 25px 60px -30px rgba(19, 45, 81, 0.28)' }}
+            >
+              <div className="relative z-10 flex flex-col gap-6">
+                <div className="flex items-start gap-4 md:gap-5">
+                  <div className="flex h-14 w-14 md:h-16 md:w-16 flex-shrink-0 items-center justify-center rounded-2xl border-2 border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/20 to-gabardo-blue/20 text-gabardo-blue shadow-md">
+                    <Award className="h-7 w-7 md:h-8 md:w-8" strokeWidth={2} />
+                  </div>
+                  <div className="flex-1 space-y-3">
+                    <h3 className="text-lg md:text-xl font-bold uppercase tracking-[0.15em] text-gabardo-blue leading-tight">
+                      Programa Carbono Negativo Gabardo
+                    </h3>
+                    <p className="text-sm md:text-base text-slate-600 leading-relaxed">
+                      Em 2024 transportamos 25,1% mais veículos, com 71,6 milhões de km percorridos (+34,8%) e consumo de 24,8 milhões de litros de diesel (+33,9%), mantendo evolução contínua dos indicadores específicos.
+                    </p>
                   </div>
                 </div>
-                <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-gabardo-blue via-gabardo-light-blue to-gabardo-blue" />
-              </motion.div>
-            </div>
-          )}
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {programHighlights.map((highlight) => (
+                    <div
+                      key={highlight}
+                      className="rounded-2xl border border-gabardo-blue/15 bg-gradient-to-br from-gabardo-light-blue/10 via-white to-white p-5 text-sm text-slate-600 leading-relaxed"
+                    >
+                      {highlight}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-gabardo-blue via-gabardo-light-blue to-gabardo-blue" />
+            </motion.div>
           </div>
         </div>
       </div>

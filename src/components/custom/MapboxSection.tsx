@@ -16,6 +16,7 @@ interface LocationData {
   phone: string;
   type: string;
   region: string;
+  mapUrl?: string;
 }
 
 const mapRegion = (region: string) => {
@@ -33,6 +34,7 @@ const locations: LocationData[] = units.map(unit => ({
   phone: unit.telefone,
   type: unit.nome.includes('Matriz') ? 'matriz' : 'filial',
   region: mapRegion(unit.regiao),
+  mapUrl: unit.mapUrl,
 }));
 
 // Função para mapear nomes das localizações para IDs das páginas
@@ -71,8 +73,8 @@ const MapboxSection: React.FC = () => {
   };
 
   const handleSelectLocationFromList = (location: LocationData) => {
-    const query = encodeURIComponent(location.address);
-    window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
+    const mapUrl = location.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`;
+    window.open(mapUrl, '_blank');
   };
 
   useEffect(() => {
@@ -126,8 +128,8 @@ const MapboxSection: React.FC = () => {
           .addTo(map);
 
         markerElement.addEventListener('click', () => {
-          const query = encodeURIComponent(location.address);
-          window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
+          const mapUrl = location.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`;
+          window.open(mapUrl, '_blank');
         });
       });
 

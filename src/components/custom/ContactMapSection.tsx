@@ -27,15 +27,15 @@ const transportOptions = [
 
 // Key landmarks nearby
 const landmarks = [
-  'Shopping Recife - 500m',
-  'Praia de Boa Viagem - 1km',
-  'Aeroporto - 15km',
-  'Marco Zero - 12km'
+  'Bourbon Shopping Wallig - 1,5 km',
+  'Aeroporto Salgado Filho - 2,2 km',
+  'Arena do Grêmio - 3,8 km',
+  'Centro de Porto Alegre - 6 km'
 ];
 
 export default function ContactMapSection() {
   const handleMapClick = () => {
-    window.open('https://www.google.com/maps/search/?api=1&query=Rua+da+Inovação+123+Boa+Viagem+Recife', '_blank');
+    window.open('https://maps.app.goo.gl/XUcq2YCMRnNZcwrz5', '_blank');
   };
 
   return (

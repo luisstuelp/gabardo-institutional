@@ -27,7 +27,7 @@ const clientLogos = [
   { id: 18, name: 'Localiza', description: 'Maior locadora de veículos da América Latina, com forte presença em mobilidade urbana e soluções corporativas.' },
   { id: 19, name: 'JSL', description: 'Grupo brasileiro de logística integrado, atuando em transporte, gestão de frotas, armazenagem e serviços industriais.' },
   { id: 20, name: 'Ford', description: 'Montadora americana tradicional, pioneira na produção em massa e atualmente focada em eletrificação e veículos conectados.' },
-  { id: 21, name: 'CAOA', description: 'Grupo brasileiro que atua na importação, montagem e distribuição de marcas como Hyundai, Chery e Subaru, além de ter produção nacional.' },
+  { id: 21, name: 'BYD', description: 'Empresa chinesa que começou como fabricante de baterias e se expandiu para se tornar uma líder global em tecnologia de veículos elétricos e energia renovável.' },
 ];
 
 // Duplicate logos for infinite loop - will be dynamically calculated
@@ -42,8 +42,9 @@ interface LogoItemProps {
 // Mobile logo item - click to open modal (zero overhead)
 const MobileLogo = ({ logo, onClick, isDragging }: { logo: typeof clientLogos[0]; onClick: () => void; isDragging: boolean }) => {
   return (
-    <div
-      className="flex-shrink-0 flex items-center justify-center cursor-pointer active:scale-95 transition-transform duration-150"
+    <button
+      type="button"
+      className="flex-shrink-0 flex items-center justify-center cursor-pointer active:scale-95 transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/70"
       style={{ width: '200px', height: '120px' }}
       onClick={() => {
         // Only open modal if not dragging
@@ -51,6 +52,7 @@ const MobileLogo = ({ logo, onClick, isDragging }: { logo: typeof clientLogos[0]
           onClick();
         }
       }}
+      aria-label={`Detalhes do cliente ${logo.name}`}
     >
       <div className="bg-white rounded-2xl border border-gabardo-blue/10 p-4 shadow-sm w-full h-full flex items-center justify-center hover:border-gabardo-blue/20 transition-colors">
         <Image
@@ -63,7 +65,7 @@ const MobileLogo = ({ logo, onClick, isDragging }: { logo: typeof clientLogos[0]
           loading="lazy"
         />
       </div>
-    </div>
+    </button>
   );
 };
 
@@ -142,9 +144,19 @@ const LogoItem = ({ logo, onManualPause }: LogoItemProps) => {
   return (
     <div
       ref={itemRef}
-      className="flex-shrink-0 transition-transform duration-300 ease-out [perspective:1000px] hover:scale-105"
+      className="flex-shrink-0 transition-transform duration-300 ease-out [perspective:1000px] hover:scale-105 focus-within:scale-105"
       style={{ width: '240px' }}
       onClick={handleToggleFlip}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          handleToggleFlip();
+        }
+      }}
+      aria-pressed={isFlipped}
+      aria-label={`Ver informações do cliente ${logo.name}`}
     >
       <div
         className="relative h-60 w-full cursor-pointer transition-transform duration-500 ease-in-out"
@@ -374,7 +386,7 @@ const AboutClientsCarousel = () => {
   };
 
   const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!pointerActiveRef.current) {
+    if (!pointerActiveRef.current || event.pointerId !== activePointerId.current) {
       return;
     }
     const delta = event.clientX - dragStartX.current;
@@ -397,7 +409,7 @@ const AboutClientsCarousel = () => {
   };
 
   const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!pointerActiveRef.current) {
+    if (!pointerActiveRef.current || (activePointerId.current !== null && event.pointerId !== activePointerId.current)) {
       return;
     }
 
@@ -549,7 +561,7 @@ const AboutClientsCarousel = () => {
           onPointerEnter={canHover && !isMobile ? handlePointerEnter : undefined}
           onPointerLeave={canHover && !isMobile ? handlePointerLeave : undefined}
           onPointerCancel={endDrag}
-          style={{ touchAction: 'none' }}
+          style={{ touchAction: 'pan-y' }}
         >
           <div
             ref={trackRef}

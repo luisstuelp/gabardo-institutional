@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { X, ChevronRight, ChevronLeft, MapPin, Clock } from 'lucide-react';
+import { X, ChevronRight, ChevronLeft, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface MenuItem {
@@ -19,35 +19,39 @@ interface MenuItem {
   }>;
 }
 
+interface QuickPortalLink {
+  id: string;
+  label: string;
+  href: string;
+  variant: 'primary' | 'secondary';
+}
+
 interface FullScreenNavProps {
   isOpen: boolean;
   onClose: () => void;
   menuItems: Array<MenuItem>;
+  quickPortalLinks?: QuickPortalLink[];
 }
 
 const ANIMATION_DURATION = 800;
 
-const KEY_LOCATIONS = [
-  { id: 'porto-alegre', label: 'Porto Alegre', href: '/localizacao/porto-alegre' },
-  { id: 'sao-paulo', label: 'São Paulo', href: '/localizacao/sao-paulo' },
-  { id: 'rio-de-janeiro', label: 'Rio de Janeiro', href: '/localizacao/rio-de-janeiro' },
-];
-
-const KEY_SERVICES = [
-  { id: 'transporte-veiculos', label: 'Transporte de Veículos', href: '/servicos/transporte-veiculos' },
-  { id: 'transporte-prancha', label: 'Transporte em Prancha', href: '/servicos/transporte-prancha' },
-  { id: 'armazenagem', label: 'Armazenagem', href: '/servicos/armazenagem' },
+const SLIDES = [
+  { id: 'slide-1', src: '/images/hero-home.jpg', alt: 'Frota Gabardo em operação' },
+  { id: 'slide-2', src: '/images/gabardo-hero-03.JPG', alt: 'Infraestrutura Gabardo' },
+  { id: 'slide-3', src: '/images/Certificados.JPG', alt: 'Equipe Gabardo certificada' },
+  { id: 'slide-4', src: '/images/unidades/sjp-1.jpg', alt: 'Unidade São José dos Pinhais' },
 ];
 
 const FullScreenNav: React.FC<FullScreenNavProps> = ({
   isOpen,
   onClose,
   menuItems,
+  quickPortalLinks = [],
 }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const [activeSection, setActiveSection] = useState<'nav' | 'services' | 'locations'>('nav');
   const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -66,7 +70,6 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
       }, 50);
       return () => clearTimeout(timer);
     } else {
-      setActiveSection('nav');
       setActiveSubMenu(null);
       const timer = setTimeout(() => {
         setIsMounted(false);
@@ -87,9 +90,26 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const slideInterval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+    }, 5500);
+
+    return () => clearInterval(slideInterval);
+  }, [isOpen]);
+
   if (!isMounted) {
     return null;
   }
+
+  const getQuickLinkClasses = (variant: QuickPortalLink['variant']) => {
+    const base = 'group relative flex items-center justify-between rounded-full border px-4 py-2 text-[0.62rem] font-semibold uppercase tracking-[0.28em] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent';
+    if (variant === 'primary') {
+      return `${base} border-white/20 bg-white text-[#0c1f3d] hover:bg-white/90 focus-visible:ring-gabardo-light-blue/60`;
+    }
+    return `${base} border-white/15 bg-white/5 text-white/80 hover:bg-white/12 focus-visible:ring-white/60`;
+  };
 
   const renderMainMenu = () => (
     <motion.div
@@ -99,46 +119,86 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
       exit={{ opacity: 0, x: 30 }}
       transition={{ duration: 0.4 }}
     >
-      <nav className="space-y-1 md:space-y-1 mb-6 md:mb-0 pl-2 md:pl-6 lg:pl-10">
-        {menuItems.map((item, index) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-            className="group"
-          >
-            {item.subMenu ? (
-              <button
-                onClick={() => setActiveSubMenu(item.id)}
-                className="flex items-center justify-between w-full py-2 md:py-3 text-white hover-blue-80 transition-all duration-500 touch-manipulation"
-              >
-                <span className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light tracking-tight">
-                  {item.label}
-                </span>
-                <ChevronRight
-                  size={isMobile ? 16 : 20}
-                  className="opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex-shrink-0 ml-3 text-blue-bright"
-                />
-              </button>
-            ) : (
-              <Link
-                href={item.href}
-                onClick={onClose}
-                className="flex items-center justify-between py-2 md:py-3 text-white hover-blue-80 transition-all duration-500 touch-manipulation"
-              >
-                <span className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light tracking-tight">
-                  {item.label}
-                </span>
-                <ChevronRight
-                  size={isMobile ? 16 : 20}
-                  className="opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex-shrink-0 ml-3 text-blue-bright"
-                />
-              </Link>
-            )}
-          </motion.div>
-        ))}
-      </nav>
+      <div className="flex min-h-full flex-col gap-6 md:gap-6 mb-6 md:mb-0 pl-2 md:pl-6 lg:pl-10">
+        <nav className="space-y-1 md:space-y-1">
+          {menuItems.map((item, index) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+              className="group"
+            >
+              {item.subMenu ? (
+                <button
+                  onClick={() => setActiveSubMenu(item.id)}
+                  className="flex items-center justify-between w-full py-2 md:py-3 text-white hover-blue-80 transition-all duration-500 touch-manipulation"
+                >
+                  <span className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light tracking-tight">
+                    {item.label}
+                  </span>
+                  <ChevronRight
+                    size={isMobile ? 16 : 20}
+                    className="opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex-shrink-0 ml-3 text-blue-bright"
+                  />
+                </button>
+              ) : (
+                <Link
+                  href={item.href}
+                  onClick={onClose}
+                  className="flex items-center justify-between py-2 md:py-3 text-white hover-blue-80 transition-all duration-500 touch-manipulation"
+                >
+                  <span className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light tracking-tight">
+                    {item.label}
+                  </span>
+                  <ChevronRight
+                    size={isMobile ? 16 : 20}
+                    className="opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex-shrink-0 ml-3 text-blue-bright"
+                  />
+                </Link>
+              )}
+            </motion.div>
+          ))}
+        </nav>
+
+        {!isMobile && (
+          <div className="space-y-4 text-white/80">
+            <p className="max-w-xl text-base font-light leading-relaxed text-white/85">
+              Há mais de 36 anos transportando veículos com segurança, tecnologia e excelência em todo o Brasil.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-3 text-gabardo-light-blue/85">
+              <Clock size={16} className="text-gabardo-light-blue" />
+              <span className="text-sm font-medium uppercase tracking-[0.24em]">Seg-Sex: 8h às 18h</span>
+              <span className="text-white/40">•</span>
+              <span className="text-sm font-medium uppercase tracking-[0.24em]">Sábado: 8h às 12h</span>
+            </div>
+          </div>
+        )}
+
+        {isMobile && quickPortalLinks.length > 0 && (
+          <div className="mt-auto space-y-3 border-t border-white/10 pt-6">
+            <p className="text-[0.6rem] font-semibold uppercase tracking-[0.38em] text-white/55">
+              Portais de Acesso
+            </p>
+            <div className="space-y-2">
+              {quickPortalLinks.map(link => (
+                <Link
+                  key={link.id}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={onClose}
+                  className={getQuickLinkClasses(link.variant)}
+                >
+                  <span>{link.label}</span>
+                  <ChevronRight size={12} className="text-white/60 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </motion.div>
   );
 
@@ -259,7 +319,6 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
               <AnimatePresence mode="wait">
                 {activeSubMenu ? renderSubMenu() : renderMainMenu()}
               </AnimatePresence>
-
             </motion.div>
 
             <motion.div
@@ -267,106 +326,19 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 100, opacity: 0 }}
               transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
-              className="hidden md:flex relative w-2/5 lg:w-1/2 h-full flex-col justify-center p-6 md:p-8 lg:p-10 bg-[#0c1f3d] shadow-[0_0_40px_rgba(0,0,0,0.45)] backdrop-blur-sm"
+              className="hidden md:flex relative w-2/5 lg:w-1/2 h-full overflow-hidden"
             >
-              <AnimatePresence mode="wait">
-                {activeSection === 'services' && (
-                  <motion.div
-                    key="services"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.4 }}
-                    className="space-y-6"
-                  >
-                    <h3 className="text-lg font-light text-white mb-6">Nossos Serviços</h3>
-                    {KEY_SERVICES.map((service, index) => (
-                      <motion.div
-                        key={service.id}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4, delay: index * 0.1 }}
-                      >
-                        <Link
-                          href={service.href}
-                          onClick={onClose}
-                          className="block p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-300 text-white group"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="text-base font-light">{service.label}</span>
-                            <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
-                          </div>
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                )}
-
-                {activeSection === 'locations' && (
-                  <motion.div
-                    key="locations"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.4 }}
-                    className="space-y-6"
-                  >
-                    <h3 className="text-lg font-light text-white mb-6">Nossas Unidades</h3>
-                    {KEY_LOCATIONS.map((location, index) => (
-                      <motion.div
-                        key={location.id}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4, delay: index * 0.1 }}
-                      >
-                        <Link
-                          href={location.href}
-                          onClick={onClose}
-                          className="block p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all duration-300 text-white group"
-                        >
-                          <div className="flex items-center space-x-2">
-                            <MapPin size={14} className="text-blue-bright" />
-                            <span className="text-base font-light">{location.label}</span>
-                            <ChevronRight size={14} className="ml-auto group-hover:translate-x-1 transition-transform duration-300" />
-                          </div>
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-                )}
-
-                {activeSection === 'nav' && (
-                  <motion.div
-                    key="nav"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.4 }}
-                    className="space-y-6"
-                  >
-                    <div className="text-white/80">
-                      <h3 className="text-lg font-light mb-3">Gabardo</h3>
-                      <p className="text-base font-light leading-relaxed mb-4">
-                        Há mais de 36 anos transportando veículos com segurança, tecnologia e excelência em todo o Brasil.
-                      </p>
-                      
-                      <div className="flex items-center space-x-2 mb-3 text-gabardo-light-blue">
-                        <Clock size={14} />
-                        <span className="text-sm">Seg-Sex: 8h às 18h</span>
-                      </div>
-                      
-                      <Link
-                        href="/contato"
-                        onClick={onClose}
-                        className="inline-flex items-center space-x-2 text-gabardo-light-blue hover:text-white transition-colors duration-300"
-                      >
-                        <span className="text-sm">Solicitar Cotação</span>
-                        <ChevronRight size={14} />
-                      </Link>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {SLIDES.map((slide, index) => (
+                <div
+                  key={slide.id}
+                  className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[1200ms] ${
+                    index === currentSlide ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  style={{ backgroundImage: `url(${slide.src})` }}
+                  aria-hidden={index !== currentSlide}
+                />
+              ))}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#040b15]/80 via-[#081427]/65 to-[#0c1f3d]/80" />
             </motion.div>
           </div>
         </motion.div>

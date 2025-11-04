@@ -3,35 +3,11 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Leaf, Globe2, Award, Shield } from 'lucide-react';
+import { ShieldCheck, Leaf, Award, Shield, Download } from 'lucide-react';
 import Folder from '@/components/Folder';
 import FolderGalleryModal from '@/components/FolderGalleryModal';
 
 const certifications = [
-  {
-    icon: ShieldCheck,
-    title: 'ISO 9001',
-    subtitle: 'Gestão da Qualidade',
-    description:
-      'Processos padronizados, auditorias recorrentes e KPIs que asseguram excelência em cada etapa da logística de veículos.',
-    highlight: 'Foco na melhoria contínua',
-  },
-  {
-    icon: Leaf,
-    title: 'ISO 14001',
-    subtitle: 'Gestão Ambiental',
-    description:
-      'Inventário de emissões desde 2017, matriz energética renovável e infraestrutura pensada para reduzir impactos ambientais.',
-    highlight: 'Transportadora Carbono Neutro',
-  },
-  {
-    icon: Globe2,
-    title: 'ISO 39001',
-    subtitle: 'Segurança Viária',
-    description:
-      'Protocolos rigorosos de segurança, central de controle 24/7 e treinamentos que garantem operações com zero avarias críticas.',
-    highlight: 'Segurança viária certificada',
-  },
   {
     icon: Award,
     title: 'GHG Protocol - Selo Prata',
@@ -53,18 +29,27 @@ const certifications = [
 const qualityBadges = [
   {
     icon: ShieldCheck,
-    title: 'OEA - Receita Federal',
-    description: 'Operador Econômico Autorizado com processos aduaneiros auditados e rastreados.',
+    title: 'ISO 9001',
+    description:
+      'Processos padronizados, auditorias recorrentes e KPIs que asseguram excelência em cada etapa da logística de veículos.',
+    downloadUrl: 'https://www.transgabardo.com.br/wp-content/uploads/2024/10/certificado-iso-9001.pdf',
+    ctaLabel: 'Baixar certificado',
   },
   {
-    icon: Award,
-    title: 'Selo Verde 2024',
-    description: 'Reconhecimento por práticas ambientais e gestão de resíduos certificadas.',
+    icon: Leaf,
+    title: 'ISO 14001',
+    description:
+      'Inventário de emissões desde 2017, matriz energética renovável e infraestrutura pensada para reduzir impactos ambientais.',
+    downloadUrl: 'https://www.transgabardo.com.br/wp-content/uploads/2024/10/certificado-iso-14001.pdf',
+    ctaLabel: 'Baixar certificado',
   },
   {
-    icon: Globe2,
-    title: 'Pacto Global ONU',
-    description: 'Compromisso público com os 10 princípios de sustentabilidade e direitos humanos.',
+    icon: Shield,
+    title: 'ISO 39001',
+    description:
+      'Protocolos rigorosos de segurança, central de controle 24/7 e treinamentos que garantem operações com zero avarias críticas.',
+    downloadUrl: 'https://www.transgabardo.com.br/wp-content/uploads/2024/10/certificado-iso-39001.pdf',
+    ctaLabel: 'Baixar certificado',
   },
 ];
 
@@ -195,33 +180,6 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
 
         <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-16 grid gap-8 sm:gap-10 md:gap-12 xl:grid-cols-12 xl:items-start">
           <div className="space-y-6 sm:space-y-8 md:space-y-10 xl:col-span-8">
-            <div className="grid gap-4">
-              {qualityBadges.map((badge, index) => {
-                const Icon = badge.icon;
-                return (
-                  <motion.div
-                    key={badge.title}
-                    initial={{ opacity: 0, y: 18 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: 0.45, delay: index * 0.05 }}
-                    className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 backdrop-blur-sm"
-                  >
-                    <div className="absolute -right-12 -top-10 h-20 w-20 rounded-full bg-gabardo-light-blue/15 blur-3xl" aria-hidden />
-                    <div className="relative flex items-start gap-3 sm:gap-4">
-                      <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg sm:rounded-xl bg-white/10 text-gabardo-light-blue">
-                        <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                      </div>
-                      <div>
-                        <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em] sm:tracking-[0.26em] text-white/85">{badge.title}</h3>
-                        <p className="mt-1.5 sm:mt-2 text-[0.7rem] sm:text-xs text-white/65 leading-relaxed">{badge.description}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-
             <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {pillars.map((pillar, index) => (
                 <motion.div
@@ -274,6 +232,46 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                   </div>
                 </motion.div>
               ))}
+            </div>
+
+            <div className="grid gap-4">
+              {qualityBadges.map((badge, index) => {
+                const Icon = badge.icon;
+                return (
+                  <motion.div
+                    key={badge.title}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.45, delay: index * 0.05 }}
+                    className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-5 backdrop-blur-sm"
+                  >
+                    <div className="absolute -right-12 -top-10 h-20 w-20 rounded-full bg-gabardo-light-blue/15 blur-3xl" aria-hidden />
+                    <div className="relative flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+                      <div className="flex items-start gap-3 sm:gap-4">
+                        <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg sm:rounded-xl bg-white/10 text-gabardo-light-blue">
+                          <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
+                        </div>
+                        <div>
+                          <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em] sm:tracking-[0.26em] text-white/85">{badge.title}</h3>
+                          <p className="mt-1.5 sm:mt-2 text-[0.7rem] sm:text-xs text-white/65 leading-relaxed">{badge.description}</p>
+                        </div>
+                      </div>
+                      {badge.downloadUrl && (
+                        <a
+                          href={badge.downloadUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center rounded-full border border-gabardo-light-blue/30 bg-gabardo-light-blue/15 p-2 text-gabardo-light-blue transition-colors hover:bg-gabardo-light-blue/25 sm:p-2.5"
+                          aria-label={`Download ${badge.title}`}
+                        >
+                          <Download className="h-4 w-4" strokeWidth={2.2} />
+                        </a>
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
 

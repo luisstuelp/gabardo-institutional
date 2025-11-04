@@ -82,7 +82,7 @@ export default function OrcamentoHero() {
           </motion.a>
 
           <motion.a
-            href="https://www.google.com/maps/search/?api=1&query=Av+Fernando+Ferrari+700+Anchieta+Porto+Alegre+RS"
+            href="https://maps.app.goo.gl/XUcq2YCMRnNZcwrz5"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
