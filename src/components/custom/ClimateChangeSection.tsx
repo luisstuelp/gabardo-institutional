@@ -269,7 +269,7 @@ export default function ClimateChangeSection() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-lg text-gray-600 font-light leading-relaxed"
             >
-              A Gabardo alcançou, em 2024, um feito histórico no setor logístico: se tornou a primeira transportadora no mundo a atingir o status de carbono negativo. Este marco é resultado de um esforço contínuo desde 2017, quando a empresa começou a realizar seus inventários de emissões de gases de efeito estufa (GEE), com o objetivo de medir e reduzir seu impacto ambiental.
+              A Gabardo teve, em setembro de 2025, o reconhecimento oficial do feito histórico no setor logístico: tornou-se a primeira transportadora no mundo certificada como carbono negativa, em auditoria que consolidou o inventário de emissões de 2024. O marco coroa uma jornada iniciada em 2017, quando a companhia passou a medir sistematicamente os gases de efeito estufa para direcionar investimentos em eficiência, mitigação e regeneração ambiental.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -278,7 +278,7 @@ export default function ClimateChangeSection() {
               transition={{ duration: 0.6, delay: 0.55 }}
               className="mt-6 text-lg text-gray-600 font-light leading-relaxed"
             >
-              Em 2024, a Gabardo obteve um saldo negativo de -23.890,90 tCO₂e, removendo mais carbono da atmosfera do que emitiu. Com um inventário de 57.884,58 tCO₂e e um total de carbono equivalente disponível de 81.775,48 tCO₂e, a empresa lidera a transição do setor logístico para um modelo mais sustentável e responsável. Este marco foi oficialmente reconhecido em 2025, com a certificação de carbono negativo emitida pela Worton ESG, consolidando o monitoramento contínuo das emissões, a compensação efetiva e a implementação de projetos de captura de CO₂ que vão além da neutralização.
+              No inventário 2024, a Gabardo registrou saldo negativo de -23.890,90 tCO₂e — volume compensado equivalente ao sequestro anual de aproximadamente 1,1 milhão de árvores adultas (estimativa de 21 kg de CO₂ absorvidos por árvore/ano, DOE/EPA) e suficiente para neutralizar as emissões anuais de cerca de 17,8 mil automóveis leves. Com 81.775,48 tCO₂e disponíveis no Programa Carbono Negativo Gabardo, a empresa mantém monitoramento contínuo, projetos de captura que vão além da neutralização e uma governança ambiental validada pela Worton ESG.
             </motion.p>
           </div>
           <motion.div
