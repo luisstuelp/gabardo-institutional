@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Header } from "@/components/layout/Header";
 import Footer from '@/components/layout/Footer';
 import TrabalheConoscoHeroSection from '@/components/custom/TrabalheConoscoHeroSection';
@@ -10,7 +11,17 @@ export default function ContatoPage() {
       <Header variant="dark" />
       <TrabalheConoscoHeroSection />
       <ContactInfoSection />
-      <ContactFormSection />
+      <Suspense
+        fallback={
+          <section className="py-20">
+            <div className="container mx-auto px-4 text-center text-gray-500">
+              Carregando formulário...
+            </div>
+          </section>
+        }
+      >
+        <ContactFormSection />
+      </Suspense>
       <Footer />
     </main>
   );
