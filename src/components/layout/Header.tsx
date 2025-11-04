@@ -48,12 +48,12 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
     'group inline-flex items-center gap-2 rounded-full border px-5 py-2 text-[0.58rem] font-semibold uppercase tracking-[0.24em] transition-all duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent';
 
   const quickLinkPrimaryClasses = isDarkSurface
-    ? 'border-white/35 bg-transparent text-white hover:bg-white/12 hover:text-white focus-visible:ring-white/50'
-    : 'border-gabardo-blue/30 bg-transparent text-gabardo-blue hover:bg-gabardo-light-blue/10 focus-visible:ring-gabardo-blue/40';
+    ? 'border-white/30 bg-transparent text-white/90 hover:bg-white/12 hover:text-white focus-visible:ring-white/50'
+    : 'border-gabardo-blue/25 bg-transparent text-gabardo-blue/90 hover:bg-gabardo-light-blue/12 focus-visible:ring-gabardo-blue/40';
 
   const quickLinkSecondaryClasses = isDarkSurface
-    ? 'border-white/25 bg-transparent text-white/80 hover:bg-white/10 hover:text-white focus-visible:ring-white/40'
-    : 'border-gabardo-blue/25 bg-transparent text-gabardo-blue/80 hover:bg-gabardo-light-blue/10 hover:text-gabardo-blue focus-visible:ring-gabardo-light-blue/30';
+    ? 'border-white/30 bg-transparent text-white/90 hover:bg-white/10 hover:text-white focus-visible:ring-white/40'
+    : 'border-gabardo-blue/25 bg-transparent text-gabardo-blue/90 hover:bg-gabardo-light-blue/12 focus-visible:ring-gabardo-light-blue/30';
 
   const logoFilter = isDarkSurface
     ? 'brightness(0) saturate(100%) invert(95%) sepia(7%) saturate(138%) hue-rotate(183deg) brightness(112%) contrast(100%)'
