@@ -35,11 +35,14 @@ interface FullScreenNavProps {
 
 const ANIMATION_DURATION = 800;
 
+const BLUR_DATA_URL =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4z/C/HwAFgwJ/mi3c9wAAAABJRU5ErkJggg==';
+
 const SLIDES = [
-  { id: 'slide-1', src: '/images/hero-home.jpg', alt: 'Frota Gabardo em operação' },
-  { id: 'slide-2', src: '/images/gabardo-hero-03.JPG', alt: 'Infraestrutura Gabardo' },
-  { id: 'slide-3', src: '/images/Certificados.JPG', alt: 'Equipe Gabardo certificada' },
-  { id: 'slide-4', src: '/images/unidades/sjp-1.jpg', alt: 'Unidade São José dos Pinhais' },
+  { id: 'slide-1', src: '/images/gabardo-hero-01.JPG', alt: 'Frota Gabardo em operação' },
+  { id: 'slide-2', src: '/images/gabardo-hero-02.JPG', alt: 'Infraestrutura Gabardo' },
+  { id: 'slide-3', src: '/images/gabardo-hero-03.JPG', alt: 'Equipe Gabardo certificada' },
+  { id: 'slide-4', src: '/images/gabardo-hero-04.JPG', alt: 'Unidade São José dos Pinhais' },
 ];
 
 const FullScreenNav: React.FC<FullScreenNavProps> = ({
@@ -94,7 +97,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
     if (!isOpen) return;
     const slideInterval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
-    }, 5500);
+    }, 3500);
 
     return () => clearInterval(slideInterval);
   }, [isOpen]);
@@ -331,12 +334,25 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
               {SLIDES.map((slide, index) => (
                 <div
                   key={slide.id}
-                  className={`absolute inset-0 bg-cover bg-center transition-opacity duration-[1200ms] ${
+                  className={`absolute inset-0 transition-opacity duration-[1200ms] ${
                     index === currentSlide ? 'opacity-100' : 'opacity-0'
                   }`}
-                  style={{ backgroundImage: `url(${slide.src})` }}
                   aria-hidden={index !== currentSlide}
-                />
+                >
+                  <Image
+                    src={slide.src}
+                    alt={slide.alt}
+                    fill
+                    priority={index === 0}
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={index === currentSlide ? 'high' : 'low'}
+                    placeholder="blur"
+                    blurDataURL={BLUR_DATA_URL}
+                    quality={48}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
               ))}
               <div className="absolute inset-0 bg-gradient-to-br from-[#040b15]/80 via-[#081427]/65 to-[#0c1f3d]/80" />
             </motion.div>
