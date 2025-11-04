@@ -14,6 +14,7 @@ interface FormData {
   sector: string;
   subject: string;
   message: string;
+  privacyAccepted: boolean;
 }
 
 export default function ContactFormSection() {
@@ -25,6 +26,7 @@ export default function ContactFormSection() {
   const [phone, setPhone] = useState('');
   const [selectedSector, setSelectedSector] = useState('');
   const [initialSector, setInitialSector] = useState('');
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const sectorOptions = useMemo(() => [
     'Operacional',
     'Frota',
@@ -70,7 +72,14 @@ export default function ContactFormSection() {
       sector: (formData.get('sector') as string) || selectedSector,
       subject: formData.get('subject') as string,
       message: formData.get('message') as string,
+      privacyAccepted,
     };
+
+    if (!privacyAccepted) {
+      setLoading(false);
+      setError('Você precisa aceitar a política de privacidade para enviar a mensagem.');
+      return;
+    }
 
     try {
       const response = await fetch('/api/contact', {
@@ -87,6 +96,7 @@ export default function ContactFormSection() {
         (event.target as HTMLFormElement).reset();
         setPhone('');
         setSelectedSector(initialSector);
+        setPrivacyAccepted(false);
       } else {
         setError('Erro ao enviar mensagem. Tente novamente.');
       }
@@ -418,6 +428,37 @@ export default function ContactFormSection() {
                 />
               </motion.div>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 1 }}
+              className="rounded-2xl border border-neutral-200 bg-neutral-50/70 p-5 text-sm text-neutral-700"
+            >
+              <label className="flex items-start gap-3 text-left">
+                <input
+                  type="checkbox"
+                  name="privacyAccepted"
+                  checked={privacyAccepted}
+                  onChange={(event) => setPrivacyAccepted(event.target.checked)}
+                  className="mt-1 h-5 w-5 rounded border-neutral-300 text-gabardo-blue focus:ring-gabardo-light-blue"
+                  required
+                />
+                <span>
+                  Estou ciente e concordo com a{' '}
+                  <a
+                    href="/politica-de-privacidade"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-semibold text-gabardo-blue underline-offset-4 hover:underline"
+                  >
+                    Política de Privacidade
+                  </a>{' '}
+                  da Gabardo Transportes.
+                </span>
+              </label>
+            </motion.div>
 
             {/* Submit Button */}
             <motion.div

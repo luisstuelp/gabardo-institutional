@@ -29,7 +29,9 @@ const statusStyles: Record<QuoteStatus, string> = {
 
 function StatusBadge({ status }: { status: QuoteStatus }) {
   return (
-    <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] ${statusStyles[status]}`}>
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] ${statusStyles[status]}`}
+    >
       <Badge className="h-3 w-3" />
       {quoteStatusLabels[status]}
     </span>
@@ -43,14 +45,14 @@ function QuoteCard({ quote, onChangeStatus }: { quote: QuoteRecord; onChangeStat
         <div>
           <h2 className="text-2xl font-semibold text-white">{quote.name}</h2>
           {quote.company && <p className="text-sm text-white/60">{quote.company}</p>}
-          <p className="mt-1 text-xs uppercase tracking-[0.3em] text-white/40">Registrado em {formatDateTime(quote.created_at)}</p>
+          <p className="mt-1 text-xs uppercase tracking-[0.15em] text-white/50">Registrado em {formatDateTime(quote.created_at)}</p>
         </div>
         <StatusBadge status={quote.status} />
       </header>
 
       <section className="mt-6 grid gap-6 lg:grid-cols-3">
         <div className="space-y-3">
-          <h3 className="text-xs uppercase tracking-[0.3em] text-white/50">Contato</h3>
+          <h3 className="text-xs uppercase tracking-[0.15em] text-white/60">Contato</h3>
           <div className="flex items-center gap-2 text-sm text-white/70">
             <Mail className="h-4 w-4 text-white/40" />
             <a href={`mailto:${quote.email}`} className="hover:underline">
@@ -66,7 +68,7 @@ function QuoteCard({ quote, onChangeStatus }: { quote: QuoteRecord; onChangeStat
         </div>
 
         <div className="space-y-3">
-          <h3 className="text-xs uppercase tracking-[0.3em] text-white/50">Veículo</h3>
+          <h3 className="text-xs uppercase tracking-[0.15em] text-white/60">Veículo</h3>
           <p className="text-sm text-white/80">
             {quote.vehicle_brand} {quote.vehicle_model} — {quote.vehicle_year}
           </p>
@@ -76,7 +78,7 @@ function QuoteCard({ quote, onChangeStatus }: { quote: QuoteRecord; onChangeStat
         </div>
 
         <div className="space-y-3">
-          <h3 className="text-xs uppercase tracking-[0.3em] text-white/50">Origem e destino</h3>
+          <h3 className="text-xs uppercase tracking-[0.15em] text-white/60">Origem e destino</h3>
           <p className="flex items-center gap-2 text-sm text-white/70">
             <MapPin className="h-4 w-4 text-white/40" />
             {quote.origin_city}/{quote.origin_state}
@@ -91,13 +93,13 @@ function QuoteCard({ quote, onChangeStatus }: { quote: QuoteRecord; onChangeStat
 
       {quote.message && (
         <section className="mt-6 rounded-xl border border-white/10 bg-white/5 p-4">
-          <h3 className="text-xs uppercase tracking-[0.3em] text-white/50">Mensagem adicional</h3>
+          <h3 className="text-xs uppercase tracking-[0.15em] text-white/60">Mensagem adicional</h3>
           <p className="mt-2 text-sm text-white/70">{quote.message}</p>
         </section>
       )}
 
       <footer className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <div className="text-xs uppercase tracking-[0.3em] text-white/40">
+        <div className="text-xs uppercase tracking-[0.15em] text-white/50">
           Política de privacidade {quote.privacy_accepted ? 'aceita' : 'não aceita'}
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -254,11 +256,11 @@ export default function AdminQuotesList() {
       <header className="flex flex-col gap-6 border-b border-white/10 pb-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="space-y-2">
           <h1 className="text-3xl font-semibold text-white">Orçamentos recebidos</h1>
-          <p className="max-w-2xl text-white/60">
+          <p className="max-w-2xl text-white/70">
             Acompanhe todas as solicitações de transporte enviadas pelo site. A lista é atualizada automaticamente com novas
             submissões e você pode mudar o status conforme o atendimento evolui.
           </p>
-          <div className="text-xs uppercase tracking-[0.3em] text-white/40">
+          <div className="text-xs uppercase tracking-[0.15em] text-white/50">
             {isRefetching ? 'Atualizando dados…' : `Total listado: ${filteredQuotes.length}`}
           </div>
         </div>

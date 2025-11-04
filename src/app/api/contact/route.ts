@@ -13,6 +13,7 @@ interface ContactFormData {
   subject: string;
   message: string;
   interest: string;
+  privacyAccepted: boolean;
 }
 
 // Enhanced validation function
@@ -34,6 +35,10 @@ function validateFormData(data: ContactFormData): { isValid: boolean; errors: st
 
   if (!data.message || data.message.trim().length < 10) {
     errors.push('Mensagem deve ter pelo menos 10 caracteres');
+  }
+
+  if (!data.privacyAccepted) {
+    errors.push('É necessário aceitar a política de privacidade');
   }
 
   // Length validations
@@ -242,6 +247,7 @@ export async function POST(request: NextRequest) {
       subject: sanitizeInput(body.subject || ''),
       message: sanitizeInput(body.message || ''),
       interest: sanitizeInput(body.interest || ''),
+      privacyAccepted: Boolean(body.privacyAccepted),
     };
 
     // Validate data
@@ -274,7 +280,7 @@ export async function POST(request: NextRequest) {
       interest: formData.interest || null,
       subject: formData.subject,
       message: formData.message,
-      privacy_accepted: false,
+      privacy_accepted: formData.privacyAccepted,
       raw_data: {
         ip,
         userAgent,
