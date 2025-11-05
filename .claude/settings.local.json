@@ -5,7 +5,16 @@
       "Bash(npx supabase:*)",
       "Bash(temp_types.ts)",
       "Bash(npm run build:*)",
-      "Bash(node test-email.js:*)"
+      "Bash(node test-email.js:*)",
+      "Bash(taskkill:*)",
+      "Bash(nul)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(timeout /t 2)",
+      "Bash(Stop-Process -Id 5804 -Force)",
+      "Bash(kill:*)",
+      "Bash(bun run dev)",
+      "Bash(timeout /t 5 /nobreak)"
     ],
     "deny": [],
     "ask": []

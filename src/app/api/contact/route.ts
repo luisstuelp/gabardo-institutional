@@ -443,7 +443,13 @@ export async function POST(request: NextRequest) {
       },
       tls: {
         rejectUnauthorized: false,
+        minVersion: 'TLSv1.2',
+        servername: 'smtp.ls2001.com.br',
+        ciphers: 'HIGH:MEDIUM:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK',
       },
+      connectionTimeout: 30000,
+      greetingTimeout: 30000,
+      socketTimeout: 30000,
     });
 
     const routing = formData.sector ? sectorRouting[formData.sector] : undefined;

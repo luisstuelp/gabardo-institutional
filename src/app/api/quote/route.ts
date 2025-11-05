@@ -430,7 +430,13 @@ async function sendEmail(data: QuoteFormData) {
     },
     tls: {
       rejectUnauthorized: false,
+      minVersion: 'TLSv1.2',
+      servername: smtpHost,
+      ciphers: 'HIGH:MEDIUM:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK',
     },
+    connectionTimeout: 30000,
+    greetingTimeout: 30000,
+    socketTimeout: 30000,
   });
 
   // Enviar email para equipe comercial
