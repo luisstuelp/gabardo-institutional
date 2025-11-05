@@ -187,28 +187,227 @@ function validate(data: QuoteFormData): ValidationResult {
 
 function renderEmailTemplate(data: QuoteFormData): string {
   return `
-    <h1>Pedido de Cotação - Transporte de Veículos</h1>
-    <h2>Dados do Veículo</h2>
-    <p><strong>Categoria:</strong> ${data.vehicleCategory}</p>
-    <p><strong>Marca:</strong> ${data.vehicleBrand}</p>
-    <p><strong>Modelo:</strong> ${data.vehicleModel}</p>
-    <p><strong>Ano:</strong> ${data.vehicleYear}</p>
-    <p><strong>Valor declarado:</strong> ${formatCurrency(data.vehicleValue)}</p>
-    <p><strong>Observação:</strong> ${formatOptional(data.vehicleObservation)}</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedido de Cotação - Gabardo Transportes</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+  <table role="presentation" style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td style="padding: 20px 0;">
+        <table role="presentation" style="width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); padding: 30px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: bold;">🚛 Novo Pedido de Cotação</h1>
+              <p style="margin: 10px 0 0 0; color: #e0e7ff; font-size: 14px;">Transporte de Veículos</p>
+            </td>
+          </tr>
 
-    <h2>Dados do Trajeto</h2>
-    <p><strong>Origem:</strong> ${data.originCity} - ${data.originState}</p>
-    <p><strong>Destino:</strong> ${data.destinationCity} - ${data.destinationState}</p>
-    <p><strong>Observação do trajeto:</strong> ${formatOptional(data.routeObservation)}</p>
+          <!-- Vehicle Info -->
+          <tr>
+            <td style="padding: 30px;">
+              <h2 style="margin: 0 0 15px 0; color: #1f2937; font-size: 18px; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">🚗 Dados do Veículo</h2>
+              <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 8px 0; width: 50%;">
+                    <strong style="color: #6b7280; font-size: 13px;">Categoria:</strong>
+                    <p style="margin: 3px 0; color: #1f2937; font-size: 15px;">${data.vehicleCategory}</p>
+                  </td>
+                  <td style="padding: 8px 0; width: 50%;">
+                    <strong style="color: #6b7280; font-size: 13px;">Ano:</strong>
+                    <p style="margin: 3px 0; color: #1f2937; font-size: 15px;">${data.vehicleYear}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; width: 50%;">
+                    <strong style="color: #6b7280; font-size: 13px;">Marca:</strong>
+                    <p style="margin: 3px 0; color: #1f2937; font-size: 15px;">${data.vehicleBrand}</p>
+                  </td>
+                  <td style="padding: 8px 0; width: 50%;">
+                    <strong style="color: #6b7280; font-size: 13px;">Modelo:</strong>
+                    <p style="margin: 3px 0; color: #1f2937; font-size: 15px;">${data.vehicleModel}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="padding: 8px 0;">
+                    <strong style="color: #6b7280; font-size: 13px;">Valor Declarado:</strong>
+                    <p style="margin: 3px 0; color: #059669; font-size: 18px; font-weight: bold;">${formatCurrency(data.vehicleValue)}</p>
+                  </td>
+                </tr>
+                ${data.vehicleObservation ? `
+                <tr>
+                  <td colspan="2" style="padding: 8px 0;">
+                    <strong style="color: #6b7280; font-size: 13px;">Observações:</strong>
+                    <p style="margin: 3px 0; color: #1f2937; font-size: 14px;">${data.vehicleObservation}</p>
+                  </td>
+                </tr>
+                ` : ''}
+              </table>
+            </td>
+          </tr>
 
-    <h2>Contato</h2>
-    <p><strong>Nome:</strong> ${data.name}</p>
-    <p><strong>Empresa:</strong> ${formatOptional(data.company)}</p>
-    <p><strong>E-mail:</strong> ${data.email}</p>
-    <p><strong>Telefone:</strong> ${data.phone}</p>
+          <!-- Route Info -->
+          <tr>
+            <td style="padding: 0 30px 30px 30px;">
+              <h2 style="margin: 0 0 15px 0; color: #1f2937; font-size: 18px; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">📍 Trajeto</h2>
+              <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 15px; background-color: #f0f9ff; border-radius: 8px; width: 48%;">
+                    <strong style="color: #059669; font-size: 13px; text-transform: uppercase;">🟢 Origem</strong>
+                    <p style="margin: 5px 0 0 0; color: #1f2937; font-size: 16px; font-weight: bold;">${data.originCity}, ${data.originState}</p>
+                  </td>
+                  <td style="width: 4%; text-align: center; color: #9ca3af; font-size: 20px;">→</td>
+                  <td style="padding: 15px; background-color: #fef3c7; border-radius: 8px; width: 48%;">
+                    <strong style="color: #dc2626; font-size: 13px; text-transform: uppercase;">🔴 Destino</strong>
+                    <p style="margin: 5px 0 0 0; color: #1f2937; font-size: 16px; font-weight: bold;">${data.destinationCity}, ${data.destinationState}</p>
+                  </td>
+                </tr>
+                ${data.routeObservation ? `
+                <tr>
+                  <td colspan="3" style="padding: 15px 0 0 0;">
+                    <strong style="color: #6b7280; font-size: 13px;">Observações do Trajeto:</strong>
+                    <p style="margin: 5px 0 0 0; color: #1f2937; font-size: 14px;">${data.routeObservation}</p>
+                  </td>
+                </tr>
+                ` : ''}
+              </table>
+            </td>
+          </tr>
 
-    <h2>Mensagem adicional</h2>
-    <p>${formatOptional(data.message)}</p>
+          <!-- Contact Info -->
+          <tr>
+            <td style="padding: 0 30px 30px 30px;">
+              <h2 style="margin: 0 0 15px 0; color: #1f2937; font-size: 18px; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">👤 Dados de Contato</h2>
+              <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #f9fafb; border-radius: 8px; padding: 15px;">
+                <tr>
+                  <td style="padding: 8px;">
+                    <strong style="color: #6b7280; font-size: 13px;">Nome:</strong>
+                    <p style="margin: 3px 0; color: #1f2937; font-size: 15px;">${data.name}</p>
+                  </td>
+                </tr>
+                ${data.company ? `
+                <tr>
+                  <td style="padding: 8px;">
+                    <strong style="color: #6b7280; font-size: 13px;">Empresa:</strong>
+                    <p style="margin: 3px 0; color: #1f2937; font-size: 15px;">${data.company}</p>
+                  </td>
+                </tr>
+                ` : ''}
+                <tr>
+                  <td style="padding: 8px;">
+                    <strong style="color: #6b7280; font-size: 13px;">Email:</strong>
+                    <p style="margin: 3px 0;"><a href="mailto:${data.email}" style="color: #3b82f6; text-decoration: none; font-size: 15px;">${data.email}</a></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px;">
+                    <strong style="color: #6b7280; font-size: 13px;">Telefone:</strong>
+                    <p style="margin: 3px 0;"><a href="tel:${data.phone}" style="color: #3b82f6; text-decoration: none; font-size: 15px;">${data.phone}</a></p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          ${data.message ? `
+          <!-- Additional Message -->
+          <tr>
+            <td style="padding: 0 30px 30px 30px;">
+              <h2 style="margin: 0 0 15px 0; color: #1f2937; font-size: 18px; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">💬 Mensagem Adicional</h2>
+              <div style="background-color: #f0f9ff; border-left: 4px solid #3b82f6; padding: 15px; border-radius: 4px;">
+                <p style="margin: 0; color: #1f2937; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${data.message}</p>
+              </div>
+            </td>
+          </tr>
+          ` : ''}
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
+              <p style="margin: 0; color: #6b7280; font-size: 12px;">Este email foi enviado automaticamente pelo formulário de orçamento</p>
+              <p style="margin: 5px 0 0 0; color: #6b7280; font-size: 12px;">Gabardo Transportes © ${new Date().getFullYear()}</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `;
+}
+
+function renderConfirmationEmailTemplate(data: QuoteFormData): string {
+  return `
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmação - Pedido de Cotação Recebido</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+  <table role="presentation" style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td style="padding: 20px 0;">
+        <table role="presentation" style="width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); padding: 30px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: bold;">✓ Pedido de Cotação Recebido!</h1>
+              <p style="margin: 10px 0 0 0; color: #d1fae5; font-size: 14px;">Obrigado por confiar na Gabardo</p>
+            </td>
+          </tr>
+
+          <!-- Content -->
+          <tr>
+            <td style="padding: 30px;">
+              <p style="margin: 0 0 20px 0; color: #1f2937; font-size: 16px; line-height: 1.6;">Olá <strong>${data.name}</strong>,</p>
+              <p style="margin: 0 0 20px 0; color: #1f2937; font-size: 16px; line-height: 1.6;">Recebemos seu pedido de cotação para transporte de veículo. Nossa equipe comercial irá analisar e retornar com a melhor proposta em breve.</p>
+
+              <div style="background-color: #f0f9ff; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 4px;">
+                <p style="margin: 0 0 15px 0; color: #374151; font-size: 14px;"><strong>Resumo do seu pedido:</strong></p>
+                <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                  <tr>
+                    <td style="padding: 5px 0;">
+                      <span style="color: #6b7280; font-size: 13px;">Veículo:</span>
+                      <strong style="color: #1f2937; font-size: 14px; display: block;">${data.vehicleBrand} ${data.vehicleModel} (${data.vehicleYear})</strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 5px 0;">
+                      <span style="color: #6b7280; font-size: 13px;">Trajeto:</span>
+                      <strong style="color: #1f2937; font-size: 14px; display: block;">${data.originCity}/${data.originState} → ${data.destinationCity}/${data.destinationState}</strong>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+              <p style="margin: 20px 0 0 0; color: #6b7280; font-size: 14px; line-height: 1.6;">
+                <strong>Prazo de resposta:</strong> Geralmente respondemos em até 24 horas úteis.<br>
+                <strong>Dúvidas urgentes:</strong> Entre em contato pelo telefone comercial ou responda este email.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
+              <p style="margin: 0 0 10px 0; color: #6b7280; font-size: 12px;">Gabardo Transportes</p>
+              <p style="margin: 0 0 10px 0; color: #9ca3af; font-size: 11px;">www.transgabardo.com.br</p>
+              <p style="margin: 0; color: #9ca3af; font-size: 11px;">comercial@transgabardo.com.br</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
   `;
 }
 
@@ -234,14 +433,39 @@ async function sendEmail(data: QuoteFormData) {
     },
   });
 
+  // Enviar email para equipe comercial
   await transporter.sendMail({
-    from: smtpFrom,
+    from: '"Gabardo Transportes" <contato@ls2001.com.br>',
     to: 'comercial@transgabardo.com.br',
     cc: 'ls2001@terra.com.br',
     subject: `[Gabardo] Pedido de cotação - ${data.vehicleBrand} ${data.vehicleModel || data.vehicleCategory}`,
     html: renderEmailTemplate(data),
     replyTo: data.email,
+    headers: {
+      'X-Priority': '1',
+      'X-MSMail-Priority': 'High',
+      'Importance': 'high',
+      'X-Mailer': 'Gabardo Transportes Quote Form',
+      'List-Unsubscribe': '<mailto:comercial@transgabardo.com.br>',
+    }
   });
+
+  // Enviar email de confirmação para o cliente
+  try {
+    await transporter.sendMail({
+      from: '"Gabardo Transportes" <contato@ls2001.com.br>',
+      to: data.email,
+      subject: '✓ Pedido de Cotação Recebido - Gabardo Transportes',
+      html: renderConfirmationEmailTemplate(data),
+      headers: {
+        'X-Mailer': 'Gabardo Transportes Quote Form',
+        'Auto-Submitted': 'auto-replied',
+      }
+    });
+    console.log('✅ Email de confirmação enviado para:', data.email);
+  } catch (confirmError) {
+    console.warn('⚠️ Não foi possível enviar email de confirmação:', confirmError);
+  }
 }
 
 export async function POST(request: NextRequest) {

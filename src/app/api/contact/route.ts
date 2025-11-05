@@ -192,16 +192,157 @@ function logContactSubmission(data: ContactFormData, ip: string, userAgent?: str
 
 function generateEmailTemplate(data: ContactFormData): string {
   return `
-    <h1>Nova mensagem de contato</h1>
-    <p><strong>Nome:</strong> ${data.name}</p>
-    <p><strong>Email:</strong> ${data.email}</p>
-    <p><strong>Telefone:</strong> ${data.phone}</p>
-    <p><strong>Setor:</strong> ${data.sector || 'Não informado'}</p>
-    <p><strong>Empresa:</strong> ${data.company}</p>
-    <p><strong>Interesse:</strong> ${data.interest}</p>
-    <p><strong>Assunto:</strong> ${data.subject}</p>
-    <p><strong>Mensagem:</strong></p>
-    <p>${data.message}</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova Mensagem de Contato - Gabardo Transportes</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+  <table role="presentation" style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td style="padding: 20px 0;">
+        <table role="presentation" style="width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); padding: 30px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: bold;">Nova Mensagem de Contato</h1>
+              <p style="margin: 10px 0 0 0; color: #e0e7ff; font-size: 14px;">Gabardo Transportes</p>
+            </td>
+          </tr>
+
+          <!-- Content -->
+          <tr>
+            <td style="padding: 30px;">
+              <table role="presentation" style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
+                    <strong style="color: #374151; font-size: 14px;">Nome:</strong>
+                    <p style="margin: 5px 0 0 0; color: #1f2937; font-size: 16px;">${data.name}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
+                    <strong style="color: #374151; font-size: 14px;">Email:</strong>
+                    <p style="margin: 5px 0 0 0; color: #1f2937; font-size: 16px;"><a href="mailto:${data.email}" style="color: #3b82f6; text-decoration: none;">${data.email}</a></p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
+                    <strong style="color: #374151; font-size: 14px;">Telefone:</strong>
+                    <p style="margin: 5px 0 0 0; color: #1f2937; font-size: 16px;"><a href="tel:${data.phone}" style="color: #3b82f6; text-decoration: none;">${data.phone}</a></p>
+                  </td>
+                </tr>
+                ${data.company ? `
+                <tr>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
+                    <strong style="color: #374151; font-size: 14px;">Empresa:</strong>
+                    <p style="margin: 5px 0 0 0; color: #1f2937; font-size: 16px;">${data.company}</p>
+                  </td>
+                </tr>
+                ` : ''}
+                ${data.sector ? `
+                <tr>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
+                    <strong style="color: #374151; font-size: 14px;">Setor:</strong>
+                    <p style="margin: 5px 0 0 0; color: #1f2937; font-size: 16px;">${data.sector}</p>
+                  </td>
+                </tr>
+                ` : ''}
+                ${data.interest ? `
+                <tr>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
+                    <strong style="color: #374151; font-size: 14px;">Interesse:</strong>
+                    <p style="margin: 5px 0 0 0; color: #1f2937; font-size: 16px;">${data.interest}</p>
+                  </td>
+                </tr>
+                ` : ''}
+                <tr>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
+                    <strong style="color: #374151; font-size: 14px;">Assunto:</strong>
+                    <p style="margin: 5px 0 0 0; color: #1f2937; font-size: 16px;">${data.subject}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 20px 0;">
+                    <strong style="color: #374151; font-size: 14px;">Mensagem:</strong>
+                    <div style="margin: 10px 0 0 0; padding: 15px; background-color: #f9fafb; border-left: 4px solid #3b82f6; border-radius: 4px;">
+                      <p style="margin: 0; color: #1f2937; font-size: 15px; line-height: 1.6; white-space: pre-wrap;">${data.message}</p>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
+              <p style="margin: 0; color: #6b7280; font-size: 12px;">Este email foi enviado automaticamente pelo formulário de contato do site</p>
+              <p style="margin: 5px 0 0 0; color: #6b7280; font-size: 12px;">Gabardo Transportes © ${new Date().getFullYear()}</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `;
+}
+
+function generateConfirmationEmailTemplate(data: ContactFormData): string {
+  return `
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmação - Mensagem Recebida</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+  <table role="presentation" style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td style="padding: 20px 0;">
+        <table role="presentation" style="width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+          <!-- Header -->
+          <tr>
+            <td style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); padding: 30px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: bold;">✓ Mensagem Recebida</h1>
+              <p style="margin: 10px 0 0 0; color: #d1fae5; font-size: 14px;">Obrigado por entrar em contato!</p>
+            </td>
+          </tr>
+
+          <!-- Content -->
+          <tr>
+            <td style="padding: 30px;">
+              <p style="margin: 0 0 20px 0; color: #1f2937; font-size: 16px; line-height: 1.6;">Olá <strong>${data.name}</strong>,</p>
+              <p style="margin: 0 0 20px 0; color: #1f2937; font-size: 16px; line-height: 1.6;">Recebemos sua mensagem e retornaremos em breve. Nossa equipe está analisando sua solicitação.</p>
+
+              <div style="background-color: #f0f9ff; border-left: 4px solid #3b82f6; padding: 15px; margin: 20px 0; border-radius: 4px;">
+                <p style="margin: 0 0 10px 0; color: #374151; font-size: 14px;"><strong>Resumo da sua mensagem:</strong></p>
+                <p style="margin: 5px 0; color: #6b7280; font-size: 13px;"><strong>Assunto:</strong> ${data.subject}</p>
+                ${data.sector ? `<p style="margin: 5px 0; color: #6b7280; font-size: 13px;"><strong>Setor:</strong> ${data.sector}</p>` : ''}
+              </div>
+
+              <p style="margin: 20px 0 0 0; color: #6b7280; font-size: 14px; line-height: 1.6;">Se precisar de atendimento urgente, entre em contato pelos telefones:<br><strong>+55 (11) XXXX-XXXX</strong></p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
+              <p style="margin: 0 0 10px 0; color: #6b7280; font-size: 12px;">Gabardo Transportes</p>
+              <p style="margin: 0; color: #9ca3af; font-size: 11px;">www.transgabardo.com.br</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
   `;
 }
 
@@ -312,21 +453,49 @@ export async function POST(request: NextRequest) {
     console.log('📧 Enviando email para:', { to: toRecipients, cc: ccRecipients, sector: formData.sector });
 
     let emailSent = false;
+    let confirmationSent = false;
     let emailErrorMsg = null;
 
     try {
+      // Enviar email para o setor responsável
       const info = await transporter.sendMail({
-        from: 'contato@ls2001.com.br',
+        from: '"Gabardo Transportes" <contato@ls2001.com.br>',
         to: toRecipients,
         cc: ccRecipients,
         subject: `[Gabardo] ${formData.subject}`,
         html: generateEmailTemplate(formData),
-        replyTo: formData.email
+        replyTo: formData.email,
+        headers: {
+          'X-Priority': '1',
+          'X-MSMail-Priority': 'High',
+          'Importance': 'high',
+          'X-Mailer': 'Gabardo Transportes Contact Form',
+          'List-Unsubscribe': '<mailto:contato@transgabardo.com.br>',
+        }
       });
       console.log('✅ Email enviado com sucesso!');
       console.log('📧 Message ID:', info.messageId);
       console.log('📧 Response:', info.response);
       emailSent = true;
+
+      // Enviar email de confirmação para o remetente
+      try {
+        await transporter.sendMail({
+          from: '"Gabardo Transportes" <contato@ls2001.com.br>',
+          to: formData.email,
+          subject: '✓ Mensagem Recebida - Gabardo Transportes',
+          html: generateConfirmationEmailTemplate(formData),
+          headers: {
+            'X-Mailer': 'Gabardo Transportes Contact Form',
+            'Auto-Submitted': 'auto-replied',
+          }
+        });
+        console.log('✅ Email de confirmação enviado para:', formData.email);
+        confirmationSent = true;
+      } catch (confirmError) {
+        console.warn('⚠️ Não foi possível enviar email de confirmação:', confirmError);
+      }
+
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
       console.error('❌ Erro ao enviar email:', errorMessage);
@@ -343,6 +512,7 @@ export async function POST(request: NextRequest) {
         timestamp: new Date().toISOString(),
         id: `contact_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         emailSent,
+        confirmationSent,
         ...(emailErrorMsg && { emailError: emailErrorMsg }),
       },
       { status: 200 }
