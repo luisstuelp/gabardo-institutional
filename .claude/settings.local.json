@@ -4,7 +4,8 @@
       "Bash(bunx supabase:*)",
       "Bash(npx supabase:*)",
       "Bash(temp_types.ts)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(node test-email.js:*)"
     ],
     "deny": [],
     "ask": []

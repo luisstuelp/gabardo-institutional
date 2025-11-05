@@ -311,8 +311,11 @@ export async function POST(request: NextRequest) {
 
     console.log('📧 Enviando email para:', { to: toRecipients, cc: ccRecipients, sector: formData.sector });
 
+    let emailSent = false;
+    let emailErrorMsg = null;
+
     try {
-      await transporter.sendMail({
+      const info = await transporter.sendMail({
         from: 'contato@ls2001.com.br',
         to: toRecipients,
         cc: ccRecipients,
@@ -321,18 +324,26 @@ export async function POST(request: NextRequest) {
         replyTo: formData.email
       });
       console.log('✅ Email enviado com sucesso!');
-    } catch (emailError) {
-      console.error('❌ Erro ao enviar email:', emailError);
+      console.log('📧 Message ID:', info.messageId);
+      console.log('📧 Response:', info.response);
+      emailSent = true;
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
+      console.error('❌ Erro ao enviar email:', errorMessage);
+      console.error('📋 Detalhes:', error);
+      emailErrorMsg = errorMessage;
       console.warn('⚠️ Continuando apesar do erro no email...');
     }
 
     // Success response
     console.log('✅ Contact form submission successful');
     return NextResponse.json(
-      { 
+      {
         message: 'Mensagem enviada com sucesso!',
         timestamp: new Date().toISOString(),
-        id: `contact_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+        id: `contact_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        emailSent,
+        ...(emailErrorMsg && { emailError: emailErrorMsg }),
       },
       { status: 200 }
     );

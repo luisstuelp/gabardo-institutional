@@ -296,12 +296,19 @@ export async function POST(request: NextRequest) {
     console.log('🗂️ Cotação armazenada com ID:', quoteRecord?.id);
 
     console.log('✅ Registro salvo, enviando email...');
-    
+
+    let emailSent = false;
+    let emailError = null;
+
     try {
       await sendEmail(formData);
       console.log('✅ Email enviado com sucesso!');
-    } catch (emailError) {
-      console.error('❌ Erro ao enviar email:', emailError);
+      emailSent = true;
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Erro desconhecido';
+      console.error('❌ Erro ao enviar email:', errorMessage);
+      console.error('📋 Detalhes:', error);
+      emailError = errorMessage;
       // Continue anyway - don't fail the request if email fails
       console.warn('⚠️ Continuando apesar do erro no email...');
     }
@@ -310,6 +317,8 @@ export async function POST(request: NextRequest) {
       {
         message: 'Cotação registrada com sucesso!',
         timestamp: new Date().toISOString(),
+        emailSent,
+        ...(emailError && { emailError }),
       },
       { status: 200 }
     );
