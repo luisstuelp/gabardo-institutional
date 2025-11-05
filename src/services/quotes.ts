@@ -37,6 +37,14 @@ export async function fetchQuoteById(id: string) {
   return data as QuoteRecord;
 }
 
+export async function deleteQuote(id: string) {
+  const { error } = await supabase.from('quotes').delete().eq('id', id);
+
+  if (error) {
+    throw error;
+  }
+}
+
 export async function updateQuoteStatus(id: string, status: QuoteStatus) {
   const { data, error } = await supabase
     .from('quotes')

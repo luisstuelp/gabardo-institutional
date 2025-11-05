@@ -1,10 +1,10 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Badge, Filter, Mail, MapPin, Phone, RefreshCw, Search } from 'lucide-react';
+import { Badge, Filter, Mail, MapPin, Phone, RefreshCw, Search, Trash } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { useQuotes, useUpdateQuoteStatus } from '@/hooks/useQuotes';
+import { useDeleteQuote, useQuotes, useUpdateQuoteStatus } from '@/hooks/useQuotes';
 import type { QuoteRecord, QuoteStatus } from '@/services/quotes';
 import { quoteStatusLabels } from '@/utils/quotes';
 
@@ -38,7 +38,15 @@ function StatusBadge({ status }: { status: QuoteStatus }) {
   );
 }
 
-function QuoteCard({ quote, onChangeStatus }: { quote: QuoteRecord; onChangeStatus: (status: QuoteStatus) => void }) {
+function QuoteCard({
+  quote,
+  onChangeStatus,
+  onDelete,
+}: {
+  quote: QuoteRecord;
+  onChangeStatus: (status: QuoteStatus) => void;
+  onDelete: () => void;
+}) {
   return (
     <article className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-200 hover:border-white/20 hover:bg-white/10">
       <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -136,12 +144,20 @@ function QuoteCard({ quote, onChangeStatus }: { quote: QuoteRecord; onChangeStat
             <Button
               type="button"
               variant="ghost"
-              className="border border-white/15 bg-white/5 text-white hover:border-white/30 hover:bg-white/10"
+              className="border border-white/15 bg-white/5 text-white hover:!border-white hover:!bg-white hover:!text-neutral-900"
               onClick={() => onChangeStatus('archived')}
             >
               Arquivar
             </Button>
           )}
+          <Button
+            type="button"
+            className="bg-red-500 text-white hover:bg-red-500/90"
+            onClick={onDelete}
+          >
+            <Trash className="h-4 w-4" />
+            Excluir
+          </Button>
         </div>
       </footer>
     </article>
@@ -155,6 +171,7 @@ export default function AdminQuotesList() {
     filter === 'all' ? undefined : filter
   );
   const updateStatus = useUpdateQuoteStatus();
+  const deleteQuoteMutation = useDeleteQuote();
 
   const filteredQuotes = useMemo(() => {
     if (!quotes) {
@@ -184,6 +201,17 @@ export default function AdminQuotesList() {
 
   const handleStatusChange = (id: string, status: QuoteStatus) => {
     updateStatus.mutate({ id, status });
+  };
+
+  const handleDelete = (id: string) => {
+    const shouldDelete =
+      typeof window !== 'undefined'
+        ? window.confirm('Tem certeza que deseja excluir este orçamento? Essa ação não pode ser desfeita.')
+        : false;
+
+    if (shouldDelete) {
+      deleteQuoteMutation.mutate(id);
+    }
   };
 
   const renderEmptyState = () => (
@@ -245,7 +273,12 @@ export default function AdminQuotesList() {
     return (
       <div className="space-y-4">
         {filteredQuotes.map((quote) => (
-          <QuoteCard key={quote.id} quote={quote} onChangeStatus={(status) => handleStatusChange(quote.id, status)} />
+          <QuoteCard
+            key={quote.id}
+            quote={quote}
+            onChangeStatus={(status) => handleStatusChange(quote.id, status)}
+            onDelete={() => handleDelete(quote.id)}
+          />
         ))}
       </div>
     );

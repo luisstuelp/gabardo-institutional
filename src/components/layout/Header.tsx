@@ -111,7 +111,7 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
     },
     {
       id: 'transportes-diversos',
-      label: 'Transportes',
+      label: 'Transportes diversos',
       href: 'https://transgabardo.com.br/sistemas/siga.php',
       variant: 'secondary',
     },

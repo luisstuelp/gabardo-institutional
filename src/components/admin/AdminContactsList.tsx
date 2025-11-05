@@ -1,10 +1,10 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Badge, Filter, Mail, Phone, RefreshCw, Search, Briefcase, MessageSquare } from 'lucide-react';
+import { Badge, Filter, Mail, Phone, RefreshCw, Search, Briefcase, MessageSquare, Trash } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { useContacts, useUpdateContactStatus } from '@/hooks/useContacts';
+import { useContacts, useDeleteContact, useUpdateContactStatus } from '@/hooks/useContacts';
 import type { ContactMessageRecord, ContactStatus } from '@/services/contacts';
 import { contactStatusLabels } from '@/utils/contacts';
 
@@ -36,7 +36,15 @@ function StatusBadge({ status }: { status: ContactStatus }) {
   );
 }
 
-function ContactCard({ contact, onChangeStatus }: { contact: ContactMessageRecord; onChangeStatus: (status: ContactStatus) => void }) {
+function ContactCard({
+  contact,
+  onChangeStatus,
+  onDelete,
+}: {
+  contact: ContactMessageRecord;
+  onChangeStatus: (status: ContactStatus) => void;
+  onDelete: () => void;
+}) {
   return (
     <article className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-200 hover:border-white/20 hover:bg-white/10">
       <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -137,12 +145,20 @@ function ContactCard({ contact, onChangeStatus }: { contact: ContactMessageRecor
             <Button
               type="button"
               variant="ghost"
-              className="border border-white/15 bg-white/5 text-white hover:border-white/30 hover:bg-white/10"
+              className="border border-white/15 bg-white/5 text-white hover:!border-white hover:!bg-white hover:!text-neutral-900"
               onClick={() => onChangeStatus('archived')}
             >
               Arquivar
             </Button>
           )}
+          <Button
+            type="button"
+            className="bg-red-500 text-white hover:bg-red-500/90"
+            onClick={onDelete}
+          >
+            <Trash className="h-4 w-4" />
+            Excluir
+          </Button>
         </div>
       </footer>
     </article>
@@ -156,6 +172,7 @@ export default function AdminContactsList() {
     filter === 'all' ? undefined : filter,
   );
   const updateStatus = useUpdateContactStatus();
+  const deleteContactMutation = useDeleteContact();
 
   const filteredContacts = useMemo(() => {
     if (!contacts) {
@@ -186,6 +203,17 @@ export default function AdminContactsList() {
 
   const handleStatusChange = (id: string, status: ContactStatus) => {
     updateStatus.mutate({ id, status });
+  };
+
+  const handleDelete = (id: string) => {
+    const shouldDelete =
+      typeof window !== 'undefined'
+        ? window.confirm('Tem certeza que deseja excluir esta mensagem? Essa ação não pode ser desfeita.')
+        : false;
+
+    if (shouldDelete) {
+      deleteContactMutation.mutate(id);
+    }
   };
 
   const renderEmptyState = () => (
@@ -247,7 +275,12 @@ export default function AdminContactsList() {
     return (
       <div className="space-y-4">
         {filteredContacts.map((contact) => (
-          <ContactCard key={contact.id} contact={contact} onChangeStatus={(status) => handleStatusChange(contact.id, status)} />
+          <ContactCard
+            key={contact.id}
+            contact={contact}
+            onChangeStatus={(status) => handleStatusChange(contact.id, status)}
+            onDelete={() => handleDelete(contact.id)}
+          />
         ))}
       </div>
     );

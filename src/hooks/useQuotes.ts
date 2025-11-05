@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { useToast } from '@/hooks/use-toast';
-import { fetchQuoteById, fetchQuotes, QuoteRecord, QuoteStatus, updateQuoteStatus } from '@/services/quotes';
+import { deleteQuote, fetchQuoteById, fetchQuotes, QuoteRecord, QuoteStatus, updateQuoteStatus } from '@/services/quotes';
 
 export function useQuotes(status?: QuoteStatus) {
   const key = useMemo(() => ['quotes', status ?? 'all'], [status]);
@@ -40,6 +40,31 @@ export function useUpdateQuoteStatus() {
 
       toast({
         title: 'Não foi possível atualizar o status',
+        description: message,
+        variant: 'destructive',
+      });
+    },
+  });
+}
+
+export function useDeleteQuote() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: (id: string) => deleteQuote(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['quotes'] });
+
+      toast({
+        title: 'Orçamento removido com sucesso',
+      });
+    },
+    onError: (error: unknown) => {
+      const message = error instanceof Error ? error.message : 'Erro desconhecido';
+
+      toast({
+        title: 'Não foi possível excluir o orçamento',
         description: message,
         variant: 'destructive',
       });

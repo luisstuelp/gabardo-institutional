@@ -63,3 +63,11 @@ export async function updateContactStatus(id: string, status: ContactStatus) {
 
   return data as ContactMessageRecord;
 }
+
+export async function deleteContact(id: string) {
+  const { error } = await client.from(TABLE).delete().eq('id', id);
+
+  if (error) {
+    throw error;
+  }
+}

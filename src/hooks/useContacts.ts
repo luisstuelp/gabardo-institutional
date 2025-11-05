@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { useToast } from '@/hooks/use-toast';
-import { fetchContactById, fetchContacts, updateContactStatus, type ContactMessageRecord, type ContactStatus } from '@/services/contacts';
+import { deleteContact, fetchContactById, fetchContacts, updateContactStatus, type ContactMessageRecord, type ContactStatus } from '@/services/contacts';
 
 export function useContacts(status?: ContactStatus) {
   const key = useMemo(() => ['contacts', status ?? 'all'], [status]);
@@ -40,6 +40,31 @@ export function useUpdateContactStatus() {
 
       toast({
         title: 'Não foi possível atualizar o status',
+        description: message,
+        variant: 'destructive',
+      });
+    },
+  });
+}
+
+export function useDeleteContact() {
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  return useMutation({
+    mutationFn: (id: string) => deleteContact(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['contacts'] });
+
+      toast({
+        title: 'Mensagem removida com sucesso',
+      });
+    },
+    onError: (error: unknown) => {
+      const message = error instanceof Error ? error.message : 'Erro desconhecido';
+
+      toast({
+        title: 'Não foi possível excluir a mensagem',
         description: message,
         variant: 'destructive',
       });
