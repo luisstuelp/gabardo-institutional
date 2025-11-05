@@ -26,9 +26,8 @@ const footerSections = [
   {
     title: 'Suporte',
     links: [
-      { label: 'Privacidade', href: '#' },
+      { label: 'Política de Privacidade', href: '/politica-de-privacidade' },
       { label: 'Canal de Denúncias', href: '/contato?setor=Canal+de+Denúncias' },
-      { label: 'Termos', href: '#' },
     ],
   },
   {
@@ -182,13 +181,15 @@ const Footer: React.FC = () => {
         className="border-t border-white/10 bg-white/5"
       >
         <div className="section-container flex flex-col gap-3 sm:gap-4 py-4 sm:py-5 md:py-6 text-xs sm:text-sm text-white/60 md:flex-row md:items-center md:justify-between">
-          <p>2025 Transportes Gabardo. Todos os direitos reservados.</p>
+          <p>
+            2025 Transportes Gabardo. Todos os direitos reservados.
+            <span className="ml-2 inline-block rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[0.65rem] tracking-[0.08em] text-white/80">
+              v2.1
+            </span>
+          </p>
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <Link href="/politica-de-privacidade" className="transition-colors duration-200 hover:text-gabardo-light-blue">
               Política de Privacidade
-            </Link>
-            <Link href="/termos-de-uso" className="transition-colors duration-200 hover:text-gabardo-light-blue">
-              Termos de Uso
             </Link>
             <Link
               href="/admin"

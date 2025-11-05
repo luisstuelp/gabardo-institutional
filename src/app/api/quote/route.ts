@@ -412,62 +412,36 @@ function renderConfirmationEmailTemplate(data: QuoteFormData): string {
 }
 
 async function sendEmail(data: QuoteFormData) {
-  // Use env vars with fallback to default config
-  const smtpHost = process.env.SMTP_HOST || 'smtp.ls2001.com.br';
-  const smtpPort = Number(process.env.SMTP_PORT || 587);
-  const smtpSecure = process.env.SMTP_SECURE === 'true';
-  const smtpUser = process.env.SMTP_USER || 'contato@ls2001.com.br';
-  const smtpPass = process.env.SMTP_PASS || 'C99995000c';
-  const smtpFrom = process.env.SMTP_FROM || 'contato@ls2001.com.br';
-
+  // Configurar transporter do Gmail
   const transporter = nodemailer.createTransport({
-    host: smtpHost,
-    port: smtpPort,
-    secure: smtpSecure,
+    service: 'gmail',
     auth: {
-      user: smtpUser,
-      pass: smtpPass,
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_APP_PASSWORD,
     },
-    tls: {
-      rejectUnauthorized: false,
-      minVersion: 'TLSv1.2',
-      servername: smtpHost,
-      ciphers: 'HIGH:MEDIUM:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK',
-    },
-    connectionTimeout: 30000,
-    greetingTimeout: 30000,
-    socketTimeout: 30000,
   });
 
   // Enviar email para equipe comercial
-  await transporter.sendMail({
-    from: '"Gabardo Transportes" <contato@ls2001.com.br>',
+  const info = await transporter.sendMail({
+    from: `"Gabardo Transportes" <${process.env.GMAIL_USER}>`,
     to: 'comercial@transgabardo.com.br',
     cc: 'ls2001@terra.com.br',
     subject: `[Gabardo] Pedido de cotação - ${data.vehicleBrand} ${data.vehicleModel || data.vehicleCategory}`,
     html: renderEmailTemplate(data),
     replyTo: data.email,
-    headers: {
-      'X-Priority': '1',
-      'X-MSMail-Priority': 'High',
-      'Importance': 'high',
-      'X-Mailer': 'Gabardo Transportes Quote Form',
-      'List-Unsubscribe': '<mailto:comercial@transgabardo.com.br>',
-    }
   });
+
+  console.log('✅ Email enviado com sucesso! Message ID:', info.messageId);
 
   // Enviar email de confirmação para o cliente
   try {
     await transporter.sendMail({
-      from: '"Gabardo Transportes" <contato@ls2001.com.br>',
+      from: `"Gabardo Transportes" <${process.env.GMAIL_USER}>`,
       to: data.email,
       subject: '✓ Pedido de Cotação Recebido - Gabardo Transportes',
       html: renderConfirmationEmailTemplate(data),
-      headers: {
-        'X-Mailer': 'Gabardo Transportes Quote Form',
-        'Auto-Submitted': 'auto-replied',
-      }
     });
+
     console.log('✅ Email de confirmação enviado para:', data.email);
   } catch (confirmError) {
     console.warn('⚠️ Não foi possível enviar email de confirmação:', confirmError);

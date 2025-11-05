@@ -433,23 +433,13 @@ export async function POST(request: NextRequest) {
       console.error('❌ Erro ao registrar mensagem no banco:', insertError);
     }
 
+    // Configurar transporter do Gmail
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ls2001.com.br',
-      port: 587,
-      secure: false,
+      service: 'gmail',
       auth: {
-        user: 'contato@ls2001.com.br',
-        pass: 'C99995000c',
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
       },
-      tls: {
-        rejectUnauthorized: false,
-        minVersion: 'TLSv1.2',
-        servername: 'smtp.ls2001.com.br',
-        ciphers: 'HIGH:MEDIUM:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK',
-      },
-      connectionTimeout: 30000,
-      greetingTimeout: 30000,
-      socketTimeout: 30000,
     });
 
     const routing = formData.sector ? sectorRouting[formData.sector] : undefined;
@@ -465,37 +455,27 @@ export async function POST(request: NextRequest) {
     try {
       // Enviar email para o setor responsável
       const info = await transporter.sendMail({
-        from: '"Gabardo Transportes" <contato@ls2001.com.br>',
+        from: `"Gabardo Transportes" <${process.env.GMAIL_USER}>`,
         to: toRecipients,
         cc: ccRecipients,
         subject: `[Gabardo] ${formData.subject}`,
         html: generateEmailTemplate(formData),
         replyTo: formData.email,
-        headers: {
-          'X-Priority': '1',
-          'X-MSMail-Priority': 'High',
-          'Importance': 'high',
-          'X-Mailer': 'Gabardo Transportes Contact Form',
-          'List-Unsubscribe': '<mailto:contato@transgabardo.com.br>',
-        }
       });
+
       console.log('✅ Email enviado com sucesso!');
       console.log('📧 Message ID:', info.messageId);
-      console.log('📧 Response:', info.response);
       emailSent = true;
 
       // Enviar email de confirmação para o remetente
       try {
         await transporter.sendMail({
-          from: '"Gabardo Transportes" <contato@ls2001.com.br>',
+          from: `"Gabardo Transportes" <${process.env.GMAIL_USER}>`,
           to: formData.email,
           subject: '✓ Mensagem Recebida - Gabardo Transportes',
           html: generateConfirmationEmailTemplate(formData),
-          headers: {
-            'X-Mailer': 'Gabardo Transportes Contact Form',
-            'Auto-Submitted': 'auto-replied',
-          }
         });
+
         console.log('✅ Email de confirmação enviado para:', formData.email);
         confirmationSent = true;
       } catch (confirmError) {

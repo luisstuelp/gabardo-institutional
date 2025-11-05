@@ -14,7 +14,12 @@
       "Bash(Stop-Process -Id 5804 -Force)",
       "Bash(kill:*)",
       "Bash(bun run dev)",
-      "Bash(timeout /t 5 /nobreak)"
+      "Bash(timeout /t 5 /nobreak)",
+      "Bash(bun add:*)",
+      "Bash(del nul test-email.js 2)",
+      "Bash(bun remove:*)",
+      "Bash(node:*)",
+      "Bash(del test-gmail.js 2)"
     ],
     "deny": [],
     "ask": []
