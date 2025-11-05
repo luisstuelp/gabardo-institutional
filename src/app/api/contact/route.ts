@@ -306,9 +306,10 @@ function generateConfirmationEmailTemplate(data: ContactFormData): string {
     <tr>
       <td style="padding: 20px 0;">
         <table role="presentation" style="width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <!-- Header -->
+          <!-- Header with Logo -->
           <tr>
             <td style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); padding: 30px; text-align: center;">
+              <img src="https://transgabardo.com.br/images/Design%20sem%20nome%20(53).png" alt="Gabardo Transportes" style="height: 40px; margin-bottom: 15px;" />
               <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: bold;">✓ Mensagem Recebida</h1>
               <p style="margin: 10px 0 0 0; color: #d1fae5; font-size: 14px;">Obrigado por entrar em contato!</p>
             </td>
@@ -326,15 +327,25 @@ function generateConfirmationEmailTemplate(data: ContactFormData): string {
                 ${data.sector ? `<p style="margin: 5px 0; color: #6b7280; font-size: 13px;"><strong>Setor:</strong> ${data.sector}</p>` : ''}
               </div>
 
-              <p style="margin: 20px 0 0 0; color: #6b7280; font-size: 14px; line-height: 1.6;">Se precisar de atendimento urgente, entre em contato pelos telefones:<br><strong>+55 (11) XXXX-XXXX</strong></p>
+              <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 4px;">
+                <p style="margin: 0 0 5px 0; color: #78350f; font-size: 14px;"><strong>📞 Precisa falar conosco?</strong></p>
+                <p style="margin: 5px 0 0 0; color: #92400e; font-size: 15px;">
+                  Central de Atendimento: <strong><a href="tel:+555133733000" style="color: #92400e; text-decoration: none;">+55 (51) 3373-3000</a></strong>
+                </p>
+              </div>
             </td>
           </tr>
 
           <!-- Footer -->
           <tr>
             <td style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
-              <p style="margin: 0 0 10px 0; color: #6b7280; font-size: 12px;">Gabardo Transportes</p>
-              <p style="margin: 0; color: #9ca3af; font-size: 11px;">www.transgabardo.com.br</p>
+              <p style="margin: 0 0 5px 0; color: #6b7280; font-size: 13px; font-weight: bold;">Gabardo Transportes</p>
+              <p style="margin: 0 0 5px 0; color: #9ca3af; font-size: 12px;">
+                <a href="https://transgabardo.com.br" style="color: #3b82f6; text-decoration: none;">www.transgabardo.com.br</a>
+              </p>
+              <p style="margin: 5px 0 0 0; color: #9ca3af; font-size: 11px;">
+                Central: +55 (51) 3373-3000
+              </p>
             </td>
           </tr>
         </table>
