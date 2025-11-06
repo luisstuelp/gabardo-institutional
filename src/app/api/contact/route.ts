@@ -6,7 +6,7 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js/min';
 import { createServerSupabaseClient } from '@/integrations/supabase/server';
 
 const GABARDO_LOGO_WHITE_CID = 'gabardo-logo-white';
-const GABARDO_LOGO_WHITE_PATH = path.resolve(process.cwd(), 'public', 'logo gabardo branca (1).png');
+const GABARDO_LOGO_WHITE_PATH = path.resolve(process.cwd(), 'public', 'images', 'Design sem nome (53).png');
 
 interface ContactFormData {
   name: string;
@@ -312,7 +312,7 @@ function generateConfirmationEmailTemplate(data: ContactFormData): string {
         <table role="presentation" style="width:100%; max-width:640px; border-collapse:collapse; background-color:#ffffff; border-radius:18px; overflow:hidden; box-shadow:0 18px 40px rgba(19,45,81,0.12);">
           <tr>
             <td style="background: radial-gradient(circle at top right, rgba(56,182,255,0.65) 0%, rgba(27,66,110,0.85) 45%, #132D51 100%); padding:44px 36px; text-align:left;">
-              <img src="cid:${GABARDO_LOGO_WHITE_CID}" alt="Gabardo Transportes" style="height:44px; margin-bottom:24px; display:block;" />
+              <img src="cid:${GABARDO_LOGO_WHITE_CID}" alt="Gabardo Transportes" style="height:68px; max-width:220px; margin-bottom:28px; display:block;" />
               <p style="margin:0 0 12px 0; font-size:13px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.78);">Confirmação de contato</p>
               <h1 style="margin:0; font-size:28px; line-height:1.25; font-weight:700; color:#ffffff;">Mensagem recebida com sucesso</h1>
               <p style="margin:16px 0 0 0; font-size:16px; line-height:1.6; color:rgba(255,255,255,0.78);">Obrigado por falar com a Gabardo. Nossa equipe já está cuidando de tudo para você.</p>
