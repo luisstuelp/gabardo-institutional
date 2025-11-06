@@ -12,6 +12,7 @@ export const FLAG_ICONS: FlagIcon[] = [
   { country: 'Chile', code: '1f1e8-1f1f1' },
   { country: 'Bolívia', code: '1f1e7-1f1f4' },
   { country: 'Paraguai', code: '1f1f5-1f1fe' },
+  { country: 'Peru', code: '1f1f5-1f1ea' },
 ];
 
 export const getFlagSrc = (code: string) => `${TWEMOJI_BASE_URL}/${code}.svg`;

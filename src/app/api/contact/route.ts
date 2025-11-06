@@ -134,6 +134,9 @@ const sectorRouting: Record<string, { to: string[]; cc?: string[] }> = {
   'Canal de Denúncias': {
     to: ['gestorarh@transgabardo.com.br'],
   },
+  'Outros': {
+    to: ['gabardo@transgabardo.com.br'],
+  },
 };
 
 function isRateLimited(ip: string): boolean {

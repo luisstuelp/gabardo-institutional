@@ -287,12 +287,12 @@ const MapboxSection: React.FC = () => {
                 </div>
               ) : (
                 <div className="bg-white rounded-2xl p-6 shadow-lg border border-neutral-200">
-                  <div className="flex items-center justify-between mb-3 sm:mb-4">
-                    <h3 className="text-base sm:text-lg md:text-xl font-bold" style={{color: '#132D51'}}>
+                  <div className="flex items-center justify-between gap-2 sm:gap-3 sm:justify-start mb-3 sm:mb-4">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold whitespace-nowrap" style={{color: '#132D51'}}>
                       Nossas Unidades
                     </h3>
                     {/* Flag Icons */}
-                    <div className="hidden sm:flex items-center space-x-2">
+                    <div className="hidden sm:flex items-center gap-1">
                       {FLAG_ICONS.map((flag) => (
                         <div key={flag.code} className="w-8 h-6 rounded-md overflow-hidden shadow-md bg-white/40 backdrop-blur-sm flex items-center justify-center">
                           <Image
