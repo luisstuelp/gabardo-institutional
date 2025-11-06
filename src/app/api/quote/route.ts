@@ -86,10 +86,6 @@ function formatCurrency(value: string): string {
   }).format(parsed);
 }
 
-function formatOptional(value: string): string {
-  return value ? value : 'Não informado';
-}
-
 function optionalOrNull(value: string) {
   const trimmed = value?.trim();
   return trimmed ? trimmed : null;
@@ -350,67 +346,85 @@ function renderConfirmationEmailTemplate(data: QuoteFormData): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Confirmação - Pedido de Cotação Recebido</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
-  <table role="presentation" style="width: 100%; border-collapse: collapse;">
+<body style="margin:0; padding:0; font-family: 'Segoe UI', Arial, sans-serif; background-color:#edf1f8; color:#132D51;">
+  <table role="presentation" style="width:100%; border-collapse:collapse; background-color:#edf1f8;">
     <tr>
-      <td style="padding: 20px 0;">
-        <table role="presentation" style="width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <!-- Header with Logo -->
+      <td align="center" style="padding:36px 16px;">
+        <table role="presentation" style="width:100%; max-width:640px; border-collapse:collapse; background-color:#ffffff; border-radius:18px; overflow:hidden; box-shadow:0 18px 40px rgba(19,45,81,0.12);">
           <tr>
-            <td style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); padding: 30px; text-align: center;">
-              <img src="https://transgabardo.com.br/images/Design%20sem%20nome%20(53).png" alt="Gabardo Transportes" style="height: 40px; margin-bottom: 15px;" />
-              <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: bold;">✓ Pedido de Cotação Recebido!</h1>
-              <p style="margin: 10px 0 0 0; color: #d1fae5; font-size: 14px;">Obrigado por confiar na Gabardo</p>
+            <td style="background: radial-gradient(circle at top right, rgba(56,182,255,0.65) 0%, rgba(27,66,110,0.85) 45%, #132D51 100%); padding:44px 36px; text-align:left;">
+              <img src="https://transgabardo.com.br/images/Design%20sem%20nome%20(53).png" alt="Gabardo Transportes" style="height:44px; margin-bottom:24px; display:block;" />
+              <p style="margin:0 0 12px 0; font-size:13px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.78);">Confirmação de cotação</p>
+              <h1 style="margin:0; font-size:28px; line-height:1.25; font-weight:700; color:#ffffff;">Pedido recebido com sucesso</h1>
+              <p style="margin:16px 0 0 0; font-size:16px; line-height:1.6; color:rgba(255,255,255,0.78);">Estamos iniciando a análise para apresentar a melhor proposta em transporte de veículos.</p>
             </td>
           </tr>
-
-          <!-- Content -->
           <tr>
-            <td style="padding: 30px;">
-              <p style="margin: 0 0 20px 0; color: #1f2937; font-size: 16px; line-height: 1.6;">Olá <strong>${data.name}</strong>,</p>
-              <p style="margin: 0 0 20px 0; color: #1f2937; font-size: 16px; line-height: 1.6;">Recebemos seu pedido de cotação para transporte de veículo. Nossa equipe comercial irá analisar e retornar com a melhor proposta em breve.</p>
-
-              <div style="background-color: #f0f9ff; border-left: 4px solid #3b82f6; padding: 20px; margin: 20px 0; border-radius: 4px;">
-                <p style="margin: 0 0 15px 0; color: #374151; font-size: 14px;"><strong>Resumo do seu pedido:</strong></p>
-                <table role="presentation" style="width: 100%; border-collapse: collapse;">
-                  <tr>
-                    <td style="padding: 5px 0;">
-                      <span style="color: #6b7280; font-size: 13px;">Veículo:</span>
-                      <strong style="color: #1f2937; font-size: 14px; display: block;">${data.vehicleBrand} ${data.vehicleModel} (${data.vehicleYear})</strong>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 5px 0;">
-                      <span style="color: #6b7280; font-size: 13px;">Trajeto:</span>
-                      <strong style="color: #1f2937; font-size: 14px; display: block;">${data.originCity}/${data.originState} → ${data.destinationCity}/${data.destinationState}</strong>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-
-              <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 4px;">
-                <p style="margin: 0 0 5px 0; color: #78350f; font-size: 14px;"><strong>📞 Precisa falar conosco?</strong></p>
-                <p style="margin: 5px 0 0 0; color: #92400e; font-size: 15px;">
-                  Central de Atendimento: <strong><a href="tel:+555133733000" style="color: #92400e; text-decoration: none;">+55 (51) 3373-3000</a></strong>
-                </p>
-                <p style="margin: 5px 0 0 0; color: #92400e; font-size: 13px;">
-                  Prazo de resposta: até 24 horas úteis
-                </p>
-              </div>
+            <td style="padding:36px 36px 12px 36px;">
+              <p style="margin:0 0 18px 0; font-size:16px; line-height:1.65; color:#1f2937;">Olá <strong>${data.name}</strong>,</p>
+              <p style="margin:0 0 28px 0; font-size:16px; line-height:1.65; color:#1f2937;">Recebemos sua solicitação de cotação e retornaremos em até 24 horas úteis. Revise abaixo os detalhes encaminhados.</p>
+              <table role="presentation" style="width:100%; border-collapse:collapse; margin:0 0 20px 0;">
+                <tr>
+                  <td style="background-color:#f4f8fd; border:1px solid rgba(19,45,81,0.08); border-radius:12px; padding:22px 24px;">
+                    <table role="presentation" style="width:100%; border-collapse:collapse;">
+                      <tr>
+                        <td style="width:48px; vertical-align:top;">
+                          <span style="display:inline-block; width:44px; height:44px; border-radius:14px; background-color:#132D51; color:#38B6FF; font-size:22px; line-height:44px; text-align:center;">🚚</span>
+                        </td>
+                        <td style="padding-left:16px;">
+                          <p style="margin:0 0 12px 0; font-size:15px; font-weight:600; letter-spacing:0.01em; color:#132D51;">Dados do transporte</p>
+                          <p style="margin:0 0 8px 0; font-size:14px; color:#2f3a4d;"><strong style="color:#132D51;">Veículo:</strong> ${data.vehicleBrand} ${data.vehicleModel || ''} ${data.vehicleYear ? `(${data.vehicleYear})` : ''}</p>
+                          ${data.vehicleValue ? `<p style="margin:0 0 8px 0; font-size:14px; color:#2f3a4d;"><strong style="color:#132D51;">Valor declarado:</strong> ${data.vehicleValue}</p>` : ''}
+                          <p style="margin:0; font-size:14px; color:#2f3a4d;"><strong style="color:#132D51;">Categoria:</strong> ${data.vehicleCategory}</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              <table role="presentation" style="width:100%; border-collapse:collapse; margin:0 0 20px 0;">
+                <tr>
+                  <td style="background-color:#e8f2ff; border:1px solid rgba(56,182,255,0.35); border-radius:12px; padding:22px 24px;">
+                    <table role="presentation" style="width:100%; border-collapse:collapse;">
+                      <tr>
+                        <td style="width:48px; vertical-align:top;">
+                          <span style="display:inline-block; width:44px; height:44px; border-radius:14px; background-color:#38B6FF; color:#132D51; font-size:22px; line-height:44px; text-align:center;">📍</span>
+                        </td>
+                        <td style="padding-left:16px;">
+                          <p style="margin:0 0 12px 0; font-size:15px; font-weight:600; letter-spacing:0.01em; color:#132D51;">Trajeto solicitado</p>
+                          <p style="margin:0 0 8px 0; font-size:14px; color:#2f3a4d;"><strong style="color:#132D51;">Origem:</strong> ${data.originCity}/${data.originState}</p>
+                          <p style="margin:0 0 8px 0; font-size:14px; color:#2f3a4d;"><strong style="color:#132D51;">Destino:</strong> ${data.destinationCity}/${data.destinationState}</p>
+                          ${data.routeObservation ? `<p style="margin:0; font-size:14px; color:#2f3a4d;"><strong style="color:#132D51;">Observações de trajeto:</strong> ${data.routeObservation}</p>` : ''}
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              ${data.message ? `
+              <table role="presentation" style="width:100%; border-collapse:collapse; margin:0 0 32px 0;">
+                <tr>
+                  <td style="background-color:#f9fbff; border:1px solid rgba(19,45,81,0.05); border-radius:12px; padding:22px 24px;">
+                    <p style="margin:0 0 10px 0; font-size:15px; font-weight:600; color:#132D51;">Observações adicionais</p>
+                    <p style="margin:0; font-size:14px; line-height:1.6; color:#2f3a4d;">${data.message}</p>
+                  </td>
+                </tr>
+              </table>` : ''}
             </td>
           </tr>
-
-          <!-- Footer -->
           <tr>
-            <td style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
-              <p style="margin: 0 0 5px 0; color: #6b7280; font-size: 13px; font-weight: bold;">Gabardo Transportes</p>
-              <p style="margin: 0 0 5px 0; color: #9ca3af; font-size: 12px;">
-                <a href="https://transgabardo.com.br" style="color: #3b82f6; text-decoration: none;">www.transgabardo.com.br</a>
-              </p>
-              <p style="margin: 0 0 5px 0; color: #9ca3af; font-size: 11px;">
-                Central: +55 (51) 3373-3000
-              </p>
-              <p style="margin: 0; color: #9ca3af; font-size: 11px;">comercial@transgabardo.com.br</p>
+            <td style="padding:0 36px 40px 36px;">
+              <p style="margin:0 0 12px 0; font-size:14px; color:#2f3a4d;">Estamos à disposição para esclarecer qualquer dúvida.</p>
+              <p style="margin:0; font-size:13px; line-height:1.7; color:#4b5563;">Este e-mail confirma o recebimento da sua solicitação de cotação. Caso não reconheça este pedido, por favor, contate <a href="mailto:comercial@transgabardo.com.br" style="color:#132D51; text-decoration:none; font-weight:600;">comercial@transgabardo.com.br</a>.</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color:#0f1f36; padding:28px 20px; text-align:center;">
+              <p style="margin:0 0 6px 0; font-size:14px; font-weight:600; color:#f5f7fb;">Gabardo Transportes</p>
+              <p style="margin:0 0 4px 0; font-size:12px; color:#d1d6e0;">Av. Fernando Ferrari, 700 - Anchieta - Porto Alegre/RS - CEP 90200-040</p>
+              <p style="margin:0 0 4px 0; font-size:12px; color:#d1d6e0;">Central: <a href="tel:+555133733000" style="color:#38B6FF; text-decoration:none; font-weight:600;">+55 (51) 3373-3000</a></p>
+              <p style="margin:0 0 4px 0; font-size:12px; color:#d1d6e0;"><a href="mailto:comercial@transgabardo.com.br" style="color:#38B6FF; text-decoration:none; font-weight:600;">comercial@transgabardo.com.br</a></p>
+              <p style="margin:0; font-size:12px;"><a href="https://transgabardo.com.br" style="color:#7fd7ff; text-decoration:none;">www.transgabardo.com.br</a></p>
             </td>
           </tr>
         </table>
