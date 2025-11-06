@@ -3,8 +3,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import mapboxgl, { Map } from 'mapbox-gl';
 import units from '@/data/units.json';
+import { FLAG_ICONS, getFlagSrc } from '@/data/flagIcons';
 
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoid2Vic3RhcnN0dWRpbyIsImEiOiJjbWJqaXUyZG8wZ3BtMmpxNm5pcGw0Y2ptIn0.UnohoPp9qrhIFOEoQ9FNfg';
 
@@ -291,51 +293,17 @@ const MapboxSection: React.FC = () => {
                     </h3>
                     {/* Flag Icons */}
                     <div className="hidden sm:flex items-center space-x-2">
-                      {/* Brazil - Green field with yellow diamond and blue circle */}
-                      <div className="w-8 h-6 rounded-md overflow-hidden shadow-md bg-green-500 flex items-center justify-center relative">
-                        <div className="w-4 h-4 bg-yellow-400 transform rotate-45 relative"></div>
-                        <div className="absolute w-2.5 h-2.5 bg-blue-600 rounded-full"></div>
-                      </div>
-                      
-                      {/* Argentina - Light blue, white, light blue with sun */}
-                      <div className="w-8 h-6 rounded-md overflow-hidden shadow-md relative">
-                        <div className="absolute inset-0 flex flex-col">
-                          <div className="flex-1 bg-sky-300"></div>
-                          <div className="flex-1 bg-white"></div>
-                          <div className="flex-1 bg-sky-300"></div>
+                      {FLAG_ICONS.map((flag) => (
+                        <div key={flag.code} className="w-8 h-6 rounded-md overflow-hidden shadow-md bg-white/40 backdrop-blur-sm flex items-center justify-center">
+                          <Image
+                            src={getFlagSrc(flag.code)}
+                            alt={`Bandeira ${flag.country}`}
+                            width={32}
+                            height={24}
+                            className="w-full h-auto"
+                          />
                         </div>
-                        <div className="absolute inset-0 flex items-center justify-center text-yellow-600 text-xs font-bold">☀</div>
-                      </div>
-                      
-                      {/* Uruguay - 9 alternating stripes with canton and sun */}
-                      <div className="w-8 h-6 rounded-md overflow-hidden shadow-md bg-white relative">
-                        <div className="absolute inset-0 flex flex-col">
-                          <div className="flex-1 bg-white"></div>
-                          <div className="flex-1 bg-blue-500"></div>
-                          <div className="flex-1 bg-white"></div>
-                          <div className="flex-1 bg-blue-500"></div>
-                          <div className="flex-1 bg-white"></div>
-                          <div className="flex-1 bg-blue-500"></div>
-                          <div className="flex-1 bg-white"></div>
-                          <div className="flex-1 bg-blue-500"></div>
-                          <div className="flex-1 bg-white"></div>
-                        </div>
-                        <div className="absolute top-0 left-0 w-3 h-3 bg-white flex items-center justify-center text-yellow-600 text-xs">☀</div>
-                      </div>
-                      
-                      {/* Chile - Blue square with star, white and red stripes */}
-                      <div className="w-8 h-6 rounded-md overflow-hidden shadow-md bg-red-500 relative">
-                        <div className="absolute top-0 left-0 w-3 h-3 bg-blue-600 flex items-center justify-center text-white text-xs">★</div>
-                        <div className="absolute top-0 left-3 right-0 h-3 bg-white"></div>
-                        <div className="absolute bottom-0 left-0 right-0 h-3 bg-red-500"></div>
-                      </div>
-                      
-                      {/* Bolivia - Red, yellow, green horizontal stripes */}
-                      <div className="w-8 h-6 rounded-md overflow-hidden shadow-md flex flex-col">
-                        <div className="flex-1 bg-red-600"></div>
-                        <div className="flex-1 bg-yellow-400"></div>
-                        <div className="flex-1 bg-green-600"></div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                   <p className="mb-4 sm:mb-6 text-sm sm:text-base" style={{color: '#132D51'}}>
