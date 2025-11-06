@@ -51,6 +51,14 @@ const qualityBadges = [
     downloadUrl: 'https://www.transgabardo.com.br/wp-content/uploads/2024/10/certificado-iso-39001.pdf',
     ctaLabel: 'Baixar certificado',
   },
+  {
+    icon: Award,
+    title: 'OEA - Receita Federal',
+    description:
+      'Conformidade aduaneira validada pela Receita Federal como Operador Econômico Autorizado.',
+    downloadUrl: '/certifications/certificado-oea-transportes-gabardo.pdf',
+    ctaLabel: 'Baixar certificado',
+  },
 ];
 
 const pillars = [

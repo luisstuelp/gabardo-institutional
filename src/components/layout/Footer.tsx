@@ -184,7 +184,7 @@ const Footer: React.FC = () => {
           <p>
             2025 Transportes Gabardo. Todos os direitos reservados.
             <span className="ml-2 inline-block rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[0.65rem] tracking-[0.08em] text-white/80">
-              v2.1
+              v2.2
             </span>
           </p>
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">

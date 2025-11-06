@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Política de Privacidade | Transportes Gabardo',
+  title: 'Política de Privacidade | Transportes Gabardo Ltda',
   description:
-    'Conheça a Política de Privacidade da Transportes Gabardo e saiba como tratamos dados pessoais em conformidade com a LGPD.',
+    'Conheça a Política de Privacidade da Transportes Gabardo Ltda e saiba como tratamos dados pessoais em conformidade com a LGPD.',
   alternates: {
     canonical: 'https://www.transgabardo.com.br/politica-de-privacidade',
   },
@@ -18,11 +18,11 @@ const sections: Array<{
 }> = [
   {
     id: 'politica',
-    title: 'POLÍTICA DE PRIVACIDADE DA TRANSPORTES GABARDO',
+    title: 'POLÍTICA DE PRIVACIDADE DA TRANSPORTES GABARDO LTDA',
     content: (
       <>
         <p>
-          A empresa GABARDO TRANSPORTES leva a privacidade de seus clientes, colaboradores e usuários muito a sério. Por essa razão,
+          A empresa Transportes Gabardo Ltda leva a privacidade de seus clientes, colaboradores e usuários muito a sério. Por essa razão,
           esclarecemos neste documento (POLÍTICA) a forma como são utilizados, armazenados, compartilhados e protegidos os dados pessoais
           tratados, para que você possa conhecer a cultura de proteção de dados desenvolvida e adotada pela empresa.
         </p>
@@ -35,7 +35,7 @@ const sections: Array<{
     content: (
       <>
         <p>
-          A presente POLÍTICA visa informar aos clientes e usuários da GABARDO TRANSPORTES, titulares dos dados coletados e tratados, os
+          A presente POLÍTICA visa informar aos clientes e usuários da Transportes Gabardo Ltda, titulares dos dados coletados e tratados, os
           meios a serem utilizados para o exercício dos direitos previstos na legislação aplicável, principalmente em relação à LEI GERAL
           DE PROTEÇÃO DE DADOS (LGPD) Lei Federal nº 13.709, de 14 de agosto de 2018, que rege as atividades que envolvem o tratamento de
           dados pessoais, tanto em meio físico quanto digital, por pessoa natural ou pessoa jurídica de direito público ou privado, com o
@@ -50,7 +50,7 @@ const sections: Array<{
     content: (
       <>
         <p>
-          quando você visita ou utiliza o site ou os sistemas da GABARDO TRANSPORTES, os dados pessoais coletados podem ser divididos em
+          quando você visita ou utiliza o site ou os sistemas da Transportes Gabardo Ltda, os dados pessoais coletados podem ser divididos em
           três categorias:
         </p>
         <div className="space-y-2 pl-6">
@@ -67,7 +67,7 @@ const sections: Array<{
     content: (
       <>
         <p>
-          os dados coletados são utilizados pela GABARDO TRANSPORTES para as seguintes finalidades principais:
+          os dados coletados são utilizados pela Transportes Gabardo Ltda para as seguintes finalidades principais:
         </p>
         <div className="space-y-2 pl-6">
           <p>a) Cumprir as obrigações contratualmente assumidas com nossos clientes e usuários, verificação da sua respectiva identidade, cobrança de valores devidos, personalizar e aprimorar os serviços disponibilizados;</p>
@@ -103,7 +103,7 @@ const sections: Array<{
     content: (
       <>
         <p>
-          a empresa GABARDO TRANSPORTES não é responsável pelas práticas de privacidade ou de segurança de dados pessoais adotadas pelos
+          a empresa Transportes Gabardo Ltda não é responsável pelas práticas de privacidade ou de segurança de dados pessoais adotadas pelos
           seus parceiros de negócios. Por esse motivo, recomendamos que o usuário ou cliente consulte as respectivas políticas de
           privacidade de dados dos nossos parceiros de negócios.
         </p>
@@ -116,7 +116,7 @@ const sections: Array<{
     content: (
       <>
         <p>
-          a GABARDO TRANSPORTES e seus parceiros de negócios podem utilizar diversas tecnologias para coleta e armazenamento automático
+          a Transportes Gabardo Ltda e seus parceiros de negócios podem utilizar diversas tecnologias para coleta e armazenamento automático
           sobre o uso dos serviços disponibilizados. Essas tecnologias incluem cookies. As informações coletadas através do uso dessas
           tecnologias visam otimizar e personalizar a sua experiência de navegação, direcionar publicidade, desenvolver e aplicar
           funcionalidades de segurança e procedimentos de prevenção à fraude, sem prejuízo de outras utilizações legalmente possíveis.
@@ -131,7 +131,7 @@ const sections: Array<{
       <>
         <p>
           no caso de transferência de dados pessoais para prestadores de serviços localizados fora do Brasil, tais como prestadores de
-          serviços em nuvem, a GABARDO TRANSPORTES adotará medidas apropriadas para a garantia da adequada proteção dos seus dados
+          serviços em nuvem, a Transportes Gabardo Ltda adotará medidas apropriadas para a garantia da adequada proteção dos seus dados
           pessoais, em atenção à legislação aplicável, inclusive mediante celebração de contratos de transferência de dados pessoais com
           terceiros, quando exigidos.
         </p>
@@ -144,7 +144,7 @@ const sections: Array<{
     content: (
       <>
         <p>
-          ainda que possa disponibilizar links para sites de terceiros, a GABARDO TRANSPORTES não se responsabiliza pelo conteúdo destes
+          ainda que possa disponibilizar links para sites de terceiros, a Transportes Gabardo Ltda não se responsabiliza pelo conteúdo destes
           sites e, portanto, não compartilha, subscreve, monitora, valida ou aceita a forma como estes sites ou ferramentas de
           armazenamento de conteúdo coletam, processam e transferem suas informações pessoais e privadas. Por isso é recomendável que você
           consulte as respectivas políticas de privacidade destes sites, para que possa estar informado do uso de suas informações e dados
@@ -159,7 +159,7 @@ const sections: Array<{
     content: (
       <>
         <p>
-          a GABARDO TRANSPORTES zela pela segurança dos dados pessoais coletados e tratados através da utilização de ferramentas e
+          a Transportes Gabardo Ltda zela pela segurança dos dados pessoais coletados e tratados através da utilização de ferramentas e
           soluções físicas e de TI que visam minimizar riscos de perda, mau uso, acesso não autorizado, invasão, divulgação e alteração,
           tais como firewalls e criptografia, controle de acesso físico e estabelecimento de níveis de autorização de acesso à
           informação.
@@ -194,7 +194,7 @@ const sections: Array<{
       <>
         <p>
           em caso de dúvida quanto à presente POLÍTICA ou para a solicitação do exercício de direitos, o titular poderá fazer contato com
-          a GABARDO TRANSPORTES pelo e-mail: <a href="mailto:lgpd@transgabardo.com.br" className="text-gabardo-blue underline">lgpd@transgabardo.com.br</a>.
+          a Transportes Gabardo Ltda pelo e-mail: <a href="mailto:lgpd@transgabardo.com.br" className="text-gabardo-blue underline">lgpd@transgabardo.com.br</a>.
         </p>
         <p>
           Por motivos de segurança, o atendimento da solicitação dependerá da confirmação da autenticidade da identidade do titular, para
@@ -209,9 +209,9 @@ const sections: Array<{
     content: (
       <>
         <p>
-          a presente POLÍTICA se aplica no decorrer de todo o tempo em que a GABARDO TRANSPORTES tratar os seus dados pessoais. Nós
+          a presente POLÍTICA se aplica no decorrer de todo o tempo em que a Transportes Gabardo Ltda tratar os seus dados pessoais. Nós
           armazenamos as suas informações: a) pelo tempo exigido em lei; b) até o término do tratamento dos dados pessoais; ou c) pelo
-          tempo necessário à preservação do legítimo interesse da GABARDO TRANSPORTES.
+          tempo necessário à preservação do legítimo interesse da Transportes Gabardo Ltda.
         </p>
       </>
     ),
@@ -222,7 +222,7 @@ const sections: Array<{
     content: (
       <>
         <p>
-          a GABARDO TRANSPORTES reserva-se o direito de promover alterações na sua Política de Privacidade de Dados a qualquer tempo,
+          a Transportes Gabardo Ltda reserva-se o direito de promover alterações na sua Política de Privacidade de Dados a qualquer tempo,
           mediante divulgação da versão atualizada em seu site, sempre que assim for necessário, seja em decorrência de evoluções no seu
           modelo de negócio, seja para melhor adequá-la ao cumprimento de disposições legais.
         </p>
@@ -248,7 +248,7 @@ export default function PrivacyPolicyPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-gabardo-light-blue">Transparência e Proteção de Dados</p>
           <h1 className="text-3xl font-semibold text-gabardo-blue md:text-4xl">Política de Privacidade</h1>
           <p className="text-sm text-neutral-600 md:text-base">
-            Nesta página você encontra informações detalhadas sobre como a Gabardo Transportes trata dados pessoais e garante a
+            Nesta página você encontra informações detalhadas sobre como a Transportes Gabardo Ltda trata dados pessoais e garante a
             conformidade com a LGPD. Leia atentamente e, em caso de dúvidas, fale com nosso time de privacidade.
           </p>
           <p className="text-xs uppercase tracking-[0.3em] text-neutral-400">Versão atualizada em {LAST_UPDATE}</p>
