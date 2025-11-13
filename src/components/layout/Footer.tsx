@@ -181,12 +181,12 @@ const Footer: React.FC = () => {
         className="border-t border-white/10 bg-white/5"
       >
         <div className="section-container flex flex-col gap-3 sm:gap-4 py-4 sm:py-5 md:py-6 text-xs sm:text-sm text-white/60 md:flex-row md:items-center md:justify-between">
-          <p>
-            2025 Transportes Gabardo Ltda. Todos os direitos reservados.
-            <span className="ml-2 inline-block rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[0.65rem] tracking-[0.08em] text-white/80">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-center md:text-left">
+            <span>2025 Transportes Gabardo Ltda. Todos os direitos reservados.</span>
+            <span className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[0.65rem] tracking-[0.08em] text-white/80 whitespace-nowrap">
               v2.2
             </span>
-          </p>
+          </div>
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
             <Link href="/politica-de-privacidade" className="transition-colors duration-200 hover:text-gabardo-light-blue">
               Política de Privacidade
