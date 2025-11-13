@@ -96,21 +96,27 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-10 lg:p-12">
                 <div className="max-w-4xl">
-                  <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3 mb-4">
-                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gabardo-light-blue text-white text-xs font-semibold uppercase tracking-wider">
-                      <Tag className="w-3 h-3" />
-                      {featuredArticle.category}
-                    </span>
-                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium">
-                      <Calendar className="w-3 h-3" />
-                      {new Date(featuredArticle.date).toLocaleDateString('pt-BR')}
-                    </span>
-                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium">
-                      <Clock className="w-3 h-3" />
-                      {featuredArticle.readTime}
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
+                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gabardo-light-blue text-white text-xs font-semibold uppercase tracking-wider">
+                        <Tag className="w-3 h-3" />
+                        {featuredArticle.category}
+                      </span>
+                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium">
+                        <Calendar className="w-3 h-3" />
+                        {new Date(featuredArticle.date).toLocaleDateString('pt-BR')}
+                      </span>
+                      <span className="hidden sm:inline text-white/60">•</span>
+                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium">
+                        <Clock className="w-3 h-3" />
+                        {featuredArticle.readTime}
+                      </span>
+                    </div>
+                    <span className="inline-flex items-center justify-center self-start sm:self-auto px-4 py-2 rounded-full bg-white text-gabardo-blue text-xs font-bold uppercase tracking-wider shadow-lg">
+                      Destaque
                     </span>
                   </div>
-                  
+
                   <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
                     {featuredArticle.title}
                   </h2>
@@ -131,11 +137,6 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
                     <ArrowRight className="w-5 h-5 transition-transform group-hover/btn:translate-x-1" />
                   </motion.button>
                 </div>
-              </div>
-
-              {/* Featured Badge */}
-              <div className="absolute top-6 right-6 px-4 py-2 rounded-full bg-white text-gabardo-blue text-xs font-bold uppercase tracking-wider shadow-lg">
-                Destaque
               </div>
             </div>
           </motion.div>

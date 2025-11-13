@@ -378,20 +378,20 @@ export default function ServicesFleetSectionNew() {
                             {/* Carousel de Imagens */}
                             <FleetCarousel images={type.images} name={type.name} />
 
-                            <div className="grid gap-4 rounded-2xl border border-gabardo-blue/20 bg-gradient-to-br from-gabardo-blue/5 to-transparent p-5 md:grid-cols-2">
+                            <div className="grid gap-4 rounded-2xl border border-gray-200 bg-white/80 p-5 md:grid-cols-2">
                               <div>
-                                <div className="text-xs font-bold uppercase tracking-wider text-gabardo-blue/60">
-                                  Payload capacity
+                                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                                  Capacidade de carga
                                 </div>
-                                <div className="mt-2 text-lg font-bold text-gabardo-blue">
+                                <div className="mt-2 text-lg font-semibold text-gabardo-blue">
                                   {type.specs.payload}
                                 </div>
                               </div>
                               <div>
-                                <div className="text-xs font-bold uppercase tracking-wider text-gabardo-blue/60">
-                                  Pallet capacity
+                                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+                                  Capacidade de veículos
                                 </div>
-                                <div className="mt-2 text-lg font-bold text-gabardo-blue">
+                                <div className="mt-2 text-lg font-semibold text-gabardo-blue">
                                   {type.specs.pallets}
                                 </div>
                               </div>

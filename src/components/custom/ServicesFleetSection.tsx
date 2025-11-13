@@ -270,16 +270,16 @@ export default function ServicesFleetSection() {
 
                             <div className="grid gap-4 rounded-2xl border border-neutral-200 bg-white/80 p-5 md:grid-cols-2">
                               <div>
-                                <div className="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-400">
-                                  Payload capacity
+                                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                                  Capacidade de carga
                                 </div>
                                 <div className="mt-2 text-lg font-semibold text-neutral-800">
                                   {type.specs.payload}
                                 </div>
                               </div>
                               <div>
-                                <div className="text-xs font-semibold uppercase tracking-[0.3em] text-neutral-400">
-                                  Pallet capacity
+                                <div className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                                  Capacidade de veículos
                                 </div>
                                 <div className="mt-2 text-lg font-semibold text-neutral-800">
                                   {type.specs.pallets}

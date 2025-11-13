@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import WhatsAppFloat from "@/components/custom/WhatsAppFloat";
 import CookieConsentBanner from "@/components/custom/CookieConsentBanner";
 import StructuredData from "@/components/seo/StructuredData";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
@@ -117,7 +116,7 @@ export default function RootLayout({
             <PerformanceMonitor />
             <StructuredData />
             {children}
-            <WhatsAppFloat />
+            {/* WhatsAppFloat temporarily disabled */}
             <CookieConsentBanner />
             <SpeedInsights />
           </CookieConsentProvider>

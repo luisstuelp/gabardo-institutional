@@ -67,7 +67,8 @@ const pillars = [
     description:
       'Auditorias internas frequentes, indicadores atualizados e planos de ação integrados ao Sistema de Gestão da Qualidade.',
     stats: '7,04h',
-    statsLabel: 'Treinamento médio anual por colaborador em 2024',
+    statsLabel: 'Média mensal de treinamento por colaborador em 2024',
+    statsUnit: 'horas/mês',
   },
   {
     title: 'Gestão Sustentável',
@@ -75,6 +76,7 @@ const pillars = [
       'Matriz energética com geração fotovoltaica, inventário de emissões desde 2017 e compensação de CO₂ no programa Carbono Negativo Gabardo.',
     stats: '100%',
     statsLabel: 'Emissões reportadas no inventário GHG Protocol',
+    statsUnit: 'Indicador',
   },
   {
     title: 'Segurança em Primeiro Lugar',
@@ -82,6 +84,7 @@ const pillars = [
       'Checklists eletrônicos, telemetria 24/7 e protocolos certificados reduzem ocorrências viárias abaixo da média setorial.',
     stats: '0,30%',
     statsLabel: 'Índice anual de avarias gerais',
+    statsUnit: 'Indicador',
   },
 ];
 
@@ -204,7 +207,7 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                     <p className="text-xs sm:text-sm text-white/70 leading-relaxed">{pillar.description}</p>
                     <div className="flex items-baseline gap-2 sm:gap-3">
                       <span className="text-2xl sm:text-3xl font-semibold text-white">{pillar.stats}</span>
-                      <span className="text-[0.6rem] sm:text-[10px] uppercase tracking-[0.24em] sm:tracking-[0.28em] text-white/50">Indicador</span>
+                      <span className="text-[0.6rem] sm:text-[10px] uppercase tracking-[0.24em] sm:tracking-[0.28em] text-white/50">{pillar.statsUnit ?? 'Indicador'}</span>
                     </div>
                     <p className="text-[0.7rem] sm:text-xs text-white/60 leading-relaxed">{pillar.statsLabel}</p>
                   </div>
