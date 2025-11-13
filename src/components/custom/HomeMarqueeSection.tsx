@@ -124,7 +124,7 @@ const HomeMarqueeSection = () => {
         </div>
 
         <div className="mt-10 sm:mt-12 md:mt-14 lg:mt-16 space-y-6 sm:space-y-8">
-          <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+          <div className="relative left-1/2 right-1/2 w-full max-w-[100vw] -translate-x-1/2 lg:w-screen lg:max-w-none">
             <ScrollMarquee
               delay={0}
               baseVelocity={0.2}
@@ -135,7 +135,7 @@ const HomeMarqueeSection = () => {
             </ScrollMarquee>
           </div>
 
-          <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+          <div className="relative left-1/2 right-1/2 w-full max-w-[100vw] -translate-x-1/2 lg:w-screen lg:max-w-none">
             <ScrollMarquee
               delay={500}
               baseVelocity={0.25}
@@ -146,7 +146,7 @@ const HomeMarqueeSection = () => {
             </ScrollMarquee>
           </div>
 
-          <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+          <div className="relative left-1/2 right-1/2 w-full max-w-[100vw] -translate-x-1/2 lg:w-screen lg:max-w-none">
             <ScrollMarquee
               delay={1000}
               baseVelocity={0.22}
