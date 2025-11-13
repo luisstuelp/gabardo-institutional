@@ -258,7 +258,8 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="fixed inset-0 z-50 font-['Inter',_sans-serif]"
+          className="fixed inset-0 z-50 font-['Inter',_sans-serif] min-h-[100vh] min-h-[100svh]"
+          style={{ minHeight: '100dvh' }}
         >
           <div className="absolute inset-0 bg-gradient-to-br from-[#0b1627]/85 via-[#0c1f3d]/80 to-[#06101f]/85" />
           <div className="absolute inset-0 bg-black/55 backdrop-blur-sm" />
@@ -285,7 +286,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
             </div>
           </motion.div>
 
-          <div className="relative z-10 h-full flex flex-col md:flex-row">
+          <div className="relative z-10 h-full flex flex-col md:flex-row pb-[env(safe-area-inset-bottom,0px)]">
             <motion.div
               initial={{ x: -100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
