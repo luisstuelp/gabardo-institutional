@@ -92,29 +92,29 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
               
               {/* Overlay Gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+
+              {/* Desktop Highlight Badge */}
+              <div className="hidden sm:block absolute top-6 left-6">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gabardo-blue text-white text-xs font-semibold uppercase tracking-wider shadow-lg">
+                  <Tag className="w-3 h-3" />
+                  Destaque
+                </span>
+              </div>
               
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-10 lg:p-12">
                 <div className="max-w-4xl">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-                    <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
-                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gabardo-light-blue text-white text-xs font-semibold uppercase tracking-wider">
+                  <div className="flex flex-row flex-wrap sm:flex-row sm:items-center sm:justify-start gap-2 sm:gap-3 mb-4">
+                    <div className="flex flex-row flex-wrap items-center gap-2 sm:gap-3">
+                      <span className="inline-flex sm:hidden items-center gap-2 px-3 py-1 rounded-full bg-gabardo-blue text-white text-xs font-semibold uppercase tracking-wider shadow-lg">
                         <Tag className="w-3 h-3" />
-                        {featuredArticle.category}
+                        Destaque
                       </span>
-                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium">
-                        <Calendar className="w-3 h-3" />
-                        {new Date(featuredArticle.date).toLocaleDateString('pt-BR')}
-                      </span>
-                      <span className="hidden sm:inline text-white/60">•</span>
-                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium">
-                        <Clock className="w-3 h-3" />
-                        {featuredArticle.readTime}
+                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-gabardo-blue text-xs font-semibold uppercase tracking-wider">
+                        <Tag className="w-3 h-3" />
+                        {featuredArticle.category === 'Sustentabilidade' ? 'Sustentabilidade' : featuredArticle.category}
                       </span>
                     </div>
-                    <span className="inline-flex items-center justify-center self-start sm:self-auto px-4 py-2 rounded-full bg-white text-gabardo-blue text-xs font-bold uppercase tracking-wider shadow-lg">
-                      Destaque
-                    </span>
                   </div>
 
                   <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
