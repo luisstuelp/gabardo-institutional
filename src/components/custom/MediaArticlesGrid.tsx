@@ -95,7 +95,7 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
 
               {/* Desktop Highlight Badge */}
               <div className="hidden sm:block absolute top-6 left-6">
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gabardo-blue text-white text-xs font-semibold uppercase tracking-wider shadow-lg">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gabardo-light-blue text-white text-xs font-semibold uppercase tracking-wider shadow-lg">
                   <Tag className="w-3 h-3" />
                   Destaque
                 </span>
@@ -106,13 +106,22 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
                 <div className="max-w-4xl">
                   <div className="flex flex-row flex-wrap sm:flex-row sm:items-center sm:justify-start gap-2 sm:gap-3 mb-4">
                     <div className="flex flex-row flex-wrap items-center gap-2 sm:gap-3">
-                      <span className="inline-flex sm:hidden items-center gap-2 px-3 py-1 rounded-full bg-gabardo-blue text-white text-xs font-semibold uppercase tracking-wider shadow-lg">
+                      <span className="inline-flex sm:hidden items-center gap-2 px-3 py-1 rounded-full bg-gabardo-light-blue/90 text-white text-xs font-semibold uppercase tracking-wider shadow-lg">
                         <Tag className="w-3 h-3" />
                         Destaque
                       </span>
                       <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-gabardo-blue text-xs font-semibold uppercase tracking-wider">
                         <Tag className="w-3 h-3" />
                         {featuredArticle.category === 'Sustentabilidade' ? 'Sustentabilidade' : featuredArticle.category}
+                      </span>
+                      <span className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium">
+                        <Calendar className="w-3 h-3" />
+                        {new Date(featuredArticle.date).toLocaleDateString('pt-BR')}
+                      </span>
+                      <span className="hidden sm:inline text-white/60">•</span>
+                      <span className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium">
+                        <Clock className="w-3 h-3" />
+                        {featuredArticle.readTime}
                       </span>
                     </div>
                   </div>
