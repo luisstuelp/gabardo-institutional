@@ -96,7 +96,7 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-10 lg:p-12">
                 <div className="max-w-4xl">
-                  <div className="flex flex-wrap items-center gap-3 mb-4">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3 mb-4">
                     <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gabardo-light-blue text-white text-xs font-semibold uppercase tracking-wider">
                       <Tag className="w-3 h-3" />
                       {featuredArticle.category}
@@ -179,12 +179,12 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
                 {/* Content */}
                 <div className="p-6 flex-1 flex flex-col">
                   {/* Meta Info */}
-                  <div className="flex flex-wrap items-center gap-3 mb-3 text-xs text-gray-500">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3 mb-3 text-xs text-gray-500">
                     <span className="flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5" />
                       {new Date(article.date).toLocaleDateString('pt-BR')}
                     </span>
-                    <span>•</span>
+                    <span className="hidden sm:inline">•</span>
                     <span className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5" />
                       {article.readTime}

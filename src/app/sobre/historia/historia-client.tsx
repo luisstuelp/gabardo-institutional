@@ -162,12 +162,10 @@ function Tabs({
   sections,
   activeId,
   setActiveId,
-  stickyOffset,
 }: {
   sections: typeof STORY_SECTIONS;
   activeId: string;
   setActiveId: (id: string) => void;
-  stickyOffset?: string;
 }) {
   const indicatorRef = useRef<HTMLDivElement | null>(null);
   const highlightRef = useRef<HTMLDivElement | null>(null);
@@ -244,8 +242,7 @@ function Tabs({
   return (
     <div 
       id="timeline-tabs"
-      className="sticky z-40 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gabardo-blue/10 transition-all duration-300 shadow-sm"
-      style={{ top: stickyOffset ?? '0px' }}
+      className="sticky top-[72px] md:top-0 z-40 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gabardo-blue/10 transition-all duration-300 shadow-sm"
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full py-2 sm:py-0">
         <div className="relative h-full overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory">
@@ -311,18 +308,11 @@ function Tabs({
 }
 
 export default function HistoriaClientPage() {
-  const HEADER_HEIGHT = 72;
-  const MOBILE_TABS_HEIGHT = 88;
-  const SECTION_SCROLL_MARGIN_DESKTOP = 180;
-  const SECTION_SCROLL_MARGIN_MOBILE = HEADER_HEIGHT + MOBILE_TABS_HEIGHT;
-
   const [activeId, setActiveId] = useState(STORY_SECTIONS[0].id);
   const heroBackground = HERO_BACKGROUND;
   const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [isMobileViewport, setIsMobileViewport] = useState<boolean>(() =>
-    typeof window !== 'undefined' ? window.innerWidth < 1024 : false
-  );
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   // Force video autoplay on mount
   useEffect(() => {
@@ -467,7 +457,6 @@ export default function HistoriaClientPage() {
           sections={STORY_SECTIONS}
           activeId={activeId}
           setActiveId={setActiveId}
-          stickyOffset={isMobileViewport ? `${HEADER_HEIGHT}px` : '0px'}
         />
 
         {/* Story Sections */}
@@ -477,12 +466,7 @@ export default function HistoriaClientPage() {
               key={section.id}
               id={section.id}
               aria-labelledby={`${section.id}-title`}
-              className="scroll-mt-24 md:scroll-mt-20"
-              style={{
-                scrollMarginTop: isMobileViewport
-                  ? `${SECTION_SCROLL_MARGIN_MOBILE}px`
-                  : `${SECTION_SCROLL_MARGIN_DESKTOP}px`,
-              }}
+              className="scroll-mt-[160px] md:scroll-mt-[180px]"
             >
               <StoryCard 
                 section={section}
