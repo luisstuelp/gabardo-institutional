@@ -1041,7 +1041,6 @@ const VehicleQuoteForm: React.FC = () => {
                     <a href="tel:+555133733000" className="text-gray-600 hover:text-gabardo-blue transition-colors">
                       (51) 3373-3000
                     </a>
-                    <p className="text-gray-500 text-xs tracking-wide">Atendimento em horário comercial</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
