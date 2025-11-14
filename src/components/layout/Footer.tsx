@@ -137,6 +137,16 @@ const Footer: React.FC = () => {
                         </Link>
                       </li>
                     ))}
+                    {section.title === 'Suporte' && (
+                      <li className="sm:hidden">
+                        <Link
+                          href="/admin"
+                          className="inline-flex items-center gap-2 text-xs text-white/70 transition-colors duration-200 hover:text-gabardo-light-blue"
+                        >
+                          <span>Admin</span>
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                 </motion.div>
               ))}
@@ -188,12 +198,15 @@ const Footer: React.FC = () => {
             </span>
           </div>
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-            <Link href="/politica-de-privacidade" className="transition-colors duration-200 hover:text-gabardo-light-blue">
+            <Link
+              href="/politica-de-privacidade"
+              className="hidden sm:inline transition-colors duration-200 hover:text-gabardo-light-blue"
+            >
               Política de Privacidade
             </Link>
             <Link
               href="/admin"
-              className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white transition-all duration-200 hover:border-gabardo-light-blue/60 hover:bg-gabardo-light-blue/20 hover:text-white"
+              className="hidden sm:inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white transition-all duration-200 hover:border-gabardo-light-blue/60 hover:bg-gabardo-light-blue/20 hover:text-white"
             >
               Admin
             </Link>
