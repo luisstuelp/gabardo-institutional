@@ -1,4 +1,4 @@
-type ContentType = 'post' | 'midia';
+type ContentType = 'post' | 'midia' | 'page';
 
 export type MetricsEvent = 'view' | 'external_click' | 'share';
 

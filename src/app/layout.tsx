@@ -3,6 +3,7 @@ import "./globals.css";
 import CookieConsentBanner from "@/components/custom/CookieConsentBanner";
 import StructuredData from "@/components/seo/StructuredData";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
+import PageMetricsTracker from "@/components/analytics/PageMetricsTracker";
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
 import { CookieConsentProvider } from "@/components/providers/CookieConsentProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -126,6 +127,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <CookieConsentProvider>
             <PerformanceMonitor />
+            <PageMetricsTracker />
             <StructuredData />
             {children}
             {/* WhatsAppFloat temporarily disabled */}

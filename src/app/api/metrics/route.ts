@@ -14,16 +14,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!['post', 'midia'].includes(contentType)) {
+    if (!['post', 'midia', 'page'].includes(contentType)) {
       return NextResponse.json(
-        { error: 'Invalid contentType. Must be "post" or "midia"' },
+        { error: 'Invalid contentType. Must be "post", "midia" ou "page"' },
         { status: 400 }
       );
     }
 
-    if (!['view', 'external_click', 'share'].includes(event)) {
+    const allowedEvents = contentType === 'page' ? ['view'] : ['view', 'external_click', 'share'];
+
+    if (!allowedEvents.includes(event)) {
       return NextResponse.json(
-        { error: 'Invalid event. Must be "view", "external_click", or "share"' },
+        { error: 'Invalid event for contentType' },
         { status: 400 }
       );
     }
@@ -31,11 +33,16 @@ export async function POST(request: NextRequest) {
     const supabase = createServerSupabaseClient();
 
     // Call the appropriate RPC function based on content type
-    const functionName = contentType === 'post' 
-      ? 'increment_post_metric' 
-      : 'increment_midia_metric';
+    const functionName =
+      contentType === 'post'
+        ? 'increment_post_metric'
+        : contentType === 'midia'
+          ? 'increment_midia_metric'
+          : 'increment_page_metric';
 
-    const { data, error } = await supabase.rpc(functionName, {
+    const { data, error } = await (supabase as unknown as {
+      rpc: (fn: string, params: Record<string, unknown>) => ReturnType<typeof supabase.rpc>;
+    }).rpc(functionName, {
       content_id: contentId,
       metric_type: event,
     });
