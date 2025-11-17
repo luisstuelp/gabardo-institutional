@@ -6,7 +6,7 @@ import { CalendarIcon, Loader2, Save, UploadCloud, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 import { useCreateMidia, useUpdateMidia } from '@/hooks/useMidia';
-import type { Tables } from '@/integrations/supabase/types';
+import type { Tables } from '@/integrations/supabase/type';
 import type { MidiaFormData } from '@/schemas/midia';
 import { supabase } from '@/integrations/supabase/client';
 

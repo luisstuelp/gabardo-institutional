@@ -1,4 +1,4 @@
-import type { Database } from '@/integrations/supabase/types';
+import type { Database } from '@/integrations/supabase/type';
 
 export type QuoteStatus = Database['public']['Enums']['quote_status'];
 

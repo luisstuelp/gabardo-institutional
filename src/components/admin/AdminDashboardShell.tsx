@@ -11,14 +11,21 @@ import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import type { AdminRole } from '@/lib/adminSession';
 
-const BASE_NAV_LINKS = [
+type NavLink = {
+  href: string;
+  label: string;
+  adminOnly?: boolean;
+};
+
+const BASE_NAV_LINKS: NavLink[] = [
   { href: '/admin', label: 'Início' },
   { href: '/admin/blog/posts', label: 'Blog' },
   { href: '/admin/midia/artigos', label: 'Mídia' },
   { href: '/admin/orcamentos', label: 'Orçamentos' },
   { href: '/admin/contatos', label: 'Contatos' },
   { href: '/admin/metricas', label: 'Métricas' },
-  { href: '/admin/usuarios', label: 'Usuários' },
+  { href: '/admin/usuarios', label: 'Usuários', adminOnly: true },
+  { href: '/admin/logs', label: 'Logs', adminOnly: true },
 ];
 
 interface AdminDashboardShellProps {
@@ -33,11 +40,7 @@ export default function AdminDashboardShell({ children, email, role }: AdminDash
   const [isSigningOut, setIsSigningOut] = useState(false);
 
   const navLinks = useMemo(() => {
-    if (role === 'admin') {
-      return BASE_NAV_LINKS;
-    }
-
-    return BASE_NAV_LINKS.filter((link) => link.href !== '/admin/usuarios');
+    return BASE_NAV_LINKS.filter((link) => !link.adminOnly || role === 'admin');
   }, [role]);
 
   const activeLink = useMemo(() => {

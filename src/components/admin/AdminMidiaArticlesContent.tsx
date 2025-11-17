@@ -6,7 +6,7 @@ import { ArrowUpRight, CalendarDays, Loader2, Trash2, Plus } from 'lucide-react'
 
 import { Button } from '@/components/ui/button';
 import { useDeleteMidia, useMidia } from '@/hooks/useMidia';
-import type { Tables } from '@/integrations/supabase/types';
+import type { Tables } from '@/integrations/supabase/type';
 
 export default function AdminMidiaArticlesContent() {
   const { data: articles, isLoading, isError, error } = useMidia();

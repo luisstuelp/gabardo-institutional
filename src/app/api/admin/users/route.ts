@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { requireAdminSession } from '@/lib/adminAccess';
+import { extractClientIp, logAdminAction } from '@/lib/adminAudit';
 
 const MAX_USERS_PER_PAGE = 500;
 
@@ -68,7 +69,7 @@ export async function GET(request: NextRequest) {
 
   const {
     supabase,
-    session: { userId: currentAdminId },
+    session: { userId: currentAdminId, email: currentAdminEmail, role: currentAdminRole },
   } = adminContext;
 
   const searchParams = new URL(request.url).searchParams;
@@ -116,7 +117,7 @@ export async function GET(request: NextRequest) {
 
   const adminCount = shapedUsers.filter((user) => user.role === 'admin').length;
 
-  return NextResponse.json({
+  const response = NextResponse.json({
     users: filteredUsers,
     summary: {
       total: shapedUsers.length,
@@ -125,6 +126,24 @@ export async function GET(request: NextRequest) {
       retrievedAt: new Date().toISOString(),
     },
   });
+
+  await logAdminAction({
+    supabase,
+    actor: { id: currentAdminId, email: currentAdminEmail, role: currentAdminRole },
+    action: 'admin.users.list',
+    description: 'Listagem de usuários administrativos',
+    route: '/api/admin/users',
+    method: 'GET',
+    metadata: {
+      roleFilter: roleFilter ?? 'all',
+      search: searchTerm || null,
+      totalReturned: filteredUsers.length,
+    },
+    ipAddress: extractClientIp(request.headers),
+    userAgent: request.headers.get('user-agent'),
+  });
+
+  return response;
 }
 
 export async function POST(request: NextRequest) {
@@ -136,7 +155,7 @@ export async function POST(request: NextRequest) {
 
   const {
     supabase,
-    session: { userId: currentAdminId },
+    session: { userId: currentAdminId, email: currentAdminEmail, role: currentAdminRole },
   } = adminContext;
 
   const body = (await request.json().catch(() => null)) as (UpdateRolePayload | CreateUserPayload | null);
@@ -187,7 +206,7 @@ export async function POST(request: NextRequest) {
       await supabase.from('user_roles').delete().eq('user_id', user.id);
     }
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       user: {
         id: user.id,
@@ -195,6 +214,23 @@ export async function POST(request: NextRequest) {
         role,
       },
     });
+    await logAdminAction({
+      supabase,
+      actor: { id: currentAdminId, email: currentAdminEmail, role: currentAdminRole },
+      action: 'admin.users.create',
+      description: 'Criação de usuário administrativo via painel',
+      route: '/api/admin/users',
+      method: 'POST',
+      entity: { type: 'user', id: user.id },
+      metadata: {
+        email,
+        role,
+      },
+      ipAddress: extractClientIp(request.headers),
+      userAgent: request.headers.get('user-agent'),
+    });
+
+    return response;
   }
 
   const payload = body as UpdateRolePayload;
@@ -251,11 +287,28 @@ export async function POST(request: NextRequest) {
     await supabase.from('user_roles').delete().eq('user_id', targetUserId);
   }
 
-  return NextResponse.json({
+  const response = NextResponse.json({
     success: true,
     userId: targetUserId,
     role: targetRole,
   });
+
+  await logAdminAction({
+    supabase,
+    actor: { id: currentAdminId, email: currentAdminEmail, role: currentAdminRole },
+    action: 'admin.users.role.update',
+    description: 'Atualização de permissão administrativa',
+    route: '/api/admin/users',
+    method: 'POST',
+    entity: { type: 'user', id: targetUserId },
+    metadata: {
+      newRole: targetRole,
+    },
+    ipAddress: extractClientIp(request.headers),
+    userAgent: request.headers.get('user-agent'),
+  });
+
+  return response;
 }
 
 export async function DELETE(request: NextRequest) {
@@ -267,7 +320,7 @@ export async function DELETE(request: NextRequest) {
 
   const {
     supabase,
-    session: { userId: currentAdminId },
+    session: { userId: currentAdminId, email: currentAdminEmail, role: currentAdminRole },
   } = adminContext;
 
   const payload: { userId?: string } | null = await request
@@ -309,5 +362,19 @@ export async function DELETE(request: NextRequest) {
     return buildErrorResponse(500, 'Não foi possível excluir o usuário.', deleteUserError.message);
   }
 
-  return NextResponse.json({ success: true, userId: targetUserId });
+  const response = NextResponse.json({ success: true, userId: targetUserId });
+
+  await logAdminAction({
+    supabase,
+    actor: { id: currentAdminId, email: currentAdminEmail, role: currentAdminRole },
+    action: 'admin.users.delete',
+    description: 'Exclusão de usuário administrativo',
+    route: '/api/admin/users',
+    method: 'DELETE',
+    entity: { type: 'user', id: targetUserId },
+    ipAddress: extractClientIp(request.headers),
+    userAgent: request.headers.get('user-agent'),
+  });
+
+  return response;
 }

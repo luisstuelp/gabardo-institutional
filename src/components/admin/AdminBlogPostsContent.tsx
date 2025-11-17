@@ -6,7 +6,7 @@ import { ArrowUpRight, BadgeCheck, CalendarDays, Loader2, Plus, Trash2 } from 'l
 
 import { Button } from '@/components/ui/button';
 import { useDeletePost, usePosts } from '@/hooks/usePosts';
-import type { Tables } from '@/integrations/supabase/types';
+import type { Tables } from '@/integrations/supabase/type';
 
 export default function AdminBlogPostsContent() {
   const { data: posts, isLoading, isError, error } = usePosts();

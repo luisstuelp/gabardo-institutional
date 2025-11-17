@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 import { useCreatePost, useUpdatePost } from '@/hooks/usePosts';
-import type { Tables } from '@/integrations/supabase/types';
+import type { Tables } from '@/integrations/supabase/type';
 import type { PostFormData } from '@/schemas/post';
 import { supabase } from '@/integrations/supabase/client';
 

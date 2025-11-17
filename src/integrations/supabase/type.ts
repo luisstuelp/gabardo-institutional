@@ -14,6 +14,97 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_audit_logs: {
+        Row: {
+          id: string
+          created_at: string | null
+          actor_id: string | null
+          actor_email: string | null
+          role: Database["public"]["Enums"]["app_role"] | null
+          action: string
+          route: string | null
+          method: string | null
+          entity_type: string | null
+          entity_id: string | null
+          description: string | null
+          metadata: Json
+          ip_address: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string | null
+          actor_id?: string | null
+          actor_email?: string | null
+          role?: Database["public"]["Enums"]["app_role"] | null
+          action: string
+          route?: string | null
+          method?: string | null
+          entity_type?: string | null
+          entity_id?: string | null
+          description?: string | null
+          metadata?: Json
+          ip_address?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          id?: string
+          created_at?: string | null
+          actor_id?: string | null
+          actor_email?: string | null
+          role?: Database["public"]["Enums"]["app_role"] | null
+          action?: string
+          route?: string | null
+          method?: string | null
+          entity_type?: string | null
+          entity_id?: string | null
+          description?: string | null
+          metadata?: Json
+          ip_address?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
+      midia_metrics: {
+        Row: {
+          id: string
+          midia_id: string | null
+          views: number
+          external_clicks: number
+          shares: number
+          last_viewed_at: string | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          midia_id?: string | null
+          views?: number
+          external_clicks?: number
+          shares?: number
+          last_viewed_at?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          midia_id?: string | null
+          views?: number
+          external_clicks?: number
+          shares?: number
+          last_viewed_at?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'midia_metrics_midia_id_fkey'
+            columns: ['midia_id']
+            referencedRelation: 'midia'
+            referencedColumns: ['id']
+          }
+        ]
+      }
       midia: {
         Row: {
           author_id: string | null
@@ -62,6 +153,13 @@ export type Database = {
           excerpt: string | null
           id: string
           published: boolean | null
+          featured: boolean | null
+          category: string | null
+          tags: string[] | null
+          author: string | null
+          read_time: string | null
+          seo_description: string | null
+          seo_keywords: string[] | null
           slug: string
           title: string
           updated_at: string | null
@@ -74,6 +172,13 @@ export type Database = {
           excerpt?: string | null
           id?: string
           published?: boolean | null
+          featured?: boolean | null
+          category?: string | null
+          tags?: string[] | null
+          author?: string | null
+          read_time?: string | null
+          seo_description?: string | null
+          seo_keywords?: string[] | null
           slug: string
           title: string
           updated_at?: string | null
@@ -86,9 +191,131 @@ export type Database = {
           excerpt?: string | null
           id?: string
           published?: boolean | null
+          featured?: boolean | null
+          category?: string | null
+          tags?: string[] | null
+          author?: string | null
+          read_time?: string | null
+          seo_description?: string | null
+          seo_keywords?: string[] | null
           slug?: string
           title?: string
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      post_metrics: {
+        Row: {
+          id: string
+          post_id: string | null
+          views: number
+          external_clicks: number
+          shares: number
+          last_viewed_at: string | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          post_id?: string | null
+          views?: number
+          external_clicks?: number
+          shares?: number
+          last_viewed_at?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          post_id?: string | null
+          views?: number
+          external_clicks?: number
+          shares?: number
+          last_viewed_at?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'post_metrics_post_id_fkey'
+            columns: ['post_id']
+            referencedRelation: 'posts'
+            referencedColumns: ['id']
+          }
+        ]
+      }
+      quotes: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          status: Database['public']['Enums']['quote_status']
+          name: string
+          company: string | null
+          email: string
+          phone: string
+          vehicle_category: string
+          vehicle_brand: string
+          vehicle_model: string
+          vehicle_year: string
+          vehicle_value: string
+          vehicle_observation: string | null
+          origin_state: string
+          origin_city: string
+          destination_state: string
+          destination_city: string
+          route_observation: string | null
+          message: string | null
+          privacy_accepted: boolean
+          raw_data: Json
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          status?: Database['public']['Enums']['quote_status']
+          name: string
+          company?: string | null
+          email: string
+          phone: string
+          vehicle_category: string
+          vehicle_brand: string
+          vehicle_model: string
+          vehicle_year: string
+          vehicle_value: string
+          vehicle_observation?: string | null
+          origin_state: string
+          origin_city: string
+          destination_state: string
+          destination_city: string
+          route_observation?: string | null
+          message?: string | null
+          privacy_accepted?: boolean
+          raw_data?: Json
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          status?: Database['public']['Enums']['quote_status']
+          name?: string
+          company?: string | null
+          email?: string
+          phone?: string
+          vehicle_category?: string
+          vehicle_brand?: string
+          vehicle_model?: string
+          vehicle_year?: string
+          vehicle_value?: string
+          vehicle_observation?: string | null
+          origin_state?: string
+          origin_city?: string
+          destination_state?: string
+          destination_city?: string
+          route_observation?: string | null
+          message?: string | null
+          privacy_accepted?: boolean
+          raw_data?: Json
         }
         Relationships: []
       }
@@ -115,7 +342,17 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      page_metrics: {
+        Row: {
+          id: string | null
+          page_path: string | null
+          views: number | null
+          last_viewed_at: string | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
@@ -129,6 +366,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
+      quote_status: "new" | "in_progress" | "completed" | "archived"
     }
     CompositeTypes: {
       [_ in never]: never
