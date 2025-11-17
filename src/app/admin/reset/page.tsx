@@ -10,18 +10,29 @@ export const metadata: Metadata = {
 
 type ResetPageSearchParams = Record<string, string | string[] | undefined>;
 
-export default async function AdminResetPage({
-  searchParams,
-}: {
-  searchParams?: Promise<ResetPageSearchParams> | undefined;
-}) {
-  const resolvedSearchParams = (await searchParams?.catch<ResetPageSearchParams>(() => ({} as ResetPageSearchParams))) ?? {};
+type ResetPageProps = {
+  searchParams?: ResetPageSearchParams | Promise<ResetPageSearchParams>;
+};
 
+export default async function AdminResetPage({ searchParams }: ResetPageProps) {
+  let resolvedSearchParams: ResetPageSearchParams = {};
+
+  if (searchParams) {
+    const maybePromise = searchParams as Promise<ResetPageSearchParams>;
+    if (typeof maybePromise.then === 'function') {
+      resolvedSearchParams = (await maybePromise.catch<ResetPageSearchParams>(() => ({}))) ?? {};
+    } else {
+      resolvedSearchParams = searchParams as ResetPageSearchParams;
+    }
+  }
+
+  const codeRaw = resolvedSearchParams['code'];
   const tokenRaw = resolvedSearchParams['token'];
   const typeRaw = resolvedSearchParams['type'];
   const accessTokenRaw = resolvedSearchParams['access_token'];
   const refreshTokenRaw = resolvedSearchParams['refresh_token'];
 
+  const code = Array.isArray(codeRaw) ? codeRaw[0] : codeRaw;
   const token = Array.isArray(tokenRaw) ? tokenRaw[0] : tokenRaw;
   const type = Array.isArray(typeRaw) ? typeRaw[0] : typeRaw;
   const accessToken = Array.isArray(accessTokenRaw) ? accessTokenRaw[0] : accessTokenRaw;
@@ -31,7 +42,7 @@ export default async function AdminResetPage({
     <Suspense
       fallback={<div className="min-h-screen flex items-center justify-center bg-neutral-950 text-white">Carregando...</div>}
     >
-      <AdminPasswordReset code={token} type={type} accessToken={accessToken} refreshToken={refreshToken} />
+      <AdminPasswordReset code={code ?? token} type={type} accessToken={accessToken} refreshToken={refreshToken} />
     </Suspense>
   );
 }
