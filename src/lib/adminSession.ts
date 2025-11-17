@@ -4,9 +4,12 @@ import { createHmac, timingSafeEqual } from 'crypto';
 export const SESSION_COOKIE_NAME = 'gabardo_admin_session';
 export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 6; // 6 hours
 
+export type AdminRole = 'admin' | 'moderator' | 'user';
+
 export type AdminSession = {
   email: string;
   userId: string;
+  role: AdminRole;
   expiresAt: number;
 };
 
@@ -22,9 +25,9 @@ function getSessionSecret(): string {
   return secret;
 }
 
-export function createSessionToken(email: string, userId: string): string {
+export function createSessionToken(email: string, userId: string, role: AdminRole): string {
   const expiresAt = Date.now() + SESSION_MAX_AGE_SECONDS * 1000;
-  const payload = JSON.stringify({ email, userId, expiresAt });
+  const payload = JSON.stringify({ email, userId, role, expiresAt });
   const signature = createHmac('sha256', getSessionSecret()).update(payload).digest('hex');
 
   return Buffer.from(`${payload}${TOKEN_SEPARATOR}${signature}`).toString('base64url');
@@ -58,7 +61,7 @@ export function verifySessionToken(token: string): AdminSession | null {
       return null;
     }
 
-    const parsed = JSON.parse(payload) as AdminSession;
+    const parsed = JSON.parse(payload) as Partial<AdminSession> & { expiresAt?: number };
 
     if (!parsed?.email || typeof parsed.email !== 'string') {
       return null;
@@ -72,11 +75,24 @@ export function verifySessionToken(token: string): AdminSession | null {
       return null;
     }
 
-    if (Date.now() > parsed.expiresAt) {
+    const allowedRoles: AdminRole[] = ['admin', 'moderator', 'user'];
+    const fallbackRole: AdminRole = 'admin';
+    const parsedRole = typeof parsed.role === 'string' && (allowedRoles as string[]).includes(parsed.role)
+      ? (parsed.role as AdminRole)
+      : fallbackRole;
+
+    const session: AdminSession = {
+      email: parsed.email,
+      userId: parsed.userId,
+      role: parsedRole,
+      expiresAt: parsed.expiresAt,
+    };
+
+    if (Date.now() > session.expiresAt) {
       return null;
     }
 
-    return parsed;
+    return session;
   } catch (error) {
     void error;
     return null;

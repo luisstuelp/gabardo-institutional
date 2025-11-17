@@ -9,25 +9,36 @@ import { LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
+import type { AdminRole } from '@/lib/adminSession';
 
-const navLinks = [
+const BASE_NAV_LINKS = [
   { href: '/admin', label: 'Início' },
   { href: '/admin/blog/posts', label: 'Blog' },
   { href: '/admin/midia/artigos', label: 'Mídia' },
   { href: '/admin/orcamentos', label: 'Orçamentos' },
   { href: '/admin/contatos', label: 'Contatos' },
   { href: '/admin/metricas', label: 'Métricas' },
+  { href: '/admin/usuarios', label: 'Usuários' },
 ];
 
 interface AdminDashboardShellProps {
   children: ReactNode;
   email: string;
+  role: AdminRole;
 }
 
-export default function AdminDashboardShell({ children, email }: AdminDashboardShellProps) {
+export default function AdminDashboardShell({ children, email, role }: AdminDashboardShellProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [isSigningOut, setIsSigningOut] = useState(false);
+
+  const navLinks = useMemo(() => {
+    if (role === 'admin') {
+      return BASE_NAV_LINKS;
+    }
+
+    return BASE_NAV_LINKS.filter((link) => link.href !== '/admin/usuarios');
+  }, [role]);
 
   const activeLink = useMemo(() => {
     if (!pathname) {
@@ -43,7 +54,7 @@ export default function AdminDashboardShell({ children, email }: AdminDashboardS
     });
 
     return matchingLink?.href ?? '/admin';
-  }, [pathname]);
+  }, [pathname, navLinks]);
 
   const handleLogout = async () => {
     if (isSigningOut) {

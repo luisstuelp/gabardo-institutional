@@ -29,7 +29,7 @@ export default async function AdminBlogEditPostPage({ params }: AdminBlogEditPos
   }
 
   return (
-    <AdminDashboardShell email={session.email}>
+    <AdminDashboardShell email={session.email} role={session.role}>
       <AdminPostForm initialData={data} />
     </AdminDashboardShell>
   );

@@ -18,7 +18,7 @@ export default async function AdminDashboardPage() {
   }
 
   return (
-    <AdminDashboardShell email={session.email}>
+    <AdminDashboardShell email={session.email} role={session.role}>
       <div className="space-y-8">
         <header className="border-b border-white/10 pb-6">
           <h1 className="text-3xl font-semibold text-white">Painel da Gabardo</h1>

@@ -12,7 +12,7 @@ export default async function AdminBlogNewPostPage() {
   }
 
   return (
-    <AdminDashboardShell email={session.email}>
+    <AdminDashboardShell email={session.email} role={session.role}>
       <AdminPostForm />
     </AdminDashboardShell>
   );

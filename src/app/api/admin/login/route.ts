@@ -3,6 +3,7 @@ import {
   createSessionToken,
   SESSION_COOKIE_NAME,
   SESSION_MAX_AGE_SECONDS,
+  type AdminRole,
 } from '@/lib/adminSession';
 import { createServerSupabaseClient } from '@/integrations/supabase/server';
 
@@ -41,17 +42,26 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Falha ao iniciar sessão.' }, { status: 500 });
     }
 
-    const { data: isAdmin, error: adminCheckError } = await supabase.rpc('is_admin');
+    const { data: roleRow, error: roleError } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', user.id)
+      .maybeSingle();
 
-    if (adminCheckError) {
+    if (roleError) {
       return NextResponse.json({ error: 'Falha ao verificar permissões.' }, { status: 500 });
     }
 
-    if (!isAdmin) {
-      return NextResponse.json({ error: 'Usuário sem permissão de administrador.' }, { status: 403 });
+    const allowedRoles: AdminRole[] = ['admin', 'moderator', 'user'];
+    const sessionRole: AdminRole = roleRow?.role && allowedRoles.includes(roleRow.role as AdminRole)
+      ? (roleRow.role as AdminRole)
+      : 'user';
+
+    if (!allowedRoles.includes(sessionRole)) {
+      return NextResponse.json({ error: 'Usuário sem permissão de acesso.' }, { status: 403 });
     }
 
-    const token = createSessionToken(user.email ?? body.email, user.id);
+    const token = createSessionToken(user.email ?? body.email, user.id, sessionRole);
     const response = NextResponse.json({
       success: true,
       session: {

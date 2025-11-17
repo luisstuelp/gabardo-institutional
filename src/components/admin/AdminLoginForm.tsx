@@ -14,7 +14,6 @@ export default function AdminLoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [mode, setMode] = useState<'login' | 'register'>('login');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,9 +23,7 @@ export default function AdminLoginForm() {
     setError(null);
 
     try {
-      const endpoint = mode === 'register' ? '/api/admin/register' : '/api/admin/login';
-
-      const response = await fetch(endpoint, {
+      const response = await fetch('/api/admin/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,9 +55,7 @@ export default function AdminLoginForm() {
       router.replace('/admin');
       router.refresh();
     } catch (submitError) {
-      const defaultMessage = mode === 'register'
-        ? 'Erro inesperado ao realizar cadastro.'
-        : 'Erro inesperado ao fazer login.';
+      const defaultMessage = 'Erro inesperado ao fazer login.';
       setError(submitError instanceof Error ? submitError.message : defaultMessage);
     } finally {
       setIsSubmitting(false);
@@ -85,13 +80,10 @@ export default function AdminLoginForm() {
             <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gabardo-blue/20 text-gabardo-light-blue">
               <Shield className="h-7 w-7" />
             </div>
-            <h1 className="text-3xl font-semibold">
-              {mode === 'register' ? 'Cadastro de Administrador' : 'Acesso Administrativo'}
-            </h1>
+            <h1 className="text-3xl font-semibold">Acesso Administrativo</h1>
             <p className="mt-2 text-sm text-white/60">
-              {mode === 'register'
-                ? 'Crie uma conta administrativa para gerenciar o conteúdo do blog e da mídia.'
-                : 'Faça login para gerenciar o conteúdo do blog e da mídia.'}
+              Faça login para gerenciar o conteúdo da Gabardo. Novos acessos devem ser criados pela equipe responsável
+              no painel de administração.
             </p>
           </div>
 
@@ -150,10 +142,10 @@ export default function AdminLoginForm() {
               {isSubmitting ? (
                 <span className="flex items-center justify-center gap-2">
                   <Loader2 className="h-5 w-5 animate-spin" />
-                  {mode === 'register' ? 'Cadastrando...' : 'Entrando...'}
+                  Entrando...
                 </span>
               ) : (
-                mode === 'register' ? 'Cadastrar e entrar' : 'Entrar'
+                'Entrar'
               )}
             </motion.button>
           </form>
@@ -166,33 +158,7 @@ export default function AdminLoginForm() {
           >
             Área restrita aos administradores da Gabardo Transportes.
           </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-            className="mt-6 text-center text-sm text-white/60"
-          >
-            <span className="mr-2">
-              {mode === 'register' ? 'Já possui um acesso aprovado?' : 'Ainda não possui um acesso aprovado?'}
-            </span>
-            <button
-              type="button"
-              onClick={() => setMode((current) => (current === 'register' ? 'login' : 'register'))}
-              className="font-semibold text-gabardo-light-blue transition-colors hover:text-white"
-            >
-              {mode === 'register' ? 'Fazer login' : 'Solicitar cadastro'}
-            </button>
-          </motion.div>
         </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-8 text-center text-xs text-white/40"
-        >
-          Área restrita aos administradores da Gabardo Transportes.
-        </motion.p>
       </div>
     </div>
   );
