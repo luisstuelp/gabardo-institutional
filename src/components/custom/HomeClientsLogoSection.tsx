@@ -117,6 +117,20 @@ const clientDetails: Record<number, { name: string; description: string }> = {
   }
 };
 
+const getLogoImageTweaks = (detailId: number) => {
+  const tweaks: string[] = [];
+
+  if (detailId === 9) {
+    tweaks.push('sm:scale-[1.6]', 'md:scale-[1.85]');
+  }
+
+  if (detailId === 15) {
+    tweaks.push('translate-y-2', 'sm:translate-y-3', 'md:translate-y-4');
+  }
+
+  return tweaks.join(' ');
+};
+
 const HomeClientsLogoSection = () => {
   const [flippedLogo, setFlippedLogo] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -301,7 +315,7 @@ const HomeClientsLogoSection = () => {
                         alt={displayName}
                         width={300}
                         height={300}
-                        className={`w-full h-full object-contain transition-all duration-500 grayscale group-hover:grayscale-0 opacity-60 group-hover:opacity-100 ${detailId === 9 ? 'sm:scale-[1.6] md:scale-[1.85]' : ''}`}
+                        className={`w-full h-full object-contain transition-all duration-500 grayscale group-hover:grayscale-0 opacity-60 group-hover:opacity-100 ${getLogoImageTweaks(detailId)}`}
                       />
 
                       <motion.div
