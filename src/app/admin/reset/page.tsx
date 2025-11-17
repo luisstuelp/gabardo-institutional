@@ -10,21 +10,12 @@ export const metadata: Metadata = {
 
 type ResetPageSearchParams = Record<string, string | string[] | undefined>;
 
-type ResetPageProps = {
-  searchParams?: ResetPageSearchParams | Promise<ResetPageSearchParams>;
-};
-
-export default async function AdminResetPage({ searchParams }: ResetPageProps) {
-  let resolvedSearchParams: ResetPageSearchParams = {};
-
-  if (searchParams) {
-    const maybePromise = searchParams as Promise<ResetPageSearchParams>;
-    if (typeof maybePromise.then === 'function') {
-      resolvedSearchParams = (await maybePromise.catch<ResetPageSearchParams>(() => ({}))) ?? {};
-    } else {
-      resolvedSearchParams = searchParams as ResetPageSearchParams;
-    }
-  }
+export default async function AdminResetPage({
+  searchParams,
+}: {
+  searchParams?: Promise<ResetPageSearchParams>;
+}) {
+  const resolvedSearchParams = (await searchParams?.catch<ResetPageSearchParams>(() => ({}))) ?? {};
 
   const codeRaw = resolvedSearchParams['code'];
   const tokenRaw = resolvedSearchParams['token'];
