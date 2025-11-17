@@ -8,17 +8,24 @@ export const metadata: Metadata = {
   description: 'Atualize sua senha para continuar acessando o painel administrativo da Transportes Gabardo.',
 };
 
-type ResetPageProps = {
-  searchParams: {
-    token?: string;
-    type?: string;
-    access_token?: string;
-    refresh_token?: string;
-  };
+type ResetPageSearchParams = {
+  token?: string;
+  type?: string;
+  access_token?: string;
+  refresh_token?: string;
 };
 
-export default function AdminResetPage({ searchParams }: ResetPageProps) {
-  const { token, type, access_token: accessToken, refresh_token: refreshToken } = searchParams;
+type ResetPageProps = {
+  searchParams: Promise<ResetPageSearchParams> | ResetPageSearchParams;
+};
+
+export default async function AdminResetPage({ searchParams }: ResetPageProps) {
+  const resolvedSearchParams =
+    typeof (searchParams as Promise<ResetPageSearchParams>).then === 'function'
+      ? await (searchParams as Promise<ResetPageSearchParams>)
+      : (searchParams as ResetPageSearchParams);
+
+  const { token, type, access_token: accessToken, refresh_token: refreshToken } = resolvedSearchParams;
 
   return (
     <Suspense
