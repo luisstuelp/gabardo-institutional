@@ -156,7 +156,7 @@ export default function AdminLoginForm() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mt-8 text-center text-xs text-white/40"
           >
-            Área restrita aos administradores da Gabardo Transportes.
+            Área restrita aos administradores da Transportes Gabardo Ltda.
           </motion.p>
         </motion.div>
       </div>

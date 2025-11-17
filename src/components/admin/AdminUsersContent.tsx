@@ -390,7 +390,7 @@ export default function AdminUsersContent() {
                 <div className="flex gap-3">
                   <button
                     type="button"
-                    className={`flex-1 rounded-xl border px-4 py-3 text-sm transition-all ${
+                    className={`flex flex-1 flex-col items-center justify-center gap-1 rounded-xl border px-4 py-3 text-sm text-center transition-all ${
                       newUserRole === 'admin'
                         ? 'border-gabardo-light-blue bg-gabardo-light-blue/20 text-white'
                         : 'border-white/15 bg-white/5 text-white/70 hover:border-white/30 hover:bg-white/10'
@@ -398,12 +398,11 @@ export default function AdminUsersContent() {
                     onClick={() => setNewUserRole('admin')}
                     disabled={createUser.isPending}
                   >
-                    <ShieldCheck className="mb-2 h-4 w-4" />
                     Administrador
                   </button>
                   <button
                     type="button"
-                    className={`flex-1 rounded-xl border px-4 py-3 text-sm transition-all ${
+                    className={`flex flex-1 flex-col items-center justify-center gap-1 rounded-xl border px-4 py-3 text-sm text-center transition-all ${
                       newUserRole === 'user'
                         ? 'border-emerald-400 bg-emerald-500/20 text-emerald-100'
                         : 'border-white/15 bg-white/5 text-white/70 hover:border-white/30 hover:bg-white/10'
