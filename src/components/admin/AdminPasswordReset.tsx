@@ -13,60 +13,156 @@ export type AdminPasswordResetProps = {
   accessToken?: string;
   refreshToken?: string;
   type?: string;
+  error?: string | null;
+  errorDescription?: string | null;
 };
 
 type ResetStatus = 'verifying' | 'ready' | 'updating' | 'success' | 'error';
 
-export function AdminPasswordReset({ code, accessToken, refreshToken, type }: AdminPasswordResetProps) {
+type AuthParamsState = {
+  code?: string;
+  accessToken?: string;
+  refreshToken?: string;
+  type?: string;
+};
+
+function resolveErrorMessage(errorCode?: string | null, fallback?: string | null) {
+  if (fallback && fallback.trim().length > 0) {
+    return fallback;
+  }
+
+  switch (errorCode) {
+    case 'access_denied':
+    case 'otp_expired':
+      return 'Link inválido ou expirado. Solicite uma nova redefinição.';
+    default:
+      return errorCode ? 'Não foi possível validar o link.' : null;
+  }
+}
+
+export function AdminPasswordReset({
+  code,
+  accessToken,
+  refreshToken,
+  type,
+  error,
+  errorDescription,
+}: AdminPasswordResetProps) {
   const router = useRouter();
-  const [status, setStatus] = useState<ResetStatus>('verifying');
+  const initialErrorMessage = resolveErrorMessage(error, errorDescription);
+  const [status, setStatus] = useState<ResetStatus>(initialErrorMessage ? 'error' : 'verifying');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(initialErrorMessage);
+  const [hashChecked, setHashChecked] = useState(false);
+  const [authParams, setAuthParams] = useState<AuthParamsState>(() => ({
+    code,
+    accessToken,
+    refreshToken,
+    type,
+  }));
 
   const isReady = status === 'ready';
   const isUpdating = status === 'updating';
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    if (code || (accessToken && refreshToken) || initialErrorMessage) {
+      setHashChecked(true);
+      return;
+    }
+
+    const hash = window.location.hash.startsWith('#') ? window.location.hash.slice(1) : '';
+
+    if (!hash) {
+      setHashChecked(true);
+      return;
+    }
+
+    const hashParams = new URLSearchParams(hash);
+    const hashError = hashParams.get('error');
+    const hashErrorDescription = hashParams.get('error_description');
+
+    if (hashError) {
+      setErrorMessage(resolveErrorMessage(hashError, hashErrorDescription));
+      setStatus('error');
+      setHashChecked(true);
+      return;
+    }
+
+    setAuthParams((current) => ({
+      code: hashParams.get('code') ?? current.code,
+      accessToken: hashParams.get('access_token') ?? current.accessToken,
+      refreshToken: hashParams.get('refresh_token') ?? current.refreshToken,
+      type: hashParams.get('type') ?? current.type,
+    }));
+
+    if (window.history?.replaceState) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+
+    setHashChecked(true);
+  }, [accessToken, code, refreshToken, initialErrorMessage]);
+
+  const effectiveCode = authParams.code ?? code;
+  const effectiveAccessToken = authParams.accessToken ?? accessToken;
+  const effectiveRefreshToken = authParams.refreshToken ?? refreshToken;
+  const effectiveType = authParams.type ?? type;
+
+  useEffect(() => {
+    if (status !== 'verifying' || !hashChecked || initialErrorMessage) {
+      return;
+    }
+
     async function prepareSession() {
       try {
-        if (type && type !== 'recovery') {
+        if (effectiveType && effectiveType !== 'recovery') {
           throw new Error('Este link não é válido para redefinição de senha.');
         }
 
-        if (code) {
-          const { error } = await supabase.auth.exchangeCodeForSession(code);
-          if (error) {
-            throw error;
+        if (effectiveCode) {
+          const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(effectiveCode);
+          if (exchangeError) {
+            throw exchangeError;
           }
           setStatus('ready');
           return;
         }
 
-        if (accessToken && refreshToken) {
-          const { error } = await supabase.auth.setSession({
-            access_token: accessToken,
-            refresh_token: refreshToken,
+        if (effectiveAccessToken && effectiveRefreshToken) {
+          const { error: sessionError } = await supabase.auth.setSession({
+            access_token: effectiveAccessToken,
+            refresh_token: effectiveRefreshToken,
           });
-          if (error) {
-            throw error;
+          if (sessionError) {
+            throw sessionError;
           }
           setStatus('ready');
           return;
         }
 
         throw new Error('Link inválido ou expirado. Solicite uma nova redefinição.');
-      } catch (error) {
-        const message = error instanceof Error ? error.message : 'Não foi possível validar o link.';
+      } catch (preparationError) {
+        const message =
+          preparationError instanceof Error ? preparationError.message : 'Não foi possível validar o link.';
         setErrorMessage(message);
         setStatus('error');
       }
     }
 
     void prepareSession();
-    // We intentionally run this effect only once on mount.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [
+    effectiveAccessToken,
+    effectiveCode,
+    effectiveRefreshToken,
+    effectiveType,
+    hashChecked,
+    initialErrorMessage,
+    status,
+  ]);
 
   const resetDisabled = useMemo(() => {
     if (!password || !confirmPassword) {
