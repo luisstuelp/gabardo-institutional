@@ -8,24 +8,24 @@ export const metadata: Metadata = {
   description: 'Atualize sua senha para continuar acessando o painel administrativo da Transportes Gabardo.',
 };
 
-type ResetPageSearchParams = {
-  token?: string;
-  type?: string;
-  access_token?: string;
-  refresh_token?: string;
-};
+type ResetPageSearchParams = Record<string, string | string[] | undefined>;
 
-type ResetPageProps = {
-  searchParams: Promise<ResetPageSearchParams> | ResetPageSearchParams;
-};
+export default async function AdminResetPage({
+  searchParams,
+}: {
+  searchParams?: Promise<ResetPageSearchParams> | undefined;
+}) {
+  const resolvedSearchParams = (await searchParams?.catch<ResetPageSearchParams>(() => ({} as ResetPageSearchParams))) ?? {};
 
-export default async function AdminResetPage({ searchParams }: ResetPageProps) {
-  const resolvedSearchParams =
-    typeof (searchParams as Promise<ResetPageSearchParams>).then === 'function'
-      ? await (searchParams as Promise<ResetPageSearchParams>)
-      : (searchParams as ResetPageSearchParams);
+  const tokenRaw = resolvedSearchParams['token'];
+  const typeRaw = resolvedSearchParams['type'];
+  const accessTokenRaw = resolvedSearchParams['access_token'];
+  const refreshTokenRaw = resolvedSearchParams['refresh_token'];
 
-  const { token, type, access_token: accessToken, refresh_token: refreshToken } = resolvedSearchParams;
+  const token = Array.isArray(tokenRaw) ? tokenRaw[0] : tokenRaw;
+  const type = Array.isArray(typeRaw) ? typeRaw[0] : typeRaw;
+  const accessToken = Array.isArray(accessTokenRaw) ? accessTokenRaw[0] : accessTokenRaw;
+  const refreshToken = Array.isArray(refreshTokenRaw) ? refreshTokenRaw[0] : refreshTokenRaw;
 
   return (
     <Suspense
