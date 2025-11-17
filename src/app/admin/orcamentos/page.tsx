@@ -12,7 +12,7 @@ export default async function AdminQuotesPage() {
   }
 
   return (
-    <AdminDashboardShell email={session.email}>
+    <AdminDashboardShell email={session.email} role={session.role}>
       <AdminQuotesList />
     </AdminDashboardShell>
   );

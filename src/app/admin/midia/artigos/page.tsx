@@ -11,7 +11,7 @@ export default async function AdminMidiaArticlesPage() {
   }
 
   return (
-    <AdminDashboardShell email={session.email}>
+    <AdminDashboardShell email={session.email} role={session.role}>
       <AdminMidiaArticlesContent />
     </AdminDashboardShell>
   );

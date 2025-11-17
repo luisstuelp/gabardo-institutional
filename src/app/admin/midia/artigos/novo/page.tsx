@@ -12,7 +12,7 @@ export default async function AdminMidiaNewArticlePage() {
   }
 
   return (
-    <AdminDashboardShell email={session.email}>
+    <AdminDashboardShell email={session.email} role={session.role}>
       <AdminMidiaForm />
     </AdminDashboardShell>
   );

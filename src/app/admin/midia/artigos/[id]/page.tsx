@@ -29,7 +29,7 @@ export default async function AdminMidiaEditArticlePage({ params }: AdminMidiaEd
   }
 
   return (
-    <AdminDashboardShell email={session.email}>
+    <AdminDashboardShell email={session.email} role={session.role}>
       <AdminMidiaForm initialData={data} />
     </AdminDashboardShell>
   );
