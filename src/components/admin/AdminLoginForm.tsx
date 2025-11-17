@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Shield, Loader2 } from 'lucide-react';
+import { Shield, Loader2, Mail, X } from 'lucide-react';
 
 import { supabase } from '@/integrations/supabase/client';
 
@@ -16,6 +16,54 @@ export default function AdminLoginForm() {
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isResetModalOpen, setIsResetModalOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
+  const [isRequestingReset, setIsRequestingReset] = useState(false);
+  const [resetError, setResetError] = useState<string | null>(null);
+  const [resetSuccess, setResetSuccess] = useState(false);
+
+  const closeResetModal = () => {
+    setIsResetModalOpen(false);
+    setResetEmail('');
+    setResetError(null);
+    setResetSuccess(false);
+    setIsRequestingReset(false);
+  };
+
+  const handlePasswordResetRequest = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!resetEmail.trim()) {
+      setResetError('Informe um e-mail válido.');
+      return;
+    }
+
+    setIsRequestingReset(true);
+    setResetError(null);
+    setResetSuccess(false);
+
+    try {
+      const response = await fetch('/api/admin/password/request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: resetEmail.trim() }),
+      });
+
+      if (!response.ok) {
+        const data = (await response.json().catch(() => ({}))) as { error?: string };
+        throw new Error(data.error ?? 'Não foi possível enviar o e-mail de redefinição.');
+      }
+
+      setResetSuccess(true);
+    } catch (requestError) {
+      const defaultMessage = 'Não foi possível enviar o e-mail de redefinição.';
+      setResetError(requestError instanceof Error ? requestError.message : defaultMessage);
+    } finally {
+      setIsRequestingReset(false);
+    }
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -148,6 +196,14 @@ export default function AdminLoginForm() {
                 'Entrar'
               )}
             </motion.button>
+
+            <button
+              type="button"
+              onClick={() => setIsResetModalOpen(true)}
+              className="w-full text-center text-xs font-semibold uppercase tracking-[0.3em] text-white/50 transition-colors hover:text-white"
+            >
+              Esqueci minha senha
+            </button>
           </form>
 
           <motion.p
@@ -160,6 +216,101 @@ export default function AdminLoginForm() {
           </motion.p>
         </motion.div>
       </div>
+
+      {isResetModalOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-40 flex items-center justify-center bg-neutral-950/80 px-4"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="relative w-full max-w-md rounded-2xl border border-white/15 bg-neutral-950/95 p-6 text-white shadow-2xl"
+          >
+            <button
+              type="button"
+              onClick={closeResetModal}
+              className="absolute right-4 top-4 rounded-full border border-white/10 p-2 text-white/60 transition-colors hover:border-white/30 hover:text-white"
+              aria-label="Fechar"
+            >
+              <X className="h-4 w-4" />
+            </button>
+
+            <div className="mb-6 space-y-2 text-center">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gabardo-blue/20 text-gabardo-light-blue">
+                <Mail className="h-5 w-5" />
+              </div>
+              <h2 className="text-2xl font-semibold">Redefinir senha</h2>
+              <p className="text-sm text-white/60">
+                Informe o e-mail cadastrado para receber o link de redefinição. Ele expira em alguns minutos.
+              </p>
+            </div>
+
+            <form className="space-y-4" onSubmit={handlePasswordResetRequest}>
+              <div className="space-y-2">
+                <label className="text-xs font-semibold uppercase tracking-[0.3em] text-white/50">E-mail cadastrado</label>
+                <input
+                  type="email"
+                  value={resetEmail}
+                  onChange={(event) => setResetEmail(event.target.value)}
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
+                  placeholder="admin@transgabardo.com.br"
+                  required
+                  disabled={isRequestingReset || resetSuccess}
+                />
+              </div>
+
+              {resetError && (
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200"
+                >
+                  {resetError}
+                </motion.div>
+              )}
+
+              {resetSuccess && (
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="rounded-xl border border-emerald-400/40 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100"
+                >
+                  Enviamos um e-mail com instruções para redefinir a senha. Verifique sua caixa de entrada e spam.
+                </motion.div>
+              )}
+
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
+                <button
+                  type="button"
+                  onClick={closeResetModal}
+                  className="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white transition-colors hover:border-white/30 hover:bg-white/10 sm:w-auto"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  disabled={isRequestingReset || resetSuccess}
+                  className="w-full rounded-xl bg-gabardo-light-blue px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-neutral-950 transition-colors hover:bg-gabardo-light-blue/90 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+                >
+                  {isRequestingReset ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Enviando...
+                    </span>
+                  ) : (
+                    'Enviar link'
+                  )}
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 }
