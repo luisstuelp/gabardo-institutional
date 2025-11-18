@@ -142,7 +142,7 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
                     }}
                     className="inline-flex items-center gap-2 text-white font-semibold group/btn"
                   >
-                    <span>Ler artigo completo</span>
+                    <span>Ver artigo completo</span>
                     <ArrowRight className="w-5 h-5 transition-transform group-hover/btn:translate-x-1" />
                   </motion.button>
                 </div>
@@ -221,7 +221,7 @@ const MediaArticlesGrid: React.FC<MediaArticlesGridProps> = ({ articles = [] }) 
                     animate={{ x: hoveredCard === article.id ? 5 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <span>Ler mais</span>
+                    <span>Ver mais</span>
                     <ArrowRight className="w-4 h-4" />
                   </motion.button>
                 </div>
