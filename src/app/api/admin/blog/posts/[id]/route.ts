@@ -43,14 +43,22 @@ function diffFields(previous: PostMutableFields, next: PostUpdate): string[] {
   return changed;
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(
+  request: NextRequest,
+  context: { params?: Promise<Record<string, string | string[] | undefined>> },
+) {
   const adminContext = await requireAdminSession();
 
   if ('error' in adminContext) {
     return NextResponse.json({ error: adminContext.error.message }, { status: adminContext.error.status });
   }
 
-  const { id } = params;
+  const params = context.params ? await context.params : undefined;
+  const idValue = params?.id;
+
+  if (!idValue || Array.isArray(idValue)) {
+    return NextResponse.json({ error: 'Parâmetro "id" inválido.' }, { status: 400 });
+  }
 
   const {
     supabase,
@@ -60,7 +68,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   const { data: existingPost, error: existingError } = await supabase
     .from('posts')
     .select('*')
-    .eq('id', id)
+    .eq('id', idValue)
     .single();
 
   if (existingError || !existingPost) {
@@ -80,7 +88,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   const { data: updatedPost, error: updateError } = await supabase
     .from('posts')
     .update(normalized)
-    .eq('id', id)
+    .eq('id', idValue)
     .select('*')
     .single();
 
@@ -99,9 +107,9 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     actor: { id: currentAdminId, email: currentAdminEmail, role: currentAdminRole },
     action: 'admin.blog.post.update',
     description: 'Atualização de post do blog',
-    route: `/api/admin/blog/posts/${id}`,
+    route: `/api/admin/blog/posts/${idValue}`,
     method: 'PUT',
-    entity: { type: 'post', id },
+    entity: { type: 'post', id: idValue },
     metadata: {
       slugBefore: existingPost.slug,
       slugAfter: updatedPost.slug,
@@ -122,7 +130,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     return NextResponse.json({ error: adminContext.error.message }, { status: adminContext.error.status });
   }
 
-  const { id } = params;
+  const id = params.id;
 
   const {
     supabase,
