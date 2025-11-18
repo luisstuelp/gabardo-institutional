@@ -43,10 +43,9 @@ function diffFields(previous: PostMutableFields, next: PostUpdate): string[] {
   return changed;
 }
 
-export async function PUT(
-  request: NextRequest,
-  context: { params?: Promise<Record<string, string | string[] | undefined>> },
-) {
+type RouteContext = { params?: Promise<Record<string, string | string[] | undefined>> };
+
+export async function PUT(request: NextRequest, context: RouteContext) {
   const adminContext = await requireAdminSession();
 
   if ('error' in adminContext) {
@@ -123,14 +122,19 @@ export async function PUT(
   return NextResponse.json({ post: updatedPost });
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, context: RouteContext) {
   const adminContext = await requireAdminSession();
 
   if ('error' in adminContext) {
     return NextResponse.json({ error: adminContext.error.message }, { status: adminContext.error.status });
   }
 
-  const id = params.id;
+  const params = context.params ? await context.params : undefined;
+  const id = params?.id;
+
+  if (!id || Array.isArray(id)) {
+    return NextResponse.json({ error: 'Parâmetro "id" inválido.' }, { status: 400 });
+  }
 
   const {
     supabase,
