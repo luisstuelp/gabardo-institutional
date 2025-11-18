@@ -33,6 +33,8 @@ export default async function AdminBlogNewPostPage() {
         loop: true,
         muted: true,
         controls: true,
+        linkLabel: 'Certificado de Verificação de Carbono',
+        linkUrl: 'https://drive.google.com/file/d/1J4ItTI0_6yYVohR_V8UwPqOcxCw62Ay_/view',
       },
       {
         type: 'heading',

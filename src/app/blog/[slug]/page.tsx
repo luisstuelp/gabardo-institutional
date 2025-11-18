@@ -135,7 +135,22 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     }
 
     // Parse content - handles both JSON and plain text
-    const contentBlocks = parseContent(supabasePost.content);
+    const rawContentBlocks = parseContent(supabasePost.content);
+
+    const contentBlocks = rawContentBlocks.map((block) => {
+      if (
+        block.type === 'video' &&
+        !block.linkUrl &&
+        supabasePost.slug === 'bndes-gabardo'
+      ) {
+        return {
+          ...block,
+          linkLabel: 'Certificado de Verificação de Carbono',
+          linkUrl: 'https://drive.google.com/file/d/1J4ItTI0_6yYVohR_V8UwPqOcxCw62Ay_/view',
+        } as typeof block & { linkLabel: string; linkUrl: string };
+      }
+      return block;
+    });
 
     // Transform Supabase data to BlogPostDetail
     const post: BlogPostDetail = {
