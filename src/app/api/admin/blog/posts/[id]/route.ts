@@ -43,7 +43,7 @@ function diffFields(previous: PostMutableFields, next: PostUpdate): string[] {
   return changed;
 }
 
-type RouteContext = { params?: Promise<Record<string, string | string[] | undefined>> };
+type RouteContext = { params: Promise<Record<string, string | string[] | undefined>> };
 
 export async function PUT(request: NextRequest, context: RouteContext) {
   const adminContext = await requireAdminSession();
@@ -52,7 +52,7 @@ export async function PUT(request: NextRequest, context: RouteContext) {
     return NextResponse.json({ error: adminContext.error.message }, { status: adminContext.error.status });
   }
 
-  const params = context.params ? await context.params : undefined;
+  const params = await context.params;
   const idValue = params?.id;
 
   if (!idValue || Array.isArray(idValue)) {
@@ -129,7 +129,7 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
     return NextResponse.json({ error: adminContext.error.message }, { status: adminContext.error.status });
   }
 
-  const params = context.params ? await context.params : undefined;
+  const params = await context.params;
   const id = params?.id;
 
   if (!id || Array.isArray(id)) {
