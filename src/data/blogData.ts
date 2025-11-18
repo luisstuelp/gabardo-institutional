@@ -30,6 +30,8 @@ export interface BlogContent {
   loop?: boolean; // for video
   muted?: boolean; // for video
   controls?: boolean; // for video
+  linkLabel?: string; // for video
+  linkUrl?: string; // for video
 }
 
 export const blogPosts: BlogPost[] = [
@@ -50,7 +52,9 @@ export const blogPosts: BlogPost[] = [
         autoplay: true,
         loop: true,
         muted: true,
-        controls: true
+        controls: true,
+        linkLabel: 'Certificado de Verificação de Carbono',
+        linkUrl: 'https://drive.google.com/file/d/1J4ItTI0_6yYVohR_V8UwPqOcxCw62Ay_/view'
       },
       {
         type: 'heading',

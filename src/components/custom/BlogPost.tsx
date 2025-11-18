@@ -193,11 +193,11 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="my-16 max-w-5xl mx-auto"
+            className="my-16 w-full max-w-3xl mx-auto md:max-w-4xl"
           >
-            <div className="relative rounded-3xl overflow-hidden border border-white/10 bg-white/5">
+            <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 bg-white/5">
               <video
-                className="w-full h-auto"
+                className="h-full w-full"
                 src={content.content}
                 poster={content.poster}
                 autoPlay={content.autoplay}
@@ -209,7 +209,19 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
             </div>
             {content.caption && (
               <figcaption className="text-center text-white/60 mt-4 text-sm italic">
-                {content.caption}
+                <span>{content.caption}</span>
+                {content.linkUrl && (
+                  <div className="mt-2">
+                    <a
+                      href={content.linkUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gabardo-light-blue hover:text-gabardo-light-blue/80 font-medium"
+                    >
+                      {content.linkLabel ?? 'Acesse o certificado'}
+                    </a>
+                  </div>
+                )}
               </figcaption>
             )}
           </motion.figure>

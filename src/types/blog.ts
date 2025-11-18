@@ -15,6 +15,8 @@ export type BlogContentBlock =
       loop?: boolean;
       muted?: boolean;
       controls?: boolean;
+      linkLabel?: string;
+      linkUrl?: string;
     };
 
 export interface BlogPostSummary {
