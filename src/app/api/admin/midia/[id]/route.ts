@@ -18,11 +18,7 @@ const midiaApiSchema = z.object({
 type MidiaRow = Database['public']['Tables']['midia']['Row'];
 type MidiaUpdate = Database['public']['Tables']['midia']['Update'];
 
-type RouteContext = {
-  params: {
-    id: string;
-  };
-};
+type RouteContext = { params: Promise<Record<string, string | string[] | undefined>> };
 
 function normalizeMidiaPayload(payload: z.infer<typeof midiaApiSchema>, authorId: string | null): MidiaUpdate {
   const publishedDate = payload.published_date ? formatDate(payload.published_date) : null;
@@ -60,14 +56,19 @@ function formatDate(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-export async function PUT(request: NextRequest, { params }: RouteContext) {
+export async function PUT(request: NextRequest, context: RouteContext) {
   const adminContext = await requireAdminSession();
 
   if ('error' in adminContext) {
     return NextResponse.json({ error: adminContext.error.message }, { status: adminContext.error.status });
   }
 
-  const { id } = params;
+  const params = await context.params;
+  const id = params?.id;
+
+  if (!id || Array.isArray(id)) {
+    return NextResponse.json({ error: 'Parâmetro "id" inválido.' }, { status: 400 });
+  }
 
   const {
     supabase,
@@ -127,14 +128,19 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
   return NextResponse.json({ midia: updatedMidia });
 }
 
-export async function DELETE(request: NextRequest, { params }: RouteContext) {
+export async function DELETE(request: NextRequest, context: RouteContext) {
   const adminContext = await requireAdminSession();
 
   if ('error' in adminContext) {
     return NextResponse.json({ error: adminContext.error.message }, { status: adminContext.error.status });
   }
 
-  const { id } = params;
+  const params = await context.params;
+  const id = params?.id;
+
+  if (!id || Array.isArray(id)) {
+    return NextResponse.json({ error: 'Parâmetro "id" inválido.' }, { status: 400 });
+  }
 
   const {
     supabase,
