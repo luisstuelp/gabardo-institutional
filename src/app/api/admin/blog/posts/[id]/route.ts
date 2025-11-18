@@ -43,13 +43,7 @@ function diffFields(previous: PostMutableFields, next: PostUpdate): string[] {
   return changed;
 }
 
-type RouteContext = {
-  params: {
-    id: string;
-  };
-};
-
-export async function PUT(request: NextRequest, { params }: RouteContext) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   const adminContext = await requireAdminSession();
 
   if ('error' in adminContext) {
@@ -121,7 +115,7 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
   return NextResponse.json({ post: updatedPost });
 }
 
-export async function DELETE(request: NextRequest, { params }: RouteContext) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   const adminContext = await requireAdminSession();
 
   if ('error' in adminContext) {
