@@ -5,7 +5,17 @@ export type BlogContentBlock =
   | { type: 'image'; content: string; alt?: string }
   | { type: 'list'; content?: string; items?: string[]; ordered?: boolean }
   | { type: 'divider'; content?: string }
-  | { type: 'highlight'; content: string };
+  | { type: 'highlight'; content: string }
+  | {
+      type: 'video';
+      content: string;
+      caption?: string;
+      poster?: string;
+      autoplay?: boolean;
+      loop?: boolean;
+      muted?: boolean;
+      controls?: boolean;
+    };
 
 export interface BlogPostSummary {
   id: string;

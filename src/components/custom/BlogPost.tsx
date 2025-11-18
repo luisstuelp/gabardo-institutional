@@ -185,6 +185,36 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           </motion.div>
         );
 
+      case 'video':
+        return (
+          <motion.figure
+            key={index}
+            variants={variants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="my-16 max-w-5xl mx-auto"
+          >
+            <div className="relative rounded-3xl overflow-hidden border border-white/10 bg-white/5">
+              <video
+                className="w-full h-auto"
+                src={content.content}
+                poster={content.poster}
+                autoPlay={content.autoplay}
+                loop={content.loop}
+                muted={content.muted ?? content.autoplay ?? false}
+                controls={content.controls ?? true}
+                playsInline
+              />
+            </div>
+            {content.caption && (
+              <figcaption className="text-center text-white/60 mt-4 text-sm italic">
+                {content.caption}
+              </figcaption>
+            )}
+          </motion.figure>
+        );
+
       case 'divider':
         return (
           <motion.div
