@@ -196,7 +196,7 @@ const CarbonCompensationSection = () => {
                       Programa Carbono Negativo Gabardo
                     </h3>
                     <p className="text-sm md:text-base text-slate-600 leading-relaxed">
-                      Em 2024 transportamos 25,1% mais veículos, com 71,6 milhões de km percorridos (+34,8%) e consumo de 24,8 milhões de litros de diesel (+33,9%), mantendo evolução contínua dos indicadores específicos.
+                      O inventário GEE 2024, auditado pela Worton ESG, confirmou saldo negativo de -23.890,90 tCO₂e e um estoque de 81.775,48 tCO₂e capturados em reflorestamento, regeneração de matas e bioengenharia. Esse excedente assegura compensação integral das emissões logísticas, amplia o impacto climático equivalente a mais de 1,1 milhão de árvores.
                     </p>
                   </div>
                 </div>

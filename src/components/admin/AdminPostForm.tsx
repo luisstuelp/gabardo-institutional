@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Loader2, Save, X, UploadCloud, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -10,6 +10,8 @@ import { useCreatePost, useUpdatePost } from '@/hooks/usePosts';
 import type { Tables } from '@/integrations/supabase/type';
 import type { PostFormData } from '@/schemas/post';
 import { supabase } from '@/integrations/supabase/client';
+import MarkdownLexicalEditor from '@/components/admin/MarkdownLexicalEditor';
+import { ensureLexicalContent, convertMarkdownToLexicalState } from '@/utils/blogContent';
 
 interface AdminPostFormProps {
   initialData?: Tables<'posts'>;
@@ -145,7 +147,7 @@ const DEFAULT_STATE: FormState = {
   slug: '',
   excerpt: '',
   coverImage: '',
-  content: '',
+  content: ensureLexicalContent(''),
   published: false,
   category: 'Sustentabilidade',
   tags: '',
@@ -193,7 +195,7 @@ export default function AdminPostFormOptimized({ initialData }: AdminPostFormPro
       slug: initialData.slug ?? '',
       excerpt: initialData.excerpt ?? '',
       coverImage: initialData.cover_image ?? '',
-      content: initialData.content ?? '',
+      content: ensureLexicalContent(initialData.content ?? ''),
       published: Boolean(initialData.published),
       category: initialData.category ?? 'Sustentabilidade',
       tags: (initialData.tags || []).join(', '),
@@ -217,7 +219,7 @@ export default function AdminPostFormOptimized({ initialData }: AdminPostFormPro
       return;
     }
 
-    const nextContent = buildMarkdown(templateState);
+    const nextContent = convertMarkdownToLexicalState(buildMarkdown(templateState));
     setFormState((previous) => {
       if (previous.content === nextContent) {
         return previous;
@@ -309,6 +311,13 @@ export default function AdminPostFormOptimized({ initialData }: AdminPostFormPro
       event.target.value = '';
     }
   };
+
+  const handleContentChange = useCallback((nextContent: string) => {
+    setFormState((previous) => ({
+      ...previous,
+      content: nextContent,
+    }));
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -466,7 +475,7 @@ export default function AdminPostFormOptimized({ initialData }: AdminPostFormPro
                 value={formState.category}
                 onChange={handleChange}
                 disabled={isSubmitting}
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
+                className="admin-select w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40"
               >
                 {CATEGORIES.map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
@@ -776,36 +785,33 @@ export default function AdminPostFormOptimized({ initialData }: AdminPostFormPro
             ✍️ Conteúdo do Post *
           </h2>
 
-          <div className="space-y-2">
-            <textarea
-              id="content"
-              name="content"
+          <div className="space-y-3">
+            <MarkdownLexicalEditor
               value={formState.content}
-              onChange={handleChange}
-              required={!useTemplate}
-              readOnly={useTemplate}
-              disabled={isSubmitting}
-              rows={20}
-              className={`w-full rounded-xl border border-white/10 px-4 py-3 font-mono text-sm text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40 ${
-                useTemplate ? 'bg-white/10 cursor-not-allowed opacity-90' : 'bg-white/5'
-              }`}
-              placeholder={useTemplate ? 'O conteúdo será gerado automaticamente conforme o template acima.' : 'Cole aqui o texto completo do post...'}
+              onChange={handleContentChange}
+              placeholder={
+                useTemplate
+                  ? 'O conteúdo é gerado pelo template acima. Ajuste os campos para atualizar.'
+                  : 'Escreva aqui o conteúdo completo do post com formatação rica.'
+              }
+              readOnly={useTemplate || isSubmitting}
+              className="bg-white/0"
             />
+
             {useTemplate ? (
               <div className="bg-gabardo-blue/10 border border-gabardo-light-blue/30 p-4 rounded-lg text-sm text-gabardo-light-blue/90">
                 <p className="font-semibold mb-1">📄 Conteúdo gerado automaticamente</p>
                 <p className="text-xs">
-                  Este campo é apenas para visualização do markdown. Ajuste os campos do template acima para atualizar o texto.
+                  Use os campos do template estruturado para atualizar o texto. O editor permanece apenas para visualização.
                 </p>
               </div>
             ) : (
               <div className="bg-blue-900/20 border border-blue-500/30 p-4 rounded-lg text-sm text-blue-200">
-                <p className="font-semibold mb-2">💡 Como formatar o conteúdo:</p>
+                <p className="font-semibold mb-2">💡 Dicas rápidas de edição</p>
                 <ul className="list-disc list-inside space-y-1 text-xs">
-                  <li>Cole o texto completo diretamente aqui</li>
-                  <li>Use parágrafos vazios para separar seções</li>
-                  <li>Mantenha títulos e subtítulos destacados com maiúsculas ou markdown</li>
-                  <li>O sistema vai processar automaticamente a formatação</li>
+                  <li>Use a barra de ferramentas para aplicar títulos, listas e links.</li>
+                  <li>Selecione um texto e aplique <span className="font-semibold">negrito</span> ou <em>itálico</em>.</li>
+                  <li>Pressione Enter duas vezes para criar novos parágrafos bem espaçados.</li>
                 </ul>
               </div>
             )}

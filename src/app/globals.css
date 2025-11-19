@@ -141,6 +141,18 @@
     box-shadow: 0 45px 80px -40px rgba(19, 45, 81, 0.38);
     border: 1px solid rgba(255, 255, 255, 0.55);
   }
+
+  .admin-select option {
+    color: #0f172a;
+    background-color: #f8fafc;
+  }
+
+  .admin-select option:checked,
+  .admin-select option:hover,
+  .admin-select option:focus {
+    color: #0f172a;
+    background-color: #e2e8f0;
+  }
 }
 
 @keyframes move-lines {

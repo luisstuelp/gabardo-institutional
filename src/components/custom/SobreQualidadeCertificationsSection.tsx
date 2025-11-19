@@ -66,8 +66,8 @@ const pillars = [
     title: 'Melhoria Contínua',
     description:
       'Auditorias internas frequentes, indicadores atualizados e planos de ação integrados ao Sistema de Gestão da Qualidade.',
-    stats: '7,04h',
-    statsLabel: 'Média mensal de treinamento por colaborador em 2024',
+    stats: '7,3h',
+    statsLabel: 'Com nossa média anual de treinamento sendo 87,5h por colaborador',
     statsUnit: 'horas/mês',
   },
   {

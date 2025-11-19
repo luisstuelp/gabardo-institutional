@@ -286,16 +286,26 @@ export default function ClimateChangeSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative flex justify-center"
+            className="relative flex flex-col items-center"
           >
-            <Image
-              src="/images/Design sem nome (51).png"
-              alt="Certificação de carbono negativo da Gabardo"
-              width={720}
-              height={480}
-              className="w-full max-w-xl h-auto"
-              priority
-            />
+            <div className="relative w-full max-w-xl">
+              <Image
+                src="/images/Design sem nome (51).png"
+                alt="Certificação de carbono negativo da Gabardo"
+                width={720}
+                height={480}
+                className="w-full h-auto"
+                priority
+              />
+              <a
+                href="https://drive.google.com/file/d/1J4ItTI0_6yYVohR_V8UwPqOcxCw62Ay_/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute bottom-12 left-[42%] -translate-x-1/2 text-sm font-semibold text-gabardo-light-blue transition hover:text-gabardo-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/60 focus:ring-offset-1 focus:ring-offset-white"
+              >
+                Baixar Certificado
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>

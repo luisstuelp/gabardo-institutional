@@ -2,6 +2,7 @@
 
 import { Mouse, ArrowRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+
 import { motion } from 'framer-motion';
 import AnimatedWords from './AnimatedWords';
 import AnimatedCarbonBadge from './AnimatedCarbonBadge';
@@ -22,7 +23,90 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [desktopVideoReady, setDesktopVideoReady] = useState(false);
+  const [mobileVideoReady, setMobileVideoReady] = useState(false);
+  const [allowVideoPlayback, setAllowVideoPlayback] = useState(true);
   const isResettingRef = useRef(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const matchMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const navigatorConnection = (navigator as Navigator & {
+      connection?: {
+        effectiveType?: string;
+        saveData?: boolean;
+        addEventListener?: (type: string, listener: () => void) => void;
+        removeEventListener?: (type: string, listener: () => void) => void;
+      };
+    }).connection;
+
+    const slowConnectionTypes = new Set(['slow-2g', '2g']);
+
+    const evaluatePreference = () => {
+      const reduceMotion = matchMedia.matches;
+      const saveData = Boolean(navigatorConnection?.saveData);
+      const isSlowConnection = navigatorConnection?.effectiveType
+        ? slowConnectionTypes.has(navigatorConnection.effectiveType)
+        : false;
+
+      const allow = !(reduceMotion || saveData || isSlowConnection);
+      setAllowVideoPlayback(allow);
+      if (!allow) {
+        setShouldLoadVideo(false);
+      }
+    };
+
+    evaluatePreference();
+
+    const mediaListener = () => evaluatePreference();
+    const connectionListener = () => evaluatePreference();
+
+    if (typeof matchMedia.addEventListener === 'function') {
+      matchMedia.addEventListener('change', mediaListener);
+    } else if (typeof matchMedia.addListener === 'function') {
+      matchMedia.addListener(mediaListener);
+    }
+
+    navigatorConnection?.addEventListener?.('change', connectionListener);
+
+    return () => {
+      if (typeof matchMedia.removeEventListener === 'function') {
+        matchMedia.removeEventListener('change', mediaListener);
+      } else if (typeof matchMedia.removeListener === 'function') {
+        matchMedia.removeListener(mediaListener);
+      }
+      navigatorConnection?.removeEventListener?.('change', connectionListener);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!allowVideoPlayback) return;
+
+    let idleCallbackId: number | null = null;
+    let timeoutId: number | null = null;
+
+    const requestIdle = (window as { requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number }).requestIdleCallback;
+    const cancelIdle = (window as { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback;
+
+    const activate = () => setShouldLoadVideo(true);
+
+    if (typeof requestIdle === 'function') {
+      idleCallbackId = requestIdle(activate, { timeout: 1200 });
+    } else {
+      timeoutId = window.setTimeout(activate, 600);
+    }
+
+    return () => {
+      if (idleCallbackId !== null && typeof cancelIdle === 'function') {
+        cancelIdle(idleCallbackId);
+      }
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+      }
+    };
+  }, [allowVideoPlayback]);
 
   useEffect(() => {
     const updateIsDesktop = () => {
@@ -39,7 +123,7 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
 
   useEffect(() => {
     const video = isDesktop ? desktopVideoRef.current : mobileVideoRef.current;
-    if (!video) return;
+    if (!video || !shouldLoadVideo || !allowVideoPlayback) return;
 
     isResettingRef.current = false;
     video.loop = false;
@@ -126,11 +210,13 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
       cleanupFallbackListeners();
       video.removeEventListener('timeupdate', handleTimeUpdate);
     };
-  }, [isDesktop]);
+  }, [isDesktop, shouldLoadVideo, allowVideoPlayback]);
 
   // Force autoplay on mobile
   useEffect(() => {
     const playVideo = async () => {
+      if (!shouldLoadVideo || !allowVideoPlayback) return;
+
       if (mobileVideoRef.current && !isDesktop) {
         try {
           await mobileVideoRef.current.play();
@@ -147,13 +233,21 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
       }
     };
     playVideo();
+  }, [isDesktop, shouldLoadVideo, allowVideoPlayback]);
+
+  useEffect(() => {
+    if (isDesktop) {
+      setDesktopVideoReady(false);
+    } else {
+      setMobileVideoReady(false);
+    }
   }, [isDesktop]);
 
   return (
     <div className="relative w-full h-screen min-h-screen text-white overflow-hidden bg-cover bg-center md:bg-transparent"
          style={{ backgroundImage: `url(${imageSrc || '/images/gabardo-hero-01.jpg'})` }}>
       {/* Hero Video Background - Hidden on mobile */}
-      {!isDesktop && (
+      {!isDesktop && shouldLoadVideo && allowVideoPlayback && (
         <video
           ref={mobileVideoRef}
           className="absolute inset-0 w-full h-full object-cover md:hidden"
@@ -165,12 +259,15 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
           x-webkit-airplay="allow"
           preload="metadata"
           controls={false}
-          style={{ backgroundColor: 'transparent' }}
+          poster="/images/gabardo-hero-01.jpg"
+          style={{ backgroundColor: 'transparent', opacity: mobileVideoReady ? 1 : 0, transition: 'opacity 400ms ease' }}
+          onLoadedData={() => setMobileVideoReady(true)}
+          disablePictureInPicture
         >
           <source src="/images/truck-cut-hd-2.mp4" type="video/mp4" />
         </video>
       )}
-      {isDesktop && (
+      {isDesktop && shouldLoadVideo && allowVideoPlayback && (
         <video
           ref={desktopVideoRef}
           className="absolute inset-0 w-full h-full object-cover hidden md:block"
@@ -182,7 +279,10 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
           x-webkit-airplay="allow"
           preload="metadata"
           controls={false}
-          style={{ backgroundColor: 'transparent' }}
+          poster="/images/gabardo-hero-01.jpg"
+          style={{ backgroundColor: 'transparent', opacity: desktopVideoReady ? 1 : 0, transition: 'opacity 400ms ease' }}
+          onLoadedData={() => setDesktopVideoReady(true)}
+          disablePictureInPicture
         >
           <source src="https://v8awusfkdo.ufs.sh/f/d0JPjEbGaqgd5OVWpnZMciUgloBfthZmDSj3bWQ4yPuzERXM" type="video/mp4" />
         </video>
