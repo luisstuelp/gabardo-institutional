@@ -80,12 +80,17 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16' },
+      { url: '/favicon-48x48.png', sizes: '48x48' },
       { url: '/favicon.ico' },
       { url: '/favicon.svg', type: 'image/svg+xml' },
       { url: '/favicon-96x96.png', sizes: '96x96' },
     ],
     apple: [
       { url: '/apple-touch-icon.png', sizes: '180x180' },
+    ],
+    other: [
+      { rel: 'mask-icon', url: '/safari-pinned-tab.svg', color: '#2A4D87' },
     ],
     shortcut: ['/favicon.ico'],
   },
