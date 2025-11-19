@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import BlogPost from '@/components/custom/BlogPost';
 import { fetchPostBySlugServer } from '@/services/posts';
 // import { fetchPublishedPostsServer } from '@/services/posts'; // Temporarily unused
-import type { BlogPostDetail } from '@/types/blog';
+import type { BlogPostDetail, BlogContentBlock } from '@/types/blog';
 import { parseBlogContent } from '@/utils/blogContent';
 
 interface BlogPostPageProps {
@@ -24,7 +24,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     // Parse content - handles legacy markdown, JSON blocks, and Lexical state
     const rawContentBlocks = parseBlogContent(supabasePost.content);
 
-    const contentBlocks = rawContentBlocks.map((block) => {
+    const LEGACY_BNDES_REGEX = /<style|class="blog-container"|<!--\s*LEGACY_BNDES_LAYOUT\s*-->/i;
+    const looksLikeLegacyHtml = typeof supabasePost.content === 'string' && LEGACY_BNDES_REGEX.test(supabasePost.content);
+    const isBndesLegacy = supabasePost.slug === 'bndes-gabardo' && looksLikeLegacyHtml;
+
+    let contentBlocks: BlogContentBlock[] = isBndesLegacy
+      ? [
+          {
+            type: 'html',
+            content: supabasePost.content ?? '',
+          },
+        ]
+      : rawContentBlocks;
+
+    contentBlocks = contentBlocks.map((block) => {
       if (
         block.type === 'video' &&
         !block.linkUrl &&
@@ -34,7 +47,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           ...block,
           linkLabel: 'Certificado de Verificação de Carbono',
           linkUrl: 'https://drive.google.com/file/d/1J4ItTI0_6yYVohR_V8UwPqOcxCw62Ay_/view',
-        } as typeof block & { linkLabel: string; linkUrl: string };
+        } satisfies BlogContentBlock;
       }
       return block;
     });
