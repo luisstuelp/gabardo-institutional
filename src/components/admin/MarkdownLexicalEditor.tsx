@@ -531,8 +531,12 @@ function ToolbarPlugin() {
       }
 
       if (options.replaceKey) {
+        const replaceKey = options.replaceKey;
+        if (!replaceKey) {
+          return;
+        }
         editor.update(() => {
-          const existingNode = $getNodeByKey(options.replaceKey);
+          const existingNode = $getNodeByKey(replaceKey);
           if ($isImageNode(existingNode)) {
             existingNode.setSrc(payload.src);
             existingNode.setAltText(payload.alt ?? '');
