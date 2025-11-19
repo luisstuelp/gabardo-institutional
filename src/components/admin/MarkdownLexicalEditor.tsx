@@ -1,7 +1,7 @@
 'use client';
 
 import { Component, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { ErrorInfo, JSX, MutableRefObject } from 'react';
+import type { ChangeEvent, ErrorInfo, JSX, MutableRefObject } from 'react';
 import clsx from 'clsx';
 import {
   LexicalComposer,
@@ -55,6 +55,7 @@ import {
   Bold,
   Edit3,
   Italic,
+  Type,
   Link as LinkIcon,
   List as ListIcon,
   ListOrdered,
@@ -150,7 +151,7 @@ function ensureDocumentHasParagraph() {
 
 function MarkdownInitializerPlugin({ lexicalState, readOnly, externalValueRef }: MarkdownInitializerPluginProps) {
   const [editor] = useLexicalComposerContext();
-  const previousMarkdownRef = useRef<string | null>(null);
+  const hasInitializedRef = useRef(false);
 
   useEffect(() => {
     editor.setEditable(!readOnly);
@@ -158,11 +159,11 @@ function MarkdownInitializerPlugin({ lexicalState, readOnly, externalValueRef }:
 
   useEffect(() => {
     const nextValue = lexicalState ?? '';
-    if (previousMarkdownRef.current === nextValue) {
+    const alreadyApplied = hasInitializedRef.current && externalValueRef.current === nextValue;
+    if (alreadyApplied) {
       return;
     }
 
-    previousMarkdownRef.current = nextValue;
     externalValueRef.current = nextValue;
 
     editor.update(() => {
@@ -174,6 +175,7 @@ function MarkdownInitializerPlugin({ lexicalState, readOnly, externalValueRef }:
         console.error('[Lexical] Failed to parse editor state', error);
       }
     });
+    hasInitializedRef.current = true;
   }, [editor, externalValueRef, lexicalState]);
 
   return null;
@@ -258,12 +260,24 @@ function BlockTypeDropdown({ blockType, disabled, onChange }: { blockType: Block
   );
 }
 
+const clampImageWidth = (value: number): number => {
+  if (!Number.isFinite(value)) {
+    return 100;
+  }
+
+  return Math.min(Math.max(Math.round(value), 20), 100);
+};
+
 function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
   const [blockType, setBlockType] = useState<BlockType>('paragraph');
   const [isEditable, setIsEditable] = useState(true);
   const [formatState, setFormatState] = useState(createDefaultFormatState);
-  const [selectedImage, setSelectedImage] = useState<{ key: NodeKey; src: string; alt: string } | null>(null);
+  const [selectedImage, setSelectedImage] = useState<
+    { key: NodeKey; src: string; alt: string; widthPercentage: number; caption: string }
+  | null>(
+    null,
+  );
 
   const updateToolbar = useCallback(() => {
     editor.getEditorState().read(() => {
@@ -313,6 +327,8 @@ function ToolbarPlugin() {
             key: imageNode.getKey(),
             src: imageNode.getSrc(),
             alt: imageNode.getAltText(),
+            widthPercentage: imageNode.getWidthPercentage(),
+            caption: imageNode.getCaption(),
           });
         } else {
           setSelectedImage(null);
@@ -416,8 +432,16 @@ function ToolbarPlugin() {
     return (typeof window !== 'undefined' ? window.prompt('Texto alternativo da imagem (opcional)', defaultAlt) : defaultAlt) ?? '';
   }, []);
 
+  const promptImageCaption = useCallback((defaultCaption = '') => {
+    return (
+      typeof window !== 'undefined'
+        ? window.prompt('Legenda exibida abaixo da imagem (opcional)', defaultCaption)
+        : defaultCaption
+    ) ?? '';
+  }, []);
+
   const uploadImageFile = useCallback<(
-    options?: { defaultAlt?: string }
+    options?: { defaultAlt?: string; defaultWidth?: number; defaultCaption?: string }
   ) => Promise<ImagePayload | null>>((options) => {
     return new Promise((resolve) => {
       const input = document.createElement('input');
@@ -450,7 +474,9 @@ function ToolbarPlugin() {
             .getPublicUrl(filePath);
 
           const alt = promptImageAlt(options?.defaultAlt ?? '');
-          resolve({ src: urlData.publicUrl, alt });
+          const defaultWidth = clampImageWidth(options?.defaultWidth ?? 100);
+          const caption = promptImageCaption(options?.defaultCaption ?? alt);
+          resolve({ src: urlData.publicUrl, alt, widthPercentage: defaultWidth, caption });
         } catch (error) {
           console.error('Erro ao fazer upload da imagem:', error);
           if (typeof window !== 'undefined') {
@@ -467,7 +493,7 @@ function ToolbarPlugin() {
   }, [promptImageAlt]);
 
   const promptImageUrl = useCallback<(
-    options?: { defaultAlt?: string }
+    options?: { defaultAlt?: string; defaultWidth?: number; defaultCaption?: string }
   ) => ImagePayload | null>((options) => {
     const url = typeof window !== 'undefined' ? window.prompt('URL da imagem', 'https://') : null;
     if (!url) {
@@ -475,11 +501,13 @@ function ToolbarPlugin() {
     }
 
     const alt = promptImageAlt(options?.defaultAlt ?? '');
-    return { src: url, alt };
+    const defaultWidth = clampImageWidth(options?.defaultWidth ?? 100);
+    const caption = options?.defaultCaption ?? alt;
+    return { src: url, alt, widthPercentage: defaultWidth, caption };
   }, [promptImageAlt]);
 
   const insertOrReplaceImage = useCallback(
-    async (options: { replaceKey?: NodeKey; defaultAlt?: string } = {}) => {
+    async (options: { replaceKey?: NodeKey; defaultAlt?: string; defaultWidth?: number; defaultCaption?: string } = {}) => {
       if (!isEditable || isUploadingImage) {
         return;
       }
@@ -487,26 +515,42 @@ function ToolbarPlugin() {
       const wantsUpload = typeof window !== 'undefined' ? window.confirm('Deseja fazer upload de uma imagem? (OK = Upload, Cancelar = URL externa)') : false;
 
       const payload = wantsUpload
-        ? await uploadImageFile({ defaultAlt: options.defaultAlt })
-        : promptImageUrl({ defaultAlt: options.defaultAlt });
+        ? await uploadImageFile({
+            defaultAlt: options.defaultAlt,
+            defaultWidth: options.defaultWidth,
+            defaultCaption: options.defaultCaption,
+          })
+        : promptImageUrl({
+            defaultAlt: options.defaultAlt,
+            defaultWidth: options.defaultWidth,
+            defaultCaption: options.defaultCaption,
+          });
 
       if (!payload) {
         return;
       }
 
-      const replaceKey = options.replaceKey;
-      if (replaceKey != null) {
+      if (options.replaceKey) {
         editor.update(() => {
-          const existingNode = $getNodeByKey(replaceKey);
+          const existingNode = $getNodeByKey(options.replaceKey);
           if ($isImageNode(existingNode)) {
             existingNode.setSrc(payload.src);
             existingNode.setAltText(payload.alt ?? '');
+            existingNode.setWidthPercentage(
+              payload.widthPercentage ?? existingNode.getWidthPercentage() ?? clampImageWidth(options?.defaultWidth ?? 100),
+            );
+            existingNode.setCaption(payload.caption ?? existingNode.getCaption());
           }
         });
         return;
       }
 
-      editor.dispatchCommand(INSERT_IMAGE_COMMAND, { ...payload, alt: payload.alt ?? '' });
+      editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+        ...payload,
+        alt: payload.alt ?? '',
+        widthPercentage: payload.widthPercentage ?? 100,
+        caption: payload.caption ?? payload.alt ?? '',
+      });
     },
     [editor, isEditable, isUploadingImage, promptImageUrl, uploadImageFile],
   );
@@ -516,8 +560,52 @@ function ToolbarPlugin() {
       return;
     }
 
-    void insertOrReplaceImage({ replaceKey: selectedImage.key, defaultAlt: selectedImage.alt });
+    void insertOrReplaceImage({
+      replaceKey: selectedImage.key,
+      defaultAlt: selectedImage.alt,
+      defaultWidth: selectedImage.widthPercentage,
+      defaultCaption: selectedImage.caption,
+    });
   }, [insertOrReplaceImage, selectedImage]);
+
+  const updateSelectedImageWidth = useCallback(
+    (nextWidth: number) => {
+      const normalized = clampImageWidth(nextWidth);
+      setSelectedImage((current) => {
+        if (!current) {
+          return current;
+        }
+
+        editor.update(() => {
+          const node = $getNodeByKey(current.key);
+          if ($isImageNode(node)) {
+            node.setWidthPercentage(normalized);
+          }
+        });
+
+        return { ...current, widthPercentage: normalized };
+      });
+    },
+    [editor],
+  );
+
+  const handleWidthInputChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const value = Number(event.target.value);
+      if (Number.isNaN(value)) {
+        return;
+      }
+      updateSelectedImageWidth(value);
+    },
+    [updateSelectedImageWidth],
+  );
+
+  const handleWidthPresetClick = useCallback(
+    (value: number) => {
+      updateSelectedImageWidth(value);
+    },
+    [updateSelectedImageWidth],
+  );
 
   const editSelectedImageAlt = useCallback(() => {
     if (!selectedImage) {
@@ -530,10 +618,30 @@ function ToolbarPlugin() {
       const node = $getNodeByKey(selectedImage.key);
       if ($isImageNode(node)) {
         node.setAltText(nextAlt);
-        setSelectedImage({ ...selectedImage, alt: nextAlt });
+        const width = node.getWidthPercentage();
+        const caption = node.getCaption();
+        setSelectedImage({ ...selectedImage, alt: nextAlt, widthPercentage: width, caption });
       }
     });
   }, [editor, promptImageAlt, selectedImage]);
+
+  const editSelectedImageCaption = useCallback(() => {
+    if (!selectedImage) {
+      return;
+    }
+
+    const nextCaption = promptImageCaption(selectedImage.caption);
+
+    editor.update(() => {
+      const node = $getNodeByKey(selectedImage.key);
+      if ($isImageNode(node)) {
+        node.setCaption(nextCaption);
+        const width = node.getWidthPercentage();
+        const altText = node.getAltText();
+        setSelectedImage({ ...selectedImage, caption: nextCaption, widthPercentage: width, alt: altText });
+      }
+    });
+  }, [editor, promptImageCaption, selectedImage]);
 
   const removeSelectedImage = useCallback(() => {
     if (!selectedImage) {
@@ -577,7 +685,53 @@ function ToolbarPlugin() {
           <span className="mr-2 text-white/80">Imagem selecionada</span>
           <ToolbarButton icon={RefreshCcw} label="Trocar imagem" onClick={replaceSelectedImage} disabled={!isEditable || isUploadingImage} />
           <ToolbarButton icon={Edit3} label="Editar texto alternativo" onClick={editSelectedImageAlt} disabled={!isEditable} />
+          <ToolbarButton icon={Type} label="Editar legenda" onClick={editSelectedImageCaption} disabled={!isEditable} />
           <ToolbarButton icon={Trash2} label="Remover imagem" onClick={removeSelectedImage} disabled={!isEditable} />
+
+          <div className="mt-2 flex w-full flex-wrap items-center gap-2 text-white/60">
+            <label className="text-xs uppercase tracking-widest text-white/50" htmlFor="image-width-input">
+              Largura
+            </label>
+            <input
+              id="image-width-input"
+              type="range"
+              min={20}
+              max={100}
+              step={5}
+              value={selectedImage.widthPercentage}
+              onChange={handleWidthInputChange}
+              className="h-1.5 w-32 cursor-pointer accent-gabardo-light-blue"
+              disabled={!isEditable}
+            />
+            <input
+              type="number"
+              min={20}
+              max={100}
+              value={selectedImage.widthPercentage}
+              onChange={handleWidthInputChange}
+              className="w-16 rounded border border-white/10 bg-black/40 px-2 py-1 text-center text-white/80 focus:border-gabardo-light-blue focus:outline-none"
+              disabled={!isEditable}
+            />
+            <span className="text-white/50">%</span>
+            <div className="flex gap-1">
+              {[100, 75, 50].map((preset) => (
+                <button
+                  key={`width-preset-${preset}`}
+                  type="button"
+                  onClick={() => handleWidthPresetClick(preset)}
+                  className="rounded border border-white/15 px-2 py-1 text-[0.7rem] font-medium uppercase tracking-wider text-white/70 transition-colors hover:border-gabardo-light-blue/60 hover:text-white"
+                  disabled={!isEditable}
+                >
+                  {preset}%
+                </button>
+              ))}
+            </div>
+          </div>
+          {selectedImage.caption && (
+            <div className="w-full text-white/50">
+              Legenda atual: <span className="text-white/70">{selectedImage.caption}</span>
+            </div>
+          )}
         </div>
       )}
     </div>

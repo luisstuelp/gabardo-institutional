@@ -6,6 +6,8 @@ import type { JSX } from 'react';
 export type ImagePayload = {
   src: string;
   alt?: string;
+  widthPercentage?: number;
+  caption?: string;
 };
 
 export type SerializedImageNode = {
@@ -13,23 +15,41 @@ export type SerializedImageNode = {
   version: 1;
   src: string;
   alt?: string;
+  widthPercentage?: number;
+  caption?: string;
 };
 
-function ImageComponent({ src, alt }: { src: string; alt: string }): JSX.Element {
+function normalizeWidth(width?: number): number {
+  if (typeof width !== 'number' || Number.isNaN(width)) {
+    return 100;
+  }
+
+  return Math.min(Math.max(Math.round(width), 20), 100);
+}
+
+function ImageComponent({ src, alt, widthPercentage, caption }: { src: string; alt: string; widthPercentage: number; caption: string }): JSX.Element {
+  const width = normalizeWidth(widthPercentage);
+
   return createElement(
     'figure',
-    { className: 'my-6' },
+    {
+      className: 'my-6 mx-auto',
+      style: {
+        width: `${width}%`,
+        maxWidth: '100%',
+      },
+    },
     createElement('img', {
       src,
       alt,
       className: 'h-auto w-full rounded-2xl border border-white/10 object-cover',
       loading: 'lazy',
     }),
-    alt
+    caption
       ? createElement(
           'figcaption',
           { className: 'mt-3 text-center text-sm text-white/60' },
-          alt,
+          caption,
         )
       : null,
   );
@@ -38,19 +58,23 @@ function ImageComponent({ src, alt }: { src: string; alt: string }): JSX.Element
 export class ImageNode extends DecoratorNode<JSX.Element> {
   private __src: string;
   private __alt: string;
+  private __widthPercentage: number;
+  private __caption: string;
 
   static getType(): string {
     return 'image';
   }
 
   static clone(node: ImageNode): ImageNode {
-    return new ImageNode(node.__src, node.__alt, node.__key);
+    return new ImageNode(node.__src, node.__alt, node.__widthPercentage, node.__caption, node.__key);
   }
 
-  constructor(src: string, alt = '', key?: NodeKey) {
+  constructor(src: string, alt = '', widthPercentage = 100, caption = '', key?: NodeKey) {
     super(key);
     this.__src = src;
     this.__alt = alt;
+    this.__widthPercentage = normalizeWidth(widthPercentage);
+    this.__caption = caption ?? '';
   }
 
   getSrc(): string {
@@ -71,6 +95,24 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     writable.__alt = alt;
   }
 
+  getWidthPercentage(): number {
+    return this.__widthPercentage;
+  }
+
+  setWidthPercentage(width: number): void {
+    const writable = this.getWritable();
+    writable.__widthPercentage = normalizeWidth(width);
+  }
+
+  getCaption(): string {
+    return this.__caption;
+  }
+
+  setCaption(caption: string): void {
+    const writable = this.getWritable();
+    writable.__caption = caption ?? '';
+  }
+
   createDOM(): HTMLElement {
     return document.createElement('span');
   }
@@ -83,6 +125,8 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     return createElement(ImageComponent, {
       src: this.__src,
       alt: this.__alt,
+      widthPercentage: this.__widthPercentage,
+      caption: this.__caption,
     });
   }
 
@@ -92,19 +136,21 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
       version: 1,
       src: this.__src,
       alt: this.__alt,
+      widthPercentage: this.__widthPercentage,
+      caption: this.__caption,
     };
   }
 
   static importJSON(serializedNode: SerializedImageNode): ImageNode {
-    const { src, alt } = serializedNode;
-    return new ImageNode(src, alt);
+    const { src, alt, widthPercentage, caption } = serializedNode;
+    return new ImageNode(src, alt, widthPercentage, caption);
   }
 }
 
 export const INSERT_IMAGE_COMMAND: LexicalCommand<ImagePayload> = createCommand('INSERT_IMAGE_COMMAND');
 
-export function $createImageNode({ src, alt = '' }: ImagePayload): ImageNode {
-  return new ImageNode(src, alt);
+export function $createImageNode({ src, alt = '', widthPercentage, caption = '' }: ImagePayload): ImageNode {
+  return new ImageNode(src, alt, widthPercentage, caption);
 }
 
 export function $isImageNode(node: LexicalNode | null | undefined): node is ImageNode {

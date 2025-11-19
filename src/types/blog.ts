@@ -2,10 +2,11 @@ export type BlogContentBlock =
   | { type: 'paragraph'; content: string }
   | { type: 'heading'; content: string; level?: 2 | 3 }
   | { type: 'quote'; content: string; author?: string }
-  | { type: 'image'; content: string; alt?: string }
+  | { type: 'image'; content: string; alt?: string; widthPercentage?: number; caption?: string }
   | { type: 'list'; content?: string; items?: string[]; ordered?: boolean }
   | { type: 'divider'; content?: string }
   | { type: 'highlight'; content: string }
+  | { type: 'html'; content: string }
   | {
       type: 'video';
       content: string;

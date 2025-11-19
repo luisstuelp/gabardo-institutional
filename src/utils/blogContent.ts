@@ -30,9 +30,102 @@ function looksLikeLexicalContent(value: string): boolean {
   }
 }
 
-export function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
+type LexicalImageJSON = {
+  type?: unknown;
+  src?: unknown;
+  alt?: unknown;
+  widthPercentage?: unknown;
+  caption?: unknown;
+  children?: unknown;
+};
+
+const LEGACY_HTML_REGEX = /<(style|div|section|article|main|header|footer|nav)[^>]*>/i;
+
+function normalizeLegacyHtmlBlocks(blocks: BlogContentBlock[]): BlogContentBlock[] {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return blocks;
+  }
+
+  const hasLegacyHtml = blocks.some((block) => {
+    if (!('content' in block)) {
+      return false;
+    }
+    const value = (block as { content?: string }).content;
+    return typeof value === 'string' && LEGACY_HTML_REGEX.test(value);
+  });
+
+  if (!hasLegacyHtml) {
+    return blocks;
+  }
+
+  const combined = blocks
+    .map((block) => ('content' in block && typeof (block as { content?: string }).content === 'string' ? (block as { content?: string }).content : ''))
+    .join('\n')
+    .trim();
+
+  if (!combined) {
+    return blocks;
+  }
+
+  return [{ type: 'html', content: combined }];
+}
+
+export function extractImagesFromLexicalState(state: string): Array<{
+  src: string;
+  alt?: string;
+  widthPercentage?: number;
+  caption?: string;
+}> {
+  try {
+    const parsed = JSON.parse(state);
+    if (parsed == null || typeof parsed !== 'object') {
+      return [];
+    }
+
+    const images: Array<{ src: string; alt?: string; widthPercentage?: number; caption?: string }> = [];
+
+    const traverse = (node: unknown) => {
+      if (node == null || typeof node !== 'object') {
+        return;
+      }
+
+      const imageNode = node as LexicalImageJSON;
+
+      if (imageNode.type === 'image' && typeof imageNode.src === 'string') {
+        images.push({
+          src: imageNode.src,
+          alt: typeof imageNode.alt === 'string' ? imageNode.alt : undefined,
+          widthPercentage: typeof imageNode.widthPercentage === 'number' ? imageNode.widthPercentage : undefined,
+          caption: typeof imageNode.caption === 'string' ? imageNode.caption : undefined,
+        });
+      }
+
+      const children: unknown = imageNode.children;
+      if (Array.isArray(children)) {
+        children.forEach(traverse);
+      }
+    };
+
+    if (parsed.root) {
+      traverse(parsed.root);
+    } else {
+      traverse(parsed);
+    }
+
+    return images;
+  } catch {
+    return [];
+  }
+}
+
+function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
   const blocks: BlogContentBlock[] = [];
   const normalized = (markdown ?? '').replace(/\r\n/g, '\n');
+
+  const HTML_HEAVY_REGEX = /<(style|div|section|article|main|header|footer|video|iframe|figure|table|tbody|thead|tr|td|th|span|p|ul|ol|li|a|img|br|hr|h[1-6]|meta|link|script)\b/i;
+  if (HTML_HEAVY_REGEX.test(normalized)) {
+    return [{ type: 'html', content: normalized }];
+  }
   const lines = normalized.split('\n');
 
   let index = 0;
@@ -131,7 +224,7 @@ export function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
     // Markdown images (![alt](src))
     const imageMatch = line.match(/^!\[(.*?)\]\((.*?)\)$/);
     if (imageMatch) {
-      blocks.push({ type: 'image', content: imageMatch[2], alt: imageMatch[1] ?? '' });
+      blocks.push({ type: 'image', content: imageMatch[2], alt: imageMatch[1] ?? '', widthPercentage: 100 });
       index += 1;
       continue;
     }
@@ -168,8 +261,13 @@ export function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
       index += 1;
     }
 
-    if (paragraph.trim()) {
-      blocks.push({ type: 'paragraph', content: paragraph.trim() });
+    const trimmedParagraph = paragraph.trim();
+    if (trimmedParagraph) {
+      if (HTML_HEAVY_REGEX.test(trimmedParagraph)) {
+        blocks.push({ type: 'html', content: trimmedParagraph });
+      } else {
+        blocks.push({ type: 'paragraph', content: trimmedParagraph });
+      }
     }
   }
 
@@ -178,17 +276,63 @@ export function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
   }
 
   const fallback = normalized.trim();
-  return fallback ? [{ type: 'paragraph', content: fallback }] : [];
+  if (!fallback) {
+    return [];
+  }
+
+  return [{ type: 'paragraph', content: fallback }];
 }
 
 export function convertLexicalStateToBlocks(state: string): BlogContentBlock[] {
   const markdown = convertLexicalStateToMarkdown(state);
+  const blocks = convertMarkdownToBlocks(markdown);
 
-  if (!markdown || looksLikeLexicalContent(markdown)) {
-    return [];
+  if (blocks.length === 0) {
+    return blocks;
   }
 
-  return convertMarkdownToBlocks(markdown);
+  const imageMetadata = extractImagesFromLexicalState(state);
+
+  if (imageMetadata.length === 0) {
+    return normalizeLegacyHtmlBlocks(blocks);
+  }
+
+  const remainingImages = [...imageMetadata];
+
+  const enriched = blocks.map((block) => {
+    if (block.type !== 'image') {
+      return block;
+    }
+
+    const matchIndex = remainingImages.findIndex((image) => image.src === block.content);
+    const meta = matchIndex >= 0 ? remainingImages.splice(matchIndex, 1)[0] : remainingImages.shift();
+
+    if (!meta) {
+      return block;
+    }
+
+    const widthPercentage =
+      typeof meta.widthPercentage === 'number' ? clampWidth(meta.widthPercentage) : block.widthPercentage ?? 100;
+
+    const caption = meta.caption && meta.caption.trim() ? meta.caption.trim() : block.alt ?? '';
+
+    return {
+      ...block,
+      alt: meta.alt ?? block.alt ?? '',
+      widthPercentage,
+      caption: caption || undefined,
+    };
+  });
+
+  return normalizeLegacyHtmlBlocks(enriched);
+}
+
+function clampWidth(value: number): number {
+  if (!Number.isFinite(value)) {
+    return 100;
+  }
+
+  return Math.min(Math.max(Math.round(value), 20), 100);
 }
 
 function createConversionEditor() {
@@ -295,8 +439,13 @@ function convertBlocksToMarkdown(blocks: BlogContentBlock[]): string {
       case 'image': {
         const src = normaliseText(block.content);
         const alt = block.alt ? normaliseText(block.alt) : '';
+        const caption = block.caption ? normaliseText(block.caption) : '';
         if (src) {
-          chunks.push(`![${alt}](${src})`);
+          const imageMarkdown = `![${alt}](${src})`;
+          chunks.push(imageMarkdown);
+          if (caption) {
+            chunks.push(`_${caption}_`);
+          }
         }
         break;
       }
@@ -357,21 +506,60 @@ export function ensureLexicalContent(content: string | null | undefined): string
   const trimmed = original.trim();
 
   if (!trimmed) {
-    const editor = createConversionEditor();
-    let serialized = '';
-    editor.update(() => {
-      ensureDocumentHasParagraphNode();
-      serialized = JSON.stringify(editor.getEditorState().toJSON());
-    });
-    return serialized;
+    return JSON.stringify(createEmptyState());
   }
 
   if (looksLikeLexicalContent(trimmed)) {
-    return trimmed;
+    try {
+      const parsed = JSON.parse(trimmed);
+      if (parsed == null || typeof parsed !== 'object') {
+        return JSON.stringify(createEmptyState());
+      }
+
+      const editor = createConversionEditor();
+      const nextState = editor.parseEditorState(trimmed);
+      editor.setEditorState(nextState);
+      editor.update(() => {
+        ensureDocumentHasParagraphNode();
+      });
+      return JSON.stringify(editor.getEditorState().toJSON());
+    } catch {
+      return JSON.stringify(createEmptyState());
+    }
   }
 
-  const markdown = ensureMarkdownContent(original);
-  return convertMarkdownToLexicalState(markdown);
+  const editor = createConversionEditor();
+  const markdown = ensureMarkdownContent(trimmed);
+  const parsedMarkdownState = editor.parseEditorState(JSON.stringify(createEmptyState()));
+
+  editor.setEditorState(parsedMarkdownState);
+  editor.update(() => {
+    $convertFromMarkdownString(markdown, MARKDOWN_TRANSFORMERS);
+    ensureDocumentHasParagraphNode();
+  });
+
+  return JSON.stringify(editor.getEditorState().toJSON());
+}
+
+function createEmptyState() {
+  return {
+    root: {
+      children: [
+        {
+          "direction": null,
+          "format": 0,
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1
+        }
+      ],
+      "direction": null,
+      "format": 0,
+      "indent": 0,
+      "type": "root",
+      version: 1,
+    },
+  };
 }
 
 export function parseBlogContent(content: string | null | undefined): BlogContentBlock[] {
@@ -383,7 +571,7 @@ export function parseBlogContent(content: string | null | undefined): BlogConten
   }
 
   if (looksLikeLexicalContent(trimmed)) {
-    const lexicalBlocks = convertLexicalStateToBlocks(trimmed);
+    const lexicalBlocks = normalizeLegacyHtmlBlocks(convertLexicalStateToBlocks(trimmed));
     if (lexicalBlocks.length > 0) {
       return lexicalBlocks;
     }
@@ -392,11 +580,11 @@ export function parseBlogContent(content: string | null | undefined): BlogConten
   try {
     const parsed = JSON.parse(trimmed);
     if (isBlogContentArray(parsed)) {
-      return parsed;
+      return normalizeLegacyHtmlBlocks(parsed);
     }
   } catch {
     // Ignore JSON parse failure and fall back to markdown parsing
   }
 
-  return convertMarkdownToBlocks(value);
+  return normalizeLegacyHtmlBlocks(convertMarkdownToBlocks(value));
 }

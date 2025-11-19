@@ -245,6 +245,19 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           </motion.div>
         );
 
+      case 'html':
+        return (
+          <motion.div
+            key={index}
+            variants={variants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+            className="my-12 w-full max-w-5xl mx-auto"
+            dangerouslySetInnerHTML={{ __html: content.content }}
+          />
+        );
+
       default:
         return null;
     }
