@@ -126,6 +126,14 @@ const formatCurrencyFromDigits = (digits: string) => {
   });
 };
 
+const formatCep = (value: string) => {
+  const digits = value.replace(/\D/g, '').slice(0, 8);
+  if (digits.length <= 5) {
+    return digits;
+  }
+  return `${digits.slice(0, 5)}-${digits.slice(5)}`;
+};
+
 
 const VehicleQuoteForm: React.FC = () => {
   const totalSteps = 3;
@@ -189,6 +197,14 @@ const VehicleQuoteForm: React.FC = () => {
       case 3: {
         if (!formData.originState || !formData.originCity || !formData.destinationState || !formData.destinationCity) {
           return 'Informe origem e destino completos.';
+        }
+        const originCepDigits = formData.originCep.replace(/\D/g, '');
+        const destinationCepDigits = formData.destinationCep.replace(/\D/g, '');
+        if (formData.originCep && originCepDigits.length !== 8) {
+          return 'Informe um CEP de origem válido no formato 00000-000.';
+        }
+        if (formData.destinationCep && destinationCepDigits.length !== 8) {
+          return 'Informe um CEP de destino válido no formato 00000-000.';
         }
         if (!formData.privacyAccepted) {
           return 'Você precisa aceitar a política de privacidade.';
@@ -422,15 +438,19 @@ const VehicleQuoteForm: React.FC = () => {
         vehicleValue: digitsOnly ? formatCurrencyFromDigits(digitsOnly) : '',
       }));
     }
-    else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+    else if (name === 'originCep' || name === 'destinationCep') {
+      const formattedCep = formatCep(value);
+      setFormData((prev) => ({ ...prev, [name]: formattedCep }));
       
       // Auto-fill address when CEP is complete
-      if (name === 'originCep' && value.replace(/\D/g, '').length === 8) {
-        fetchAddressFromCEP(value, 'origin');
-      } else if (name === 'destinationCep' && value.replace(/\D/g, '').length === 8) {
-        fetchAddressFromCEP(value, 'destination');
+      if (name === 'originCep' && formattedCep.replace(/\D/g, '').length === 8) {
+        fetchAddressFromCEP(formattedCep, 'origin');
+      } else if (name === 'destinationCep' && formattedCep.replace(/\D/g, '').length === 8) {
+        fetchAddressFromCEP(formattedCep, 'destination');
       }
+    }
+    else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
