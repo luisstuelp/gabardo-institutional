@@ -142,6 +142,8 @@ const VehicleQuoteForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [originCities, setOriginCities] = useState<string[]>([]);
+  const [destinationCities, setDestinationCities] = useState<string[]>([]);
   
   const effectiveVehicleCategory = vehicleTypes.includes(formData.vehicleCategory) ? formData.vehicleCategory : '';
 
@@ -226,6 +228,35 @@ const VehicleQuoteForm: React.FC = () => {
     return null;
   };
 
+  const loadCitiesForState = async (state: string, type: 'origin' | 'destination') => {
+    if (!state) {
+      if (type === 'origin') {
+        setOriginCities([]);
+      } else {
+        setDestinationCities([]);
+      }
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${state}/municipios`);
+      if (!response.ok) {
+        return;
+      }
+      const data = await response.json();
+      const cities = (data as Array<{ nome: string }>).
+        map((city) => city.nome).
+        sort((a, b) => a.localeCompare(b, 'pt-BR'));
+      if (type === 'origin') {
+        setOriginCities(cities);
+      } else {
+        setDestinationCities(cities);
+      }
+    } catch (error) {
+      console.error('Erro ao carregar municípios:', error);
+    }
+  };
+
   // Fetch address from CEP using BrasilAPI
   const fetchAddressFromCEP = async (cep: string, type: 'origin' | 'destination') => {
     // Remove any non-digit characters
@@ -251,12 +282,14 @@ const VehicleQuoteForm: React.FC = () => {
           originState: data.state,
           originCity: data.city,
         }));
+        loadCitiesForState(data.state, 'origin');
       } else {
         setFormData((prev) => ({
           ...prev,
           destinationState: data.state,
           destinationCity: data.city,
         }));
+        loadCitiesForState(data.state, 'destination');
       }
     } catch (error) {
       console.error('Erro ao buscar CEP:', error);
@@ -448,6 +481,22 @@ const VehicleQuoteForm: React.FC = () => {
       } else if (name === 'destinationCep' && formattedCep.replace(/\D/g, '').length === 8) {
         fetchAddressFromCEP(formattedCep, 'destination');
       }
+    }
+    else if (name === 'originState') {
+      setFormData((prev) => ({
+        ...prev,
+        originState: value,
+        originCity: '',
+      }));
+      loadCitiesForState(value, 'origin');
+    }
+    else if (name === 'destinationState') {
+      setFormData((prev) => ({
+        ...prev,
+        destinationState: value,
+        destinationCity: '',
+      }));
+      loadCitiesForState(value, 'destination');
     }
     else {
       setFormData((prev) => ({ ...prev, [name]: value }));
@@ -919,15 +968,21 @@ const VehicleQuoteForm: React.FC = () => {
                         </div>
                         <div className="w-full sm:col-span-2 lg:col-span-1">
                           <label className="block text-sm font-medium text-gabardo-blue mb-2 min-h-[20px]">Município de Origem *</label>
-                          <input
-                            type="text"
+                          <select
                             name="originCity"
                             value={formData.originCity}
                             onChange={handleInputChange}
                             required
-                            className="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm focus:border-gabardo-blue focus:outline-none focus:ring-1 focus:ring-gabardo-blue"
-                            placeholder="Nome do município"
-                          />
+                            disabled={!formData.originState}
+                            className="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm focus:border-gabardo-blue focus:outline-none focus:ring-1 focus:ring-gabardo-blue disabled:bg-gray-100 disabled:cursor-not-allowed"
+                          >
+                            <option value="">
+                              {!formData.originState ? 'Selecione um estado' : 'Selecione o município'}
+                            </option>
+                            {originCities.map((city) => (
+                              <option key={city} value={city}>{city}</option>
+                            ))}
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -965,15 +1020,21 @@ const VehicleQuoteForm: React.FC = () => {
                         </div>
                         <div className="w-full sm:col-span-2 lg:col-span-1">
                           <label className="block text-sm font-medium text-gabardo-blue mb-2 min-h-[20px]">Município de Destino *</label>
-                          <input
-                            type="text"
+                          <select
                             name="destinationCity"
                             value={formData.destinationCity}
                             onChange={handleInputChange}
                             required
-                            className="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm focus:border-gabardo-blue focus:outline-none focus:ring-1 focus:ring-gabardo-blue"
-                            placeholder="Nome do município"
-                          />
+                            disabled={!formData.destinationState}
+                            className="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm focus:border-gabardo-blue focus:outline-none focus:ring-1 focus:ring-gabardo-blue disabled:bg-gray-100 disabled:cursor-not-allowed"
+                          >
+                            <option value="">
+                              {!formData.destinationState ? 'Selecione um estado' : 'Selecione o município'}
+                            </option>
+                            {destinationCities.map((city) => (
+                              <option key={city} value={city}>{city}</option>
+                            ))}
+                          </select>
                         </div>
                       </div>
                     </div>
