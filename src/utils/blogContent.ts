@@ -8,7 +8,6 @@ import { $createParagraphNode, $getRoot, createEditor } from 'lexical';
 import type { BlogContentBlock } from '@/types/blog';
 import { ImageNode } from '@/components/admin/editor/nodes/ImageNode';
 import { MARKDOWN_TRANSFORMERS } from '@/components/admin/editor/transformers';
-import { convertInlineMarkdownToHtml } from '@/utils/inlineMarkdown';
 
 function isBlogContentArray(value: unknown): value is BlogContentBlock[] {
   return Array.isArray(value);
@@ -182,12 +181,7 @@ function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
       }
 
       if (items.length > 0) {
-        const formattedItems = items
-          .map((item) => convertInlineMarkdownToHtml(item))
-          .filter((item) => item.trim().length > 0);
-        if (formattedItems.length > 0) {
-          blocks.push({ type: 'list', items: formattedItems });
-        }
+        blocks.push({ type: 'list', items });
       }
 
       continue;
@@ -197,6 +191,8 @@ function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
     if (/^\d+\.\s/.test(line)) {
       const items: string[] = [];
       let counter = index;
+      const startMatch = line.match(/^(\d+)\.\s/);
+      const startValue = startMatch ? Number.parseInt(startMatch[1], 10) : 1;
 
       while (counter < lines.length) {
         const candidate = lines[counter].trim();
@@ -209,12 +205,7 @@ function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
       }
 
       if (items.length > 0) {
-        const formattedItems = items
-          .map((item) => convertInlineMarkdownToHtml(item))
-          .filter((item) => item.trim().length > 0);
-        if (formattedItems.length > 0) {
-          blocks.push({ type: 'list', items: formattedItems, ordered: true });
-        }
+        blocks.push({ type: 'list', items, ordered: true, start: startValue });
       }
 
       index = counter;
@@ -223,7 +214,7 @@ function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
 
     // Blockquote detection (> quote)
     if (line.startsWith('>')) {
-      const quoteText = convertInlineMarkdownToHtml(line.replace(/^>\s*/, '').trim());
+      const quoteText = line.replace(/^>\s*/, '').trim();
       if (quoteText) {
         blocks.push({ type: 'quote', content: quoteText });
       }
@@ -277,7 +268,7 @@ function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
       if (HTML_HEAVY_REGEX.test(trimmedParagraph)) {
         blocks.push({ type: 'html', content: trimmedParagraph });
       } else {
-        blocks.push({ type: 'paragraph', content: convertInlineMarkdownToHtml(trimmedParagraph) });
+        blocks.push({ type: 'paragraph', content: trimmedParagraph });
       }
     }
   }

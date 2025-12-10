@@ -156,18 +156,31 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
                 dangerouslySetInnerHTML={renderInlineHtml(content.content)}
               />
             )}
-            <ListTag className={`space-y-4 ${content.ordered ? 'list-decimal list-inside' : ''}`}>
+            <ListTag
+              className={
+                content.ordered
+                  ? 'list-decimal list-outside space-y-4 pl-6 marker:text-white/60'
+                  : 'space-y-4'
+              }
+              start={content.ordered && content.start ? content.start : undefined}
+            >
               {content.items?.map((item, itemIndex) => (
                 <motion.li
                   key={itemIndex}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: itemIndex * 0.1 }}
-                  className={`flex items-start space-x-4 text-lg text-white/80 ${content.ordered ? 'ml-0' : ''}`}
+                  className={
+                    content.ordered
+                      ? 'text-lg text-white/80'
+                      : 'flex items-start space-x-4 text-lg text-white/80'
+                  }
                 >
-                  {!content.ordered && <div className="w-2 h-2 bg-white/60 rounded-full mt-3 flex-shrink-0" />}
+                  {!content.ordered && (
+                    <div className="w-2 h-2 bg-white/60 rounded-full mt-3 flex-shrink-0" />
+                  )}
                   <span
-                    className={content.ordered ? 'ml-2' : ''}
+                    className={content.ordered ? '' : 'ml-2'}
                     dangerouslySetInnerHTML={renderInlineHtml(item)}
                   />
                 </motion.li>

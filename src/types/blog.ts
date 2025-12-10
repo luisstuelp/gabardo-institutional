@@ -3,7 +3,7 @@ export type BlogContentBlock =
   | { type: 'heading'; content: string; level?: 2 | 3 }
   | { type: 'quote'; content: string; author?: string }
   | { type: 'image'; content: string; alt?: string; widthPercentage?: number; caption?: string }
-  | { type: 'list'; content?: string; items?: string[]; ordered?: boolean }
+  | { type: 'list'; content?: string; items?: string[]; ordered?: boolean; start?: number }
   | { type: 'divider'; content?: string }
   | { type: 'highlight'; content: string }
   | { type: 'html'; content: string }
