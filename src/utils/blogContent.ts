@@ -8,6 +8,7 @@ import { $createParagraphNode, $getRoot, createEditor } from 'lexical';
 import type { BlogContentBlock } from '@/types/blog';
 import { ImageNode } from '@/components/admin/editor/nodes/ImageNode';
 import { MARKDOWN_TRANSFORMERS } from '@/components/admin/editor/transformers';
+import { convertInlineMarkdownToHtml } from '@/utils/inlineMarkdown';
 
 function isBlogContentArray(value: unknown): value is BlogContentBlock[] {
   return Array.isArray(value);
@@ -181,7 +182,12 @@ function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
       }
 
       if (items.length > 0) {
-        blocks.push({ type: 'list', items });
+        const formattedItems = items
+          .map((item) => convertInlineMarkdownToHtml(item))
+          .filter((item) => item.trim().length > 0);
+        if (formattedItems.length > 0) {
+          blocks.push({ type: 'list', items: formattedItems });
+        }
       }
 
       continue;
@@ -203,7 +209,12 @@ function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
       }
 
       if (items.length > 0) {
-        blocks.push({ type: 'list', items, ordered: true });
+        const formattedItems = items
+          .map((item) => convertInlineMarkdownToHtml(item))
+          .filter((item) => item.trim().length > 0);
+        if (formattedItems.length > 0) {
+          blocks.push({ type: 'list', items: formattedItems, ordered: true });
+        }
       }
 
       index = counter;
@@ -212,7 +223,7 @@ function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
 
     // Blockquote detection (> quote)
     if (line.startsWith('>')) {
-      const quoteText = line.replace(/^>\s*/, '').trim();
+      const quoteText = convertInlineMarkdownToHtml(line.replace(/^>\s*/, '').trim());
       if (quoteText) {
         blocks.push({ type: 'quote', content: quoteText });
       }
@@ -266,7 +277,7 @@ function convertMarkdownToBlocks(markdown: string): BlogContentBlock[] {
       if (HTML_HEAVY_REGEX.test(trimmedParagraph)) {
         blocks.push({ type: 'html', content: trimmedParagraph });
       } else {
-        blocks.push({ type: 'paragraph', content: trimmedParagraph });
+        blocks.push({ type: 'paragraph', content: convertInlineMarkdownToHtml(trimmedParagraph) });
       }
     }
   }

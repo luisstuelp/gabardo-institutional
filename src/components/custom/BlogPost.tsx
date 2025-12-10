@@ -9,7 +9,8 @@ import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import SocialShare from '@/components/custom/SocialShare';
-import ReadingProgress from '@/components/custom/ReadingProgress';
+import ReadingProgress from './ReadingProgress';
+import { convertInlineMarkdownToHtml } from '@/utils/inlineMarkdown';
 import BlogAnalytics from '@/components/custom/BlogAnalytics';
 import { useTrackView } from '@/hooks/useTrackView';
 import type { BlogPostDetail, BlogContentBlock } from '@/types/blog';
@@ -33,6 +34,10 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
   const titleScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
 
   const renderContent = (content: BlogContentBlock, index: number) => {
+    const renderInlineHtml = (value?: string) => ({
+      __html: convertInlineMarkdownToHtml(value ?? ''),
+    });
+
     const variants = {
       hidden: { opacity: 0, y: 30 },
       visible: {
@@ -52,7 +57,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             className="text-lg md:text-xl leading-relaxed text-white/80 mb-8 max-w-4xl mx-auto"
-            dangerouslySetInnerHTML={{ __html: content.content }}
+            dangerouslySetInnerHTML={renderInlineHtml(content.content)}
           />
         );
 
@@ -71,7 +76,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
               font-bold text-white leading-tight
               ${content.level === 2 ? 'text-3xl md:text-4xl' : 'text-2xl md:text-3xl'}
             `}>
-              {content.content}
+              <span dangerouslySetInnerHTML={renderInlineHtml(content.content)} />
             </HeadingTag>
             <motion.div 
               className="w-16 h-1 bg-white/30 mt-4"
@@ -94,9 +99,10 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
           >
             <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/10">
               <div className="absolute top-6 left-6 text-6xl text-white/20 font-serif">&ldquo;</div>
-              <p className="text-2xl md:text-3xl font-medium text-white leading-relaxed mb-6 pl-12">
-                {content.content}
-              </p>
+              <p
+                className="text-2xl md:text-3xl font-medium text-white leading-relaxed mb-6 pl-12"
+                dangerouslySetInnerHTML={renderInlineHtml(content.content)}
+              />
               {content.author && (
                 <cite className="text-white/60 text-lg not-italic pl-12">
                   — {content.author}
@@ -145,7 +151,10 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
             className="my-12 max-w-4xl mx-auto"
           >
             {content.content && (
-              <p className="text-xl font-medium text-white mb-6">{content.content}</p>
+              <p
+                className="text-xl font-medium text-white mb-6"
+                dangerouslySetInnerHTML={renderInlineHtml(content.content)}
+              />
             )}
             <ListTag className={`space-y-4 ${content.ordered ? 'list-decimal list-inside' : ''}`}>
               {content.items?.map((item, itemIndex) => (
@@ -157,7 +166,10 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
                   className={`flex items-start space-x-4 text-lg text-white/80 ${content.ordered ? 'ml-0' : ''}`}
                 >
                   {!content.ordered && <div className="w-2 h-2 bg-white/60 rounded-full mt-3 flex-shrink-0" />}
-                  <span className={content.ordered ? 'ml-2' : ''}>{item}</span>
+                  <span
+                    className={content.ordered ? 'ml-2' : ''}
+                    dangerouslySetInnerHTML={renderInlineHtml(item)}
+                  />
                 </motion.li>
               ))}
             </ListTag>
@@ -178,9 +190,10 @@ const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
               <div className="absolute top-4 right-4">
                 <div className="w-3 h-3 bg-white/40 rounded-full animate-pulse" />
               </div>
-              <p className="text-xl md:text-2xl font-medium text-white leading-relaxed">
-                {content.content}
-              </p>
+              <p
+                className="text-xl md:text-2xl font-medium text-white leading-relaxed"
+                dangerouslySetInnerHTML={renderInlineHtml(content.content)}
+              />
             </div>
           </motion.div>
         );
