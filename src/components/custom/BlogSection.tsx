@@ -1,17 +1,58 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, ArrowRight, Clock, Tag, ChevronRight, Sparkles } from 'lucide-react';
 import Image from 'next/image';
-import {
-  getFeaturedMediaArticle,
-  getRegularMediaArticles,
-} from '@/data/mediaArticles';
+
+import { supabase } from '@/integrations/supabase/client';
 
 const BlogSection: React.FC = () => {
-  const featuredArticle = getFeaturedMediaArticle();
-  const regularArticles = getRegularMediaArticles().slice(0, 3);
+  const [posts, setPosts] = useState<Array<{
+    id: string;
+    slug: string;
+    title: string;
+    excerpt: string;
+    category: string;
+    date: string;
+    readTime: string;
+    author: string;
+    image: string;
+  }>>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('posts')
+        .select('id, slug, title, excerpt, category, read_time, author, cover_image, created_at, published')
+        .eq('published', true)
+        .order('created_at', { ascending: false })
+        .limit(4);
+
+      if (!error && data) {
+        const mapped = data.map((post) => ({
+          id: post.id,
+          slug: post.slug,
+          title: post.title,
+          excerpt: post.excerpt || '',
+          category: post.category || 'Blog',
+          date: post.created_at || new Date().toISOString(),
+          readTime: post.read_time || '5 min',
+          author: post.author || 'Equipe Gabardo',
+          image: post.cover_image || '/images/default-blog.jpg',
+        }));
+        setPosts(mapped);
+      }
+      setLoading(false);
+    };
+
+    fetchPosts();
+  }, []);
+
+  const featuredArticle = useMemo(() => posts[0], [posts]);
+  const regularArticles = useMemo(() => posts.slice(1), [posts]);
 
   const openArticle = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');
@@ -53,7 +94,7 @@ const BlogSection: React.FC = () => {
             className="inline-flex items-center space-x-2 bg-gabardo-light-blue/10 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium text-gabardo-blue mb-4 sm:mb-5 md:mb-6 border border-gabardo-light-blue/30"
           >
             <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="uppercase tracking-wider">Gabardo na mídia</span>
+            <span className="uppercase tracking-wider">Últimos artigos do blog</span>
           </motion.div>
 
           {/* Main Title */}
@@ -64,7 +105,7 @@ const BlogSection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4 sm:mb-5 md:mb-6 px-2 sm:px-0"
           >
-            <p><span className="text-gabardo-blue">EM DESTAQUE</span> <span className="text-gabardo-light-blue">NAS MAIORES</span> <span className="text-gabardo-blue">PUBLICAÇÕES</span></p>
+            <p><span className="text-gabardo-blue">Fique por dentro</span> <span className="text-gabardo-light-blue">das novidades</span> <span className="text-gabardo-blue">Gabardo</span></p>
 
 
 
@@ -78,7 +119,7 @@ const BlogSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-4 sm:px-0"
           >
-            Acompanhe como a imprensa nacional destaca as conquistas, investimentos e iniciativas sustentáveis da Gabardo.
+            Leia os conteúdos mais recentes publicados pela nossa equipe: tendências, bastidores e conquistas que movimentam a Gabardo.
           </motion.p>
         </motion.div>
 
@@ -99,7 +140,7 @@ const BlogSection: React.FC = () => {
               >
                 <div
                   className="group relative bg-white backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-gray-200 transition-all duration-500 hover:border-gabardo-light-blue/50 hover:shadow-lg cursor-pointer w-full flex flex-col"
-                  onClick={() => openArticle(featuredArticle.url)}
+                  onClick={() => openArticle(`/blog/${featuredArticle.slug}`)}
 
                 >
 
@@ -138,7 +179,7 @@ const BlogSection: React.FC = () => {
                         </div>
                         <div className="flex items-center space-x-1">
                           <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <span>{featuredArticle.readTime}</span>
+                          {featuredArticle.readTime}
                         </div>
                         {featuredArticle.author && (
                           <div className="flex items-center space-x-1">
@@ -179,6 +220,12 @@ const BlogSection: React.FC = () => {
             >
               {/* Posts Container */}
               <div className="space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-14 flex-grow">
+                {loading && posts.length === 0 && (
+                  <div className="text-gray-500 text-center">Carregando posts...</div>
+                )}
+                {!loading && regularArticles.length === 0 && (
+                  <div className="text-gray-500 text-center">Nenhum post publicado ainda.</div>
+                )}
                 {regularArticles.map((article, index) => (
                   <motion.div
                     key={article.id}
@@ -187,7 +234,7 @@ const BlogSection: React.FC = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.5 + (index * 0.1) }}
                     className="group relative bg-white backdrop-blur-sm rounded-lg sm:rounded-xl overflow-hidden border border-gray-200 transition-all duration-300 hover:border-gabardo-light-blue/50 hover:shadow-md cursor-pointer"
-                    onClick={() => openArticle(article.url)}
+                    onClick={() => openArticle(`/blog/${article.slug}`)}
 
                   >
                     <div className="flex">
