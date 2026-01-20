@@ -97,6 +97,7 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
     // Removed NOSSA GENTE and SUSTENTABILIDADE entries
 
     { id: 'orcamento', label: 'ORÇAMENTO', href: '/orcamento', imageSrc: '/images/gabardo-hero-03.JPG' },
+    { id: 'trabalhe-conosco', label: 'TRABALHE CONOSCO', href: '/trabalhe-conosco', imageSrc: '/images/gabardo-hero-04.JPG' },
     { id: 'contato', label: 'CONTATO', href: '/contato', imageSrc: '/images/gabardo-hero-03.JPG' },
     { id: 'midia', label: 'MÍDIA', href: '/midia', imageSrc: '/images/gabardo-hero-03.JPG' },
     { id: 'blog', label: 'BLOG', href: '/blog', imageSrc: '/images/hero-blog.jpg' },

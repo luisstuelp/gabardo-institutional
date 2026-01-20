@@ -23,6 +23,7 @@ const BASE_NAV_LINKS: NavLink[] = [
   { href: '/admin/midia/artigos', label: 'Mídia' },
   { href: '/admin/orcamentos', label: 'Orçamentos' },
   { href: '/admin/contatos', label: 'Contatos' },
+  { href: '/admin/candidaturas', label: 'Candidaturas' },
   { href: '/admin/metricas', label: 'Métricas' },
   { href: '/admin/usuarios', label: 'Usuários', adminOnly: true },
   { href: '/admin/logs', label: 'Logs', adminOnly: true },
