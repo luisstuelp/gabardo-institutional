@@ -49,7 +49,7 @@ export interface ScrapedContent {
   };
 }
 
-export const hubPluralContent: ScrapedContent = {
+export const gabardoContent: ScrapedContent = {
   "hero": {
     "title": "Gabardo – Transporte de Veículos",
     "description": "Atendimento em todo território nacional e países do Mercosul. Seguro total do seu veículo, frota com veículos novos e tecnologia embarcada, profissionais treinados e capacitados, serviço de coleta e entrega (pátio a pátio).",
@@ -148,4 +148,4 @@ export const hubPluralContent: ScrapedContent = {
 };
 
 // Exportações específicas para facilitar o uso
-export const { hero, services, locations, testimonials, about, contact, meta } = hubPluralContent;
+export const { hero, services, locations, testimonials, about, contact, meta } = gabardoContent;

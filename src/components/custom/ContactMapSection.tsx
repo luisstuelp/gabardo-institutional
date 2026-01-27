@@ -103,7 +103,7 @@ export default function ContactMapSection() {
                   </motion.div>
                   
                   <h3 className="text-2xl font-bold text-black uppercase tracking-wide mb-3">
-                    Hub Plural
+                    Transportes Gabardo
                   </h3>
                   
                   <p className="text-neutral-600 font-medium">

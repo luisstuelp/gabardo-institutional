@@ -237,7 +237,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         type: 'highlight',
-        content: 'O Hub Plural entende essa nova dinâmica e oferece soluções que se adaptam às necessidades específicas de cada profissional e empresa, criando um ecossistema onde a inovação floresce naturalmente.'
+        content: 'A Transportes Gabardo entende essa nova dinâmica e oferece soluções que se adaptam às necessidades específicas de cada cliente, criando um ecossistema onde a eficiência floresce naturalmente.'
       },
       {
         type: 'heading',
@@ -451,7 +451,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         type: 'highlight',
-        content: 'No Hub Plural, integramos práticas sustentáveis que resultam em ambientes mais saudáveis: ventilação natural, plantas que purificam o ar, materiais não-tóxicos e sistemas de energia eficiente.'
+        content: 'Na Transportes Gabardo, integramos práticas sustentáveis que resultam em operações mais limpas: otimização de rotas, manutenção preventiva, renovação de frota e sistemas de gestão eficiente.'
       }
     ],
     category: 'Inovação',
@@ -521,7 +521,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         type: 'highlight',
-        content: 'No Hub Plural, investimos constantemente em tecnologias que potencializam a produtividade de nossa comunidade, desde sistemas de reserva inteligentes até plataformas de networking digital.'
+        content: 'Na Transportes Gabardo, investimos constantemente em tecnologias que potencializam a produtividade de nossa operação, desde sistemas de rastreamento inteligentes até plataformas de gestão digital.'
       }
     ],
     category: 'Inovação',

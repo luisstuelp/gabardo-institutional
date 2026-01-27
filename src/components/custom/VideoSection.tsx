@@ -64,7 +64,7 @@ const VimeoPlayer: React.FC<{ vimeoId: string }> = ({ vimeoId }) => {
         allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
         allowFullScreen
         onLoad={() => setIsLoaded(true)}
-        title="Hub Plural - Vídeo Institucional"
+        title="Transportes Gabardo - Vídeo Institucional"
         loading="lazy"
       />
     </div>
@@ -73,8 +73,8 @@ const VimeoPlayer: React.FC<{ vimeoId: string }> = ({ vimeoId }) => {
 
 const VideoSection: React.FC<VideoSectionProps> = ({
   vimeoId = "123456789", // ID padrão - substituir pelo ID real do vídeo
-  title = "Conheça o Hub Plural",
-  description = "Descubra como transformamos espaços em experiências únicas de trabalho colaborativo"
+  title = "Conheça a Transportes Gabardo",
+  description = "Descubra como transformamos o transporte de veículos em soluções logísticas de excelência"
 }) => {
   const [isClient, setIsClient] = useState(false);
 

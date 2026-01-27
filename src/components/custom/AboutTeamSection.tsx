@@ -25,24 +25,24 @@ const teamMembers: TeamMember[] = [
     name: 'Carlos Eduardo Silva',
     position: 'CEO & Fundador',
     department: 'Liderança Executiva',
-    bio: 'Visionário por trás do Hub Plural, com mais de 15 anos de experiência em negócios e desenvolvimento urbano.',
+    bio: 'Visionário por trás da Transportes Gabardo, com mais de 15 anos de experiência em logística e transporte.',
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
     social: {
       linkedin: 'https://linkedin.com/in/carlos-silva',
-      email: 'carlos@hubplural.com'
+      email: 'carlos@gabardo.com.br'
     },
-    expertise: ['Empresarial', 'Inovação', 'Liderança']
+    expertise: ['Logística', 'Inovação', 'Liderança']
   },
   {
     id: 'coo',
     name: 'Ana Paula Santos',
     position: 'COO',
     department: 'Operações',
-    bio: 'Especialista em operações e gestão de múltiplas unidades, garantindo excelência em todos os nossos espaços.',
+    bio: 'Especialista em operações logísticas, garantindo eficiência e pontualidade em todas as nossas entregas.',
     image: 'https://plus.unsplash.com/premium_photo-1689551670902-19b441a6afde?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     social: {
       linkedin: 'https://linkedin.com/in/ana-santos',
-      email: 'ana@hubplural.com'
+      email: 'ana@gabardo.com.br'
     },
     expertise: ['Gestão Operacional', 'Qualidade', 'Processos']
   },
@@ -51,52 +51,52 @@ const teamMembers: TeamMember[] = [
     name: 'Rafael Lima',
     position: 'CTO',
     department: 'Tecnologia',
-    bio: 'Responsável pela infraestrutura tecnológica e inovação digital que mantém nossos espaços na vanguarda.',
+    bio: 'Responsável pela infraestrutura tecnológica e inovação digital que mantém nossa frota conectada.',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
     social: {
       linkedin: 'https://linkedin.com/in/rafael-lima',
-      email: 'rafael@hubplural.com'
+      email: 'rafael@gabardo.com.br'
     },
     expertise: ['Tecnologia', 'Inovação', 'Infraestrutura']
   },
   {
     id: 'community',
     name: 'Beatriz Oliveira',
-    position: 'Diretora de Comunidade',
-    department: 'Relacionamento',
-    bio: 'Conecta pessoas e cria experiências únicas que fortalecem nossa comunidade de profissionais.',
+    position: 'Diretora de RH',
+    department: 'Recursos Humanos',
+    bio: 'Conecta pessoas e cria experiências únicas que fortalecem nossa cultura organizacional.',
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
     social: {
       linkedin: 'https://linkedin.com/in/beatriz-oliveira',
-      email: 'beatriz@hubplural.com'
+      email: 'beatriz@gabardo.com.br'
     },
-    expertise: ['Community Building', 'Eventos', 'Networking']
+    expertise: ['Gestão de Pessoas', 'Cultura', 'Desenvolvimento']
   },
   {
     id: 'growth',
     name: 'Lucas Ferreira',
-    position: 'Diretor de Crescimento',
-    department: 'Expansão',
-    bio: 'Lidera nossa estratégia de expansão e desenvolvimento de novos mercados no Nordeste.',
+    position: 'Diretor Comercial',
+    department: 'Comercial',
+    bio: 'Lidera nossa estratégia de expansão e desenvolvimento de novos negócios em todo o Brasil.',
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
     social: {
       linkedin: 'https://linkedin.com/in/lucas-ferreira',
-      email: 'lucas@hubplural.com'
+      email: 'lucas@gabardo.com.br'
     },
-    expertise: ['Expansão', 'Novos Mercados', 'Estratégia']
+    expertise: ['Vendas', 'Novos Mercados', 'Estratégia']
   },
   {
     id: 'design',
     name: 'Mariana Costa',
-    position: 'Diretora de Design',
-    department: 'Criação',
-    bio: 'Responsável pelo design e arquitetura dos nossos espaços, criando ambientes inspiradores e funcionais.',
+    position: 'Diretora de Marketing',
+    department: 'Marketing',
+    bio: 'Responsável pela marca e comunicação, garantindo que nossos valores cheguem a todos os clientes.',
     image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face',
     social: {
       linkedin: 'https://linkedin.com/in/mariana-costa',
-      email: 'mariana@hubplural.com'
+      email: 'mariana@gabardo.com.br'
     },
-    expertise: ['Arquitetura', 'UX Espacial']
+    expertise: ['Branding', 'Comunicação']
   }
 ];
 

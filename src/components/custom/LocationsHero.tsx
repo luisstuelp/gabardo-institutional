@@ -65,7 +65,7 @@ const LocationsHero: React.FC = () => {
           >
             <Image
               src={img}
-              alt="Hub Plural Localizações"
+              alt="Transportes Gabardo Localizações"
               fill
               className="object-cover object-center"
               priority={index === 0}

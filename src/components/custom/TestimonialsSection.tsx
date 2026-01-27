@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Quote, Star, ArrowUpRight, Minus } from 'lucide-react';
 import Image from 'next/image';
-import { testimonials as scrapedTestimonials } from '@/data/hubPluralContent';
+import { testimonials as scrapedTestimonials } from '@/data/gabardoContent';
 
 interface Testimonial {
   id: string;
@@ -31,15 +31,15 @@ const getPositionAndCompany = (author: string) => {
     return { position: 'Equipe', company: 'GF.Capital' };
   }
   if (author.toLowerCase().includes('gestor')) {
-    return { position: 'Gestor', company: 'Hub Plural' };
+    return { position: 'Gestor', company: 'Transportes Gabardo' };
   }
   if (author.toLowerCase().includes('empreendedor')) {
-    return { position: 'Empreendedor', company: 'Startup Local' };
+    return { position: 'Empreendedor', company: 'Parceiro Local' };
   }
   if (author.toLowerCase().includes('ceo')) {
-    return { position: 'CEO', company: 'Tech Startup' };
+    return { position: 'CEO', company: 'Tech Partner' };
   }
-  return { position: 'Cliente', company: 'Hub Plural' };
+  return { position: 'Cliente', company: 'Transportes Gabardo' };
 };
 
 const testimonials: Testimonial[] = scrapedTestimonials.map((testimonial, index) => {
