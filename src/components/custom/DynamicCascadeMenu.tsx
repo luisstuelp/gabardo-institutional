@@ -14,7 +14,6 @@ const navItems = [
   { id: 'home', name: 'HOME', href: '/' },
   { id: 'sobre', name: 'SOBRE', href: '/sobre' },
   { id: 'blog', name: 'BLOG', href: '/blog' },
-  { id: 'localizacao', name: 'LOCALIZAÇÃO', href: '/localizacao' },
   { id: 'contato', name: 'CONTATO', href: '/contato' },
 ];
 
@@ -160,21 +159,21 @@ const DynamicCascadeMenu: React.FC<DynamicCascadeMenuProps> = ({ isOpen, onClose
           <motion.div
             variants={panel1Variants}
             className="absolute top-0 left-0 w-full h-full bg-neutral-900 shadow-2xl"
-            // style={{ clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)' }} // Example: angled bottom
+          // style={{ clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)' }} // Example: angled bottom
           />
-          
+
           {/* Panel 2: Right vertical strip */}
           <motion.div
             variants={panel2Variants}
             className="absolute top-0 right-0 w-[40vw] h-full bg-neutral-800 shadow-xl"
-            // style={{ clipPath: 'polygon(10% 0, 100% 0, 100% 100%, 0% 100%)' }} // Example: angled left
+          // style={{ clipPath: 'polygon(10% 0, 100% 0, 100% 100%, 0% 100%)' }} // Example: angled left
           />
 
           {/* Panel 3: Bottom-left accent */}
           <motion.div
             variants={panel3Variants}
             className="absolute bottom-0 left-0 w-[50vw] h-[40vh] bg-neutral-850 shadow-lg"
-            // style={{ clipPath: 'polygon(0 0, 100% 10%, 90% 100%, 0 90%)' }} // Example: custom shape
+          // style={{ clipPath: 'polygon(0 0, 100% 10%, 90% 100%, 0 90%)' }} // Example: custom shape
           />
 
           {/* Content Group: Nav items and Close button, appears on top */}
@@ -199,7 +198,7 @@ const DynamicCascadeMenu: React.FC<DynamicCascadeMenuProps> = ({ isOpen, onClose
                       href={item.href}
                       onClick={handleLinkClick}
                       className="block text-4xl font-medium tracking-wider text-white uppercase md:text-5xl lg:text-6xl hover:text-neutral-300 transition-colors duration-200"
-                      >
+                    >
                       {item.name}
                     </Link>
                   </motion.li>
@@ -207,7 +206,7 @@ const DynamicCascadeMenu: React.FC<DynamicCascadeMenuProps> = ({ isOpen, onClose
               </ul>
             </nav>
           </motion.div>
-          
+
           {/* CustomCursor should be outside the main animating menu div if it needs to persist or not be affected by its exit */}
           {/* For now, keeping it here means it will only show when menu is open */}
           <CustomCursor />

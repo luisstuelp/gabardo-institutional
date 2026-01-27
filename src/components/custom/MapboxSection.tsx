@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+
 import Image from 'next/image';
 import mapboxgl, { Map } from 'mapbox-gl';
 import units from '@/data/units.json';
@@ -28,51 +28,27 @@ const mapRegion = (region: string) => {
   return region;
 };
 
-const locations: LocationData[] = units.map(unit => ({
-  name: unit.nome,
-  state: unit.estado,
-  coordinates: [unit.lng, unit.lat],
-  address: unit.endereco,
-  phone: unit.telefone,
-  type: unit.nome.includes('Matriz') ? 'matriz' : 'filial',
-  region: mapRegion(unit.regiao),
-  mapUrl: unit.mapUrl,
-}));
+const locations: LocationData[] = units
+  .filter(unit => !unit.nome.includes('Oficina')) // Filtra oficinas para evitar marcadores sobrepostos
+  .map(unit => ({
+    name: unit.nome,
+    state: unit.estado,
+    coordinates: [unit.lng, unit.lat],
+    address: unit.endereco,
+    phone: unit.telefone,
+    type: unit.nome.includes('Matriz') ? 'matriz' : 'filial',
+    region: mapRegion(unit.regiao),
+    mapUrl: unit.mapUrl,
+  }));
 
-// Função para mapear nomes das localizações para IDs das páginas
-const getLocationId = (locationName: string): string => {
-  const nameToIdMap: { [key: string]: string } = {
-    'Porto Alegre': 'porto-alegre',
-    'Anápolis': 'anapoli',
-    'Piracicaba': 'piracicaba',
-    'São Bernardo do Campo': 'sao-bernardo-do-campo',
-    'Pátios Jaragua': 'patios-jaragua',
-    'Iracemápolis': 'iracemapolis',
-    'Duque de Caxias': 'duque-de-caxias',
-    'Porto Real': 'porto-real',
-    'Cariacica': 'cariacica',
-    'Eusébio': 'eusebio',
-    'São José dos Pinhais': 'sao-jose-dos-pinhais',
-    'Palhoça': 'palhoca',
-    'Três Margens': 'tres-margens',
-  };
-  
-  return nameToIdMap[locationName] || locationName.toLowerCase().replace(/\s+/g, '-').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-};
+
+
 
 const MapboxSection: React.FC = () => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [selectedLocation] = useState<LocationData | null>(null);
-  const router = useRouter();
-
-  const handleExploreLocation = () => {
-    if (selectedLocation) {
-      const locationId = getLocationId(selectedLocation.name);
-      router.push(`/localizacao/${locationId}`);
-    }
-  };
 
   const handleSelectLocationFromList = (location: LocationData) => {
     const mapUrl = location.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`;
@@ -211,7 +187,7 @@ const MapboxSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4"
-            style={{color: '#132D51'}}
+            style={{ color: '#132D51' }}
           >
             Nossas Unidades
           </motion.h2>
@@ -220,7 +196,7 @@ const MapboxSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4 sm:px-0"
-            style={{color: '#132D51'}}
+            style={{ color: '#132D51' }}
           >
             De norte a sul, oferecemos cobertura completa em todo o território nacional.
           </motion.p>
@@ -262,57 +238,59 @@ const MapboxSection: React.FC = () => {
               {selectedLocation ? (
                 <div className="bg-white rounded-2xl p-6 shadow-lg border border-neutral-200">
                   <div className="flex items-start justify-between mb-3 sm:mb-4">
-                    <h3 className="text-xl sm:text-2xl font-bold" style={{color: '#132D51'}}>
+                    <h3 className="text-xl sm:text-2xl font-bold" style={{ color: '#132D51' }}>
                       {selectedLocation.name}
                     </h3>
-                    <span className={`px-2 sm:px-3 py-1 rounded-full text-[0.65rem] sm:text-xs font-medium ${
-                      selectedLocation.type === 'matriz' 
-                        ? 'bg-[#D9F2FF] text-[#0B1B31]' 
-                        : selectedLocation.type === 'sede'
+                    <span className={`px-2 sm:px-3 py-1 rounded-full text-[0.65rem] sm:text-xs font-medium ${selectedLocation.type === 'matriz'
+                      ? 'bg-[#D9F2FF] text-[#0B1B31]'
+                      : selectedLocation.type === 'sede'
                         ? 'bg-blue-100 text-blue-800'
                         : 'bg-green-100 text-green-800'
-                    }`}>
+                      }`}>
                       {selectedLocation.type}
                     </span>
                   </div>
-                  <p className="mb-2" style={{color: '#132D51'}}>{selectedLocation.address}</p>
-                  <p className="mb-2 font-medium" style={{color: '#132D51'}}>{selectedLocation.phone}</p>
-                  <p className="text-sm mb-6" style={{color: '#132D51'}}>{selectedLocation.region}</p>
+                  <p className="mb-2" style={{ color: '#132D51' }}>{selectedLocation.address}</p>
+                  <p className="mb-2 font-medium" style={{ color: '#132D51' }}>{selectedLocation.phone}</p>
+                  <p className="text-sm mb-6" style={{ color: '#132D51' }}>{selectedLocation.region}</p>
                   <button
-                    onClick={handleExploreLocation}
+                    onClick={() => {
+                      const mapUrl = selectedLocation.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedLocation.address)}`;
+                      window.open(mapUrl, '_blank');
+                    }}
                     className="w-full text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-medium text-sm sm:text-base transition-colors bg-gabardo-blue hover:bg-gabardo-blue/90"
                   >
-                    Explorar Localização
+                    Ver no Google Maps
                   </button>
                 </div>
               ) : (
                 <div className="bg-white rounded-2xl p-6 shadow-lg border border-neutral-200">
-                  <div className="flex items-center justify-between gap-2 sm:gap-3 sm:justify-start mb-3 sm:mb-4">
-                    <h3 className="text-base sm:text-lg md:text-xl font-bold whitespace-nowrap" style={{color: '#132D51'}}>
+                  <div className="flex items-center justify-between gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold shrink-0" style={{ color: '#132D51' }}>
                       Nossas Unidades
                     </h3>
                     {/* Flag Icons */}
-                    <div className="hidden sm:flex items-center gap-1">
+                    <div className="hidden sm:flex items-center gap-0.5 sm:gap-1 justify-end overflow-hidden">
                       {FLAG_ICONS.map((flag) => (
-                        <div key={flag.code} className="w-8 h-6 rounded-md overflow-hidden shadow-md bg-white/40 backdrop-blur-sm flex items-center justify-center">
+                        <div key={flag.code} className="w-5 h-4 sm:w-6 sm:h-5 md:w-7 md:h-6 rounded-sm overflow-hidden shadow-sm bg-white/40 backdrop-blur-sm flex items-center justify-center flex-shrink">
                           <Image
                             src={getFlagSrc(flag.code)}
                             alt={`Bandeira ${flag.country}`}
-                            width={32}
-                            height={24}
-                            className="w-full h-auto"
+                            width={28}
+                            height={20}
+                            className="w-full h-full object-cover"
                           />
                         </div>
                       ))}
                     </div>
                   </div>
-                  <p className="mb-4 sm:mb-6 text-sm sm:text-base" style={{color: '#132D51'}}>
+                  <p className="mb-4 sm:mb-6 text-sm sm:text-base" style={{ color: '#132D51' }}>
                     Selecione uma unidade para ver no mapa ou explore clicando nos pontos.
                   </p>
                   <div className="space-y-3 sm:space-y-4 max-h-[300px] sm:max-h-[350px] md:max-h-[400px] overflow-y-auto">
                     {['Sul', 'Centro Oeste/Sudeste', 'Nordeste'].map((region) => (
                       <div key={region}>
-                        <h4 className="text-xs sm:text-sm font-bold mb-1.5 sm:mb-2 uppercase tracking-wider" style={{color: '#132D51'}}>
+                        <h4 className="text-xs sm:text-sm font-bold mb-1.5 sm:mb-2 uppercase tracking-wider" style={{ color: '#132D51' }}>
                           {region}
                         </h4>
                         <ul className="space-y-1 sm:space-y-1.5">
@@ -322,18 +300,17 @@ const MapboxSection: React.FC = () => {
                                 onClick={() => handleSelectLocationFromList(location)}
                                 className="w-full text-left p-2 rounded-lg hover:bg-neutral-100 transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-300 flex items-center gap-2 sm:gap-3"
                               >
-                                <span className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${
-                                  location.type === 'matriz' 
-                                    ? 'bg-[#38B6FF]' 
-                                    : location.type === 'sede'
+                                <span className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${location.type === 'matriz'
+                                  ? 'bg-[#38B6FF]'
+                                  : location.type === 'sede'
                                     ? 'bg-blue-500'
                                     : 'bg-green-500'
-                                }`}></span>
+                                  }`}></span>
                                 <div className="flex-1">
-                                  <span className="font-medium text-sm" style={{color: '#132D51'}}>
+                                  <span className="font-medium text-sm" style={{ color: '#132D51' }}>
                                     {location.name}{location.state ? ` (${location.state})` : ''}
                                   </span>
-                                  <div className="text-xs" style={{color: '#132D51'}}>{location.phone}</div>
+                                  <div className="text-xs" style={{ color: '#132D51' }}>{location.phone}</div>
                                 </div>
                               </button>
                             </li>

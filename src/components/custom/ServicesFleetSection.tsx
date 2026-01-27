@@ -162,10 +162,10 @@ export default function ServicesFleetSection() {
                   Solicitar proposta
                 </a>
                 <a
-                  href="/cases-de-sucesso"
+                  href="/contato"
                   className="inline-flex items-center justify-center rounded-xl border border-gabardo-blue px-6 py-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.28em] text-gabardo-blue transition-transform duration-200 hover:-translate-y-0.5 hover:bg-gabardo-blue/5"
                 >
-                  Ver cases de sucesso
+                  Fale conosco
                 </a>
               </motion.div>
             </div>
@@ -204,11 +204,10 @@ export default function ServicesFleetSection() {
                 <motion.div
                   key={type.name}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
-                  className={`rounded-xl border transition-all duration-300 ease-in-out ${
-                    isOpen
+                  className={`rounded-xl border transition-all duration-300 ease-in-out ${isOpen
                       ? 'border-gabardo-blue bg-[#F8F9FA] shadow-[0_24px_52px_-32px_rgba(19,45,81,0.35)]'
                       : 'border-neutral-200 bg-white shadow-sm'
-                  }`}
+                    }`}
                 >
                   <button
                     type="button"
@@ -222,17 +221,15 @@ export default function ServicesFleetSection() {
                       {type.name}
                     </div>
                     <div
-                      className={`relative flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 ease-in-out ${
-                        isOpen
+                      className={`relative flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 ease-in-out ${isOpen
                           ? 'border-gabardo-blue bg-gabardo-blue text-white'
                           : 'border-neutral-300 bg-white text-neutral-500'
-                      }`}
+                        }`}
                     >
                       <span className="absolute h-[2px] w-4 bg-current" />
                       <span
-                        className={`absolute w-[2px] bg-current transition-transform duration-300 ease-in-out ${
-                          isOpen ? 'h-0 rotate-90 opacity-0' : 'h-4 opacity-100'
-                        }`}
+                        className={`absolute w-[2px] bg-current transition-transform duration-300 ease-in-out ${isOpen ? 'h-0 rotate-90 opacity-0' : 'h-4 opacity-100'
+                          }`}
                       />
                     </div>
                   </button>

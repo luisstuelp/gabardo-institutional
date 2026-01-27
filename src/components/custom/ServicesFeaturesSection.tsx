@@ -122,17 +122,15 @@ const ServicesFeaturesSection: React.FC = () => {
               transition={{ duration: 0.7, delay: index * 0.05 }}
               onMouseEnter={() => setActiveItem(feature.id)}
               onMouseLeave={() => setActiveItem('')}
-              className={`group w-full cursor-default rounded-3xl border px-8 py-9 text-left transition-all duration-300 ease-in-out ${
-                activeItem === feature.id
+              className={`group w-full cursor-default rounded-3xl border px-8 py-9 text-left transition-all duration-300 ease-in-out ${activeItem === feature.id
                   ? 'border-gabardo-blue bg-white shadow-[0_25px_60px_-32px_rgba(19,45,81,0.38)]'
                   : 'border-white bg-white/70 shadow-[0_20px_45px_-35px_rgba(19,45,81,0.3)] hover:border-gabardo-light-blue/60'
-              }`}
+                }`}
             >
               <div className="flex items-start gap-5">
                 <div
-                  className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-colors duration-300 ${
-                    activeItem === feature.id ? 'bg-gabardo-blue text-white' : 'bg-gabardo-light-blue/15 text-gabardo-blue'
-                  }`}
+                  className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-colors duration-300 ${activeItem === feature.id ? 'bg-gabardo-blue text-white' : 'bg-gabardo-light-blue/15 text-gabardo-blue'
+                    }`}
                 >
                   {feature.icon}
                 </div>
@@ -172,10 +170,10 @@ const ServicesFeaturesSection: React.FC = () => {
               Solicitar proposta
             </a>
             <a
-              href="/cases-de-sucesso"
+              href="/blog"
               className="inline-flex items-center justify-center rounded-xl border border-gabardo-blue px-7 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-gabardo-blue transition-transform duration-200 hover:-translate-y-0.5 hover:bg-gabardo-blue/5"
             >
-              Ver cases de sucesso
+              Leia nosso blog
             </a>
           </div>
         </motion.div>

@@ -7,5 +7,34 @@ Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
 
+# Removed routes (no longer exist)
+Disallow: /localizacao
+Disallow: /_armazenagem
+Disallow: /_cases-de-sucesso
+Disallow: /_cultura
+Disallow: /_frota-e-unidades
+Disallow: /_nossa-gente
+Disallow: /_programas
+Disallow: /_sustentabilidade
+Disallow: /_tecnologia-e-inovacao
+Disallow: /_transporte-de-veiculos
+Disallow: /_transporte-em-prancha
+Disallow: /ecommerce
+Disallow: /landing-jornada
+Disallow: /landing-jornada-3d
+Disallow: /saldao-gabardo
+Disallow: /noticias
+Disallow: /sobre/_conformidade-e-lgpd
+
+# Old sitemap routes (redirected)
+Disallow: /transporte-de-veiculos
+Disallow: /armazenagem
+Disallow: /frota-e-unidades
+Disallow: /tecnologia-e-inovacao
+Disallow: /sobre/institucional
+Disallow: /sobre$
+
+
+
 # Sitemap
 Sitemap: https://www.transgabardo.com.br/sitemap.xml
