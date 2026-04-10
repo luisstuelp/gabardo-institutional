@@ -192,7 +192,7 @@ const Footer: React.FC = () => {
       >
         <div className="section-container flex flex-col gap-3 sm:gap-4 py-4 sm:py-5 md:py-6 text-xs sm:text-sm text-white/60 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center justify-center gap-2 text-center md:text-left">
-            <span>2025 Transportes Gabardo Ltda. Todos os direitos reservados.</span>
+            <span>2026 Transportes Gabardo Ltda. Todos os direitos reservados.</span>
             <span className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[0.65rem] tracking-[0.08em] text-white/80 whitespace-nowrap">
               v2.2
             </span>
