@@ -32,7 +32,7 @@ const qualityBadges = [
     title: 'ISO 9001',
     description:
       'Processos padronizados, auditorias recorrentes e KPIs que asseguram excelência em cada etapa da logística de veículos.',
-    downloadUrl: 'https://www.transgabardo.com.br/wp-content/uploads/2024/10/certificado-iso-9001.pdf',
+    downloadUrl: 'https://gabardo.com/wp-content/uploads/2024/10/certificado-iso-9001.pdf',
     ctaLabel: 'Baixar certificado',
   },
   {
@@ -40,7 +40,7 @@ const qualityBadges = [
     title: 'ISO 14001',
     description:
       'Inventário de emissões desde 2017, matriz energética renovável e infraestrutura pensada para reduzir impactos ambientais.',
-    downloadUrl: 'https://www.transgabardo.com.br/wp-content/uploads/2024/10/certificado-iso-14001.pdf',
+    downloadUrl: 'https://gabardo.com/wp-content/uploads/2024/10/certificado-iso-14001.pdf',
     ctaLabel: 'Baixar certificado',
   },
   {
@@ -48,7 +48,7 @@ const qualityBadges = [
     title: 'ISO 39001',
     description:
       'Protocolos rigorosos de segurança, central de controle 24/7 e treinamentos que garantem operações com zero avarias críticas.',
-    downloadUrl: 'https://www.transgabardo.com.br/wp-content/uploads/2024/10/certificado-iso-39001.pdf',
+    downloadUrl: 'https://gabardo.com/wp-content/uploads/2024/10/certificado-iso-39001.pdf',
     ctaLabel: 'Baixar certificado',
   },
   {

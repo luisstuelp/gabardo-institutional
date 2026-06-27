@@ -428,7 +428,7 @@ function renderConfirmationEmailTemplate(data: QuoteFormData): string {
               <p style="margin:0 0 4px 0; font-size:12px; color:#d1d6e0;">Av. Fernando Ferrari, 700 - Anchieta - Porto Alegre/RS - CEP 90200-040</p>
               <p style="margin:0 0 4px 0; font-size:12px; color:#d1d6e0;">Central: <a href="tel:+555133733000" style="color:#38B6FF; text-decoration:none; font-weight:600;">+55 (51) 3373-3000</a></p>
               <p style="margin:0 0 4px 0; font-size:12px; color:#d1d6e0;"><a href="mailto:comercial@transgabardo.com.br" style="color:#38B6FF; text-decoration:none; font-weight:600;">comercial@transgabardo.com.br</a></p>
-              <p style="margin:0; font-size:12px;"><a href="https://transgabardo.com.br" style="color:#7fd7ff; text-decoration:none;">www.transgabardo.com.br</a></p>
+              <p style="margin:0; font-size:12px;"><a href="https://gabardo.com" style="color:#7fd7ff; text-decoration:none;">www.gabardo.com</a></p>
             </td>
           </tr>
         </table>

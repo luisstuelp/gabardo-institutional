@@ -137,7 +137,7 @@ export const gabardoContent: ScrapedContent = {
     "address": "Av. Fernando Ferrari, 700 - Anchieta - CEP 90200-040 - Porto Alegre/RS",
     "socialMedia": {
       "whatsapp": "https://wa.me/5551933733000",
-      "website": "https://www.transgabardo.com.br",
+      "website": "https://gabardo.com",
       "email": "gabardo@transgabardo.com.br"
     }
   },
