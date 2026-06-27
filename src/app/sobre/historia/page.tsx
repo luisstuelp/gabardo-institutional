@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import HistoriaClient from './historia-client';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.transgabardo.com.br'),
+  metadataBase: new URL('https://gabardo.com'),
   title: 'Nossa História | Gabardo Transportes - 36 Anos de Excelência',
   description: 'Desde 1989, a Gabardo construiu a maior frota própria de cegonhas do Brasil. Conheça nossa jornada de expansão, certificações ISO e liderança em sustentabilidade ESG no transporte de veículos.',
   keywords: [
@@ -23,10 +23,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Nossa História | Gabardo Transportes - 36 Anos de Liderança',
     description: 'De um único caminhão em 1989 à maior frota própria de cegonhas do Brasil. História de expansão, inovação e compromisso com excelência em transporte de veículos.',
-    url: 'https://www.transgabardo.com.br/sobre/historia',
+    url: 'https://gabardo.com/sobre/historia',
     images: [
       {
-        url: 'https://www.transgabardo.com.br/og/gabardo-historia.jpg',
+        url: 'https://gabardo.com/og/gabardo-historia.jpg',
         width: 1200,
         height: 630,
         alt: 'História Gabardo - 36 Anos de Excelência em Transporte de Veículos',
@@ -40,10 +40,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Nossa História | Gabardo Transportes - 36 Anos',
     description: 'De 1989 à liderança nacional: história da maior frota própria de cegonhas do Brasil e pioneira em sustentabilidade.',
-    images: ['https://www.transgabardo.com.br/og/gabardo-historia.jpg'],
+    images: ['https://gabardo.com/og/gabardo-historia.jpg'],
   },
   alternates: {
-    canonical: 'https://www.transgabardo.com.br/sobre/historia',
+    canonical: 'https://gabardo.com/sobre/historia',
   },
   robots: {
     index: true,

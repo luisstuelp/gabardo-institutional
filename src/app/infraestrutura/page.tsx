@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import InfraestruturaClient from './infraestrutura-client';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.transgabardo.com.br'),
+  metadataBase: new URL('https://gabardo.com'),
   title: 'Infraestrutura | Gabardo Transportes - Pátios e Unidades',
   description: '11 unidades estratégicas, capacidade para 27 mil veículos, instalações modernas com boxes climatizados, CFTV 24/7, energia solar e conectividade SD-WAN. Infraestrutura de ponta para transporte de veículos.',
   keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Infraestrutura | Gabardo - 11 Unidades em 4 Regiões',
     description: 'Instalações modernas, pátios estrategicamente localizados e tecnologia de ponta. 27.450 veículos de capacidade total distribuída nacionalmente.',
-    url: 'https://www.transgabardo.com.br/infraestrutura',
+    url: 'https://gabardo.com/infraestrutura',
     type: 'website',
     locale: 'pt_BR',
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description: 'Pátios modernos, boxes climatizados, segurança 24/7 e sustentabilidade em toda nossa rede.',
   },
   alternates: {
-    canonical: 'https://www.transgabardo.com.br/infraestrutura',
+    canonical: 'https://gabardo.com/infraestrutura',
   },
 };
 

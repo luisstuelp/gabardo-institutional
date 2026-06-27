@@ -6,7 +6,7 @@ import MidiaClient from './midia-client';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.transgabardo.com.br'),
+  metadataBase: new URL('https://gabardo.com'),
   title: 'Mídia | Gabardo Transportes - Notícias e Artigos',
   description: 'Acompanhe as últimas notícias, artigos e insights da Gabardo Transportes. Central de conteúdo sobre inovação, sustentabilidade e logística automotiva.',
   keywords: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Mídia | Gabardo - Notícias e Artigos',
     description: 'Central de notícias, artigos e insights sobre inovação, sustentabilidade e logística automotiva da Gabardo Transportes.',
-    url: 'https://www.transgabardo.com.br/midia',
+    url: 'https://gabardo.com/midia',
     type: 'website',
     locale: 'pt_BR',
   },
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description: 'Acompanhe insights do setor, inovações e conquistas da Gabardo Transportes.',
   },
   alternates: {
-    canonical: 'https://www.transgabardo.com.br/midia',
+    canonical: 'https://gabardo.com/midia',
   },
 };
 

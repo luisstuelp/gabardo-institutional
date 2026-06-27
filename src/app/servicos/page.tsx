@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ServicesClient from './servicos-client';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.transgabardo.com.br'),
+  metadataBase: new URL('https://gabardo.com'),
   title: 'Serviços | Gabardo Transportes - Soluções Logísticas',
   description: 'Serviços completos de transporte automotivo: frota cegonha, truck, plataforma e prancha. Operações dedicadas, tecnologia embarcada e 2.000+ equipamentos próprios.',
   keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Serviços Gabardo - Soluções Logísticas Completas',
     description: 'Frota própria de 2.000+ equipamentos. Cegonha, Truck, Plataforma e Prancha para transporte automotivo.',
-    url: 'https://www.transgabardo.com.br/servicos',
+    url: 'https://gabardo.com/servicos',
     type: 'website',
     locale: 'pt_BR',
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description: 'Maior frota própria do Brasil com tecnologia embarcada.',
   },
   alternates: {
-    canonical: 'https://www.transgabardo.com.br/servicos',
+    canonical: 'https://gabardo.com/servicos',
   },
 };
 

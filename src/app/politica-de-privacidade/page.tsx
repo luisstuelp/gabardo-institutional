@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     'Conheça a Política de Privacidade da Transportes Gabardo Ltda e saiba como tratamos dados pessoais em conformidade com a LGPD.',
   alternates: {
-    canonical: 'https://www.transgabardo.com.br/politica-de-privacidade',
+    canonical: 'https://gabardo.com/politica-de-privacidade',
   },
 };
 
