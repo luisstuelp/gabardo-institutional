@@ -10,91 +10,67 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { meta } from "@/data/hubPluralContent";
 
 export const metadata: Metadata = {
-  title: {
-    default: meta.title,
-    template: '%s | Gabardo'
-  },
-  description: meta.description,
-  keywords: [
-    'transporte de veículos',
-    'transportadora de carros',
-    'cegonha',
-    'logística automotiva',
-    'transporte LATAM',
-    'ISO 9001',
-    'ISO 14001',
-    'ISO 39001',
-    'carbono negativo',
-    'rastreamento veículos',
-    'armazenagem veículos',
-    'Porto Alegre',
-    'Brasil'
-  ],
-  authors: [{ name: 'Gabardo' }],
-  creator: 'Gabardo',
-  publisher: 'Gabardo',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL('https://www.transgabardo.com.br'),
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    title: meta.title,
-    description: meta.description,
-    url: 'https://www.transgabardo.com.br',
-    siteName: 'Gabardo',
-    locale: 'pt_BR',
-    type: 'website',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Gabardo - Logística Automotiva',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: meta.title,
-    description: meta.description,
-    images: ['/og-image.jpg'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    google: 'verification_token',
-  },
-  icons: {
-    icon: [
-      { url: '/favicon-16x16.png', sizes: '16x16' },
-      { url: '/favicon-48x48.png', sizes: '48x48' },
-      { url: '/favicon.ico' },
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon-96x96.png', sizes: '96x96' },
-    ],
-    apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180' },
-    ],
-    other: [
-      { rel: 'mask-icon', url: '/safari-pinned-tab.svg', color: '#2A4D87' },
-    ],
-    shortcut: ['/favicon.ico'],
-  },
-  manifest: '/site.webmanifest',
+	title: {
+		default: meta.title,
+		template: '%s | Gabardo',
+	},
+	description: meta.description,
+	keywords: ['transporte de veículos', 'transportadora de carros', 'cegonha', 'logística automotiva', 'transporte LATAM', 'ISO 9001', 'ISO 14001', 'ISO 39001', 'carbono negativo', 'rastreamento veículos', 'armazenagem veículos', 'Porto Alegre', 'Brasil'],
+	authors: [{ name: 'Gabardo' }],
+	creator: 'Gabardo',
+	publisher: 'Gabardo',
+	formatDetection: {
+		email: false,
+		address: false,
+		telephone: false,
+	},
+	metadataBase: new URL('https://gabardo.com'),
+	alternates: {
+		canonical: '/',
+	},
+	openGraph: {
+		title: meta.title,
+		description: meta.description,
+		url: 'https://gabardo.com',
+		siteName: 'Gabardo',
+		locale: 'pt_BR',
+		type: 'website',
+		images: [
+			{
+				url: '/og-image.jpg',
+				width: 1200,
+				height: 630,
+				alt: 'Gabardo - Logística Automotiva',
+			},
+		],
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: meta.title,
+		description: meta.description,
+		images: ['/og-image.jpg'],
+	},
+	robots: {
+		index: true,
+		follow: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			'max-video-preview': -1,
+			'max-image-preview': 'large',
+			'max-snippet': -1,
+		},
+	},
+	verification: {
+		google: 'verification_token',
+	},
+	icons: {
+		icon: [{ url: '/favicon-16x16.png', sizes: '16x16' }, { url: '/favicon-48x48.png', sizes: '48x48' }, { url: '/favicon.ico' }, { url: '/favicon.svg', type: 'image/svg+xml' }, { url: '/favicon-96x96.png', sizes: '96x96' }],
+		apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+		other: [{ rel: 'mask-icon', url: '/safari-pinned-tab.svg', color: '#2A4D87' }],
+		shortcut: ['/favicon.ico'],
+	},
+	manifest: '/site.webmanifest',
 };
 
 import { Montserrat, Roboto } from 'next/font/google';
