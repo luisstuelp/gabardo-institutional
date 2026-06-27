@@ -7,8 +7,8 @@ export default function StructuredData() {
     '@context': 'https://schema.org',
 name: 'Gabardo',
     alternateName: 'Gabardo',
-    url: 'https://www.transgabardo.com.br',
-    logo: 'https://www.transgabardo.com.br/gabardo-logo.png',
+    url: 'https://gabardo.com',
+    logo: 'https://www.gabardo.com/gabardo-logo.png',
     description: 'Transportadora de veículos com mais de 36 anos de experiência. Primeira transportadora do mundo com certificação carbono negativo. Certificações ISO 9001, ISO 14001 e ISO 39001.',
     foundingDate: '1989',
     founder: {
@@ -74,9 +74,9 @@ name: 'Gabardo',
   const localBusinessSchema = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': 'https://www.transgabardo.com.br/#localbusiness',
+    '@id': 'https://www.gabardo.com/#localbusiness',
     name: 'Gabardo',
-    image: 'https://www.transgabardo.com.br/gabardo-logo.png',
+    image: 'https://www.gabardo.com/gabardo-logo.png',
     telephone: '+55-51-3373-3000',
     email: 'gabardo@transgabardo.com.br',
     address: {
@@ -92,7 +92,7 @@ name: 'Gabardo',
       latitude: -30.0346,
       longitude: -51.2177
     },
-    url: 'https://www.transgabardo.com.br',
+    url: 'https://gabardo.com',
     priceRange: '$$',
     openingHoursSpecification: [
       {
