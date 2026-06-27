@@ -37,4 +37,4 @@ Disallow: /sobre$
 
 
 # Sitemap
-Sitemap: https://www.transgabardo.com.br/sitemap.xml
+Sitemap: https://gabardo.com/sitemap.xml
