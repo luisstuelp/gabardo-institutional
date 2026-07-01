@@ -31,13 +31,13 @@ const SustainabilityReportSection: React.FC = () => {
 								Prestar serviço de transporte e logística, para montadoras, importadoras e concessionárias, autorizadas em toda América Latina, de forma segura e sustentável, com o intuito de atender os requisitos das partes interessadas, mantendo compromisso com a proteção ao meio ambiente, redução da
 								poluição e segurança viária, atendimento à requisitos legais aplicáveis, empenhando-se para estar à frente das necessidades de nossos clientes, buscando a melhoria contínua do nosso sistema de gestão integrado e de seus profissionais.
 							</p>
-							<button
+					{/*		<button
 								disabled
 								className="inline-flex items-center gap-2 px-8 py-4 font-semibold rounded-lg bg-gabardo-light-blue/80 text-white shadow-xl shadow-gabardo-blue/40 border border-white/15 transition-transform duration-300 disabled:opacity-95 disabled:cursor-not-allowed"
 							>
 								<Download className="w-5 h-5" />
 								Download do Relatório (Em Breve)
-							</button>
+							</button> */}
 						</motion.div>
 					</div>
 				</div>
