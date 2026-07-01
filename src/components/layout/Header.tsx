@@ -93,6 +93,7 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
       ],
     },
     { id: 'servicos', label: 'SERVIÇOS', href: '/servicos', imageSrc: '/images/hero-services.jpg' },
+    { id: 'caminhoes', label: 'CAMINHÕES', href: '/caminhoes', imageSrc: '/images/hero-services.jpg' },
     { id: 'qualidade', label: 'QUALIDADE', href: '/sobre/qualidade', imageSrc: '/images/Certificados.JPG' },
     // Removed NOSSA GENTE and SUSTENTABILIDADE entries
 
@@ -114,6 +115,12 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
       id: 'transportes-diversos',
       label: 'Transportes diversos',
       href: 'https://grupogabardo.com.br/sistemas/siga.php',
+      variant: 'secondary',
+    },
+    {
+      id: 'caminhoes-a-venda',
+      label: 'Caminhões à venda',
+      href: '/caminhoes',
       variant: 'secondary',
     },
   ];
