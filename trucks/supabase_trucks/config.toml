@@ -1,0 +1,62 @@
+# =============================================================================
+# Supabase Configuration for Gabardo Trucks
+# =============================================================================
+# Full reference: https://supabase.com/docs/guides/cli/config
+# =============================================================================
+
+[project]
+id = "krdfzphthfapdphonivb"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 15
+
+[db.pooler]
+enabled = false
+port = 54329
+pool_mode = "transaction"
+default_pool_size = 20
+max_client_conn = 100
+
+[studio]
+enabled = true
+port = 54323
+api_url = "http://localhost"
+
+[auth]
+enabled = true
+site_url = "http://localhost:8080"
+additional_redirect_urls = ["https://localhost:8080"]
+jwt_expiry = 3600
+enable_signup = true
+enable_anonymous_sign_ins = false
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false
+otp_length = 6
+otp_expiry = 300
+
+[auth.external.google]
+enabled = false
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[functions.ai-chat]
+verify_jwt = true
+
+[functions.database-query]
+verify_jwt = true
+
+[functions.auth-operations]
+verify_jwt = false
