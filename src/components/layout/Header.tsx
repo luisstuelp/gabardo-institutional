@@ -117,12 +117,6 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
       href: 'https://grupogabardo.com.br/sistemas/siga.php',
       variant: 'secondary',
     },
-    {
-      id: 'caminhoes-a-venda',
-      label: 'Caminhões à venda',
-      href: '/caminhoes',
-      variant: 'secondary',
-    },
   ];
 
   return (
@@ -168,6 +162,12 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
                 </Link>
               ))}
             </div>
+            <Link
+              href="/caminhoes"
+              className={`hidden lg:inline-flex items-center gap-2 rounded-full px-[1.1rem] py-[0.45rem] text-[0.64rem] font-semibold uppercase tracking-[0.26em] transition-all duration-300 shadow-[0_18px_35px_-28px_RGBA(19,45,81,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${ctaClasses}`}
+            >
+              Caminhões à venda
+            </Link>
             <Link
               href="/orcamento"
               className={`hidden lg:inline-flex items-center gap-2 rounded-full px-[1.1rem] py-[0.45rem] text-[0.64rem] font-semibold uppercase tracking-[0.26em] transition-all duration-300 shadow-[0_18px_35px_-28px_RGBA(19,45,81,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${ctaClasses}`}
