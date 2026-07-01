@@ -26,7 +26,7 @@ const SustainabilityReportSection: React.FC = () => {
 							viewport={{ once: true }}
 							transition={{ duration: 0.7, ease: 'easeOut' }}
 						>
-							{/* <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gabardo-light-blue drop-shadow-[0_8px_18px_rgba(0,0,0,0.45)]">Relatório de Sustentabilidade 2024</h2> */}
+							<h2 className="text-3xl md:text-4xl font-bold mb-4 text-gabardo-light-blue drop-shadow-[0_8px_18px_rgba(0,0,0,0.45)]">Política do Sistema de Gestão Integrado</h2>
 							<p className="max-w-5xl mx-auto text-lg leading-relaxed text-white drop-shadow-[0_6px_14px_rgba(0,0,0,0.45)] mb-0">
 								Prestar serviço de transporte e logística, para montadoras, importadoras e concessionárias, autorizadas em toda América Latina, de forma segura e sustentável, com o intuito de atender os requisitos das partes interessadas, mantendo compromisso com a proteção ao meio ambiente, redução da
 								poluição e segurança viária, atendimento à requisitos legais aplicáveis, empenhando-se para estar à frente das necessidades de nossos clientes, buscando a melhoria contínua do nosso sistema de gestão integrado e de seus profissionais.
