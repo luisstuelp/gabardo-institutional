@@ -269,7 +269,7 @@ export function CatalogFilters({ filters, onFiltersChange, activeFiltersCount, h
             )}
           </div>
           <FilterContent />
-          <Button onClick={applyFilters} className="w-full mt-4">
+          <Button onClick={applyFilters} className="w-full hover:text-white hover:bg-blue-800 bg-white text-blue-800 border border-blue-950 mt-4">
             Aplicar Filtros
           </Button>
         </div>
@@ -303,7 +303,7 @@ export function CatalogFilters({ filters, onFiltersChange, activeFiltersCount, h
               </div>
               <SheetFooter className="mt-6 flex-col sm:flex-col gap-2">
                 <SheetClose asChild>
-                  <Button onClick={applyFilters} className="w-full">
+                  <Button onClick={applyFilters} className="w-full hover:text-white hover:bg-blue-800 bg-white text-blue-800 border border-blue-950 mt-4">
                     Aplicar Filtros
                   </Button>
                 </SheetClose>

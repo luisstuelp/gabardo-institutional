@@ -14,8 +14,8 @@ export function BrandChips({ selectedBrand, onBrandSelect }: BrandChipsProps) {
         className={cn(
           'shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all',
           selectedBrand === null
-            ? 'bg-primary text-primary-foreground'
-            : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+            ? 'bg-blue-900 text-primary-foreground'
+            : 'bg-white text-secondary-foreground hover:bg-blue-800 hover:text-white'
         )}
       >
         Todas
@@ -27,8 +27,8 @@ export function BrandChips({ selectedBrand, onBrandSelect }: BrandChipsProps) {
           className={cn(
             'shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all',
             selectedBrand === brand.name
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+              ? 'bg-blue-900 text-primary-foreground'
+              : 'bg-white text-secondary-foreground hover:bg-blue-800 hover:text-white'
           )}
         >
           {brand.name}

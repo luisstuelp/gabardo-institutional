@@ -17,6 +17,7 @@ type StorySection = {
   videoPoster: string;
   imagePosition: string;
   videoSrc?: string;
+  detalhesImagem: string;
 };
 
 // Content model with Gabardo's actual history and values
@@ -24,13 +25,14 @@ const STORY_SECTIONS: StorySection[] = [
   {
     id: 'fundacao-1989',
     tab: '1989 - Fundação',
-    tabTop: '1989',
+    tabTop: '1982-1989',
     tabBottom: 'Fundação',
     kicker: 'Do sonho de um caminhoneiro',
     heading: 'Nascemos em Porto Alegre com um compromisso',
-    body: 'Início das operações com um único fundador, Sérgio Mario Gabardo, utilizando o saldo de um caminhoneiro. Natural de Nova Bassano/RS, Sérgio iniciou no transporte de veículos em 1982 e, em 1989, fundou a Transportes Gabardo em Porto Alegre/RS com uma promessa clara: fazer o transporte de forma correta, segura e confiável.',
+    body: 'Início das operações com um fundador, Sérgio Mario Gabardo. Natural de Nova Bassano/RS, Sérgio iniciou no transporte de veículos em 1982 e, em 1989, fundou a Transportes Gabardo em Porto Alegre/RS com uma promessa clara: fazer o transporte de forma correta, segura e confiável.',
     videoPoster: '/images/Untitledvideo-MadewithClipchamp2-ezgif.com-video-to-gif-converter.gif',
     imagePosition: 'center 45%',
+    detalhesImagem: 'Foto histórica original. Animação feita por inteligência artificial.',
   },
   {
     id: 'expansao-1992-1998',
@@ -42,6 +44,7 @@ const STORY_SECTIONS: StorySection[] = [
     body: 'Em 1994, demos nosso primeiro grande salto ao adquirir a unidade de Cariacica/ES, estratégica pela proximidade ao Porto de Vitória. Em 1998, consolidamos nossa presença nacional com aberturas em São Bernardo do Campo/SP e São José dos Pinhais/PR. Nossa frota crescia e a tecnologia começava a fazer parte do DNA operacional.',
     videoPoster: '/images/veo31generatepreview_animate_this_image_the_car_wheels_shouldn_0-ezgif.com-video-to-gif-converter.gif',
     imagePosition: '18% 50%',
+    detalhesImagem: '',
   },
   {
     id: 'certificacao-2001-2008',
@@ -53,6 +56,7 @@ const STORY_SECTIONS: StorySection[] = [
     body: 'Continuamos expandindo com Duque de Caxias/RJ (2001) e Porto Real/RJ (2003). Em 2004, alcançamos o cadastro oficial na ANTT (Agência Nacional de Transportes Terrestres), marcando nossa conformidade regulatória, e iniciamos a certificação ISO 9001:2000 em Porto Alegre. Em 2008, renovamos por 30 anos o contrato com CAOA/Hyundai e inauguramos Anápolis/GO com 1.200.000m².',
     videoPoster: '/images/Video_Generation_From_Image-ezgif.com-video-to-gif-converter.gif',
     imagePosition: 'center 38%',
+    detalhesImagem: '',
   },
   {
     id: 'modernizacao-2014-2019',
@@ -61,9 +65,10 @@ const STORY_SECTIONS: StorySection[] = [
     tabBottom: 'Capilaridade',
     kicker: 'Consolidação e maturidade',
     heading: 'Chegamos aos 30 anos com 13 pátios',
-    body: 'Reformulamos completamente Porto Alegre (2014) e inauguramos Chuí/RS. Certificamos ISO 9001:2008 em Piracicaba (2015). Em 2017, iniciamos voluntariamente o inventário e neutralização de emissões de carbono, demonstrando nosso compromisso ambiental pioneiro. Expandimos para Eusébio/CE, Mogi das Cruzes/SP e Jacareí/SP. 2019 marcou nossos 30 anos como maior frota própria de cegonhas do Brasil.',
+    body: 'Em 2014, demos grande apoio para Porto Alegre e inauguramos Chuí/RS. Certificamos ISO 9001:2008 em Piracicaba (2015). Em 2017, iniciamos voluntariamente o inventário e neutralização de emissões de carbono, demonstrando nosso compromisso ambiental pioneiro. Expandimos para Eusébio/CE, Mogi das Cruzes/SP e Jacareí/SP.',
     videoPoster: '/images/Image_Animation_And_Video_Generation-ezgif.com-video-to-gif-converter.gif',
     imagePosition: 'center 35%',
+    detalhesImagem: '',
   },
   {
     id: 'sustentabilidade-2020-2025',
@@ -75,6 +80,7 @@ const STORY_SECTIONS: StorySection[] = [
     body: 'Em 2020, implantamos ISO 14001 e ISO 39001, firmamos parceria com Childhood e Projeto Pescar. Ganhamos prêmios CAOA Chery e o 9º Prêmio Transporte Responsável. Em 2023, certificamos todas as unidades ISO 9001/14001/39001 e iniciamos contrato GWM para veículos híbridos/elétricos. 2024 trouxe adesão ao Pacto Global da ONU. Em 2025, consolidamos nossa posição como a maior frota própria de cegonhas do Brasil e líder de mercado em transporte de veículos, com Certificação Carbono Negativo.',
     videoPoster: '/images/Car_Wheels_Not_Rotating_In_Video-ezgif.com-video-to-gif-converter.gif',
     imagePosition: 'center 45%',
+    detalhesImagem: '',
   },
 ];
 
@@ -134,6 +140,9 @@ function StoryCard({ section, reverse }: { section: StorySection; reverse?: bool
             />
           )}
         </div>
+        <p className="text-xs uppercase  text-gabardo-blue opacity-80 pt-4">
+          {section.detalhesImagem}
+        </p>
       </motion.div>
 
       {/* Content Side */}
@@ -242,7 +251,7 @@ function Tabs({
   return (
     <div 
       id="timeline-tabs"
-      className="sticky top-[72px] md:top-0 z-40 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gabardo-blue/10 transition-all duration-300 shadow-sm"
+      className="sticky md:top-12 z-50 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gabardo-blue/10 transition-all duration-300 shadow-sm"
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full py-2 sm:py-0">
         <div className="relative h-full overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory">
@@ -423,7 +432,7 @@ export default function HistoriaClientPage() {
                 Três Décadas de <span className="text-gabardo-light-blue">Excelência</span>
               </h1>
               <p className="text-xs sm:text-sm md:text-base lg:text-lg text-white/80 leading-relaxed max-w-3xl mx-auto font-secondary px-2 sm:px-0">
-                Desde 1989, seguimos uma jornada de expansão contínua, combinando tradição com inovação. Hoje, operamos a maior frota própria de cegonhas do Brasil, 100% rastreada, com presença em toda a América Latina.
+                Desde 1989, seguimos uma jornada de expansão contínua, combinando tradição com inovação. Hoje, 100% rastreada, com presença em toda a América Latina.
               </p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -489,7 +498,7 @@ export default function HistoriaClientPage() {
                 Palavra do Fundador
               </span>
               <blockquote className="text-2xl md:text-3xl font-light text-gray-700 leading-relaxed mb-8 italic">
-                &ldquo;Quando comecei em 1989, com um único caminhão, eu tinha um compromisso: fazer o transporte de forma correta, segura e confiável. Hoje, 36 anos depois, olho para nossa frota de mais de dois mil caminhões, para nossa equipe e para os grandes parceiros que confiam em nós, e vejo que esse compromisso inicial não apenas se manteve, como se tornou o pilar de tudo o que fazemos.&rdquo;
+                &ldquo;Quando comecei em 1982, com um único caminhão, eu tinha um compromisso: fazer o transporte de forma correta, segura e confiável. Hoje, 44 anos depois, olho para nossa frota de mais de dois mil caminhões, para nossa equipe e para os grandes parceiros que confiam em nós, e vejo que esse compromisso inicial não apenas se manteve, como se tornou o pilar de tudo o que fazemos.&rdquo;
               </blockquote>
               <div className="flex flex-col items-center">
                 <div className="w-20 h-1 bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue rounded-full mb-4"></div>

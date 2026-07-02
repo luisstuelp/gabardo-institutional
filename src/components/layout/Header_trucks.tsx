@@ -149,13 +149,7 @@ export function Header() {
               </Link>
             )}
 
-            {/* CTA Button */}
-            <Link to="/caminhoes" className="hidden md:block ml-2">
-              <Button className="h-9 px-4 bg-[#122d54] hover:bg-[#0d1f3d] text-white text-sm font-medium rounded-md">
-                <Search className="h-4 w-4 mr-1.5" />
-                Buscar Caminhões
-              </Button>
-            </Link>
+
 
             {/* Mobile menu button */}
             <Button

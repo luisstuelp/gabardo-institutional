@@ -195,7 +195,7 @@ Seja sempre cordial, profissional e objetivo. Responda em português do Brasil.`
         ];
 
         // 2. Call OpenAI through the Next server route.
-        const response = await fetch('/api/trucks/chat-fallback', {
+        const response = await fetch('/api/chat-fallback', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

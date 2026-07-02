@@ -382,7 +382,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-001': {
         id: 'img-001',
         vehicle_id: 'mock-001',
-        url: '/trucks/volvo_fh_540_2023_white_1768517844127.png',
+        url: '/images/caminhoes/volvo_fh_540_2023_white_1768517844127.png',
         alt: 'Volvo FH 540',
         is_primary: true,
         display_order: 1,
@@ -391,7 +391,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-002': {
         id: 'img-002',
         vehicle_id: 'mock-002',
-        url: '/trucks/vw_delivery_11_180_2021_white_1768517857695.png',
+        url: '/images/caminhoes/vw_delivery_11_180_2021_white_1768517857695.png',
         alt: 'VW Delivery',
         is_primary: true,
         display_order: 1,
@@ -400,7 +400,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-003': {
         id: 'img-003',
         vehicle_id: 'mock-003',
-        url: '/trucks/vw_delivery_9_170_2020_white_1768517872285.png',
+        url: '/images/caminhoes/vw_delivery_9_170_2020_white_1768517872285.png',
         alt: 'VW Delivery 9.170',
         is_primary: true,
         display_order: 1,
@@ -409,7 +409,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-004': {
         id: 'img-004',
         vehicle_id: 'mock-004',
-        url: '/trucks/scania_r450_2019_white_1768517884706.png',
+        url: '/images/caminhoes/scania_r450_2019_white_1768517884706.png',
         alt: 'Scania R450',
         is_primary: true,
         display_order: 1,
@@ -418,7 +418,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-005': {
         id: 'img-005',
         vehicle_id: 'mock-005',
-        url: '/trucks/vw_delivery_11_180_2022_white_1768517900744.png',
+        url: '/images/caminhoes/vw_delivery_11_180_2022_white_1768517900744.png',
         alt: 'VW Delivery',
         is_primary: true,
         display_order: 1,
@@ -427,7 +427,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-006': {
         id: 'img-006',
         vehicle_id: 'mock-006',
-        url: '/trucks/mercedes_accelo_1016_2021_white_1768517915053.png',
+        url: '/images/caminhoes/mercedes_accelo_1016_2021_white_1768517915053.png',
         alt: 'Mercedes Accelo',
         is_primary: true,
         display_order: 1,
@@ -436,7 +436,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-007': {
         id: 'img-007',
         vehicle_id: 'mock-007',
-        url: '/trucks/mercedes_accelo_1016_2022_white_1768517927740.png',
+        url: '/images/caminhoes/mercedes_accelo_1016_2022_white_1768517927740.png',
         alt: 'Mercedes Accelo',
         is_primary: true,
         display_order: 1,
@@ -445,7 +445,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-008': {
         id: 'img-008',
         vehicle_id: 'mock-008',
-        url: '/trucks/mercedes_accelo_1316_2020_white_1768517942503.png',
+        url: '/images/caminhoes/mercedes_accelo_1316_2020_white_1768517942503.png',
         alt: 'Mercedes Accelo',
         is_primary: true,
         display_order: 1,
@@ -454,7 +454,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-009': {
         id: 'img-009',
         vehicle_id: 'mock-009',
-        url: '/trucks/scania_r450_white_1768517420036.png',
+        url: '/images/caminhoes/scania_r450_white_1768517420036.png',
         alt: 'Scania R450',
         is_primary: true,
         display_order: 1,
@@ -463,7 +463,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-010': {
         id: 'img-010',
         vehicle_id: 'mock-010',
-        url: '/trucks/vw_19_320_white_1768517433202.png',
+        url: '/images/caminhoes/vw_19_320_white_1768517433202.png',
         alt: 'VW 19.320',
         is_primary: true,
         display_order: 1,
@@ -472,7 +472,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-011': {
         id: 'img-011',
         vehicle_id: 'mock-011',
-        url: '/trucks/volvo_fm_370_white_1768517446055.png',
+        url: '/images/caminhoes/volvo_fm_370_white_1768517446055.png',
         alt: 'Volvo FM 370',
         is_primary: true,
         display_order: 1,
@@ -481,7 +481,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-012': {
         id: 'img-012',
         vehicle_id: 'mock-012',
-        url: '/trucks/volvo_fh_460_white_1768517463121.png',
+        url: '/images/caminhoes/volvo_fh_460_white_1768517463121.png',
         alt: 'Volvo FH 460',
         is_primary: true,
         display_order: 1,
@@ -490,7 +490,7 @@ export const mockImages: Record<string, VehicleImage> = {
     'mock-013': {
         id: 'img-013',
         vehicle_id: 'mock-013',
-        url: '/trucks/ford_cargo_815_white_1768517477027.png',
+        url: '/images/caminhoes/ford_cargo_815_white_1768517477027.png',
         alt: 'Ford Cargo 815 E',
         is_primary: true,
         display_order: 1,
