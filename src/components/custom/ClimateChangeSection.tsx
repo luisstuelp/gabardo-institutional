@@ -297,14 +297,14 @@ export default function ClimateChangeSection() {
                 className="w-full h-auto"
                 priority
               />
-              <a
+              {/*<a
                 href="/certifications/certificado-carbono-negativo.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute bottom-8 left-1/2 -translate-x-[65%] text-sm font-semibold text-gabardo-light-blue transition hover:text-gabardo-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/60 focus:ring-offset-1 focus:ring-offset-white md:bottom-12 md:left-[42%] md:-translate-x-1/2"
               >
                 Baixar Certificado
-              </a>
+              </a>*/}
             </div>
           </motion.div>
         </div>
