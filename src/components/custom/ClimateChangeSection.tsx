@@ -290,10 +290,10 @@ export default function ClimateChangeSection() {
           >
             <div className="relative w-full max-w-xl">
               <Image
-                src="/images/carbo-zero-certificado.png"
+                src="/images/certificacao-carbono-negativo.jpg"
                 alt="Certificação de carbono negativo da Gabardo"
                 width={720}
-                height={480}
+                height={1040}
                 className="w-full h-auto"
                 priority
               />
