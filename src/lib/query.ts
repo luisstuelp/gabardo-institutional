@@ -5,6 +5,42 @@ import { supabase } from './supabase'
 import type { Tables } from './tipos';
 import { useRealtimeTable } from "./realTime";
 
+export function pegarContratos(enabled = true) {
+    useRealtimeTable("contratos", "contratos");
+
+    return useQuery({
+        queryKey: ["contratos"],
+        enabled,
+
+        queryFn: async () => {
+            const { data, error } = await supabase
+                .from("contratos")
+                .select(`
+                    id,
+                    empresa,
+                    servico,
+                    arquivo,
+                    data_inicio,
+                    data_fim,
+                    periodo,
+                    valor_mensal,
+                    renovado
+                `)
+                .order("data_fim", {
+                    ascending: true,
+                });
+
+            if (error) {
+                throw new Error(
+                    `Erro ao buscar contratos: ${error.message}`
+                );
+            }
+
+            return data as Tables<"contratos">[];
+        },
+    });
+}
+
 export const pegarAlertas = async () => {
   const { data, error } = await supabase
     .from('maquinas_programas_flags')
@@ -401,4 +437,46 @@ export function pegarMaquinasDadosBrutos(enabled = true) {
             return data as Tables<"maquina_dados_brutos">[];
         },
     });
+}
+
+export function pegarNotificacoesContratos(enabled = true) {
+  useRealtimeTable(
+    "notificacoes_contratos",
+    "notificacoes_contratos"
+  );
+
+  return useQuery({
+    queryKey: ["notificacoes_contratos"],
+    enabled,
+
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("notificacoes_contratos")
+        .select(`
+          id,
+          contrato_id,
+          dias_restantes,
+          mensagem,
+          criada_em,
+          contratos (
+            empresa,
+            servico,
+            data_inicio,
+            data_fim,
+            valor_mensal
+          )
+        `)
+        .order("dias_restantes", {
+          ascending: true,
+        });
+
+      if (error) {
+        throw new Error(
+          `Erro ao buscar notificações de contratos: ${error.message}`
+        );
+      }
+
+      return data;
+    },
+  });
 }

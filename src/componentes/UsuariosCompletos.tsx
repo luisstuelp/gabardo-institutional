@@ -1152,7 +1152,7 @@ export default function UsuarioCompleto({
             }}
             animate={{
                 opacity: 1,
-                height:'auto',
+                height: 'auto',
             }}
             className=" flex items-center justify-center p-4"
         >
@@ -1244,6 +1244,7 @@ export default function UsuarioCompleto({
                                     opacity: 0,
                                     x: -20,
                                 }}
+                                
                             >
                                 <Hardware />
                             </motion.div>

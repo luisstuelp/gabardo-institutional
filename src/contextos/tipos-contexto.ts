@@ -42,6 +42,8 @@ export type DadosContextType = {
     maquinas: UseQueryResult<Tables<"maquinas">[], Error>;
     programas: UseQueryResult<Tables<"programas">[], Error>;
     alertasUsuarios: ReturnType<typeof import("@/lib/query").usePegarAlertas>;
+    contratos: UseQueryResult<Tables<"contratos">[], Error>;
+    notificacoesContratos: ReturnType<typeof import("@/lib/query").pegarNotificacoesContratos>;
   }
 
 export type AutenticacaoContextType = {

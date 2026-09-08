@@ -1,646 +1,1354 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useHeader } from '@/contextos/Header';
-import { Search } from 'lucide-react';
-import TabelaChamadas from '@/componentes/TabelaChamadas';
-import { Plus } from 'lucide-react';
-import { useAutenticacao } from '@/contextos/Autenticacao';
-import { supabase } from '@/lib/supabase';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useHeader } from "@/contextos/Header";
+import {
+  Search,
+  Plus,
+  Upload,
+  FileText,
+  X,
+} from "lucide-react";
+import TabelaContratos from "@/componentes/TabelaContratos";
+import { supabase } from "@/lib/supabase";
 
-export default function Contratos() {
-  const { darkMode,
+export default function Principal() {
+  const {
+    darkMode,
     fecharMenus,
     alterarMenuChamadas,
-    menuAbertoChamadas
+    menuAbertoChamadas,
   } = useHeader();
 
-  const { tecnicoLogado } = useAutenticacao();
+  const [pesquisa, setPesquisa] =
+    useState("");
 
-  const [pesquisa, setPesquisa] = useState('');
+  /*
+   * Dados do contrato
+   */
+  const [empresa, setEmpresa] =
+    useState("");
 
-  const [titulo, setTitulo] = useState('');
-  const [descricao, setDescricao] = useState('');
-  const [prioridade, setPrioridade] = useState('- Selecione a prioridade -');
-  const [categoria, setCategoria] = useState('- Selecione uma categoria -');
-  const [requerente, setRequerente] = useState(tecnicoLogado?.nome ?? '');
-  const [requerenteEmail, setRequerenteEmail] = useState(tecnicoLogado?.email ?? '');
-  const [loading, setLoading] = useState(false);
-  const [erros, setErros] = useState('');
-  const [idUser, setidUser] = useState<string | null>(null);
-  const [helperChamada, setHelperChamada] = useState("");
-  const [menuPrioridade, setMenuPrioridade] = useState(false);
-  const [menuCategoria, setMenuCategoria] = useState(false);
+  const [servico, setServico] =
+    useState("");
 
-  const abrirCategoria = () => {
-    setMenuPrioridade(false);
-    setMenuCategoria(anterior => !anterior);
-  }
-  const abrirPrioridade = () => {
-    setMenuCategoria(false);
-    setMenuPrioridade(anterior => !anterior);
-  }
+  const [dataInicio, setDataInicio] =
+    useState("");
 
-  const submitChamada = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (loading) return;
+  const [dataFim, setDataFim] =
+    useState("");
 
-    setLoading(true);
-    setErros('');
+  const [valorMensal, setValorMensal] =
+    useState("");
 
-    let errosT = ('');
-    let errosContagem = 0;
-    try {
-      if (requerenteEmail.length < 10 || !requerenteEmail.includes("@")) {
-        errosT += "Por favor, insira um e-mail válido!";
-        errosContagem++;
-      }
-      if (requerente.length < 3) {
-        errosT += '\nPor favor, insira um nome válido!';
-        errosContagem++;
-      }
-      if (titulo.length < 4) {
-        errosT += `\nPor favor, insira um título válido!`;
-        errosContagem++;
-      }
-      if (categoria == "- Selecione uma categoria -") {
-        errosT += '\nPor favor, selecione o tema!';
-        errosContagem++;
-      }
-      if (prioridade == "- Selecione a prioridade -") {
-        errosT += '\nPor favor, selecione a prioridade!';
-        errosContagem++;
-      }
-      if (descricao.length < 8) {
-        errosT += `\nPor favor, dê mais detalhes!`;
-        errosContagem++;
-      }
-      if (!idUser) {
-        errosT += `\nNão foi possível identificar você!`
-        errosContagem++;
-      }
+  const [arquivo, setArquivo] =
+    useState<File | null>(null);
 
-      if (errosT !== '') throw new Error;
+  /*
+   * Controle do envio
+   */
+  const [loading, setLoading] =
+    useState(false);
 
-      const { error } = await supabase.rpc('criar_chamada', {
-        p_titulo: titulo,
-        p_descricao: descricao,
-        p_prioridade: prioridade,
-        p_email: requerenteEmail,
-        p_requerente: requerente,
-        p_categoria: categoria,
-        p_client_id: idUser || '',
-        p_ip: helperChamada || '',
-      });
+  const [erros, setErros] =
+    useState("");
 
-      if (error) {
-        setErros(error.message);
-        return;
-      }
+  const bg = darkMode
+    ? "#18181B"
+    : "#f7f7f9";
 
-      setTitulo('');
-      setRequerente(tecnicoLogado?.nome ?? '');
-      setRequerenteEmail(tecnicoLogado?.email ?? '');
-      setDescricao('');
-      setCategoria('- Selecione uma categoria -');
-      setPrioridade('- Selecione a prioridade -');
+  const border = darkMode
+    ? "#2f2f3e"
+    : "#9090ffbb";
 
-      setTitulo("");
-      fecharMenus();
+  const text = darkMode
+    ? "#e8e8ea"
+    : "#0f172a";
 
-    } catch (err: any) {
-      setErros("ERROS: " + errosContagem + "\n\n" + erros);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const inputBg = darkMode
+    ? "#1c1c21"
+    : "#F9F9F7";
 
-  const bg = darkMode ? '#18181B' : '#f7f7f9'
-  const border = darkMode ? '#2f2f3e' : '#9090ffbb'
-  const text = darkMode ? '#e8e8ea' : '#0f172a'
-  const inputBg = darkMode ? '#1c1c21' : '#F9F9F7'
-  const accent = darkMode ? '#3b83f638' : '#1904fd28'
+  const accent = darkMode
+    ? "#3b83f638"
+    : "#1904fd28";
+
   const placeholderColor = darkMode
     ? "#71717a"
     : "#9ca3af";
-  const muted = darkMode ? '#6b6b78' : '#6b7280'
-  const primary = darkMode ? '#1e3a8a' : '#1904fd'
-  const primaryHover = darkMode ? '#1e40af' : '#1904fd'
 
-  useEffect(() => {
-    let id = localStorage.getItem('chamada_client_id');
+  const muted = darkMode
+    ? "#6b6b78"
+    : "#6b7280";
 
-    if (!id) {
-      id = crypto.randomUUID();
-      localStorage.setItem('chamada_client_id', id);
+  const primary = darkMode
+    ? "#1e3a8a"
+    : "#1904fd";
+
+  const primaryHover = darkMode
+    ? "#1e40af"
+    : "#1904fd";
+
+  /*
+   * Seleciona o PDF.
+   */
+  const selecionarArquivo = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setErros("");
+
+    const file =
+      e.target.files?.[0];
+
+    if (!file) {
+      setArquivo(null);
+      return;
     }
 
-    setidUser(id);
-  }, []);
+    /*
+     * Garante que seja PDF.
+     */
+    if (
+      file.type !==
+      "application/pdf"
+    ) {
+      setArquivo(null);
+      setErros(
+        "O arquivo precisa ser um PDF."
+      );
+      e.target.value = "";
+      return;
+    }
 
-  useEffect(() => {
-    async function helperFn() {
-      try {
-        const response = await fetch(
-          "https://api.ipify.org?format=json"
+    /*
+     * Limite de 20 MB.
+     */
+    if (
+      file.size >
+      20 * 1024 * 1024
+    ) {
+      setArquivo(null);
+      setErros(
+        "O PDF não pode possuir mais de 20 MB."
+      );
+      e.target.value = "";
+      return;
+    }
+
+    setArquivo(file);
+  };
+
+  /*
+   * Remove o arquivo selecionado.
+   */
+  const removerArquivo = () => {
+    setArquivo(null);
+
+    const input =
+      document.getElementById(
+        "arquivo-contrato"
+      ) as HTMLInputElement | null;
+
+    if (input) {
+      input.value = "";
+    }
+  };
+
+  /*
+   * Envia o contrato.
+   *
+   * O período NÃO é enviado.
+   *
+   * A RPC calcula automaticamente:
+   *
+   * data_fim - data_inicio
+   *
+   * e salva o resultado em periodo.
+   */
+  const submitContrato = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    if (loading) return;
+
+    setLoading(true);
+    setErros("");
+
+    try {
+      /*
+       * =========================
+       * VALIDAÇÕES
+       * =========================
+       */
+
+      const errosValidacao: string[] =
+        [];
+
+      if (
+        empresa.trim().length < 2
+      ) {
+        errosValidacao.push(
+          "Por favor, informe uma empresa válida."
         );
-        const data = await response.json();
-        setHelperChamada(data.ip);
-      } catch (error) {
       }
+
+      if (
+        servico.trim().length < 2
+      ) {
+        errosValidacao.push(
+          "Por favor, informe o serviço do contrato."
+        );
+      }
+
+      if (!dataInicio) {
+        errosValidacao.push(
+          "Por favor, informe a data de início."
+        );
+      }
+
+      if (!dataFim) {
+        errosValidacao.push(
+          "Por favor, informe a data de fim."
+        );
+      }
+
+      if (
+        dataInicio &&
+        dataFim &&
+        new Date(dataFim) <
+        new Date(dataInicio)
+      ) {
+        errosValidacao.push(
+          "A data de fim não pode ser anterior à data de início."
+        );
+      }
+
+      /*
+       * Valor mensal é opcional.
+       *
+       * Se preenchido, precisa ser
+       * maior ou igual a zero.
+       */
+      let valorMensalNumerico:
+        number | null = null;
+
+      if (
+        valorMensal.trim() !== ""
+      ) {
+        const valor =
+          Number(
+            valorMensal.replace(
+              ",",
+              "."
+            )
+          );
+
+        if (
+          Number.isNaN(valor) ||
+          valor < 0
+        ) {
+          errosValidacao.push(
+            "O valor mensal precisa ser um número válido."
+          );
+        } else {
+          valorMensalNumerico =
+            valor;
+        }
+      }
+
+      if (!arquivo) {
+        errosValidacao.push(
+          "Por favor, selecione o PDF do contrato."
+        );
+      }
+
+      if (
+        errosValidacao.length > 0
+      ) {
+        setErros(
+          errosValidacao
+            .map(
+              (
+                erro,
+                index
+              ) =>
+                `${index +
+                1
+                }. ${erro}`
+            )
+            .join("\n")
+        );
+
+        return;
+      }
+
+      /*
+       * =========================
+       * UPLOAD DO PDF
+       * =========================
+       */
+
+      if (!arquivo) {
+        throw new Error(
+          "Nenhum arquivo foi selecionado."
+        );
+      }
+
+      const extensao =
+        arquivo.name
+          .split(".")
+          .pop()
+          ?.toLowerCase() ||
+        "pdf";
+
+      const nomeArquivo = `${crypto.randomUUID()}.${extensao}`;
+
+      const caminhoArquivo =
+        `documentos/${nomeArquivo}`;
+
+      const {
+        error: uploadError,
+      } =
+        await supabase.storage
+          .from(
+            "documentos"
+          )
+          .upload(
+            caminhoArquivo,
+            arquivo,
+            {
+              cacheControl:
+                "3600",
+              upsert: false,
+              contentType:
+                "application/pdf",
+            }
+          );
+
+      if (uploadError) {
+        throw new Error(
+          `Erro ao enviar o PDF: ${uploadError.message}`
+        );
+      }
+
+      /*
+       * =========================
+       * CRIA CONTRATO
+       * =========================
+       *
+       * O período será calculado
+       * automaticamente dentro da RPC.
+       */
+      const {
+        error: contratoError,
+      } =
+        await supabase.rpc(
+          "criar_contrato",
+          {
+            p_empresa:
+              empresa.trim(),
+
+            p_servico:
+              servico.trim(),
+
+            p_arquivo:
+              caminhoArquivo,
+
+            p_data_inicio:
+              dataInicio,
+
+            p_data_fim:
+              dataFim,
+
+            p_valor_mensal:
+              valorMensalNumerico,
+          }
+        );
+
+      /*
+       * Se o INSERT falhar,
+       * remove o PDF que já havia
+       * sido enviado ao Storage.
+       */
+      if (contratoError) {
+        await supabase.storage
+          .from("documentos")
+          .remove([
+            caminhoArquivo,
+          ]);
+
+        throw new Error(
+          `Erro ao criar contrato: ${contratoError.message}`
+        );
+      }
+
+      /*
+       * =========================
+       * LIMPA FORMULÁRIO
+       * =========================
+       */
+
+      setEmpresa("");
+      setServico("");
+      setDataInicio("");
+      setDataFim("");
+      setValorMensal("");
+      setArquivo(null);
+      setErros("");
+
+      const input =
+        document.getElementById(
+          "arquivo-contrato"
+        ) as HTMLInputElement | null;
+
+      if (input) {
+        input.value = "";
+      }
+
+      fecharMenus();
+    } catch (error) {
+      console.error(
+        "Erro ao criar contrato:",
+        error
+      );
+
+      if (
+        error instanceof Error
+      ) {
+        setErros(error.message);
+      } else {
+        setErros(
+          "Ocorreu um erro ao criar o contrato."
+        );
+      }
+    } finally {
+      setLoading(false);
     }
-    helperFn();
-  }, []);
+  };
 
   return (
     <>
-      <motion.div className="flex-col relative min-h-screen overflow-x-hidden flex px-25 pt-14"
+      <motion.div
+        className="
+                    flex-col
+                    relative
+                    min-h-screen
+                    overflow-x-hidden
+                    flex
+                    px-25
+                    pt-14
+                "
         animate={{
           background: bg,
           color: text,
         }}
       >
         <motion.div
-          className="flex items-end justify-between  pt-12 pb-10"
+          className="
+                        flex
+                        items-end
+                        justify-between
+                        pt-12
+                        pb-10
+                    "
         >
           <motion.div className="w-200">
             <motion.h2
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0, color: text }}
-              className="text-5xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100"
+              initial={{
+                opacity: 0,
+                y: 5,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                color: text,
+              }}
+              className="
+                                text-5xl
+                                font-semibold
+                                tracking-tight
+                                text-zinc-900
+                                dark:text-zinc-100
+                            "
             >
-              Todas as chamadas
+              Todos os contratos
             </motion.h2>
 
             <motion.div className="relative w-full mt-5">
               <motion.input
                 type="text"
                 value={pesquisa}
-                onChange={(e) => setPesquisa(e.target.value)}
-                placeholder="Pesquisar por título, descrição, datas..."
-                className="w-full py-3 pl-12 pr-4 text-sm border outline-none rounded-sm"
+                onChange={(e) =>
+                  setPesquisa(
+                    e.target
+                      .value
+                  )
+                }
+                placeholder="Pesquisar por serviço, fornecedor, datas..."
+                className="
+                                    w-full
+                                    py-3
+                                    pl-12
+                                    pr-4
+                                    text-sm
+                                    border
+                                    outline-none
+                                    rounded-sm
+                                "
                 animate={{
-                  background: inputBg,
-                  borderColor: border,
+                  background:
+                    inputBg,
+                  borderColor:
+                    border,
                   color: text,
                 }}
-                onFocus={(e) => (e.target.style.borderColor = accent)}
-                onBlur={(e) => (e.target.style.borderColor = border)}
+                onFocus={(e) =>
+                (e.target.style.borderColor =
+                  accent)
+                }
+                onBlur={(e) =>
+                (e.target.style.borderColor =
+                  border)
+                }
               />
 
               <motion.div
-                className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
-                animate={{ color: placeholderColor }}
+                className="
+                                    absolute
+                                    left-3
+                                    top-1/2
+                                    -translate-y-1/2
+                                    pointer-events-none
+                                "
+                animate={{
+                  color: placeholderColor,
+                }}
               >
                 <Search size={25} />
               </motion.div>
             </motion.div>
-
           </motion.div>
 
           <motion.button
-            onClick={alterarMenuChamadas}
-            whileHover={{ y: -1 }}
-            whileTap={{ scale: 0.97 }}
-            className="flex items-center gap-2 rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+            onClick={
+              alterarMenuChamadas
+            }
+            whileHover={{
+              y: -1,
+            }}
+            whileTap={{
+              scale: 0.97,
+            }}
+            className="
+                            flex
+                            items-center
+                            gap-2
+                            rounded-lg
+                            bg-zinc-900
+                            px-4
+                            py-2.5
+                            text-sm
+                            font-medium
+                            text-white
+                            shadow-sm
+                            transition-colors
+                            hover:bg-zinc-800
+                            dark:bg-zinc-100
+                            dark:text-zinc-900
+                            dark:hover:bg-zinc-200
+                        "
           >
-            <Plus size={17} strokeWidth={2} />
-            <span>Adicionar chamada</span>
+            <Plus
+              size={17}
+              strokeWidth={2}
+            />
+
+            <span>
+              Adicionar contrato
+            </span>
           </motion.button>
         </motion.div>
 
-        <TabelaChamadas pesquisa={pesquisa} />
-
+        <TabelaContratos
+          pesquisa={pesquisa}
+        />
       </motion.div>
 
-      <AnimatePresence mode='wait'>
-        {(menuAbertoChamadas) && (
+      <AnimatePresence mode="wait">
+        {menuAbertoChamadas && (
           <>
+            {/* BACKDROP */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => {
-                fecharMenus();
+              initial={{
+                opacity: 0,
               }}
-              className="fixed inset-0 z-[999] bg-black/40"
-            />
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              exit={{ opacity: 0 }}
               animate={{
                 opacity: 1,
-                backgroundColor: bg,
-                color: text
               }}
-              className="z-[1000] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] p-6 rounded-lg shadow-xl "
+              exit={{
+                opacity: 0,
+              }}
+              onClick={() => {
+                if (!loading) {
+                  fecharMenus();
+                }
+              }}
+              className="
+                                fixed
+                                inset-0
+                                z-[999]
+                                bg-black/40
+                            "
+            />
+
+            {/* POPUP */}
+            <motion.div
+              initial={{
+                opacity: 0,
+                scale: 0.97,
+                y: -10,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                backgroundColor:
+                  bg,
+                color: text,
+              }}
+              exit={{
+                opacity: 0,
+                scale: 0.97,
+                y: -10,
+              }}
+              className="
+                                z-[1000]
+                                fixed
+                                top-1/2
+                                left-1/2
+                                -translate-x-1/2
+                                -translate-y-1/2
+                                w-[720px]
+                                max-h-[90vh]
+                                overflow-y-auto
+                                p-6
+                                rounded-lg
+                                shadow-xl
+                            "
             >
-              <motion.h2 className="text-xl font-bold mb-8">
-                Criar Chamada
-              </motion.h2>
-
-              <motion.form onSubmit={(e) => {
-                submitChamada(e)
-              }}
-                className="space-y-5"
-              >
-                <motion.div className="grid grid-cols-2 gap-4">
-                  <motion.div className="flex flex-col gap-4">
-
-                    <motion.div>
-                      <motion.label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: muted }}>
-                        Seu nome:
-                      </motion.label>
-                      <motion.input
-                        value={requerente}
-                        onChange={e => setRequerente(e.target.value)}
-                        placeholder="Ex: Pedro Silva"
-                        className={`w-full px-4 py-3 text-sm border outline-none rounded-sm`}
-                        animate={{
-                          background: inputBg,
-                          borderColor: border,
-                          color: text,
-                        }}
-                        onFocus={e => (e.target.style.borderColor = accent)}
-                        onBlur={e => (e.target.style.borderColor = border)}
-                      />
-                    </motion.div>
-
-                    <motion.div>
-                      <motion.label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: muted }}>
-                        Prioridade:
-                      </motion.label>
-                      <motion.div className="relative">
-                        <motion.button
-                          type="button"
-                          onClick={() => abrirPrioridade()}
-                          value={prioridade}
-                          onChange={e => setPrioridade(e.target.value)}
-                          className={`w-full text-left px-4 py-3 pr-11 text-sm outline-none rounded-t-sm`}
-                          animate={{
-                            background: inputBg,
-                            color: text,
-                            borderTop: `1px solid ${border}`,
-                            borderBottom: menuPrioridade ? "1px solid transparent" : `1px solid ${border}`,
-                            borderLeft: `1px solid ${border}`,
-                            borderRight: `1px solid ${border}`,
-                          }}
-                          onFocus={e => (e.target.style.borderColor = accent)}
-                          onBlur={e => (e.target.style.borderColor = border)}
-                        >
-                          <motion.p
-                            animate={{
-                              color: prioridade == "- Selecione a prioridade -" ? muted : text,
-                            }}
-                          >
-                            {prioridade}
-                          </motion.p>
-
-                          <AnimatePresence>
-                            {menuPrioridade && (
-                              <motion.div
-                                initial={{ opacity: 0, y: -10, scaleY: 0.95 }}
-                                exit={{ opacity: 0, y: -10, scaleY: 0.95 }}
-                                className="absolute left-0 top-full w-full rounded-b-sm shadow-lg z-50"
-                                animate={{
-                                  opacity: 1,
-                                  y: 0,
-                                  scaleY: 1,
-                                  background: inputBg,
-                                  borderColor: border,
-                                  borderBottom: `1px solid ${border}`,
-                                  borderTop: menuPrioridade ? "1px solid transparent" : `1px solid ${border}`,
-                                  borderLeft: `1px solid ${border}`,
-                                  borderRight: `1px solid ${border}`,
-                                }}
-                              >
-                                <motion.p
-                                  onClick={() => setPrioridade('Baixa')}
-                                  animate={{
-                                    color: text,
-                                  }}
-                                  whileHover={{
-                                    backgroundColor: "#0a38b7",
-                                    color: "white",
-                                  }}
-                                  className={`px-4 py-2`}
-                                >
-                                  Baixa
-                                </motion.p>
-
-                                <motion.p
-                                  onClick={() => setPrioridade('Média')}
-                                  animate={{
-                                    color: text,
-                                  }}
-                                  whileHover={{
-                                    backgroundColor: "#0a38b7",
-                                    color: "white",
-                                  }}
-                                  className={`px-4 py-2`}
-                                >
-                                  Média
-                                </motion.p>
-
-
-                                <motion.p
-                                  onClick={() => setPrioridade('Alta')}
-                                  animate={{
-                                    color: text,
-                                  }}
-                                  whileHover={{
-                                    backgroundColor: "#0a38b7",
-                                    color: "white",
-                                  }}
-                                  className={`px-4 py-2`}
-                                >
-                                  Alta
-                                </motion.p>
-
-
-                                <motion.p
-                                  onClick={() => setPrioridade('Crítica')}
-                                  animate={{
-                                    color: text,
-                                  }}
-                                  whileHover={{
-                                    backgroundColor: "#0a38b7",
-                                    color: "white",
-                                  }}
-                                  className={`px-4 py-2`}
-                                >
-                                  Crítica
-                                </motion.p>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </motion.button>
-                      </motion.div>
-                    </motion.div>
-                  </motion.div>
-                  <motion.div className="flex flex-col gap-4">
-                    <motion.div>
-                      <motion.label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: muted }}>
-                        Seu e-mail:
-                      </motion.label>
-                      <motion.input
-                        type="email"
-                        autoComplete="email"
-                        value={requerenteEmail}
-                        onChange={e => setRequerenteEmail(e.target.value)}
-                        placeholder="usuario@transgabardo.com.br"
-                        className={`w-full px-4 py-3 text-sm border outline-none rounded-sm`}
-                        animate={{
-                          background: inputBg,
-                          borderColor: border,
-                          color: text,
-                        }}
-                        onFocus={e => (e.target.style.borderColor = accent)}
-                        onBlur={e => (e.target.style.borderColor = border)}
-                      />
-                    </motion.div>
-
-                    <motion.div>
-                      <motion.label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: muted }}>
-                        Tema do problema:
-                      </motion.label>
-                      <motion.div className="relative">
-                        <motion.button
-                          type="button"
-                          onClick={() => abrirCategoria()}
-                          value={categoria}
-                          onChange={e => setCategoria(e.target.value)}
-                          className={`w-full text-left px-4 py-3 pr-11 text-sm outline-none rounded-t-sm`}
-                          animate={{
-                            background: inputBg,
-                            color: text,
-                            borderTop: `1px solid ${border}`,
-                            borderBottom: menuCategoria ? "1px solid transparent" : `1px solid ${border}`,
-                            borderLeft: `1px solid ${border}`,
-                            borderRight: `1px solid ${border}`,
-                          }}
-                          onFocus={e => (e.target.style.borderColor = accent)}
-                          onBlur={e => (e.target.style.borderColor = border)}
-                        >
-                          <motion.p
-                            animate={{
-                              color: categoria == "- Selecione uma categoria -" ? muted : text,
-                            }}
-                          >
-                            {categoria}
-                          </motion.p>
-
-                          <AnimatePresence>
-                            {menuCategoria && (
-                              <motion.div
-                                initial={{ opacity: 0, y: -10, scaleY: 0.95 }}
-                                exit={{ opacity: 0, y: -10, scaleY: 0.95 }}
-                                className="absolute left-0 top-full w-full rounded-b-sm shadow-lg z-50"
-                                animate={{
-                                  opacity: 1,
-                                  y: 0,
-                                  scaleY: 1,
-                                  background: inputBg,
-                                  borderColor: border,
-                                  borderBottom: `1px solid ${border}`,
-                                  borderTop: menuCategoria ? "1px solid transparent" : `1px solid ${border}`,
-                                  borderLeft: `1px solid ${border}`,
-                                  borderRight: `1px solid ${border}`,
-                                }}
-                              >
-                                <motion.p
-                                  onClick={() => setCategoria('Equipamento/Hardware')}
-                                  animate={{
-                                    color: text,
-                                  }}
-                                  whileHover={{
-                                    backgroundColor: "#0a38b7",
-                                    color: "white",
-                                  }}
-                                  className={`px-4 py-2`}
-                                >
-                                  Equipamento/Hardware
-                                </motion.p>
-
-                                <motion.p
-                                  onClick={() => setCategoria('Software')}
-                                  animate={{
-                                    color: text,
-                                  }}
-                                  whileHover={{
-                                    backgroundColor: "#0a38b7",
-                                    color: "white",
-                                  }}
-                                  className={`px-4 py-2`}
-                                >
-                                  Software
-                                </motion.p>
-
-
-                                <motion.p
-                                  onClick={() => setCategoria('Rede')}
-                                  animate={{
-                                    color: text,
-                                  }}
-                                  whileHover={{
-                                    backgroundColor: "#0a38b7",
-                                    color: "white",
-                                  }}
-                                  className={`px-4 py-2`}
-                                >
-                                  Rede
-                                </motion.p>
-
-
-                                <motion.p
-                                  onClick={() => setCategoria('SOWX')}
-                                  animate={{
-                                    color: text,
-                                  }}
-                                  whileHover={{
-                                    backgroundColor: "#0a38b7",
-                                    color: "white",
-                                  }}
-                                  className={`px-4 py-2`}
-                                >
-                                  SOWX
-                                </motion.p>
-
-
-                                <motion.p
-                                  onClick={() => setCategoria('Conta de usuário')}
-                                  animate={{
-                                    color: text,
-                                  }}
-                                  whileHover={{
-                                    backgroundColor: "#0a38b7",
-                                    color: "white",
-                                  }}
-                                  className={`px-4 py-2`}
-                                >
-                                  Conta de usuário
-                                </motion.p>
-
-
-                                <motion.p
-                                  onClick={() => setCategoria('Outros')}
-                                  animate={{
-                                    color: text,
-                                  }}
-                                  whileHover={{
-                                    backgroundColor: "#0a38b7",
-                                    color: "white",
-                                  }}
-                                  className={`px-4 py-2`}
-                                >
-                                  Outros
-                                </motion.p>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-
-                        </motion.button>
-                      </motion.div>
-                    </motion.div>
-                  </motion.div>
-                </motion.div>
-
-
+              {/* TÍTULO */}
+              <motion.div className="flex items-center justify-between mb-8">
                 <motion.div>
-                  <motion.label className="block text-xs font-mono tracking-widest uppercase mb-2" style={{ color: muted }}>
-                    Título:
-                  </motion.label>
-                  <motion.div className="relative">
-                    <motion.input
-                      value={titulo}
-                      onChange={e => setTitulo(e.target.value)}
-                      placeholder="Ex: Problema de conexão"
-                      className={`w-full px-4 py-3 pr-11 text-sm border outline-none rounded-sm`}
-                      animate={{ background: inputBg, borderColor: border, color: text }}
-                      onFocus={e => (e.target.style.borderColor = accent)}
-                      onBlur={e => (e.target.style.borderColor = border)}
-                    />
-                  </motion.div>
-                </motion.div>
+                  <motion.h2 className="text-xl font-bold">
+                    Criar contrato
+                  </motion.h2>
 
-
-                <motion.div className="flex flex-col gap-4">
-                  <motion.div>
-                    <motion.label className="block pl-2 text-xs font-mono tracking-widest uppercase mb-2" style={{ color: muted }}>
-                      Dê mais detalhes sobre o problema:
-                    </motion.label>
-                    <motion.textarea
-                      value={descricao}
-                      onChange={(e) => setDescricao(e.target.value)}
-                      className={`w-full resize-none whitespace-pre-wrap break-words text-start h-30 px-4 py-3 text-sm border outline-none rounded-sm`}
-                      animate={{
-                        backgroundColor: inputBg,
-                        borderColor: border,
-                        color: text,
-                      }}
-                    />
-                  </motion.div>
+                  <motion.p
+                    className="text-xs mt-1"
+                    animate={{
+                      color: muted,
+                    }}
+                  >
+                    Preencha os dados e envie o PDF do contrato.
+                  </motion.p>
                 </motion.div>
-                <AnimatePresence>
-                  {(erros !== '') && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="px-4 py-3 text-xs font-mono rounded-sm whitespace-pre-line"
-                      style={{ background: '#7f1d1d22', color: '#ef4444', border: '1px solid #ef444440' }}
-                    >
-                      {erros}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
 
                 <motion.button
-                  type="submit"
-                  disabled={loading}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
-                  className={`w-full py-3 text-sm font-semibold tracking-wider rounded mt-2`}
-                  animate={{
-                    background: loading ? muted : primary,
-                    color: '#ffffff',
-                    opacity: loading ? 0.6 : 1,
+                  type="button"
+                  disabled={
+                    loading
+                  }
+                  onClick={
+                    fecharMenus
+                  }
+                  whileHover={{
+                    scale: 1.05,
                   }}
-                  onMouseEnter={e => !loading && ((e.target as HTMLElement).style.background = primaryHover)}
-                  onMouseLeave={e => !loading && ((e.target as HTMLElement).style.background = primary)}
+                  whileTap={{
+                    scale: 0.95,
+                  }}
+                  className="p-2 rounded-md"
+                  animate={{
+                    color: muted,
+                  }}
+                >
+                  <X size={20} />
+                </motion.button>
+              </motion.div>
+
+              <motion.form
+                onSubmit={
+                  submitContrato
+                }
+                className="space-y-5"
+              >
+                {/* EMPRESA + SERVIÇO */}
+                <motion.div className="grid grid-cols-2 gap-4">
+                  {/* EMPRESA */}
+                  <motion.div>
+                    <motion.label
+                      className="
+                                                block
+                                                text-xs
+                                                font-mono
+                                                tracking-widest
+                                                uppercase
+                                                mb-2
+                                            "
+                      style={{
+                        color: muted,
+                      }}
+                    >
+                      Empresa:
+                    </motion.label>
+
+                    <motion.input
+                      type="text"
+                      value={
+                        empresa
+                      }
+                      onChange={(
+                        e
+                      ) =>
+                        setEmpresa(
+                          e
+                            .target
+                            .value
+                        )
+                      }
+                      placeholder="Ex: Microsoft"
+                      className="
+                                                w-full
+                                                px-4
+                                                py-3
+                                                text-sm
+                                                border
+                                                outline-none
+                                                rounded-sm
+                                            "
+                      animate={{
+                        background:
+                          inputBg,
+                        borderColor:
+                          border,
+                        color: text,
+                      }}
+                      onFocus={(
+                        e
+                      ) =>
+                      (e.target.style.borderColor =
+                        accent)
+                      }
+                      onBlur={(
+                        e
+                      ) =>
+                      (e.target.style.borderColor =
+                        border)
+                      }
+                    />
+                  </motion.div>
+
+                  {/* SERVIÇO */}
+                  <motion.div>
+                    <motion.label
+                      className="
+                                                block
+                                                text-xs
+                                                font-mono
+                                                tracking-widest
+                                                uppercase
+                                                mb-2
+                                            "
+                      style={{
+                        color: muted,
+                      }}
+                    >
+                      Serviço:
+                    </motion.label>
+
+                    <motion.input
+                      type="text"
+                      value={
+                        servico
+                      }
+                      onChange={(
+                        e
+                      ) =>
+                        setServico(
+                          e
+                            .target
+                            .value
+                        )
+                      }
+                      placeholder="Ex: Licenciamento de software"
+                      className="
+                                                w-full
+                                                px-4
+                                                py-3
+                                                text-sm
+                                                border
+                                                outline-none
+                                                rounded-sm
+                                            "
+                      animate={{
+                        background:
+                          inputBg,
+                        borderColor:
+                          border,
+                        color: text,
+                      }}
+                      onFocus={(
+                        e
+                      ) =>
+                      (e.target.style.borderColor =
+                        accent)
+                      }
+                      onBlur={(
+                        e
+                      ) =>
+                      (e.target.style.borderColor =
+                        border)
+                      }
+                    />
+                  </motion.div>
+                </motion.div>
+
+                {/* DATAS */}
+                <motion.div className="grid grid-cols-2 gap-4">
+                  {/* DATA INÍCIO */}
+                  <motion.div>
+                    <motion.label
+                      className="
+                                                block
+                                                text-xs
+                                                font-mono
+                                                tracking-widest
+                                                uppercase
+                                                mb-2
+                                            "
+                      style={{
+                        color: muted,
+                      }}
+                    >
+                      Data de início:
+                    </motion.label>
+
+                    <motion.input
+                      type="date"
+                      value={
+                        dataInicio
+                      }
+                      onChange={(
+                        e
+                      ) =>
+                        setDataInicio(
+                          e
+                            .target
+                            .value
+                        )
+                      }
+                      className="
+                                                w-full
+                                                px-4
+                                                py-3
+                                                text-sm
+                                                border
+                                                outline-none
+                                                rounded-sm
+                                            "
+                      animate={{
+                        background:
+                          inputBg,
+                        borderColor:
+                          border,
+                        color: text,
+                      }}
+                      onFocus={(
+                        e
+                      ) =>
+                      (e.target.style.borderColor =
+                        accent)
+                      }
+                      onBlur={(
+                        e
+                      ) =>
+                      (e.target.style.borderColor =
+                        border)
+                      }
+                    />
+                  </motion.div>
+
+                  {/* DATA FIM */}
+                  <motion.div>
+                    <motion.label
+                      className="
+                                                block
+                                                text-xs
+                                                font-mono
+                                                tracking-widest
+                                                uppercase
+                                                mb-2
+                                            "
+                      style={{
+                        color: muted,
+                      }}
+                    >
+                      Data de fim:
+                    </motion.label>
+
+                    <motion.input
+                      type="date"
+                      value={
+                        dataFim
+                      }
+                      onChange={(
+                        e
+                      ) =>
+                        setDataFim(
+                          e
+                            .target
+                            .value
+                        )
+                      }
+                      className="
+                                                w-full
+                                                px-4
+                                                py-3
+                                                text-sm
+                                                border
+                                                outline-none
+                                                rounded-sm
+                                            "
+                      animate={{
+                        background:
+                          inputBg,
+                        borderColor:
+                          border,
+                        color: text,
+                      }}
+                      onFocus={(
+                        e
+                      ) =>
+                      (e.target.style.borderColor =
+                        accent)
+                      }
+                      onBlur={(
+                        e
+                      ) =>
+                      (e.target.style.borderColor =
+                        border)
+                      }
+                    />
+                  </motion.div>
+                </motion.div>
+
+                {/* VALOR MENSAL */}
+                <motion.div>
+                  <motion.label
+                    className="
+                                            block
+                                            text-xs
+                                            font-mono
+                                            tracking-widest
+                                            uppercase
+                                            mb-2
+                                        "
+                    style={{
+                      color: muted,
+                    }}
+                  >
+                    Valor mensal:
+                  </motion.label>
+
+                  <motion.input
+                    type="text"
+                    inputMode="decimal"
+                    value={
+                      valorMensal
+                    }
+                    onChange={(
+                      e
+                    ) =>
+                      setValorMensal(
+                        e
+                          .target
+                          .value
+                      )
+                    }
+                    placeholder="Ex: 1299,90"
+                    className="
+                                            w-full
+                                            px-4
+                                            py-3
+                                            text-sm
+                                            border
+                                            outline-none
+                                            rounded-sm
+                                        "
+                    animate={{
+                      background:
+                        inputBg,
+                      borderColor:
+                        border,
+                      color: text,
+                    }}
+                    onFocus={(
+                      e
+                    ) =>
+                    (e.target.style.borderColor =
+                      accent)
+                    }
+                    onBlur={(
+                      e
+                    ) =>
+                    (e.target.style.borderColor =
+                      border)
+                    }
+                  />
+                </motion.div>
+
+
+                {/* PDF */}
+                <motion.div>
+                  <motion.label
+                    className="
+                                            block
+                                            text-xs
+                                            font-mono
+                                            tracking-widest
+                                            uppercase
+                                            mb-2
+                                        "
+                    style={{
+                      color: muted,
+                    }}
+                  >
+                    PDF do contrato:
+                  </motion.label>
+
+                  <input
+                    id="arquivo-contrato"
+                    type="file"
+                    accept="application/pdf,.pdf"
+                    onChange={
+                      selecionarArquivo
+                    }
+                    className="hidden"
+                  />
+
+                  {!arquivo ? (
+                    <motion.label
+                      htmlFor="arquivo-contrato"
+                      whileHover={{
+                        borderColor:
+                          primary,
+                        backgroundColor:
+                          darkMode
+                            ? "#1e1e24"
+                            : "#f1f1f7",
+                      }}
+                      whileTap={{
+                        scale: 0.99,
+                      }}
+                      className="
+                                                flex
+                                                flex-col
+                                                items-center
+                                                justify-center
+                                                gap-3
+                                                w-full
+                                                py-8
+                                                border
+                                                border-dashed
+                                                rounded-sm
+                                                cursor-pointer
+                                            "
+                      animate={{
+                        background:
+                          inputBg,
+                        borderColor:
+                          border,
+                      }}
+                    >
+                      <motion.div
+                        animate={{
+                          color: muted,
+                        }}
+                      >
+                        <Upload
+                          size={
+                            30
+                          }
+                        />
+                      </motion.div>
+
+                      <div className="text-center">
+                        <p className="text-sm font-medium">
+                          Clique para selecionar o PDF
+                        </p>
+
+                        <p
+                          className="text-xs mt-1"
+                          style={{
+                            color: muted,
+                          }}
+                        >
+                          Apenas PDF · máximo 20 MB
+                        </p>
+                      </div>
+                    </motion.label>
+                  ) : (
+                    <motion.div
+                      initial={{
+                        opacity: 0,
+                        y: 5,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      className="
+                                                flex
+                                                items-center
+                                                justify-between
+                                                gap-4
+                                                px-4
+                                                py-4
+                                                border
+                                                rounded-sm
+                                            "
+                      style={{
+                        background:
+                          inputBg,
+                        borderColor:
+                          border,
+                      }}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <motion.div
+                          className="shrink-0"
+                          animate={{
+                            color: primary,
+                          }}
+                        >
+                          <FileText
+                            size={
+                              25
+                            }
+                          />
+                        </motion.div>
+
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium truncate">
+                            {
+                              arquivo.name
+                            }
+                          </p>
+
+                          <p
+                            className="text-xs mt-1"
+                            style={{
+                              color: muted,
+                            }}
+                          >
+                            {(
+                              arquivo.size /
+                              1024 /
+                              1024
+                            ).toFixed(
+                              2
+                            )}{" "}
+                            MB
+                          </p>
+                        </div>
+                      </div>
+
+                      <motion.button
+                        type="button"
+                        onClick={
+                          removerArquivo
+                        }
+                        disabled={
+                          loading
+                        }
+                        whileHover={{
+                          scale: 1.05,
+                        }}
+                        whileTap={{
+                          scale: 0.95,
+                        }}
+                        className="shrink-0 p-2 rounded-md"
+                        animate={{
+                          color: "#ef4444",
+                        }}
+                      >
+                        <X size={18} />
+                      </motion.button>
+                    </motion.div>
+                  )}
+                </motion.div>
+
+                {/* ERROS */}
+                <AnimatePresence>
+                  {erros !==
+                    "" && (
+                      <motion.div
+                        initial={{
+                          opacity: 0,
+                          height: 0,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          height: "auto",
+                        }}
+                        exit={{
+                          opacity: 0,
+                          height: 0,
+                        }}
+                        className="
+                                                px-4
+                                                py-3
+                                                text-xs
+                                                font-mono
+                                                rounded-sm
+                                                whitespace-pre-line
+                                            "
+                        style={{
+                          background:
+                            "#7f1d1d22",
+                          color: "#ef4444",
+                          border:
+                            "1px solid #ef444440",
+                        }}
+                      >
+                        {
+                          erros
+                        }
+                      </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* ENVIAR */}
+                <motion.button
+                  type="submit"
+                  disabled={
+                    loading
+                  }
+                  whileHover={{
+                    scale: 1.01,
+                  }}
+                  whileTap={{
+                    scale: 0.99,
+                  }}
+                  className="
+                                        w-full
+                                        py-3
+                                        text-sm
+                                        font-semibold
+                                        tracking-wider
+                                        rounded
+                                        mt-2
+                                    "
+                  animate={{
+                    background:
+                      loading
+                        ? muted
+                        : primary,
+                    color: "#ffffff",
+                    opacity:
+                      loading
+                        ? 0.6
+                        : 1,
+                  }}
+                  onMouseEnter={(
+                    e
+                  ) => {
+                    if (
+                      !loading
+                    ) {
+                      (
+                        e.target as HTMLElement
+                      ).style.background =
+                        primaryHover;
+                    }
+                  }}
+                  onMouseLeave={(
+                    e
+                  ) => {
+                    if (
+                      !loading
+                    ) {
+                      (
+                        e.target as HTMLElement
+                      ).style.background =
+                        primary;
+                    }
+                  }}
                 >
                   {loading ? (
                     <motion.span className="flex items-center justify-center gap-2">
-                      <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg
+                        className="animate-spin"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
                         <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                       </svg>
-                      Enviando...
+
+                      Enviando contrato...
                     </motion.span>
-                  ) : 'Enviar'}
+                  ) : (
+                    "Criar contrato"
+                  )}
+                </motion.button>
+
+                {/* CANCELAR */}
+                <motion.button
+                  type="button"
+                  disabled={
+                    loading
+                  }
+                  onClick={
+                    fecharMenus
+                  }
+                  whileHover={{
+                    scale: 1.01,
+                  }}
+                  whileTap={{
+                    scale: 0.99,
+                  }}
+                  className="
+                                        w-full
+                                        py-3
+                                        text-sm
+                                        font-semibold
+                                        tracking-wider
+                                        rounded
+                                        mt-2
+                                    "
+                  animate={{
+                    background:
+                      "#dc0909",
+                    color: "#ffffff",
+                    opacity:
+                      loading
+                        ? 0.6
+                        : 1,
+                  }}
+                >
+                  Cancelar
                 </motion.button>
               </motion.form>
-
-              <motion.button
-                onClick={fecharMenus}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
-                className={`w-full py-3 text-sm font-semibold tracking-wider rounded mt-2`}
-                animate={{
-                  background: "#dc0909",
-                  color: '#ffffff',
-                  opacity: loading ? 0.6 : 1,
-                }}
-              >
-                Cancelar
-              </motion.button>
             </motion.div>
           </>
-
-
         )}
-      </AnimatePresence >
+      </AnimatePresence>
     </>
   );
 }

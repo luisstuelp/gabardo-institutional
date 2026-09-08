@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.17"
+    PostgrestVersion: "14.5"
   }
   graphql_public: {
     Tables: {
@@ -179,6 +179,42 @@ export type Database = {
           segundos_restantes?: number | null
           status?: number
           titulo?: string
+        }
+        Relationships: []
+      }
+      contratos: {
+        Row: {
+          arquivo: string | null
+          data_fim: string
+          data_inicio: string
+          empresa: string
+          id: string
+          periodo: number | null
+          renovado: boolean
+          servico: string
+          valor_mensal: number | null
+        }
+        Insert: {
+          arquivo?: string | null
+          data_fim: string
+          data_inicio: string
+          empresa: string
+          id?: string
+          periodo?: number | null
+          renovado?: boolean
+          servico: string
+          valor_mensal?: number | null
+        }
+        Update: {
+          arquivo?: string | null
+          data_fim?: string
+          data_inicio?: string
+          empresa?: string
+          id?: string
+          periodo?: number | null
+          renovado?: boolean
+          servico?: string
+          valor_mensal?: number | null
         }
         Relationships: []
       }
@@ -380,7 +416,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "hd_maquina_id_fkey"
+            foreignKeyName: "maquina_hds_maquina_id_fkey"
             columns: ["maquina_id"]
             isOneToOne: false
             referencedRelation: "maquinas"
@@ -539,7 +575,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "maquina_programas_maquina_id_fkey"
+            foreignKeyName: "maquinas_programas_maquina_id_fkey"
             columns: ["maquina_id"]
             isOneToOne: false
             referencedRelation: "maquinas"
@@ -599,6 +635,44 @@ export type Database = {
             columns: ["tecnico_permitiu"]
             isOneToOne: false
             referencedRelation: "tecnicos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notificacoes_contratos: {
+        Row: {
+          contrato_id: string
+          criada_em: string
+          dias_restantes: number
+          id: string
+          lida: boolean
+          mensagem: string
+          titulo: string
+        }
+        Insert: {
+          contrato_id: string
+          criada_em?: string
+          dias_restantes: number
+          id?: string
+          lida?: boolean
+          mensagem: string
+          titulo: string
+        }
+        Update: {
+          contrato_id?: string
+          criada_em?: string
+          dias_restantes?: number
+          id?: string
+          lida?: boolean
+          mensagem?: string
+          titulo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notificacoes_contratos_contrato_id_fkey"
+            columns: ["contrato_id"]
+            isOneToOne: false
+            referencedRelation: "contratos"
             referencedColumns: ["id"]
           },
         ]
@@ -999,7 +1073,12 @@ export type Database = {
         }
       }
       criar_andamento: {
-        Args: { p_id_chamada: string; p_id_tecnico?: string; p_motivo: string }
+        Args: {
+          p_descricao?: string
+          p_id_chamada: string
+          p_id_tecnico: string
+          p_motivo: string
+        }
         Returns: {
           descricao: string | null
           id: string
@@ -1015,18 +1094,86 @@ export type Database = {
           isSetofReturn: false
         }
       }
-      criar_chamada: {
-        Args: {
-          p_categoria: string
-          p_client_id: string
-          p_descricao: string
-          p_email: string
-          p_ip?: string
-          p_requerente: string
-          p_titulo: string
-        }
-        Returns: string
-      }
+      criar_chamada:
+        | {
+            Args: {
+              p_categoria: string
+              p_client_id: string
+              p_descricao: string
+              p_email: string
+              p_ip?: string
+              p_requerente: string
+              p_titulo: string
+            }
+            Returns: string
+          }
+        | {
+            Args: {
+              p_categoria: string
+              p_client_id: string
+              p_descricao: string
+              p_email: string
+              p_ip: string
+              p_prioridade: string
+              p_requerente: string
+              p_titulo: string
+            }
+            Returns: string
+          }
+      criar_contrato:
+        | {
+            Args: {
+              p_arquivo: string
+              p_data_fim: string
+              p_data_inicio: string
+              p_empresa: string
+              p_servico: string
+            }
+            Returns: {
+              arquivo: string | null
+              data_fim: string
+              data_inicio: string
+              empresa: string
+              id: string
+              periodo: number | null
+              renovado: boolean
+              servico: string
+              valor_mensal: number | null
+            }
+            SetofOptions: {
+              from: "*"
+              to: "contratos"
+              isOneToOne: true
+              isSetofReturn: false
+            }
+          }
+        | {
+            Args: {
+              p_arquivo: string
+              p_data_fim: string
+              p_data_inicio: string
+              p_empresa: string
+              p_servico: string
+              p_valor_mensal?: number
+            }
+            Returns: {
+              arquivo: string | null
+              data_fim: string
+              data_inicio: string
+              empresa: string
+              id: string
+              periodo: number | null
+              renovado: boolean
+              servico: string
+              valor_mensal: number | null
+            }
+            SetofOptions: {
+              from: "*"
+              to: "contratos"
+              isOneToOne: true
+              isSetofReturn: false
+            }
+          }
       inserir_tecnico_chamada: {
         Args: { p_id_chamada: string; p_id_tecnico: string }
         Returns: {
@@ -1042,8 +1189,30 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      renovar_contratos: { Args: never; Returns: undefined }
+      tratar_contrato: {
+        Args: { p_contrato_id: string }
+        Returns: {
+          arquivo: string | null
+          data_fim: string
+          data_inicio: string
+          empresa: string
+          id: string
+          periodo: number | null
+          renovado: boolean
+          servico: string
+          valor_mensal: number | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "contratos"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       upsert_maquina_inventario: { Args: { payload: Json }; Returns: undefined }
       verificar_chamadas_atrasadas: { Args: never; Returns: number }
+      verificar_vencimento_contratos: { Args: never; Returns: undefined }
     }
     Enums: {
       [_ in never]: never
@@ -1062,12 +1231,12 @@ export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1091,11 +1260,11 @@ export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1116,11 +1285,11 @@ export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1141,11 +1310,11 @@ export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never) = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -1158,11 +1327,11 @@ export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    : never) = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }

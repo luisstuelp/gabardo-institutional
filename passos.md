@@ -1,6 +1,10 @@
-Invetario context
+Implementar sistema de I/O de contratos.
 
-colocar também, ao clicar em uma linha nas tabelas, mostra quais tem o software e o hardware dos galo
+Implementar JWT refresh token
+
+implementar menu das câmeras melhorado
+
+Implementar 'histórico' ao clicar nas chamadas.
 
 criar algoritmo para verificar as câmeras, de modo mais otimizado, pegando também as câmeras com problemas 'churrascada'
 

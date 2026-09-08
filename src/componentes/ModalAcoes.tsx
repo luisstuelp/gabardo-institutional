@@ -30,7 +30,7 @@ export function ModalAcoes({ idChamada, statusChamada, fecharModal }: ModalAcoes
                 p_id_chamada: idChamada,
                 p_id_tecnico: user.id,
                 p_motivo: motivo,
-                p_descricao: descricao || null
+                p_descricao: descricao || undefined
             });
 
             if (error) throw error;
