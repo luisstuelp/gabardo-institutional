@@ -87,19 +87,40 @@ export default function UsuarioCompleto({
     const maquinasFiltradas = useMemo(() => {
         if (programa_id === undefined) return [];
 
-        const idsMaquinas =
-            maquinasProgramas.data
-                ?.filter(
-                    mp => mp.programa_id === programa_id
-                )
-                .map(
-                    mp => mp.maquina_id
-                ) ?? [];
+        console.log("SOFTWARE SELECIONADO:", programa_id);
 
-        return (
-            maquinas.data?.filter(
-                maquina => idsMaquinas.includes(maquina.id)
-            ) ?? []
+        console.log(
+            "MAQUINAS PROGRAMAS:",
+            maquinasProgramas.data
+        );
+
+        console.log(
+            "RELACIONAMENTOS DO PROGRAMA:",
+            maquinasProgramas.data?.filter(
+                mp =>
+                    String(mp.programa_id) ===
+                    String(programa_id)
+            )
+        );
+
+        console.log(
+            "MAQUINAS:",
+            maquinas.data
+        );
+
+        const idsMaquinas = new Set(
+            (maquinasProgramas.data ?? [])
+                .filter(
+                    mp =>
+                        String(mp.programa_id) ===
+                        String(programa_id)
+                )
+                .map(mp => String(mp.maquina_id))
+        );
+
+        return (maquinas.data ?? []).filter(
+            maquina =>
+                idsMaquinas.has(String(maquina.id))
         );
     }, [
         maquinas.data,
@@ -1244,7 +1265,7 @@ export default function UsuarioCompleto({
                                     opacity: 0,
                                     x: -20,
                                 }}
-                                
+
                             >
                                 <Hardware />
                             </motion.div>

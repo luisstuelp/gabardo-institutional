@@ -122,16 +122,48 @@ export default function TabelaSoftwares({
 
     const programasFiltrados = useMemo(() => {
 
-        const termo = pesquisa.trim();
+        const termo = pesquisa.toLowerCase().trim();
 
         if (!termo) {
             return programas.data ?? [];
         }
 
-        return miniSearch.search(termo, {
+        const resultadosMiniSearch = miniSearch.search(termo, {
             prefix: true,
-            fuzzy: 0.1,
+            fuzzy: 0.3,
         });
+
+        const resultadosSubstring = (programas.data ?? []).filter((software) =>
+            software.nome?.toLowerCase().includes(termo) ||
+            software.versao?.toLowerCase().includes(termo) ||
+            software.publisher?.toLowerCase().includes(termo)
+        );
+
+        const idsMiniSearch = new Set(
+            resultadosMiniSearch.map((resultado) => resultado.id)
+        );
+
+        const resultadosSubstringFiltrados =
+            resultadosSubstring.filter(
+                (software) => !idsMiniSearch.has(software.id)
+            );
+
+        const resultadosMiniSearchMapeados =
+            resultadosMiniSearch
+                .map((resultado) =>
+                    programas.data?.find(
+                        (software) => software.id === resultado.id
+                    )
+                )
+                .filter(
+                    (software): software is NonNullable<typeof software> =>
+                        software !== undefined
+                );
+
+        return [
+            ...resultadosMiniSearchMapeados,
+            ...resultadosSubstringFiltrados,
+        ];
 
     }, [
         pesquisa,
