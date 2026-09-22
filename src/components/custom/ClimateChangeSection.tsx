@@ -31,9 +31,9 @@ export default function ClimateChangeSection() {
               <stop offset="100%" stopColor="#6D4C41" stopOpacity="1" />
             </linearGradient>
           </defs>
-          
+
           {/* ==== BACK ROW - Distant Small Trees ==== */}
-          
+
           <motion.g initial={{ scaleY: 0, opacity: 0 }} whileInView={{ scaleY: 1, opacity: 0.4 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1], delay: 0.1 }} style={{ transformOrigin: "60px 600px" }}>
             <rect x="57" y="570" width="6" height="30" fill="url(#pineTrunk)" />
             <polygon points="60,540 48,568 72,568" fill="url(#pineLight)" />
@@ -93,9 +93,8 @@ export default function ClimateChangeSection() {
             <polygon points="1300,550 1288,578 1312,578" fill="url(#treeBody)" />
             <polygon points="1300,563 1293,581 1307,581" fill="url(#pineMid)" />
           </motion.g>
-
           {/* ==== MIDDLE ROW - Medium Trees ==== */}
-          
+
           <motion.g initial={{ scaleY: 0, opacity: 0 }} whileInView={{ scaleY: 1, opacity: 0.55 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1, ease: [0.34, 1.56, 0.64, 1], delay: 0.2 }} style={{ transformOrigin: "120px 600px" }}>
             <rect x="116" y="551" width="8" height="49" fill="url(#pineTrunk)" />
             <polygon points="120,475 95,525 145,525" fill="url(#pineLight)" />
@@ -165,7 +164,7 @@ export default function ClimateChangeSection() {
           </motion.g>
 
           {/* ==== FRONT ROW - Large Hero Pines ==== */}
-          
+
           <motion.g initial={{ scaleY: 0, opacity: 0 }} whileInView={{ scaleY: 1, opacity: 0.72 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1.3, ease: [0.34, 1.56, 0.64, 1], delay: 0.3 }} style={{ transformOrigin: "190px 600px" }}>
             <rect x="184" y="536" width="12" height="64" fill="url(#pineTrunk)" />
             <polygon points="190,395 155,470 225,470" fill="url(#pineLight)" />
@@ -290,7 +289,7 @@ export default function ClimateChangeSection() {
           >
             <div className="relative w-full max-w-xl">
               <Image
-                src="/images/certificado-carbono-negativo.jpg"
+                src="/images/certificado-carbono-negativo-2.jpg"
                 alt="Certificação de carbono negativo da Gabardo"
                 width={720}
                 height={1040}
