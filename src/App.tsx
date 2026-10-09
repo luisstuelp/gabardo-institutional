@@ -11,6 +11,7 @@ import Softwares from "@/pages/Softwares";
 import Usuarios from "@/pages/Usuarios";
 import Cameras from "@/pages/Cameras";
 import Contratos from "@/pages/Contratos";
+import Dados from "@/pages/Dados";
 import LoggedRoute from "@/pages/LoggedRoutes";
 import { Navigate } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -30,14 +31,15 @@ function App() {
 
                   <Routes>
                     <Route path="/" element={<Login />} />
+                    <Route path="/PSI" element={<Navigate to="/PSI.pdf" replace />} />
 
                     <Route element={<LoggedRoute />}>
                       <Route path="/Painel" element={<Principal />} />
                       <Route path="/Softwares" element={<Softwares />} />
                       <Route path="/Usuarios" element={<Usuarios />} />
-                      <Route path="/PSI" element={<Navigate to="/PSI.pdf" replace />} />
                       <Route path="/Cameras" element={<Cameras />} />
                       <Route path="/Contratos" element={<Contratos />} />
+                      <Route path="/Dados" element={<Dados />} />
 
                     </Route>
                   </Routes>

@@ -17,6 +17,7 @@ export default function MenuEsquerdo() {
   const demoItems = [
     { link: '/Painel', text: 'Chamadas', image: 'help.png' },
     { link: '/Cameras', text: 'Câmeras', image: 'cctv.png' },
+    { link: '/Dados', text: 'Dados', image: 'dados.png' },
     { link: '/Softwares', text: 'Softwares', image: 'software.png' },
     { link: '/Usuarios', text: 'Usuários', image: usuarioLogo },
     { link: '/Contratos', text: 'Contratos', image: 'documentos.png' },

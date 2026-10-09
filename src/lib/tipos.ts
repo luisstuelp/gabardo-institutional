@@ -218,6 +218,108 @@ export type Database = {
         }
         Relationships: []
       }
+      dados_categorias: {
+        Row: {
+          categoria: string
+          id: string
+        }
+        Insert: {
+          categoria?: string
+          id?: string
+        }
+        Update: {
+          categoria?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      dados_categorias_tabelas: {
+        Row: {
+          categoria_id: string
+          id: string
+          tabela_id: string
+        }
+        Insert: {
+          categoria_id: string
+          id?: string
+          tabela_id: string
+        }
+        Update: {
+          categoria_id?: string
+          id?: string
+          tabela_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dados_categorias_tabelas_categoria_id_fkey"
+            columns: ["categoria_id"]
+            isOneToOne: false
+            referencedRelation: "dados_categorias"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "dados_categorias_tabelas_tabela_id_fkey"
+            columns: ["tabela_id"]
+            isOneToOne: false
+            referencedRelation: "dados_tabelas"
+            referencedColumns: ["tabela_id"]
+          },
+        ]
+      }
+      dados_tabelas: {
+        Row: {
+          descricao: string | null
+          nome: string
+          tabela_id: string
+        }
+        Insert: {
+          descricao?: string | null
+          nome?: string
+          tabela_id?: string
+        }
+        Update: {
+          descricao?: string | null
+          nome?: string
+          tabela_id?: string
+        }
+        Relationships: []
+      }
+      dados_tabelas_relacoes: {
+        Row: {
+          descricao: string
+          relacoes_id: string
+          tabela_1: string
+          tabela_2: string
+        }
+        Insert: {
+          descricao?: string
+          relacoes_id?: string
+          tabela_1: string
+          tabela_2: string
+        }
+        Update: {
+          descricao?: string
+          relacoes_id?: string
+          tabela_1?: string
+          tabela_2?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dados_tabelas_relacoes_tabela_1_fkey"
+            columns: ["tabela_1"]
+            isOneToOne: false
+            referencedRelation: "dados_tabelas"
+            referencedColumns: ["tabela_id"]
+          },
+          {
+            foreignKeyName: "dados_tabelas_relacoes_tabela_2_fkey"
+            columns: ["tabela_2"]
+            isOneToOne: false
+            referencedRelation: "dados_tabelas"
+            referencedColumns: ["tabela_id"]
+          },
+        ]
+      }
       logs_usuarios: {
         Row: {
           created_at: string
@@ -1121,6 +1223,34 @@ export type Database = {
             Returns: string
           }
       criar_contrato:
+        | {
+            Args: {
+              p_arquivo: string
+              p_data_fim: string
+              p_data_inicio: string
+              p_empresa: string
+              p_periodo: number
+              p_servico: string
+              p_valor_mensal?: number
+            }
+            Returns: {
+              arquivo: string | null
+              data_fim: string
+              data_inicio: string
+              empresa: string
+              id: string
+              periodo: number | null
+              renovado: boolean
+              servico: string
+              valor_mensal: number | null
+            }
+            SetofOptions: {
+              from: "*"
+              to: "contratos"
+              isOneToOne: true
+              isSetofReturn: false
+            }
+          }
         | {
             Args: {
               p_arquivo: string

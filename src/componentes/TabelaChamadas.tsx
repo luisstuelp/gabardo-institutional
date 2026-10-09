@@ -471,33 +471,30 @@ export default function TabelaChamadas({
 
     return (
         <>
-            <motion.div
-                animate={{
-                    color: darkMode
-                        ? "#fafafa" : "#18181b",
-                }}
-                className="w-full overflow-x-auto shadow-sm" >
+            {chamadasPagina.length === 0 ? (
+                <motion.div
+                    animate={{
+                        color: darkMode ? "#fafafa" : "#18181b",
+                    }}
+                    className="flex w-full items-center justify-center py-10"
+                >
+                    {pesquisa.trim()
+                        ? "Nenhuma chamada encontrada."
+                        : "Não há chamadas para mostrar."}
+                </motion.div>
+            ) : (
+                <>
+                    <motion.div
+                        animate={{
+                            color: darkMode
+                                ? "#fafafa" : "#18181b",
+                        }}
+                        className="w-full overflow-x-auto shadow-sm" >
 
-                <motion.table
-                    className="w-full min-w-max">
-                    <thead>
-                        <motion.tr
-                            initial={{
-                                opacity: 0,
-                                y: 8,
-                            }}
-                            animate={{
-                                opacity: 1,
-                                y: 0,
-                            }}
-
-                        >
-                            {colunas.map((header) => (
-                                <motion.th key={header.id}
-                                    style={{
-                                        width: header.width,
-                                        textAlign: header.align,
-                                    }}
+                        <motion.table
+                            className="w-full min-w-max">
+                            <thead>
+                                <motion.tr
                                     initial={{
                                         opacity: 0,
                                         y: 8,
@@ -505,14 +502,30 @@ export default function TabelaChamadas({
                                     animate={{
                                         opacity: 1,
                                         y: 0,
-                                        borderColor: darkMode ? "#ffffff31" : "#00000055",
                                     }}
-                                    whileHover={{
-                                        backgroundColor: darkMode
-                                            ? "#18181a"
-                                            : "#f4f4f5",
-                                    }}
-                                    className={`
+
+                                >
+                                    {colunas.map((header) => (
+                                        <motion.th key={header.id}
+                                            style={{
+                                                width: header.width,
+                                                textAlign: header.align,
+                                            }}
+                                            initial={{
+                                                opacity: 0,
+                                                y: 8,
+                                            }}
+                                            animate={{
+                                                opacity: 1,
+                                                y: 0,
+                                                borderColor: darkMode ? "#ffffff31" : "#00000055",
+                                            }}
+                                            whileHover={{
+                                                backgroundColor: darkMode
+                                                    ? "#18181a"
+                                                    : "#f4f4f5",
+                                            }}
+                                            className={`
     border
     sticky top-0
     z-10
@@ -524,98 +537,101 @@ export default function TabelaChamadas({
     backdrop-blur-sm
 
     ${header.id === "acoes"
-                                            ? "right-0 border-r"
-                                            : ""
-                                        }
+                                                    ? "right-0 border-r"
+                                                    : ""
+                                                }
 `}
-                                >
-                                    {header.header}
-                                </motion.th>
-                            ))}
-                        </motion.tr>
-                    </thead>
-                    <tbody>
-                        {chamadasPagina.map((linha) => (
-                            <LinhaChamada
-                                key={linha.id}
-                                linha={linha}
-                                colunas={colunas}
-                                colunasData={colunasData}
-                                darkMode={darkMode}
-                                formatarData={formatarData}
-                                onSelecionar={setSelecionarChamada}
+                                        >
+                                            {header.header}
+                                        </motion.th>
+                                    ))}
+                                </motion.tr>
+                            </thead>
+                            <tbody>
+                                {chamadasPagina.map((linha) => (
+                                    <LinhaChamada
+                                        key={linha.id}
+                                        linha={linha}
+                                        colunas={colunas}
+                                        colunasData={colunasData}
+                                        darkMode={darkMode}
+                                        formatarData={formatarData}
+                                        onSelecionar={setSelecionarChamada}
 
-                                meuId={user?.id || ''}
-                                onAcaoClick={(id, acao) => {
-                                    setSelecionarChamada(id);
-                                    setModalAberto(acao);
-                                }}
-                            />
-                        ))}
-                    </tbody>
-                </motion.table>
-            </motion.div >
-            <motion.div
-                animate={{
-                    color: darkMode ? "#fafafa" : "#18181b",
-                }}
-                className="flex items-center justify-center gap-2 py-5"
-            >
-                <button
-                    onClick={() => setPagina((p) => p - 1)}
-                    disabled={pagina === 1}
-                    className="
+                                        meuId={user?.id || ''}
+                                        onAcaoClick={(id, acao) => {
+                                            setSelecionarChamada(id);
+                                            setModalAberto(acao);
+                                        }}
+                                    />
+                                ))}
+                            </tbody>
+                        </motion.table>
+                    </motion.div >
+                    <motion.div
+                        animate={{
+                            color: darkMode ? "#fafafa" : "#18181b",
+                        }}
+                        className="flex items-center justify-center gap-2 py-5"
+                    >
+                        <button
+                            onClick={() => setPagina((p) => p - 1)}
+                            disabled={pagina === 1}
+                            className="
             rounded-md border px-4 py-2
             disabled:cursor-not-allowed
             disabled:opacity-40
         "
-                >
-                    Anterior
-                </button>
-
-                {paginasVisiveis().map((item, index) =>
-                    item === "..." ? (
-                        <span
-                            key={`ellipsis-${index}`}
-                            className="px-2"
                         >
-                            ...
-                        </span>
-                    ) : (
-                        <button
-                            key={item}
-                            onClick={() => setPagina(item)}
-                            className={`
+                            Anterior
+                        </button>
+
+                        {paginasVisiveis().map((item, index) =>
+                            item === "..." ? (
+                                <span
+                                    key={`ellipsis-${index}`}
+                                    className="px-2"
+                                >
+                                    ...
+                                </span>
+                            ) : (
+                                <button
+                                    key={item}
+                                    onClick={() => setPagina(item)}
+                                    className={`
                 rounded-md
                 border
                 px-3
                 py-2
 
                 ${pagina === item
-                                    ? darkMode
-                                        ? "bg-white text-black"
-                                        : "bg-black text-white"
-                                    : ""
-                                }
+                                            ? darkMode
+                                                ? "bg-white text-black"
+                                                : "bg-black text-white"
+                                            : ""
+                                        }
             `}
-                        >
-                            {item}
-                        </button>
-                    )
-                )}
+                                >
+                                    {item}
+                                </button>
+                            )
+                        )}
 
-                <button
-                    onClick={() => setPagina((p) => p + 1)}
-                    disabled={pagina === totalPaginas}
-                    className="
+                        <button
+                            onClick={() => setPagina((p) => p + 1)}
+                            disabled={pagina === totalPaginas}
+                            className="
             rounded-md border px-4 py-2
             disabled:cursor-not-allowed
             disabled:opacity-40
         "
-                >
-                    Próxima
-                </button>
-            </motion.div>
+                        >
+                            Próxima
+                        </button>
+                    </motion.div>
+                </>
+            )}
+
 
 
             <AnimatePresence>
