@@ -167,7 +167,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
         {!isMobile && (
           <div className="space-y-4 text-white/80">
             <p className="max-w-xl text-base font-light leading-relaxed text-white/85">
-              Há mais de 36 anos transportando veículos com segurança, tecnologia e excelência em todo o Brasil.
+              Há mais de 37 anos transportando veículos com segurança, tecnologia e excelência em todo o Brasil.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 text-gabardo-light-blue/85">

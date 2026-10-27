@@ -328,7 +328,7 @@ export default function HeroSection({ title, subtitle, imageSrc }: { title?: str
               </div>
 
               <p className="font-secondary text-sm sm:text-base md:text-lg font-light leading-relaxed mb-3 md:mb-4">
-                Há mais de 36 anos, entendemos as necessidades dos nossos clientes para atendê-los de forma personalizada e eficiente no transporte de veículos.
+                Há mais de 37 anos, entendemos as necessidades dos nossos clientes para atendê-los de forma personalizada e eficiente no transporte de veículos.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-2 md:mt-3">
