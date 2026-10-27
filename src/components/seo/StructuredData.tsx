@@ -9,7 +9,7 @@ name: 'Gabardo',
     alternateName: 'Gabardo',
     url: 'https://gabardo.com',
     logo: 'https://www.gabardo.com/gabardo-logo.png',
-    description: 'Transportadora de veículos com mais de 36 anos de experiência. Primeira transportadora do mundo com certificação carbono negativo. Certificações ISO 9001, ISO 14001 e ISO 39001.',
+    description: 'Transportadora de veículos com mais de 37 anos de experiência. Primeira transportadora do mundo com certificação carbono negativo. Certificações ISO 9001, ISO 14001 e ISO 39001.',
     foundingDate: '1989',
     founder: {
       '@type': 'Person',

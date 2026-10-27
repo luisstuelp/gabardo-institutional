@@ -180,7 +180,7 @@ const AboutStorySection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="section-heading mt-6 text-center"
           >
-            36 anos de excelência e confiança Gabardo
+            37 anos de excelência e confiança Gabardo
           </motion.h2>
         </motion.div>
 
@@ -212,7 +212,7 @@ const AboutStorySection: React.FC = () => {
           className="text-center mt-24"
         >
           <blockquote className="text-2xl md:text-[30px] font-light italic text-gabardo-blue/80 max-w-4xl mx-auto leading-relaxed">
-            &ldquo;Ao longo de seus 36 anos, a Gabardo procura entender as necessidades dos clientes para
+            &ldquo;Ao longo de seus 37 anos, a Gabardo procura entender as necessidades dos clientes para
             atendê-los de forma personalizada e eficiente. Nossa missão é transportar mais que veículos.&rdquo;
           </blockquote>
           <div className="mt-6 text-xs font-semibold uppercase tracking-[0.32em] text-gabardo-blue/60">
@@ -244,7 +244,7 @@ const AboutStorySection: React.FC = () => {
             className="space-y-6"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gabardo-blue">O Futuro da Logística Automotiva</h2>
-            <p className="text-lg text-gray-600 leading-relaxed">Olhamos para o futuro com a mesma paixão e determinação que nos trouxeram até aqui. Estamos comprometidos em liderar a transformação da logística automotiva, investindo em tecnologia, sustentabilidade e em nossa equipe. Acreditamos que o futuro é elétrico, conectado e, acima de tudo, centrado no cliente. Estamos prontos para os próximos 36 anos e além.</p>
+            <p className="text-lg text-gray-600 leading-relaxed">Olhamos para o futuro com a mesma paixão e determinação que nos trouxeram até aqui. Estamos comprometidos em liderar a transformação da logística automotiva, investindo em tecnologia, sustentabilidade e em nossa equipe. Acreditamos que o futuro é elétrico, conectado e, acima de tudo, centrado no cliente. Estamos prontos para os próximos 37 anos e além.</p>
           </motion.div>
         </div>
 

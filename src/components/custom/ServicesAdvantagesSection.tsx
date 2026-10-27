@@ -18,7 +18,7 @@ const advantages: Advantage[] = [
     id: 'Experiencia',
     icon: Award,
     title: 'EXPERIÊNCIA CONSOLIDADA',
-    description: 'Mais de 36 anos de mercado com expertise comprovada no transporte de veículos para as principais montadoras do Brasil.',
+    description: 'Mais de 37 anos de mercado com expertise comprovada no transporte de veículos para as principais montadoras do Brasil.',
     stats: '36+ anos',
     color: 'primary',
   },

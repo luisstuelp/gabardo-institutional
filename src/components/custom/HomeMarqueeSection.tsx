@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import ScrollMarquee from '@/components/ui/ScrollMarquee';
 
 const messages = [
-  '36 anos de confiança',
+  '37 anos de confiança',
   'Operações integradas para a cadeia automotiva',
   'Gestão ESG e certificações ISO',
   'Cobertura nacional com 15 bases',

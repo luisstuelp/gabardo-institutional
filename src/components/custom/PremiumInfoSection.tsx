@@ -12,8 +12,8 @@ type ReliabilityItem = {
 
 const reliabilityItems: ReliabilityItem[] = [
   {
-    src: '/images/certifications/ghg-protocol-2024-prata.png',
-    alt: 'Selo GHG Protocol Prata 2024',
+    src: '/images/certifications/ghg-protocol-2025-ouro.png',
+    alt: 'Selo GHG Protocol Ouro 2025',
   },
   {
     src: '/images/certifications/spco2-zero-ouro.png',
@@ -217,14 +217,14 @@ const ProtocolStack: React.FC = () => {
         </motion.h3>
       </motion.div>
 
-      <div 
-        ref={containerRef} 
+      <div
+        ref={containerRef}
         className="relative mt-6 sm:mt-8 flex h-[320px] sm:h-[380px] md:h-[420px] items-center justify-center overflow-hidden"
       >
         {visibleLayers.map(({ item, animate, z, isActive }) => (
           <motion.div
             key={item.src}
-            initial={{ y: animate.y + 40, opacity: 0, scale: animate.scale - 0.05  }}
+            initial={{ y: animate.y + 40, opacity: 0, scale: animate.scale - 0.05 }}
             animate={animate}
             transition={{ duration: 0.5, ease: 'easeOut' }}
             style={{ zIndex: z }}
@@ -247,9 +247,8 @@ const ProtocolStack: React.FC = () => {
             <button
               key={index}
               onClick={() => setActiveIndex(index)}
-              className={`h-1 sm:h-1.5 rounded-full transition-all ${
-                activeIndex === index ? 'w-6 sm:w-7 bg-gabardo-blue' : 'w-2 sm:w-3 bg-gabardo-blue/25'
-              }`}
+              className={`h-1 sm:h-1.5 rounded-full transition-all ${activeIndex === index ? 'w-6 sm:w-7 bg-gabardo-blue' : 'w-2 sm:w-3 bg-gabardo-blue/25'
+                }`}
               aria-label={`Ir para protocolo ${index + 1}`}
             />
           ))}
@@ -318,7 +317,7 @@ const PremiumInfoSection: React.FC = () => {
               transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
             />
           </motion.div>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

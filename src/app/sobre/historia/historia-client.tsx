@@ -489,7 +489,7 @@ export default function HistoriaClientPage() {
                 Palavra do Fundador
               </span>
               <blockquote className="text-2xl md:text-3xl font-light text-gray-700 leading-relaxed mb-8 italic">
-                &ldquo;Quando comecei em 1989, com um único caminhão, eu tinha um compromisso: fazer o transporte de forma correta, segura e confiável. Hoje, 36 anos depois, olho para nossa frota de mais de dois mil caminhões, para nossa equipe e para os grandes parceiros que confiam em nós, e vejo que esse compromisso inicial não apenas se manteve, como se tornou o pilar de tudo o que fazemos.&rdquo;
+                &ldquo;Quando comecei em 1989, com um único caminhão, eu tinha um compromisso: fazer o transporte de forma correta, segura e confiável. Hoje, 37 anos depois, olho para nossa frota de mais de dois mil caminhões, para nossa equipe e para os grandes parceiros que confiam em nós, e vejo que esse compromisso inicial não apenas se manteve, como se tornou o pilar de tudo o que fazemos.&rdquo;
               </blockquote>
               <div className="flex flex-col items-center">
                 <div className="w-20 h-1 bg-gradient-to-r from-gabardo-light-blue to-gabardo-blue rounded-full mb-4"></div>

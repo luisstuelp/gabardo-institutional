@@ -6,7 +6,7 @@ const teamMembers = [
   {
     name: 'Sérgio Mário Gabardo',
     role: 'Fundador e CEO',
-    bio: 'Com mais de 36 anos de experiência no setor de transportes, Sérgio lidera a Gabardo com paixão e visão de futuro.',
+    bio: 'Com mais de 37 anos de experiência no setor de transportes, Sérgio lidera a Gabardo com paixão e visão de futuro.',
     social: { linkedin: '#', twitter: '#' },
   },
   {
