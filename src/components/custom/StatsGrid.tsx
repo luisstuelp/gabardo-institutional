@@ -17,7 +17,7 @@ type Stat = {
 const stats: Stat[] = [
   {
     id: "anos",
-    value: 36,
+    value: 37,
     suffix: "+",
     title: "Anos de estrada",
     description: "Desde 1989, mais de 3 décadas de experiência em logística automotiva.",
@@ -138,21 +138,18 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
       transition={{ duration: 0.75, ease: "easeOut", delay: index * 0.08 }}
       whileHover={{ y: -10, scale: 1.015, rotateX: 2.4, rotateY: -2, transition: { duration: 0.35, ease: "easeOut" } }}
       whileTap={{ scale: 0.985 }}
-      className={`group relative w-full max-w-[460px] rounded-2xl sm:rounded-[24px] md:rounded-[28px] px-6 sm:px-8 md:px-10 lg:px-12 py-6 sm:py-8 md:py-10 shadow-[0_32px_80px_-48px_RGBA(19,45,81,0.55)] transition-transform duration-500 ${
-        isDark ? "bg-gabardo-blue text-white" : "bg-neutral-100 text-gabardo-blue"
-      }`}
+      className={`group relative w-full max-w-[460px] rounded-2xl sm:rounded-[24px] md:rounded-[28px] px-6 sm:px-8 md:px-10 lg:px-12 py-6 sm:py-8 md:py-10 shadow-[0_32px_80px_-48px_RGBA(19,45,81,0.55)] transition-transform duration-500 ${isDark ? "bg-gabardo-blue text-white" : "bg-neutral-100 text-gabardo-blue"
+        }`}
     >
       <div
-        className={`pointer-events-none absolute -inset-24 hidden rounded-full blur-3xl transition-transform duration-500 group-hover:scale-105 md:block ${
-          isDark ? "bg-gabardo-blue/22" : "bg-gabardo-light-blue/18"
-        }`}
+        className={`pointer-events-none absolute -inset-24 hidden rounded-full blur-3xl transition-transform duration-500 group-hover:scale-105 md:block ${isDark ? "bg-gabardo-blue/22" : "bg-gabardo-light-blue/18"
+          }`}
       />
 
       <div className="relative flex flex-col gap-4 sm:gap-5 md:gap-6">
         <span
-          className={`text-[0.6rem] sm:text-[0.65rem] md:text-[11px] font-semibold uppercase tracking-wide leading-tight ${
-            isDark ? "text-white/80" : "text-gabardo-blue"
-          }`}
+          className={`text-[0.6rem] sm:text-[0.65rem] md:text-[11px] font-semibold uppercase tracking-wide leading-tight ${isDark ? "text-white/80" : "text-gabardo-blue"
+            }`}
         >
           {stat.title}
         </span>
@@ -163,9 +160,8 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
           {currentDisplay}
         </span>
         <p
-          className={`max-w-[380px] text-xs sm:text-sm leading-relaxed ${
-            isDark ? "text-white/75" : "text-neutral-600"
-          }`}
+          className={`max-w-[380px] text-xs sm:text-sm leading-relaxed ${isDark ? "text-white/75" : "text-neutral-600"
+            }`}
         >
           {stat.description}
         </p>
@@ -173,9 +169,8 @@ const StatCard: React.FC<{ stat: Stat; value: number; index: number }> = ({ stat
 
       <div className="pointer-events-none absolute inset-0 rounded-[26px] border border-gabardo-light-blue/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       <div
-        className={`pointer-events-none absolute inset-0 rounded-[26px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${
-          isDark ? "bg-gabardo-light-blue/20" : "bg-transparent"
-        }`}
+        className={`pointer-events-none absolute inset-0 rounded-[26px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${isDark ? "bg-gabardo-light-blue/20" : "bg-transparent"
+          }`}
       />
     </motion.div>
   );
