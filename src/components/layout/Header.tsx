@@ -71,13 +71,12 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
     ? 'fixed inset-x-0 top-0 z-40'
     : 'absolute inset-x-0 top-0 z-40';
 
-  const headerClasses = `${positionClasses} transition-transform transition-all duration-500 ${
-    isDarkSurface
+  const headerClasses = `${positionClasses} transition-transform transition-all duration-500 ${isDarkSurface
       ? 'bg-transparent'
       : isScrolled
         ? 'bg-white/90 backdrop-blur-xl shadow-[0_12px_35px_-20px_RGBA(19,45,81,0.45)]'
         : 'bg-white/70 backdrop-blur-xl'
-  } ${isFloating ? floatingVisibility : staticVisibility}`;
+    } ${isFloating ? floatingVisibility : staticVisibility}`;
 
   const menuItems = [
     { id: 'home', label: 'HOME', href: '/', imageSrc: '/images/hero-home.jpg' },
@@ -93,7 +92,7 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
       ],
     },
     { id: 'servicos', label: 'SERVIÇOS', href: '/servicos', imageSrc: '/images/hero-services.jpg' },
-    { id: 'qualidade', label: 'QUALIDADE', href: '/sobre/qualidade', imageSrc: '/images/Certificados.JPG' },
+    { id: 'qualidade', label: 'QUALIDADE E SUSTENTABILIDADE', href: '/sobre/qualidade', imageSrc: '/images/Certificados.JPG' },
     // Removed NOSSA GENTE and SUSTENTABILIDADE entries
 
     { id: 'orcamento', label: 'ORÇAMENTO', href: '/orcamento', imageSrc: '/images/gabardo-hero-03.JPG' },

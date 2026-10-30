@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Leaf, Award, Shield, Download } from 'lucide-react';
+import { ShieldCheck, Leaf, Award, Shield, Download, Earth } from 'lucide-react';
 import Folder from '@/components/Folder';
 import FolderGalleryModal from '@/components/FolderGalleryModal';
 
@@ -27,6 +27,14 @@ const certifications = [
 ];
 
 const qualityBadges = [
+  {
+    icon: Earth,
+    title: 'CARBONO NEGATIVO',
+    description:
+      'Primeira transportadora certificada Carbono Negativo, compensando mais CO₂ do que emite e contribuindo para a descarbonização do transporte. ',
+    downloadUrl: '',
+    ctaLabel: 'Baixar relatórios',
+  },
   {
     icon: ShieldCheck,
     title: 'ISO 9001',
@@ -273,7 +281,40 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                         </div>
                         <div>
                           <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-[0.22em] sm:tracking-[0.26em] text-white/85">{badge.title}</h3>
-                          <p className="mt-1.5 sm:mt-2 text-[0.7rem] sm:text-xs text-white/65 leading-relaxed">{badge.description}</p>
+                          <p className="mt-1.5 sm:mt-2 text-[0.7rem] sm:text-xs text-white/65 leading-relaxed">
+                            {badge.description}
+                            {index == 0 &&
+                              <b>
+                                <span
+                                  className="mr-2"
+                                >
+                                  (Clique para visualizar os relatórios:
+                                </span>
+                                <motion.a
+                                  href="/gabardo_cop31.pdf"
+                                  target="_blank"
+                                  className="hover:text-white cursor-pointer"
+                                >COP31
+                                </motion.a>
+                                <span
+                                  className="mx-2"
+                                >
+                                  |
+                                </span>
+                                <motion.a
+                                  href="/carbono_negativo.pdf"
+                                  target="_blank"
+                                  className="hover:text-white cursor-pointer"
+                                >Carbono Negativo
+                                </motion.a>
+                                <span
+                                >
+                                  )
+                                </span>
+                              </b>
+
+                            }
+                          </p>
                         </div>
                       </div>
                       {badge.downloadUrl && (
