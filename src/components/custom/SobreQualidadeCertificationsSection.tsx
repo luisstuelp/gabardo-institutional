@@ -294,7 +294,7 @@ const SobreQualidadeCertificationsSection: React.FC = () => {
                                   href="/gabardo_cop31.pdf"
                                   target="_blank"
                                   className="hover:text-white cursor-pointer"
-                                >COP31
+                                >CASE
                                 </motion.a>
                                 <span
                                   className="mx-2"
