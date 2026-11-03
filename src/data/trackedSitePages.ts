@@ -17,7 +17,7 @@ export const trackedSitePages: TrackedSitePage[] = [
   { path: '/', label: 'Home' },
   { path: '/sobre/institucional', label: 'Institucional' },
   { path: '/sobre/historia', label: 'História' },
-  { path: '/sobre/qualidade', label: 'Qualidade' },
+  { path: '/sobre/qualidade_e_sustentabilidade', label: 'Qualidade e Sustentabilidade' },
   { path: '/infraestrutura', label: 'Infraestrutura' },
   { path: '/servicos', label: 'Serviços' },
   { path: '/orcamento', label: 'Orçamento' },

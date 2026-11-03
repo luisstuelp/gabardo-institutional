@@ -69,6 +69,11 @@ const nextConfig: NextConfig = {
     return [
       // Localizacao routes (removed)
       {
+        source: '/sobre/qualidade',
+        destination: '/sobre/qualidade_e_sustentabilidade',
+        permanent: true,
+      },
+      {
         source: '/localizacao/:path*',
         destination: '/',
         permanent: true,

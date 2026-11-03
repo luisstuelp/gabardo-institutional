@@ -92,7 +92,7 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
       ],
     },
     { id: 'servicos', label: 'SERVIÇOS', href: '/servicos', imageSrc: '/images/hero-services.jpg' },
-    { id: 'qualidade', label: 'QUALIDADE E SUSTENTABILIDADE', href: '/sobre/qualidade', imageSrc: '/images/Certificados.JPG' },
+    { id: 'qualidade', label: 'QUALIDADE E SUSTENTABILIDADE', href: '/sobre/qualidade_e_sustentabilidade', imageSrc: '/images/Certificados.JPG' },
     // Removed NOSSA GENTE and SUSTENTABILIDADE entries
 
     { id: 'orcamento', label: 'ORÇAMENTO', href: '/orcamento', imageSrc: '/images/gabardo-hero-03.JPG' },
