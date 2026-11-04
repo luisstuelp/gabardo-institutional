@@ -4,6 +4,7 @@ import path from 'path';
 import { parsePhoneNumberFromString } from 'libphonenumber-js/min';
 
 import { createServerSupabaseClient } from '@/integrations/supabase/server';
+import { enforceLocalRateLimit, readJsonBodyWithLimit, resolveClientIp, RequestBodyTooLargeError } from '@/lib/apiRateLimit';
 
 const GABARDO_LOGO_WHITE_CID = 'gabardo-logo-white';
 const GABARDO_LOGO_WHITE_PATH = path.resolve(process.cwd(), 'public', 'images', 'Design sem nome (53).png');
@@ -102,10 +103,6 @@ function sanitizeInput(input: string): string {
 }
 
 // Enhanced rate limiting with better memory management
-const submissionLog = new Map<string, number[]>();
-const MAX_SUBMISSIONS_PER_HOUR = 3;
-const HOUR_IN_MS = 3600000;
-
 const sectorRouting: Record<string, { to: string[]; cc?: string[] }> = {
   'Operacional': {
     to: ['arlindo@transgabardo.com.br'],
@@ -138,37 +135,6 @@ const sectorRouting: Record<string, { to: string[]; cc?: string[] }> = {
     to: ['gabardo@transgabardo.com.br'],
   },
 };
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const submissions = submissionLog.get(ip) || [];
-  
-  // Clean old submissions (older than 1 hour)
-  const recentSubmissions = submissions.filter(time => now - time < HOUR_IN_MS);
-  
-  if (recentSubmissions.length >= MAX_SUBMISSIONS_PER_HOUR) {
-    return true;
-  }
-  
-  // Update the log
-  recentSubmissions.push(now);
-  submissionLog.set(ip, recentSubmissions);
-  
-  // Clean up old entries periodically
-  if (submissionLog.size > 1000) {
-    const cutoff = now - HOUR_IN_MS;
-    for (const [key, times] of submissionLog.entries()) {
-      const recent = times.filter(time => time > cutoff);
-      if (recent.length === 0) {
-        submissionLog.delete(key);
-      } else {
-        submissionLog.set(key, recent);
-      }
-    }
-  }
-  
-  return false;
-}
 
 // Enhanced logging function
 function logContactSubmission(data: ContactFormData, ip: string, userAgent?: string) {
@@ -388,29 +354,20 @@ function generateConfirmationEmailTemplate(data: ContactFormData): string {
 
 export async function POST(request: NextRequest) {
   try {
-    // Get client information
-    const ip = request.headers.get('x-forwarded-for') || 
-               request.headers.get('x-real-ip') || 
-               '127.0.0.1';
-    const userAgent = request.headers.get('user-agent');
+    const rateLimitResponse = await enforceLocalRateLimit(request, 'contact', 3, 60 * 60);
+    if (rateLimitResponse) return rateLimitResponse;
 
-    // Check rate limiting
-    if (isRateLimited(ip)) {
-      console.log(`🚫 Rate limit exceeded for IP: ${ip}`);
-      return NextResponse.json(
-        { 
-          error: 'Muitas tentativas. Tente novamente em 1 hora.',
-          code: 'RATE_LIMIT_EXCEEDED'
-        },
-        { status: 429 }
-      );
-    }
+    const ip = resolveClientIp(request.headers);
+    const userAgent = request.headers.get('user-agent');
 
     // Parse and validate request body
     let body;
     try {
-      body = await request.json();
+      body = await readJsonBodyWithLimit<Record<string, unknown>>(request, 32 * 1024);
     } catch (parseError) {
+      if (parseError instanceof RequestBodyTooLargeError) {
+        return NextResponse.json({ error: 'O formulário excede o tamanho permitido.' }, { status: 413 });
+      }
       console.log('❌ Invalid JSON in request body:', parseError);
       return NextResponse.json(
         { error: 'Dados inválidos no formulário', code: 'INVALID_JSON' },
@@ -419,15 +376,16 @@ export async function POST(request: NextRequest) {
     }
     
     // Sanitize inputs
+    const asText = (value: unknown) => typeof value === 'string' ? value : '';
     const formData: ContactFormData = {
-      name: sanitizeInput(body.name || ''),
-      email: sanitizeInput(body.email || ''),
-      phone: sanitizeInput(body.phone || ''),
-      company: sanitizeInput(body.company || ''),
-      sector: sanitizeInput(body.sector || ''),
-      subject: sanitizeInput(body.subject || ''),
-      message: sanitizeInput(body.message || ''),
-      interest: sanitizeInput(body.interest || ''),
+      name: sanitizeInput(asText(body.name)),
+      email: sanitizeInput(asText(body.email)),
+      phone: sanitizeInput(asText(body.phone)),
+      company: sanitizeInput(asText(body.company)),
+      sector: sanitizeInput(asText(body.sector)),
+      subject: sanitizeInput(asText(body.subject)),
+      message: sanitizeInput(asText(body.message)),
+      interest: sanitizeInput(asText(body.interest)),
       privacyAccepted: Boolean(body.privacyAccepted),
     };
 

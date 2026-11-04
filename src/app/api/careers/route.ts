@@ -4,6 +4,12 @@ import path from 'path';
 import { parsePhoneNumberFromString } from 'libphonenumber-js/min';
 
 import { createServerSupabaseClient } from '@/integrations/supabase/server';
+import {
+  enforceLocalRateLimit,
+  readFormDataWithLimit,
+  RequestBodyTooLargeError,
+  resolveClientIp,
+} from '@/lib/apiRateLimit';
 
 const GABARDO_LOGO_WHITE_CID = 'gabardo-logo-white';
 const GABARDO_LOGO_WHITE_PATH = path.resolve(process.cwd(), 'public', 'images', 'Design sem nome (53).png');
@@ -87,38 +93,6 @@ function sanitizeInput(input: string): string {
     .replace(/'/g, '&#x27;')
     .replace(/\//g, '&#x2F;')
     .trim();
-}
-
-const submissionLog = new Map<string, number[]>();
-const MAX_SUBMISSIONS_PER_HOUR = 2;
-const HOUR_IN_MS = 3600000;
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const submissions = submissionLog.get(ip) || [];
-
-  const recentSubmissions = submissions.filter(time => now - time < HOUR_IN_MS);
-
-  if (recentSubmissions.length >= MAX_SUBMISSIONS_PER_HOUR) {
-    return true;
-  }
-
-  recentSubmissions.push(now);
-  submissionLog.set(ip, recentSubmissions);
-
-  if (submissionLog.size > 1000) {
-    const cutoff = now - HOUR_IN_MS;
-    for (const [key, times] of submissionLog.entries()) {
-      const recent = times.filter(time => time > cutoff);
-      if (recent.length === 0) {
-        submissionLog.delete(key);
-      } else {
-        submissionLog.set(key, recent);
-      }
-    }
-  }
-
-  return false;
 }
 
 function logJobApplication(data: JobApplicationFormData, ip: string, userAgent?: string, filename?: string) {
@@ -317,45 +291,23 @@ function generateConfirmationEmailTemplate(data: JobApplicationFormData): string
 
 export async function POST(request: NextRequest) {
   try {
-    const ip = request.headers.get('x-forwarded-for') ||
-               request.headers.get('x-real-ip') ||
-               '127.0.0.1';
+    const rateLimitResponse = await enforceLocalRateLimit(request, 'careers', 2, 60 * 60);
+    if (rateLimitResponse) return rateLimitResponse;
+
+    const ip = resolveClientIp(request.headers);
     const userAgent = request.headers.get('user-agent');
-
-    if (isRateLimited(ip)) {
-      console.log(`🚫 Rate limit exceeded for IP: ${ip}`);
-      return NextResponse.json(
-        {
-          error: 'Muitas tentativas. Tente novamente em 1 hora.',
-          code: 'RATE_LIMIT_EXCEEDED'
-        },
-        { status: 429 }
-      );
-    }
-
-    let formDataRequest;
+    let formDataRequest: FormData;
     try {
-      formDataRequest = await request.formData();
+      formDataRequest = await readFormDataWithLimit(request, MAX_FILE_SIZE + 1024 * 1024);
     } catch (parseError) {
-      console.log('❌ Invalid form data:', parseError);
-      return NextResponse.json(
-        { error: 'Dados inválidos no formulário', code: 'INVALID_FORM_DATA' },
-        { status: 400 }
-      );
+      const status = parseError instanceof RequestBodyTooLargeError ? 413 : 400;
+      return NextResponse.json({ error: 'Formulário inválido ou arquivo muito grande.', code: 'INVALID_FORM_DATA' }, { status });
     }
 
-    const resumeFile = formDataRequest.get('resume') as File | null;
-
-    if (!resumeFile) {
+    const resumeFile = formDataRequest.get('resume');
+    if (!(resumeFile instanceof File)) {
       return NextResponse.json(
         { error: 'Currículo é obrigatório', code: 'MISSING_RESUME' },
-        { status: 400 }
-      );
-    }
-
-    if (!ALLOWED_MIME_TYPES.includes(resumeFile.type)) {
-      return NextResponse.json(
-        { error: 'Apenas arquivos PDF são aceitos', code: 'INVALID_FILE_TYPE' },
         { status: 400 }
       );
     }
@@ -363,17 +315,39 @@ export async function POST(request: NextRequest) {
     if (resumeFile.size > MAX_FILE_SIZE) {
       return NextResponse.json(
         { error: 'Arquivo muito grande (máximo 10MB)', code: 'FILE_TOO_LARGE' },
+        { status: 413 }
+      );
+    }
+
+    const resumeHeader = new Uint8Array(await resumeFile.slice(0, 5).arrayBuffer());
+    const hasPdfSignature = new TextDecoder().decode(resumeHeader) === '%PDF-';
+    if (!ALLOWED_MIME_TYPES.includes(resumeFile.type) || !hasPdfSignature) {
+      return NextResponse.json(
+        { error: 'Apenas arquivos PDF são aceitos', code: 'INVALID_FILE_TYPE' },
         { status: 400 }
       );
     }
 
+    const safeFilename = resumeFile.name
+      .replace(/[\\/\u0000-\u001f\u007f]/g, '_')
+      .slice(0, 180) || 'curriculo.pdf';
+    const emailFilename = safeFilename
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+    const getTextField = (name: string) => {
+      const value = formDataRequest.get(name);
+      return typeof value === 'string' ? value : '';
+    };
     const formData: JobApplicationFormData = {
-      name: sanitizeInput(formDataRequest.get('name') as string || ''),
-      email: sanitizeInput(formDataRequest.get('email') as string || ''),
-      phone: sanitizeInput(formDataRequest.get('phone') as string || ''),
-      positionInterest: sanitizeInput(formDataRequest.get('positionInterest') as string || ''),
-      message: sanitizeInput(formDataRequest.get('message') as string || ''),
-      privacyAccepted: formDataRequest.get('privacyAccepted') === 'true',
+      name: sanitizeInput(getTextField('name')),
+      email: sanitizeInput(getTextField('email')),
+      phone: sanitizeInput(getTextField('phone')),
+      positionInterest: sanitizeInput(getTextField('positionInterest')),
+      message: sanitizeInput(getTextField('message')),
+      privacyAccepted: getTextField('privacyAccepted') === 'true',
     };
 
     const validation = validateFormData(formData);
@@ -389,7 +363,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    logJobApplication(formData, ip, userAgent || undefined, resumeFile.name);
+    logJobApplication(formData, ip, userAgent || undefined, safeFilename);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const supabase = createServerSupabaseClient() as any;
@@ -400,7 +374,7 @@ export async function POST(request: NextRequest) {
       phone: formData.phone || null,
       position_interest: formData.positionInterest || null,
       message: formData.message,
-      resume_filename: resumeFile.name,
+      resume_filename: safeFilename,
       resume_size_bytes: resumeFile.size,
       privacy_accepted: formData.privacyAccepted,
       raw_data: {
@@ -433,11 +407,11 @@ export async function POST(request: NextRequest) {
         from: `"Gabardo Transportes" <${process.env.GMAIL_USER}>`,
         to: ['selecao@transgabardo.com.br'],
         subject: `[Trabalhe Conosco] Nova candidatura - ${formData.name}`,
-        html: generateEmailTemplate(formData, resumeFile.name),
+        html: generateEmailTemplate(formData, emailFilename),
         replyTo: formData.email,
         attachments: [
           {
-            filename: resumeFile.name,
+            filename: safeFilename,
             content: resumeBuffer,
             contentType: 'application/pdf',
           },

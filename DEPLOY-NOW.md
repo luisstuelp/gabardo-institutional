@@ -46,8 +46,8 @@ git push origin main
 3. Settings → Environment Variables
 4. Adicione estas 5 variáveis (ver VERCEL-ERROR-FIX.md para detalhes):
    - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+   - `SUPABASE_SECRET_KEY`
    - `NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET`
    - `ADMIN_SESSION_SECRET`
 

@@ -1,38 +1,41 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/integrations/supabase/server';
+import { readJsonBodyWithLimit, RequestBodyTooLargeError } from '@/lib/apiRateLimit';
+
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    let body: { contentType?: unknown; contentId?: unknown; event?: unknown };
+    try {
+      body = await readJsonBodyWithLimit(request, 4 * 1024);
+    } catch (parseError) {
+      const status = parseError instanceof RequestBodyTooLargeError ? 413 : 400;
+      return NextResponse.json({ error: 'Dados inv\u00e1lidos.' }, { status });
+    }
+
     const { contentType, contentId, event } = body;
-
-    // Validate input
-    if (!contentType || !contentId || !event) {
-      return NextResponse.json(
-        { error: 'Missing required fields: contentType, contentId, event' },
-        { status: 400 }
-      );
+    if (
+      (contentType !== 'post' && contentType !== 'midia' && contentType !== 'page') ||
+      typeof contentId !== 'string' ||
+      contentId.length === 0 ||
+      contentId.length > 500 ||
+      typeof event !== 'string'
+    ) {
+      return NextResponse.json({ error: 'Dados inv\u00e1lidos.' }, { status: 400 });
     }
 
-    if (!['post', 'midia', 'page'].includes(contentType)) {
-      return NextResponse.json(
-        { error: 'Invalid contentType. Must be "post", "midia" ou "page"' },
-        { status: 400 }
-      );
-    }
-
-    const allowedEvents = contentType === 'page' ? ['view'] : ['view', 'external_click', 'share'];
-
-    if (!allowedEvents.includes(event)) {
-      return NextResponse.json(
-        { error: 'Invalid event for contentType' },
-        { status: 400 }
-      );
+    if (contentType === 'page') {
+      if (event !== 'view' || !contentId.startsWith('/') || contentId.startsWith('//')) {
+        return NextResponse.json({ error: 'Evento ou p\u00e1gina inv\u00e1lidos.' }, { status: 400 });
+      }
+    } else {
+      if (!UUID_PATTERN.test(contentId) || !['view', 'external_click', 'share'].includes(event)) {
+        return NextResponse.json({ error: 'Evento ou conte\u00fado inv\u00e1lidos.' }, { status: 400 });
+      }
     }
 
     const supabase = createServerSupabaseClient();
-
-    // Call the appropriate RPC function based on content type
     const functionName =
       contentType === 'post'
         ? 'increment_post_metric'
@@ -48,19 +51,13 @@ export async function POST(request: NextRequest) {
     });
 
     if (error) {
-      console.error('Supabase RPC error:', error);
-      return NextResponse.json(
-        { error: 'Failed to update metrics', details: error.message },
-        { status: 500 }
-      );
+      console.error('Metrics RPC failed:', error);
+      return NextResponse.json({ error: 'Falha ao atualizar m\u00e9tricas.' }, { status: 500 });
     }
 
     return NextResponse.json({ success: true, data });
   } catch (error) {
     console.error('Metrics API error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Erro interno do servidor.' }, { status: 500 });
   }
 }

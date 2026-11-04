@@ -119,7 +119,7 @@ Execute esses comandos no **SQL Editor** do Supabase.
 Certifique-se que o arquivo `.env.local` tem:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=sua-chave-anon-aqui
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sua-chave-anon-aqui
 ```
 
 #### 5. Verificar next.config.ts

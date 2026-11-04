@@ -60,8 +60,8 @@ CREATE POLICY "Service role can manage midia metrics" ON midia_metrics
 
 ### Local Development (.env.local)
 - [ ] `NEXT_PUBLIC_SUPABASE_URL`
-- [ ] `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- [ ] `SUPABASE_SERVICE_ROLE_KEY`
+- [ ] `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- [ ] `SUPABASE_SECRET_KEY`
 - [ ] `EMAIL_SERVICE_API_KEY` (if using email service)
 - [ ] `EMAIL_TO`
 - [ ] `ADMIN_SESSION_SECRET`

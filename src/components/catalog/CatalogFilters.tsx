@@ -126,37 +126,19 @@ export function CatalogFilters({ filters, onFiltersChange, activeFiltersCount, h
 
       {/* Preço */}
       <FilterSection title="Faixa de Preço" sectionKey="price">
-        <div className="grid grid-cols-2 gap-2">
+        <div className=" gap-2">
           <div>
-            <Label className="text-xs text-muted-foreground">Mínimo</Label>
+            <Label className="text-xs text-muted-foreground">Preço desejado</Label>
             <Select
               value={localFilters.priceMin?.toString() || ''}
               onValueChange={(value) => handleFilterChange('priceMin', value ? Number(value) : undefined)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Min" />
+                <SelectValue placeholder="Selecione um valor" />
               </SelectTrigger>
               <SelectContent>
                 {PRICE_RANGES.map((price) => (
                   <SelectItem key={price.min} value={price.min.toString()}>
-                    {price.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Label className="text-xs text-muted-foreground">Máximo</Label>
-            <Select
-              value={localFilters.priceMax?.toString() || ''}
-              onValueChange={(value) => handleFilterChange('priceMax', value ? Number(value) : undefined)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Max" />
-              </SelectTrigger>
-              <SelectContent>
-                {PRICE_RANGES.filter((p) => p.max !== null).map((price) => (
-                  <SelectItem key={price.max} value={price.max!.toString()}>
                     {price.label}
                   </SelectItem>
                 ))}

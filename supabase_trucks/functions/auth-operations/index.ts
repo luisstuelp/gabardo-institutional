@@ -2,10 +2,10 @@
  * auth-operations Edge Function
  *
  * Server-side auth operations that require admin/service role access.
- * Handles: password change, email reset URL generation, account recovery.
+ * Handles password changes for the authenticated user.
  *
  * Endpoint: POST /functions/v1/auth-operations
- * Request body: { operation, email?, newPassword?, redirectTo? }
+ * Request body: { operation: 'change-password', newPassword }
  *
  * These operations use the Supabase Admin client (service role)
  * because some auth operations (e.g., admin password reset) need elevated privileges.
@@ -63,83 +63,9 @@ serve(async (req: Request) => {
                 console.log('Password changed successfully', { userId: user.id });
                 return jsonResponse({ success: true, message: 'Password changed successfully' });
             }
-
-            /**
-             * Reset email — sends a password reset email to the given address.
-             * Does not require authentication (the user forgot their password).
-             * Uses admin client to generate the reset link.
-             */
-            case 'reset-email': {
-                const { email, redirectTo } = body;
-                if (!email) {
-                    return errorResponse('Email is required', 400, 'MISSING_EMAIL');
-                }
-
-                const adminClient = createSupabaseAdmin();
-                const { error: resetError } = await adminClient.auth.admin.generateLink({
-                    type: 'recovery',
-                    email,
-                    options: {
-                        redirectTo: redirectTo ?? Deno.env.get('SITE_URL') ?? 'http://localhost:8080',
-                    },
-                });
-
-                if (resetError) {
-                    // Don't reveal if email exists or not — always return success
-                    console.error('Reset email error:', resetError.message);
-                }
-
-                // Always return success to prevent email enumeration
-                return jsonResponse({
-                    success: true,
-                    message: 'If an account with that email exists, a reset link has been sent.',
-                });
-            }
-
-            /**
-             * Recover account — validates a recovery token and allows password change.
-             * Used after the user clicks the reset link in their email.
-             */
-            case 'recover-account': {
-                const { email, newPassword } = body;
-                if (!email || !newPassword) {
-                    return errorResponse('Email and newPassword are required', 400, 'MISSING_FIELDS');
-                }
-
-                if (newPassword.length < 6) {
-                    return errorResponse('Password must be at least 6 characters', 400, 'WEAK_PASSWORD');
-                }
-
-                // Look up user by email and update password
-                const adminClient = createSupabaseAdmin();
-                const { data: { users }, error: listError } = await adminClient.auth.admin.listUsers();
-
-                if (listError) {
-                    return errorResponse('Failed to process recovery', 500, 'INTERNAL_ERROR');
-                }
-
-                const targetUser = users.find((u) => u.email === email);
-                if (!targetUser) {
-                    // Don't reveal that the user doesn't exist
-                    return jsonResponse({ success: true, message: 'Recovery processed.' });
-                }
-
-                const { error: updateError } = await adminClient.auth.admin.updateUserById(
-                    targetUser.id,
-                    { password: newPassword }
-                );
-
-                if (updateError) {
-                    return errorResponse(updateError.message, 400, 'RECOVERY_FAILED');
-                }
-
-                console.log('Account recovered successfully', { userId: targetUser.id });
-                return jsonResponse({ success: true, message: 'Password has been reset successfully.' });
-            }
-
             default:
                 return errorResponse(
-                    `Unknown operation: ${operation}. Allowed: change-password, reset-email, recover-account`,
+                    'Unsupported operation. Use the Supabase password recovery flow for account recovery.',
                     400,
                     'INVALID_OPERATION'
                 );

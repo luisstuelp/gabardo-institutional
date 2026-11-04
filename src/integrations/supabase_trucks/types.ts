@@ -12,7 +12,7 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.1"
   }
-  public: {
+  trucks: {
     Tables: {
       branches: {
         Row: {
@@ -241,19 +241,19 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          role: Database["public"]["Enums"]["app_role"]
+          role: Database["trucks"]["Enums"]["app_role"]
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
-          role?: Database["public"]["Enums"]["app_role"]
+          role?: Database["trucks"]["Enums"]["app_role"]
           user_id: string
         }
         Update: {
           created_at?: string
           id?: string
-          role?: Database["public"]["Enums"]["app_role"]
+          role?: Database["trucks"]["Enums"]["app_role"]
           user_id?: string
         }
         Relationships: []
@@ -306,7 +306,7 @@ export type Database = {
           description: string | null
           fipe_code: string | null
           fipe_value: number | null
-          fuel: Database["public"]["Enums"]["fuel_type"]
+          fuel: Database["trucks"]["Enums"]["fuel_type"]
           id: string
           is_featured: boolean | null
           is_semi_new: boolean | null
@@ -318,9 +318,9 @@ export type Database = {
           price: number
           slug: string
           specs: Json | null
-          status: Database["public"]["Enums"]["vehicle_status"]
+          status: Database["trucks"]["Enums"]["vehicle_status"]
           title: string
-          transmission: Database["public"]["Enums"]["transmission_type"]
+          transmission: Database["trucks"]["Enums"]["transmission_type"]
           updated_at: string
           year_manufacture: number
           year_model: number
@@ -334,7 +334,7 @@ export type Database = {
           description?: string | null
           fipe_code?: string | null
           fipe_value?: number | null
-          fuel?: Database["public"]["Enums"]["fuel_type"]
+          fuel?: Database["trucks"]["Enums"]["fuel_type"]
           id?: string
           is_featured?: boolean | null
           is_semi_new?: boolean | null
@@ -346,9 +346,9 @@ export type Database = {
           price: number
           slug: string
           specs?: Json | null
-          status?: Database["public"]["Enums"]["vehicle_status"]
+          status?: Database["trucks"]["Enums"]["vehicle_status"]
           title: string
-          transmission?: Database["public"]["Enums"]["transmission_type"]
+          transmission?: Database["trucks"]["Enums"]["transmission_type"]
           updated_at?: string
           year_manufacture: number
           year_model: number
@@ -362,7 +362,7 @@ export type Database = {
           description?: string | null
           fipe_code?: string | null
           fipe_value?: number | null
-          fuel?: Database["public"]["Enums"]["fuel_type"]
+          fuel?: Database["trucks"]["Enums"]["fuel_type"]
           id?: string
           is_featured?: boolean | null
           is_semi_new?: boolean | null
@@ -374,9 +374,9 @@ export type Database = {
           price?: number
           slug?: string
           specs?: Json | null
-          status?: Database["public"]["Enums"]["vehicle_status"]
+          status?: Database["trucks"]["Enums"]["vehicle_status"]
           title?: string
-          transmission?: Database["public"]["Enums"]["transmission_type"]
+          transmission?: Database["trucks"]["Enums"]["transmission_type"]
           updated_at?: string
           year_manufacture?: number
           year_model?: number
@@ -398,7 +398,7 @@ export type Database = {
     Functions: {
       has_role: {
         Args: {
-          _role: Database["public"]["Enums"]["app_role"]
+          _role: Database["trucks"]["Enums"]["app_role"]
           _user_id: string
         }
         Returns: boolean
@@ -418,7 +418,7 @@ export type Database = {
 
 type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "trucks">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
@@ -534,7 +534,7 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
-  public: {
+  trucks: {
     Enums: {
       app_role: ["admin", "moderator", "user"],
       fuel_type: ["diesel", "gas", "electric", "hybrid"],

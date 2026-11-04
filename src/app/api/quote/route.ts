@@ -4,6 +4,7 @@ import path from 'path';
 import { parsePhoneNumberFromString } from 'libphonenumber-js/min';
 
 import { createServerSupabaseClient } from '@/integrations/supabase/server';
+import { readJsonBodyWithLimit, RequestBodyTooLargeError } from '@/lib/apiRateLimit';
 
 const GABARDO_LOGO_WHITE_CID = 'gabardo-logo-white';
 const GABARDO_LOGO_WHITE_PATH = path.resolve(process.cwd(), 'public', 'images', 'Design sem nome (53).png');
@@ -487,7 +488,13 @@ async function sendEmail(data: QuoteFormData) {
 export async function POST(request: NextRequest) {
   try {
     console.log('📨 Recebendo pedido de cotação...');
-    const rawBody = await request.json();
+    let rawBody: Record<string, unknown>;
+    try {
+      rawBody = await readJsonBodyWithLimit<Record<string, unknown>>(request, 32 * 1024);
+    } catch (parseError) {
+      const status = parseError instanceof RequestBodyTooLargeError ? 413 : 400;
+      return NextResponse.json({ error: 'Corpo da solicita\u00e7\u00e3o inv\u00e1lido.' }, { status });
+    }
 
     const formData: QuoteFormData = {
       name: sanitize(rawBody.name),

@@ -33,7 +33,7 @@ export default function AdminLoginForm() {
   const handlePasswordResetRequest = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!resetEmail.trim()) {
+    if (!resetEmail.trim() || !resetEmail.includes("gabardo".toLowerCase())) {
       setResetError('Informe um e-mail válido.');
       return;
     }

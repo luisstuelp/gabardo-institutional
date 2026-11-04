@@ -255,8 +255,8 @@ USING (bucket_id = 'content-images');
 **Variáveis obrigatórias:**
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
-SUPABASE_SERVICE_ROLE_KEY=eyJ...
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<publishable-key-from-dashboard>
+SUPABASE_SECRET_KEY=<secret-key-from-dashboard>
 NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET=content-images
 ADMIN_SESSION_SECRET=chave-aleatoria-32-chars
 ```

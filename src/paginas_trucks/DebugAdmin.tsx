@@ -46,7 +46,7 @@ export default function DebugAdmin() {
 
             <div className="border p-4 rounded bg-gray-100">
                 <h2 className="font-bold">Environment</h2>
-                <p>Project URL: {process.env.NEXT_PUBLIC_TRUCKS_SUPABASE_URL}</p>
+                <p>Project URL: {process.env.NEXT_PUBLIC_SUPABASE_URL}</p>
             </div>
         </div>
     );

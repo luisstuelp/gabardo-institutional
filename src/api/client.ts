@@ -11,6 +11,10 @@ import type { ApiResponse, ApiError } from '@/types/api';
 
 const logger = createLogger('ApiClient');
 
+function isFetchFailure(message: string): boolean {
+    return /failed to fetch|network request failed|networkerror/i.test(message);
+}
+
 /**
  * Singleton API client class.
  * All data access goes through this layer.
@@ -50,26 +54,38 @@ class ApiClient {
         try {
             const { data, error } = await fn();
             if (error) {
+                const networkFailure = isFetchFailure(error.message);
                 const apiError: ApiError = {
-                    message: error.message,
-                    code: error.code ?? 'UNKNOWN',
+                    message: networkFailure
+                        ? 'Não foi possível conectar ao Supabase.'
+                        : error.message,
+                    code: networkFailure ? 'NETWORK_ERROR' : error.code || 'UNKNOWN',
                     details: error.details,
-                    hint: error.hint,
+                    hint: networkFailure
+                        ? 'Confira se NEXT_PUBLIC_SUPABASE_URL aponta para um projeto ativo e acessível.'
+                        : error.hint,
                 };
                 logger.error(`API query failed: ${operation}`, new Error(error.message), {
                     code: apiError.code,
                 });
-                return { data: null, error: apiError, status: 400 };
+                return { data: null, error: apiError, status: networkFailure ? 503 : 400 };
             }
             logger.debug(`API query success: ${operation}`);
             return { data, error: null, status: 200 };
         } catch (err) {
             const error = err instanceof Error ? err : new Error(String(err));
             logger.error(`API query exception: ${operation}`, error);
+            const networkFailure = isFetchFailure(error.message);
             return {
                 data: null,
-                error: { message: error.message, code: 'EXCEPTION' },
-                status: 500,
+                error: networkFailure
+                    ? {
+                        message: 'Não foi possível conectar ao Supabase.',
+                        code: 'NETWORK_ERROR',
+                        hint: 'Confira se NEXT_PUBLIC_SUPABASE_URL aponta para um projeto ativo e acessível.',
+                    }
+                    : { message: error.message, code: 'EXCEPTION' },
+                status: networkFailure ? 503 : 500,
             };
         }
     }

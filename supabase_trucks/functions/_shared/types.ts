@@ -50,8 +50,6 @@ export interface DatabaseQueryRequest {
 
 /** Request body for the auth-operations edge function */
 export interface AuthOperationRequest {
-    operation: 'change-password' | 'reset-email' | 'recover-account';
-    email?: string;
+    operation: 'change-password';
     newPassword?: string;
-    redirectTo?: string;
 }

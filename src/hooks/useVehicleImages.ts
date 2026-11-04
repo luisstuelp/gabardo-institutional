@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase_trucks/client';
+import { getVehicleImages } from '@/api/endpoints/vehicles';
 import { VehicleImage } from '@/types/database';
 
-import { mockImages } from '@/data/mockData';
-
 async function fetchVehicleImages(vehicleId: string): Promise<VehicleImage[]> {
-  const image = mockImages[vehicleId];
-  return image ? [image] : [];
+  const result = await getVehicleImages(vehicleId);
+  if (result.error) {
+    throw new Error(result.error.message);
+  }
+
+  return result.data ?? [];
 }
 
 export function useVehicleImages(vehicleId: string) {
@@ -14,5 +16,6 @@ export function useVehicleImages(vehicleId: string) {
     queryKey: ['vehicle-images', vehicleId],
     queryFn: () => fetchVehicleImages(vehicleId),
     enabled: !!vehicleId,
+    staleTime: 30_000,
   });
 }

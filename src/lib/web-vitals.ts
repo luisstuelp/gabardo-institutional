@@ -1,22 +1,9 @@
 /**
- * Web Vitals Monitoring
- * Tracks Core Web Vitals and custom performance metrics
- * 
- * To enable full Web Vitals tracking, install the web-vitals package:
- * npm install web-vitals
+ * Development-only Web Vitals diagnostics.
+ * Production collection is handled by @vercel/speed-insights in the root layout.
  */
 
 import type { ReportHandler, WebVitalsMetric } from 'web-vitals';
-
-// Send metrics to analytics endpoint
-function sendToAnalytics(metric: WebVitalsMetric) {
-  const body = JSON.stringify(metric);
-  
-  // Use `navigator.sendBeacon()` if available, falling back to `fetch()`
-  if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
-    navigator.sendBeacon('/api/analytics', body);
-  }
-}
 
 // Log metrics to console in development
 function logMetric(metric: WebVitalsMetric) {
@@ -30,7 +17,7 @@ function logMetric(metric: WebVitalsMetric) {
 
 // Report all available web vitals using built-in APIs
 export function reportWebVitals() {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined' || process.env.NODE_ENV !== 'development') return;
 
   try {
     // Use dynamic import for web-vitals if available
@@ -38,7 +25,6 @@ export function reportWebVitals() {
       .then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
         const handleMetric: ReportHandler = (metric) => {
           logMetric(metric);
-          sendToAnalytics(metric);
         };
 
         getCLS(handleMetric);
@@ -48,10 +34,7 @@ export function reportWebVitals() {
         getTTFB(handleMetric);
       })
       .catch(() => {
-        // Fallback to basic performance metrics if web-vitals is not installed
-        if (process.env.NODE_ENV === 'development') {
-          console.log('[Web Vitals] Package not installed. Install with: npm install web-vitals');
-        }
+        console.warn('[Web Vitals] Development diagnostics could not be loaded.');
       });
   } catch (err) {
     console.error('[Web Vitals] Error reporting metrics:', err);
@@ -60,7 +43,11 @@ export function reportWebVitals() {
 
 // Performance observer for custom metrics
 export function observePerformance() {
-  if (typeof window === 'undefined' || !('PerformanceObserver' in window)) {
+  if (
+    typeof window === 'undefined' ||
+    process.env.NODE_ENV !== 'development' ||
+    !('PerformanceObserver' in window)
+  ) {
     return;
   }
 

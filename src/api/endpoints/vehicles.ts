@@ -130,7 +130,8 @@ export async function getVehicleImages(vehicleId: string): Promise<ApiResponse<V
             .from('vehicle_images')
             .select('*')
             .eq('vehicle_id', vehicleId)
-            .order('display_order');
+            .order('is_primary', { ascending: false })
+            .order('display_order', { ascending: true });
 
         return { data: data as VehicleImage[] | null, error };
     });
@@ -148,6 +149,16 @@ export async function getBranches(): Promise<ApiResponse<Branch[]>> {
     });
 }
 
+/** Convert an unselected optional branch into SQL NULL instead of an invalid empty UUID. */
+function normalizeVehiclePayload(vehicle: Partial<Vehicle>): Partial<Vehicle> {
+    if (typeof vehicle.branch_id !== 'string') {
+        return vehicle;
+    }
+
+    const branchId = vehicle.branch_id.trim();
+    return { ...vehicle, branch_id: branchId || null };
+}
+
 /** POST /vehicles — Create a new vehicle (admin) */
 export async function createVehicle(vehicle: Partial<Vehicle>): Promise<ApiResponse<VehicleWithImages>> {
     const client = getApiClient();
@@ -157,7 +168,7 @@ export async function createVehicle(vehicle: Partial<Vehicle>): Promise<ApiRespo
         const supabase = client.getSupabaseClient();
         const { data, error } = await supabase
             .from('vehicles')
-            .insert(vehicle as never)
+            .insert(normalizeVehiclePayload(vehicle) as never)
             .select('*, images:vehicle_images(*)')
             .single();
 
@@ -177,7 +188,7 @@ export async function updateVehicle(
         const supabase = client.getSupabaseClient();
         const { data, error } = await supabase
             .from('vehicles')
-            .update(updates as never)
+            .update(normalizeVehiclePayload(updates) as never)
             .eq('id', id)
             .select('*, images:vehicle_images(*)')
             .single();

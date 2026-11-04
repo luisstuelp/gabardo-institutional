@@ -94,14 +94,6 @@ const BlogAnalytics: React.FC<BlogAnalyticsProps> = ({ post }) => {
       // For now, we'll just log it to console
       console.log('📊 Blog Analytics:', finalData);
       
-      // Example of how you might send to analytics
-      /*
-      try {
-        navigator.sendBeacon('/api/analytics', JSON.stringify(finalData));
-      } catch (error) {
-        console.error('Failed to send analytics:', error);
-      }
-      */
     };
 
     const handleBeforeUnload = () => sendAnalytics();
@@ -137,4 +129,4 @@ const BlogAnalytics: React.FC<BlogAnalyticsProps> = ({ post }) => {
   return null;
 };
 
-export default BlogAnalytics; 
+export default BlogAnalytics;

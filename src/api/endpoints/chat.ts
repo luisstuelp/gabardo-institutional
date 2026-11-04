@@ -186,14 +186,15 @@ Seja sempre cordial, profissional e objetivo. Responda em português do Brasil.`
         // Actually best practice: Fetch history, take last N-1, append current.
 
         // Simplified for fallback:
-        const apiMessages = [
-            {
-                role: 'system',
-                content: `Você é o assistente virtual da Gabardo Trucks. Responda em Português.`
-            },
-            ...(history || []).map(m => ({ role: m.role, content: m.content })),
-        ];
-
+        const apiMessages = (history || []).flatMap((message) => {
+            if (
+                (message.role === 'user' || message.role === 'assistant') &&
+                typeof message.content === 'string'
+            ) {
+                return [{ role: message.role, content: message.content }];
+            }
+            return [];
+        });
         // 2. Call OpenAI through the Next server route.
         const response = await fetch('/api/chat-fallback', {
             method: 'POST',

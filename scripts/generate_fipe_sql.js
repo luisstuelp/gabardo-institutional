@@ -1,28 +1,23 @@
 
 import { createClient } from '@supabase/supabase-js';
+import { config as loadEnvironment } from 'dotenv';
 import fs from 'fs';
-import path from 'path';
 
-// Load env (naive parsing)
-const envFile = fs.readFileSync(path.resolve('.env'), 'utf-8');
-const env = {};
-envFile.split('\n').forEach(line => {
-    const [key, val] = line.split('=');
-    if (key && val) env[key.trim()] = val.trim().replace(/"/g, '');
-});
+// Load the same local environment file used by the Next.js application.
+loadEnvironment({ path: '.env.local' });
 
-const supabaseUrl = env.NEXT_PUBLIC_TRUCKS_SUPABASE_URL || env.TRUCKS_SUPABASE_URL;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey =
-    env.NEXT_PUBLIC_TRUCKS_SUPABASE_PUBLISHABLE_KEY ||
-    env.NEXT_PUBLIC_TRUCKS_SUPABASE_ANON_KEY ||
-    env.TRUCKS_SUPABASE_PUBLISHABLE_KEY ||
-    env.TRUCKS_SUPABASE_ANON_KEY;
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
-    throw new Error('Missing trucks Supabase environment variables.');
+    throw new Error('Missing shared Supabase URL or publishable key.');
 }
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(supabaseUrl, supabaseKey, {
+    db: { schema: 'trucks' },
+});
 
 const brandMap = {
     'VOLVO': '116',

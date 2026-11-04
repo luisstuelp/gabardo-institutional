@@ -72,8 +72,8 @@ Copy `.env.example` to `.env.local` and fill in:
 ```bash
 # Supabase
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
-SUPABASE_SERVICE_ROLE_KEY=eyJ...
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<publishable-key-from-dashboard>
+SUPABASE_SECRET_KEY=<secret-key-from-dashboard>
 
 # Email Service
 EMAIL_SERVICE_API_KEY=your-api-key

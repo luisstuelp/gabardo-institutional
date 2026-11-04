@@ -5,10 +5,10 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 
-// Mock process.env for Next-compatible trucks keys
+// Mock the shared Supabase environment variables.
 process.env.NODE_ENV = 'development';
-process.env.NEXT_PUBLIC_TRUCKS_SUPABASE_URL = 'https://test.supabase.co';
-process.env.NEXT_PUBLIC_TRUCKS_SUPABASE_PUBLISHABLE_KEY = 'test-key';
+process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://test.supabase.co';
+process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY = 'test-key';
 
 // Mock window.matchMedia (used by theme system)
 Object.defineProperty(window, 'matchMedia', {

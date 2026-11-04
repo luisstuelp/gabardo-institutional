@@ -214,16 +214,15 @@ const MapboxSection: React.FC = () => {
               <div
                 ref={mapContainerRef}
                 className="map-container h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] w-full"
-              >
-                {!mapLoaded && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-neutral-900">
-                    <div className="text-center">
-                      <div className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-                      <p className="text-white/60">Carregando mapa...</p>
-                    </div>
+              />
+              {!mapLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center bg-neutral-900">
+                  <div className="text-center">
+                    <div className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-white/60">Carregando mapa...</p>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </motion.div>
 
@@ -329,4 +328,4 @@ const MapboxSection: React.FC = () => {
   );
 };
 
-export default MapboxSection; 
+export default MapboxSection;

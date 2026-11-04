@@ -137,9 +137,8 @@ export interface VehicleFilters {
   isSemiNew?: boolean;
 }
 
-// Price ranges for filter
 export const PRICE_RANGES = [
-  { label: 'Até R$ 300.000', min: 0, max: 300000 },
+  { label: 'R$ 0 - R$ 300.000', min: 0, max: 300000 },
   { label: 'R$ 300.000 - R$ 500.000', min: 300000, max: 500000 },
   { label: 'R$ 500.000 - R$ 700.000', min: 500000, max: 700000 },
   { label: 'R$ 700.000 - R$ 900.000', min: 700000, max: 900000 },
@@ -148,6 +147,9 @@ export const PRICE_RANGES = [
 
 // Year ranges
 export const YEAR_RANGES = [
+  { label: '2027', value: 2027 },
+  { label: '2026', value: 2026 },
+  { label: '2025', value: 2025 },
   { label: '2024', value: 2024 },
   { label: '2023', value: 2023 },
   { label: '2022', value: 2022 },

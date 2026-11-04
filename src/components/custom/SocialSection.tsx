@@ -51,17 +51,17 @@ const shareLinks = [
   {
     icon: Facebook,
     label: 'Facebook',
-    href: 'https://www.facebook.com/sharer/sharer.php?u=https://www.gabardo.com.br'
+    href: 'https://www.facebook.com/sharer/sharer.php?u=https://www.gabardo.com'
   },
   {
     icon: MessageCircle,
     label: 'WhatsApp',
-    href: 'https://api.whatsapp.com/send?text=Conheça%20as%20iniciativas%20da%20Gabardo:%20https://www.gabardo.com.br'
+    href: 'https://api.whatsapp.com/send?text=Conheça%20as%20iniciativas%20da%20Gabardo:%20https://www.gabardo.com'
   },
   {
     icon: Mail,
     label: 'E-mail',
-    href: 'mailto:?subject=Conheça%20a%20Gabardo&body=Veja%20como%20a%20Gabardo%20atua:%20https://www.gabardo.com.br'
+    href: 'mailto:?subject=Conheça%20a%20Gabardo&body=Veja%20como%20a%20Gabardo%20atua:%20https://www.gabardo.com'
   }
 ];
 
@@ -70,7 +70,7 @@ export default function SocialSection() {
 
   const copyLink = useCallback(() => {
     navigator.clipboard
-      .writeText('https://www.gabardo.com.br')
+      .writeText('https://www.gabardo.com')
       .then(() => {
         setCopied(true);
         window.setTimeout(() => setCopied(false), 3200);

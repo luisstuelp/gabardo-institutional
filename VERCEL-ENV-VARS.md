@@ -10,11 +10,11 @@ Copie e cole estas variáveis no Vercel Dashboard em **Settings → Environment 
 # Supabase Project URL
 NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
 
-# Supabase Anonymous Key (público)
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+# Supabase Publishable Key (público)
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<publishable-key-from-dashboard>
 
-# Supabase Service Role Key (privado - NÃO compartilhar)
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+# Supabase Secret Key (privado - NÃO compartilhar)
+SUPABASE_SECRET_KEY=<secret-key-from-dashboard>
 ```
 
 **Como obter:**
@@ -23,8 +23,8 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 3. Vá em **Settings → API**
 4. Copie:
    - **Project URL** → `NEXT_PUBLIC_SUPABASE_URL`
-   - **anon/public key** → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - **service_role key** → `SUPABASE_SERVICE_ROLE_KEY`
+   - **publishable key** → `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+   - **secret key** → `SUPABASE_SECRET_KEY`
 
 ---
 
@@ -107,8 +107,8 @@ vercel login
 
 # Adicionar variáveis
 vercel env add NEXT_PUBLIC_SUPABASE_URL
-vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY
-vercel env add SUPABASE_SERVICE_ROLE_KEY
+vercel env add NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+vercel env add SUPABASE_SECRET_KEY
 vercel env add NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET
 vercel env add ADMIN_SESSION_SECRET
 ```
@@ -121,7 +121,7 @@ Antes de fazer o deploy, confirme:
 
 - [ ] ✅ Todas as 5 variáveis obrigatórias foram adicionadas
 - [ ] ✅ `NEXT_PUBLIC_SUPABASE_URL` termina com `.supabase.co`
-- [ ] ✅ Keys do Supabase começam com `eyJ...`
+- [ ] ✅ As keys começam com `sb_publishable_` e `sb_secret_`, conforme o tipo
 - [ ] ✅ Bucket `content-images` existe e é público no Supabase
 - [ ] ✅ `ADMIN_SESSION_SECRET` tem pelo menos 32 caracteres
 - [ ] ✅ Variáveis aplicadas em **Production**, **Preview** e **Development**
@@ -131,13 +131,13 @@ Antes de fazer o deploy, confirme:
 ## 🔒 Segurança
 
 ### ⚠️ NUNCA COMPARTILHE:
-- ❌ `SUPABASE_SERVICE_ROLE_KEY`
+- ❌ `SUPABASE_SECRET_KEY`
 - ❌ `ADMIN_SESSION_SECRET`
 - ❌ Qualquer outra chave privada
 
 ### ✅ Pode ser público:
 - ✅ `NEXT_PUBLIC_SUPABASE_URL`
-- ✅ `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- ✅ `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - ✅ `NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET`
 
 **Regra**: Se começa com `NEXT_PUBLIC_`, é exposto no frontend.
@@ -192,11 +192,11 @@ Após adicionar as variáveis:
 
 ```bash
 # === OBRIGATÓRIO ===
-NEXT_PUBLIC_SUPABASE_URL=https://dtigmldicruaprczokii.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0aWdtbGRpY3J1YXByY3pva2lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA0MTY4MzYsImV4cCI6MjA0NTk5MjgzNn0.abc123...
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0aWdtbGRpY3J1YXByY3pva2lpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczMDQxNjgzNiwiZXhwIjoyMDQ1OTkyODM2fQ.xyz789...
+NEXT_PUBLIC_SUPABASE_URL=https://<project-ref>.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<key-copiada-do-dashboard-Supabase>
+SUPABASE_SECRET_KEY=<key-copiada-do-dashboard-Supabase>
 NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET=content-images
-ADMIN_SESSION_SECRET=a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6
+ADMIN_SESSION_SECRET=<segredo-aleatorio-longo>
 
 # === OPCIONAL ===
 EMAIL_SERVICE_URL=

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { createServerSupabaseClient } from '@/integrations/supabase/server';
 import { extractClientIp, logAdminAction } from '@/lib/adminAudit';
+import { readJsonBodyWithLimit, RequestBodyTooLargeError } from '@/lib/apiRateLimit';
 
 type RequestResetPayload = {
   email?: string;
@@ -9,7 +10,13 @@ type RequestResetPayload = {
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json().catch(() => null)) as RequestResetPayload | null;
+    let body: RequestResetPayload | null;
+    try {
+      body = await readJsonBodyWithLimit<RequestResetPayload>(request, 4 * 1024);
+    } catch (parseError) {
+      const status = parseError instanceof RequestBodyTooLargeError ? 413 : 400;
+      return NextResponse.json({ error: 'Informe um e-mail v\u00e1lido.' }, { status });
+    }
 
     if (!body || typeof body.email !== 'string' || body.email.trim().length === 0) {
       return NextResponse.json({ error: 'Informe um e-mail válido.' }, { status: 400 });

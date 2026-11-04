@@ -22,13 +22,13 @@ Hint: Double check your Supabase `anon` or `service_role` API key.
 
 ```bash
 # Project URL
-https://dtigmldicruaprczokii.supabase.co
+https://<project-ref>.supabase.co
 
-# anon key (público)
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0aWdtbGRpY3J1YXByY3pva2lpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA0MTY4MzYsImV4cCI6MjA0NTk5MjgzNn0...
+# publishable key (público)
+<key-copiada-do-dashboard-Supabase>
 
-# service_role key (privado)
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0aWdtbGRpY3J1YXByY3pva2lpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczMDQxNjgzNiwiZXhwIjoyMDQ1OTkyODM2fQ...
+# secret key (privado)
+<key-copiada-do-dashboard-Supabase>
 ```
 
 ---
@@ -43,19 +43,19 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0aWdtbGR
 
 #### Variável 1:
 - **Key**: `NEXT_PUBLIC_SUPABASE_URL`
-- **Value**: `https://dtigmldicruaprczokii.supabase.co` (seu project URL)
+- **Value**: `https://<project-ref>.supabase.co` (seu project URL)
 - **Environments**: ✓ Production ✓ Preview ✓ Development
 - Clique em **Save**
 
 #### Variável 2:
-- **Key**: `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- **Value**: Cole a anon key completa (começa com `eyJ...`)
+- **Key**: `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- **Value**: Cole a publishable key completa (começa com `sb_publishable_`)
 - **Environments**: ✓ Production ✓ Preview ✓ Development
 - Clique em **Save**
 
 #### Variável 3:
-- **Key**: `SUPABASE_SERVICE_ROLE_KEY`
-- **Value**: Cole a service_role key completa (começa com `eyJ...`)
+- **Key**: `SUPABASE_SECRET_KEY`
+- **Value**: Cole a secret key completa (começa com `sb_secret_`)
 - **Environments**: ✓ Production ✓ Preview ✓ Development
 - Clique em **Save**
 
@@ -190,9 +190,9 @@ import { fetchPostBySlugServer, fetchPublishedPostsServer } from '@/services/pos
 **Solução**: Adicione exatamente como mostrado acima
 
 ### "Unauthorized" após deploy
-**Causa**: Service role key incorreta
+**Causa**: Secret key incorreta
 **Solução**: 
-1. Verifique se copiou a **service_role** key (não a anon key)
+1. Verifique se copiou a **secret** key (não a publishable key)
 2. Verifique se não tem espaços extras
 
 ### Build funciona mas páginas não carregam
@@ -206,8 +206,8 @@ import { fetchPostBySlugServer, fetchPublishedPostsServer } from '@/services/pos
 Antes de redeploy, confirme:
 
 - [ ] `NEXT_PUBLIC_SUPABASE_URL` adicionada e termina com `.supabase.co`
-- [ ] `NEXT_PUBLIC_SUPABASE_ANON_KEY` adicionada e começa com `eyJ`
-- [ ] `SUPABASE_SERVICE_ROLE_KEY` adicionada e começa com `eyJ`
+- [ ] `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` adicionada e começa com `sb_publishable_`
+- [ ] `SUPABASE_SECRET_KEY` adicionada e começa com `sb_secret_`
 - [ ] `NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET` = `content-images`
 - [ ] `ADMIN_SESSION_SECRET` tem 32+ caracteres
 - [ ] Todas as variáveis aplicadas em Production, Preview e Development
@@ -222,8 +222,8 @@ No Vercel → Settings → Environment Variables, você deve ver:
 
 ```
 NEXT_PUBLIC_SUPABASE_URL              Production, Preview, Development
-NEXT_PUBLIC_SUPABASE_ANON_KEY         Production, Preview, Development
-SUPABASE_SERVICE_ROLE_KEY             Production, Preview, Development
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY         Production, Preview, Development
+SUPABASE_SECRET_KEY             Production, Preview, Development
 NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET   Production, Preview, Development
 ADMIN_SESSION_SECRET                  Production, Preview, Development
 ```

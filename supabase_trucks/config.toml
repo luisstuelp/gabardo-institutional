@@ -5,13 +5,13 @@
 # =============================================================================
 
 [project]
-id = "krdfzphthfapdphonivb"
+id = "dtigmldicruaprczokii"
 
 [api]
 enabled = true
 port = 54321
-schemas = ["public", "storage"]
-extra_search_path = ["public", "extensions"]
+schemas = ["trucks", "storage"]
+extra_search_path = ["trucks", "public", "extensions"]
 max_rows = 1000
 
 [db]
@@ -59,4 +59,4 @@ verify_jwt = true
 verify_jwt = true
 
 [functions.auth-operations]
-verify_jwt = false
+verify_jwt = true

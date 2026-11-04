@@ -6,6 +6,7 @@ import {
   type AdminRole,
 } from '@/lib/adminSession';
 import { createServerSupabaseClient } from '@/integrations/supabase/server';
+import { readJsonBodyWithLimit, RequestBodyTooLargeError } from '@/lib/apiRateLimit';
 
 type LoginPayload = {
   email?: string;
@@ -14,7 +15,13 @@ type LoginPayload = {
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json().catch(() => null)) as LoginPayload | null;
+    let body: LoginPayload | null;
+    try {
+      body = await readJsonBodyWithLimit<LoginPayload>(request, 4 * 1024);
+    } catch (parseError) {
+      const status = parseError instanceof RequestBodyTooLargeError ? 413 : 400;
+      return NextResponse.json({ error: 'Credenciais inv\u00e1lidas.' }, { status });
+    }
 
     if (!body || typeof body.email !== 'string' || typeof body.password !== 'string') {
       return NextResponse.json({ error: 'Credenciais inválidas.' }, { status: 400 });

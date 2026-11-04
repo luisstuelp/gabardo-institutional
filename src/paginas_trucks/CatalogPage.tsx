@@ -63,6 +63,7 @@ export default function CatalogPage() {
   );
 
   const totalCount = data?.pages[0]?.totalCount || 0;
+  const isConnectionError = error?.includes('conectar ao Supabase') ?? false;
 
   // Favorites
   const { toggleFavorite, isFavorite } = useFavorites();
@@ -228,8 +229,14 @@ export default function CatalogPage() {
                 <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-red-50 flex items-center justify-center">
                   <Truck className="h-8 w-8 text-red-400" />
                 </div>
-                <p className="text-red-600 font-medium">Erro ao carregar veículos.</p>
-                <p className="text-slate-500 text-sm mt-1">Por favor, tente novamente.</p>
+                <p className="text-red-600 font-medium">
+                  {isConnectionError ? 'Sem conexão com o catálogo.' : 'Erro ao carregar veículos.'}
+                </p>
+                <p className="text-slate-500 text-sm mt-1">
+                  {isConnectionError
+                    ? 'Verifique se a URL do projeto Supabase está ativa e acessível.'
+                    : 'Por favor, tente novamente.'}
+                </p>
               </div>
             )}
 

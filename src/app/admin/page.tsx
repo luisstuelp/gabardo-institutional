@@ -124,6 +124,26 @@ export default async function AdminDashboardPage() {
               </Button>
             </div>
           </div>
+          <div className="rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur-xl">
+            <h2 className="text-xl font-semibold text-white">Anúncios</h2>
+            <p className="mt-2 text-sm text-white/60">
+              Gerencie os anúncios de veículos.
+            </p>
+            <div className="mt-4 flex gap-3">
+              <Button asChild>
+                <Link href="admin/caminhoes">Gerenciar anúncios</Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="border-gabardo-light-blue/40 text-white transition-colors hover:border-gabardo-light-blue/70 hover:bg-gabardo-light-blue/20 hover:text-white"
+              >
+                <Link href="/caminhoes" target="_blank" rel="noreferrer">
+                  Ver página pública
+                </Link>
+              </Button>
+            </div>
+          </div>
         </section>
       </div>
     </AdminDashboardShell>
