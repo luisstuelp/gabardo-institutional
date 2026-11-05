@@ -33,7 +33,7 @@ interface FullScreenNavProps {
   quickPortalLinks?: QuickPortalLink[];
 }
 
-const ANIMATION_DURATION = 800;
+const ANIMATION_DURATION = 100;
 
 const BLUR_DATA_URL =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4z/C/HwAFgwJ/mi3c9wAAAABJRU5ErkJggg==';
@@ -60,7 +60,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -87,7 +87,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
     } else {
       document.body.style.overflow = 'auto';
     }
-    
+
     return () => {
       document.body.style.overflow = 'auto';
     };
@@ -97,7 +97,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
     if (!isOpen) return;
     const slideInterval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
-    }, 3500);
+    }, 5500);
 
     return () => clearInterval(slideInterval);
   }, [isOpen]);
@@ -215,7 +215,7 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: -30 }}
-        transition={{ duration: 0.4 }}
+
       >
         <button onClick={() => setActiveSubMenu(null)} className="flex items-center text-white/70 hover:text-white mb-4">
           <ChevronLeft size={16} className="mr-2" />
@@ -227,10 +227,10 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
               key={subItem.id}
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 + (index * 0.1) }}
+              transition={{ delay: 0.1 + (index * 0.1) }}
               className="group"
             >
-              <Link 
+              <Link
                 href={subItem.href}
                 onClick={onClose}
                 className="flex items-center justify-between py-2 md:py-3 text-white hover-blue-80 transition-all duration-500 touch-manipulation"
@@ -238,9 +238,9 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
                 <span className="text-lg md:text-xl lg:text-2xl font-light tracking-tight">
                   {subItem.label}
                 </span>
-                <ChevronRight 
-                  size={isMobile ? 16 : 20} 
-                  className="opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex-shrink-0 ml-3 text-blue-bright" 
+                <ChevronRight
+                  size={isMobile ? 16 : 20}
+                  className="opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-all  flex-shrink-0 ml-3 text-blue-bright"
                 />
               </Link>
             </motion.div>
@@ -257,12 +257,12 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ ease: [0.25, 0.46, 0.45, 0.94] }}
           className="fixed inset-0 z-50 font-['Inter',_sans-serif] min-h-[100vh] min-h-[100svh] overflow-hidden overscroll-none"
           style={{ minHeight: '100dvh' }}
         >
           <div className="absolute inset-0 bg-gradient-to-br from-[#0b1627]/85 via-[#0c1f3d]/80 to-[#06101f]/85" />
-          <div className="absolute inset-0 bg-black/55 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-black/55" />
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0"
             style={{
@@ -275,20 +275,20 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.4, delay: 0.15 }}
+            transition={{ delay: 0.15 }}
             className="fixed inset-x-0 top-0 z-[60] pointer-events-none"
           >
             <div className="section-container flex justify-end py-3 sm:py-3.5">
               <button
                 onClick={onClose}
-                className="pointer-events-auto group relative inline-flex h-10 w-10 lg:h-[2.2rem] lg:w-[2.2rem] items-center justify-center rounded-full border border-white/30 bg-black/25 backdrop-blur-sm text-white transition-all duration-300 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60"
+                className="pointer-events-auto group relative inline-flex h-10 w-10 lg:h-[2.2rem] lg:w-[2.2rem] items-center justify-center rounded-full border border-white/30 bg-black/25 text-white transition-all  hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60"
                 aria-label="Close menu"
               >
                 <span
-                  className="absolute inset-0 rounded-full bg-gradient-to-br from-transparent via-transparent to-white/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  className="absolute inset-0 rounded-full bg-gradient-to-br from-transparent via-transparent to-white/20 opacity-0 transition-opacity group-hover:opacity-100"
                   aria-hidden
                 />
-                <X size={20} className="transition-transform duration-300 group-hover:rotate-90" />
+                <X size={20} className="transition-transform  group-hover:rotate-90" />
               </button>
             </div>
           </motion.div>
@@ -298,13 +298,13 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
               initial={{ x: -100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -100, opacity: 0 }}
-              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="w-full md:w-3/5 lg:w-1/2 h-full flex flex-col justify-start pt-6 md:pt-8 p-4 md:p-8 lg:p-10 overflow-y-auto"
+              transition={{ ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="w-full md:w-3/5 lg:w-1/2 h-full flex flex-col justify-start pt-6 md:pt-8 p-4 md:p-8 lg:p-10 overflow-y-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ delay: 0.2 }}
                 className="mb-6 md:mb-8 mt-2 md:mt-0 px-3 md:px-2"
               >
                 <Link href="/" onClick={onClose} className="inline-block w-full">
@@ -342,9 +342,8 @@ const FullScreenNav: React.FC<FullScreenNavProps> = ({
               {SLIDES.map((slide, index) => (
                 <div
                   key={slide.id}
-                  className={`absolute inset-0 transition-opacity duration-[1200ms] ${
-                    index === currentSlide ? 'opacity-100' : 'opacity-0'
-                  }`}
+                  className={`absolute inset-0 transition-opacity duration-[1200ms] ${index === currentSlide ? 'opacity-100' : 'opacity-0'
+                    }`}
                   aria-hidden={index !== currentSlide}
                 >
                   <Image

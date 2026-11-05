@@ -35,11 +35,11 @@ enabled = true
 site_url = "http://localhost:8080"
 additional_redirect_urls = ["https://localhost:8080"]
 jwt_expiry = 3600
-enable_signup = true
+enable_signup = false
 enable_anonymous_sign_ins = false
 
 [auth.email]
-enable_signup = true
+enable_signup = false
 double_confirm_changes = true
 enable_confirmations = false
 otp_length = 6

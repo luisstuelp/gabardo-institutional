@@ -23,7 +23,6 @@ export { PRICE_RANGES, YEAR_RANGES, BRANDS, COMPANY_INFO, STATS } from './databa
 export type {
     AuthContextType,
     AuthResult,
-    SignUpPayload,
     SignInPayload,
     AuthState,
 } from './auth';

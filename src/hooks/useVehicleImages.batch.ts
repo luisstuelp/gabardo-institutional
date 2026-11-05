@@ -11,7 +11,8 @@ async function fetchPrimaryImagesForVehicles(vehicleIds: string[]): Promise<Reco
     .from('vehicle_images')
     .select('*')
     .in('vehicle_id', vehicleIds)
-    .eq('is_primary', true);
+    .order('is_primary', { ascending: false })
+    .order('display_order', { ascending: true });
 
   if (error) {
     console.error('Error fetching vehicle images:', error);
@@ -20,7 +21,9 @@ async function fetchPrimaryImagesForVehicles(vehicleIds: string[]): Promise<Reco
 
   const imageMap: Record<string, VehicleImage> = {};
   data?.forEach((img) => {
-    imageMap[img.vehicle_id] = img as VehicleImage;
+    if (!imageMap[img.vehicle_id]) {
+      imageMap[img.vehicle_id] = img as VehicleImage;
+    }
   });
 
   return imageMap;

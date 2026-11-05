@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useVehicle, useVehicles } from '@/hooks/useVehicles';
 import { useVehicleImages } from '@/hooks/useVehicleImages';
+import { useVehicleImagesBatch } from '@/hooks/useVehicleImages.batch';
 import { useBranch } from '@/hooks/useBranches';
 import { formatPrice, formatMileage, formatYear, getFuelLabel, getTransmissionLabel } from '@/lib/format';
 import { VehicleCard } from '@/components/vehicles/VehicleCard';
@@ -21,9 +22,13 @@ import { Vehicle } from '@/types/database';
 export default function VehicleDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const { data: vehicle, isLoading } = useVehicle(slug || '');
-  const { data: images } = useVehicleImages(vehicle?.id || '');
+  const { data: images, isLoading: areImagesLoading } = useVehicleImages(vehicle?.id || '');
   const { data: branch } = useBranch(vehicle?.branch_id || '');
   const { data: relatedVehicles } = useVehicles({ brand: vehicle?.brand });
+  const relatedVehicleIds = vehicle
+    ? relatedVehicles?.filter((relatedVehicle) => relatedVehicle.id !== vehicle.id).slice(0, 3).map((relatedVehicle) => relatedVehicle.id) ?? []
+    : [];
+  const { data: relatedImages = {}, isLoading: areRelatedImagesLoading } = useVehicleImagesBatch(relatedVehicleIds);
 
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -94,7 +99,12 @@ export default function VehicleDetailPage() {
           <div className="lg:col-span-2 space-y-6">
             {/* Image Gallery */}
             <div className="bg-white rounded-xl overflow-hidden border border-slate-200">
-              <ImageGallery images={images || []} title={vehicle.title} />
+              <ImageGallery
+                key={vehicle.id}
+                images={images || []}
+                title={vehicle.title}
+                isLoading={areImagesLoading}
+              />
             </div>
 
             {/* Title and Badges (Mobile) */}
@@ -327,8 +337,14 @@ export default function VehicleDetailPage() {
           <section className="mt-12 pb-32 lg:pb-8">
             <h2 className="text-xl font-bold font-montserrat text-slate-900 mb-6">Veículos Relacionados</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {filteredRelated.map((v) => (
-                <VehicleCard key={v.id} vehicle={v} />
+              {filteredRelated.map((relatedVehicle) => (
+                <VehicleCard
+                  key={relatedVehicle.id}
+                  vehicle={relatedVehicle}
+                  image={relatedImages[relatedVehicle.id]}
+                  showPhotoLoader
+                  isPhotoSourceLoading={areRelatedImagesLoading}
+                />
               ))}
             </div>
           </section>

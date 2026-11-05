@@ -251,7 +251,7 @@ function Tabs({
   return (
     <div 
       id="timeline-tabs"
-      className="sticky md:top-12 z-50 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gabardo-blue/10 transition-all duration-300 shadow-sm"
+      className="sticky md:top-12 z-50 left-0 right-0 bg-white/95 border-b border-gabardo-blue/10 transition-all duration-300 shadow-sm" {/*backdrop-blur-md*/}
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full py-2 sm:py-0">
         <div className="relative h-full overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory">

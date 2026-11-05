@@ -31,7 +31,7 @@ export const store = configureStore({
         getDefaultMiddleware({
             // Supabase User/Session objects are not serializable
             serializableCheck: {
-                ignoredActions: ['auth/setSession', 'auth/signIn/fulfilled', 'auth/signUp/fulfilled'],
+                ignoredActions: ['auth/setSession', 'auth/signIn/fulfilled'],
                 ignoredPaths: ['auth.user', 'auth.session'],
             },
         }),

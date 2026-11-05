@@ -33,23 +33,6 @@ export const signIn = createAsyncThunk(
     }
 );
 
-/** Async thunk: Sign up with email/password/name */
-export const signUp = createAsyncThunk(
-    'auth/signUp',
-    async (
-        { email, password, fullName }: { email: string; password: string; fullName: string },
-        { rejectWithValue }
-    ) => {
-        logger.info('Dispatching signUp', { email, fullName });
-        const result = await authApi.signUp(email, password, fullName);
-        if (result.error) {
-            logger.error('signUp failed', new Error(result.error.message));
-            return rejectWithValue(result.error.message);
-        }
-        return result.data;
-    }
-);
-
 /** Async thunk: Sign out */
 export const signOut = createAsyncThunk(
     'auth/signOut',
@@ -122,23 +105,6 @@ const authSlice = createSlice({
                 state.isAuthenticated = !!action.payload?.user;
             })
             .addCase(signIn.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload as string;
-            });
-
-        // signUp
-        builder
-            .addCase(signUp.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-            })
-            .addCase(signUp.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.user = action.payload?.user ?? null;
-                state.session = action.payload?.session ?? null;
-                state.isAuthenticated = !!action.payload?.user;
-            })
-            .addCase(signUp.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload as string;
             });

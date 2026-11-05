@@ -19,7 +19,7 @@ export default function NotFoundPage() {
         <div className="absolute inset-0 bg-[#132D51]/35" aria-hidden="true" />
 
         <div className="relative z-10 max-w-3xl text-center text-white" style={{ textShadow: "0 18px 32px rgba(0,0,0,0.45)" }}>
-          <div className="mb-6 inline-flex items-center rounded-full border border-white/30 bg-white/10 px-5 py-2.5 backdrop-blur">
+          <div className="mb-6 inline-flex items-center rounded-full border border-white/30 bg-white/10 px-5 py-2.5 backdrop-blur"> 
             <Sparkles className="mr-3 h-5 w-5" />
             <span className="text-sm md:text-base font-semibold uppercase tracking-[0.45em]">Erro 404</span>
           </div>

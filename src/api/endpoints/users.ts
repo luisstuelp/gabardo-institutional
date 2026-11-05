@@ -4,7 +4,7 @@
  */
 import { getApiClient } from '../client';
 import { createLogger } from '@/lib/logger';
-import type { UserProfile, UserRole, AppRole } from '@/types/database';
+import type { UserProfile, AppRole } from '@/types/database';
 import type { ApiResponse } from '@/types/api';
 
 const logger = createLogger('UsersAPI');
@@ -21,24 +21,32 @@ export async function getUsers(): Promise<ApiResponse<AdminUser[]>> {
     return client.query<AdminUser[]>('getUsers', async () => {
         const supabase = client.getSupabaseClient();
 
-        // Fetch profiles and roles
-        // We assume 1:1 or 1:Many interaction. For simplicity, we take the first role or default to 'user'.
-        const { data, error } = await supabase
-            .from('user_profiles')
-            .select(`
-                *,
-                user_roles (
-                    role
-                )
-            `)
-            .order('created_at', { ascending: false });
+        // These tables both reference auth.users, but there is no direct
+        // foreign key between user_profiles and user_roles for PostgREST to embed.
+        const [profilesResult, rolesResult] = await Promise.all([
+            supabase
+                .from('user_profiles')
+                .select('*')
+                .order('created_at', { ascending: false }),
+            supabase
+                .from('user_roles')
+                .select('user_id, role'),
+        ]);
 
-        if (error) return { data: null, error };
+        if (profilesResult.error) return { data: null, error: profilesResult.error };
+        if (rolesResult.error) return { data: null, error: rolesResult.error };
 
-        // Flatten data
-        const adminUsers: AdminUser[] = data.map((profile: any) => ({
+        const rolesByUserId = new Map<string, AppRole>();
+        for (const roleRow of rolesResult.data ?? []) {
+            const currentRole = rolesByUserId.get(roleRow.user_id);
+            if (!currentRole || roleRow.role === 'admin') {
+                rolesByUserId.set(roleRow.user_id, roleRow.role as AppRole);
+            }
+        }
+
+        const adminUsers: AdminUser[] = (profilesResult.data ?? []).map((profile) => ({
             ...profile,
-            role: profile.user_roles?.[0]?.role || 'user', // Default to 'user' if no role found
+            role: rolesByUserId.get(profile.user_id) ?? 'user',
         }));
 
         return { data: adminUsers, error: null };

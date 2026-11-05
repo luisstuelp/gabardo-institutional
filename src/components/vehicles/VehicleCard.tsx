@@ -4,26 +4,47 @@ import { Button } from '@/components/ui/button_trucks';
 import { cn } from '@/lib/utils';
 import { Vehicle, VehicleImage } from '@/types/database';
 import { formatPrice, formatMileage, formatYear, getFuelLabel } from '@/lib/format';
+import { VehiclePhoto } from '@/components/vehicles/VehiclePhoto';
 
 interface VehicleCardProps {
   vehicle: Vehicle;
   image?: VehicleImage;
   onFavorite?: (id: string) => void;
   isFavorite?: boolean;
+  showPhotoLoader?: boolean;
+  isPhotoSourceLoading?: boolean;
 }
 
-export function VehicleCard({ vehicle, image, onFavorite, isFavorite }: VehicleCardProps) {
-  const imageUrl = image?.url || 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800';
+export function VehicleCard({
+  vehicle,
+  image,
+  onFavorite,
+  isFavorite,
+  showPhotoLoader = false,
+  isPhotoSourceLoading = false,
+}: VehicleCardProps) {
+  const fallbackImageUrl = 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800';
+  const imageUrl = image?.url || (showPhotoLoader ? undefined : fallbackImageUrl);
 
   return (
     <div className="group bg-white rounded-xl overflow-hidden border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
       {/* Image Container */}
       <div className="relative aspect-[4/3] overflow-hidden">
-        <img
-          src={imageUrl}
-          alt={vehicle.title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+        {showPhotoLoader ? (
+          <VehiclePhoto
+            key={`${vehicle.id}:${imageUrl ?? 'empty'}`}
+            src={imageUrl}
+            alt={vehicle.title}
+            isLoading={isPhotoSourceLoading}
+            className="h-full w-full transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <img
+            src={imageUrl}
+            alt={vehicle.title}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        )}
 
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-2">

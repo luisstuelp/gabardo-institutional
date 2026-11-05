@@ -38,35 +38,6 @@ export async function signIn(
     });
 }
 
-/** POST /auth/signup — Sign up with email, password, and full name */
-export async function signUp(
-    email: string,
-    password: string,
-    fullName: string
-): Promise<ApiResponse<SessionData>> {
-    const client = getApiClient();
-    logger.info('Signing up user', { email, fullName });
-
-    const redirectUrl = `${window.location.origin}/`;
-
-    return client.query<SessionData>('signUp', async () => {
-        const supabase = client.getSupabaseClient();
-        const { data, error } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-                emailRedirectTo: redirectUrl,
-                data: { full_name: fullName },
-            },
-        });
-
-        return {
-            data: data ? { user: data.user, session: data.session } : null,
-            error: error ? { message: error.message, code: error.status?.toString() ?? 'AUTH_ERROR' } : null,
-        };
-    });
-}
-
 /** POST /auth/signout — Sign out the current user */
 export async function signOut(): Promise<ApiResponse<null>> {
     const client = getApiClient();

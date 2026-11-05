@@ -131,7 +131,7 @@ export default async function AdminDashboardPage() {
             </p>
             <div className="mt-4 flex gap-3">
               <Button asChild>
-                <Link href="admin/caminhoes">Gerenciar anúncios</Link>
+                <Link href="/admin/caminhoes">Gerenciar anúncios</Link>
               </Button>
               <Button
                 asChild

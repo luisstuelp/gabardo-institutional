@@ -10,7 +10,6 @@ export interface AuthContextType {
     session: Session | null;
     isLoading: boolean;
     signIn: (email: string, password: string) => Promise<AuthResult>;
-    signUp: (email: string, password: string, fullName: string) => Promise<AuthResult>;
     signOut: () => Promise<void>;
     changePassword: (newPassword: string) => Promise<AuthResult>;
     resetPasswordForEmail: (email: string) => Promise<AuthResult>;
@@ -19,13 +18,6 @@ export interface AuthContextType {
 /** Standard return shape for auth operations */
 export interface AuthResult {
     error: Error | null;
-}
-
-/** Payload sent when signing up */
-export interface SignUpPayload {
-    email: string;
-    password: string;
-    fullName: string;
 }
 
 /** Payload sent when signing in */
