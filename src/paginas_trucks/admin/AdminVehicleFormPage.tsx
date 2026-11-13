@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useParams, useNavigate } from '@/lib/next-router-compat';
 import { useAdminVehicle, useAdminVehicleMutations } from '@/hooks/useAdminVehicles';
 import { VehicleForm, VehicleFormValues } from '@/components/admin/vehicles/VehicleForm';
@@ -22,7 +21,7 @@ export default function AdminVehicleFormPage() {
             if (isEditing && id) {
                 await updateVehicle({ id, data });
                 if (files && files.length > 0) {
-                    await uploadVehicleImages(id, files);
+                    await uploadVehicleImages(id, files, data.listing_type);
                 }
             } else {
                 const newVehicle = await createVehicle(data);
@@ -30,7 +29,7 @@ export default function AdminVehicleFormPage() {
                     throw new Error('Veiculo nao foi criado.');
                 }
                 if (files && files.length > 0) {
-                    await uploadVehicleImages(newVehicle.id, files);
+                    await uploadVehicleImages(newVehicle.id, files, data.listing_type);
                 }
                 // Redirect to edit mode to upload images
                 navigate(`/admin/veiculos/veiculos/${newVehicle.id}`, { replace: true });
@@ -81,7 +80,7 @@ export default function AdminVehicleFormPage() {
                             <CardTitle>Galeria de Imagens</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <VehicleImageManager vehicleId={id} />
+                            <VehicleImageManager vehicleId={id} listingType={vehicle?.listing_type ?? 'truck'} />
                         </CardContent>
                     </Card>
                 )}

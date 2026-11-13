@@ -5,7 +5,16 @@ import { cookies } from 'next/headers';
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from '@/integrations/supabase_trucks/types';
 
-const scrypt = promisify(scryptCallback);
+const scrypt = promisify(scryptCallback) as (
+  password: string | Buffer,
+  salt: string | Buffer,
+  keylen: number,
+  options: {
+    N: number;
+    r: number;
+    p: number;
+  }
+) => Promise<Buffer>;
 
 export const TRUCKS_USER_COOKIE_NAME = 'gabardo_trucks_user_session';
 export const TRUCKS_USER_SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;

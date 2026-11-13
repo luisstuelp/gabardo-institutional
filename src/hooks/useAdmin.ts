@@ -15,6 +15,6 @@ export function useAdmin() {
 
     return {
         isAdmin: !!isAdmin,
-        isLoading: isAdminLoading || isAdminFetching,
+        isLoading: isAdminLoading,
     };
 }

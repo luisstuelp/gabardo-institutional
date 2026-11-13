@@ -395,6 +395,82 @@ export type Database = {
           },
         ]
       }
+      generic_vehicle_images: {
+        Row: {
+          alt: string | null
+          created_at: string
+          display_order: number
+          id: string
+          is_primary: boolean
+          url: string
+          vehicle_id: string
+        }
+        Insert: {
+          alt?: string | null
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_primary?: boolean
+          url: string
+          vehicle_id: string
+        }
+        Update: {
+          alt?: string | null
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_primary?: boolean
+          url?: string
+          vehicle_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "generic_vehicle_images_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "generic_vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      equipment_images: {
+        Row: {
+          alt: string | null
+          created_at: string
+          display_order: number
+          id: string
+          is_primary: boolean
+          url: string
+          vehicle_id: string
+        }
+        Insert: {
+          alt?: string | null
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_primary?: boolean
+          url: string
+          vehicle_id: string
+        }
+        Update: {
+          alt?: string | null
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_primary?: boolean
+          url?: string
+          vehicle_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "equipment_images_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "equipment"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       vehicles: {
         Row: {
           axle_config: string | null

@@ -165,6 +165,7 @@ export const YEAR_RANGES = [
 // Brands
 export const BRANDS = [
   { name: 'Volvo', logo: '/brands/volvo.svg' },
+  { name: 'Chevrolet', logo: '/brands/volvo.svg' },
   { name: 'Scania', logo: '/brands/scania.svg' },
   { name: 'Mercedes-Benz', logo: '/brands/mercedes.svg' },
   { name: 'Hyundai', logo: '/brands/hyundai.svg' },

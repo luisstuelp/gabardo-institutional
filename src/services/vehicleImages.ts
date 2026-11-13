@@ -1,17 +1,18 @@
 
 import { supabase } from '@/integrations/supabase_trucks/client';
+import type { ListingType } from '@/types/database';
 
-/**
- * Uploads multiple images for a specific vehicle.
- * 1. Uploads file to Supabase Storage 'vehicles' bucket.
- * 2. Inserts record into 'vehicle_images' table.
- */
-export async function uploadVehicleImages(vehicleId: string, files: File[]) {
+export async function uploadVehicleImages(vehicleId: string, files: File[], listingType: ListingType) {
     const results = [];
+    const table =
+        listingType === 'truck'
+            ? 'vehicle_images'
+            : listingType === 'equipment'
+                ? 'equipment_images'
+                : 'generic_vehicle_images';
 
-    // Get current max display_order
     const { data: existingImages } = await supabase
-        .from('vehicle_images')
+        .from(table)
         .select('display_order')
         .eq('vehicle_id', vehicleId)
         .order('display_order', { ascending: false })
@@ -39,7 +40,7 @@ export async function uploadVehicleImages(vehicleId: string, files: File[]) {
             // 3. Insert into Table
             startOrder++;
             const { data: imageRecord, error: dbError } = await supabase
-                .from('vehicle_images')
+                .from(table)
                 .insert({
                     vehicle_id: vehicleId,
                     url: publicUrl,

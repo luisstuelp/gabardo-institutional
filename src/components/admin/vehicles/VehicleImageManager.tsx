@@ -5,21 +5,29 @@ import { Button } from '@/components/ui/button_trucks';
 import { Input } from '@/components/ui/input';
 import { Loader2, Trash2, Star, Upload } from 'lucide-react';
 import { toast } from 'sonner';
+import type { ListingType } from '@/types/database';
 
 interface VehicleImageManagerProps {
     vehicleId: string;
+    listingType: ListingType;
 }
 
-export function VehicleImageManager({ vehicleId }: VehicleImageManagerProps) {
+export function VehicleImageManager({ vehicleId, listingType }: VehicleImageManagerProps) {
     const queryClient = useQueryClient();
     const [uploading, setUploading] = useState(false);
+    const table =
+        listingType === 'truck'
+            ? 'vehicle_images'
+            : listingType === 'equipment'
+                ? 'equipment_images'
+                : 'generic_vehicle_images';
 
     // Fetch images
     const { data: images, isLoading } = useQuery({
-        queryKey: ['admin-vehicle-images', vehicleId],
+        queryKey: ['admin-vehicle-images', listingType, vehicleId],
         queryFn: async () => {
             const { data, error } = await supabase
-                .from('vehicle_images')
+                .from(table)
                 .select('*')
                 .eq('vehicle_id', vehicleId)
                 .order('display_order', { ascending: true });
@@ -53,7 +61,7 @@ export function VehicleImageManager({ vehicleId }: VehicleImageManagerProps) {
 
                 // 3. Insert into Table
                 const { error: dbError } = await supabase
-                    .from('vehicle_images')
+                    .from(table)
                     .insert({
                         vehicle_id: vehicleId,
                         url: publicUrl,
@@ -65,7 +73,7 @@ export function VehicleImageManager({ vehicleId }: VehicleImageManagerProps) {
             }
 
             toast.success('Imagens enviadas com sucesso!');
-            queryClient.invalidateQueries({ queryKey: ['admin-vehicle-images', vehicleId] });
+            queryClient.invalidateQueries({ queryKey: ['admin-vehicle-images', listingType, vehicleId] });
         } catch (error) {
             console.error('Upload error:', error);
             toast.error('Erro ao enviar imagem. Verifique se o bucket "vehicles" existe e é público.');
@@ -79,12 +87,12 @@ export function VehicleImageManager({ vehicleId }: VehicleImageManagerProps) {
     // Delete mutation
     const deleteImage = useMutation({
         mutationFn: async (imageId: string) => {
-            const { error } = await supabase.from('vehicle_images').delete().eq('id', imageId);
+            const { error } = await supabase.from(table).delete().eq('id', imageId);
             if (error) throw error;
         },
         onSuccess: () => {
             toast.success('Imagem removida');
-            queryClient.invalidateQueries({ queryKey: ['admin-vehicle-images', vehicleId] });
+            queryClient.invalidateQueries({ queryKey: ['admin-vehicle-images', listingType, vehicleId] });
         }
     });
 
@@ -92,14 +100,14 @@ export function VehicleImageManager({ vehicleId }: VehicleImageManagerProps) {
     const setPrimary = useMutation({
         mutationFn: async (imageId: string) => {
             // 1. Reset all to false
-            await supabase.from('vehicle_images').update({ is_primary: false }).eq('vehicle_id', vehicleId);
+            await supabase.from(table).update({ is_primary: false }).eq('vehicle_id', vehicleId);
             // 2. Set target to true
-            const { error } = await supabase.from('vehicle_images').update({ is_primary: true }).eq('id', imageId);
+            const { error } = await supabase.from(table).update({ is_primary: true }).eq('id', imageId);
             if (error) throw error;
         },
         onSuccess: () => {
             toast.success('Imagem principal definida');
-            queryClient.invalidateQueries({ queryKey: ['admin-vehicle-images', vehicleId] });
+            queryClient.invalidateQueries({ queryKey: ['admin-vehicle-images', listingType, vehicleId] });
         }
     });
 

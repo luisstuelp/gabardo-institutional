@@ -129,7 +129,11 @@ export function VehicleForm({ initialData, onSubmit, isLoading }: VehicleFormPro
                         <FormItem>
                             <FormLabel>Tipo de anúncio</FormLabel>
                             <Select onValueChange={field.onChange} value={field.value}>
-                                <FormControl><SelectTrigger><SelectValue placeholder="Selecione o tipo" /></SelectTrigger></FormControl>
+                                <FormControl>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Selecione o tipo" />
+                                    </SelectTrigger>
+                                </FormControl>
                                 <SelectContent>
                                     <SelectItem value="truck">Caminhão</SelectItem>
                                     <SelectItem value="vehicle">Veículo genérico (carro, moto, trator etc.)</SelectItem>
@@ -188,12 +192,12 @@ export function VehicleForm({ initialData, onSubmit, isLoading }: VehicleFormPro
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Marca</FormLabel>
-                                    {form.watch('listing_type') === 'truck' ? (
-                                        <Select onValueChange={field.onChange} value={field.value}>
-                                            <FormControl><SelectTrigger><SelectValue placeholder="Selecione" /></SelectTrigger></FormControl>
-                                            <SelectContent>{BRANDS.map((brand) => <SelectItem key={brand.name} value={brand.name}>{brand.name}</SelectItem>)}</SelectContent>
-                                        </Select>
-                                    ) : <FormControl><Input placeholder="Marca (opcional para equipamento)" {...field} /></FormControl>}
+                                        {form.watch('listing_type') === 'truck' ? (
+                                            <Select onValueChange={field.onChange} value={field.value}>
+                                                <FormControl><SelectTrigger><SelectValue placeholder="Selecione" /></SelectTrigger></FormControl>
+                                                <SelectContent>{BRANDS.map((brand) => <SelectItem key={brand.name} value={brand.name}>{brand.name}</SelectItem>)}</SelectContent>
+                                            </Select>
+                                        ) : <FormControl><Input placeholder="Marca (opcional para equipamento)" {...field} /></FormControl>}
                                         <FormMessage />
                                     </FormItem>
                                 )}
