@@ -98,9 +98,9 @@ const pillars = [
     title: 'Segurança em Primeiro Lugar',
     description:
       'Checklists eletrônicos, telemetria 24/7 e protocolos certificados reduzem ocorrências viárias abaixo da média setorial.',
-    stats: '0,30%',
-    statsLabel: 'Índice anual de avarias gerais',
-    statsUnit: 'Indicador',
+    stats: '',
+    statsLabel: '',
+    statsUnit: '',
   },
 ];
 

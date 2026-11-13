@@ -40,7 +40,7 @@ const vehicleSchema = z.object({
     year_manufacture: z.coerce.number().min(1900).max(new Date().getFullYear() + 1),
     year_model: z.coerce.number().min(1900).max(new Date().getFullYear() + 1),
     mileage: z.coerce.number().min(0),
-    fuel: z.enum(['diesel', 'gas', 'electric', 'hybrid']),
+    fuel: z.enum(['diesel', 'gas', 'electric', 'hybrid', 'flex']),
     transmission: z.enum(['manual', 'automatic', 'automated']),
     axle_config: z.string().optional(),
     color: z.string().optional(),
@@ -121,7 +121,13 @@ export function VehicleForm({ initialData, onSubmit, isLoading }: VehicleFormPro
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit((data) => onSubmit(data, selectedFiles))} className="space-y-8">
+            <form
+                onSubmit={form.handleSubmit(async (data) => {
+                    await onSubmit(data, selectedFiles);
+                    form.reset();
+                    setSelectedFiles([]);
+                })}
+                className="space-y-8">
                 <FormField
                     control={form.control}
                     name="listing_type"
@@ -291,6 +297,7 @@ export function VehicleForm({ initialData, onSubmit, isLoading }: VehicleFormPro
                                                 <SelectItem value="gas">Gás</SelectItem>
                                                 <SelectItem value="electric">Elétrico</SelectItem>
                                                 <SelectItem value="hybrid">Híbrido</SelectItem>
+                                                <SelectItem value="flex">Flex</SelectItem>
                                             </SelectContent>
                                         </Select>
                                         <FormMessage />

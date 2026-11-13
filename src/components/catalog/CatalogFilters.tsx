@@ -48,6 +48,186 @@ const TRANSMISSION_OPTIONS = [
   { value: 'automated', label: 'Automatizado' },
 ];
 
+interface FilterSectionProps {
+  title: string;
+  sectionKey: string;
+  openSections: Record<string, boolean>;
+  toggleSection: (section: string) => void;
+  children: React.ReactNode;
+}
+
+const FilterSection = ({
+  title,
+  sectionKey,
+  openSections,
+  toggleSection,
+  children,
+}: FilterSectionProps) => (
+  <Collapsible open={openSections[sectionKey]} onOpenChange={() => toggleSection(sectionKey)}>
+    <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-sm font-semibold text-foreground hover:text-primary transition-colors">
+      {title}
+      <ChevronDown
+        className={cn(
+          'h-4 w-4 transition-transform duration-200',
+          openSections[sectionKey] && 'rotate-180'
+        )}
+      />
+    </CollapsibleTrigger>
+    <CollapsibleContent className="pb-4 space-y-3">{children}</CollapsibleContent>
+  </Collapsible>
+);
+
+interface FilterContentProps {
+  localFilters: VehicleFilters;
+  openSections: Record<string, boolean>;
+  handleFilterChange: (key: keyof VehicleFilters, value: VehicleFilters[keyof VehicleFilters]) => void;
+  toggleSection: (section: string) => void;
+}
+
+const FilterContent = ({
+  localFilters,
+  openSections,
+  handleFilterChange,
+  toggleSection,
+}: FilterContentProps) => (
+  <div className="space-y-1 divide-y divide-border">
+    {/* Marca */}
+    <FilterSection title="Marca" sectionKey="brand" openSections={openSections} toggleSection={toggleSection}>
+      <Select
+        value={localFilters.brand || ''}
+        onValueChange={(value) => handleFilterChange('brand', value)}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Selecione a marca" />
+        </SelectTrigger>
+        <SelectContent>
+          {BRANDS.map((brand) => (
+            <SelectItem key={brand.name} value={brand.name}>
+              {brand.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </FilterSection>
+
+    {/* Preço */}
+    <FilterSection title="Faixa de Preço" sectionKey="price" openSections={openSections} toggleSection={toggleSection}>
+      <div className="gap-2">
+        <div>
+          <Label className="text-xs text-muted-foreground">Preço desejado</Label>
+
+          <Select
+            value={
+              PRICE_RANGES.find(
+                (price) =>
+                  price.min === localFilters.priceMin &&
+                  (price.max ?? undefined) === (localFilters.priceMax ?? undefined))?.min.toString() || ''
+            }
+            onValueChange={(value) => {
+              const selectedRange = PRICE_RANGES.find(
+                (price) => price.min.toString() === value
+              );
+
+              handleFilterChange('priceMin', selectedRange?.min);
+              handleFilterChange('priceMax', selectedRange?.max ?? undefined);
+            }}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Selecione um valor" />
+            </SelectTrigger>
+
+            <SelectContent>
+              {PRICE_RANGES.map((price) => (
+                <SelectItem key={price.min} value={price.min.toString()}>
+                  {price.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+    </FilterSection>
+
+
+    {/* Ano */}
+    <FilterSection title="Ano do Modelo" sectionKey="year" openSections={openSections} toggleSection={toggleSection}>
+      <div className="grid grid-cols-2 gap-2">
+        <div>
+          <Label className="text-xs text-muted-foreground">De</Label>
+          <Input
+            type="number"
+            placeholder="Ano inicial"
+            value={localFilters.yearMin ?? ''}
+            onChange={(e) =>
+              handleFilterChange(
+                'yearMin',
+                e.target.value === '' ? undefined : Number(e.target.value)
+              )
+            }
+          />
+        </div>
+
+        <div>
+          <Label className="text-xs text-muted-foreground">Até</Label>
+          <Input
+            type="number"
+            placeholder="Ano final"
+            value={localFilters.yearMax ?? ''}
+            onChange={(e) =>
+              handleFilterChange(
+                'yearMax',
+                e.target.value === '' ? undefined : Number(e.target.value)
+              )
+            }
+          />
+        </div>
+      </div>
+    </FilterSection>
+
+    {/* Especificações */}
+    <FilterSection title="Especificações" sectionKey="specs" openSections={openSections} toggleSection={toggleSection}>
+      <div className="space-y-3">
+        <div>
+          <Label className="text-xs text-muted-foreground">Combustível</Label>
+          <Select
+            value={localFilters.fuel || ''}
+            onValueChange={(value) => handleFilterChange('fuel', value)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Selecione" />
+            </SelectTrigger>
+            <SelectContent>
+              {FUEL_OPTIONS.map((fuel) => (
+                <SelectItem key={fuel.value} value={fuel.value}>
+                  {fuel.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <Label className="text-xs text-muted-foreground">Transmissão</Label>
+          <Select
+            value={localFilters.transmission || ''}
+            onValueChange={(value) => handleFilterChange('transmission', value)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Selecione" />
+            </SelectTrigger>
+            <SelectContent>
+              {TRANSMISSION_OPTIONS.map((trans) => (
+                <SelectItem key={trans.value} value={trans.value}>
+                  {trans.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+    </FilterSection>
+  </div>
+);
+
 export function CatalogFilters({ filters, onFiltersChange, activeFiltersCount, hideTrigger = false }: CatalogFiltersProps) {
   const [localFilters, setLocalFilters] = useState<VehicleFilters>(filters);
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
@@ -61,9 +241,14 @@ export function CatalogFilters({ filters, onFiltersChange, activeFiltersCount, h
     setLocalFilters(filters);
   }, [filters]);
 
-  const handleFilterChange = (key: keyof VehicleFilters, value: any) => {
-    const newFilters = { ...localFilters, [key]: value || undefined };
-    setLocalFilters(newFilters);
+  const handleFilterChange = (
+    key: keyof VehicleFilters,
+    value: VehicleFilters[keyof VehicleFilters]
+  ) => {
+    setLocalFilters((prev) => ({
+      ...prev,
+      [key]: value === '' || value === undefined ? undefined : value,
+    }));
   };
 
   const applyFilters = () => {
@@ -79,160 +264,6 @@ export function CatalogFilters({ filters, onFiltersChange, activeFiltersCount, h
   const toggleSection = (section: string) => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
-
-  const FilterSection = ({
-    title,
-    sectionKey,
-    children,
-  }: {
-    title: string;
-    sectionKey: string;
-    children: React.ReactNode;
-  }) => (
-    <Collapsible open={openSections[sectionKey]} onOpenChange={() => toggleSection(sectionKey)}>
-      <CollapsibleTrigger className="flex items-center justify-between w-full py-3 text-sm font-semibold text-foreground hover:text-primary transition-colors">
-        {title}
-        <ChevronDown
-          className={cn(
-            'h-4 w-4 transition-transform duration-200',
-            openSections[sectionKey] && 'rotate-180'
-          )}
-        />
-      </CollapsibleTrigger>
-      <CollapsibleContent className="pb-4 space-y-3">{children}</CollapsibleContent>
-    </Collapsible>
-  );
-
-  const FilterContent = () => (
-    <div className="space-y-1 divide-y divide-border">
-      {/* Marca */}
-      <FilterSection title="Marca" sectionKey="brand">
-        <Select
-          value={localFilters.brand || ''}
-          onValueChange={(value) => handleFilterChange('brand', value)}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Selecione a marca" />
-          </SelectTrigger>
-          <SelectContent>
-            {BRANDS.map((brand) => (
-              <SelectItem key={brand.name} value={brand.name}>
-                {brand.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </FilterSection>
-
-      {/* Preço */}
-      <FilterSection title="Faixa de Preço" sectionKey="price">
-        <div className=" gap-2">
-          <div>
-            <Label className="text-xs text-muted-foreground">Preço desejado</Label>
-            <Select
-              value={localFilters.priceMin?.toString() || ''}
-              onValueChange={(value) => handleFilterChange('priceMin', value ? Number(value) : undefined)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione um valor" />
-              </SelectTrigger>
-              <SelectContent>
-                {PRICE_RANGES.map((price) => (
-                  <SelectItem key={price.min} value={price.min.toString()}>
-                    {price.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </FilterSection>
-
-      {/* Ano */}
-      <FilterSection title="Ano do Modelo" sectionKey="year">
-        <div className="grid grid-cols-2 gap-2">
-          <div>
-            <Label className="text-xs text-muted-foreground">De</Label>
-            <Select
-              value={localFilters.yearMin?.toString() || ''}
-              onValueChange={(value) => handleFilterChange('yearMin', value ? Number(value) : undefined)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Ano" />
-              </SelectTrigger>
-              <SelectContent>
-                {YEAR_RANGES.map((year) => (
-                  <SelectItem key={year.value} value={year.value.toString()}>
-                    {year.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Label className="text-xs text-muted-foreground">Até</Label>
-            <Select
-              value={localFilters.yearMax?.toString() || ''}
-              onValueChange={(value) => handleFilterChange('yearMax', value ? Number(value) : undefined)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Ano" />
-              </SelectTrigger>
-              <SelectContent>
-                {YEAR_RANGES.map((year) => (
-                  <SelectItem key={year.value} value={year.value.toString()}>
-                    {year.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </FilterSection>
-
-      {/* Especificações */}
-      <FilterSection title="Especificações" sectionKey="specs">
-        <div className="space-y-3">
-          <div>
-            <Label className="text-xs text-muted-foreground">Combustível</Label>
-            <Select
-              value={localFilters.fuel || ''}
-              onValueChange={(value) => handleFilterChange('fuel', value)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione" />
-              </SelectTrigger>
-              <SelectContent>
-                {FUEL_OPTIONS.map((fuel) => (
-                  <SelectItem key={fuel.value} value={fuel.value}>
-                    {fuel.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div>
-            <Label className="text-xs text-muted-foreground">Transmissão</Label>
-            <Select
-              value={localFilters.transmission || ''}
-              onValueChange={(value) => handleFilterChange('transmission', value)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Selecione" />
-              </SelectTrigger>
-              <SelectContent>
-                {TRANSMISSION_OPTIONS.map((trans) => (
-                  <SelectItem key={trans.value} value={trans.value}>
-                    {trans.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </FilterSection>
-    </div>
-  );
 
   return (
     <>
@@ -250,7 +281,12 @@ export function CatalogFilters({ filters, onFiltersChange, activeFiltersCount, h
               </Button>
             )}
           </div>
-          <FilterContent />
+          <FilterContent
+            localFilters={localFilters}
+            openSections={openSections}
+            handleFilterChange={handleFilterChange}
+            toggleSection={toggleSection}
+          />
           <Button onClick={applyFilters} className="w-full hover:text-white hover:bg-blue-800 bg-white text-blue-800 border border-blue-950 mt-4">
             Aplicar Filtros
           </Button>
@@ -281,7 +317,12 @@ export function CatalogFilters({ filters, onFiltersChange, activeFiltersCount, h
                 <SheetDescription>Refine sua busca por caminhões</SheetDescription>
               </SheetHeader>
               <div className="mt-6">
-                <FilterContent />
+                <FilterContent
+                  localFilters={localFilters}
+                  openSections={openSections}
+                  handleFilterChange={handleFilterChange}
+                  toggleSection={toggleSection}
+                />
               </div>
               <SheetFooter className="mt-6 flex-col sm:flex-col gap-2">
                 <SheetClose asChild>

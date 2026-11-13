@@ -69,8 +69,11 @@ export default function CatalogPage() {
   const { toggleFavorite, isFavorite } = useFavorites();
 
   // Get vehicle IDs for batch image fetch
-  const vehicleIds = useMemo(() => vehicles.map((v) => v.id), [vehicles]);
-  const { data: imagesMap = {}, isLoading: areImagesLoading } = useVehicleImagesBatch(vehicleIds);
+  const vehiclesForImages = useMemo(
+    () => vehicles.map(({ id, listing_type }) => ({ id, listing_type })),
+    [vehicles]
+  );
+  const { data: imagesMap = {}, isLoading: areImagesLoading } = useVehicleImagesBatch(vehiclesForImages);
 
   // Load more callback
   const handleLoadMore = useCallback(() => {
