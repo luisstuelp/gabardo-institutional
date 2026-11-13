@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Shield, Loader2, Mail, X } from 'lucide-react';
 
 import { supabase } from '@/integrations/supabase/client';
+import { supabase as trucksSupabase } from '@/integrations/supabase_trucks/client';
 
 const inputClasses =
   'w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:border-gabardo-light-blue focus:outline-none focus:ring-2 focus:ring-gabardo-light-blue/40 transition-all duration-200';
@@ -90,14 +91,18 @@ export default function AdminLoginForm() {
       };
 
       if (data.session?.access_token && data.session?.refresh_token) {
-        const { error: sessionError } = await supabase.auth.setSession({
+        const sessionTokens = {
           access_token: data.session.access_token,
           refresh_token: data.session.refresh_token,
-        });
+        };
+        const { error: sessionError } = await supabase.auth.setSession(sessionTokens);
 
         if (sessionError) {
           throw sessionError;
         }
+
+        const { error: trucksSessionError } = await trucksSupabase.auth.setSession(sessionTokens);
+        if (trucksSessionError) throw trucksSessionError;
       }
 
       router.replace('/admin');

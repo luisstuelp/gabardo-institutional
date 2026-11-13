@@ -29,11 +29,11 @@ const initialState: VehiclesState = {
 export const fetchVehicles = createAsyncThunk(
     'vehicles/fetchVehicles',
     async (
-        { filters, sortBy, page }: { filters?: VehicleFilters; sortBy?: string; page?: number },
+        { filters, sortBy, page, includeUnavailable }: { filters?: VehicleFilters; sortBy?: string; page?: number; includeUnavailable?: boolean },
         { rejectWithValue }
     ) => {
         logger.info('Dispatching fetchVehicles', { filters, sortBy, page });
-        const result = await vehiclesApi.getVehicles(filters, sortBy, page);
+        const result = await vehiclesApi.getVehicles(filters, sortBy, page, includeUnavailable);
         if (result.error) {
             return rejectWithValue(result.error.message);
         }
@@ -114,11 +114,11 @@ export const updateVehicle = createAsyncThunk(
 /** Async thunk: Delete a vehicle (admin) */
 export const deleteVehicle = createAsyncThunk(
     'vehicles/delete',
-    async (id: string, { rejectWithValue }) => {
+    async ({ id, listingType }: { id: string; listingType?: Vehicle['listing_type'] }, { rejectWithValue }) => {
         logger.info('Dispatching deleteVehicle', { id });
-        const result = await vehiclesApi.deleteVehicle(id);
+        const result = await vehiclesApi.deleteVehicle(id, listingType);
         if (result.error) return rejectWithValue(result.error.message);
-        return id;
+            return { id, listingType };
     }
 );
 
@@ -257,7 +257,7 @@ const vehiclesSlice = createSlice({
 
         // deleteVehicle
         builder.addCase(deleteVehicle.fulfilled, (state, action) => {
-            state.items = state.items.filter((v) => v.id !== action.payload);
+                state.items = state.items.filter((v) => !(v.id === action.payload.id && (v.listing_type ?? 'truck') === (action.payload.listingType ?? 'truck')));
             state.totalCount -= 1;
         });
     },

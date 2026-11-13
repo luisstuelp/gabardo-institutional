@@ -33,7 +33,7 @@ export default function AdminVehicleFormPage() {
                     await uploadVehicleImages(newVehicle.id, files);
                 }
                 // Redirect to edit mode to upload images
-                navigate(`/admin/caminhoes/veiculos/${newVehicle.id}`, { replace: true });
+                navigate(`/admin/veiculos/veiculos/${newVehicle.id}`, { replace: true });
             }
         } catch (error) {
             // Error handled in hook
@@ -47,7 +47,7 @@ export default function AdminVehicleFormPage() {
     return (
         <div className="space-y-6">
             <div className="flex items-center gap-4">
-                <Button variant="ghost" size="icon" onClick={() => navigate('/admin/caminhoes/veiculos')}>
+                <Button variant="ghost" size="icon" onClick={() => navigate('/admin/veiculos/veiculos')}>
                     <ArrowLeft className="h-4 w-4" />
                 </Button>
                 <h1 className="text-3xl font-bold font-montserrat text-primary">

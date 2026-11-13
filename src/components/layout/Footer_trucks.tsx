@@ -10,9 +10,9 @@ const footerLinks = {
     { name: 'Unidades', href: 'https://www.transgabardo.com.br/infraestrutura', external: true },
   ],
   vehicles: [
-    { name: 'Todos os Caminhões', href: '/caminhoes', external: false },
-    { name: 'Ofertas Especiais', href: '/caminhoes?ofertas=true', external: false },
-    { name: 'Seminovos Selecionados', href: '/caminhoes?seminovos=true', external: false },
+    { name: 'Todos os Caminhões', href: '/veiculos', external: false },
+    { name: 'Ofertas Especiais', href: '/veiculos?ofertas=true', external: false },
+    { name: 'Seminovos Selecionados', href: '/veiculos?seminovos=true', external: false },
   ],
   support: [
     { name: 'Fale Conosco', href: 'https://www.transgabardo.com.br/contato', external: true },

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { requireAdminSession } from '@/lib/adminAccess';
 import { extractClientIp, logAdminAction } from '@/lib/adminAudit';
+import { createServerTrucksSupabaseClient, hashTrucksPassword, markTrucksAccountAsAdmin } from '@/lib/trucksUserAuth';
 
 const MAX_USERS_PER_PAGE = 500;
 
@@ -177,6 +178,19 @@ export async function POST(request: NextRequest) {
       return buildErrorResponse(422, 'A senha deve possuir pelo menos 8 caracteres.');
     }
 
+    const trucksSupabase = createServerTrucksSupabaseClient();
+    const { data: existingTrucksAccount, error: existingTrucksAccountError } = await trucksSupabase
+      .from('users')
+      .select('id')
+      .eq('email', email)
+      .maybeSingle();
+    if (existingTrucksAccountError) {
+      return buildErrorResponse(500, 'Não foi possível verificar as contas do módulo de caminhões.', existingTrucksAccountError.message);
+    }
+    if (existingTrucksAccount) {
+      return buildErrorResponse(409, 'Já existe uma conta com este e-mail.');
+    }
+
     const { data: createUserData, error: createUserError } = await supabase.auth.admin.createUser({
       email,
       password,
@@ -195,6 +209,11 @@ export async function POST(request: NextRequest) {
     }
 
     if (role === 'admin') {
+      const accountRoleError = await markTrucksAccountAsAdmin(user.id, email);
+      if (accountRoleError) {
+        return buildErrorResponse(500, 'Usuário criado, mas falhou ao preparar sua conta administrativa.', accountRoleError);
+      }
+
       const { error: upsertError } = await supabase
         .from('user_roles')
         .upsert({ user_id: user.id, role: 'admin' }, { onConflict: 'user_id' });
@@ -202,8 +221,28 @@ export async function POST(request: NextRequest) {
       if (upsertError) {
         return buildErrorResponse(500, 'Usuário criado, mas falhou ao atribuir a permissão de administrador.', upsertError.message);
       }
+
+      const { error: trucksRoleError } = await trucksSupabase
+        .from('user_roles')
+        .upsert({ user_id: user.id, role: 'admin' }, { onConflict: 'user_id,role' });
+
+      if (trucksRoleError) {
+        return buildErrorResponse(500, 'Usuário criado, mas falhou ao sincronizar a permissão administrativa.', trucksRoleError.message);
+      }
     } else {
       await supabase.from('user_roles').delete().eq('user_id', user.id);
+
+      const { error: localUserError } = await trucksSupabase.from('users').upsert({
+        id: user.id,
+        email,
+        password_hash: await hashTrucksPassword(password),
+        is_admin: false,
+        is_active: true,
+      }, { onConflict: 'id' });
+
+      if (localUserError) {
+        return buildErrorResponse(500, 'Usuário criado, mas não foi possível registrar a conta de caminhões.', localUserError.message);
+      }
     }
 
     const response = NextResponse.json({
@@ -273,6 +312,16 @@ export async function POST(request: NextRequest) {
   }
 
   if (targetRole === 'admin') {
+    const { data: targetAuthUser, error: targetAuthUserError } = await supabase.auth.admin.getUserById(targetUserId);
+    if (targetAuthUserError || !targetAuthUser.user?.email) {
+      return buildErrorResponse(404, 'Não foi possível localizar o usuário para conceder acesso administrativo.');
+    }
+
+    const accountRoleError = await markTrucksAccountAsAdmin(targetUserId, targetAuthUser.user.email);
+    if (accountRoleError) {
+      return buildErrorResponse(500, 'Não foi possível preparar a conta administrativa.', accountRoleError);
+    }
+
     const { error: upsertError } = await supabase
       .from('user_roles')
       .upsert({ user_id: targetUserId, role: 'admin' }, { onConflict: 'user_id' });
@@ -280,11 +329,29 @@ export async function POST(request: NextRequest) {
     if (upsertError) {
       return buildErrorResponse(500, 'Não foi possível conceder a permissão de administrador.', upsertError.message);
     }
+
+    const trucksSupabase = createServerTrucksSupabaseClient();
+    const { error: trucksRoleError } = await trucksSupabase
+      .from('user_roles')
+      .upsert({ user_id: targetUserId, role: 'admin' }, { onConflict: 'user_id,role' });
+
+    if (trucksRoleError) {
+      return buildErrorResponse(500, 'Não foi possível sincronizar a permissão administrativa.', trucksRoleError.message);
+    }
   }
 
   if (targetRole === 'user' && !isTargetAdmin) {
     // No change necessary, but ensure there is no lingering row with different role value
     await supabase.from('user_roles').delete().eq('user_id', targetUserId);
+  }
+
+  if (targetRole === 'user') {
+    const trucksSupabase = createServerTrucksSupabaseClient();
+    await trucksSupabase.from('user_roles').delete().eq('user_id', targetUserId).eq('role', 'admin');
+    const { error: accountRoleError } = await trucksSupabase.from('users').update({ is_admin: false }).eq('id', targetUserId);
+    if (accountRoleError) {
+      return buildErrorResponse(500, 'Não foi possível reativar a conta comum do usuário.', accountRoleError.message);
+    }
   }
 
   const response = NextResponse.json({
@@ -350,10 +417,17 @@ export async function DELETE(request: NextRequest) {
     return buildErrorResponse(400, 'Não é possível excluir o último usuário com permissão de administrador.');
   }
 
+  const trucksSupabase = createServerTrucksSupabaseClient();
+  await trucksSupabase.from('user_roles').delete().eq('user_id', targetUserId);
   const { error: removeRoleError } = await supabase.from('user_roles').delete().eq('user_id', targetUserId);
 
   if (removeRoleError) {
     return buildErrorResponse(500, 'Não foi possível remover as permissões do usuário antes da exclusão.', removeRoleError.message);
+  }
+
+  const { error: removeTrucksUserError } = await trucksSupabase.from('users').delete().eq('id', targetUserId);
+  if (removeTrucksUserError) {
+    return buildErrorResponse(500, 'Não foi possível remover a conta do módulo de caminhões.', removeTrucksUserError.message);
   }
 
   const { error: deleteUserError } = await supabase.auth.admin.deleteUser(targetUserId);

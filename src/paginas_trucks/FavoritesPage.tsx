@@ -74,7 +74,7 @@ export default function FavoritesPage() {
           <p className="text-muted-foreground mb-6 max-w-md">
             Explore nosso catálogo e salve os caminhões que mais te interessam para acessá-los facilmente depois.
           </p>
-          <Link to="/caminhoes">
+          <Link to="/veiculos">
             <Button>Ver Catálogo</Button>
           </Link>
         </div>

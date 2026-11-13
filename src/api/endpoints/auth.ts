@@ -1,103 +1,96 @@
-/**
- * Auth API endpoint module.
- * RESTful interface for all authentication operations.
- */
-import { getApiClient } from '../client';
-import { createLogger } from '@/lib/logger';
-import type { AuthResult } from '@/types/auth';
+import type { TrucksUser } from '@/lib/trucksUserAuth';
 import type { ApiResponse } from '@/types/api';
-import type { User, Session } from '@supabase/supabase-js';
 
-const logger = createLogger('AuthAPI');
-
-/** Session data returned from auth operations */
 export interface SessionData {
-    user: User | null;
-    session: Session | null;
+    user: TrucksUser | null;
+    session: { user: TrucksUser } | null;
 }
 
-/** POST /auth/signin — Sign in with email and password */
-export async function signIn(
-    email: string,
-    password: string
-): Promise<ApiResponse<SessionData>> {
-    const client = getApiClient();
-    logger.info('Signing in user', { email });
-
-    return client.query<SessionData>('signIn', async () => {
-        const supabase = client.getSupabaseClient();
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email,
-            password,
+async function request<T>(url: string, init?: RequestInit): Promise<ApiResponse<T>> {
+    try {
+        const response = await fetch(url, {
+            ...init,
+            headers: { ...(init?.body ? { 'Content-Type': 'application/json' } : {}), ...init?.headers },
+            cache: 'no-store',
         });
+        const result = (await response.json().catch(() => ({}))) as { user?: TrucksUser | null; error?: string };
+        if (!response.ok) {
+            return { data: null, error: { message: result.error ?? 'Falha na autenticação.', code: String(response.status) }, status: response.status };
+        }
+        return { data: { user: result.user ?? null, session: result.user ? { user: result.user } : null } as T, error: null, status: response.status };
+    } catch (error) {
+        return { data: null, error: { message: error instanceof Error ? error.message : 'Falha ao conectar.', code: 'FETCH_ERROR' }, status: 0 };
+    }
+}
 
-        return {
-            data: data ? { user: data.user, session: data.session } : null,
-            error: error ? { message: error.message, code: error.status?.toString() ?? 'AUTH_ERROR' } : null,
-        };
+export async function signIn(email: string, password: string): Promise<ApiResponse<SessionData>> {
+    return request<SessionData>('/api/trucks/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
     });
 }
 
-/** POST /auth/signout — Sign out the current user */
 export async function signOut(): Promise<ApiResponse<null>> {
-    const client = getApiClient();
-    logger.info('Signing out user');
-
-    return client.query<null>('signOut', async () => {
-        const supabase = client.getSupabaseClient();
-        const { error } = await supabase.auth.signOut();
-        return {
-            data: null,
-            error: error ? { message: error.message, code: 'SIGN_OUT_ERROR' } : null,
-        };
-    });
+    try {
+        const response = await fetch('/api/trucks/auth/logout', { method: 'POST', cache: 'no-store' });
+        const result = (await response.json().catch(() => ({}))) as { error?: string };
+        return response.ok
+            ? { data: null, error: null, status: response.status }
+            : { data: null, error: { message: result.error ?? 'Falha ao encerrar sessão.', code: String(response.status) }, status: response.status };
+    } catch (error) {
+        return { data: null, error: { message: error instanceof Error ? error.message : 'Falha ao conectar.', code: 'FETCH_ERROR' }, status: 0 };
+    }
 }
 
-/** POST /auth/change-password — Change the current user's password */
 export async function changePassword(newPassword: string): Promise<ApiResponse<null>> {
-    const client = getApiClient();
-    logger.info('Changing password');
-
-    return client.query<null>('changePassword', async () => {
-        const supabase = client.getSupabaseClient();
-        const { error } = await supabase.auth.updateUser({ password: newPassword });
-        return {
-            data: null,
-            error: error ? { message: error.message, code: 'PASSWORD_CHANGE_ERROR' } : null,
-        };
-    });
-}
-
-/** POST /auth/reset-password — Send a password reset email */
-export async function resetPasswordForEmail(email: string): Promise<ApiResponse<null>> {
-    const client = getApiClient();
-    logger.info('Requesting password reset', { email });
-
-    const redirectUrl = `${window.location.origin}/auth?mode=reset`;
-
-    return client.query<null>('resetPasswordForEmail', async () => {
-        const supabase = client.getSupabaseClient();
-        const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: redirectUrl,
+    try {
+        const response = await fetch('/api/trucks/auth/password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ newPassword }),
         });
-        return {
-            data: null,
-            error: error ? { message: error.message, code: 'RESET_PASSWORD_ERROR' } : null,
-        };
-    });
+        const result = (await response.json().catch(() => ({}))) as { error?: string };
+        return response.ok
+            ? { data: null, error: null, status: response.status }
+            : { data: null, error: { message: result.error ?? 'Falha ao alterar senha.', code: String(response.status) }, status: response.status };
+    } catch (error) {
+        return { data: null, error: { message: error instanceof Error ? error.message : 'Falha ao conectar.', code: 'FETCH_ERROR' }, status: 0 };
+    }
 }
 
-/** GET /auth/session — Get the current session */
+export async function resetPasswordForEmail(email: string): Promise<ApiResponse<null>> {
+    try {
+        const response = await fetch('/api/trucks/auth/reset-request', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+        });
+        const result = (await response.json().catch(() => ({}))) as { error?: string };
+        return response.ok
+            ? { data: null, error: null, status: response.status }
+            : { data: null, error: { message: result.error ?? 'Falha ao solicitar redefinição.', code: String(response.status) }, status: response.status };
+    } catch (error) {
+        return { data: null, error: { message: error instanceof Error ? error.message : 'Falha ao conectar.', code: 'FETCH_ERROR' }, status: 0 };
+    }
+}
+
+export async function resetPassword(token: string, newPassword: string): Promise<ApiResponse<null>> {
+    try {
+        const response = await fetch('/api/trucks/auth/reset', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token, newPassword }),
+        });
+        const result = (await response.json().catch(() => ({}))) as { error?: string };
+        return response.ok
+            ? { data: null, error: null, status: response.status }
+            : { data: null, error: { message: result.error ?? 'Falha ao alterar senha.', code: String(response.status) }, status: response.status };
+    } catch (error) {
+        return { data: null, error: { message: error instanceof Error ? error.message : 'Falha ao conectar.', code: 'FETCH_ERROR' }, status: 0 };
+    }
+}
+
 export async function getSession(): Promise<ApiResponse<SessionData>> {
-    const client = getApiClient();
-    logger.debug('Getting current session');
-
-    return client.query<SessionData>('getSession', async () => {
-        const supabase = client.getSupabaseClient();
-        const { data: { session }, error } = await supabase.auth.getSession();
-        return {
-            data: { user: session?.user ?? null, session },
-            error: error ? { message: error.message, code: 'SESSION_ERROR' } : null,
-        };
-    });
+    return request<SessionData>('/api/trucks/auth/session');
 }
+

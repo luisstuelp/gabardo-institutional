@@ -6,6 +6,7 @@ import {
   type AdminRole,
 } from '@/lib/adminSession';
 import { createServerSupabaseClient } from '@/integrations/supabase/server';
+import { createServerTrucksSupabaseClient, markTrucksAccountAsAdmin } from '@/lib/trucksUserAuth';
 import { readJsonBodyWithLimit, RequestBodyTooLargeError } from '@/lib/apiRateLimit';
 
 type LoginPayload = {
@@ -40,35 +41,35 @@ export async function POST(request: Request) {
 
     const { session, user } = signInData;
 
-    const { error: setSessionError } = await supabase.auth.setSession({
-      access_token: session.access_token,
-      refresh_token: session.refresh_token,
-    });
-
-    if (setSessionError) {
-      return NextResponse.json({ error: 'Falha ao iniciar sessão.' }, { status: 500 });
-    }
-
     const { data: roleRow, error: roleError } = await supabase
       .from('user_roles')
       .select('role')
       .eq('user_id', user.id)
+      .eq('role', 'admin')
       .maybeSingle();
 
     if (roleError) {
       return NextResponse.json({ error: 'Falha ao verificar permissões.' }, { status: 500 });
     }
 
-    const allowedRoles: AdminRole[] = ['admin', 'moderator', 'user'];
-    const sessionRole: AdminRole = roleRow?.role && allowedRoles.includes(roleRow.role as AdminRole)
-      ? (roleRow.role as AdminRole)
-      : 'user';
-
-    if (!allowedRoles.includes(sessionRole)) {
-      return NextResponse.json({ error: 'Usuário sem permissão de acesso.' }, { status: 403 });
+    if (!roleRow) {
+      return NextResponse.json({ error: 'Usuário sem permissão de administrador.' }, { status: 403 });
     }
 
-    const token = createSessionToken(user.email ?? body.email, user.id, sessionRole);
+    const accountRoleError = await markTrucksAccountAsAdmin(user.id, user.email ?? body.email);
+    if (accountRoleError) {
+      return NextResponse.json({ error: 'Falha ao configurar a conta administrativa.' }, { status: 500 });
+    }
+
+    const trucksSupabase = createServerTrucksSupabaseClient();
+    const { error: trucksRoleError } = await trucksSupabase
+      .from('user_roles')
+      .upsert({ user_id: user.id, role: 'admin' }, { onConflict: 'user_id,role' });
+
+    if (trucksRoleError) {
+      return NextResponse.json({ error: 'Falha ao configurar permissões administrativas.' }, { status: 500 });
+    }
+    const token = createSessionToken(user.email ?? body.email, user.id, 'admin' satisfies AdminRole);
     const response = NextResponse.json({
       success: true,
       session: {

@@ -12,6 +12,11 @@ export function formatPrice(value: number): string {
   }).format(value);
 }
 
+/** Format a vehicle's advertised price, where zero means price on request. */
+export function formatVehiclePrice(value: number): string {
+  return value === 0 ? '(Sob consulta)' : formatPrice(value);
+}
+
 /**
  * Format mileage with thousand separators
  */

@@ -75,16 +75,14 @@ export function verifySessionToken(token: string): AdminSession | null {
       return null;
     }
 
-    const allowedRoles: AdminRole[] = ['admin', 'moderator', 'user'];
-    const fallbackRole: AdminRole = 'admin';
-    const parsedRole = typeof parsed.role === 'string' && (allowedRoles as string[]).includes(parsed.role)
-      ? (parsed.role as AdminRole)
-      : fallbackRole;
+    if (parsed.role !== 'admin') {
+      return null;
+    }
 
     const session: AdminSession = {
       email: parsed.email,
       userId: parsed.userId,
-      role: parsedRole,
+      role: 'admin',
       expiresAt: parsed.expiresAt,
     };
 

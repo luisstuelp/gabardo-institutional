@@ -28,6 +28,8 @@ const clientLogos = [
   { id: 19, name: 'JSL', description: 'Grupo brasileiro de logística integrado, atuando em transporte, gestão de frotas, armazenagem e serviços industriais.' },
   { id: 20, name: 'Ford', description: 'Montadora americana tradicional, pioneira na produção em massa e atualmente focada em eletrificação e veículos conectados.' },
   { id: 21, name: 'BYD', description: 'Empresa chinesa que começou como fabricante de baterias e se expandiu para se tornar uma líder global em tecnologia de veículos elétricos e energia renovável.' },
+  { id: 22, name: 'JAECOO', description: 'Marca chinesa especializada em SUVs modernos, com foco em tecnologia, conforto e desempenho.' },
+  { id: 23, name: 'BAIC', description: 'Grupo automotivo chinês com forte atuação na fabricação de veículos, parcerias com marcas globais e desenvolvimento de tecnologias automotivas.' },
 ];
 
 // Duplicate logos for infinite loop - will be dynamically calculated
@@ -160,7 +162,7 @@ const LogoItem = ({ logo, onManualPause }: LogoItemProps) => {
     >
       <div
         className="relative h-60 w-full cursor-pointer transition-transform duration-500 ease-in-out"
-        style={{ 
+        style={{
           transformStyle: 'preserve-3d',
           transform: isFlipped ? 'rotateX(180deg)' : 'rotateX(0deg)'
         }}
@@ -225,26 +227,26 @@ const AboutClientsCarousel = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const seqRef = useRef<HTMLDivElement>(null);
-  
+
   const [isPaused, setIsPaused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [seqWidth, setSeqWidth] = useState<number>(0);
   const [copyCount, setCopyCount] = useState<number>(3);
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  
+
   const xTranslation = useRef(0);
   const targetTranslation = useRef(0);
   const velocityRef = useRef(0);
   const lastTimestampRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
-  
+
   const LOGO_WIDTH = 240;
   const GAP = 48;
   const SPEED = 120; // Pixels per second (React Bits style)
   const SMOOTH_TAU = 0.25; // Exponential smoothing factor
   const MIN_COPIES = 2;
   const COPY_HEADROOM = 2;
-  
+
   const isDraggingRef = useRef(false);
   const pointerActiveRef = useRef(false);
   const activePointerId = useRef<number | null>(null);
@@ -301,7 +303,7 @@ const AboutClientsCarousel = () => {
   // Image loading handler
   useEffect(() => {
     const images = seqRef.current?.querySelectorAll('img') ?? [];
-    
+
     if (images.length === 0) {
       setImagesLoaded(true);
       return;
@@ -526,84 +528,84 @@ const AboutClientsCarousel = () => {
   return (
     <>
       <section ref={ref} className="py-16 sm:py-20 bg-gradient-to-br from-white via-gabardo-light-blue/5 to-white overflow-hidden" id="nossos-clientes">
-      {/* Header */}
-      <div className="container mx-auto px-4 mb-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 uppercase tracking-tight" id="nossos-clientes">
-            Nossos Clientes
-          </h2>
-          <p className="text-lg text-gray-600 mt-4">
-            Confiança e parceria que nos movem.
-          </p>
-        </motion.div>
-      </div>
-
-      {/* Infinite Logo Carousel - Full Width */}
-      <motion.div
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-        className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]"
-      >
-        {/* Carousel Container */}
-        <div
-          className={`overflow-hidden py-12 select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={endDrag}
-          onPointerEnter={canHover && !isMobile ? handlePointerEnter : undefined}
-          onPointerLeave={canHover && !isMobile ? handlePointerLeave : undefined}
-          onPointerCancel={endDrag}
-          style={{ touchAction: 'pan-y' }}
-        >
-          <div
-            ref={trackRef}
-            className="flex gap-6 sm:gap-8 lg:gap-12"
-            style={{ width: 'fit-content', willChange: 'transform' }}
+        {/* Header */}
+        <div className="container mx-auto px-4 mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-center"
           >
-            {Array.from({ length: copyCount }, (_, copyIndex) => (
-              <div 
-                key={`copy-${copyIndex}`} 
-                className={isMobile ? "flex gap-8" : "flex gap-12"} 
-                ref={copyIndex === 0 ? seqRef : undefined}
-              >
-                {baseLogos.map((logo, index) => (
-                  isMobile ? (
-                    <MobileLogo
-                      key={`${copyIndex}-${logo.id}-${index}`}
-                      logo={logo}
-                      onClick={() => setSelectedLogo(logo)}
-                      isDragging={isDragging}
-                    />
-                  ) : (
-                    <LogoItem
-                      key={`${copyIndex}-${logo.id}-${index}`}
-                      logo={logo}
-                      onManualPause={handleManualPause}
-                    />
-                  )
-                ))}
-              </div>
-            ))}
-          </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 uppercase tracking-tight" id="nossos-clientes">
+              Nossos Clientes
+            </h2>
+            <p className="text-lg text-gray-600 mt-4">
+              Confiança e parceria que nos movem.
+            </p>
+          </motion.div>
         </div>
-      </motion.div>
-    </section>
 
-    {/* Mobile Modal */}
-    {isMobile && selectedLogo && (
-      <ClientModal 
-        logo={selectedLogo} 
-        onClose={() => setSelectedLogo(null)} 
-      />
-    )}
+        {/* Infinite Logo Carousel - Full Width */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]"
+        >
+          {/* Carousel Container */}
+          <div
+            className={`overflow-hidden py-12 select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={endDrag}
+            onPointerEnter={canHover && !isMobile ? handlePointerEnter : undefined}
+            onPointerLeave={canHover && !isMobile ? handlePointerLeave : undefined}
+            onPointerCancel={endDrag}
+            style={{ touchAction: 'pan-y' }}
+          >
+            <div
+              ref={trackRef}
+              className="flex gap-6 sm:gap-8 lg:gap-12"
+              style={{ width: 'fit-content', willChange: 'transform' }}
+            >
+              {Array.from({ length: copyCount }, (_, copyIndex) => (
+                <div
+                  key={`copy-${copyIndex}`}
+                  className={isMobile ? "flex gap-8" : "flex gap-12"}
+                  ref={copyIndex === 0 ? seqRef : undefined}
+                >
+                  {baseLogos.map((logo, index) => (
+                    isMobile ? (
+                      <MobileLogo
+                        key={`${copyIndex}-${logo.id}-${index}`}
+                        logo={logo}
+                        onClick={() => setSelectedLogo(logo)}
+                        isDragging={isDragging}
+                      />
+                    ) : (
+                      <LogoItem
+                        key={`${copyIndex}-${logo.id}-${index}`}
+                        logo={logo}
+                        onManualPause={handleManualPause}
+                      />
+                    )
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Mobile Modal */}
+      {isMobile && selectedLogo && (
+        <ClientModal
+          logo={selectedLogo}
+          onClose={() => setSelectedLogo(null)}
+        />
+      )}
     </>
   );
 };

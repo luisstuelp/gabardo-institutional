@@ -9,7 +9,7 @@ export function AdminRoute({ children }: { children?: ReactNode }) {
 
     useEffect(() => {
         if (!isLoading && !isAdmin) {
-            navigate('/auth', { replace: true });
+            navigate('/admin/login', { replace: true });
         }
     }, [isAdmin, isLoading, navigate]);
 

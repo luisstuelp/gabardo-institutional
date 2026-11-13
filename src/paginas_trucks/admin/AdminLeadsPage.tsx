@@ -164,7 +164,7 @@ export default function AdminLeadsPage() {
                                     </TableCell>
                                     <TableCell className="hidden md:table-cell">
                                         {lead.vehicle ? (
-                                            <Link to={`/admin/caminhoes/veiculos/${lead.vehicle_id}`} className="hover:underline text-blue-600 flex items-center gap-1">
+                                            <Link to={`/admin/veiculos/veiculos/${lead.vehicle_id}`} className="hover:underline text-blue-600 flex items-center gap-1">
                                                 {lead.vehicle.title}
                                                 <ExternalLink className="h-3 w-3" />
                                             </Link>

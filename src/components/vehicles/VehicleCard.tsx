@@ -3,7 +3,7 @@ import { Heart, Gauge, Calendar, Fuel, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button_trucks';
 import { cn } from '@/lib/utils';
 import { Vehicle, VehicleImage } from '@/types/database';
-import { formatPrice, formatMileage, formatYear, getFuelLabel } from '@/lib/format';
+import { formatVehiclePrice, formatMileage, formatYear, getFuelLabel } from '@/lib/format';
 import { VehiclePhoto } from '@/components/vehicles/VehiclePhoto';
 
 interface VehicleCardProps {
@@ -90,7 +90,7 @@ export function VehicleCard({
 
       {/* Content */}
       <div className="p-4">
-        <Link to={`/caminhoes/${vehicle.slug}`}>
+        <Link to={`/veiculos/${vehicle.slug}`}>
           <h3 className="font-semibold text-base font-montserrat text-slate-900 line-clamp-2 mb-2 group-hover:text-[#122d54] transition-colors">
             {vehicle.title}
           </h3>
@@ -115,9 +115,9 @@ export function VehicleCard({
         {/* Price */}
         <div className="flex items-center justify-between pt-3 border-t border-slate-100">
           <span className="text-xl font-bold text-[#122d54]">
-            {formatPrice(vehicle.price)}
+            {formatVehiclePrice(vehicle.price)}
           </span>
-          <Link to={`/caminhoes/${vehicle.slug}`}>
+          <Link to={`/veiculos/${vehicle.slug}`}>
             <Button variant="outline" size="sm" className="border-slate-200 hover:bg-[#122d54] hover:text-white hover:border-[#122d54]">
               Ver detalhes
             </Button>

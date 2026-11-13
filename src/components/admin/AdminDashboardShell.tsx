@@ -9,6 +9,7 @@ import { LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
+import { supabase as trucksSupabase } from '@/integrations/supabase_trucks/client';
 import type { AdminRole } from '@/lib/adminSession';
 
 type NavLink = {
@@ -73,6 +74,9 @@ export default function AdminDashboardShell({ children, email, role }: AdminDash
       if (error) {
         throw error;
       }
+
+      const { error: trucksAuthError } = await trucksSupabase.auth.signOut();
+      if (trucksAuthError) throw trucksAuthError;
 
       const response = await fetch('/api/admin/logout', { method: 'POST' });
 

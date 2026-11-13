@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from '@/lib/next-router-compat';
-import { Menu, X, Heart, User, Search, LogOut, FileText, MessageSquare, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Heart, User, Search, LogOut, FileText, LayoutDashboard } from 'lucide-react';
 import gabardoLogo from '@/assets/gabardo-logo-blue.png';
 import { Button } from '@/components/ui/button_trucks';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -8,13 +8,11 @@ import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { useFavorites } from '@/hooks/useFavorites';
 // import { ThemeSwitcher } from '@/components/ui/ThemeSwitcher'; // Removed
-import { useAppDispatch } from '@/store';
-import { toggleChat } from '@/store/slices/uiSlice';
 import { useAdmin } from '@/hooks/useAdmin';
 
 const navigation = [
   { name: 'Início', href: '/', external: false },
-  { name: 'Caminhões', href: '/caminhoes', external: false },
+  { name: 'Veículos', href: '/veiculos', external: false },
   { name: 'Contato', href: '/contato', external: false },
 ];
 
@@ -23,7 +21,6 @@ export function Header() {
   const location = useLocation();
   const { user, signOut } = useAuth();
   const { favorites } = useFavorites();
-  const dispatch = useAppDispatch();
   const { isAdmin } = useAdmin();
 
   const handleSignOut = async () => {
@@ -101,7 +98,7 @@ export function Header() {
                   {isAdmin && (
                     <>
                       <DropdownMenuItem asChild>
-                        <Link to="/admin/caminhoes" className="flex items-center gap-2 font-medium text-blue-600">
+                        <Link to="/admin/veiculos" className="flex items-center gap-2 font-medium text-blue-600">
                           <LayoutDashboard className="h-4 w-4" />
                           Dashboard
                         </Link>
@@ -127,12 +124,14 @@ export function Header() {
                       Minhas Propostas
                     </Link>
                   </DropdownMenuItem>
+                  {/* Conversa IA desativada temporariamente.
                   <DropdownMenuItem onClick={() => dispatch(toggleChat())} className="cursor-pointer">
                     <div className="flex items-center gap-2">
                       <MessageSquare className="h-4 w-4" />
                       Chat IA
                     </div>
                   </DropdownMenuItem>
+                  */}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleSignOut} className="text-red-600 flex items-center gap-2">
                     <LogOut className="h-4 w-4" />
@@ -199,7 +198,7 @@ export function Header() {
               {/* Mobile user actions */}
               <div className="flex flex-col gap-2 mt-3 pt-3 border-t border-slate-100">
                 {isAdmin && (
-                  <Link to="/admin/caminhoes" onClick={() => setMobileMenuOpen(false)}>
+                  <Link to="/admin/veiculos" onClick={() => setMobileMenuOpen(false)}>
                     <Button variant="ghost" className="w-full justify-start gap-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50">
                       <LayoutDashboard className="h-4 w-4" />
                       Dashboard Admin
@@ -231,7 +230,7 @@ export function Header() {
                 </div>
               </div>
 
-              <Link to="/caminhoes" onClick={() => setMobileMenuOpen(false)} className="mt-2">
+              <Link to="/veiculos" onClick={() => setMobileMenuOpen(false)} className="mt-2">
                 <Button className="w-full h-9 bg-[#122d54] hover:bg-[#0d1f3d] text-white text-sm">
                   <Search className="h-4 w-4 mr-1.5" />
                   Buscar Caminhões

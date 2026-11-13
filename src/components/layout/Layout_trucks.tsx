@@ -1,8 +1,6 @@
 import { ReactNode } from 'react';
 import { Header } from './Header_trucks';
 import { Footer } from './Footer_trucks';
-import { FloatingChatButton } from '@/components/chat/FloatingChatButton';
-import { ChatWidget } from '@/components/chat/ChatWidget';
 
 interface LayoutProps {
   children: ReactNode;
@@ -14,8 +12,11 @@ export function Layout({ children }: LayoutProps) {
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
+      {/* Chat IA pausado. Os componentes e os fluxos de conversa continuam em components/chat. */}
+      {/*
       <FloatingChatButton />
       <ChatWidget />
+      */}
     </div>
   );
 }

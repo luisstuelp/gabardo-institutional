@@ -4,6 +4,7 @@ export type VehicleStatus = 'available' | 'reserved' | 'sold';
 export type FuelType = 'diesel' | 'gas' | 'electric' | 'hybrid';
 export type TransmissionType = 'manual' | 'automatic' | 'automated';
 export type AppRole = 'admin' | 'moderator' | 'user';
+export type ListingType = 'truck' | 'vehicle' | 'equipment';
 
 export interface Branch {
   id: string;
@@ -47,6 +48,9 @@ export interface Vehicle {
   branch_id: string | null;
   created_at: string;
   updated_at: string;
+  listing_type?: ListingType;
+  category?: string;
+  condition?: string | null;
 }
 
 export interface VehicleImage {
@@ -163,6 +167,7 @@ export const BRANDS = [
   { name: 'Volvo', logo: '/brands/volvo.svg' },
   { name: 'Scania', logo: '/brands/scania.svg' },
   { name: 'Mercedes-Benz', logo: '/brands/mercedes.svg' },
+  { name: 'Hyundai', logo: '/brands/hyundai.svg' },
   { name: 'DAF', logo: '/brands/daf.svg' },
   { name: 'MAN', logo: '/brands/man.svg' },
   { name: 'Iveco', logo: '/brands/iveco.svg' },

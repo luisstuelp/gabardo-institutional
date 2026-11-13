@@ -197,7 +197,7 @@ export default function AdminDashboardPage() {
                     <CardHeader className="p-8">
                         <div className="flex items-center justify-between">
                             <CardTitle className="text-xl font-bold text-slate-900">Últimas Propostas</CardTitle>
-                            <Link to="/admin/caminhoes/propostas">
+                            <Link to="/admin/veiculos/propostas">
                                 <Button variant="ghost" size="sm" className="text-slate-400 hover:text-slate-600 rounded-full h-8 w-8 p-0">
                                     •••
                                 </Button>
@@ -210,7 +210,7 @@ export default function AdminDashboardPage() {
                                 <p className="text-slate-500 text-center py-4">Nenhuma proposta recente.</p>
                             ) : (
                                 stats.recentLeads.map((lead) => (
-                                    <Link to="/admin/caminhoes/propostas" key={lead.id} className="block">
+                                    <Link to="/admin/veiculos/propostas" key={lead.id} className="block">
                                         <div className="flex items-center group cursor-pointer p-3 -mx-3 rounded-2xl hover:bg-slate-50 transition-colors">
                                             <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center text-blue-600 font-bold border border-blue-100 shrink-0">
                                                 {lead.name.substring(0, 2).toUpperCase()}

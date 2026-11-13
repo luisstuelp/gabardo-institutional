@@ -1,0 +1,13 @@
+.filterTrigger:hover,
+.filterTrigger:focus-visible,
+.filterTrigger[data-state="open"] {
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+  color: #fff !important;
+}
+
+.filterTrigger:hover *,
+.filterTrigger:focus-visible *,
+.filterTrigger[data-state="open"] * {
+  color: #fff !important;
+}

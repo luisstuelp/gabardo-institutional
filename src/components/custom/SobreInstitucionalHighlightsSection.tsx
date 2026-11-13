@@ -10,7 +10,7 @@ const institutionalHighlights = [
     imageAlt: 'Equipe avaliando indicadores de governança e compliance',
     imagePlaceholder: '/images/Certificados.JPG',
     actionLabel: 'Qualidade certificada',
-    actionHref: '/sobre/qualidade',
+    actionHref: '/sobre/qualidade_e_sustentabilidade',
   },
   {
     title: 'Operação inteligente e tecnologia',

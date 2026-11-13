@@ -1,61 +1,111 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { User, Session } from '@supabase/supabase-js';
-import { supabase } from '@/integrations/supabase_trucks/client';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import type { TrucksUser } from '@/lib/trucksUserAuth';
 
 interface AuthContextType {
-  user: User | null;
-  session: Session | null;
+  user: TrucksUser | null;
+  session: { user: TrucksUser } | null;
   isLoading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
+  signUp: (fullName: string, email: string, password: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<TrucksUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Set up auth state listener FIRST
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        setIsLoading(false);
-      }
-    );
+    let isMounted = true;
 
-    // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setIsLoading(false);
-    });
+    fetch('/api/trucks/auth/session', { cache: 'no-store' })
+      .then(async (response) => {
+        if (!response.ok) return null;
+        return (await response.json()) as { user: TrucksUser | null };
+      })
+      .then((data) => {
+        if (isMounted) setUser(data?.user ?? null);
+      })
+      .catch(() => {
+        if (isMounted) setUser(null);
+      })
+      .finally(() => {
+        if (isMounted) setIsLoading(false);
+      });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    return { error: error as Error | null };
-  };
+  const signIn = useCallback(async (email: string, password: string) => {
+    try {
+      const response = await fetch('/api/trucks/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const result = (await response.json().catch(() => ({}))) as {
+        user?: TrucksUser;
+        error?: string;
+      };
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-  };
+      if (!response.ok || !result.user) {
+        return { error: new Error(result.error ?? 'Não foi possível fazer login.') };
+      }
 
-  return (
-    <AuthContext.Provider value={{ user, session, isLoading, signIn, signOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
+      setUser(result.user);
+      return { error: null };
+    } catch (error) {
+      return { error: error instanceof Error ? error : new Error('Não foi possível fazer login.') };
+    }
+  }, []);
+
+  const signUp = useCallback(async (fullName: string, email: string, password: string) => {
+    try {
+      const response = await fetch('/api/trucks/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName, email, password }),
+      });
+      const result = (await response.json().catch(() => ({}))) as {
+        user?: { id: string; email: string; full_name: string | null };
+        error?: string;
+      };
+      if (!response.ok || !result.user) {
+        return { error: new Error(result.error ?? 'Não foi possível criar sua conta.') };
+      }
+      setUser({
+        ...result.user,
+        user_metadata: { full_name: result.user.full_name },
+      });
+      return { error: null };
+    } catch (error) {
+      return { error: error instanceof Error ? error : new Error('Não foi possível criar sua conta.') };
+    }
+  }, []);
+
+  const signOut = useCallback(async () => {
+    try {
+      await fetch('/api/trucks/auth/logout', { method: 'POST' });
+    } finally {
+      setUser(null);
+    }
+  }, []);
+
+  const value = useMemo<AuthContextType>(() => ({
+    user,
+    session: user ? { user } : null,
+    isLoading,
+    signIn,
+    signUp,
+    signOut,
+  }), [user, isLoading, signIn, signUp, signOut]);
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

@@ -2,12 +2,12 @@
  * Auth-related types for the Gabardo Trucks application.
  * All auth interfaces and type aliases live here.
  */
-import type { User, Session } from '@supabase/supabase-js';
+import type { TrucksUser } from '@/lib/trucksUserAuth';
 
 /** Shape of the AuthContext value provided to consumers */
 export interface AuthContextType {
-    user: User | null;
-    session: Session | null;
+    user: TrucksUser | null;
+    session: { user: TrucksUser } | null;
     isLoading: boolean;
     signIn: (email: string, password: string) => Promise<AuthResult>;
     signOut: () => Promise<void>;
@@ -28,8 +28,8 @@ export interface SignInPayload {
 
 /** Redux auth state slice */
 export interface AuthState {
-    user: User | null;
-    session: Session | null;
+    user: TrucksUser | null;
+    session: { user: TrucksUser } | null;
     isLoading: boolean;
     isAuthenticated: boolean;
     error: string | null;

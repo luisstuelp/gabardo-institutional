@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/carousel';
 import { useVehicles } from '@/hooks/useVehicles';
 import { useVehicleImagesBatch } from '@/hooks/useVehicleImages.batch';
-import { formatPrice, formatMileage } from '@/lib/format';
+import { formatVehiclePrice, formatMileage } from '@/lib/format';
 
 export function FeaturedCarousel() {
   const { data: vehicles, isLoading } = useVehicles({ isFeatured: true });
@@ -56,7 +56,7 @@ export function FeaturedCarousel() {
             <p className="text-slate-500 mt-1">Os melhores do nosso estoque</p>
           </div>
           <Link
-            to="/caminhoes?destaque=true"
+            to="/veiculos?destaque=true"
             className="hidden md:flex items-center gap-1 text-[#122d54] hover:text-blue-700 font-medium text-sm"
           >
             Ver todos <ChevronRight className="h-4 w-4" />
@@ -77,7 +77,7 @@ export function FeaturedCarousel() {
 
               return (
                 <CarouselItem key={vehicle.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4">
-                  <Link to={`/caminhoes/${vehicle.slug}`} className="block h-full">
+                  <Link to={`/veiculos/${vehicle.slug}`} className="block h-full">
                     <div className="group bg-white rounded-xl overflow-hidden border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all duration-300 h-full flex flex-col">
                       {/* Image */}
                       <div className="aspect-[4/3] overflow-hidden relative">
@@ -108,7 +108,7 @@ export function FeaturedCarousel() {
 
                         <div className="mt-auto">
                           <p className="text-lg font-bold text-[#122d54] mb-3">
-                            {formatPrice(vehicle.price)}
+                            {formatVehiclePrice(vehicle.price)}
                           </p>
 
                           <Button
@@ -131,7 +131,7 @@ export function FeaturedCarousel() {
         </Carousel>
 
         <Link
-          to="/caminhoes?destaque=true"
+          to="/veiculos?destaque=true"
           className="md:hidden flex items-center justify-center gap-1 text-[#122d54] hover:text-blue-700 font-medium text-sm mt-6"
         >
           Ver todos <ChevronRight className="h-4 w-4" />

@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { fetchFavorites, addFavorite, removeFavorite as removeFavoriteThunk } from '@/store/slices/favoritesSlice';
+import { fetchFavorites, addFavorite, clearFavorites, removeFavorite as removeFavoriteThunk } from '@/store/slices/favoritesSlice';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
@@ -13,8 +13,7 @@ export function useFavorites() {
     if (user) {
       dispatch(fetchFavorites(user.id));
     } else {
-      // Clear favorites if logged out? Or handle in slice/auth listener?
-      // Slice has clearFavorites reducer.
+      dispatch(clearFavorites());
     }
   }, [dispatch, user]);
 

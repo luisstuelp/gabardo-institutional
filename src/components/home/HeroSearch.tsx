@@ -61,7 +61,7 @@ export function HeroSearch() {
       }
     }
 
-    navigate(`/caminhoes${params.toString() ? `?${params.toString()}` : ''}`);
+    navigate(`/veiculos${params.toString() ? `?${params.toString()}` : ''}`);
   };
 
   return (

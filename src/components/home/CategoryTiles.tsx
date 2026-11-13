@@ -8,7 +8,7 @@ export function CategoryTiles() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Ofertas Especiais */}
           <Link
-            to="/caminhoes?ofertas=true"
+            to="/veiculos?ofertas=true"
             className="group relative overflow-hidden flex items-center gap-6 p-6 bg-white border border-slate-100 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] hover:shadow-[0_8px_30px_-4px_rgba(245,158,11,0.2)] hover:border-amber-200 transition-all duration-300 ease-out"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-amber-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -33,7 +33,7 @@ export function CategoryTiles() {
 
           {/* Seminovos Selecionados */}
           <Link
-            to="/caminhoes?seminovos=true"
+            to="/veiculos?seminovos=true"
             className="group relative overflow-hidden flex items-center gap-6 p-6 bg-white border border-slate-100 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] hover:shadow-[0_8px_30px_-4px_rgba(18,45,84,0.2)] hover:border-blue-200 transition-all duration-300 ease-out"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

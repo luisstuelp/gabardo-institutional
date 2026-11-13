@@ -1,48 +1,31 @@
-/**
- * Profiles API endpoint module.
- * RESTful interface for user profile operations.
- */
-import { getApiClient } from '../client';
-import { createLogger } from '@/lib/logger';
+/** Profile operations are scoped to the HTTP-only local trucks-user session. */
 import type { UserProfile } from '@/types/database';
 import type { ApiResponse } from '@/types/api';
 
-const logger = createLogger('ProfilesAPI');
-
-/** GET /profiles/:userId — Get a user's profile */
-export async function getProfile(userId: string): Promise<ApiResponse<UserProfile>> {
-    const client = getApiClient();
-    logger.info('Fetching user profile', { userId });
-
-    return client.query<UserProfile>('getProfile', async () => {
-        const supabase = client.getSupabaseClient();
-        const { data, error } = await supabase
-            .from('user_profiles')
-            .select('*')
-            .eq('user_id', userId)
-            .single();
-
-        return { data: data as UserProfile | null, error };
-    });
+async function request<T>(init?: RequestInit): Promise<ApiResponse<T>> {
+    try {
+        const response = await fetch('/api/trucks/profile', {
+            ...init,
+            headers: { ...(init?.body ? { 'Content-Type': 'application/json' } : {}), ...init?.headers },
+            cache: 'no-store',
+        });
+        const result = (await response.json().catch(() => ({}))) as { profile?: T; error?: string };
+        if (!response.ok) {
+            return { data: null, error: { message: result.error ?? 'Falha ao atualizar perfil.', code: String(response.status) }, status: response.status };
+        }
+        return { data: result.profile ?? null, error: null, status: response.status };
+    } catch (error) {
+        return { data: null, error: { message: error instanceof Error ? error.message : 'Falha ao conectar.', code: 'FETCH_ERROR' }, status: 0 };
+    }
 }
 
-/** PATCH /profiles/:userId — Update a user's profile (partial update) */
+export async function getProfile(_userId: string): Promise<ApiResponse<UserProfile>> {
+    return request<UserProfile>();
+}
+
 export async function updateProfile(
-    userId: string,
-    updates: Partial<Pick<UserProfile, 'full_name' | 'phone' | 'email' | 'avatar_url'>>
+    _userId: string,
+    updates: Partial<Pick<UserProfile, 'full_name' | 'phone' | 'email' | 'avatar_url'>>,
 ): Promise<ApiResponse<UserProfile>> {
-    const client = getApiClient();
-    logger.info('Updating user profile', { userId, fields: Object.keys(updates) });
-
-    return client.query<UserProfile>('updateProfile', async () => {
-        const supabase = client.getSupabaseClient();
-        const { data, error } = await supabase
-            .from('user_profiles')
-            .update(updates)
-            .eq('user_id', userId)
-            .select()
-            .single();
-
-        return { data: data as UserProfile | null, error };
-    });
+    return request<UserProfile>({ method: 'PATCH', body: JSON.stringify(updates) });
 }

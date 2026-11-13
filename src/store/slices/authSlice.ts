@@ -7,7 +7,7 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 import { authApi } from '@/api';
 import { createLogger } from '@/lib/logger';
 import type { AuthState } from '@/types/auth';
-import type { User, Session } from '@supabase/supabase-js';
+import type { TrucksUser } from '@/lib/trucksUserAuth';
 
 const logger = createLogger('AuthSlice');
 
@@ -75,7 +75,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         /** Called by the auth state listener to sync session changes */
-        setSession(state, action: PayloadAction<{ user: User | null; session: Session | null }>) {
+        setSession(state, action: PayloadAction<{ user: TrucksUser | null; session: { user: TrucksUser } | null }>) {
             state.user = action.payload.user;
             state.session = action.payload.session;
             state.isAuthenticated = !!action.payload.user;

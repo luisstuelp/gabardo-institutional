@@ -59,32 +59,15 @@ export async function updateUserRole(userId: string, role: AppRole): Promise<Api
     logger.info('Updating user role', { userId, role });
 
     return client.query<void>('updateUserRole', async () => {
-        const supabase = client.getSupabaseClient();
-
-        // Check if role entry exists
-        const { data: existingRole } = await supabase
-            .from('user_roles')
-            .select('id')
-            .eq('user_id', userId)
-            .single();
-
-        let error;
-
-        if (existingRole) {
-            // Update
-            const result = await supabase
-                .from('user_roles')
-                .update({ role })
-                .eq('user_id', userId);
-            error = result.error;
-        } else {
-            // Insert
-            const result = await supabase
-                .from('user_roles')
-                .insert({ user_id: userId, role });
-            error = result.error;
-        }
-
-        return { data: null, error };
+        const response = await fetch('/api/admin/trucks/users/role', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId, role }),
+        });
+        const result = (await response.json().catch(() => ({}))) as { error?: string };
+        return {
+            data: null,
+            error: response.ok ? null : { message: result.error ?? 'Não foi possível atualizar o cargo.', code: String(response.status) },
+        };
     });
 }

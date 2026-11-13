@@ -38,7 +38,7 @@ export function BrandLogos() {
             {displayBrands.map((brand, index) => (
               <Link
                 key={`list-1-${brand.name}-${index}`}
-                to={`/caminhoes?marca=${encodeURIComponent(brand.name)}`}
+                to={`/veiculos?marca=${encodeURIComponent(brand.name)}`}
                 className="group/item flex items-center justify-center shrink-0 transition-transform hover:scale-110 duration-300"
               >
                 <img
@@ -53,7 +53,7 @@ export function BrandLogos() {
             {displayBrands.map((brand, index) => (
               <Link
                 key={`list-2-${brand.name}-${index}`}
-                to={`/caminhoes?marca=${encodeURIComponent(brand.name)}`}
+                to={`/veiculos?marca=${encodeURIComponent(brand.name)}`}
                 className="group/item flex items-center justify-center shrink-0 transition-transform hover:scale-110 duration-300"
               >
                 <img

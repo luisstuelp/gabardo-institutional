@@ -12,7 +12,8 @@ import {
     MessageSquare,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button_trucks';
-import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { supabase as trucksSupabase } from '@/integrations/supabase_trucks/client';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
@@ -20,17 +21,20 @@ interface AdminLayoutProps {
     children?: ReactNode;
 }
 
-const ADMIN_TRUCKS_BASE_PATH = '/admin/caminhoes';
+const ADMIN_TRUCKS_BASE_PATH = '/admin/veiculos';
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
-    const { signOut } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const handleSignOut = async () => {
-        await signOut();
-        navigate('/auth');
+        await Promise.all([
+            fetch('/api/admin/logout', { method: 'POST' }),
+            supabase.auth.signOut(),
+            trucksSupabase.auth.signOut(),
+        ]);
+        navigate('/admin/login', { replace: true });
     };
 
     const menuItems = [

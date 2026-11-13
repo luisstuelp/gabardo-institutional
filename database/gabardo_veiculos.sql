@@ -45,13 +45,14 @@ CREATE TABLE IF NOT EXISTS trucks.branches (
 );
 
 -- Contas locais do módulo. password_hash deve ser produzido pela aplicação
--- usando Argon2id ou bcrypt; nunca armazene senhas em texto simples.
+-- usando scrypt ou bcrypt; nunca armazene senhas em texto simples.
 CREATE TABLE IF NOT EXISTS trucks.users (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   email TEXT NOT NULL CHECK (btrim(email) <> ''),
   password_hash TEXT NOT NULL,
   full_name TEXT,
   email_verified_at TIMESTAMPTZ,
+  is_admin BOOLEAN NOT NULL DEFAULT FALSE,
   is_active BOOLEAN NOT NULL DEFAULT TRUE,
   last_login_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),

@@ -1,0 +1,418 @@
+<?php
+	session_start();
+	
+	error_reporting(E_ALL);
+	ini_set('display_errors', 1);
+	
+	$msg="";
+	
+	//$conn = new mysqli("siga.grupogabardo.com.br:3306", "rastro", "gabardo","rastro");
+	//$conn = new mysqli("191.6.138.226:3306", "rastro", "gabardo", "rastro");
+	//if (!$conn) {
+	//	die("Connection failed: " . mysqli_connect_error());
+	//}
+
+	$con = mysqli_connect("191.6.138.226:3306", "rastro", "gabardo", "rastro");
+	//$con = mysqli_connect("localhost", "tran_rastro", "gabardo", "tran_siganew");
+
+// Check connection
+	if (mysqli_connect_errno()) {
+	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	exit();
+	}
+
+	if (isset($_POST['cte'])) {
+		$cte=$_POST['cte'];
+	} else {
+		$cte="";
+	}
+	 
+	if (@$_POST['op']=="sair") {
+		$_SESSION["dn"]="";
+	}
+
+	if (@$_POST['dn']<>"") {
+
+		$sql =  "Select *
+				From
+					VIEW_SIGA_CONSULTATRANSPORTE A
+				Where
+					A.LOGIN_DN = '" .@$_POST['dn']. "' or 
+					A.DN = '" .@$_POST['dn']. "'";  
+		//echo $sql;
+		if ($result = $con->query($sql)) {
+			if ($result->num_rows>0){
+				$_SESSION["dn"]=$_POST['dn'];
+			} else {
+				$msg ="<br><br><center><strong>Login Inválido por favor entre em contato conosco</strong></center>";
+			}
+		}
+	}
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+        <title>.:Gabardo:. Acompanhamento de Transporte</title>
+        <meta name="description" content="Transgabardo">
+        <meta name="keywords" content="">
+		<meta charset="UTF-8">
+        <meta name="author" content="Gane Tecnologia da Informação. www.ganeti.com.br">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<style>
+			html { height: 100% }
+			body {
+				height: 100%; 
+				margin: 0; 
+				padding: 0;
+				font-family: 'Roboto', sans-serif !important;
+				font-size:10px!important;
+				text-align:left;
+				color: rgb(90, 90, 90) !important;
+				background-color:#F5F5F5 !important;
+				background-image: url("fundo.jpg");
+				background-size: cover;
+			}
+			b, strong {
+				font-weight: bolder;
+				font-size:12px!important;
+			}
+			.container-fluid{
+				padding:0;
+			}
+			.div-container-login{
+				min-height: 100vh;
+
+				/* Make it a flex container */
+				display: -webkit-box;
+				display: -moz-box;
+				display: -ms-flexbox;
+				display: -webkit-flex;
+				display: flex; 
+
+				/* Align the bootstrap's container vertically */
+				-webkit-box-align : center;
+				-webkit-align-items : center;
+				-moz-box-align : center;
+				-ms-flex-align : center;
+				align-items : center;
+
+				/* In legacy web browsers such as Firefox 9
+				we need to specify the width of the flex container */
+				width: 100%;
+
+				/* Also 'margin: 0 auto' doesn't have any effect on flex items in such web browsers
+				hence the bootstrap's container won't be aligned to the center anymore.
+
+				Therefore, we should use the following declarations to get it centered again */
+				-webkit-box-pack : center;
+				-moz-box-pack : center;
+				-ms-flex-pack : center;
+				-webkit-justify-content : center;
+				justify-content : center;
+			}
+			.div-login{
+				width: 390px;
+				max-width: 100%;
+				background-color: #F4F4F4;
+				padding: 5%;
+				border-radius: 10px;
+			}
+			.div-login input{
+				height: 30px;
+				width: 100%;
+				background-color: #FFF;
+				padding: 1%;
+				border-radius: 10px;
+				text-transform: uppercase;
+			}
+			.div-login p{
+				font-size:14px;
+				color: #5f5f60;
+			}
+			.div-login #codigo{
+				height: 30px;
+				width: 100%;
+				background-color: #FFF;
+				padding: 1%;
+				border-radius: 10px;
+				border:1px solid #CCC;
+			}
+			.div-login #btn-login{
+				color:#FFF;
+				height: 30px;
+				width: 100%;
+				background-color: #345185;
+				padding: 1%;
+				border-radius: 10px;
+				border:0px solid #CCC;
+			}
+			.div-usuario {
+				color:#FFF;
+				height:6vh;
+				background-color: #afbdc7;
+				padding-top:10px;
+				background-image: url("fundo.jpg");
+				background-size: cover;
+			}
+			.div-usuario p{
+				float:right;
+				line-height: 30px;
+				font-size: 12px;
+			}
+			.div-usuario #btn-sair{
+				width: 100px;
+				background-color: #345185;
+				padding: 0.5%;
+				margin-top:0px;
+				border-radius: 10px;
+				border:0px solid #CCC;
+				float:right;
+			}
+			.div-mapa{
+				height:59vh;
+				width:100%;
+			}
+			#map{
+				width:100%;
+				height: 100%;
+				height: 59vh;
+			}
+			.div-tabela{
+				height: 35vh;
+				width:100%;
+				background-color: #FFF;
+			}
+			.div-table {
+				width:100%;
+				border-radius: 5px !important;
+				padding: 10px 1px 10px 10px;  
+				margin: 0 0 20px 0;
+				background-color: #FFF;
+				overflow: auto;
+			}
+			.div-table-fixed {
+				overflow: auto;
+				height: 30vh;
+				width:100%
+			}
+			table thead tr th{
+				font-size: 10pt;
+				position: sticky;
+				top: 0;
+				color: #FFF;
+				background-color: #3366CC;
+				border-collapse: collapse;
+				text-transform: uppercase;
+			}
+			table td, table th {
+				font-size: 10px;
+				padding: 0px!important;
+			}
+			th, td {
+				text-align: left;
+				border-bottom: 1px solid #ddd;
+				border: 1px solid #FFF;
+			}
+
+			table tr:hover {
+				background-color:#f3ead1;
+				cursor: pointer;
+			}
+			
+			table thead tr th{
+				position: sticky;
+				top: 0;
+				color: #FFF;
+				background-color: #3366CC;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<form name="frm" id="frm" method="post" autocomplete="off" enctype="multipart/form-data">
+		<input type="hidden" name="cte" id="cte" value="">
+		<?php
+			if (@$_SESSION["dn"]=="" or @$_POST['op']=="sair"){
+				?>
+					<div class="container div-container-login">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="div-login" >
+									<input type="hidden" name="op" id="op" value="login">
+									<a target="_blank" href='https://www.grupogabardo.com.br/'> <img src="https://grupogabardo.com.br/wp-content/uploads/2017/03/logo.png" width="100%"></a>
+									<p>Informe o código de Acesso:
+									<br>
+									<br><input type="text" name="dn" id="codigo">
+									<br>
+									<br><input type="submit" pattern="[a-zA-Z0-9]+" name="btn-login" id="btn-login" value="Login">
+									<?=$msg?>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php
+			} else {
+				?>
+				<input type="hidden" name="dn" id="codigo" value="<?=@$_POST['dn']?>">
+				<div class="container-fluid">
+					<div class="col-sm-12 div-usuario">
+						<div class="row">
+							<div class="col-sm-6">
+								<a target="_blank" href='https://www.grupogabardo.com.br/'> <img src="https://grupogabardo.com.br/wp-content/uploads/2017/03/logo.png" width="100px"></a>
+							</div>
+							<div class="col-sm-6">
+								<p>
+								<?php
+									if (@$result){
+										$row = $result->fetch_assoc();
+										echo $row["CLIENTE"];
+									}
+								?>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="hidden" name="op" id="op" value="sair">
+								<input type="submit" name="btn-sair" id="btn-sair" value="Sair">
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12 div-mapa">
+						<div class="row">
+							<div id="map" >
+							mapa
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12 div-tabela">
+						<div class="row">
+							<div class="div-table">
+								<div class="div-table-fixed">
+						
+									<table width="100%">
+										<thead>
+											<tr>
+												<th width="*">&nbsp;Viagem</th>
+												<th width="*">&nbsp;CTE</th>
+												<th width="*">&nbsp;Saída</th>
+												<th width="*">&nbsp;Motorista</th>
+												<th width="*">&nbsp;Frota</th>
+												<!--<th width="*">&nbsp;Velocidade</th>-->
+												<th width="*">&nbsp;Coleta</th>
+												<th width="*">&nbsp;Entrega</th>
+												<th width="*">&nbsp;Destinatário</th>
+												<th width="*">&nbsp;Localização</th>
+												<th width="*">&nbsp;Status CTE</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+												if (@$result = $con->query($sql)) {
+													while ($row = $result->fetch_assoc()) {
+														$classe=($row["STATUSCTE"]=="EM ANDAMENTO")?"tr-linha":"";
+														?>
+														<tr class="<?=$classe?>" data-acao="editar" data-cte="<?=$row["CTE"]?>">
+															<td>&nbsp;<?=$row["VIAGEM"]?></td>
+															<td>&nbsp;<?=$row["CTE"]?></td>
+															<td>&nbsp;<?=$row["DTSAIDA"]?></td>
+															<td>&nbsp;<?=$row["MOTORISTA"]?></td>
+															<td>&nbsp;<?=$row["FROTA"]?></td>
+															<!--<td>&nbsp;<?=$row["VELOCIDADE"]?></td>-->
+															<td>&nbsp;<?=$row["MUNCOLETA"]."-".$row["UFCOLETA"]?></td>
+															<td>&nbsp;<?=$row["MUNENTREGA"]."-".$row["UFENTREGA"]?></td>
+															<td>&nbsp;<?=$row["DESTINATARIO"]?></td>
+															<td>&nbsp;<?= htmlspecialchars($row["DESCPOSICAO"]) ?></td>
+															<td>&nbsp;<?=$row["STATUSCTE"]?></td>
+														</tr>
+														<?php
+													}
+												}
+											?>
+										</tbody>
+									</table>
+						
+								</div>
+							</div>	
+						</div>
+					</div>
+				</div>
+				<?php
+			}
+		?>
+
+		</form>
+
+		<!-- js file -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEJlzUECdkAUQ6Ad3BUlaQYAKRu9O5M7o"></script>
+		<script>
+			console.log('navigator.geolocation -14.799483, -55.675289');
+
+			map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 4,
+			center: new google.maps.LatLng(-14.799483, -55.675289),
+			mapTypeId: 'roadmap'
+			});
+
+			var contentString = '';
+			var infowindow = new google.maps.InfoWindow({content: contentString});
+
+			var features = [
+				<?php
+					if (@$result = $con->query($sql)) {
+						while ($row = $result->fetch_assoc()) {
+							if ($row["LATITUDE"]<>"0" and $row["LONGITUDE"]<>"0"){
+								?>
+								{
+								title: '<?=$row["LATITUDE"]?>, <?=$row["LONGITUDE"]?>',
+								cte: '<?=$row["CTE"]?>',
+								position: new google.maps.LatLng(<?=$row["LATITUDE"]?>, <?=$row["LONGITUDE"]?>),
+								icon: 'caminhao.png',
+								contentString: '<div class="google_box"><strong>Viagem:</strong> <?=$row["BAL_VIAGEM"]?><br><strong>CTE:</strong> <?=$row["BAL_CTE"]?><br><strong>Saída:</strong> <?=$row["BAL_DTSAIDA"]?><br><strong>Motorista:</strong> <?=$row["BAL_MOTORISTA"]?><br><strong>Frota:</strong> <?=$row["BAL_FROTA"]?><br><strong>Coleta:</strong> <?=$row["BAL_COLETA"]?><br><strong>Entrega:</strong> <?=$row["BAL_ENTREGA"]?><br><strong>Destinatário:</strong> <?=$row["BAL_DESTINATARIO"]?><br><strong>Atualização:</strong> <?=$row["BAL_DATAPOSICAO"]?><br></div>'
+								},
+								<?php
+							}
+						}
+					}
+				?>
+			];
+
+			var contentString = '';
+			var infowindow = new google.maps.InfoWindow({content: contentString});
+	
+			//Adicionar os marcadores
+			features.forEach(function(feature) {
+				var marker = new google.maps.Marker({
+					position: feature.position,
+					map: map,
+					title: feature.title,
+					icon: feature.icon
+				});
+				if (feature.cte == "<?=$cte?>"){
+					infowindow.setContent(feature.contentString)
+					infowindow.open(map, marker);
+				}
+				marker.addListener('click', function() {
+					var contentString = feature.contentString
+					infowindow.setContent(contentString)
+					infowindow.open(map, marker);
+
+				});				
+			}); 
+				
+			$(".tr-linha").click(function(){ 
+				var c=$.attr(this, 'data-cte');
+
+				console.log(".tr-linha cte:"+c)
+
+				$("#cte").attr('value', c);
+				$("#op").attr('value', "dados");
+				frm.submit();        
+				return false;
+			}) 
+		</script>
+	</body>
+</html>

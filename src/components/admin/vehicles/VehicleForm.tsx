@@ -30,10 +30,13 @@ import { FipeSearchDialog } from './FipeSearchDialog';
 import { useBranches } from '@/hooks/useBranches';
 
 const vehicleSchema = z.object({
+    listing_type: z.enum(['truck', 'vehicle', 'equipment']).default('truck'),
+    category: z.string().default(''),
+    condition: z.string().default(''),
     title: z.string().min(3, "Título deve ter pelo menos 3 caracteres"),
     brand: z.string().min(1, "Selecione uma marca"),
     model: z.string().min(1, "Modelo obrigatório"),
-    price: z.coerce.number().min(1, "Preço deve ser maior que 0"),
+    price: z.coerce.number().min(0, "Preço não pode ser negativo"),
     year_manufacture: z.coerce.number().min(1900).max(new Date().getFullYear() + 1),
     year_model: z.coerce.number().min(1900).max(new Date().getFullYear() + 1),
     mileage: z.coerce.number().min(0),
@@ -66,6 +69,9 @@ export function VehicleForm({ initialData, onSubmit, isLoading }: VehicleFormPro
     const form = useForm<VehicleFormValues>({
         resolver: zodResolver(vehicleSchema),
         defaultValues: {
+            listing_type: initialData?.listing_type || 'truck',
+            category: initialData?.category || '',
+            condition: initialData?.condition || '',
             title: initialData?.title || '',
             brand: initialData?.brand || '',
             model: initialData?.model || '',
@@ -116,10 +122,29 @@ export function VehicleForm({ initialData, onSubmit, isLoading }: VehicleFormPro
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit((data) => onSubmit(data, selectedFiles))} className="space-y-8">
+                <FormField
+                    control={form.control}
+                    name="listing_type"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Tipo de anúncio</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                                <FormControl><SelectTrigger><SelectValue placeholder="Selecione o tipo" /></SelectTrigger></FormControl>
+                                <SelectContent>
+                                    <SelectItem value="truck">Caminhão</SelectItem>
+                                    <SelectItem value="vehicle">Veículo genérico (carro, moto, trator etc.)</SelectItem>
+                                    <SelectItem value="equipment">Equipamento</SelectItem>
+                                </SelectContent>
+                            </Select>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
                 <div className="flex justify-end bg-gray-50 p-4 rounded-lg border">
                     <div className="flex items-center gap-4 w-full justify-between">
-                        <span className="text-sm text-muted-foreground">Preencher com dados oficiais:</span>
-                        <FipeSearchDialog onSelect={handleFipeSelect} />
+                        <span className="text-sm text-muted-foreground">{form.watch('listing_type') === 'truck' ? 'Preencher com dados oficiais:' : 'Dados do anúncio:'}</span>
+                        {form.watch('listing_type') === 'truck' && <FipeSearchDialog onSelect={handleFipeSelect} />}
                     </div>
                 </div>
 
@@ -142,6 +167,20 @@ export function VehicleForm({ initialData, onSubmit, isLoading }: VehicleFormPro
                             )}
                         />
 
+                        {form.watch('listing_type') !== 'truck' && (
+                            <FormField
+                                control={form.control}
+                                name="category"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>{form.watch('listing_type') === 'equipment' ? 'Tipo de equipamento' : 'Categoria do veículo'}</FormLabel>
+                                        <FormControl><Input placeholder={form.watch('listing_type') === 'equipment' ? 'Ex: implemento, guindaste, empilhadeira' : 'Ex: carro, moto, trator, van'} {...field} /></FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        )}
+
                         <div className="grid grid-cols-2 gap-4">
                             <FormField
                                 control={form.control}
@@ -149,20 +188,12 @@ export function VehicleForm({ initialData, onSubmit, isLoading }: VehicleFormPro
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Marca</FormLabel>
+                                    {form.watch('listing_type') === 'truck' ? (
                                         <Select onValueChange={field.onChange} value={field.value}>
-                                            <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Selecione" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                {BRANDS.map((brand) => (
-                                                    <SelectItem key={brand.name} value={brand.name}>
-                                                        {brand.name}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
+                                            <FormControl><SelectTrigger><SelectValue placeholder="Selecione" /></SelectTrigger></FormControl>
+                                            <SelectContent>{BRANDS.map((brand) => <SelectItem key={brand.name} value={brand.name}>{brand.name}</SelectItem>)}</SelectContent>
                                         </Select>
+                                    ) : <FormControl><Input placeholder="Marca (opcional para equipamento)" {...field} /></FormControl>}
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -183,6 +214,12 @@ export function VehicleForm({ initialData, onSubmit, isLoading }: VehicleFormPro
                             />
                         </div>
 
+                        {form.watch('listing_type') === 'equipment' && (
+                            <FormField control={form.control} name="condition" render={({ field }) => (
+                                <FormItem><FormLabel>Condição</FormLabel><FormControl><Input placeholder="Ex: novo, usado, revisado" {...field} /></FormControl><FormMessage /></FormItem>
+                            )} />
+                        )}
+
                         <FormField
                             control={form.control}
                             name="price"
@@ -190,8 +227,9 @@ export function VehicleForm({ initialData, onSubmit, isLoading }: VehicleFormPro
                                 <FormItem>
                                     <FormLabel>Preço (R$)</FormLabel>
                                     <FormControl>
-                                        <Input type="number" {...field} />
+                                        <Input type="number" min={0} required {...field} />
                                     </FormControl>
+                                    <FormDescription>Informe 0 para exibir “(Sob consulta)” no anúncio.</FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}

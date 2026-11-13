@@ -35,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/sobre/qualidade`,
+      url: `${baseUrl}/sobre/qualidade_e_sustentabilidade`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,

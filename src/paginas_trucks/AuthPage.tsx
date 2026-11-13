@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Link } from '@/lib/next-router-compat';
+import { UserPlus } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido'),
@@ -25,7 +26,7 @@ export default function AuthPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const from = (location.state as any)?.from?.pathname || '/';
+  const from = (location.state as any)?.from?.pathname || '/veiculos';
 
   useEffect(() => {
     if (user && !isLoading) {
@@ -44,10 +45,10 @@ export default function AuthPage() {
     setIsSubmitting(false);
 
     if (error) {
-      if (error.message.includes('Invalid login credentials')) {
+      if (error.message.toLowerCase().includes('incorretos') || error.message.includes('Invalid login credentials')) {
         toast.error('Email ou senha incorretos');
       } else {
-        toast.error('Erro ao fazer login. Tente novamente.');
+        toast.error(error.message || 'Erro ao fazer login. Tente novamente.');
       }
       return;
     }
@@ -74,7 +75,7 @@ export default function AuthPage() {
       <div className="w-full max-w-md relative z-10">
         {/* Back to home */}
         <Link
-          to="/"
+          to="/veiculos"
           className="inline-flex items-center gap-2 text-slate-500 hover:text-[#122d54] mb-8 transition-colors text-sm font-medium group"
         >
           <div className="p-1.5 rounded-full bg-white shadow-sm group-hover:shadow transition-all group-hover:-translate-x-1">
@@ -89,75 +90,81 @@ export default function AuthPage() {
           <div className="text-center mb-8">
 
             <p className="text-slate-500 mt-2 text-sm leading-relaxed">
-              Entre com uma conta autorizada. O cadastro de novas contas de clientes está desativado.
+              Entre com sua conta de cliente ou crie uma nova. Acesso administrativo disponível em /admin/login.
             </p>
           </div>
 
           <div className="w-full">
-              <form onSubmit={loginForm.handleSubmit(handleLogin)} className="space-y-5">
-                <div className="space-y-2">
-                  <Label htmlFor="login-email" className="text-slate-600 font-medium text-sm ml-1">Email</Label>
-                  <div className="relative group">
-                    <div className="absolute left-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-slate-50 text-slate-400 group-focus-within:bg-blue-50 group-focus-within:text-blue-500 transition-colors">
-                      <Mail className="h-4 w-4" />
-                    </div>
-                    <Input
-                      id="login-email"
-                      type="email"
-                      placeholder="seu@email.com"
-                      className="pl-12 h-12 bg-slate-50/50 border-slate-200 focus:bg-white focus:border-blue-200 focus:ring-4 focus:ring-blue-50 transition-all duration-300 rounded-xl"
-                      {...loginForm.register('email')}
-                    />
+            <form onSubmit={loginForm.handleSubmit(handleLogin)} className="space-y-5">
+              <div className="space-y-2">
+                <Label htmlFor="login-email" className="text-slate-600 font-medium text-sm ml-1">Email</Label>
+                <div className="relative group">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-slate-50 text-slate-400 group-focus-within:bg-blue-50 group-focus-within:text-blue-500 transition-colors">
+                    <Mail className="h-4 w-4" />
                   </div>
-                  {loginForm.formState.errors.email && (
-                    <p className="text-sm text-red-500 ml-1">{loginForm.formState.errors.email.message}</p>
-                  )}
+                  <Input
+                    id="login-email"
+                    type="email"
+                    placeholder="seu@email.com"
+                    className="pl-12 h-12 bg-slate-50/50 border-slate-200 focus:bg-white focus:border-blue-200 focus:ring-4 focus:ring-blue-50 transition-all duration-300 rounded-xl"
+                    {...loginForm.register('email')}
+                  />
                 </div>
+                {loginForm.formState.errors.email && (
+                  <p className="text-sm text-red-500 ml-1">{loginForm.formState.errors.email.message}</p>
+                )}
+              </div>
 
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between ml-1">
-                    <Label htmlFor="login-password" className="text-slate-600 font-medium text-sm">Senha</Label>
-                    <Link to="/forgot-password" className="text-xs font-medium text-blue-600 hover:text-blue-700 hover:underline">
-                      Esqueceu a senha?
-                    </Link>
-                  </div>
-                  <div className="relative group">
-                    <div className="absolute left-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-slate-50 text-slate-400 group-focus-within:bg-blue-50 group-focus-within:text-blue-500 transition-colors">
-                      <Lock className="h-4 w-4" />
-                    </div>
-                    <Input
-                      id="login-password"
-                      type={showPassword ? 'text' : 'password'}
-                      placeholder="••••••••"
-                      className="pl-12 pr-12 h-12 bg-slate-50/50 border-slate-200 focus:bg-white focus:border-blue-200 focus:ring-4 focus:ring-blue-50 transition-all duration-300 rounded-xl"
-                      {...loginForm.register('password')}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-all"
-                    >
-                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                    </button>
-                  </div>
-                  {loginForm.formState.errors.password && (
-                    <p className="text-sm text-red-500 ml-1">{loginForm.formState.errors.password.message}</p>
-                  )}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between ml-1">
+                  <Label htmlFor="login-password" className="text-slate-600 font-medium text-sm">Senha</Label>
+                  <Link to="/forgot-password" className="text-xs font-medium text-blue-600 hover:text-blue-700 hover:underline">
+                    Esqueceu a senha?
+                  </Link>
                 </div>
+                <div className="relative group">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-slate-50 text-slate-400 group-focus-within:bg-blue-50 group-focus-within:text-blue-500 transition-colors">
+                    <Lock className="h-4 w-4" />
+                  </div>
+                  <Input
+                    id="login-password"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="••••••••"
+                    className="pl-12 pr-12 h-12 bg-slate-50/50 border-slate-200 focus:bg-white focus:border-blue-200 focus:ring-4 focus:ring-blue-50 transition-all duration-300 rounded-xl"
+                    {...loginForm.register('password')}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-all"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+                {loginForm.formState.errors.password && (
+                  <p className="text-sm text-red-500 ml-1">{loginForm.formState.errors.password.message}</p>
+                )}
+              </div>
 
-                <Button
-                  type="submit"
-                  className="w-full h-12 bg-gradient-to-r from-[#122d54] to-[#1e4b8a] hover:from-[#0d1f3d] hover:to-[#122d54] text-white shadow-lg shadow-blue-900/20 hover:shadow-blue-900/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 rounded-xl font-medium text-base"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-                      <span>Entrando...</span>
-                    </div>
-                  ) : 'Entrar na conta'}
-                </Button>
-              </form>
+              <Button
+                type="submit"
+                className="w-full h-12 bg-gradient-to-r from-[#122d54] to-[#1e4b8a] hover:from-[#0d1f3d] hover:to-[#122d54] text-white shadow-lg shadow-blue-900/20 hover:shadow-blue-900/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 rounded-xl font-medium text-base"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                    <span>Entrando...</span>
+                  </div>
+                ) : 'Entrar na conta'}
+              </Button>
+            </form>
+            <div className="mt-5 text-center text-sm text-slate-500">
+              Ainda não tem conta?{' '}
+              <Link to="/cadastro" className="inline-flex items-center gap-1 font-semibold text-blue-700 hover:underline">
+                <UserPlus className="h-4 w-4" /> Criar conta
+              </Link>
+            </div>
           </div>
         </div>
       </div>

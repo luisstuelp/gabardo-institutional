@@ -8,7 +8,7 @@ import { useVehicle, useVehicles } from '@/hooks/useVehicles';
 import { useVehicleImages } from '@/hooks/useVehicleImages';
 import { useVehicleImagesBatch } from '@/hooks/useVehicleImages.batch';
 import { useBranch } from '@/hooks/useBranches';
-import { formatPrice, formatMileage, formatYear, getFuelLabel, getTransmissionLabel } from '@/lib/format';
+import { formatPrice, formatVehiclePrice, formatMileage, formatYear, getFuelLabel, getTransmissionLabel } from '@/lib/format';
 import { VehicleCard } from '@/components/vehicles/VehicleCard';
 import { ImageGallery } from '@/components/vehicles/ImageGallery';
 import { FinancingSimulator } from '@/components/vehicles/FinancingSimulator';
@@ -46,7 +46,7 @@ export default function VehicleDetailPage() {
           </div>
           <h1 className="text-2xl font-bold mb-4 text-slate-900">Veículo não encontrado</h1>
           <p className="text-slate-500 mb-6">O veículo que você está procurando não existe ou foi vendido.</p>
-          <Link to="/caminhoes">
+          <Link to="/veiculos">
             <Button className="bg-[#122d54] hover:bg-[#0d1f3d]">Ver outros caminhões</Button>
           </Link>
         </div>
@@ -86,7 +86,7 @@ export default function VehicleDetailPage() {
           <nav className="flex items-center gap-2 text-sm">
             <Link to="/" className="text-slate-500 hover:text-[#122d54] transition-colors">Início</Link>
             <ChevronRight className="h-4 w-4 text-slate-400" />
-            <Link to="/caminhoes" className="text-slate-500 hover:text-[#122d54] transition-colors">Caminhões</Link>
+            <Link to="/veiculos" className="text-slate-500 hover:text-[#122d54] transition-colors">Caminhões</Link>
             <ChevronRight className="h-4 w-4 text-slate-400" />
             <span className="text-slate-900 font-medium truncate">{vehicle.title}</span>
           </nav>
@@ -133,7 +133,7 @@ export default function VehicleDetailPage() {
                 )}
               </div>
               <h1 className="text-xl font-bold font-montserrat mb-2 text-slate-900">{vehicle.title}</h1>
-              <p className="text-2xl font-bold text-[#122d54]">{formatPrice(vehicle.price)}</p>
+              <p className="text-2xl font-bold text-[#122d54]">{formatVehiclePrice(vehicle.price)}</p>
             </div>
 
             {/* Quick Specs */}
@@ -218,9 +218,11 @@ export default function VehicleDetailPage() {
             </div>
 
             {/* Financing Simulator */}
-            <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-              <FinancingSimulator vehiclePrice={vehicle.price} />
-            </div>
+            {vehicle.price > 0 && (
+              <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                <FinancingSimulator vehiclePrice={vehicle.price} />
+              </div>
+            )}
           </div>
 
           {/* Sidebar */}
@@ -260,7 +262,7 @@ export default function VehicleDetailPage() {
                 {/* Price */}
                 <div className="bg-slate-50 rounded-lg p-4 text-center">
                   <p className="text-xs text-slate-500 mb-1">Preço</p>
-                  <p className="text-2xl font-bold text-[#122d54]">{formatPrice(vehicle.price)}</p>
+                  <p className="text-2xl font-bold text-[#122d54]">{formatVehiclePrice(vehicle.price)}</p>
                 </div>
 
                 {/* CTA Buttons */}
@@ -273,8 +275,8 @@ export default function VehicleDetailPage() {
                   </Button>
 
                   <WhatsAppButton
-                    phone={branch?.whatsapp || '5551999999999'}
-                    message={`Olá! Tenho interesse no caminhão ${vehicle.title} (${formatYear(vehicle.year_manufacture, vehicle.year_model)}) - ${formatPrice(vehicle.price)}. Vi no site da Gabardo.`}
+                    phone={'5551993253000'}
+                    message={`Olá! Tenho interesse no caminhão ${vehicle.title} (${formatYear(vehicle.year_manufacture, vehicle.year_model)}) - ${formatVehiclePrice(vehicle.price)}. Vi no site da Gabardo.`}
                     className="w-full"
                   />
                 </div>
@@ -322,7 +324,7 @@ export default function VehicleDetailPage() {
                   Tenho Interesse
                 </Button>
                 <WhatsAppButton
-                  phone={branch?.whatsapp || '5551999999999'}
+                  phone={branch?.whatsapp || '5551993253000'}
                   message={`Olá! Tenho interesse no caminhão ${vehicle.title}`}
                   className="flex-1"
                   variant="outline"
@@ -443,48 +445,54 @@ function FipeTabContent({ vehicle }: { vehicle: Vehicle }) {
         </div>
 
         {/* Comparison */}
-        <div className={cn(
-          "p-4 rounded-xl border",
-          isBelowFipe ? "bg-emerald-50 border-emerald-100" :
-            isAboveFipe ? "bg-amber-50 border-amber-100" : "bg-slate-50 border-slate-100"
-        )}>
-          <div className="flex items-center gap-3 mb-2">
-            <div className={cn(
-              "w-8 h-8 rounded-full flex items-center justify-center",
-              isBelowFipe ? "bg-emerald-100 text-emerald-600" :
-                isAboveFipe ? "bg-amber-100 text-amber-600" : "bg-slate-100 text-slate-600"
-            )}>
-              {isBelowFipe ? <TrendingDown className="w-4 h-4" /> :
-                isAboveFipe ? <TrendingUp className="w-4 h-4" /> :
-                  <Minus className="w-4 h-4" />}
+        {vehicle.price > 0 ? (
+          <div className={cn(
+            "p-4 rounded-xl border",
+            isBelowFipe ? "bg-emerald-50 border-emerald-100" :
+              isAboveFipe ? "bg-amber-50 border-amber-100" : "bg-slate-50 border-slate-100"
+          )}>
+            <div className="flex items-center gap-3 mb-2">
+              <div className={cn(
+                "w-8 h-8 rounded-full flex items-center justify-center",
+                isBelowFipe ? "bg-emerald-100 text-emerald-600" :
+                  isAboveFipe ? "bg-amber-100 text-amber-600" : "bg-slate-100 text-slate-600"
+              )}>
+                {isBelowFipe ? <TrendingDown className="w-4 h-4" /> :
+                  isAboveFipe ? <TrendingUp className="w-4 h-4" /> :
+                    <Minus className="w-4 h-4" />}
+              </div>
+              <p className={cn(
+                "font-semibold text-sm",
+                isBelowFipe ? "text-emerald-700" :
+                  isAboveFipe ? "text-amber-700" : "text-slate-700"
+              )}>
+                {isBelowFipe ? "Abaixo da Tabela FIPE" :
+                  isAboveFipe ? "Acima da Tabela FIPE" : "No Preço da FIPE"}
+              </p>
             </div>
-            <p className={cn(
-              "font-semibold text-sm",
-              isBelowFipe ? "text-emerald-700" :
-                isAboveFipe ? "text-amber-700" : "text-slate-700"
-            )}>
-              {isBelowFipe ? "Abaixo da Tabela FIPE" :
-                isAboveFipe ? "Acima da Tabela FIPE" : "No Preço da FIPE"}
-            </p>
-          </div>
 
-          <div className="flex items-baseline gap-2 pl-11">
-            <span className={cn(
-              "text-lg font-bold",
-              isBelowFipe ? "text-emerald-700" :
-                isAboveFipe ? "text-amber-700" : "text-slate-700"
-            )}>
-              {Math.abs(differencePercent).toFixed(1)}% {isBelowFipe ? 'mais barato' : isAboveFipe ? 'acima' : ''}
-            </span>
-            <span className={cn(
-              "text-sm font-medium",
-              isBelowFipe ? "text-emerald-600/80" :
-                isAboveFipe ? "text-amber-600/80" : "text-slate-500"
-            )}>
-              ({formatPrice(Math.abs(difference))})
-            </span>
+            <div className="flex items-baseline gap-2 pl-11">
+              <span className={cn(
+                "text-lg font-bold",
+                isBelowFipe ? "text-emerald-700" :
+                  isAboveFipe ? "text-amber-700" : "text-slate-700"
+              )}>
+                {Math.abs(differencePercent).toFixed(1)}% {isBelowFipe ? 'mais barato' : isAboveFipe ? 'acima' : ''}
+              </span>
+              <span className={cn(
+                "text-sm font-medium",
+                isBelowFipe ? "text-emerald-600/80" :
+                  isAboveFipe ? "text-amber-600/80" : "text-slate-500"
+              )}>
+                ({formatPrice(Math.abs(difference))})
+              </span>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="p-4 rounded-xl border border-slate-100 bg-slate-50">
+            <p className="text-sm text-slate-600">O preço está a combinar; não há comparação com a Tabela FIPE.</p>
+          </div>
+        )}
       </div>
 
       <div className="bg-blue-50 p-3 rounded-lg flex gap-3 items-start">

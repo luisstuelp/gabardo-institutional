@@ -21,7 +21,7 @@ const reliabilityItems: ReliabilityItem[] = [
   },
   {
     src: '/images/certifications/carbon-negative-certified.png',
-    alt: 'Selo Carbon Negative Certified Worton',
+    alt: 'Selo Carbono Negativo',
   },
   {
     src: '/images/certifications/gcs-abnt-pr2030-esg.png',
@@ -193,6 +193,8 @@ const ProtocolStack: React.FC = () => {
   return (
     <motion.div
       variants={metricItem}
+      onMouseEnter={() => stopAutoplay()}
+      onMouseLeave={() => startAutoplay()}
       className="relative overflow-hidden rounded-[28px] "
     >
       <motion.div

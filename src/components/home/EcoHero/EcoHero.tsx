@@ -3,17 +3,11 @@ import { Link } from '@/lib/next-router-compat';
 import { supabase } from '@/integrations/supabase_trucks/client';
 import type { VehicleWithImages } from '@/types/database';
 import { ArrowUpRight } from 'lucide-react';
+import { formatVehiclePrice } from '@/lib/format';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(useGSAP);
-
-const formatPrice = (price: number) =>
-    new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-        minimumFractionDigits: 0,
-    }).format(price);
 
 export const EcoHero = () => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -125,7 +119,7 @@ export const EcoHero = () => {
                             {vehicle.model}
                         </h1>
                         <p className="text-3xl sm:text-4xl md:text-5xl text-white/90 font-light tracking-tight">
-                            {formatPrice(vehicle.price)}
+                            {formatVehiclePrice(vehicle.price)}
                         </p>
                     </div>
 
@@ -150,14 +144,14 @@ export const EcoHero = () => {
 
                         <div className="flex gap-4">
                             <Link
-                                to={`/caminhoes/${vehicle.slug}`}
+                                to={`/veiculos/${vehicle.slug}`}
                                 className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-neutral-900 text-sm font-medium tracking-wide hover:bg-neutral-100 transition-colors"
                             >
                                 Detalhes
                                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                             </Link>
                             <Link
-                                to="/caminhoes"
+                                to="/veiculos"
                                 className="inline-flex items-center gap-2 px-6 py-3 text-white/70 text-sm font-medium tracking-wide hover:text-white border border-neutral-700 hover:border-neutral-500 transition-colors"
                             >
                                 Ver Catálogo

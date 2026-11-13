@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button_trucks';
 import { useToast } from '@/hooks/use-toast_trucks';
 import { supabase } from '@/integrations/supabase_trucks/client';
 import { Vehicle, Branch } from '@/types/database';
-import { formatPrice, formatYear } from '@/lib/format';
+import { formatVehiclePrice, formatYear } from '@/lib/format';
 import { useAuth } from '@/contexts/AuthContext';
 
 const leadSchema = z.object({
@@ -42,7 +42,7 @@ export function LeadModal({ open, onOpenChange, vehicle, branch }: LeadModalProp
       phone: '',
       email: '',
       message: vehicle
-        ? `Olá! Tenho interesse no caminhão ${vehicle.title} (${formatYear(vehicle.year_manufacture, vehicle.year_model)}) - ${formatPrice(vehicle.price)}.`
+        ? `Olá! Tenho interesse no caminhão ${vehicle.title} (${formatYear(vehicle.year_manufacture, vehicle.year_model)}) - ${formatVehiclePrice(vehicle.price)}.`
         : '',
     },
   });
@@ -101,7 +101,7 @@ export function LeadModal({ open, onOpenChange, vehicle, branch }: LeadModalProp
           <div className="bg-secondary rounded-lg p-4 mb-4">
             <p className="font-semibold text-sm">{vehicle.title}</p>
             <p className="text-sm text-muted-foreground">
-              {formatYear(vehicle.year_manufacture, vehicle.year_model)} • {formatPrice(vehicle.price)}
+              {formatYear(vehicle.year_manufacture, vehicle.year_model)} • {formatVehiclePrice(vehicle.price)}
             </p>
           </div>
         )}

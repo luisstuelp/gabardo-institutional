@@ -263,7 +263,7 @@ export default function AboutPage() {
             Nossa equipe está pronta para ajudá-lo a encontrar o veículo ideal para o seu negócio.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/caminhoes" className="btn-gabardo inline-flex items-center justify-center px-8 py-3 rounded-lg font-medium">
+            <a href="/veiculos" className="btn-gabardo inline-flex items-center justify-center px-8 py-3 rounded-lg font-medium">
               <Truck className="h-5 w-5 mr-2" />
               Ver Estoque
             </a>

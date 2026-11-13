@@ -164,11 +164,11 @@ export default function CatalogPage() {
             <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
               <div>
                 <h1 className="text-2xl md:text-3xl font-bold font-montserrat text-slate-900">
-                  Caminhões Disponíveis
+                  Veículos Disponíveis
                 </h1>
                 {!isLoading && (
                   <p className="text-slate-500 mt-1">
-                    <span className="font-semibold text-[#122d54]">{totalCount}</span> veículo{totalCount !== 1 ? 's' : ''} encontrado{totalCount !== 1 ? 's' : ''}
+                    <span className="font-semibold text-[#122d54]">{totalCount}</span> {totalCount !== 1 ? 'Itens' : 'Item'} encontrado{totalCount !== 1 ? 's' : ''}
                   </p>
                 )}
               </div>

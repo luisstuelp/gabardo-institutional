@@ -1,72 +1,35 @@
-/**
- * Favorites API endpoint module.
- * RESTful interface for user favorites operations.
- */
-import { getApiClient } from '../client';
-import { createLogger } from '@/lib/logger';
+/** Favorites use the HTTP-only local trucks-user session, never Supabase Auth. */
 import type { FavoriteRecord } from '@/types/vehicles';
 import type { ApiResponse } from '@/types/api';
 
-const logger = createLogger('FavoritesAPI');
-
-/** GET /favorites — List the current user's favorites */
-export async function getFavorites(userId: string): Promise<ApiResponse<FavoriteRecord[]>> {
-    const client = getApiClient();
-    logger.info('Fetching favorites', { userId });
-
-    return client.query<FavoriteRecord[]>('getFavorites', async () => {
-        const supabase = client.getSupabaseClient();
-        const { data, error } = await supabase
-            .from('favorites')
-            .select('id, vehicle_id')
-            .eq('user_id', userId);
-
-        return { data: data as FavoriteRecord[] | null, error };
-    });
-}
-
-/** POST /favorites — Add a vehicle to favorites */
-export async function addFavorite(
-    userId: string,
-    vehicleId: string
-): Promise<ApiResponse<FavoriteRecord>> {
-    const client = getApiClient();
-    logger.info('Adding favorite', { userId, vehicleId });
-
-    return client.query<FavoriteRecord>('addFavorite', async () => {
-        const supabase = client.getSupabaseClient();
-        const { data, error } = await supabase
-            .from('favorites')
-            .insert({ user_id: userId, vehicle_id: vehicleId })
-            .select('id, vehicle_id')
-            .single();
-
-        // Ignore unique constraint violation (duplicate favorite)
-        if (error && error.code === '23505') {
-            logger.debug('Favorite already exists, ignoring', { userId, vehicleId });
-            return { data: { id: '', vehicle_id: vehicleId } as FavoriteRecord, error: null };
+async function request<T>(url: string, init?: RequestInit): Promise<ApiResponse<T>> {
+    try {
+        const response = await fetch(url, {
+            ...init,
+            headers: { ...(init?.body ? { 'Content-Type': 'application/json' } : {}), ...init?.headers },
+            cache: 'no-store',
+        });
+        const result = (await response.json().catch(() => ({}))) as { error?: string; favorite?: T; favorites?: T };
+        if (!response.ok) {
+            return { data: null, error: { message: result.error ?? 'Falha ao atualizar favoritos.', code: String(response.status) }, status: response.status };
         }
+        return { data: (result.favorite ?? result.favorites ?? null) as T | null, error: null, status: response.status };
+    } catch (error) {
+        return { data: null, error: { message: error instanceof Error ? error.message : 'Falha ao conectar.', code: 'FETCH_ERROR' }, status: 0 };
+    }
+}
 
-        return { data: data as FavoriteRecord | null, error };
+export async function getFavorites(_userId: string): Promise<ApiResponse<FavoriteRecord[]>> {
+    return request<FavoriteRecord[]>('/api/trucks/favorites');
+}
+
+export async function addFavorite(_userId: string, vehicleId: string): Promise<ApiResponse<FavoriteRecord>> {
+    return request<FavoriteRecord>('/api/trucks/favorites', {
+        method: 'POST',
+        body: JSON.stringify({ vehicleId }),
     });
 }
 
-/** DELETE /favorites/:vehicleId — Remove a vehicle from favorites */
-export async function removeFavorite(
-    userId: string,
-    vehicleId: string
-): Promise<ApiResponse<null>> {
-    const client = getApiClient();
-    logger.info('Removing favorite', { userId, vehicleId });
-
-    return client.query<null>('removeFavorite', async () => {
-        const supabase = client.getSupabaseClient();
-        const { error } = await supabase
-            .from('favorites')
-            .delete()
-            .eq('user_id', userId)
-            .eq('vehicle_id', vehicleId);
-
-        return { data: null, error };
-    });
+export async function removeFavorite(_userId: string, vehicleId: string): Promise<ApiResponse<null>> {
+    return request<null>(`/api/trucks/favorites?vehicleId=${encodeURIComponent(vehicleId)}`, { method: 'DELETE' });
 }

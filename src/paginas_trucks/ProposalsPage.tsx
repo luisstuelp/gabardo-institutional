@@ -4,7 +4,7 @@ import { FileText, Calendar, Truck, ArrowRight } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProposals } from '@/hooks/useProposals';
 import { Button } from '@/components/ui/button_trucks';
-import { formatPrice, formatYear } from '@/lib/format';
+import { formatVehiclePrice, formatYear } from '@/lib/format';
 import { Badge } from '@/components/ui/badge';
 
 export default function ProposalsPage() {
@@ -65,7 +65,7 @@ export default function ProposalsPage() {
                     <p className="text-muted-foreground mb-6 max-w-md">
                         Você ainda não enviou propostas. Encontre o caminhão ideal e solicite um contato.
                     </p>
-                    <Link to="/caminhoes">
+                    <Link to="/veiculos">
                         <Button>Ver Catálogo</Button>
                     </Link>
                 </div>
@@ -111,7 +111,7 @@ export default function ProposalsPage() {
                                                 </h3>
                                                 {vehicle && (
                                                     <div className="text-muted-foreground text-sm">
-                                                        {formatYear(vehicle.year_manufacture, vehicle.year_model)} • {formatPrice(vehicle.price)}
+                                                        {formatYear(vehicle.year_manufacture, vehicle.year_model)} • {formatVehiclePrice(vehicle.price)}
                                                     </div>
                                                 )}
                                             </div>
@@ -135,7 +135,7 @@ export default function ProposalsPage() {
                                             </div>
 
                                             {vehicle && (
-                                                <Link to={`/caminhoes/${vehicle.slug}`}>
+                                                <Link to={`/veiculos/${vehicle.slug}`}>
                                                     <Button variant="ghost" size="sm" className="gap-2">
                                                         Ver veículo <ArrowRight className="h-4 w-4" />
                                                     </Button>

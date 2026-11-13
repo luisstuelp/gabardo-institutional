@@ -20,12 +20,12 @@ export function useAdminVehicles() {
     useEffect(() => {
         // Always fetch fresh data for admin view, or rely on cache?
         // For admin, valid to fetch on mount.
-        dispatch(fetchVehicles({ sortBy: 'created_at' }));
+        dispatch(fetchVehicles({ sortBy: 'created_at', includeUnavailable: true }));
     }, [dispatch]);
 
-    const deleteVehicle = useCallback(async (id: string) => {
+    const deleteVehicle = useCallback(async (id: string, listingType: Vehicle['listing_type'] = 'truck') => {
         try {
-            await dispatch(deleteVehicleThunk(id)).unwrap();
+            await dispatch(deleteVehicleThunk({ id, listingType })).unwrap();
             toast.success('Veículo removido com sucesso');
         } catch (err) {
             console.error('Error deleting vehicle:', err);

@@ -35,20 +35,13 @@ export async function getUserLeads(userId: string): Promise<ApiResponse<LeadWith
     logger.info('Fetching user leads', { userId });
 
     return client.query<LeadWithVehicle[]>('getUserLeads', async () => {
-        const supabase = client.getSupabaseClient();
-        const { data, error } = await supabase
-            .from('leads')
-            .select(`
-        *,
-        vehicle:vehicles(
-          *,
-          images:vehicle_images(*)
-        )
-      `)
-            .eq('user_id', userId)
-            .order('created_at', { ascending: false });
-
-        return { data: data as LeadWithVehicle[] | null, error };
+        void userId; // Ownership is resolved from the secure trucks-user session cookie.
+        const response = await fetch('/api/trucks/proposals', { cache: 'no-store' });
+        const result = (await response.json().catch(() => ({}))) as { proposals?: LeadWithVehicle[]; error?: string };
+        return {
+            data: response.ok ? result.proposals ?? [] : null,
+            error: response.ok ? null : { message: result.error ?? 'Não foi possível carregar as propostas.', code: String(response.status) },
+        };
     });
 }
 
