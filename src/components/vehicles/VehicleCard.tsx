@@ -30,21 +30,23 @@ export function VehicleCard({
     <div className="group bg-white rounded-xl overflow-hidden border border-slate-200 hover:border-blue-300 hover:shadow-lg transition-all duration-300">
       {/* Image Container */}
       <div className="relative aspect-[4/3] overflow-hidden">
-        {showPhotoLoader ? (
-          <VehiclePhoto
-            key={`${vehicle.id}:${imageUrl ?? 'empty'}`}
-            src={imageUrl}
-            alt={vehicle.title}
-            isLoading={isPhotoSourceLoading}
-            className="h-full w-full transition-transform duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <img
-            src={imageUrl}
-            alt={vehicle.title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        )}
+        <Link to={`/veiculos/${vehicle.slug}`}>
+          {showPhotoLoader ? (
+            <VehiclePhoto
+              key={`${vehicle.id}:${imageUrl ?? 'empty'}`}
+              src={imageUrl}
+              alt={vehicle.title}
+              isLoading={isPhotoSourceLoading}
+              className="h-full w-full transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <img
+              src={imageUrl}
+              alt={vehicle.title}
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          )}
+        </Link>
 
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-2">

@@ -218,7 +218,7 @@ export default function VehicleDetailPage() {
             </div>
 
             {/* Financing Simulator */}
-            {vehicle.price > 0 && (
+            {false && (
               <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
                 <FinancingSimulator vehiclePrice={vehicle.price} />
               </div>

@@ -6,7 +6,7 @@ import FinancingPage from '@/paginas_trucks/FinancingPage';
 export default function Page() {
   return (
     <TrucksPageShell>
-      <FinancingPage />
+      {<FinancingPage />}
     </TrucksPageShell>
   );
 }

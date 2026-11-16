@@ -32,18 +32,20 @@ export function ImageGallery({ images, title, isLoading = false }: ImageGalleryP
     <>
       <div className="space-y-4">
         {/* Main Image */}
-        <div className="relative aspect-[16/9] rounded-lg overflow-hidden bg-muted group">
+        <div
+          onClick={() => setIsLightboxOpen(true)}
+          className="relative aspect-[16/9] rounded-lg overflow-hidden bg-muted group">
           <VehiclePhoto
             key={currentImage?.id ?? `empty-${isLoading}`}
             src={currentImage?.url}
             alt={currentImage?.alt || title}
             isLoading={isLoading && !currentImage}
-            className="h-full w-full"
+            className="h-full w-full cursor-pointer"
           />
-          
+
           {/* Image Counter */}
           {currentImage && (
-            <div className="absolute top-4 left-4 bg-primary/80 text-primary-foreground px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm">
+            <div className="absolute cursor-default select-none top-4 left-4 bg-primary/80 text-primary-foreground px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm">
               {activeIndex + 1} / {displayImages.length}
             </div>
           )}
@@ -67,7 +69,10 @@ export function ImageGallery({ images, title, isLoading = false }: ImageGalleryP
                 variant="ghost"
                 size="icon"
                 className="absolute left-4 top-1/2 -translate-y-1/2 bg-primary/80 text-primary-foreground hover:bg-primary backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"
-                onClick={goToPrevious}
+                onClick={(e) => {
+                  goToPrevious();
+                  e.stopPropagation();
+                }}
               >
                 <ChevronLeft className="h-6 w-6" />
               </Button>
@@ -75,7 +80,10 @@ export function ImageGallery({ images, title, isLoading = false }: ImageGalleryP
                 variant="ghost"
                 size="icon"
                 className="absolute right-4 top-1/2 -translate-y-1/2 bg-primary/80 text-primary-foreground hover:bg-primary backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"
-                onClick={goToNext}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToNext();
+                }}
               >
                 <ChevronRight className="h-6 w-6" />
               </Button>
@@ -92,8 +100,8 @@ export function ImageGallery({ images, title, isLoading = false }: ImageGalleryP
                 onClick={() => setCurrentIndex(index)}
                 className={cn(
                   'relative flex-shrink-0 w-20 h-16 rounded-md overflow-hidden border-2 transition-all',
-                  index === activeIndex 
-                    ? 'border-accent ring-2 ring-accent/20' 
+                  index === activeIndex
+                    ? 'border-accent ring-2 ring-accent/20'
                     : 'border-transparent hover:border-muted-foreground/30'
                 )}
               >
@@ -141,7 +149,10 @@ export function ImageGallery({ images, title, isLoading = false }: ImageGalleryP
                   variant="ghost"
                   size="icon"
                   className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/10"
-                  onClick={() => setCurrentIndex((prev) => (prev === 0 ? displayImages.length - 1 : prev - 1))}
+                  onClick={() => {
+                    setCurrentIndex((prev) => (prev === 0 ?
+                      displayImages.length - 1 : prev - 1))
+                  }}
                 >
                   <ChevronLeft className="h-8 w-8" />
                 </Button>
@@ -149,7 +160,12 @@ export function ImageGallery({ images, title, isLoading = false }: ImageGalleryP
                   variant="ghost"
                   size="icon"
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/10"
-                  onClick={() => setCurrentIndex((prev) => (prev === displayImages.length - 1 ? 0 : prev + 1))}
+                  onClick={() => {
+                    setCurrentIndex((prev) =>
+                    (prev === displayImages.length - 1 ? 0 :
+                      prev + 1))
+                  }
+                  }
                 >
                   <ChevronRight className="h-8 w-8" />
                 </Button>
@@ -164,7 +180,7 @@ export function ImageGallery({ images, title, isLoading = false }: ImageGalleryP
             )}
           </div>
         </DialogContent>
-      </Dialog>
+      </Dialog >
     </>
   );
 }
