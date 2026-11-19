@@ -36,10 +36,10 @@ const vehicleSchema = z.object({
     title: z.string().min(3, "Título deve ter pelo menos 3 caracteres"),
     brand: z.string().min(1, "Selecione uma marca"),
     model: z.string().min(1, "Modelo obrigatório"),
-    price: z.coerce.number().min(0, "Preço não pode ser negativo"),
-    year_manufacture: z.coerce.number().min(1900).max(new Date().getFullYear() + 1),
-    year_model: z.coerce.number().min(1900).max(new Date().getFullYear() + 1),
-    mileage: z.coerce.number().min(0),
+    price: z.coerce.number<number | string>().min(0, "Preço não pode ser negativo"),
+    year_manufacture: z.coerce.number<number | string>().min(1900).max(new Date().getFullYear() + 1),
+    year_model: z.coerce.number<number | string>().min(1900).max(new Date().getFullYear() + 1),
+    mileage: z.coerce.number<number | string>().min(0),
     fuel: z.enum(['diesel', 'gas', 'electric', 'hybrid', 'flex']),
     transmission: z.enum(['manual', 'automatic', 'automated']),
     axle_config: z.string().optional(),
@@ -54,7 +54,8 @@ const vehicleSchema = z.object({
     is_single_owner: z.boolean().default(false),
 });
 
-export type VehicleFormValues = z.infer<typeof vehicleSchema>;
+type VehicleFormInput = z.input<typeof vehicleSchema>;
+export type VehicleFormValues = z.output<typeof vehicleSchema>;
 
 interface VehicleFormProps {
     initialData?: Vehicle | null;
@@ -66,7 +67,7 @@ export function VehicleForm({ initialData, onSubmit, isLoading }: VehicleFormPro
     const { data: branches } = useBranches();
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
-    const form = useForm<VehicleFormValues>({
+    const form = useForm<VehicleFormInput, unknown, VehicleFormValues>({
         resolver: zodResolver(vehicleSchema),
         defaultValues: {
             listing_type: initialData?.listing_type || 'truck',

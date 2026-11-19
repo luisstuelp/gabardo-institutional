@@ -93,7 +93,7 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
       ],
     },
     { id: 'servicos', label: 'SERVIÇOS', href: '/servicos', imageSrc: '/images/hero-services.jpg' },
-    { id: 'caminhoes', label: 'VEÍCULOS', href: '/veiculos', imageSrc: '/images/hero-services.jpg' },
+   // { id: 'caminhoes', label: 'VEÍCULOS', href: '/veiculos', imageSrc: '/images/hero-services.jpg' },
     { id: 'qualidade', label: 'QUALIDADE E SUSTENTABILIDADE', href: '/sobre/qualidade_e_sustentabilidade', imageSrc: '/images/Certificados.JPG' },
     // Removed NOSSA GENTE and SUSTENTABILIDADE entries
 
@@ -162,12 +162,12 @@ const HeaderRevised = ({ variant = 'light', isHidden = false, isFloating = true 
                 </Link>
               ))}
             </div>
-            <Link
+            {/*<Link
               href="/veiculos"
               className={`hidden lg:inline-flex items-center gap-2 rounded-full px-[1.1rem] py-[0.45rem] text-[0.64rem] font-semibold uppercase tracking-[0.26em] transition-all duration-300 shadow-[0_18px_35px_-28px_RGBA(19,45,81,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${ctaClasses}`}
             >
               Veículos à venda
-            </Link>
+            </Link>*/}
             <Link
               href="/orcamento"
               className={`hidden lg:inline-flex items-center gap-2 rounded-full px-[1.1rem] py-[0.45rem] text-[0.64rem] font-semibold uppercase tracking-[0.26em] transition-all duration-300 shadow-[0_18px_35px_-28px_RGBA(19,45,81,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gabardo-light-blue/60 ${ctaClasses}`}

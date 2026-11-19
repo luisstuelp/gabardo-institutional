@@ -217,12 +217,12 @@ export default function VehicleDetailPage() {
               </Tabs>
             </div>
 
-            {/* Financing Simulator */}
-            {false && (
+            {/* Financing Simulator 
+            {false && /* (
               <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-                <FinancingSimulator vehiclePrice={vehicle.price} />
+                <FinancingSimulator vehiclePrice={vehicle?.price} />
               </div>
-            )}
+            ) */}
           </div>
 
           {/* Sidebar */}
